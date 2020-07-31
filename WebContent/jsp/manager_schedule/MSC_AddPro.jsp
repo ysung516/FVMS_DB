@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
+    import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,7 @@
 		
 		String AMother = "미입력";
 		String PMother = "미입력";
-		String level;
+		int level = 7000;
 		
 		if(!(request.getParameter("amselboxDirect") == "")){
 			AMother = request.getParameter("amselboxDirect");	
@@ -42,27 +43,28 @@
 	
 		
 		if(sessionName.equals("유영민")){
-			level = "1";
+			level = 1;
 		} else if (sessionName.equals("송우람")){
-			level = "2";
+			level = 2;
 		} else if (sessionName.equals("최인석")){
-			level = "3";
+			level = 3;
 		} else if (sessionName.equals("이창우")){
-			level = "4";
+			level = 4;
 		} else if (sessionName.equals("윤영산")){
-			level = "5";
+			level = 5;
 		} else if (sessionName.equals("이창수")){
-			level = "6";
+			level = 6;
 		} else {
-			level = "1000";
+			level = 7000;
 		}
 		
 		
-		sheetMethod method = new sheetMethod();
-		String num = method.doubleCheck(sessionID, date);
-		method.saveUser_info(sessionID);
-		String team = method.getMember().getTEAM();
-		if(num.equals("")){
+		MSC_DAO method = new MSC_DAO();
+		MemberDAO member = new MemberDAO();
+		int num = method.returnNo(sessionID, date);
+		MemberBean mb = member.returnMember(sessionID);
+		String team = mb.getTEAM();
+		if(num==0){
 			if (method.insert_MSC(sessionID, AmPlace, PmPlace, date, team, sessionName, level) == 1){
 				script.print("<script> alert('일정이 추가 됬습니다.'); location.href = 'manager_schedule.jsp'</script>");
 			} else script.print("<script> alert('일정을 모두 입력해주세요.'); history.back(); </script>");

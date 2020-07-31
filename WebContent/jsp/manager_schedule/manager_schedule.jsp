@@ -5,7 +5,8 @@
     import = "jsp.Bean.model.MSC_Bean"
     import = "java.util.ArrayList"
     import = "java.util.Date"
-    import = "java.text.SimpleDateFormat" %>
+    import = "java.text.SimpleDateFormat"
+	import = "jsp.DB.method.*"%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -71,9 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
      
       <%
     	sheetMethod method = new sheetMethod();
+        MSC_DAO msc = new MSC_DAO();
 		ArrayList<MSC_Bean> MSCList = new ArrayList<MSC_Bean>();
-		MSCList = method.getMSCList();
- 		
+		MSCList = msc.allMSC();
+		
 		SimpleDateFormat format = new SimpleDateFormat("HH");
 		Date time = new Date();
 		int nowTime = Integer.parseInt(format.format(time));
@@ -87,23 +89,23 @@ document.addEventListener('DOMContentLoaded', function() {
          	 %> 
          	    	  {
          	    		  groupId: '<%=li.getName()%>',
-         	    		  level: <%=li.getLevel()%>,
-         	    		  <%if(li.getLevel().equals("1")){
+         	    		  level: '<%=li.getLevel()%>',
+         	    		  <%if(li.getLevel() == 1){
          	    			  %>className: "layout-1",
          	    			  
-       	    			 <%} else if(li.getLevel().equals("2")){
+       	    			 <%} else if(li.getLevel() == 2){
            	    			 %>className: "layout-2",
            	    			 
-         	    		  <%} else if(li.getLevel().equals("3")){
+         	    		  <%} else if(li.getLevel() == 3){
          	    			 %>className: "layout-3",
          	    		  <%
-         	    		  	} else if(li.getLevel().equals("4")){
+         	    		  	} else if(li.getLevel() == 4){
          	    		  	%>className: "layout-4",
          	    		  	
-         	    		  <%} else if(li.getLevel().equals("5")){
+         	    		  <%} else if(li.getLevel() == 5){
          	    			 %>className: "layout-5",
          	    			 
-         	    		  <%} else if(li.getLevel().equals("6")){
+         	    		  <%} else if(li.getLevel() == 6){
          	    			 %>className: "layout-6",
          	    		  <%}%>
          	    		  

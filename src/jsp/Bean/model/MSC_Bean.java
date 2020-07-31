@@ -2,23 +2,23 @@ package jsp.Bean.model;
 
 public class MSC_Bean {
 	private String ID;
-	private String no;
+	private int no;
 	private String AMplace;
 	private String PMplace;
 	private String Date;
 	private String name;
-	private String level;
+	private int level;
 	
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
-	public String getNo() {
+	public int getNo() {
 		return no;
 	}
-	public void setNo(String no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 	public String getName() {

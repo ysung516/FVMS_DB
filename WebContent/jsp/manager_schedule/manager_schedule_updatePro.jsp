@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import ="jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "java.io.PrintWriter"
     %>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 	<%
 		request.setCharacterEncoding("UTF-8");
 	
-		String num = request.getParameter("num");
+		int num = Integer.parseInt(request.getParameter("num"));
 		String AmPlace = request.getParameter("amPlaceSel");
 		
 		String AMother = "미입력";
@@ -38,7 +38,7 @@
 		}
 		String date = request.getParameter("DATE");
 		PrintWriter script =  response.getWriter();
-		sheetMethod method = new sheetMethod();
+		MSC_DAO method = new MSC_DAO();
 		
 		if(method.update_MSC(num, AmPlace, PmPlace, date) == 1){
 			 script.print("<script> alert('일정이 수정되었습니다.'); location.href = 'manager_schedule.jsp'; </script>");
