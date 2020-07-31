@@ -100,7 +100,6 @@ public class sheetMethod {
 	// 로그인 체크
 	public int loginCheck(String id, String pw) throws GeneralSecurityException, IOException, ServiceException
     {
-		
 		int check = 0;
 		connect();
 		access();

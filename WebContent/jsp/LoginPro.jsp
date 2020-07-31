@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import = "jsp.sheet.method.*"
     import = "java.io.PrintWriter"
+    import = "jsp.DB.method.*"
+    import = "jsp.Bean.model.*"
     %>
     
 <!DOCTYPE html>
@@ -18,12 +19,14 @@
      String PW = request.getParameter("PW");
      String sessionName;
      PrintWriter script =  response.getWriter();
-     sheetMethod method = new sheetMethod();
-    if (method.loginCheck(ID, PW) == 1){
+     
+     MemberDAO memberDao = new MemberDAO();
+     MemberBean member = memberDao.returnMember(ID);
+   
+    if (memberDao.logincheck(ID, PW) == 1){
 	      script.print("<script> location.href = '../jsp/manager_schedule/manager_schedule.jsp'; </script>");
 	      session.setAttribute("sessionID", ID);
-	      method.saveUser_info(ID);
-	      sessionName = method.getMember().getNAME();
+	      sessionName = member.getName();
 	      session.setAttribute("sessionName", sessionName);
      
      } else 
