@@ -319,13 +319,12 @@
 						</td>
 					</tr>
 			</table>
-	     <table style="margin: 0 auto;">
-	     <tr>
-	     <td colspan="2">
-	     <input id="Delete" type="button" name="Delete" value="삭제"  class="btn btn-primary" >
-	       </td>
-	     </tr>
-	       </table>   
+	     
+	     <form method="post" action="meeting_deletePro.jsp">
+	     	<input type="hidden" name="no" value="<%=no%>">
+	     	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
+	     </form>
+	     
         </div>
 
              <!-- /.container-fluid -->
