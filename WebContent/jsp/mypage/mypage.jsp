@@ -298,7 +298,7 @@
 					</tr>
 					<tr>
 						<td>연차</td>
-						<td><%=member.getWyear()%></td> 
+						<td><%=member.getWyear() %></td> 
 					</tr>
 					<tr>
 						<td>프로젝트 수행 이력</td>

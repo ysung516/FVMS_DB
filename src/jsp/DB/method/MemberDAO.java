@@ -34,7 +34,7 @@ public class MemberDAO {
 	    		member.setTEAM(rs.getString("팀"));
 	    		member.setNAME(rs.getString("이름"));
 	    		member.setRANK(rs.getString("직급"));
-	    		member.setPosition( rs.getString("직책"));
+	    		member.setPosition(rs.getString("직책"));
 	    		member.setADDRESS(rs.getString("거주지"));
 	    		member.setComDate(rs.getString("입사일"));
 	    		member.setWyear(rs.getString("연차"));
