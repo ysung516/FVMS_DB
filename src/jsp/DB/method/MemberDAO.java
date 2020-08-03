@@ -87,6 +87,76 @@ public class MemberDAO {
 	
 		return x;
 	 }
+	
+	//비밀번호 체크
+		 public int pwdCheck(String id, String now_pwd, String next_pwd, String pwd) {
+			  
+			  int x = -1;
+			  
 
+			  if(now_pwd.equals(pwd)){
+			      
+			      Connection conn = null;
+			      PreparedStatement pstmt = null;
+			      int rs = 0;
+			     
+			      try {
+			       String query = new String();
+			       query = "UPDATE member SET pw = ? WHERE id = ?";
+			       
+			       conn = DBconnection.getConnection();
+			       pstmt = conn.prepareStatement(query);
+			       pstmt.setString(1, next_pwd);
+			       pstmt.setString(2, id);
+			       rs = pstmt.executeUpdate();
+
+			       x = 1;
+			    
+			      }  catch (SQLException e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			   }
+			      
+			     } else {
+			      
+			      x = -1;
+			     }
+			  
+			  return x;
+			 }
+
+		 //마이페이지 수정
+		 public int mypageUpdate(String id, String address, String come_date, String wyear, String career) {
+			 Connection conn = null;
+			 PreparedStatement pstmt = null;
+		      int rs = 0;
+		   
+		      try {
+		       String query = "UPDATE member SET 거주지 = ?, 입사일 = ?, 연차 = ?, 프로젝트수행이력 = ? WHERE id = ?";
+		       conn = DBconnection.getConnection();
+		       pstmt = conn.prepareStatement(query.toString());
+		       
+		       pstmt.setString(1, address);
+		       pstmt.setString(2, come_date);
+		       pstmt.setString(3, wyear);
+		       pstmt.setString(4, career);
+		       pstmt.setString(5, id);
+		       rs = pstmt.executeUpdate();
+		       
+		      }  catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		    return 0;
+		   }
+		     
+			if(rs == 1) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		    
+		 }
+	
 	
 }

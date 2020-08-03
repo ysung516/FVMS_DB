@@ -3,6 +3,7 @@
     import = "java.io.PrintWriter"
     import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.*"
+    import = "jsp.DB.method.*"
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +27,15 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-	
+	String no = request.getParameter("no");
 	sheetMethod method = new sheetMethod();
+	MeetBean mb = method.getMeetList(no);
 	
+	// 출력
+			String [] line;
+			
+			MemberDAO memberDao = new MemberDAO();
+			MemberBean member = memberDao.returnMember(sessionID);
 	
 %>
 
@@ -38,7 +45,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Sure FVMS - Report_write</title>
+  <title>Sure FVMS - mypage_Update</title>
 
   <!-- Custom fonts for this template-->
   <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -249,38 +256,38 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form method="post" action="meeting_writePro.jsp">       
+          <form method="post" action="mypage_updatePro.jsp">       
 			  <table class="table table-bordered" id="dataTable">
 	
 			     <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">ID</td>
-				      <td colspan="3">kdhong(ID 변경불가)</td>
+				      <td colspan="3"><%=member.getID()%></td>
 			     </tr>
 			    <tr>
 				      <td class="m-0 text-primary" align="center">팀</td>
-				      <td colspan="3">미래차검증전략실(팀 변경불가)</td>
+				      <td colspan="3"><%=member.getTEAM()%></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">이름</td>
-				      <td colspan="3">홍길동(이름 변경불가)</td>
+				      <td colspan="3"><%=member.getName()%></td>
 			     </tr>
 			       <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>
-				      <td colspan="3"><input name="address" style=width:100%;></td>
+				      <td colspan="3"><input name="address" id=address style=width:100%;></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">입사일</td>
-				      <td colspan="3"><input name="join_day" style=width:100%;></td>
+				      <td colspan="3"><input name="come_date" id="come_date" style=width:100%;></td>
 			     </tr>
 			     
 			      <tr>
 				      <td class="m-0 text-primary" align="center">연차</td>
-				      <td colspan="3"><input name="years" style=width:100%;></td>
+				      <td colspan="3"><input name="wyear" id="wyear" style=width:100%;></td>
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="nextplan" rows="5"style=width:100%;></textarea></td>
+			      <td colspan="3"><textarea name="career" id="career" rows="5"style=width:100%;></textarea></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 

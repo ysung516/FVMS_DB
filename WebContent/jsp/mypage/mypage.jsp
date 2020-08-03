@@ -5,6 +5,8 @@
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
+    import = "jsp.DB.method.*"
+    import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,13 +21,9 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(15*60);
-		String no = request.getParameter("no");
-		sheetMethod method = new sheetMethod();
-		MeetBean mb = method.getMeetList(no);
 		
-		// 출력
-		String [] line;
-		
+		MemberDAO memberDao = new MemberDAO();
+		MemberBean member = memberDao.returnMember(sessionID);
 	%>
 
   <meta charset="utf-8">
@@ -273,15 +271,15 @@
 					<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td>ID</td>
-						<td>kdhong</td>
+						<td><%=member.getID()%></td>
 					</tr>
 					<tr>
 						<td>팀</td>
-						<td>미래차검증전략실</td>
+						<td><%=member.getTEAM()%></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td>홍길동</td>
+						<td><%=member.getName()%></td>
 					</tr>
 					 <tr> 
 				       <td>비밀번호</td>
@@ -292,19 +290,19 @@
 			     </tr>
 					<tr>
 						<td>거주지</td>
-						<td>경기도 오산</td>
+						<td><%=member.getADDRESS()%></td>
 					</tr>
 					<tr>
 						<td>입사일</td>
-						<td>2019-07-31</td>
+						<td><%=member.getComDate()%></td>
 					</tr>
 					<tr>
 						<td>연차</td>
-						<td>1년</td> 
+						<td><%=member.getWyear()%></td> 
 					</tr>
 					<tr>
 						<td>프로젝트 수행 이력</td>
-						<td>FVMS 제작</td>
+						<td><%=member.getCareer()%></td>
 					</tr>
 					
 					</table>
