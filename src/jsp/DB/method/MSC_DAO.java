@@ -70,7 +70,6 @@ public class MSC_DAO {
 			System.out.println("test");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
 		}
 
 		return no;
@@ -114,7 +113,7 @@ public class MSC_DAO {
 			, String date, String team, String name, int level) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int rs = 0;
 		
 		try {
 				conn = DBconnection.getConnection();
@@ -126,13 +125,12 @@ public class MSC_DAO {
 				pstmt.setString(5, amPlace);
 				pstmt.setString(6, pmPlace);
 				pstmt.setInt(7, level);
-				result = pstmt.executeUpdate();
+				rs = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
 		}
 		
-		return 1;
+		return rs;
 	}
 	
 	//관리자 일정 삭제
@@ -148,7 +146,6 @@ public class MSC_DAO {
 				result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
 		}
 		
 		return 1;
@@ -170,7 +167,6 @@ public class MSC_DAO {
 				result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
 		}
 		
 		return 1;

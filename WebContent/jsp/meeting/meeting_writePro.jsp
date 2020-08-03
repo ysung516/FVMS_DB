@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     import = "java.io.PrintWriter"
     import = "java.util.Date"
@@ -19,29 +19,34 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
-		sheetMethod method = new sheetMethod();
-		String sessionID = (String)session.getAttribute("sessionID");
 		
-		method.saveUser_info(sessionID);
-		MemberBean member = method.getMember();
-	
+
+		String sessionID = (String)session.getAttribute("sessionID");
+		String sessionName = (String)session.getAttribute("sessionName");
+		MeetingDAO meetDao = new MeetingDAO();
+		
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String MeetName = request.getParameter("MeetName");
-		String writer = member.getNAME();
+		String writer = sessionName;
 		String date = sf.format(nowTime);
 		String MeetDate = request.getParameter("MeetDate");
 		String MeetPlace = request.getParameter("MeetPlace");
 		String attendees = request.getParameter("attendees");
 		String meetnote = request.getParameter("meetnote");
 		String nextplan = request.getParameter("nextplan");
-		
-		if(method.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace,
-				attendees, meetnote, nextplan, date) == 1){
-			script.print("<script> alert('회의록 작성이 완료되었습니다.'); location.href = 'meeting.jsp'</script>");
+		if(MeetName == null || MeetName == ""){
+			script.print("<script> alert('회의명을 작성해주세요.'); history.back();</script>");
+		} else{
+			
+			if(meetDao.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace, attendees, meetnote, nextplan, date) == 1){
+				script.print("<script> alert('회의록 작성이 되었습니다.'); location.href = 'meeting.jsp'</script>");
+			}
+				else script.print("<script> alert('작성 실패!!'); history.back();</script>");
 		}
-			else script.print("<script> alert('빈칸을 모두 채워주세요.'); history.back();</script>");
+		
+		
 	%>
 
 		

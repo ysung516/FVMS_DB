@@ -245,7 +245,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td><input name="NAME" style=width:100%; value="<%=sessionName%>" readonly></td>
 			     </tr>
 			     <tr>
-				      <td class="m-0 text-primary" align="center">회의일시</td>
+				      <td class="m-0 text-primary" align="center" value="">회의일시</td>
 				      <td><input type="date" name="MeetDate" style=width:100%;></td>
 			     </tr>
 			      

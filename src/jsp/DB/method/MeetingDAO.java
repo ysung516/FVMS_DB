@@ -88,7 +88,8 @@ public class MeetingDAO {
 	    int rs = 0;
 	    
 	    try {
-	    	String query = "insert into meeting_log values (?,?,?,?,?,?,?,?,?)";
+	    	String query = "insert into meeting_log (ID,회의명,작성자,작성날짜,회의일시,회의장소,참석자,회의내용,향후일정)"
+	    			+ "values(?,?,?,?,?,?,?,?,?)";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, id);
@@ -105,12 +106,7 @@ public class MeetingDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    if(rs == 1) {
-	    	return 1;
-	    }
-	    
-	    else return 0;
-		
+		return rs;
 	}
 	
 	// 회의록 수정
@@ -134,11 +130,7 @@ public class MeetingDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    if(rs == 1) {
-	    	return 1;
-	    } 
-	    else return 0;
-		
+		return rs;
 	}
 	
 	// 회의록 삭제
@@ -156,12 +148,10 @@ public class MeetingDAO {
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}
-	    if(rs == 1) {
-	    	return 1;
-	    } 
-	    else return 0;
-		
+	
+	    return rs;
 	}
 	
 }	// end DAO
