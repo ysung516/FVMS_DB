@@ -37,7 +37,7 @@ public class MemberDAO {
 	    		member.setPosition( rs.getString("직책"));
 	    		member.setADDRESS(rs.getString("거주지"));
 	    		member.setComDate(rs.getString("입사일"));
-	    		member.setWyear(rs.getInt("연차"));
+	    		member.setWyear(rs.getString("연차"));
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    	}
 	    }  catch (SQLException e) {

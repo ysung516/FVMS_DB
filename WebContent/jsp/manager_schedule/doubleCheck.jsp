@@ -15,23 +15,19 @@
 	<%
 		request.setCharacterEncoding("UTF-8");
 		MSC_DAO mscDao = new MSC_DAO();
+		MSC_Bean mb = new MSC_Bean();
 		PrintWriter script =  response.getWriter();
-		
 		String sessionID = session.getAttribute("sessionID").toString();
-		String no = request.getParameter("num");
 		String date = request.getParameter("date");
 		int num = mscDao.returnNo(sessionID, date);
-		
-		String amPlace = request.getParameter("amPlace");
-		String pmPlace = request.getParameter("pmPlace");
-		
-		if(amPlace == "" && pmPlace == ""){
-			no = Integer.toString(mscDao.returnNo(sessionID, date));
-			MSC_Bean mb = new MSC_Bean();
-			mb = mscDao.getMSCList_set(Integer.parseInt(no));
+		String amPlace ="";
+		String pmPlace ="";
+		if(num != 0){
+			mb = mscDao.getMSCList_set(num);
 			amPlace = mb.getAMplace();
 			pmPlace = mb.getPMplace();
 		}
+		
 		%>
 		
 		<form id="GoAdd" name="GoAdd"method="post" action="manager_schedule_add.jsp">
@@ -39,19 +35,19 @@
 		</form>
 		<form id="GoUpdate" name="GoUpdate" method="post" action="manager_schedule_update.jsp">
 			<input type="hidden" name = "date" value="<%=date%>"/>
-			<input type="hidden" name = "num" value="<%=no%>"/>
+			<input type="hidden" name = "num" value="<%=num%>"/>
 			<input type="hidden" name = "amPlace" value="<%=amPlace%>"/>
 			<input type="hidden" name = "pmPlace" value="<%=pmPlace%>"/>
 		</form>
 		
 		<%
 		if(num == 0){
-			script.print("<script>document.GoAdd.submit();</script>");
-		} else {
-			script.print("<script>document.GoUpdate.submit();</script>");	
+			%><script>document.GoAdd.submit();</script><%
+		}
+		else{
+			%><script>document.GoUpdate.submit();</script><%
 		}
 	%>
-		
 
 </body>
 </html>

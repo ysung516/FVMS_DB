@@ -63,7 +63,10 @@ public class MSC_DAO {
 			pstmt.setString(1, id);
 			pstmt.setString(2, date);
 			rs = pstmt.executeQuery();
-			no = rs.getInt("no");
+			if(rs.next()) {
+				no = rs.getInt("no");
+			}
+			else {return 0;}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +84,6 @@ public class MSC_DAO {
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("select * from manager_schedule where no=?");
-			
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
 			pstmt.setInt(1, no);
@@ -145,7 +147,7 @@ public class MSC_DAO {
 			e.printStackTrace();
 		}
 		
-		return 1;
+		return result;
 	}
 	
 	//관리자 일정 수정
@@ -166,7 +168,7 @@ public class MSC_DAO {
 			e.printStackTrace();
 		}
 		
-		return 1;
+		return result;
 	}
 	
 	//관리자 일정 일주일치 추가 및 수정

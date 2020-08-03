@@ -39,7 +39,12 @@
 	
 </head>
 <style>
-
+	#table_td{
+		padding-left: 10px;
+		padding-top: 10px;
+		display:grid !important;
+		padding-bottom: 10px;
+	}
 	summary:hover{
 	 	background-color:#e0dfdfbf;
 	 	font-weight:700;
@@ -180,7 +185,7 @@
 
    <!-- Divider -->
 			<hr class="sidebar-divider my-0">
-			
+
 			<!-- Nav Item - summary -->
 		    <li class="nav-item">
 	          <a class="nav-link" href="../mypage/mypage.jsp">
@@ -304,25 +309,15 @@
   	
 	<form method = "post" action = "MSC_AddPro.jsp">
    		<table style="white-space: nowrap; overflow:hidden;width:100%;">
-   		<tr>
-   			<input type="checkbox" name="chk_day" value="mon">월
-   			<input type="checkbox" name="chk_day" value="tue">화
-   			<input type="checkbox" name="chk_day" value="wed">수
-   			<input type="checkbox" name="chk_day" value="thu">목
-   			<input type="checkbox" name="chk_day" value="fri">금
-   		</tr>
-   		
-   		<div id=mon>
      <tr>
       <td class="m-0 text-primary" align="center">날짜 </td>
       <td colspan="2" style="padding: 15px 0;"><input type="date" id="nowDate" name="DATE" value = <%=date%> style=width:100%; maxlength="50"></td>
      </tr>
      <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
       <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>
-      
      <tr>
       <td class="m-0 text-primary" align="center" style="white-space: nowrap;">오전</td>
-      <td style="padding-left: 10px;padding-top: 15px;padding-bottom: 15px;">
+      <td id="table_td">
       		<select id="amPlaceSel" name="amPlaceSel">
   				<option value="슈어(본사,삼성)" selected="selected">슈어(본사,삼성)</option>
   				<option value="슈어(남양사무실)">슈어(남양사무실)</option>
@@ -343,7 +338,7 @@
        <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>
      <tr>
       <td class="m-0 text-primary" align="center" style="white-space: nowrap;">오후</td>
-      <td style="padding-left: 10px;padding-top: 10px;padding-bottom: 10px;">
+      <td id="table_td"	>
 	    	<select id="pmPlaceSel" name="pmPlaceSel">
   				<option value="슈어(본사,삼성)" selected="selected">슈어(본사,삼성)</option>
   				<option value="슈어(남양사무실)">슈어(남양사무실)</option>
@@ -360,9 +355,6 @@
 			<input type="text" id="pmselboxDirect" name="pmselboxDirect"/>
       </td>
      </tr>
-     </div>
-     
-     
      <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
      </table>
      <div class="card-body" style="margin: 0 auto; display:table;" >

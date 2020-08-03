@@ -19,15 +19,15 @@ public class MemberBean
 	 private String RANK;	//직급
 	 private String Position; // 직책
 	 private String comDate;	//입사일 
-	 private int Wyear;	// 연차
+	 private String Wyear;	// 연차
 	 private String career;	// 커리어
 	 
 	 
-	 public int getWyear() {
+	 public String getWyear() {
 		return Wyear;
 	}
-	public void setWyear(int wyear) {
-		Wyear = wyear;
+	public void setWyear(String wyear) {
+		this.Wyear = wyear;
 	}
 	public String getCareer() {
 		return career;
