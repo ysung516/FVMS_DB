@@ -59,6 +59,19 @@
 </script>
 <style>
 	
+	#view_btn{
+		vertical-align: middle;
+		padding-left:17px;
+		display: inline;
+	}
+	#Delete{
+	     right: 0;
+	     margin-right: 24px;
+	     display: inline-block;
+	     position: absolute;
+	     top: 9px;
+	    }
+	     	
 	#dataTable td:nth-child(odd){
     text-align: center;
     white-space: nowrap;
@@ -256,7 +269,12 @@
           
        <div class="card shadow mb-4">
         <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">회의록 조회</h6>
+         <h6 class="m-0 font-weight-bold text-primary" id="view_btn">회의록 조회</h6>
+          <form method="post" action="meeting_deletePro.jsp">
+	     	<input type="hidden" name="no" value="<%=no%>">
+	     	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary"  >
+	     	
+	     </form>
         </div>
           
          <div class="card-body">
@@ -303,8 +321,8 @@
 						%></td>
 					</tr>
 					<tr>
-						<td>
-						<form method="post" action="meeting_update.jsp">
+						<td colspan="2">
+						<form method="post" action="meeting_update.jsp"  style="display: contents;">
 							<input type="hidden" name="MeetName" value="<%=mb.getMeetName()%>">
 							<input type="hidden" name="no" value="<%=no%>">
 							<input type="hidden" name="writer" value="<%=mb.getWriter()%>">
@@ -313,17 +331,14 @@
 							<input type="hidden" name="attendees" value="<%=mb.getAttendees()%>">
 							<input type="hidden" name="MeetNote" value="<%=mb.getP_meetnote()%>">
 							<input type="hidden" name="nextPlan" value="<%=mb.getP_nextplan()%>">
-							<input id="update" type="submit" name="update" value="수정"  class="btn btn-primary" >
+							<input id="update" type="submit" name="update" value="수정"  class="btn btn-primary">
 						</form>	
 							<a href="meeting.jsp" class="btn btn-primary">목록</a>
 						</td>
 					</tr>
 			</table>
 	     
-	     <form method="post" action="meeting_deletePro.jsp">
-	     	<input type="hidden" name="no" value="<%=no%>">
-	     	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
-	     </form>
+	    
 	     
         </div>
 

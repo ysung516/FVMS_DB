@@ -259,7 +259,7 @@
           
        <div class="card shadow mb-4">
         <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">회의록 조회</h6>
+         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">회의록 수정</h6>
         </div>
           
          <div class="card-body">
@@ -268,12 +268,12 @@
            <form method ="post" action="meeting_updatePro.jsp">
 			<table class="table table-bordered" id="dataTable">
 					<tr>
-						<td>회의명</td>
-						<td><textarea name="MeetName"><%=MeetName%></textarea></td>
+						<td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
+						<td><input name="MeetName" style=width:100%; value="<%=MeetName%>" placeholder="<%=MeetName%>"></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
-						<td><%=writer%></td>
+						<td><input name="NAME" style="width:100%;" value="<%=writer%>" placeholder="<%=writer%>"></td>
 					</tr>
 					<tr>
 						<td>회의일시</td>
@@ -281,15 +281,15 @@
 					</tr>
 					<tr>
 						<td>회의 장소</td>
-						<td><textarea name="MeetPlace"><%=MeetPlace%></textarea></td>
+						<td><input name="MeetPlace" style=width:100%; value="<%=MeetPlace%>" placeholder="<%=MeetPlace%>"></td>
 					</tr>
 					<tr>
 						<td>참석자 </td>
-						<td><textarea name="attendees"><%=attendees%></textarea></td>
+						<td><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
 					</tr>
 					<tr>
-						<td>회의내용</td>
-						<td><textarea name="MeetNote">
+						<td colspan="2"><h6>회의내용</h6>
+						<textarea name="MeetNote" rows="10"style=width:100%;>
 						<%
 							line = P_MeetNote;
 							for(String li : line){
@@ -300,8 +300,8 @@
 						</textarea></td>
 					</tr>
 					<tr>
-						<td>향후일정</td>
-						<td><textarea name="nextPlan">
+						<td colspan="2"><h6>향후일정</h6>
+						<textarea name="nextPlan"  rows="10" style=width:100%;>
 						<%
 							line = P_nextPlan;
 							for(String li : line){
