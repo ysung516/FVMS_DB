@@ -20,7 +20,7 @@
 		
 		String AMother = "미입력";
 		String PMother = "미입력";
-		int level = 7000;
+		int level = 0;
 		
 		if(!(request.getParameter("amselboxDirect") == "")){
 			AMother = request.getParameter("amselboxDirect");	
@@ -59,18 +59,18 @@
 		}
 		
 		
-		MSC_DAO method = new MSC_DAO();
-		MemberDAO member = new MemberDAO();
-		int num = method.returnNo(sessionID, date);
-		MemberBean mb = member.returnMember(sessionID);
+		MSC_DAO mscDao = new MSC_DAO();
+		MemberDAO memberDao = new MemberDAO();
+		int num = mscDao.returnNo(sessionID, date);
+		MemberBean mb = memberDao.returnMember(sessionID);
 		String team = mb.getTEAM();
 		if(num==0){
-			if (method.insert_MSC(sessionID, AmPlace, PmPlace, date, team, sessionName, level) == 1){
+			if (mscDao.insert_MSC(sessionID, AmPlace, PmPlace, date, team, sessionName, level) == 1){
 				script.print("<script> alert('일정이 추가 됬습니다.'); location.href = 'manager_schedule.jsp'</script>");
 			} else script.print("<script> alert('일정을 모두 입력해주세요.'); history.back(); </script>");
 		}
 		else{ 
-			if(method.update_MSC(num, AmPlace, PmPlace, date) == 1){
+			if(mscDao.update_MSC(num, AmPlace, PmPlace, date) == 1){
 			 script.print("<script> alert('일정이 수정되었습니다.'); location.href = 'manager_schedule.jsp'; </script>");
 			} else script.print("<script> alert('수정되지 않았습니다.'); history.back(); </script>");
 		}

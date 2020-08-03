@@ -14,7 +14,7 @@ public class MSC_DAO {
 	public MSC_DAO() {}
 	
 	//전체 관리자 일정 가져오기
-	public ArrayList<MSC_Bean> allMSC () {
+	public ArrayList<MSC_Bean> allMSC() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -56,18 +56,14 @@ public class MSC_DAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-			query.append("select no from manager_schedule where id=?, date=?");
+			query.append("select no from manager_schedule where ID=? and 날짜=?");
 
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
 			pstmt.setString(1, id);
 			pstmt.setString(2, date);
 			rs = pstmt.executeQuery();
-			
-			System.out.println("test");
 			no = rs.getInt("no");
-			
-			System.out.println("test");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -117,7 +113,8 @@ public class MSC_DAO {
 		
 		try {
 				conn = DBconnection.getConnection();
-				pstmt = conn.prepareStatement("insert into manager_schedule(ID, 팀, 이름, 날짜, 오전장소, 오후장소, level) values(?, ?, ?, ?, ?, ?, ?)");
+				pstmt = conn.prepareStatement("insert into manager_schedule(ID, 팀, 이름, 날짜, 오전장소, 오후장소, level) "
+						+ "values(?, ?, ?, ?, ?, ?, ?)");
 				pstmt.setString(1, id);
 				pstmt.setString(2, team);
 				pstmt.setString(3, name);

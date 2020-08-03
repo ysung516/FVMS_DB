@@ -17,7 +17,6 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(15*60);
 		String date = request.getParameter("date");
-		//System.out.println(date);
 	
 %>
 

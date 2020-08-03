@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.MSC_Bean"
     import = "java.util.ArrayList"
     import = "java.util.Date"
@@ -17,7 +16,7 @@
 	request.setCharacterEncoding("UTF-8");
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> F('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
 
 	String sessionID = session.getAttribute("sessionID").toString();
@@ -71,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
       	
      
       <%
-    	sheetMethod method = new sheetMethod();
         MSC_DAO msc = new MSC_DAO();
 		ArrayList<MSC_Bean> MSCList = new ArrayList<MSC_Bean>();
 		MSCList = msc.allMSC();
@@ -142,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
         			setDate.value = date;
         			setAm.value = amPlace;
         			setPm.value = pmPlace;
-        			document.Dayform.submit();
+        			document.updateform.submit();
         		} else{
         			window.location.reload()
         		}
@@ -733,6 +731,13 @@ document.addEventListener('DOMContentLoaded', function() {
       	
       	
 		<div id='calendar'></div>
+		
+		<form  name ="updateform" method="post" action="manager_schedule_update.jsp">
+			<input id="number" type="hidden" name = "num" value="" />
+			<input id="setDate" type="hidden" name = "date" value="" />
+			<input id="setAm" type="hidden" name = "amPlace" value="" />
+			<input id="setPm" type="hidden" name = "pmPlace" value="" />
+		</form>
 		
 		
 		<form id = "Dayform" name ="Dayform" method="post" action="doubleCheck.jsp">

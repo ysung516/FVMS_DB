@@ -14,49 +14,44 @@
 
 	<%
 		request.setCharacterEncoding("UTF-8");
-		MSC_DAO method = new MSC_DAO();
+		MSC_DAO mscDao = new MSC_DAO();
 		PrintWriter script =  response.getWriter();
+		
 		String sessionID = session.getAttribute("sessionID").toString();
-		String date = request.getParameter("date");
 		String no = request.getParameter("num");
-		int num = method.returnNo(sessionID, date);
+		String date = request.getParameter("date");
+		int num = mscDao.returnNo(sessionID, date);
 		
 		String amPlace = request.getParameter("amPlace");
 		String pmPlace = request.getParameter("pmPlace");
 		
 		if(amPlace == "" && pmPlace == ""){
-			no = Integer.toString(method.returnNo(sessionID, date));
+			no = Integer.toString(mscDao.returnNo(sessionID, date));
 			MSC_Bean mb = new MSC_Bean();
-			mb = method.getMSCList_set(Integer.parseInt(no));
+			mb = mscDao.getMSCList_set(Integer.parseInt(no));
 			amPlace = mb.getAMplace();
 			pmPlace = mb.getPMplace();
 		}
-		
 		%>
+		
 		<form id="GoAdd" name="GoAdd"method="post" action="manager_schedule_add.jsp">
 			<input type="hidden" name = "date" value="<%=date%>"/>
-			</form>
+		</form>
 		<form id="GoUpdate" name="GoUpdate" method="post" action="manager_schedule_update.jsp">
 			<input type="hidden" name = "date" value="<%=date%>"/>
 			<input type="hidden" name = "num" value="<%=no%>"/>
 			<input type="hidden" name = "amPlace" value="<%=amPlace%>"/>
 			<input type="hidden" name = "pmPlace" value="<%=pmPlace%>"/>
 		</form>
+		
 		<%
 		if(num == 0){
-			%>
-				<script>document.GoAdd.submit();</script>
-			<%	
+			script.print("<script>document.GoAdd.submit();</script>");
 		} else {
-			%>
-				<script>
-						// 시트에서 해당날짜 아이디 검색해서 amPlace,pmPlace 가져오기
-						document.GoUpdate.submit();
-				</script>
-			<%	
+			script.print("<script>document.GoUpdate.submit();</script>");	
 		}
 	%>
-	
+		
 
 </body>
 </html>
