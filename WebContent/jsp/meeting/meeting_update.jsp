@@ -265,7 +265,7 @@
          <div class="card-body">
            <div class="table-responsive">
            
-           <form method ="post" action="">
+           <form method ="post" action="meeting_updatePro.jsp">
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td>회의명</td>
@@ -277,7 +277,7 @@
 					</tr>
 					<tr>
 						<td>회의일시</td>
-						<td><input name=""><%=MeetDate%></td> 
+						<td><input type="date" name="MeetDate" value="<%=MeetDate%>"></td> 
 					</tr>
 					<tr>
 						<td>회의 장소</td>

@@ -11,7 +11,6 @@ import jsp.Bean.model.MemberBean;
 
 public class MemberDAO {
 	
-
 	public MemberDAO() {}
 	
 	// ID로 회원정보 가져오기
@@ -24,7 +23,6 @@ public class MemberDAO {
 	    try {
 	    	StringBuffer query = new StringBuffer();
 	    	query.append("select * from member where id=?");
-	    	
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, id);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
@@ -17,25 +17,32 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
-		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(15*60);
 		
-		String no = request.getParameter("no");
+		if(request.getParameter("MeetName") == null || request.getParameter("writer") == null || request.getParameter("MeetDate") == null
+				|| request.getParameter("MeetPlace") == null || request.getParameter("attendees") == null || request.getParameter("MeetNote") ==null
+				|| request.getParameter("nextPlan") == null){	
+			script.print("<script> alert('빈칸을 모두 작성해 주세요.'); history.back(); </script>");
+		}
+		
+		int no = Integer.parseInt(request.getParameter("no"));
 		String MeetName = request.getParameter("MeetName");
 		String writer = request.getParameter("writer");
 		String MeetDate = request.getParameter("MeetDate");
 		String MeetPlace = request.getParameter("MeetPlace");
 		String attendees = request.getParameter("attendees");
-		String MeetNote = request.getParameter("MeetNote");
+		String meetNote = request.getParameter("MeetNote");
 		String nextPlan = request.getParameter("nextPlan");
-		String [] P_MeetNote = MeetNote.split("\n");
-		String [] P_nextPlan = nextPlan.split("\n");
-		// 출력
-		String [] line;
+	
 		
-		
+		MeetingDAO meetDao = new MeetingDAO();
+		if(meetDao.updateMeet(no, MeetName, MeetDate, MeetPlace, attendees, meetNote, nextPlan) == 1){
+			script.print("<script> alert('회의록이 수정되었습니다.'); location.href = 'meeting.jsp'; </script>");
+		}
+		else{
+			script.print("<script> alert('회의록 수정에 실패했습니다.'); history.back(); </script>");
+		}
 	%>
 </body>
 </html>

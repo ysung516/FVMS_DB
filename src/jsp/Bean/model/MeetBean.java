@@ -2,7 +2,7 @@ package jsp.Bean.model;
 
 public class MeetBean {
 	
-	private String no;
+	private int no;
 	private String id;
 	private String MeetName;	//회의명
 	private String writer;	// 작성자
@@ -42,10 +42,10 @@ public class MeetBean {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNo() {
+	public int getNo() {
 		return no;
 	}
-	public void setNo(String no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 	public String getAttendees() {

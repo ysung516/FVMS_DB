@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
@@ -19,9 +19,9 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(15*60);
-		String no = request.getParameter("no");
-		sheetMethod method = new sheetMethod();
-		MeetBean mb = method.getMeetList(no);
+		int no = Integer.parseInt(request.getParameter("no"));
+		MeetingDAO meetDao = new MeetingDAO();
+		MeetBean mb = meetDao.getMeetList(no);
 		
 		// 출력
 		String [] line;
@@ -307,7 +307,7 @@
 						<form method="post" action="meeting_update.jsp">
 							<input type="hidden" name="MeetName" value="<%=mb.getMeetName()%>">
 							<input type="hidden" name="no" value="<%=no%>">
-							<input type="hidden" name="writer" value="<%=mb.getMeetName()%>">
+							<input type="hidden" name="writer" value="<%=mb.getWriter()%>">
 							<input type="hidden" name="MeetDate" value="<%=mb.getMeetDate()%>">
 							<input type="hidden" name="MeetPlace" value="<%=mb.getMeetPlace()%>">
 							<input type="hidden" name="attendees" value="<%=mb.getAttendees()%>">

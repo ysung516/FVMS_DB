@@ -36,7 +36,7 @@
 		String attendees = request.getParameter("attendees");
 		String meetnote = request.getParameter("meetnote");
 		String nextplan = request.getParameter("nextplan");
-		System.out.println(nextplan);
+		
 		if(method.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace,
 				attendees, meetnote, nextplan, date) == 1){
 			script.print("<script> alert('회의록 작성이 완료되었습니다.'); location.href = 'meeting.jsp'</script>");

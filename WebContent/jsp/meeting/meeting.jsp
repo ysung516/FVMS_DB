@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
@@ -20,7 +20,9 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-	sheetMethod method = new sheetMethod();
+	MeetingDAO meetDao = new MeetingDAO();
+	ArrayList<MeetBean> list = meetDao.getMeetBean();
+	
  %>
 
   <meta charset="utf-8">
@@ -273,7 +275,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		  </thead>  
 		  <tbody id ="meetingList" name="meetingList" class="meetingList" style="white-space: initial;">
 	  		<%
-	  			ArrayList<MeetBean> list = method.getMeetBean();
+	  			
 	  			if(list != null){
 	  				for(int i=list.size()-1; i>=0; i--){
 	  					%>

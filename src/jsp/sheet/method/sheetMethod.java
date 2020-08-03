@@ -450,14 +450,14 @@ public class sheetMethod {
         for(int i=0; i<list.size(); i++) {
         	ListEntry li = list.get(i);
         	MSC_Bean mb = new MSC_Bean();
-        	mb.setNo(li.getCustomElements().getValue("no"));
+        	//mb.setNo(li.getCustomElements().getValue("no"));
         	mb.setID(li.getCustomElements().getValue("ID"));
 			mb.setAMplace(li.getCustomElements().getValue("오전장소"));
 			mb.setPMplace(li.getCustomElements().getValue("오후장소"));
 			mb.setDate(li.getCustomElements().getValue("날짜"));
         	mb.setName(li.getCustomElements().getValue("이름"));
         	mb.setTeam(li.getCustomElements().getValue("팀"));
-        	mb.setLevel(li.getCustomElements().getValue("level"));
+        	//mb.setLevel(li.getCustomElements().getValue("level"));
         	MSCList.add(mb);
         }
         
@@ -498,14 +498,14 @@ public class sheetMethod {
         for(int i=0; i<list.size(); i++) {
         	ListEntry li = list.get(i);
 			if (list.get(i).getCustomElements().getValue("no").equals(no)) {
-				mb.setNo(li.getCustomElements().getValue("no"));
+				//mb.setNo(li.getCustomElements().getValue("no"));
 				mb.setID(li.getCustomElements().getValue("ID"));
 				mb.setAMplace(li.getCustomElements().getValue("오전장소"));
 				mb.setPMplace(li.getCustomElements().getValue("오후장소"));
 				mb.setDate(li.getCustomElements().getValue("날짜"));
 				mb.setName(li.getCustomElements().getValue("이름"));
 				mb.setTeam(li.getCustomElements().getValue("팀"));
-				mb.setLevel(li.getCustomElements().getValue("level"));
+				//mb.setLevel(li.getCustomElements().getValue("level"));
 			}
         }
         
@@ -616,7 +616,7 @@ public class sheetMethod {
         for(int i=0; i<list.size(); i++) {
         	ListEntry li = list.get(i);
         	MeetBean mb = new MeetBean();
-        	mb.setNo(li.getCustomElements().getValue("no"));
+        	//mb.setNo(li.getCustomElements().getValue("no"));
         	mb.setId(li.getCustomElements().getValue("ID"));
         	mb.setDate(li.getCustomElements().getValue("작성날짜"));
 			mb.setMeetName(li.getCustomElements().getValue("회의명"));
@@ -645,7 +645,7 @@ public class sheetMethod {
         for(int i=0; i<list.size(); i++) {
         	ListEntry li = list.get(i);
 			if (list.get(i).getCustomElements().getValue("no").equals(no)) {
-	        	mb.setNo(li.getCustomElements().getValue("no"));
+	        	//mb.setNo(li.getCustomElements().getValue("no"));
 	        	mb.setId(li.getCustomElements().getValue("ID"));
 	        	mb.setDate(li.getCustomElements().getValue("작성날짜"));
 				mb.setMeetName(li.getCustomElements().getValue("회의명"));
