@@ -72,10 +72,11 @@
 	     top: 9px;
 	    }
 	     	
-	#dataTable td:nth-child(odd){
+    #dataTable td:nth-child(odd){
     text-align: center;
-    white-space: nowrap;
     vertical-align: middle;
+    word-break:keep-all;
+    width:20%;
     }
 	
 	.meeting_table{
