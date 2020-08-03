@@ -49,6 +49,19 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+
+	input{
+		
+		border:1px solid #b7b9cc6e;
+		padding:5px;
+		border-radius:5px;
+	}
+	
+	#dataTable td:nth-child(odd){
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    }
 	.loading{
 		position:fixed;
 		text-align: center;
@@ -117,7 +130,14 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
    <!-- Divider -->
 			<hr class="sidebar-divider my-0">
-
+			
+			<!-- Nav Item - summary -->
+		    <li class="nav-item">
+	          <a class="nav-link" href="../mypage/mypage.jsp">
+	          <i class="fas fa-fw fa-table"></i>
+	          <span>마이페이지</span></a>
+	     	</li>
+	     	
 			<!-- Nav Item - summary -->
 		    <li class="nav-item">
 	          <a class="nav-link" href="../summary/summary.jsp">
@@ -246,7 +266,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center" value="">회의일시</td>
-				      <td><input type="date" name="MeetDate" style=width:100%;></td>
+				      <td><input type="date" name="MeetDate"></td>
 			     </tr>
 			      
 			       <tr>
@@ -260,10 +280,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			     
 			      <tr>
-			      <td class="m-0 text-primary" colspan="2"><h6>회의내용</h6><textarea name="meetnote" rows="10"style=width:100%;></textarea></td>
+			      <td class="m-0 text-primary" colspan="2"><h6>회의내용</h6><textarea name="meetnote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
 			     </tr>
 			      <tr>
-			      <td class="m-0 text-primary" colspan="2"><h6>향후일정</h6><textarea name="nextplan" rows="10"style=width:100%;></textarea></td>
+			      <td class="m-0 text-primary" colspan="2"><h6>향후일정</h6><textarea name="nextplan" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="2"> 
