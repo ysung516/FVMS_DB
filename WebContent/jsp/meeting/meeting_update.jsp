@@ -61,7 +61,12 @@
 	});
 </script>
 <style>
-	
+	input{
+		
+		border:1px solid #b7b9cc6e;
+		padding:5px;
+		border-radius:5px;
+	}
 	#dataTable td:nth-child(odd){
     text-align: center;
     white-space: nowrap;
@@ -272,25 +277,24 @@
 						<td><input name="MeetName" style=width:100%; value="<%=MeetName%>" placeholder="<%=MeetName%>"></td>
 					</tr>
 					<tr>
-						<td>작성자</td>
+						<td class="m-0 text-primary">작성자</td>
 						<td><input name="NAME" style="width:100%;" value="<%=writer%>" placeholder="<%=writer%>"></td>
 					</tr>
 					<tr>
-						<td>회의일시</td>
+						<td class="m-0 text-primary">회의일시</td>
 						<td><input type="date" name="MeetDate" value="<%=MeetDate%>"></td> 
 					</tr>
 					<tr>
-						<td>회의 장소</td>
+						<td class="m-0 text-primary">회의 장소</td>
 						<td><input name="MeetPlace" style=width:100%; value="<%=MeetPlace%>" placeholder="<%=MeetPlace%>"></td>
 					</tr>
 					<tr>
-						<td>참석자 </td>
+						<td class="m-0 text-primary">참석자 </td>
 						<td><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><h6>회의내용</h6>
-						<textarea name="MeetNote" rows="10"style=width:100%;>
-						<%
+						<td class="m-0 text-primary" colspan="2"><h6>회의내용</h6>
+						<textarea name="MeetNote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
 							line = P_MeetNote;
 							for(String li : line){
 								%><%=li%><%
@@ -300,9 +304,8 @@
 						</textarea></td>
 					</tr>
 					<tr>
-						<td colspan="2"><h6>향후일정</h6>
-						<textarea name="nextPlan"  rows="10" style=width:100%;>
-						<%
+						<td class="m-0 text-primary" colspan="2"><h6>향후일정</h6>
+						<textarea name="nextPlan"  rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
 							line = P_nextPlan;
 							for(String li : line){
 								%><%=li%><%
