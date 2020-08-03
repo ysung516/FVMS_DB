@@ -16,6 +16,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
     $('.loading').hide();
 });
 	
+	
+window.onbeforeunload = function(e){
+	var dialogText = 'Dialog text here';
+	e.returnValue = dialogText;
+	return dialogText;		
+}
 </script>
 <%
 	PrintWriter script =  response.getWriter();

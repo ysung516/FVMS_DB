@@ -11,11 +11,28 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
 
+function input_check_func() {
+    var now_pwd = document.getElementById('now_pwd').value;
+    var next_pwd = document.getElementById('next_pwd').value;
+    var next_pwd2 = document.getElementById('next_pwd2').value;
+    
+    if(now_pwd == null || next_pwd == null || next_pwd2 == null ||
+       now_pwd == ""   || next_pwd == ""   || next_pwd2 == "") {
+        alert("빈칸을 모두 채워주세요");
+        return false;
+    } 
+    // 새로운 비밀번호와 새로운 비밀번호 확인 input에 적은 값이 다르다면 경고창을 띄우고 false를 반환해서 action을 막는다
+    else if ( next_pwd != next_pwd2 ) {
+        alert("변경할 비밀번호가 서로 맞지 않습니다");
+        return false;
+    } else {
+        
+        // input들이 공백인지, 새 비밀번호와 새 비밀번호 확인 유무가 통과되면 action=좌표 로 이동한다
+        // 여기서 현재 비밀번호가 맞는지 안맞는지는 확인안한다 조금 어렵더라고
+        return true;
+    }
+}    
 
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-});
-	
 </script>
 <%
 	PrintWriter script =  response.getWriter();
@@ -102,13 +119,13 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </style>
 <body id="page-top">
-	 <!--  로딩화면  시작  -->
+	 <!--  로딩화면  시작 
 	<div class="loading">
 		<div id="load">
 			<i class="fas fa-spinner fa-10x fa-spin"></i>
 			</div>
 		</div>
-		<!--  로딩화면  끝  -->
+		  로딩화면  끝  -->
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -249,7 +266,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                  <div class="card-body">
            
                  <div class="table-responsive">
-         	  <form method="post" action="update_pwd_finish.jsp">
+         	  <form method="post" action="update_pwdPro.jsp" onsubmit="return input_check_func()">
 			  <table class="table table-bordered" id="dataTable">
 			       <tr>
 				      <td class="m-0 text-primary" align="center">현재 비밀번호</td>
@@ -259,6 +276,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     <tr>
 				      <td class="m-0 text-primary" align="center">바꿀 비밀번호</td>
 				      <td colspan="3"><input name="next_pwd" id="next_pwd" type="password" style=width:100%;></td>
+			     </tr>
+			      <tr>
+				      <td class="m-0 text-primary" align="center">바꿀 비밀번호 확인</td>
+				      <td colspan="3"><input name="next_pwd2" id="next_pwd2" type="password" style=width:100%;></td>
 			     </tr>
 			     <tr align="center">
 				       <td colspan="4"> 

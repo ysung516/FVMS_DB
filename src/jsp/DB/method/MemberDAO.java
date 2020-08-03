@@ -38,7 +38,7 @@ public class MemberDAO {
 	    		member.setADDRESS(rs.getString("거주지"));
 	    		member.setComDate(rs.getString("입사일"));
 	    		member.setWyear(rs.getInt("연차"));
-	    		member.setCareer(rs.getString("프로제트수행이력"));
+	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    	}
 	    }  catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -126,7 +126,7 @@ public class MemberDAO {
 			 }
 
 		 //마이페이지 수정
-		 public int mypageUpdate(String id, String address, String come_date, String wyear, String career) {
+		 public int mypageUpdate(String id, String address, String comeDate, String wyear, String career) {
 			 Connection conn = null;
 			 PreparedStatement pstmt = null;
 		      int rs = 0;
@@ -137,7 +137,7 @@ public class MemberDAO {
 		       pstmt = conn.prepareStatement(query.toString());
 		       
 		       pstmt.setString(1, address);
-		       pstmt.setString(2, come_date);
+		       pstmt.setString(2, comeDate);
 		       pstmt.setString(3, wyear);
 		       pstmt.setString(4, career);
 		       pstmt.setString(5, id);

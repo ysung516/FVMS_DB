@@ -54,11 +54,25 @@
 		var offset = $("#move" + seq).offset();
         $('html, body').animate({scrollTop : offset.top}, 400);
 	}
+		
+	//페이지 이동시 뜨는 알림창
+	window.onbeforeunload = function(e){
+		var dialogText = '페이지를 이동하시겠습니까?';
+		e.returnValue = dialogText;
+		return dialogText;		
+	}
 	
-	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-	    $('.loading').hide();
+
+	//수정버튼 누를때 뜨는 알림창
+	$(document).ready(function(){ $('#complete').click(function() { 
+		var result = confirm('Are you sure you want to do this?'); 
+		if(result) { location.replace("meeting.jsp"); } 
+		else { 
+			location.replace("meeting.jsp");
+			}
+		});
 	});
+
 </script>
 <style>
 	input{
@@ -323,7 +337,7 @@
 						</td>
 					</tr>
 			<tr>
-			<td colspan="2"><input  type="submit" name="complete" value="완료"  class="btn btn-primary" ></td>
+			<td colspan="2"><input  type="submit" name="complete" id="complete" value="완료"  class="btn btn-primary" ></td>
 			</tr>
 				<input type="hidden" name="no" value="<%=no%>">
 				<input type="hidden" name="writer" value="<%=writer%>">

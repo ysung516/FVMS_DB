@@ -273,12 +273,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			       <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>
-				      <td colspan="3"><input name="address" id=address style=width:100%;></td>
+				      <td colspan="3"><input name="address" id=address value="<%=member.getADDRESS()%>" style=width:100%;></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">입사일</td>
-				      <td colspan="3"><input name="come_date" id="come_date" style=width:100%;></td>
+				      <td colspan="3"><input name="comeDate" id="comeDate" value="<%=member.getComDate()%>"style=width:100%;></td>
 			     </tr>
 			     
 			      <tr>
