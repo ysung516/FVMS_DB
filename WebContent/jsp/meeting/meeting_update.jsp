@@ -147,13 +147,7 @@
 </style>
 
 <body id="page-top">
-	 <!--  로딩화면  시작  -->
-				  <div class="loading">
-				  <div id="load">
-				<i class="fas fa-spinner fa-10x fa-spin"></i>
-				  </div>
-				  </div>
-		<!--  로딩화면  끝  -->
+	
   <!-- Page Wrapper -->
   <div id="wrapper">
 	
@@ -318,11 +312,9 @@
 						<textarea name="MeetNote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
 							line = P_MeetNote;
 							for(String li : line){
-								%><%=li%><%
-							}
-							
-						%>
-						</textarea></td>
+							%><%=li%><%
+									}
+						%></textarea></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary" colspan="2"><h6>향후일정</h6>
@@ -330,10 +322,7 @@
 							line = P_nextPlan;
 							for(String li : line){
 								%><%=li%><%
-							}
-							
-						%>
-						</textarea>
+							}%></textarea>
 						</td>
 					</tr>
 			<tr>

@@ -1,19 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
 	import = "jsp.DB.method.*"
-	import = "jsp.Bean.model.*"
-	import = "java.sql.Connection"
-	import = "java.sql.DriverManager"
-	import = "java.sql.PreparedStatement"
-	import = "java.sql.ResultSet"
-	import = "java.sql.SQLException"
-	import = "java.sql.Statement"
-   
+	import = "jsp.Bean.model.*"  
     %>
 <!DOCTYPE html>
 <html>
@@ -25,28 +17,26 @@
 
 
 <%
- PrintWriter script =  response.getWriter(); 
- if (session.getAttribute("sessionID") == null){
-  script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
- }
-
- String sessionID = session.getAttribute("sessionID").toString();
- String sessionName = session.getAttribute("sessionName").toString();
- session.setMaxInactiveInterval(15*60);
- String no = request.getParameter("no");
- sheetMethod method = new sheetMethod();
- MeetBean mb = method.getMeetList(no);
-
- // 출력
- String [] line;
-
-
- String now_pwd = request.getParameter("now_pwd");
- String next_pwd = request.getParameter("next_pwd");
- 
- MemberDAO memberDao = new MemberDAO();
-    MemberBean member = memberDao.returnMember(sessionID);
-  
+	 PrintWriter script =  response.getWriter(); 
+	 if (session.getAttribute("sessionID") == null){
+	  script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+	 }
+	
+	 String sessionID = session.getAttribute("sessionID").toString();
+	 String sessionName = session.getAttribute("sessionName").toString();
+	 session.setMaxInactiveInterval(15*60);
+	
+	
+	 // 출력
+	 String [] line;
+	
+	
+	 String now_pwd = request.getParameter("now_pwd");
+	 String next_pwd = request.getParameter("next_pwd");
+	 
+	 MemberDAO memberDao = new MemberDAO();
+	 MemberBean member = memberDao.returnMember(sessionID);
+	  
    
     if (memberDao.pwdCheck(sessionID, now_pwd, next_pwd, member.getPASSWORD()) == 1){
      script.print("<script> alert('비밀번호가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
