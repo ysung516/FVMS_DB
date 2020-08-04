@@ -58,6 +58,30 @@
 </script>
 <style>
 
+	.m-0 .text-primary{
+		vertical-align:middle;
+		text-align:center;
+	}
+	
+	#view_btn{
+		vertical-align: middle;
+		padding-left:17px;
+		display: inline;
+	}
+	#Delete{
+	     right: 0;
+	     margin-right: 24px;
+	     display: inline-block;
+	     position: absolute;
+	     top: 9px;
+	    }
+	    
+	#dataTable td:nth-child(odd){
+    text-align: center;
+    vertical-align: middle;
+    word-break:keep-all;
+    width:10%;
+    }    
 	.radio_body{
 		 position: fixed;
 		 top: 100px;
@@ -92,24 +116,6 @@
 			padding: 0;
 		}
 }
-
-  fieldset{
-	  border-top: 3px inset;
-	  border-color: #5d7ace;        	
-  }
-  
-  legend{
-  	color:#1b3787!important;
-  	font-size: 18px;
-  	font-weight: 600;
-  	width: auto;
-  	padding: 5px;
-  }
-  
-  .report_div{
-	  padding-left: 15px;
-	  padding-bottom: 15px;
-	  }
 
 </style>
 
@@ -262,7 +268,8 @@
           
        <div class="card shadow mb-4">
         <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">주간보고서 조회</h6>
+         <h6 class="m-0 font-weight-bold text-primary" id="view_btn">주간보고서 조회</h6>
+         <input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
         </div>
           <div class="radio_body">
 			 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('1')">금일계획 <br>
@@ -272,108 +279,94 @@
 			 <input type="radio" name="chk_info" value="비고" onclick="fnMove('5')">비고
 			</div>
          <div class="card-body">
-         
-         <!-- 필드셋 시작 -->
-          <fieldset>
-          	<legend>프로젝트</legend>
-          		<div class="report_div"><%=report.getTitle()%></div>
-          </fieldset>
-         
-          <fieldset>
-          	<LEGEND>작성자</legend>
-          	<div class="report_div"><%=report.getName()%></div>
-          	
-          </fieldset>
-         
-          <fieldset>
-          	<legend>작성일</legend>
-          	<div class="report_div"><%=report.getDate()%></div>
-          </fieldset>
-          
-           <fieldset>
-          	<legend>PM</legend>
-          		<div class="report_div">PM정보</div>
-          </fieldset>
-          
-           <fieldset>
-          	<legend>상태</legend>
-          		<div class="report_div">1~6단계</div>
-          </fieldset>
-          
-           <fieldset>
-          	<legend>착수일</legend>
-          		<div class="report_div"></div>
-          </fieldset>
-          
-           <fieldset>
-          	<legend>착수 종료일</legend>
-          		<div class="report_div"></div>
-          </fieldset>
-          
-          <fieldset>
-          	<legend>금주계획</legend>
-          	<div class="report_div"><%
-	      	line = report.getP_weekPlan();
-	      	for(String li : line){
-	      		%><p><%=li%></p><%
-	      	}
-	     	 %>
-	     	 </div>	
-          </fieldset>
-          
-          <fieldset>
-          	<legend>금주진행</legend>
-          	<div class="report_div"><%
-	      	line = report.getP_weekPro();
-	      	for(String li : line){
-	      		%><p><%=li%></p><%
-	      	}
-	      %>
-	      </div>	
-          </fieldset>
-          
-          <fieldset>
-          	<legend>차주계획</legend>
-          	<div class="report_div"><%
-	      	line = report.getP_nextPlan();
-	      	for(String li : line){
-	      		%><p><%=li%></p><%
-	      	}
-	      %>
-	      </div>	
-          </fieldset>
-          
-          <fieldset>
-          	<legend>특이사항</legend>
-          	<div class="report_div"><%
-	      	line = report.getP_nextPlan();
-	      	for(String li : line){
-	      		%><p><%=li%></p><%
-	      	}
-	      %>
-          </div>	
-          </fieldset>
-          
-          <fieldset>
-          	<legend>비고</legend>
-          	<div class="report_div"><%
-	      	line = report.getP_nextPlan();
-	      	for(String li : line){
-	      		%><p><%=li%></p><%
-	      	}
-	      %>
-          </div>	
-          </fieldset>
-           <!-- 필드셋 끝 -->
-          
-	     <table style="margin: 0 auto;">
-	     <tr>
-	     <td colspan="2">
-	     <input id="Delete" type="button" name="Delete" value="삭제"  class="btn btn-primary" >
-	       <a href="report.jsp" class="btn btn-primary">목록</a>
-	       </td>
-	     </tr>
-	       </table>   
+         <div class="table-responsive">
+			<table class="table table-bordered" id="dataTable">
+					<tr>
+						<td class="m-0 text-primary">프로젝트</td>
+						<td><div class="report_div"><%=report.getTitle()%></div></td>
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">작성자</td>
+						<td><div class="report_div"><%=report.getName()%></div></td>
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">작성일</td>
+						<td><div class="report_div"><%=report.getDate()%></div></td> 
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">PM</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">상태</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">착수일</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">착수 종료일</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><div class="report_div"><%
+					      	line = report.getP_weekPlan();
+					      	for(String li : line){
+					      		%><p><%=li%></p><%
+					      	}
+					     	 %>
+					     	 </div>
+					     </td>
+						
+					</tr>
+					<tr>
+						<td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><%
+					      	line = report.getP_weekPro();
+					      	for(String li : line){
+					      		%><p><%=li%></p><%
+					      	}
+					      %>
+					     </td>
+						
+					</tr>
+					<tr>
+						<td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><%
+					      	line = report.getP_nextPlan();
+					      	for(String li : line){
+					      		%><p><%=li%></p><%
+					      	}
+					      %>
+					    </td>
+						
+					</tr>
+					<tr>
+						<td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><%
+					      	line = report.getP_nextPlan();
+					      	for(String li : line){
+					      		%><p><%=li%></p><%
+					      	}
+					      %>
+						</td>
+						
+					</tr>
+					<tr>
+						<td colspan="2" class="m-0 text-primary"><h6>비고</h6><%
+					      	line = report.getP_nextPlan();
+					      	for(String li : line){
+					      		%><p><%=li%></p><%
+					      	}
+					      %>
+	      				</td>	
+					</tr>
+					  <tr>
+			     <td colspan="2">
+			    <input id="update" type="submit" name="update" value="수정" class="btn btn-primary">
+			       <a href="report.jsp" class="btn btn-primary">목록</a>
+			       </td>
+			     </tr>
+			       </table>   
+				
         </div>
 
              <!-- /.container-fluid -->

@@ -76,7 +76,7 @@
     text-align: center;
     vertical-align: middle;
     word-break:keep-all;
-    width:20%;
+    width:10%;
     }
 	
 	.meeting_table{
@@ -289,27 +289,27 @@
            <div class="table-responsive">
 			<table class="table table-bordered" id="dataTable">
 					<tr>
-						<td>회의명</td>
+						<td class="m-0 text-primary">회의명</td>
 						<td><%=mb.getMeetName()%></td>
 					</tr>
 					<tr>
-						<td>작성자</td>
+						<td class="m-0 text-primary">작성자</td>
 						<td><%=mb.getWriter() %></td>
 					</tr>
 					<tr>
-						<td>회의일시</td>
+						<td class="m-0 text-primary">회의일시</td>
 						<td><%=mb.getMeetDate() %></td> 
 					</tr>
 					<tr>
-						<td>회의 장소</td>
+						<td class="m-0 text-primary">회의 장소</td>
 						<td><%=mb.getMeetPlace()%></td>
 					</tr>
 					<tr>
-						<td>참석자 </td>
+						<td class="m-0 text-primary">참석자 </td>
 						<td><%=mb.getAttendees()%></td>
 					</tr>
 					<tr>
-						<td>회의내용</td>
+						<td class="m-0 text-primary">회의내용</td>
 						<td><%
 							line = mb.getMeetNote();
 							for(String li : line){
@@ -319,13 +319,12 @@
 						%></td>
 					</tr>
 					<tr>
-						<td>향후일정</td>
+						<td class="m-0 text-primary">향후일정</td>
 						<td><%
 							line = mb.getNextPlan();
 							for(String li : line){
 								%><p><%=li%></p><%
 							}
-							
 						%></td>
 					</tr>
 					<tr>
