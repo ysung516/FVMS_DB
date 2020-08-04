@@ -41,7 +41,7 @@ public class ReportDAO {
 		return rs;
 	}
 	
-	// 보고서 리스트 목록 가져오기
+	// 전체 보고서 리스트 목록 가져오기
 	public ArrayList<ReportBean> getReportList(){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -181,7 +181,6 @@ public class ReportDAO {
 	    
 	    return list;
 	}
-	
 	
 	
 }	// end DAO

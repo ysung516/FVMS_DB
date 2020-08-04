@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
@@ -20,10 +20,12 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-	sheetMethod method = new sheetMethod();
+	ReportDAO reportDao = new ReportDAO();
+	ProjectDAO projectDao = new ProjectDAO();
 	
-	ArrayList<ReportBean> list = method.getBoardList();
-	ArrayList<ProjectBean> pjList = method.getProjectList();
+	ArrayList<ReportBean> list = reportDao.getReportList();
+	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
+
 %>
 
   <meta charset="utf-8">
@@ -351,28 +353,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                   </div>
                    <div class="details_body">
                     <details>
-                  		<%	
-	                  		ArrayList<String> pjName = new ArrayList<String>();
-	        				ArrayList<String> rpName = new ArrayList<String>();
-	        				
-	        				for(int i=0; i<pjList.size(); i++){
-	        					pjName.add(pjList.get(i).getPROJECT_NAME());
-	        				}
-	        				for(int j=0; j<list.size(); j++){
-	        					rpName.add(list.get(j).getTitle());	
-	        				}
-	        				
-	        				for(String item : rpName){
-	        					if(pjName.contains(item) == true){
-	        						pjName.remove(item);
-	        					}
-	        				}
-	        			%>
-                  		<summary>미등록 프로젝트 <span><%=pjName.size()%></span></summary>
-                  	
+                  		<summary>미등록 프로젝트 <span><%=unWrite.size()%></span></summary>
         			<%
-        				for(int z=0; z< pjName.size(); z++){
-        					%><p><%=pjName.get(z)%></p>
+        				for(int i=0; i< unWrite.size(); i++){
+        					%><p><%=unWrite.get(i)%></p>
         			<%}%>
 					      	
                   </details>
@@ -392,35 +376,16 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		  </thead> 
 		   
 		  <tbody id ="reportList" name="reportList" class="reportList">
-		  		 <%
+		<%
 			if(list != null){
+				
 				for(int i=0; i < list.size(); i++){
 					%>
 					<tr>
-						
 						<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
-						<td >
-						<%
-							for(int j=0; j < pjList.size(); j++){
-								if(pjList.get(j).getPROJECT_NAME().equals(list.get(i).getTitle())){
-									%><%=pjList.get(j).getCLIENT()%><%
-								}
-							}
-						%>
-						
-						</td>
-						<td>
-							<%
-								for(int j=0; j < pjList.size(); j++){
-									if(pjList.get(j).getPROJECT_NAME().equals(list.get(i).getTitle())){
-										%><%=pjList.get(j).getPROJECT_MANAGER()%><%
-									}
-								}
-							%>
-						</td>
-						<td>
-								<%=list.get(i).getDate()%>
-						</td>
+						<td ><%=projectDao.getProjectBean_name(list.get(i).getTitle()).getCLIENT()%></td>
+						<td><%=projectDao.getProjectBean_name(list.get(i).getTitle()).getPROJECT_MANAGER()%></td>
+						<td><%=list.get(i).getDate()%></td>
 					</tr>
 					<%
 				}

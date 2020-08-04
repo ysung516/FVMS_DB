@@ -8,14 +8,14 @@ public class ProjectBean {
 	private String PART;	// 실
 	private String CLIENT;	// 고객사
 	private String ClIENT_PART;	// 고객부서
-	private String MAN_MONTH;	// M/M
-	private String PROJECT_DESOPIT;	// 프로젝트계약금액
-	private String FH_ORDER;	// 상반기수주
-	private String FH_SALES_PROJECTIONS;	// 상반기 예상 매출
-	private String FH_SALES;	//상반기 매출
-	private String SH_ORDER;	//하반기 수주
-	private String SH_SALES_PROJECTIONS;	// 하반기 예상 매출
-	private String SH_SALES;	//하반기 매출
+	private float MAN_MONTH;	// M/M
+	private float PROJECT_DESOPIT;	// 프로젝트계약금액
+	private float FH_ORDER;	// 상반기수주
+	private float FH_SALES_PROJECTIONS;	// 상반기 예상 매출
+	private float FH_SALES;	//상반기 매출
+	private float SH_ORDER;	//하반기 수주
+	private float SH_SALES_PROJECTIONS;	// 하반기 예상 매출
+	private float SH_SALES;	//하반기 매출
 	private String PROJECT_START;	// 착수
 	private String PROJECT_END;	// 종료
 	private String CLIENT_PTB;	// 고객담당자
@@ -24,8 +24,8 @@ public class ProjectBean {
 	private String PROJECT_MANAGER;	// PM
 	private String WORKER_LIST;	// 투입명단
 	private String ASSESSMENT_TYPE;	// 평가유형
-	private String EMPLOY_DEMAND;	//채용수요
-	private String OUTSOURCE_DEMAND;	//외주수요
+	private float EMPLOY_DEMAND;	//채용수요
+	private float OUTSOURCE_DEMAND;	//외주수요
 	
 	public String getTEAM() {
 		return TEAM;
@@ -69,52 +69,52 @@ public class ProjectBean {
 	public void setClIENT_PART(String clIENT_PART) {
 		ClIENT_PART = clIENT_PART;
 	}
-	public String getMAN_MONTH() {
+	public float getMAN_MONTH() {
 		return MAN_MONTH;
 	}
-	public void setMAN_MONTH(String mAN_MONTH) {
+	public void setMAN_MONTH(float mAN_MONTH) {
 		MAN_MONTH = mAN_MONTH;
 	}
-	public String getPROJECT_DESOPIT() {
+	public float getPROJECT_DESOPIT() {
 		return PROJECT_DESOPIT;
 	}
-	public void setPROJECT_DESOPIT(String pROJECT_DESOPIT) {
+	public void setPROJECT_DESOPIT(float pROJECT_DESOPIT) {
 		PROJECT_DESOPIT = pROJECT_DESOPIT;
 	}
-	public String getFH_ORDER() {
+	public float getFH_ORDER() {
 		return FH_ORDER;
 	}
-	public void setFH_ORDER(String fH_ORDER) {
+	public void setFH_ORDER(float fH_ORDER) {
 		FH_ORDER = fH_ORDER;
 	}
-	public String getFH_SALES_PROJECTIONS() {
+	public float getFH_SALES_PROJECTIONS() {
 		return FH_SALES_PROJECTIONS;
 	}
-	public void setFH_SALES_PROJECTIONS(String fH_SALES_PROJECTIONS) {
+	public void setFH_SALES_PROJECTIONS(float fH_SALES_PROJECTIONS) {
 		FH_SALES_PROJECTIONS = fH_SALES_PROJECTIONS;
 	}
-	public String getFH_SALES() {
+	public float getFH_SALES() {
 		return FH_SALES;
 	}
-	public void setFH_SALES(String fH_SALES) {
+	public void setFH_SALES(float fH_SALES) {
 		FH_SALES = fH_SALES;
 	}
-	public String getSH_ORDER() {
+	public float getSH_ORDER() {
 		return SH_ORDER;
 	}
-	public void setSH_ORDER(String sH_ORDER) {
+	public void setSH_ORDER(float sH_ORDER) {
 		SH_ORDER = sH_ORDER;
 	}
-	public String getSH_SALES_PROJECTIONS() {
+	public float getSH_SALES_PROJECTIONS() {
 		return SH_SALES_PROJECTIONS;
 	}
-	public void setSH_SALES_PROJECTIONS(String sH_SALES_PROJECTIONS) {
+	public void setSH_SALES_PROJECTIONS(float sH_SALES_PROJECTIONS) {
 		SH_SALES_PROJECTIONS = sH_SALES_PROJECTIONS;
 	}
-	public String getSH_SALES() {
+	public float getSH_SALES() {
 		return SH_SALES;
 	}
-	public void setSH_SALES(String sH_SALES) {
+	public void setSH_SALES(float sH_SALES) {
 		SH_SALES = sH_SALES;
 	}
 	public String getPROJECT_START() {
@@ -165,16 +165,16 @@ public class ProjectBean {
 	public void setASSESSMENT_TYPE(String aSSESSMENT_TYPE) {
 		ASSESSMENT_TYPE = aSSESSMENT_TYPE;
 	}
-	public String getEMPLOY_DEMAND() {
+	public float getEMPLOY_DEMAND() {
 		return EMPLOY_DEMAND;
 	}
-	public void setEMPLOY_DEMAND(String eMPLOY_DEMAND) {
+	public void setEMPLOY_DEMAND(float eMPLOY_DEMAND) {
 		EMPLOY_DEMAND = eMPLOY_DEMAND;
 	}
-	public String getOUTSOURCE_DEMAND() {
+	public float getOUTSOURCE_DEMAND() {
 		return OUTSOURCE_DEMAND;
 	}
-	public void setOUTSOURCE_DEMAND(String oUTSOURCE_DEMAND) {
+	public void setOUTSOURCE_DEMAND(float oUTSOURCE_DEMAND) {
 		OUTSOURCE_DEMAND = oUTSOURCE_DEMAND;
 	}
 	
