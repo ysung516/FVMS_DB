@@ -273,7 +273,12 @@
        <div class="card shadow mb-4">
         <div class="card-header py-3">
          <h6 class="m-0 font-weight-bold text-primary" id="view_btn">주간보고서 조회</h6>
-         <input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
+         
+         <form method="post" action="report_deletePro.jsp">
+         	<input type="hidden" name="no" value=<%=NO%>>
+         	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
+         </form>
+         
         </div>
           <div class="radio_body">
 			 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('1')">금일계획 <br>
@@ -284,6 +289,8 @@
 			</div>
          <div class="card-body">
          <div class="table-responsive">
+         <form method="post" action="report_update.jsp">
+         	<input type="hidden" name="no" value=<%=NO%>>
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary">프로젝트</td>
@@ -382,7 +389,7 @@
 			       </td>
 			     </tr>
 			       </table>   
-				
+				</form>
         </div>
 
              <!-- /.container-fluid -->

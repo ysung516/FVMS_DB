@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
     import = "java.util.ArrayList"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
@@ -23,13 +23,16 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
-	
+	session.setMaxInactiveInterval(15*60);
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(15*60);
 	
-	sheetMethod method = new sheetMethod();
-	ArrayList<ProjectBean> pjList = method.getProjectList();
+	ProjectDAO projectDao = new ProjectDAO();
+	ReportDAO reportDao = new ReportDAO();
+	int no = Integer.parseInt(request.getParameter("no"));
+	ReportBean report = reportDao.getReportBean(no);
+	
+	String [] line;
 %>
 
   <meta charset="utf-8">
@@ -188,17 +191,6 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>회의록</span></a>
 			</li>
-			
-     	<!-- Nav Item - manager page -->
-			<%if(sessionID.equals("ymyou")){ %>
-			<li class="nav-item">
-			  <a class="nav-link" href="https://docs.google.com/spreadsheets/d/19MC9jOiCncDi06I5ZgoIEMQbt7cMSor-gU2Zehyo__c/edit#gid=607226601">
-			  <i class="fas fa-fw fa-clipboard-list"></i> 
-			  <span>관리자페이지</span></a>
-			</li>
-			<% }%>
-      
-
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -269,33 +261,52 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		    
 		     <tr>
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
-		      <td><select name="TITLE">
-		      	<%for(int i=0; i<pjList.size(); i++){
-		      		%><option value="<%=pjList.get(i).getPROJECT_NAME()%>"><%=pjList.get(i).getPROJECT_NAME()%></option><%
-		      	}
-		      	%>
-		      		
-		      </select></td>
+		      <td name="projectName"><%=report.getTitle()%></td>
 		     </tr>
 
 		    <tr>
 		      <td class="m-0 text-primary" align="center">작성자</td>
-		      <td><input id="name" name="NAME"></td>
+		      <td name="writer"><%=report.getName()%></td>
 		     </tr>  
 		    <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea name="WeekPlan" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6>
+		      <textarea name="WeekPlan" rows="10"><%
+		      	 line = report.getP_weekPlan();
+		      	 for(String li : line){
+						%><%=li%><%
+					}%></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><textarea name="WeekPro" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6>
+		      <textarea name="WeekPro" rows="10"><%
+		      	 line = report.getP_weekPro();
+		      	 for(String li : line){
+						%><%=li%><%
+					}%></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><textarea name="NextPlan" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6>
+		      <textarea name="NextPlan" rows="10"><%
+		      	 line = report.getP_nextPlan();
+		      	 for(String li : line){
+						%><%=li%><%
+					}%></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><textarea name="specialty" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6>
+		      <textarea name="specialty" rows="10"><%
+		      	 line = report.getP_specialty();
+		      	 for(String li : line){
+						%><%=li%><%
+					}%></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6><textarea name="note" rows="10" ></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6>
+		      <textarea name="note" rows="10" ><%
+		      	 line = report.getP_note();
+		      	 for(String li : line){
+						%><%=li%><%
+					}%></textarea></td>
 		     </tr>
 		
 		     <tr align="center">
