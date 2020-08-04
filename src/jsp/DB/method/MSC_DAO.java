@@ -171,8 +171,5 @@ public class MSC_DAO {
 		return result;
 	}
 	
-	// 관리자 일주일 일정 추가
-	public List week_MSC
-	
-	//관리자 일정 일주일치 추가 및 수정
+
 }

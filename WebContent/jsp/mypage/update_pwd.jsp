@@ -13,13 +13,16 @@
 
 /* 비밀번호 확인 스크립트 */
 $(function(){
-	$("#alert-success").hide();
-	$("#alert-danger").hide();
-	 $("#alert-empty").show();
 	$("input").keyup(function(){ 
 		var next_pwd=$("#next_pwd").val();
 		var next_pwd2=$("#next_pwd2").val();
-		if(next_pwd != "" || next_pwd2 != ""){
+			
+		if((next_pwd != "" && next_pwd2 =="" )|| (next_pwd =="" &&next_pwd2 != "")){
+			$("#alert-success").hide();
+			$("#alert-danger").hide();
+			 $("#alert-empty").show();
+		}
+		else if(next_pwd != "" || next_pwd2 != ""){
 			if(next_pwd == next_pwd2){
 				$("#alert-success").show();
 				$("#alert-danger").hide();
@@ -33,6 +36,7 @@ $(function(){
 				$("#submit").attr("disabled", "disabled");
 				}
 			}
+		
 		});
 	});
 	
@@ -285,7 +289,7 @@ function input_check_func() {
 
 	   <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">마이페이지 수정</h6>
+                  <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">비밀번호 수정</h6>
                 </div>
                  <div class="card-body">
            
@@ -294,15 +298,17 @@ function input_check_func() {
 			  <table class="table table-bordered" id="dataTable">
 			       <tr>
 				      <td class="m-0 text-primary" align="center">현재 비밀번호</td>
-				      <td colspan="3"><input name="now_pwd" id="now_pwd" type="password" style=width:100%;></td>
+				      <td colspan="3">
+				      <input name="now_pwd" id="now_pwd" type="password" style=width:100%;>
+				      </td>
 			     </tr>
 			     
 			     <tr>
-				      <td class="m-0 text-primary" align="center">바꿀 비밀번호</td>
+				      <td class="m-0 text-primary" align="center">새 비밀번호</td>
 				      <td colspan="3"><input class="nextpwd" name="next_pwd" id="next_pwd" type="password" style=width:100%;/></td>
 			     </tr>
 			      <tr>
-				      <td class="m-0 text-primary" align="center">바꿀 비밀번호 확인</td>
+				      <td class="m-0 text-primary" align="center">새 비밀번호 확인</td>
 				      <td colspan="3">
 				      <input class="nextpwd" name="next_pwd2" id="next_pwd2" type="password" style=width:100%;>
 				      <span id="alert-success" style="display: none;font-weight: bold; color:blue;">비밀번호가 일치합니다</span>	
