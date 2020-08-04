@@ -311,7 +311,10 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><div class="report_div"><%
+						<td colspan="2"><h6 class="m-0 text-primary">금주계획</h6><div class="report_div"></td>
+						</tr>
+						<tr>
+						<td colspan="2"><%
 					      	line = report.getP_weekPlan();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
@@ -319,10 +322,12 @@
 					     	 %>
 					     	 </div>
 					     </td>
-						
 					</tr>
 					<tr>
-						<td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><%
+						<td colspan="2" ><h6 class="m-0 text-primary">금주진행</h6></td>
+						</tr>
+						<tr>
+						<td colspan="2"><%
 					      	line = report.getP_weekPro();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
@@ -332,17 +337,22 @@
 						
 					</tr>
 					<tr>
-						<td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><%
+						<td colspan="2"><h6 class="m-0 text-primary">차주계획</h6></td>
+						</tr>
+						<tr>
+						<td colspan="2"><%
 					      	line = report.getP_nextPlan();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
 					      	}
 					      %>
-					    </td>
-						
+					    </td>	
 					</tr>
 					<tr>
-						<td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><%
+						<td colspan="2"><h6 class="m-0 text-primary">특이사항</h6></td>
+						</tr>
+						<tr>
+						<td colspan="2"><%
 					      	line = report.getP_nextPlan();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
@@ -351,7 +361,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" class="m-0 text-primary"><h6>비고</h6><%
+						<td colspan="2"><h6 class="m-0 text-primary">비고</h6></td>
+						</tr>
+						<tr>
+						<td colspan="2"><%
 					      	line = report.getP_nextPlan();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
