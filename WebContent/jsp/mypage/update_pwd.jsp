@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
@@ -71,8 +70,6 @@ function input_check_func() {
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-	
-	sheetMethod method = new sheetMethod();
 	
 	
 %>
