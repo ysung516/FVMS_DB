@@ -348,7 +348,6 @@
 					      	}
 					      %>
 						</td>
-						
 					</tr>
 					<tr>
 						<td colspan="2" class="m-0 text-primary"><h6>비고</h6><%
