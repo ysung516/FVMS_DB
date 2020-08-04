@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.*"
     import = "jsp.DB.method.*"
     %>
@@ -28,8 +27,6 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	String no = request.getParameter("no");
-	sheetMethod method = new sheetMethod();
-	MeetBean mb = method.getMeetList(no);
 	
 	// 출력
 			String [] line;
