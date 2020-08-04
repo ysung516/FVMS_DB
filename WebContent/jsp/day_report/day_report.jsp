@@ -12,9 +12,9 @@
 
 <head>
 <%
-		PrintWriter script =  response.getWriter();
+	PrintWriter script =  response.getWriter();
 		if (session.getAttribute("sessionID") == null){
-			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+	script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
 		
 		String sessionID = session.getAttribute("sessionID").toString();
@@ -22,7 +22,7 @@
 		session.setMaxInactiveInterval(15*60);
 		sheetMethod method = new sheetMethod();
 	
-		ArrayList<BoardBean> list = method.get_DayBoardList();
+		ArrayList<ReportBean> list = method.get_DayBoardList();
 %>
 
   <meta charset="utf-8">

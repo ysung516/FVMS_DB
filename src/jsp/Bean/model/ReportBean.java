@@ -1,39 +1,63 @@
 package jsp.Bean.model;
 
-public class BoardBean {
+public class ReportBean {
 	private String id;
 	private String name;
 	private String rank;
-	private String team;
 	private String title;
 	private String date;
 	private String weekPlan;
 	private String weekPro;
 	private String nextPlan;
-	private String no;
+	private String specialty;	// 특이사항
+	private String note;	// 비고
+	
+	private int no;
 	private String [] P_weekPlan;
 	private String [] P_weekPro;
 	private String [] P_nextPlan;
+	private String [] P_specialty;
+	private String [] P_note;
 	
-	
-	
+	public String[] getP_specialty() {
+		this.P_specialty = specialty.split("\n");
+		return P_specialty;
+	}
+	public String[] getP_note() {
+		this.P_note = note.split("\n");
+		return P_note;
+	}
 	public String[] getP_weekPlan() {
-		String [] P_weekPlan = weekPlan.split("\n");
+		this.P_weekPlan = weekPlan.split("\n");
 		return P_weekPlan;
 	}
 	public String[] getP_weekPro() {
-		String [] P_weekPro = weekPro.split("\n");
+		this.P_weekPro = weekPro.split("\n");
 		return P_weekPro;
 	}
 	public String[] getP_nextPlan() {
-		String [] P_nextPlan = nextPlan.split("\n");
+		this.P_nextPlan = nextPlan.split("\n");
 		return P_nextPlan;
 	}
 	
-	public String getNo() {
+	public String getSpecialty() {
+		return specialty;
+	}
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	
+	public int getNo() {
 		return no;
 	}
-	public void setNo(String no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 	public String getId() {
@@ -53,12 +77,6 @@ public class BoardBean {
 	}
 	public void setRank(String rank) {
 		this.rank = rank;
-	}
-	public String getTeam() {
-		return team;
-	}
-	public void setTeam(String team) {
-		this.team = team;
 	}
 	public String getTitle() {
 		return title;

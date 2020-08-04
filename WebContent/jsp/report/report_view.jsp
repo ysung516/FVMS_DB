@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
@@ -12,20 +12,19 @@
 <head>
 	<%
 		PrintWriter script =  response.getWriter();
-		if (session.getAttribute("sessionID") == null){
-			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
-		}
-		
-		String sessionID = session.getAttribute("sessionID").toString();
-		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(15*60);
-		String NO = request.getParameter("no");
-		sheetMethod method = new sheetMethod();
-		BoardBean board = method.getBoard(NO);
-		
-		// 출력
-		String [] line;
-		
+			if (session.getAttribute("sessionID") == null){
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+			}
+			
+			String sessionID = session.getAttribute("sessionID").toString();
+			String sessionName = session.getAttribute("sessionName").toString();
+			session.setMaxInactiveInterval(15*60);
+			int NO = Integer.parseInt(request.getParameter("no"));
+			ReportDAO reportDao = new ReportDAO();
+			ReportBean report = reportDao.getReportBean(NO);
+			
+			// 출력
+			String [] line;
 	%>
 
   <meta charset="utf-8">
@@ -277,18 +276,18 @@
          <!-- 필드셋 시작 -->
           <fieldset>
           	<legend>프로젝트</legend>
-          		<div class="report_div"><%=board.getTitle()%></div>
+          		<div class="report_div"><%=report.getTitle()%></div>
           </fieldset>
          
           <fieldset>
           	<LEGEND>작성자</legend>
-          	<div class="report_div"><%=board.getName()%></div>
+          	<div class="report_div"><%=report.getName()%></div>
           	
           </fieldset>
          
           <fieldset>
           	<legend>작성일</legend>
-          	<div class="report_div"><%=board.getDate()%></div>
+          	<div class="report_div"><%=report.getDate()%></div>
           </fieldset>
           
            <fieldset>
@@ -314,7 +313,7 @@
           <fieldset>
           	<legend>금주계획</legend>
           	<div class="report_div"><%
-	      	line = board.getP_weekPlan();
+	      	line = report.getP_weekPlan();
 	      	for(String li : line){
 	      		%><p><%=li%></p><%
 	      	}
@@ -325,7 +324,7 @@
           <fieldset>
           	<legend>금주진행</legend>
           	<div class="report_div"><%
-	      	line = board.getP_weekPro();
+	      	line = report.getP_weekPro();
 	      	for(String li : line){
 	      		%><p><%=li%></p><%
 	      	}
@@ -336,7 +335,7 @@
           <fieldset>
           	<legend>차주계획</legend>
           	<div class="report_div"><%
-	      	line = board.getP_nextPlan();
+	      	line = report.getP_nextPlan();
 	      	for(String li : line){
 	      		%><p><%=li%></p><%
 	      	}
@@ -347,7 +346,7 @@
           <fieldset>
           	<legend>특이사항</legend>
           	<div class="report_div"><%
-	      	line = board.getP_nextPlan();
+	      	line = report.getP_nextPlan();
 	      	for(String li : line){
 	      		%><p><%=li%></p><%
 	      	}
@@ -358,7 +357,7 @@
           <fieldset>
           	<legend>비고</legend>
           	<div class="report_div"><%
-	      	line = board.getP_nextPlan();
+	      	line = report.getP_nextPlan();
 	      	for(String li : line){
 	      		%><p><%=li%></p><%
 	      	}

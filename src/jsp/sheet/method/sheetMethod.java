@@ -202,9 +202,9 @@ public class sheetMethod {
 	}
 	
 	// 주간보고서 리스트 목록 가져오기
-	public ArrayList<BoardBean> getBoardList()throws GeneralSecurityException, IOException, ServiceException{
+	public ArrayList<ReportBean> getBoardList()throws GeneralSecurityException, IOException, ServiceException{
 		
-		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
+		ArrayList<ReportBean> boardList = new ArrayList<ReportBean>();
 		connect();
 		access();
     	findSheet("주간보고서");
@@ -217,12 +217,12 @@ public class sheetMethod {
         
         for(int i=0; i < list.size(); i++) {
         	ListEntry li = list.get(i);
-        	BoardBean board = new BoardBean();
-        	board.setNo(li.getCustomElements().getValue("no"));
+        	ReportBean board = new ReportBean();
+        	//board.setNo(li.getCustomElements().getValue("no"));
         	board.setId(li.getCustomElements().getValue("id"));
         	board.setName(li.getCustomElements().getValue("이름"));
         	board.setRank(li.getCustomElements().getValue("직급"));
-        	board.setTeam(li.getCustomElements().getValue("팀"));
+        	//board.setTeam(li.getCustomElements().getValue("팀"));
         	board.setTitle(li.getCustomElements().getValue("프로젝트명"));
         	board.setDate(li.getCustomElements().getValue("작성일"));
         	board.setWeekPlan(li.getCustomElements().getValue("금주계획"));
@@ -237,7 +237,7 @@ public class sheetMethod {
 	}
 	
 	// 넘버별 주간보고서 데이터 가져오기
-	public BoardBean getBoard(String NO)throws GeneralSecurityException, IOException, ServiceException{
+	public ReportBean getBoard(String NO)throws GeneralSecurityException, IOException, ServiceException{
 		connect();
 		access();
 		findSheet("주간보고서");
@@ -245,15 +245,15 @@ public class sheetMethod {
         URL listFeedUrl = sheet.getWorksheet().getListFeedUrl();
         ListFeed listFeed = sheet.getService().getFeed(listFeedUrl, ListFeed.class);
         List<ListEntry> list = listFeed.getEntries(); //전체 데이터 리스트로 저장
-        BoardBean board = new BoardBean();
+        ReportBean board = new ReportBean();
 		for(int i = 0; i < list.size(); i++) {
 			ListEntry li = list.get(i);
 			if(li.getCustomElements().getValue("no").equals(NO)) {
-	        	board.setNo(li.getCustomElements().getValue("no"));
+	        	//board.setNo(li.getCustomElements().getValue("no"));
 	        	board.setId(li.getCustomElements().getValue("id"));
 	        	board.setName(li.getCustomElements().getValue("이름"));
 	        	board.setRank(li.getCustomElements().getValue("직급"));
-	        	board.setTeam(li.getCustomElements().getValue("팀"));
+	        	//board.setTeam(li.getCustomElements().getValue("팀"));
 	        	board.setTitle(li.getCustomElements().getValue("프로젝트명"));
 	        	board.setDate(li.getCustomElements().getValue("작성일"));
 	        	board.setWeekPlan(li.getCustomElements().getValue("금주계획"));
@@ -327,9 +327,9 @@ public class sheetMethod {
 	}
 	
 	// 일간보고서 리스트 목록 가져오기
-	public ArrayList<BoardBean> get_DayBoardList()throws GeneralSecurityException, IOException, ServiceException{
+	public ArrayList<ReportBean> get_DayBoardList()throws GeneralSecurityException, IOException, ServiceException{
 		
-		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
+		ArrayList<ReportBean> boardList = new ArrayList<ReportBean>();
 		connect();
 		access();
     	findSheet("일간보고서");
@@ -342,12 +342,12 @@ public class sheetMethod {
         
         for(int i=0; i < list.size(); i++) {
         	ListEntry li = list.get(i);
-        	BoardBean board = new BoardBean();
-        	board.setNo(li.getCustomElements().getValue("no"));
+        	ReportBean board = new ReportBean();
+        	//board.setNo(li.getCustomElements().getValue("no"));
         	board.setId(li.getCustomElements().getValue("id"));
         	board.setName(li.getCustomElements().getValue("이름"));
         	board.setRank(li.getCustomElements().getValue("직급"));
-        	board.setTeam(li.getCustomElements().getValue("팀"));
+        	//board.setTeam(li.getCustomElements().getValue("팀"));
         	board.setTitle(li.getCustomElements().getValue("제목"));
         	board.setDate(li.getCustomElements().getValue("작성일"));
         	board.setWeekPlan(li.getCustomElements().getValue("금일계획"));
@@ -363,7 +363,7 @@ public class sheetMethod {
 	
 	
 	// 넘버별 일간보고서 데이터 가져오기
-	public BoardBean get_DayBoard(String NO)throws GeneralSecurityException, IOException, ServiceException{
+	public ReportBean get_DayBoard(String NO)throws GeneralSecurityException, IOException, ServiceException{
 		connect();
 		access();
 		findSheet("일간보고서");
@@ -371,15 +371,15 @@ public class sheetMethod {
         URL listFeedUrl = sheet.getWorksheet().getListFeedUrl();
         ListFeed listFeed = sheet.getService().getFeed(listFeedUrl, ListFeed.class);
         List<ListEntry> list = listFeed.getEntries(); //전체 데이터 리스트로 저장
-        BoardBean board = new BoardBean();
+        ReportBean board = new ReportBean();
 		for(int i = 0; i < list.size(); i++) {
 			ListEntry li = list.get(i);
 			if(li.getCustomElements().getValue("no").equals(NO)) {				
-	        	board.setNo(li.getCustomElements().getValue("no"));
+	        	//board.setNo(li.getCustomElements().getValue("no"));
 	        	board.setId(li.getCustomElements().getValue("id"));
 	        	board.setName(li.getCustomElements().getValue("이름"));
 	        	board.setRank(li.getCustomElements().getValue("직급"));
-	        	board.setTeam(li.getCustomElements().getValue("팀"));
+	        	//board.setTeam(li.getCustomElements().getValue("팀"));
 	        	board.setTitle(li.getCustomElements().getValue("제목"));
 	        	board.setDate(li.getCustomElements().getValue("작성일"));
 	        	board.setWeekPlan(li.getCustomElements().getValue("금일계획"));

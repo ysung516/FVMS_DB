@@ -22,10 +22,9 @@
 	session.setMaxInactiveInterval(15*60);
 	sheetMethod method = new sheetMethod();
 	
-	ArrayList<BoardBean> list = method.getBoardList();
+	ArrayList<ReportBean> list = method.getBoardList();
 	ArrayList<ProjectBean> pjList = method.getProjectList();
-	
- %>
+%>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -12,20 +12,19 @@
 <head>
 	<%
 		PrintWriter script =  response.getWriter();
-		if (session.getAttribute("sessionID") == null){
-			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
-		}
-	
-		String sessionID = session.getAttribute("sessionID").toString();
-		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(15*60);
-		String NO = request.getParameter("no");
-		sheetMethod method = new sheetMethod();
-		BoardBean board = method.get_DayBoard(NO);
+			if (session.getAttribute("sessionID") == null){
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+			}
 		
-		// 출력
-		String [] line;
-		
+			String sessionID = session.getAttribute("sessionID").toString();
+			String sessionName = session.getAttribute("sessionName").toString();
+			session.setMaxInactiveInterval(15*60);
+			String NO = request.getParameter("no");
+			sheetMethod method = new sheetMethod();
+			ReportBean board = method.get_DayBoard(NO);
+			
+			// 출력
+			String [] line;
 	%>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
