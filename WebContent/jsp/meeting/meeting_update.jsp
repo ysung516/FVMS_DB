@@ -50,28 +50,26 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-	function fnMove(seq){
-		var offset = $("#move" + seq).offset();
-        $('html, body').animate({scrollTop : offset.top}, 400);
+	//뒤로가기 막기
+	history.pushState(null, null, location.href); 
+	window.onpopstate = function(event) { 	
+		var back = window.confirm('나가겠습니까?');
+		if(back){
+			location.href="meeting.jsp";
+		}
+		else
+			return;
 	}
-		
-	//페이지 이동시 뜨는 알림창
-	window.onbeforeunload = function(e){
-		var dialogText = '페이지를 이동하시겠습니까?';
-		e.returnValue = dialogText;
-		return dialogText;		
+ 
+	//수정확인 알림창
+	function ok_btn(){
+		var result = window.confirm('수정하시겠습니까?');
+		if(result){
+			meet_update.submit();
+		}
+		else
+			location.href="meeting.jsp";
 	}
-	
-
-	//수정버튼 누를때 뜨는 알림창
-	$(document).ready(function(){ $('#complete').click(function() { 
-		var result = confirm('Are you sure you want to do this?'); 
-		if(result) { location.replace("meeting.jsp"); } 
-		else { 
-			location.replace("meeting.jsp");
-			}
-		});
-	});
 
 </script>
 <style>
@@ -285,7 +283,7 @@
          <div class="card-body">
            <div class="table-responsive">
            
-           <form method ="post" action="meeting_updatePro.jsp">
+           <form method ="post" action="meeting_updatePro.jsp" name="meet_update">
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
@@ -326,7 +324,7 @@
 						</td>
 					</tr>
 			<tr>
-			<td colspan="2"><input  type="submit" name="complete" id="complete" value="완료"  class="btn btn-primary" ></td>
+			<td colspan="2"><input type="button" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
 			</tr>
 				<input type="hidden" name="no" value="<%=no%>">
 				<input type="hidden" name="writer" value="<%=writer%>">
