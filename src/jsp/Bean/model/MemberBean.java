@@ -21,9 +21,22 @@ public class MemberBean
 	 private String comDate;	//입사일 
 	 private String Wyear;	// 연차
 	 private String career;	// 커리어
+	 private int level;	// 관리자 일정 정렬 순서
+	 private String permission; // 권한
 	 
-	 
-	 public String getWyear() {
+	 public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public String getPermission() {
+		return permission;
+	}
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+	public String getWyear() {
 		return Wyear;
 	}
 	public void setWyear(String wyear) {

@@ -129,17 +129,7 @@
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-var array=["linear-gradient(to right,#8766b0eb 100%,#5d9cb1)","linear-gradient(to right,#8766b0eb 49%,#5d9cb1)",
-	  "linear-gradient(to right,#8766b0eb 34%,#5d9cb1","linear-gradient(to right,#8766b0,#5d9cb1)",
-	   "linear-gradient(to right,#8766b0eb -22%,#5d9cb1)","linear-gradient(to right,#8766b0eb -52%,#5d9cb1)"];
-	 var cnt=0;
-	 function ff(){
-	  if(cnt==6) cnt=0;
-	  holiday.style.background=array[cnt++];
-	  setTimeout("ff()",200);
-	 }
 
-	 
 	 function AMfocus(){
 	  document.getElementById('AMradio').checked=true;
 	 }
@@ -152,7 +142,6 @@ var array=["linear-gradient(to right,#8766b0eb 100%,#5d9cb1)","linear-gradient(t
 	 window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	 $(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	     $('.loading').hide();
-	     ff();
 	 });
 
 		$(function(){
