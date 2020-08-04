@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import jsp.Bean.model.MSC_Bean;
+import jsp.Bean.model.MemberBean;
 
 public class MSC_DAO {
 	public MSC_DAO() {}
@@ -108,9 +110,12 @@ public class MSC_DAO {
 	
 	//관리자 일정 추가
 	public int insert_MSC (String id, String amPlace, String pmPlace
-			, String date, String team, String name, int level) {
+			, String date, String team, String name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		MemberDAO memberDao = new MemberDAO();
+		MemberBean mb = memberDao.returnMember(id);
+		int level = mb.getLevel();
 		int rs = 0;
 		
 		try {
@@ -171,5 +176,42 @@ public class MSC_DAO {
 		return result;
 	}
 	
-
+	// 관리자 일주일 일정 추가
+	public List weekAdd_MSC(String[] AmPlace_arr, String[] PmPlace_arr, String[] date_arr, 
+			String team, String sessionID, String sessionName) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		MemberDAO memberDao = new MemberDAO();
+		MemberBean mb = memberDao.returnMember(sessionID);
+		int level = mb.getLevel();
+        List<String> print= new ArrayList();
+		String add_date[] = {"","","","",""};
+		String update_date[] = {"","","","",""};
+		
+		int rs = 0;
+		for(int i = 0; i<5; i++)
+			if(returnNo(sessionID, date_arr[i]) == 0) {
+				insert_MSC(sessionID, AmPlace_arr[i], PmPlace_arr[i], date_arr[i], team, sessionName);
+				add_date[i] = date_arr[i];
+			} else {
+				update_MSC(returnNo(sessionID, date_arr[i]), AmPlace_arr[i], PmPlace_arr[i], date_arr[i]);
+				update_date[i] = date_arr[i];
+			}
+		
+		
+		print.add("====일정 추가====");
+		for(int i=0; i<5; i++){
+			if(add_date[i] != "")
+				print.add(add_date[i]);
+		}
+		print.add("====일정 수정====");
+		for(int i=0; i<5; i++){
+			if(update_date[i] != "")
+				print.add(update_date[i]);
+		}
+		
+		return print;
+	}
+	
 }

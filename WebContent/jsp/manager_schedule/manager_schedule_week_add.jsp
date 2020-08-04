@@ -141,17 +141,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-
-	var array=["linear-gradient(to right,#8766b0eb 100%,#5d9cb1)","linear-gradient(to right,#8766b0eb 49%,#5d9cb1)",
-		"linear-gradient(to right,#8766b0eb 34%,#5d9cb1","linear-gradient(to right,#8766b0,#5d9cb1)",
-			"linear-gradient(to right,#8766b0eb -22%,#5d9cb1)","linear-gradient(to right,#8766b0eb -52%,#5d9cb1)"];
-	var cnt=0;
-	function ff(){
-		if(cnt==6) cnt=0;
-		holiday.style.background=array[cnt++];
-		setTimeout("ff()",200);
-	}
-
 	
 	function AMfocus(){
 		document.getElementById('AMradio').checked=true;
@@ -433,6 +422,11 @@
   
   	
 	<form method = "post" action = "manager_schedule_week_addPro.jsp">
+		<input type="hidden" name="date1" value="<%=date1%>">
+		<input type="hidden" name="date2" value="<%=date2%>">
+		<input type="hidden" name="date3" value="<%=date3%>">
+		<input type="hidden" name="date4" value="<%=date4%>">
+		<input type="hidden" name="date5" value="<%=date5%>">
 		<table id ="allTable">
 			<tr>
 				<td>

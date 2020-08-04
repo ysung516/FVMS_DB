@@ -42,30 +42,14 @@
 		}
 	
 		
-		if(sessionName.equals("유영민")){
-			level = 1;
-		} else if (sessionName.equals("송우람")){
-			level = 2;
-		} else if (sessionName.equals("최인석")){
-			level = 3;
-		} else if (sessionName.equals("이창우")){
-			level = 4;
-		} else if (sessionName.equals("윤영산")){
-			level = 5;
-		} else if (sessionName.equals("이창수")){
-			level = 6;
-		} else {
-			level = 7000;
-		}
-		
-		
+	
 		MSC_DAO mscDao = new MSC_DAO();
 		MemberDAO memberDao = new MemberDAO();
 		int num = mscDao.returnNo(sessionID, date);
 		MemberBean mb = memberDao.returnMember(sessionID);
 		String team = mb.getTEAM();
 		if(num==0){
-			if (mscDao.insert_MSC(sessionID, AmPlace, PmPlace, date, team, sessionName, level) == 1){
+			if (mscDao.insert_MSC(sessionID, AmPlace, PmPlace, date, team, sessionName) == 1){
 				script.print("<script> alert('일정이 추가 됬습니다.'); location.href = 'manager_schedule.jsp'</script>");
 			} else script.print("<script> alert('일정을 모두 입력해주세요.'); history.back(); </script>");
 		}

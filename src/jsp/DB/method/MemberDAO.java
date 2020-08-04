@@ -39,6 +39,8 @@ public class MemberDAO {
 	    		member.setComDate(rs.getString("입사일"));
 	    		member.setWyear(rs.getString("연차"));
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
+	    		member.setLevel(rs.getInt("level"));
+	    		member.setPermission(rs.getString("permission"));
 	    	}
 	    }  catch (SQLException e) {
 			// TODO Auto-generated catch block
