@@ -11,6 +11,31 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
 
+/* 비밀번호 확인 스크립트 */
+$(function(){
+	$("#alert-success").hide();
+	$("#alert-danger").hide();
+	 $("#alert-empty").show();
+	$("input").keyup(function(){ 
+		var next_pwd=$("#next_pwd").val();
+		var next_pwd2=$("#next_pwd2").val();
+		if(next_pwd != "" || next_pwd2 != ""){
+			if(next_pwd == next_pwd2){
+				$("#alert-success").show();
+				$("#alert-danger").hide();
+				$("#alert-empty").hide();
+				$("#submit").removeAttr("disabled");
+				}
+			else{
+				$("#alert-success").hide();
+				$("#alert-danger").show();
+				$("#alert-empty").hide();
+				$("#submit").attr("disabled", "disabled");
+				}
+			}
+		});
+	});
+	
 function input_check_func() {
     var now_pwd = document.getElementById('now_pwd').value;
     var next_pwd = document.getElementById('next_pwd').value;
@@ -18,22 +43,21 @@ function input_check_func() {
     
     if(now_pwd == null || next_pwd == null || next_pwd2 == null ||
        now_pwd == ""   || next_pwd == ""   || next_pwd2 == "") {
-        alert("빈칸을 모두 채워주세요");
+    	alert("빈칸을 모두 채워주세요"); 
         return false;
     } 
     // 새로운 비밀번호와 새로운 비밀번호 확인 input에 적은 값이 다르다면 경고창을 띄우고 false를 반환해서 action을 막는다
     else if ( next_pwd != next_pwd2 ) {
-        alert("변경할 비밀번호가 서로 맞지 않습니다");
+    	alert("변경할 비밀번호가 서로 맞지 않습니다"); 
         return false;
     } else {
-        
-        // input들이 공백인지, 새 비밀번호와 새 비밀번호 확인 유무가 통과되면 action=좌표 로 이동한다
-        // 여기서 현재 비밀번호가 맞는지 안맞는지는 확인안한다 조금 어렵더라고
         return true;
     }
 }    
 
 </script>
+
+
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
@@ -275,11 +299,16 @@ function input_check_func() {
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">바꿀 비밀번호</td>
-				      <td colspan="3"><input name="next_pwd" id="next_pwd" type="password" style=width:100%;></td>
+				      <td colspan="3"><input class="nextpwd" name="next_pwd" id="next_pwd" type="password" style=width:100%;/></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">바꿀 비밀번호 확인</td>
-				      <td colspan="3"><input name="next_pwd2" id="next_pwd2" type="password" style=width:100%;></td>
+				      <td colspan="3">
+				      <input class="nextpwd" name="next_pwd2" id="next_pwd2" type="password" style=width:100%;>
+				      <span id="alert-success" style="display: none;font-weight: bold; color:blue;">비밀번호가 일치합니다</span>	
+				      <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다</span>		
+				      <span id="alert-empty" style="display:none;font-weight: bold;">빈칸을 모두 채워주세요</span>
+				      </td>
 			     </tr>
 			     <tr align="center">
 				       <td colspan="4"> 
