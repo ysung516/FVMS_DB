@@ -435,7 +435,7 @@
 						 <caption>월</caption>
 					     <tr>
 					    	<td class="m-0 text-primary" align="center">날짜 </td>
-					      	<td colspan="2" style="padding: 15px 0;"><input type="date" id="nowDate_mon" name="DATE_mon" value = <%=date1%> style=width:100%; maxlength="50"></td>
+					      	<td colspan="2" style="padding: 15px 0;"><input type="text" readonly id="nowDate_mon" name="DATE_mon" value = <%=date1%> style="width:100%; border:#fff; text-align:center;" maxlength="50"></td>
 					     </tr>
 					     <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
 					     <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>
@@ -488,7 +488,7 @@
 						 <caption>화</caption>
 					     <tr>
 					    	<td class="m-0 text-primary" align="center">날짜 </td>
-					      	<td colspan="2" style="padding: 15px 0;"><input type="date" id="nowDate_tue" name="DATE_tue" value = <%=date2%> style=width:100%; maxlength="50"></td>
+					      	<td colspan="2" style="padding: 15px 0;"><input type="text" readonly id="nowDate_tue" name="DATE_tue" value = <%=date2%> style="width:100%; border:#fff; text-align:center;" maxlength="50"></td>
 					     </tr>
 					     <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
 					     <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>
@@ -541,7 +541,7 @@
 						<caption>수</caption>
 					     <tr>
 					    	<td class="m-0 text-primary" align="center">날짜 </td>
-					      	<td colspan="2" style="padding: 15px 0;"><input type="date" id="nowDate_wed" name="DATE_wed" value = <%=date3%> style=width:100%; maxlength="50"></td>
+					      	<td colspan="2" style="padding: 15px 0;"><input type="text" readonly id="nowDate_wed" name="DATE_wed" value = <%=date3%> style="width:100%; border:#fff; text-align:center;" maxlength="50"></td>
 					     </tr>
 					     <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
 					     <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>
@@ -594,7 +594,7 @@
 						<caption>목</caption>
 					     <tr>
 					    	<td class="m-0 text-primary" align="center">날짜 </td>
-					      	<td colspan="2" style="padding: 15px 0;"><input type="date" id="nowDate_thu" name="DATE_thu" value = <%=date4%> style=width:100%; maxlength="50"></td>
+					      	<td colspan="2" style="padding: 15px 0;"><input type="text" readonly id="nowDate_thu" name="DATE_thu" value = <%=date4%> style="width:100%; border:#fff; text-align:center;" maxlength="50"></td>
 					     </tr>
 					     <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
 					     <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>
@@ -647,7 +647,7 @@
 						<caption>금</caption>
 					     <tr>
 					    	<td class="m-0 text-primary" align="center">날짜 </td>
-					      	<td colspan="2" style="padding: 15px 0;"><input type="date" id="nowDate_fri" name="DATE_fri" value = <%=date5%> style=width:100%; maxlength="50"></td>
+					      	<td colspan="2" style="padding: 15px 0;"><input type="text" readonly id="nowDate_fri" name="DATE_fri" value = <%=date5%> style="width:100%; border:#fff; text-align:center;" maxlength="50"></td>
 					     </tr>
 					     <tr height="1" bgcolor="#fff"><td colspan="3"></td></tr>
 					     <tr height="1" bgcolor="#82B5DF"><td colspan="3"></td></tr>

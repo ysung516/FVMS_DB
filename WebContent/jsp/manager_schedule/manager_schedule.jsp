@@ -737,7 +737,7 @@ document.addEventListener('DOMContentLoaded', function() {
       	
  		<form name="form_weekAdd" method="post" action="manager_schedule_week_add.jsp">
  			<input id="weekDate" type="hidden" name="weekDate" value="">
- 			<input id="Add" type="button" class="btn btn-primary" onClick="weekAdd()" value="일주일추가">
+ 			<input id="Add" type="button" class="btn btn-primary" onClick="weekAdd()" value="일주일추가" style="margin-left: 5px;">
  		</form>
 
 		<div id='calendar'></div>
