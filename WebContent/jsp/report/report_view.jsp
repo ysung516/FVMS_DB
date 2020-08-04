@@ -56,6 +56,7 @@
 	    $('.loading').hide();
 	});
 </script>
+
 <style>
 
 	.m-0 .text-primary{
