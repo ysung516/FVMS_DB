@@ -10,6 +10,7 @@ import jsp.Bean.model.ProjectBean;
 public class ProjectDAO {
 	public ProjectDAO() {}
 	
+	// 프로젝트명으로 해당 데이터 가져오기
 	public ProjectBean getProjectBean_name(String projectName) {
 		ProjectBean project = new ProjectBean();
 		Connection conn = null;
@@ -59,4 +60,8 @@ public class ProjectDAO {
 		}
 		return project;
 	}
+	
+	
+	
+	
 }

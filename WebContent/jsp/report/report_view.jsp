@@ -12,19 +12,22 @@
 <head>
 	<%
 		PrintWriter script =  response.getWriter();
-			if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
-			}
+		if (session.getAttribute("sessionID") == null){
+			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		}
 			
-			String sessionID = session.getAttribute("sessionID").toString();
-			String sessionName = session.getAttribute("sessionName").toString();
-			session.setMaxInactiveInterval(15*60);
-			int NO = Integer.parseInt(request.getParameter("no"));
-			ReportDAO reportDao = new ReportDAO();
-			ReportBean report = reportDao.getReportBean(NO);
-			
-			// 출력
-			String [] line;
+		String sessionID = session.getAttribute("sessionID").toString();
+		String sessionName = session.getAttribute("sessionName").toString();
+		session.setMaxInactiveInterval(15*60);
+		int NO = Integer.parseInt(request.getParameter("no"));
+		ReportDAO reportDao = new ReportDAO();
+		ProjectDAO projectDao = new ProjectDAO();
+		
+		ReportBean report = reportDao.getReportBean(NO);
+		ProjectBean project = projectDao.getProjectBean_name(report.getTitle());
+	
+		// 출력
+		String [] line;
 	%>
 
   <meta charset="utf-8">
@@ -296,19 +299,19 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">PM</td>
-						<td></td>
+						<td><%=project.getPROJECT_MANAGER()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">상태</td>
-						<td></td>
+						<td><%=project.getSTATE()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">착수일</td>
-						<td></td>
+						<td><%=project.getPROJECT_START()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">착수 종료일</td>
-						<td></td>
+						<td><%=project.getPROJECT_END()%></td>
 					</tr>
 					<tr>
 						<td colspan="2"><h6 class="m-0 text-primary">금주계획</h6><div class="report_div"></td>

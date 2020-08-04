@@ -367,10 +367,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		<thead>
 		 <tr>
 		   <th>프로젝트</th>
-		   <th>고객사</th>	
-	
+		   <th>고객사</th>
 		   <th>P/M</th>
-		   
 		   <th>작성날짜</th>
 		 </tr>
 		  </thead> 
