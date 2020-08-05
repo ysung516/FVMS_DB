@@ -47,9 +47,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+	.add_input{
+		width:100%;
+	}
 	input{
     border: 1px solid #d1d3e2;
-    border-radius: 4px;	
+    border-radius: 4px;
 	}
 	textarea{
     border: 1px solid #d1d3e2;
@@ -174,11 +177,13 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			  <span>회의록</span></a>
 			</li>
       	<!-- Nav Item - manager page -->
+     	<%if(sessionID.equals("ymyou")){ %>
 			<li class="nav-item active">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>관리자 페이지</span></a>
 			</li>
+			<% }%>
 
 
       <!-- Divider -->
@@ -249,35 +254,36 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			  <table class="table table-bordered" id="dataTable">
 				 <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input class="add_input" name="" value=""></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">ID</td>
-				       <td colspan="3" style="white-space: nowrap;"><input name="" value="" style=width:80%;> 
-				      <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
+				       <td colspan="3" style="white-space: nowrap;">
+				       <input name="" value="" style="width:80%;">
+				       <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">PW</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input class="add_input" name="" value=""></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input class="add_input" name="" value=""></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">팀</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input class="add_input" name="" value=""></td>
 			     </tr>
 			     
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input class="add_input" name="" value=""></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">직책</td>
-				      <td colspan="3"><input name="" value=""style=width:100%;></td>
+				      <td colspan="3"><input class="add_input" name="" value=""></td>
 			     </tr>
 			     
 			     <tr align="center">

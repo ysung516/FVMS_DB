@@ -170,11 +170,11 @@
 			</li>
 			
      	<!-- Nav Item - manager page -->
-			<%if(sessionID.equals("ymyou")){ %>
+     	<%if(sessionID.equals("ymyou")){ %>
 			<li class="nav-item">
-			  <a class="nav-link" href="https://docs.google.com/spreadsheets/d/19MC9jOiCncDi06I5ZgoIEMQbt7cMSor-gU2Zehyo__c/edit#gid=607226601">
+			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
-			  <span>관리자페이지</span></a>
+			  <span>관리자 페이지</span></a>
 			</li>
 			<% }%>
 			

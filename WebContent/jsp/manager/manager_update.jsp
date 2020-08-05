@@ -47,6 +47,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+	.update_input{
+		width:100%;
+	}
 	input{
     border: 1px solid #d1d3e2;
     border-radius: 4px;	
@@ -173,12 +176,14 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>회의록</span></a>
 			</li>
-      	<!-- Nav Item - manager page -->
+      <!-- Nav Item - manager page -->
+     	<%if(sessionID.equals("ymyou")){ %>
 			<li class="nav-item active">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>관리자 페이지</span></a>
 			</li>
+			<% }%>
 
 
       <!-- Divider -->
@@ -249,7 +254,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			  <table class="table table-bordered" id="dataTable">
 				 <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input class="update_input" name="" value=""></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">ID</td>
@@ -258,45 +263,45 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">팀</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			     
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">직책</td>
-				      <td colspan="3"><input name="" value=""style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			    <tr>
 				      <td class="m-0 text-primary" align="center">moblie</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">gmail</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3"><input name="" value="" class="update_input"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">입사일</td>
-				      <td colspan="3"><input name="" value=""style=width:100%;></td>
+				      <td colspan="3"><input name="" value=""class="update_input"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">연차</td>
-				      <td colspan="3"><input name="" value=""style=width:100%;></td>
+				      <td colspan="3"><input name="" value=""class="update_input"></td>
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="career" rows="5"style=width:100%;></textarea></td>
+			      <td colspan="3"><textarea name="career" rows="5"class="update_input"></textarea></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 

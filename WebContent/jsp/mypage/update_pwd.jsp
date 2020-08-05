@@ -224,6 +224,15 @@ function input_check_func() {
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>회의록</span></a>
 			</li>
+			
+			<!-- Nav Item - manager page -->
+     	<%if(sessionID.equals("ymyou")){ %>
+			<li class="nav-item">
+			  <a class="nav-link" href="../manager/manager.jsp">
+			  <i class="fas fa-fw fa-clipboard-list"></i> 
+			  <span>관리자 페이지</span></a>
+			</li>
+			<% }%>
       
 
 
