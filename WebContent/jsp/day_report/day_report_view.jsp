@@ -9,6 +9,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
 	<%
 		PrintWriter script =  response.getWriter();
@@ -51,33 +53,76 @@
 			padding: 0;
 		}
 }
+	span:hover{
+		background-color:yellow;
+	}
 </style>
-<script language="javascript">
-function getSelectValue()
-{
-	var a = $("#selectBox").text();
-	console.log(a)
-	
-	var b = "\n";
-	$("#textValue").append(a+b)
+<html>
+<head>
+
+<script>
+var arrInput = new Array(0);
+  var arrInputValue = new Array(0);
+ 
+
+  
+function addInput() {
+  arrInput.push(arrInput.length);
+  arrInputValue.push("");
+  display();
+}
+ 
+function display() {
+  document.getElementById('parah').innerHTML="";
+  for (intI=0; intI<arrInput.length;intI++) {
+    document.getElementById('parah').innerHTML += createInput(arrInput[intI], arrInputValue[intI]);
+  }
+}
+ 
+function saveValue(intId,strValue) {
+  arrInputValue[intId]=strValue;
+}  
+ 
+function createInput(id,value) {
+  return "< type='text' id='test "+ id +"' onChange='javascript:saveValue("+ id +",this.value)' value='"+ 
+ 
+value +"'><br>";
+}
+ 
+function deleteInput() {
+  if (arrInput.length > 0) { 
+     arrInput.pop(); 
+     arrInputValue.pop();
+  }
+  display(); 
 }
 
+//span
+function deleteSpan() {
+  if (arrInput.length > 0) { 
+     arrInput.pop(); 
+     arrInputValue.pop();
+  }
+  display(); 
+}
 </script>
-<html>
-<body id="page-top">
-
+</head>
 <body>
+<div id="parah"></div>
+<span onclick="">가나다</span>
+<form method="post" action="test.jsp">
+<input type="button" value="추가" onclick="addInput();" />
+<input type="button" value="삭제" onclick="deleteInput();"/>
+<input type="submit" value="전송"/>
+
+</form>
+</body>
+</html> 
 
 
-<select id="selectBox" name="selectBox" onChange="getSelectValue();">
- <option value="" selected disabled hidden>선택</option>
- <option value="option1">121</option>
- <option value="option2">2dd</option>
- <option value="option3">3</option>
- <option value="option4">4</option>
-</select><br><br>
 
-<textarea id="textValue" name="textValue"></textarea>
+
+
 
 
 

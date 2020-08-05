@@ -444,8 +444,8 @@ function getSelectValue()
                       			}
                       		%>
                       	</select>
-                      	<textarea id="textValue" name="WORKER_LIST"></textarea>
-                      	<textarea id="textValue2" name="WORKER_LIST2" style="visibility: hidden;"></textarea>
+                      	<textarea id="textValue" name="WORKER_LIST" style="display:block;"></textarea>
+                      	<textarea id="textValue2" name="WORKER_LIST2" style="display:none;"></textarea>
                       	</td>
 						</tr>
 						<tr>
