@@ -93,7 +93,14 @@ function sortSelect(selId) {
 			} 
 		}); 
 		sel.html(optionList); 
-	} 
+	}
+
+function getSelectValue()
+{
+	//var a = $("#WORKER_LIST").text();
+	var a = $("#WORKER_LIST option:selected").text();
+	$("#textValue").append(a)
+}
 	
 	$(document).ready(function(){
 		sortSelect('WORKER_LIST'); 
@@ -427,17 +434,17 @@ function sortSelect(selId) {
 						<tr>
 						<th>투입 명단</th> 
 						<td>
-                      	<select id="WORKER_LIST" name="WORKER_LIST">
+						<select id="WORKER_LIST" name="WORKER_LIST" onChange="getSelectValue();">
+                      		 <option value="" selected disabled hidden>선택</option>
                       		<%
                       			for(int i=0; i<memberList.size(); i++){
-                      				%><option value="<%=memberList.get(i).getID()%>">
-                      				<%=memberList.get(i).getTEAM()%>-<%=memberList.get(i).getName()%></option><%		
+                      				%><option value="<%=memberList.get(i).getID()%>"><%=memberList.get(i).getTEAM()%>-<%=memberList.get(i).getName()%></option><%		
                       			}
                       		%>
                       	</select>
+                      	<textarea id="textValue" name="WORKER_ID"></textarea>
                       	</td>
 						</tr>
-						
 						<tr>
 						<th>2020(상)평가유형</th> 
 						<td>

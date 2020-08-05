@@ -52,9 +52,37 @@
 		}
 }
 </style>
+<script language="javascript">
+function getSelectValue()
+{
+	var a = $("#selectBox").text();
+	console.log(a)
+	
+	var b = "\n";
+	$("#textValue").append(a+b)
+}
 
+</script>
+<html>
 <body id="page-top">
 
+<body>
+
+
+<select id="selectBox" name="selectBox" onChange="getSelectValue();">
+ <option value="" selected disabled hidden>선택</option>
+ <option value="option1">121</option>
+ <option value="option2">2dd</option>
+ <option value="option3">3</option>
+ <option value="option4">4</option>
+</select><br><br>
+
+<textarea id="textValue" name="textValue"></textarea>
+
+
+
+</body>
+</html>
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -189,61 +217,7 @@
 	         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">일간보고서 조회</h6>
 	        </div>
 	        <div class="card-body">
- 		<div class="table-responsive">
-   			<table style="/* white-space: nowrap; */width:100%;word-break: keep-all;margin-bottom: 10px;">
-		     <tr>
-		      <td class="m-0 text-primary" align="center">제목</td>
-		      <td style="padding: 15px;"><%=board.getTitle() %></td>
-		     </tr>
-		     <tr height="1" bgcolor="#82B5DF"><td colspan="2" ></td>
-		     </tr>
-		  
-		   <tr height="1" border-top-color="#82B5DF">
-		      <td class="m-0 text-primary" align="center">작성자</td>
-		      <td style="padding: 15px;"><%=board.getName()%></td>
-		     </tr>
-		     
-		    <tr height="1" border-top-color="#82B5DF">
-		      <td class="m-0 text-primary" align="center">작성일</td>
-		      <td style="padding: 15px;"><%=board.getDate()%></td>
-		     </tr>
-		     
-		     <tr height="1" bgcolor="#82B5DF"><td colspan="2"></td></tr>
-		     
-		     <tr>
-		      <td class="m-0 text-primary" align="center">금일계획</td>
-		      <td style="padding: 15px;"><%
-		      	line = board.getP_weekPlan();
-		      	for(String li : line){
-		      		%><p><%=li%></p><%
-		      	}
-		      %></td>
-		     </tr>
-		      <tr height="1" bgcolor="#82B5DF"><td colspan="2"></td></tr>
-		      <tr>
-		   
-		      <td class="m-0 text-primary" align="center">금일진행</td>
-		      <td style="padding: 15px;"><%
-		      	line = board.getP_weekPro();
-		      	for(String li : line){
-		      		%><p><%=li%></p><%
-		      	}
-		      %></td>
-		
-		     </tr>
-		      <tr height="1" bgcolor="#82B5DF"><td colspan="2"></td></tr>
-		      <tr>
-		      <td class="m-0 text-primary" align="center";>차일계획</td>
-		      <td style="padding: 15px;"><%
-		      	line = board.getP_nextPlan();
-		      	for(String li : line){
-		      		%><p><%=li%></p><%
-		      	} 
-		      %></td>
-		     
-		     </tr>  
-		     <tr height="1" bgcolor="#82B5DF"><td colspan="2"></td></tr>
-		    </table>
+ 		
 		    </div>
 		     <table style="margin: 0 auto;">
 		     <tr>
