@@ -293,8 +293,7 @@
         <div class="card-header py-3">
          <h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>    
         </div>
-       
-         <div class="card-body">
+
          <div class="table-responsive">
 			<table id ="managerTable">
 		<thead>
@@ -317,7 +316,7 @@
 			       </div>
 
              <!-- /.container-fluid -->
-      </div>
+     
        		<div id="manager_btn">
                 	 <a href="manager_add.jsp" class="btn btn-primary">추가</a>
             </div>
