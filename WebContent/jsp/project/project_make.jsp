@@ -26,7 +26,6 @@
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	System.out.println(memberList.get(2).getName());
 
 %>
   <meta charset="utf-8">
@@ -310,7 +309,7 @@ function sortSelect(selId) {
                       
                       <tr>
                       <th>실</th>
-                      <td name="PART">VT</td>
+                      <td><input name="PART" value="VT" ></td>
                       </tr>
                       
                       <tr>
@@ -322,64 +321,64 @@ function sortSelect(selId) {
                       
                       <tr>
                       <th>고객부서</th>
-                      <td>
-                      	<input id="CLINET_PART" name="CLINET_PART"></input>
+                     <td>
+                      	<input id="CLIENT_PART" name="CLIENT_PART">
                       	</td>
                       </tr>
                       
                       <tr>
                       <th>M/M</th>
                       <td>
-                      	<input id="MAN_MONTH" name="MAN_MONTH"></input>
+                      	<input id="MAN_MONTH" name="MAN_MONTH" value="0"></input>
                       	</td>
 					  </tr>
 					  
 					  <tr>
 					  <th>프로젝트계약금액</th> 
 					  <td>
-                      	<input id="PROJECT_DESOPIT" name="PROJECT_DESOPIT"> (백만)</input>
+                      	<input id="PROJECT_DESOPIT" name="PROJECT_DESOPIT" value="0"> (백만)</input>
                       	</td>
 					  </tr>
 					  
 					  <tr>
 					  <th>상반기수주</th> 
 					  <td>
-                      	<input id="FH_ORDER " name="FH_ORDER "></input>
+                      	<input id="FH_ORDER" name="FH_ORDER" value="0">
                       </td> 
 					</tr>
 						
 						<tr>
 						<th>상반기예상매출</th>
 						<td>
-                      		<input id="FH_SALES_PROJECTIONS" name="FH_SALES_PROJECTIONS"></input>
+                      		<input id="FH_SALES_PROJECTIONS" name="FH_SALES_PROJECTIONS" value="0">
                       	</td> 
 						</tr>
 						
 						<tr>
 						<th>상반기매출 </th>
 						<td>
-                      		<input id="FH_SALES" name="FH_SALES"></input>
+                      		<input id="FH_SALES" name="FH_SALES" value="0">
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>하반기수주 </th>
 						<td>
-                      		<input id="SH_ORDER" name="SH_ORDER"></input>
+                      		<input id="SH_ORDER" name="SH_ORDER" value="0">
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>하반기예상매출 </th>
 						<td>
-                      		<input id="SH_SALES_PROJECTIONS" name="SH_SALES_PROJECTIONS"></input>
+                      		<input id="SH_SALES_PROJECTIONS" name="SH_SALES_PROJECTIONS" value="0">
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>하반기매출 </th>
 						<td>
-                      		<input id="SH_SALES" name="SH_SALES"></input>
+                      		<input id="SH_SALES" name="SH_SALES" value="0"></input>
                       	</td>
 						</tr>
 						
@@ -449,14 +448,14 @@ function sortSelect(selId) {
 						<tr>
 						<th>채용수요</th> 
 						<td>
-                      		<input id="EMPLOY_DEMAND" name="EMPLOY_DEMAND"></input>
+                      		<input id="EMPLOY_DEMAND" name="EMPLOY_DEMAND" value="0"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>외주수요</th>  
 						<td>
-                      		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND"></input>
+                      		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="0"></input>
                       	</td>
                         </tr>
                 </table>
