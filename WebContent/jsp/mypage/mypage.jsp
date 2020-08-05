@@ -300,6 +300,14 @@
 						<td><%=member.getWyear() %></td> 
 					</tr>
 					<tr>
+						<td>Mobile</td>
+						<td><%=member.getMOBILE() %></td> 
+					</tr>
+					<tr>
+						<td>Gmail</td>
+						<td><%=member.getGMAIL() %></td> 
+					</tr>
+					<tr>
 						<td>프로젝트 수행 이력</td>
 						<td><%=member.getCareer()%></td>
 					</tr>

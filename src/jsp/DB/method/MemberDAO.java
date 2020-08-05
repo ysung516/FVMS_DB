@@ -38,6 +38,8 @@ public class MemberDAO {
 	    		member.setADDRESS(rs.getString("거주지"));
 	    		member.setComDate(rs.getString("입사일"));
 	    		member.setWyear(rs.getString("연차"));
+	    		member.setMOBILE(rs.getString("mobile"));
+	    		member.setGMAIL(rs.getString("gmail"));	
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
@@ -128,21 +130,23 @@ public class MemberDAO {
 			 }
 
 		 //마이페이지 수정
-		 public int mypageUpdate(String id, String address, String comeDate, String wyear, String career) {
+		 public int mypageUpdate(String id, String address, String comeDate, String wyear, String mobile, String gmail, String career) {
 			 Connection conn = null;
 			 PreparedStatement pstmt = null;
 		      int rs = 0;
 		   
 		      try {
-		       String query = "UPDATE member SET 거주지 = ?, 입사일 = ?, 연차 = ?, 프로젝트수행이력 = ? WHERE id = ?";
+		       String query = "UPDATE member SET 거주지 = ?, 입사일 = ?, 연차 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ? WHERE id = ?";
 		       conn = DBconnection.getConnection();
 		       pstmt = conn.prepareStatement(query.toString());
 		       
 		       pstmt.setString(1, address);
 		       pstmt.setString(2, comeDate);
 		       pstmt.setString(3, wyear);
-		       pstmt.setString(4, career);
-		       pstmt.setString(5, id);
+		       pstmt.setString(4, mobile);
+		       pstmt.setString(5, gmail);
+		       pstmt.setString(6, career);
+		       pstmt.setString(7, id);
 		       rs = pstmt.executeUpdate();
 		       
 		      }  catch (SQLException e) {

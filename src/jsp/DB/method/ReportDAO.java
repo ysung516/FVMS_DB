@@ -12,7 +12,7 @@ public class ReportDAO {
 	public ReportDAO() {}
 	
 	// 보고서 작성
-	public int saveRepot(String title, String writeDate,
+	public int saveReport(String title, String writeDate,
 			 String weekPlan, String weekPro, String nextPlan, String user_id, 
 			 String name, String specialty, String note) {
 		
