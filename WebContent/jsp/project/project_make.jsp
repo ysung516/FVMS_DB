@@ -100,7 +100,7 @@ function getSelectValue()
 	//var a = $("#WORKER_LIST").text();
 	var a = $("#WORKER_LIST option:selected").text();
 	var b = $("#WORKER_LIST option:selected").val();
-	$("#textValue").append(a+" ")
+	$("#textValue").append(a+"\n")
 	$("#textValue2").append(b+" ")
 }
 	

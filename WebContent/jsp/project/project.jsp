@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
-    import = "jsp.Bean.model.MSC_Bean"
+    import = "jsp.Bean.model.*"
+    import = "jsp.DB.method.*"
     import = "java.util.ArrayList"
-    import = "java.util.Date"
-    import = "java.text.SimpleDateFormat" %>
+     %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +20,10 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-
+	
+	ProjectDAO projectDao = new ProjectDAO();
+	ArrayList<ProjectBean> projectList = new ArrayList<ProjectBean>();
+	projectList = projectDao.getProjectList();
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -252,33 +254,39 @@
                   </thead>  
                   
                   <tbody>
-                    <tr>
-                      <td>예시</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                       <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                       <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                       <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                    </tr> 
+                  <%
+                  	for(int i=0; i<projectList.size(); i++){
+                  		%>
+                  		 <tr>
+	                      <td><%=projectList.get(i).getTEAM()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_CODE()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td>
+	                      <td><%=projectList.get(i).getSTATE()%></td>
+	                      <td><%=projectList.get(i).getPART()%></td>
+	                      <td><%=projectList.get(i).getCLIENT()%></td>
+	                      <td><%=projectList.get(i).getClIENT_PART()%></td>
+	                      <td><%=projectList.get(i).getMAN_MONTH()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
+	                      <td><%=projectList.get(i).getFH_ORDER()%></td>
+	                      <td><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></td>
+	                      <td><%=projectList.get(i).getFH_SALES()%></td>
+	                      <td><%=projectList.get(i).getSH_ORDER()%></td>
+	                      <td><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
+	                      <td><%=projectList.get(i).getSH_SALES()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_START()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_END()%></td>
+	                      <td><%=projectList.get(i).getCLIENT_PTB()%></td>
+	                      <td><%=projectList.get(i).getWORK_PLACE()%></td>
+	                      <td><%=projectList.get(i).getWORK()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_MANAGER()%></td>
+	                      <td><%=projectList.get(i).getWORKER_LIST()%></td>
+	                      <td><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
+	                      <td><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
+	                      <td><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
+                    	</tr>
+                  		<%	
+                  	}
+                  %>
                     </tbody>                           
                 </table>
               </div>   
