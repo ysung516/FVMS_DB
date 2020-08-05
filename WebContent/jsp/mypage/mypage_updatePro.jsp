@@ -30,22 +30,15 @@
 	 String comeDate = request.getParameter("comeDate");
 	 String wyear = request.getParameter("wyear");
 	 String career = request.getParameter("career");
+	 String mobile = request.getParameter("mobile");
+	 String gmail = request.getParameter("gmail");
 	 
-	MemberDAO memberDao = new MemberDAO();
+	 MemberDAO memberDao = new MemberDAO();
 	  
-    if (memberDao.mypageUpdate(sessionID ,address, comeDate, wyear, career) == 1){
-        script.print("<script> alert('정보가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
-        script.print("<script> alert('정보가 변경되지 않았습니다.');  history.back(); </script>");
-        System.out.print(address);
-        System.out.print(comeDate);
-        System.out.print(wyear);
-        System.out.print(career);
+    if (memberDao.mypageUpdate(sessionID ,address, comeDate, wyear, mobile, gmail, career) == 1){
+    	script.print("<script> alert('정보가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
       } else {
-       script.print("<script> alert('정보가 변경되지 않았습니다.');  history.back(); </script>");
-       System.out.print(address);
-       System.out.print(comeDate);
-       System.out.print(wyear);
-       System.out.print(career);
+    	  script.print("<script> alert('정보가 변경되지 않았습니다.');  history.back(); </script>");
        }
 
 %>

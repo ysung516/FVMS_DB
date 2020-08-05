@@ -281,12 +281,21 @@
 						<td><%=member.getName()%></td>
 					</tr>
 					 <tr> 
-				       <td>비밀번호</td>
-				      <td>
-				      <!-- <input type="button" value="변경"> -->
-				      <a href="update_pwd.jsp"  class="btn btn-info btn-icon-split btn-sm" >변경</a>
-				      </td>
-			     </tr>
+				       	<td>비밀번호</td>
+					      <td>
+					      <!-- <input type="button" value="변경"> -->
+					      <a href="update_pwd.jsp"  class="btn btn-info btn-icon-split btn-sm" >변경</a>
+					      </td>
+			     	</tr>
+			     	<tr>
+						<td>직급</td>
+						<td><%=member.getRANK()%></td>
+					</tr>
+					<tr>
+						<td>직책</td>
+						<td><%=member.getPosition()%></td>
+					</tr>
+					
 					<tr>
 						<td>거주지</td>
 						<td><%=member.getADDRESS()%></td>

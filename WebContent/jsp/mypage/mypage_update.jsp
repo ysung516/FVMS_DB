@@ -26,13 +26,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-	String no = request.getParameter("no");
-	
-	// 출력
-			String [] line;
-			
-			MemberDAO memberDao = new MemberDAO();
-			MemberBean member = memberDao.returnMember(sessionID);
+
+	MemberDAO memberDao = new MemberDAO();
+	MemberBean member = memberDao.returnMember(sessionID);
+	String line [];
 	
 %>
 
@@ -268,23 +265,44 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td class="m-0 text-primary" align="center">이름</td>
 				      <td colspan="3"><%=member.getName()%></td>
 			     </tr>
+			     <tr>
+				      <td class="m-0 text-primary" align="center">직급</td>
+				      <td colspan="3"><%=member.getRANK()%></td>
+			     </tr>
+			     <tr>
+				      <td class="m-0 text-primary" align="center">직책</td>
+				      <td colspan="3"><%=member.getPosition()%></td>
+			     </tr>
+			     <tr>
+				      <td class="m-0 text-primary" align="center">mobile</td>
+				      <td colspan="3"><input name="mobile" value="<%=member.getMOBILE()%>" style=width:100%;></td>
+			     </tr>
+			     <tr>
+				      <td class="m-0 text-primary" align="center">gmail</td>
+				      <td colspan="3"><input name="gmail" value="<%=member.getGMAIL()%>" style=width:100%;></td>
+			     </tr>
+			     
 			       <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>
-				      <td colspan="3"><input name="address" id=address value="<%=member.getADDRESS()%>" style=width:100%;></td>
+				      <td colspan="3"><input name="address" value="<%=member.getADDRESS()%>" style=width:100%;></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">입사일</td>
-				      <td colspan="3"><input name="comeDate" id="comeDate" value="<%=member.getComDate()%>"style=width:100%;></td>
+				      <td colspan="3"><input name="comeDate" value="<%=member.getComDate()%>"style=width:100%;></td>
 			     </tr>
 			     
 			      <tr>
 				      <td class="m-0 text-primary" align="center">연차</td>
-				      <td colspan="3"><input name="wyear" id="wyear" value="<%=member.getWyear()%>" style=width:100%;></td>
+				      <td colspan="3"><input name="wyear" value="<%=member.getWyear()%>" style=width:100%;></td>
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="career" id="career" placeholder="<%=member.getCareer()%>" rows="5"style=width:100%;></textarea></td>
+			      <td colspan="3"><textarea name="career" rows="5"style=width:100%;><%
+			      		line = member.getP_career();
+			      		for(String li : line){
+			      			%><%=li%><%
+			      		}%></textarea></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 

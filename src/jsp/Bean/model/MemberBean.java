@@ -23,7 +23,13 @@ public class MemberBean
 	 private String career;	// 커리어
 	 private int level;	// 관리자 일정 정렬 순서
 	 private String permission; // 권한
+	 private String [] P_career;
 	 
+	 
+	 public String [] getP_career() {
+		 this.P_career = career.split("\n");
+		 return P_career;
+	 }
 	 public int getLevel() {
 		return level;
 	}
