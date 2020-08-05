@@ -99,7 +99,9 @@ function getSelectValue()
 {
 	//var a = $("#WORKER_LIST").text();
 	var a = $("#WORKER_LIST option:selected").text();
-	$("#textValue").append(a)
+	var b = $("#WORKER_LIST option:selected").val();
+	$("#textValue").append(a+" ")
+	$("#textValue2").append(b+" ")
 }
 	
 	$(document).ready(function(){
@@ -442,7 +444,8 @@ function getSelectValue()
                       			}
                       		%>
                       	</select>
-                      	<textarea id="textValue" name="WORKER_ID"></textarea>
+                      	<textarea id="textValue" name="WORKER_LIST"></textarea>
+                      	<textarea id="textValue2" name="WORKER_LIST2" style="visibility: hidden;"></textarea>
                       	</td>
 						</tr>
 						<tr>
