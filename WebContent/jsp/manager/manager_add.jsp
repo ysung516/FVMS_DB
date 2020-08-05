@@ -251,21 +251,11 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름</td>
 				      <td colspan="3"><input name="" value="" style=width:100%;></td>
 			     </tr>
-			     <tr>
-				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">level</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			    <tr>
-				      <td class="m-0 text-primary" align="center">moblie</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			     <tr>
-				      <td class="m-0 text-primary" align="center">gmail</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
+			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">ID</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				       <td colspan="3" style="white-space: nowrap;"><input name="" value="" style=width:80%;> 
+				      <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">PW</td>
@@ -290,22 +280,6 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td colspan="3"><input name="" value=""style=width:100%;></td>
 			     </tr>
 			     
-			      <tr>
-				      <td class="m-0 text-primary" align="center">거주지</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			      <tr>
-				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">입사일</td>
-				      <td colspan="3"><input name="" value=""style=width:100%;></td>
-			     </tr>
-			      <tr>
-				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">연차</td>
-				      <td colspan="3"><input name="" value=""style=width:100%;></td>
-			     </tr>
-			      <tr>
-			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="career" rows="5"style=width:100%;></textarea></td>
-			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 
 			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" >

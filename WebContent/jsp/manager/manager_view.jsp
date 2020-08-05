@@ -256,26 +256,10 @@
 					<tr>
 						<td>이름</td>
 						<td>김땡땡</td>
-					</tr>
-					<tr>
-						<td>level</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td>mobile</td>
-						<td>010-1234-5678</td>
-					</tr>
-					<tr>
-						<td>gmail</td>
-						<td>abcd@gmail.com</td>
-					</tr>
+					</tr>	
 					<tr>
 						<td>ID</td>
 						<td>ddkim</td>
-					</tr>
-					<tr>
-						<td>PW</td>
-						<td>12345</td>
 					</tr>
 					<tr>
 						<td>소속</td>
@@ -294,6 +278,15 @@
 						<td>팀장</td>
 					</tr>
 					<tr>
+					<tr>
+						<td>mobile</td>
+						<td>010-1234-5678</td>
+					</tr>
+					<tr>
+						<td>gmail</td>
+						<td>abcd@gmail.com</td>
+					</tr>
+					
 						<td>거주지</td>
 						<td>수원</td>
 					</tr>

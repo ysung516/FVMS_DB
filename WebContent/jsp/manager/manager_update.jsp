@@ -245,31 +245,16 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form method="post" action="mypage_updatePro.jsp">       
+          <form method="post" action="manager_updatePro.jsp">       
 			  <table class="table table-bordered" id="dataTable">
 				 <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름</td>
 				      <td colspan="3"><input name="" value="" style=width:100%;></td>
 			     </tr>
 			     <tr>
-				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">level</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			    <tr>
-				      <td class="m-0 text-primary" align="center">moblie</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			     <tr>
-				      <td class="m-0 text-primary" align="center">gmail</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			     <tr>
 				      <td class="m-0 text-primary" align="center">ID</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
-			     </tr>
-			     <tr>
-				      <td class="m-0 text-primary" align="center">PW</td>
-				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+				      <td colspan="3" style="white-space: nowrap;"><input name="" value="" style=width:80%;> 
+				      <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
@@ -289,7 +274,14 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td class="m-0 text-primary" align="center">직책</td>
 				      <td colspan="3"><input name="" value=""style=width:100%;></td>
 			     </tr>
-			     
+			    <tr>
+				      <td class="m-0 text-primary" align="center">moblie</td>
+				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+			     </tr>
+			     <tr>
+				      <td class="m-0 text-primary" align="center">gmail</td>
+				      <td colspan="3"><input name="" value="" style=width:100%;></td>
+			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>
 				      <td colspan="3"><input name="" value="" style=width:100%;></td>
