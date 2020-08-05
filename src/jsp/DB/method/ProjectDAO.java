@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import jsp.Bean.model.ProjectBean;
 
@@ -61,7 +62,29 @@ public class ProjectDAO {
 		return project;
 	}
 	
+	// 팀 데이터 가져오기
+	public ArrayList<String> getTeamData(){
+		ArrayList<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from team");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		list.add(rs.getString("teamName"));
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	
-	
-}
+}	// end 

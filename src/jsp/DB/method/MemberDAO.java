@@ -6,12 +6,54 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import jsp.Bean.model.MemberBean;
 
 public class MemberDAO {
 	
 	public MemberDAO() {}
+	
+	// 모든 회원정보 가져오기
+	public ArrayList<MemberBean> getMemberData() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select * from member");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		MemberBean member = new MemberBean();
+	    		member.setID(rs.getString("id"));
+	    		member.setPASSWORD(rs.getString("pw"));
+	    		member.setPART(rs.getString("소속"));
+	    		member.setTEAM(rs.getString("팀"));
+	    		member.setNAME(rs.getString("이름"));
+	    		member.setRANK(rs.getString("직급"));
+	    		member.setPosition(rs.getString("직책"));
+	    		member.setADDRESS(rs.getString("거주지"));
+	    		member.setComDate(rs.getString("입사일"));
+	    		member.setWyear(rs.getString("연차"));
+	    		member.setMOBILE(rs.getString("mobile"));
+	    		member.setGMAIL(rs.getString("gmail"));	
+	    		member.setCareer(rs.getString("프로젝트수행이력"));
+	    		member.setLevel(rs.getInt("level"));
+	    		member.setPermission(rs.getString("permission"));
+	    		list.add(member);
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    return list;
+	}
+	
 	
 	// ID로 회원정보 가져오기
 	public MemberBean returnMember (String id) {
