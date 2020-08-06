@@ -214,7 +214,7 @@ public class MemberDAO {
 		     int rs = 0;
 		   
 		      try {
-		       String query = "update member set 거주지 = ?, 입사일 = ?, 연차 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?,where id = ?";
+		       String query = "update member set 거주지 = ?, 입사일 = ?, 연차 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ? where id = ?";
 		       conn = DBconnection.getConnection();
 		       pstmt = conn.prepareStatement(query.toString());
 		       
