@@ -24,6 +24,7 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	ArrayList<ProjectBean> projectList = new ArrayList<ProjectBean>();
 	projectList = projectDao.getProjectList();
+	
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -81,6 +82,27 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
+    $(document).ready(function(){
+        //최상단 체크박스 클릭
+        $("#checkall").click(function(){
+        	 $( ".td" ).toggle( 'slow' );
+            //클릭되었으면
+            if($("#checkall").prop("checked")){
+                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                $("input[name=cb]").prop("checked",true);
+                
+                //클릭이 안되있으면
+            }else{
+                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                $("input[name=cb]").prop("checked",false);
+                
+            }
+        })
+    })
+
+
+    출처: https://hellogk.tistory.com/5 [IT Code Storage]
+    
       $(document).ready( function() {
        /*  $( '#check_team' ).click( function() {
           $( 'td:first-child' ).toggle( 'slow' );
@@ -337,34 +359,36 @@
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-              <div>
+              <div style="position:sticky;">
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
       			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
-      			 <label><input type="checkbox" id="cb4"> 상태</label>
-      			 <label><input type="checkbox" id="cb5"> 실</label>
-      			 <label><input type="checkbox" id="cb6"> 고객사</label>
-      			 <label><input type="checkbox" id="cb7"> 고객부서</label>
-      			 <label><input type="checkbox" id="cb8"> M/M</label>
-      			 <label><input type="checkbox" id="cb9"> 프로젝트계약금액</label>
-      			 <label><input type="checkbox" id="cb10"> 상반기 수주</label>
-      			 <label><input type="checkbox" id="cb11"> 상반기예상매출</label>
-      			 <label><input type="checkbox" id="cb12"> 상반기매출</label>
-      			 <label><input type="checkbox" id="cb13"> 하반기수주</label>
-      			 <label><input type="checkbox" id="cb14"> 하반기예상매출</label>
-      			 <label><input type="checkbox" id="cb15"> 하반기매출</label>
-      			 <label><input type="checkbox" id="cb16"> 착수</label>
-      			 <label><input type="checkbox" id="cb17"> 종료</label>
-      			 <label><input type="checkbox" id="cb18"> 고객담당자</label>
-      			 <label><input type="checkbox" id="cb19"> 근무지</label>
-      			 <label><input type="checkbox" id="cb20"> 업무</label>
-      			 <label><input type="checkbox" id="cb21"> PM</label>
-      			 <label><input type="checkbox" id="cb22"> 투입명단</label>
-      			 <label><input type="checkbox" id="cb23"> 2020(상)평가유형</label>
-      			 <label><input type="checkbox" id="cb24"> 채용수요</label>
-      			 <label><input type="checkbox" id="cb25"> 외주수요</label>
+      			 <label></label><input type="checkbox" id="checkall">모두보기</label>
+      			 <label><input type="checkbox" id="cb4" name="cb"> 상태</label>
+      			 <label><input type="checkbox" id="cb5" name="cb"> 실</label>
+      			 <label><input type="checkbox" id="cb6" name="cb"> 고객사</label>
+      			 <label><input type="checkbox" id="cb7" name="cb"> 고객부서</label>
+      			 <label><input type="checkbox" id="cb8" name="cb"> M/M</label>
+      			 <label><input type="checkbox" id="cb9" name="cb"> 프로젝트계약금액</label>
+      			 <label><input type="checkbox" id="cb10" name="cb"> 상반기 수주</label>
+      			 <label><input type="checkbox" id="cb11" name="cb"> 상반기예상매출</label>
+      			 <label><input type="checkbox" id="cb12" name="cb"> 상반기매출</label>
+      			 <label><input type="checkbox" id="cb13" name="cb"> 하반기수주</label>
+      			 <label><input type="checkbox" id="cb14" name="cb"> 하반기예상매출</label>
+      			 <label><input type="checkbox" id="cb15" name="cb"> 하반기매출</label>
+      			 <label><input type="checkbox" id="cb16" name="cb"> 착수</label>
+      			 <label><input type="checkbox" id="cb17" name="cb"> 종료</label>
+      			 <label><input type="checkbox" id="cb18" name="cb"> 고객담당자</label>
+      			 <label><input type="checkbox" id="cb19" name="cb"> 근무지</label>
+      			 <label><input type="checkbox" id="cb20" name="cb"> 업무</label>
+      			 <label><input type="checkbox" id="cb21" name="cb"> PM</label>
+      			 <label><input type="checkbox" id="cb22" name="cb"> 투입명단</label>
+      			 <label><input type="checkbox" id="cb23" name="cb"> 2020(상)평가유형</label>
+      			 <label><input type="checkbox" id="cb24" name="cb"> 채용수요</label>
+      			 <label><input type="checkbox" id="cb25" name="cb"> 외주수요</label>
               </div>
+              <div class="table-responsive" style="overflow:overlay;">
+            
                 <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
                   
                     <tr class="m-0 text-primary">
