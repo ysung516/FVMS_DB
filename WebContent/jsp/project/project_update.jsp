@@ -1,8 +1,9 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
-    import = "jsp.sheet.method.*"
-    import = "jsp.Bean.model.MSC_Bean"
+    import = "jsp.Bean.model.*"
+    import = "jsp.DB.method.*"
     import = "java.util.ArrayList"
     import = "java.util.Date"
     import = "java.text.SimpleDateFormat" %>
@@ -21,7 +22,13 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-
+	
+	ProjectDAO projectDao = new ProjectDAO();
+	MemberDAO memberDao = new MemberDAO();
+	ArrayList<String> teamList = projectDao.getTeamData();
+	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	String code = request.getParameter("code");
+	ProjectBean project = projectDao.getProjectBean_code(code);
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +36,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Sure FVMS - Project_Update</title>
+
+  <title>Sure FVMS - Project_Make</title>
 
   <!-- Custom fonts for this template-->
   <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,6 +45,7 @@
 
   <!-- Custom styles for this template-->
   <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
 <style>
 	.loading{
@@ -60,14 +69,74 @@
 		transform:translate(-50%, -50%);
 	}
 </style>
-
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-<!-- 로딩화면 -->
+	<!-- 로딩화면 -->
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 	});
+
+</script>
+
+<script>
+
+//정렬함수
+function sortSelect(selId) {
+	var sel = $('#'+selId);
+	var optionList = sel.find('option');
+	optionList.sort(function(a, b){
+		if (a.text > b.text) return 1;
+		else if (a.text < b.text) return -1;
+		else { 
+			if (a.value > b.value) return 1; 
+			else if (a.value < b.value) return -1; 
+			else return 0; 
+			} 
+		}); 
+		sel.html(optionList); 
+	}
+
+//명단선택
+function getSelectValue(){
+	//팀, 이름 저장
+	var a = $("#WORKER_LIST option:selected").text();
+	var b = $("#WORKER_LIST option:selected").val();
+	$("#textValue").append(a+"\n");
+	var worker = a.split('-');
+	var team = worker[0];
+	var name = worker[1];
+	var inner = "";
+	inner += "<tr>";
+	inner += "<td style='display:none;'>"+b+"</td>";
+	inner += "<td>"+team+"</td>";
+	inner += "<td>"+name+"</td>";
+	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
+	inner += "</tr>";
+	$('#workerList > tbody:last').append(inner);
+	//id 저장
+	$("#textValue2").append(b+" ");
+}
+
+//명단삭제
+$(function(){
+	$(document).on("click",".workDel",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		var text = $("#textValue2").text();
+		var te = text.replace(delID+" ", "");
+		$("#textValue2").text(te);
+		tr.remove();
+	});
+});
+
+$(document).ready(function(){
+	sortSelect('WORKER_LIST'); 
+});
 </script>
 
 <body id="page-top">
@@ -78,7 +147,7 @@
 				<i class="fas fa-spinner fa-10x fa-spin"></i>
 				  </div>
 				  </div>
-			<!--  로딩화면  끝  -->
+	  <!--  로딩화면  끝  -->
 			
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -96,13 +165,16 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
-<!-- Heading -->
+
+    
+
+      <!-- Heading -->
     
 
     
 	<!-- Divider -->
 			<hr class="sidebar-divider my-0">
-
+			
 			<!-- Nav Item - summary -->
 		    <li class="nav-item">
 	          <a class="nav-link" href="../mypage/mypage.jsp">
@@ -137,6 +209,7 @@
 	        <i class="fas fa-fw fa-calendar"></i>
 	        <span>스케줄</span></a>
 	      </li>
+	      
 	       <!-- Nav Item - manager schedule -->
 	      <li class="nav-item">
 	        <a class="nav-link" href="../manager_schedule/manager_schedule.jsp">
@@ -151,14 +224,14 @@
 			  <span>주간보고서</span></a>
 			</li>
       
-      	<!-- Nav Item - meeting -->
+      <!-- Nav Item - meeting -->
 			<li class="nav-item">
 			  <a class="nav-link" href="../meeting/meeting.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>회의록</span></a>
 			</li>
 			
-     	<!-- Nav Item - manager page -->
+			<!-- Nav Item - manager page -->
      	<%if(sessionID.equals("ymyou")){ %>
 			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
@@ -166,6 +239,7 @@
 			  <span>관리자 페이지</span></a>
 			</li>
 			<% }%>
+     
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -199,7 +273,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">홍길동</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sessionName%></span>
               </a>
                <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -218,65 +292,44 @@
  		<!-- Begin Page Content -->
         <div class="container-fluid">
 
-<!--프로젝트 생성 테이블 시작 *********************************************************** -->
+<!--프로젝트 수정 테이블 시작 *********************************************************** -->
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 수정</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="width: 75%; margin: 0 auto;">
             <div class="table-responsive">
+            <form method="post" action="project_makePro.jsp">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
                     <tr>
                       <th>팀</th>
-                      <th>프로젝트 코드</th>
-                      <th>프로젝트 명</th>
-                      <th>상태</th>
-                      <th>실</th>
-                      <th>고객사</th>
-                      <th>고객부서</th>
-                      <th>M/M</th>
-						<th>프로젝트계약금액</th> 
-						<th>상반기수주</th>  
-						<th>상반기예상매출</th> 
-						<th>상반기매출 </th>
-						<th>하반기수주 </th>
-						<th>하반기예상매출 </th>
-						<th>하반기매출 </th>
-						<th>착수</th> 
-						<th>종료</th> 
-						<th>고객담당자</th> 
-						<th>근무지</th> 
-						<th>업무</th> 
-						<th>PM</th> 
-						<th>투입 명단</th> 
-						<th>2020(상)평가유형</th> 
-						<th>채용수요</th> 
-						<th>외주수요</th>  
-                    </tr>
-                  </thead>    
-                  <tbody>
-                  	<tr>
-                  		<th>
+                      <td>
                       	<select id="team" name="team">
-                      		<option value="바디힐스">팀</option>
-                      		<option value="기능안전">기능안전</option>
-                      		<option value="자율주행">자율주행</option>
-                      		<option value="제어로직">제어로직</option>
-                      		<option value="샤시힐스">샤시힐스</option>
+                      	<%
+                      		for(int i=0; i<teamList.size(); i++){
+                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+                      		}
+                      	%>
                       	</select>
-                      	</th>
-
-                      	<th>
-                      	<input name="PROJECT_CODE"  id="PROJECT_CODE" ></input>	
-                      	</th>
-                      	
-                      	<th>
-                      		<input id="PROJECT_NAME" name="PROJECT_NAME"></input>
-                      	</th>
-                      	
-                      	<th>
+                      	</td>
+                      </tr>
+                      <tr>
+                      	<th>프로젝트 코드</th>
+                      	<td>
+                      		<input name="PROJECT_CODE"  id="PROJECT_CODE" value="<%=project.getPROJECT_CODE()%>"></input>	
+                      	</td>
+                      </tr>
+                      <tr>
+                      <th>프로젝트 명</th>
+                      <td>
+                      	<input id="PROJECT_NAME" name="PROJECT_NAME" value="<%=project.getPROJECT_NAME()%>"></input>
+                      	</td>
+                      </tr>
+                      
+                      <tr>
+                      <th>상태</th>
+                      <td>
                       	<select id="STATE" name="STATE">
                       		<option value="상태">상태</option>
                       		<option value="예산확보">1.예산확보</option>
@@ -288,111 +341,185 @@
                       		<option value="종료">7.종료</option>
                       		<option value="Dropped">8.Dropped</option>
                       	</select>
-                      	</th>
-                      	
-                      	<th>
-                      		<input id="PART" name="PART"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="CLIENT" name="CLIENT"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="CLINET_PART" name="CLINET_PART"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="MAN_MONTH" name="MAN_MONTH"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<span style="float:left;width:70%;"><input id="PROJECT_DESOPIT" name="PROJECT_DESOPIT"></span>
-                      	<span style="float:rigth;width:30%;"><label>(백만)</label></span>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="FH_ORDER " name="FH_ORDER "></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="FH_SALES_PROJECTIONS" name="FH_SALES_PROJECTIONS"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="FH_SALES" name="FH_SALES"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="SH_ORDER" name="SH_ORDER"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="SH_SALES_PROJECTIONS" name="SH_SALES_PROJECTIONS"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="SH_SALES" name="SH_SALES"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="PROJECT_START" name="PROJECT_START"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="PROJECT_END" name="PROJECT_END"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="CLIENT_PTB" name="CLIENT_PTB"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="WORK_PLACE" name="WORK_PLACE"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="WORK" name="WORK"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="PROJECT_MANAGER" name="PROJECT_MANAGER"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<select id="WORKER_LIST" name="WORKER_LIST">
-                      		<option value="투입명단">투입명단</option>
+                      	</td>
+                      </tr>
+                      
+                      <tr>
+                      <th>실</th>
+                      <td><input name="PART" value="VT" ></td>
+                      </tr>
+                      
+                      <tr>
+                      <th>고객사</th>
+                      <td>
+                      	<input id="CLIENT" name="CLIENT" value="<%=project.getCLIENT()%>"></input>
+                      	</td>
+                      </tr>
+                      
+                      <tr>
+                      <th>고객부서</th>
+                     <td>
+                      	<input id="CLIENT_PART" name="CLIENT_PART" <%=project.getClIENT_PART() %>>
+                      	</td>
+                      </tr>
+                      
+                      <tr>
+                      <th>M/M</th>
+                      <td>
+                      	<input id="MAN_MONTH" name="MAN_MONTH" value="<%=project.getMAN_MONTH()%>"></input>
+                      	</td>
+					  </tr>
+					  
+					  <tr>
+					  <th>프로젝트계약금액</th> 
+					  <td>
+                      	<input id="PROJECT_DESOPIT" name="PROJECT_DESOPIT" value="<%=project.getPROJECT_DESOPIT()%>"> (백만)</input>
+                      	</td>
+					  </tr>
+					  
+					  <tr>
+					  <th>상반기수주</th> 
+					  <td>
+                      	<input id="FH_ORDER" name="FH_ORDER" value="0">
+                      </td> 
+					</tr>
+						
+						<tr>
+						<th>상반기예상매출</th>
+						<td>
+                      		<input id="FH_SALES_PROJECTIONS" name="FH_SALES_PROJECTIONS" value="0">
+                      	</td> 
+						</tr>
+						
+						<tr>
+						<th>상반기매출 </th>
+						<td>
+                      		<input id="FH_SALES" name="FH_SALES" value="0">
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>하반기수주 </th>
+						<td>
+                      		<input id="SH_ORDER" name="SH_ORDER" value="0">
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>하반기예상매출 </th>
+						<td>
+                      		<input id="SH_SALES_PROJECTIONS" name="SH_SALES_PROJECTIONS" value="0">
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>하반기매출 </th>
+						<td>
+                      		<input id="SH_SALES" name="SH_SALES" value="0"></input>
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>착수</th> 
+						<td>
+                      		<input id="PROJECT_START" name="PROJECT_START" placeholder="ex)0000-00-00"></input>
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>종료</th> 
+						<td>
+                      		<input id="PROJECT_END" name="PROJECT_END" placeholder="ex)0000-00-00"></input>
+                      	</td> 
+						</tr>
+						
+						<tr>
+						<th>고객담당자</th>
+						<td>
+                      		<input id="CLIENT_PTB" name="CLIENT_PTB"></input>
+                      	</td> 
+						</tr>
+						
+						<tr>
+						<th>근무지</th> 
+						<td>
+                      		<input id="WORK_PLACE" name="WORK_PLACE"></input>
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>업무</th>
+						<td>
+                      		<input id="WORK" name="WORK"></input>
+                      	</td> 
+						</tr>
+						
+						<tr>
+						<th>PM</th> 
+						<td>
+                      		<input id="PROJECT_MANAGER" name="PROJECT_MANAGER"></input>
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>투입 명단</th> 
+						<td id ="WorkerList">
+						<select id="WORKER_LIST" name="WORKER_LIST" onChange="getSelectValue();">
+                      		 <option value="" selected disabled hidden>선택</option>
+                      		<%
+                      			for(int i=0; i<memberList.size(); i++){
+                      				%><option value="<%=memberList.get(i).getID()%>"><%=memberList.get(i).getTEAM()%>-<%=memberList.get(i).getNAME()%></option><%		
+                      			}
+                      		%>
                       	</select>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="ASSESSMENT_TYPE" name="ASSESSMENT_TYPE"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="EMPLOY_DEMAND" name="EMPLOY_DEMAND"></input>
-                      	</th>
-                      	
-                      	<th>
-                      	<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND"></input>
-                      	</th>
-                  	</tr>                 
-                  </tbody> 
-                </table>       
-              </div>     		
-            </div>
-              <div class="card-body" style="margin: 0 auto;">
+                      	<textarea id="textValue2" name="WORKER_LIST2" style="display:none;"></textarea>
+                      		<table id = "workerList" style="margin-top:5px;">
+                      			<thead>
+                      				<th style="display:none;">id</th>
+                      				<th>팀</th>
+                      				<th>이름</th>
+                      				<th>  </th>
+                      			</thead>
+                      			<tbody id="workerListAdd">
+                      			</tbody>
+                      		</table>
+                      	</td>
+						</tr>
+						<tr>
+						<th>2020(상)평가유형</th> 
+						<td>
+                      		<input id="ASSESSMENT_TYPE" name="ASSESSMENT_TYPE"></input>
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>채용수요</th> 
+						<td>
+                      		<input id="EMPLOY_DEMAND" name="EMPLOY_DEMAND" value="0"></input>
+                      	</td>
+						</tr>
+						
+						<tr>
+						<th>외주수요</th>  
+						<td>
+                      		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="0"></input>
+                      	</td>
+                        </tr>
+                </table>
+                  <div class="card-body" style="margin: 0 auto;">
                 	<input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary">
        				 <a href="project.jsp" class="btn btn-primary">취소</a>
-              </div>
+              	</div>
+                </form>  
+              </div>     		
+            </div>
           </div>
         </div>
-        **셀 추가 셀 삭제 기능(+,-), 줄 선택 기능(옆에 체크박스, 번호 설정)**
         <!-- /.container-fluid -->
         
       </div>
       <!-- End of Main Content -->
-
+       
     </div>
     <!-- End of Content Wrapper -->
 
@@ -404,7 +531,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-<!-- Logout Modal-->
+  <!-- Logout Modal-->
  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
    <div class="modal-content">
@@ -425,7 +552,7 @@
    </div>
   </div>
  </div>
-
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="../../vendor/jquery/jquery.min.js"></script>

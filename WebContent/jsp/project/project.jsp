@@ -402,7 +402,11 @@
                   		 <tr>
 	                      <td><div><%=projectList.get(i).getTEAM()%></div></td>
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
-	                      <td><div><%=projectList.get(i).getPROJECT_NAME()%></div></td>
+	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
+	                      <%if(sessionID.equals("hlshin") || sessionID.equals("ysung516") || sessionID.equals("hykim") || sessionID.equals("swlee")){%>
+	                      <td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
+	                      <%}else{%>
+	                      <td><%=projectList.get(i).getPROJECT_NAME()%><%} %></td>
 	                      <td class="td"><div><%=projectList.get(i).getSTATE()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getPART()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getCLIENT()%></div></td>
