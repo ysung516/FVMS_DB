@@ -21,7 +21,8 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		String id = request.getParameter("id");
-		String part = request.getParameter("PART");
+		String part = request.getParameter("part");
+		System.out.print(part);
 		String team = request.getParameter("team");
 		String permission = request.getParameter("permission");
 		String rank = request.getParameter("rank");
@@ -33,6 +34,14 @@
 		String wyear = request.getParameter("wyear");
 		String career = request.getParameter("career");
 		
+		MemberDAO memberDao = new MemberDAO();
+		
+		if(memberDao.managerUpdate(id, address, comDate, wyear, mobile, gmail, career, part, team, permission, rank, position) == 1){
+			script.print("<script> alert('회원 정보 수정 되었습니다..'); location.href = 'manager.jsp'; </script>");
+		}
+		else{
+			script.print("<script> alert('회의 정보 수정에 실패했습니다.'); history.back(); </script>");
+		}
 		
 	%>
 </body>

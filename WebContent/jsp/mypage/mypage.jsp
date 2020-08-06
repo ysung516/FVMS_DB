@@ -287,7 +287,7 @@
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><%=member.getName()%></td>
+						<td><%=member.getNAME()%></td>
 					</tr>
 					 <tr> 
 				       	<td>비밀번호</td>

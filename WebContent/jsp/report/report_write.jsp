@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
     import = "java.util.ArrayList"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
@@ -28,8 +28,11 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	
-	sheetMethod method = new sheetMethod();
-	ArrayList<ProjectBean> pjList = method.getProjectList();
+	ProjectDAO projectDao = new ProjectDAO();
+	ReportDAO reportDao = new ReportDAO();
+	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
+	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
+
 %>
 
   <meta charset="utf-8">
@@ -270,17 +273,16 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     <tr>
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
 		      <td><select name="TITLE">
-		      	<%for(int i=0; i<pjList.size(); i++){
-		      		%><option value="<%=pjList.get(i).getPROJECT_NAME()%>"><%=pjList.get(i).getPROJECT_NAME()%></option><%
+		      	<%for(int i=0; i<unWrite.size(); i++){
+		      		%><option value="<%=unWrite.get(i)%>"><%=unWrite.get(i)%></option><%
 		      	}
 		      	%>
-		      		
 		      </select></td>
 		     </tr>
 
 		    <tr>
 		      <td class="m-0 text-primary" align="center">작성자</td>
-		      <td><input id="name" name="NAME"></td>
+		      <td><input id="name" name="NAME" value="<%=sessionName%>" readonly></td>
 		     </tr>  
 		    <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea name="WeekPlan" rows="10"></textarea></td>

@@ -35,7 +35,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 <script>
 	$(document).ready(function(){
-		$("#team").val("<%=member.getTEAM()%>").prop("selected", true);	
+		$("#team").val("<%=member.getTEAM()%>").prop("selected", true);		
 	});
 	
 </script>
