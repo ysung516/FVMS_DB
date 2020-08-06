@@ -60,62 +60,37 @@
 <html>
 <head>
 
-<script>
-var arrInput = new Array(0);
-  var arrInputValue = new Array(0);
- 
-
-  
-function addInput() {
-  arrInput.push(arrInput.length);
-  arrInputValue.push("");
-  display();
+<Script language="JavaScript">
+<!--
+// display 속성을 이용하면 손쉽게 어떠한 블럭을 보이거나 안보이게 할 수 있습니다.
+// 대부분의 태그에 적용할 수 있으며 속성은
+// 'none'과 'block'을 사용합니다.
+// none - 안보이게 함
+// block - 보이게 함
+function onShow(i){
+testObj[i].style.display=(testObj[i].style.display=='none')?'block':'none';
 }
- 
-function display() {
-  document.getElementById('parah').innerHTML="";
-  for (intI=0; intI<arrInput.length;intI++) {
-    document.getElementById('parah').innerHTML += createInput(arrInput[intI], arrInputValue[intI]);
-  }
-}
- 
-function saveValue(intId,strValue) {
-  arrInputValue[intId]=strValue;
-}  
- 
-function createInput(id,value) {
-  return "< type='text' id='test "+ id +"' onChange='javascript:saveValue("+ id +",this.value)' value='"+ 
- 
-value +"'><br>";
-}
- 
-function deleteInput() {
-  if (arrInput.length > 0) { 
-     arrInput.pop(); 
-     arrInputValue.pop();
-  }
-  display(); 
-}
-
-//span
-function deleteSpan() {
-  if (arrInput.length > 0) { 
-     arrInput.pop(); 
-     arrInputValue.pop();
-  }
-  display(); 
-}
+//-->
 </script>
-</head>
-<body>
-<div id="parah"></div>
-<span onclick="">가나다</span>
-<form method="post" action="test.jsp">
-<input type="button" value="추가" onclick="addInput();" />
-<input type="button" value="삭제" onclick="deleteInput();"/>
-<input type="submit" value="전송"/>
 
-</form>
+
+
+<테이블소스>
+<table border=1>
+<tr>
+<td><a href="JavaScript:;" onclick="onShow(0);">클릭시 하단 row가 보였다가 다시 클릭하면 사라짐</a></td>
+</tr>
+<tr id="testObj" style="display:none;">
+<td bgcolor="red">보였다 안보였다...1</td>
+</tr>
+<tr>
+<td><a href="JavaScript:;" onclick="onShow(1);">클릭시 하단 row2가 보였다가 다시 클릭하면 사라짐</a></td>
+</tr>
+<tr id="testObj" style="display:none;">
+<td bgcolor="yellow">보였다 안보였다...2</td>
+</tr>
+</table>
+
 </body>
 </html> 
 

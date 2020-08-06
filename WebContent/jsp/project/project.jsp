@@ -42,6 +42,20 @@
 
 </head>
 <style>
+
+	#project_btn{
+		position: fixed;
+		bottom: 0;
+		padding: 10px;
+		width: 100%;
+		text-align: center;
+		background-color: #fff;
+		border-top: 1px solid;
+	}
+	
+	.td{
+		display:none;
+	}
 	.loading{
 		position:fixed;
 		text-align: center;
@@ -63,22 +77,123 @@
 		transform:translate(-50%, -50%);
 	}
 </style>
+
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $(document).ready( function() {
+       /*  $( '#check_team' ).click( function() {
+          $( 'td:first-child' ).toggle( 'slow' );
+        });
+        $( '#check_projectcode' ).click( function() {
+            $( 'td:nth-child(2)' ).toggle( 'slow' );
+          });
+        $( '#cb3' ).click( function() {
+            $( 'td:nth-child(3)' ).toggle( 'slow' );
+          }); */
+        $( '#cb4' ).click( function() {
+            $( 'td:nth-child(4)' ).toggle( 'slow' );
+          });
+        $( '#cb5' ).click( function() {
+            $( 'td:nth-child(5)' ).toggle( 'slow' );
+          });
+        $( '#cb6' ).click( function() {
+            $( 'td:nth-child(6)' ).toggle( 'slow' );
+          });
+        $( '#cb7' ).click( function() {
+            $( 'td:nth-child(7)' ).toggle( 'slow' );
+          });
+        $( '#cb8' ).click( function() {
+            $( 'td:nth-child(8)' ).toggle( 'slow' );
+          });
+        $( '#cb9' ).click( function() {
+            $( 'td:nth-child(9)' ).toggle( 'slow' );
+          });
+        $( '#cb10' ).click( function() {
+            $( 'td:nth-child(10)' ).toggle( 'slow' );
+          });
+        $( '#cb11' ).click( function() {
+            $( 'td:nth-child(11)' ).toggle( 'slow' );
+          });
+        $( '#cb12' ).click( function() {
+            $( 'td:nth-child(12)' ).toggle( 'slow' );
+          });
+        $( '#cb13' ).click( function() {
+            $( 'td:nth-child(13)' ).toggle( 'slow' );
+          });
+        $( '#cb14' ).click( function() {
+            $( 'td:nth-child(14)' ).toggle( 'slow' );
+          });
+        $( '#cb15' ).click( function() {
+            $( 'td:nth-child(15)' ).toggle( 'slow' );
+          });
+        $( '#cb16' ).click( function() {
+            $( 'td:nth-child(16)' ).toggle( 'slow' );
+          });
+        $( '#cb17' ).click( function() {
+            $( 'td:nth-child(17)' ).toggle( 'slow' );
+          });
+        $( '#cb18' ).click( function() {
+            $( 'td:nth-child(18)' ).toggle( 'slow' );
+          });
+        $( '#cb19' ).click( function() {
+            $( 'td:nth-child(19)' ).toggle( 'slow' );
+          });
+        $( '#cb20' ).click( function() {
+            $( 'td:nth-child(20)' ).toggle( 'slow' );
+          });
+      $( '#cb21' ).click( function() {
+          $( 'td:nth-child(21)' ).toggle( 'slow' );
+        });
+      $( '#cb22' ).click( function() {
+          $( 'td:nth-child(22)' ).toggle( 'slow' );
+        });
+      $( '#cb23' ).click( function() {
+          $( 'td:nth-child(23)' ).toggle( 'slow' );
+        });
+      $( '#cb24' ).click( function() {
+          $( 'td:nth-child(24)' ).toggle( 'slow' );
+        });
+      $( '#cb25' ).click( function() {
+          $( 'td:nth-child(25)' ).toggle( 'slow' );
+        });
+      });
+    </script>
 <script type="text/javascript">
+
+// display 속성을 이용하면 손쉽게 어떠한 블럭을 보이거나 안보이게 할 수 있습니다.
+// 대부분의 태그에 적용할 수 있으며 속성은
+// 'none'과 'block'을 사용합니다.
+// none - 안보이게 함
+// block - 보이게 함
+//function onShow(i){
+//testObj[i].style.display=(testObj[i].style.display=='none')?'block':'none';
+//}
+
+
+// $(document).ready(function(){
+//    $(document).on("click","#TEAM",function(event){
+      // 동적으로 여러 태그가 생성된 경우라면 이런식으로 클릭된 객체를 this 키워드를 이용해서 잡아올 수 있다.  
+ //    $("#TEAM2").attr('style',"display:none;");
+      
+//    });
+// }); 
+
+	/* 
 	<!-- 로딩화면 -->
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
-	});
+	}); */
 </script>
 <body id="page-top">
-	 <!--  로딩화면  시작  -->
+	 <!--  로딩화면  시작  
 				  <div class="loading">
 				  <div id="load">
 				<i class="fas fa-spinner fa-10x fa-spin"></i>
+			  </div>
 				  </div>
-				  </div>
-		<!--  로딩화면  끝  -->
+		  로딩화면  끝  -->
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -198,7 +313,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">홍길동</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sessionName%></span>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -215,92 +330,117 @@
         <!-- End of Topbar -->
         
  		<!-- Begin Page Content -->
-        <div class="container-fluid">
 <!--프로젝트 조회 테이블 시작 *********************************************************** -->
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
+            </div>
             <div class="card-body">
               <div class="table-responsive">
+              <div>
+              	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
+      			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
+      			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
+      			 <label><input type="checkbox" id="cb4"> 상태</label>
+      			 <label><input type="checkbox" id="cb5"> 실</label>
+      			 <label><input type="checkbox" id="cb6"> 고객사</label>
+      			 <label><input type="checkbox" id="cb7"> 고객부서</label>
+      			 <label><input type="checkbox" id="cb8"> M/M</label>
+      			 <label><input type="checkbox" id="cb9"> 프로젝트계약금액</label>
+      			 <label><input type="checkbox" id="cb10"> 상반기 수주</label>
+      			 <label><input type="checkbox" id="cb11"> 상반기예상매출</label>
+      			 <label><input type="checkbox" id="cb12"> 상반기매출</label>
+      			 <label><input type="checkbox" id="cb13"> 하반기수주</label>
+      			 <label><input type="checkbox" id="cb14"> 하반기예상매출</label>
+      			 <label><input type="checkbox" id="cb15"> 하반기매출</label>
+      			 <label><input type="checkbox" id="cb16"> 착수</label>
+      			 <label><input type="checkbox" id="cb17"> 종료</label>
+      			 <label><input type="checkbox" id="cb18"> 고객담당자</label>
+      			 <label><input type="checkbox" id="cb19"> 근무지</label>
+      			 <label><input type="checkbox" id="cb20"> 업무</label>
+      			 <label><input type="checkbox" id="cb21"> PM</label>
+      			 <label><input type="checkbox" id="cb22"> 투입명단</label>
+      			 <label><input type="checkbox" id="cb23"> 2020(상)평가유형</label>
+      			 <label><input type="checkbox" id="cb24"> 채용수요</label>
+      			 <label><input type="checkbox" id="cb25"> 외주수요</label>
+              </div>
                 <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
-                  <thead>
-                    <tr>
-	                    <th>팀</th>
-	                    <th>프로젝트 코드</th>
-	                    <th>프로젝트 명</th>
-	                    <th>상태</th>
-	                    <th>실</th>
-	                    <th>고객사</th>
-	                    <th>고객부서</th>
-	                    <th>M/M</th>
-						<th>프로젝트계약금액</th> 
-						<th>상반기수주</th>  
-						<th>상반기예상매출</th> 
-						<th>상반기매출 </th>
-						<th>하반기수주 </th>
-						<th>하반기예상매출 </th>
-						<th>하반기매출 </th>
-						<th>착수</th> 
-						<th>종료</th> 
-						<th>고객담당자</th> 
-						<th>근무지</th> 
-						<th>업무</th> 
-						<th>PM</th> 
-						<th>투입 명단</th> 
-						<th>2020(상)평가유형</th> 
-						<th>채용수요</th> 
-						<th>외주수요</th>  
-                    </tr>
-                  </thead>  
                   
-                  <tbody>
+                    <tr class="m-0 text-primary">
+	                    <td>팀</td>
+	                    <td >프로젝트 코드</td>
+	                    <td >프로젝트 명</td>
+	                    <td class="td">상태</td>
+	                    <td class="td">실</td>
+	                    <td class="td">고객사</td>
+	                    <td class="td">고객부서</td>
+	                    <td class="td">M/M</td>
+						<td class="td">프로젝트계약금액</td> 
+						<td class="td">상반기수주</td>  
+						<td class="td">상반기예상매출</td> 
+						<td class="td">상반기매출 </td>
+						<td class="td">하반기수주 </td>
+						<td class="td">하반기예상매출 </td>
+						<td class="td">하반기매출 </td>
+						<td class="td">착수</td> 
+						<td class="td">종료</td> 
+						<td class="td">고객담당자</td> 
+						<td class="td">근무지</td> 
+						<td class="td">업무</td> 
+						<td class="td">PM</td> 
+						<td class="td">투입 명단</td> 
+						<td class="td">2020(상)평가유형</td> 
+						<td class="td">채용수요</td> 
+						<td class="td">외주수요</td>  
+                    </tr>
+                
+                 
                   <%
                   	for(int i=0; i<projectList.size(); i++){
                   		%>
                   		 <tr>
-	                      <td><%=projectList.get(i).getTEAM()%></td>
-	                      <td><%=projectList.get(i).getPROJECT_CODE()%></td>
-	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td>
-	                      <td><%=projectList.get(i).getSTATE()%></td>
-	                      <td><%=projectList.get(i).getPART()%></td>
-	                      <td><%=projectList.get(i).getCLIENT()%></td>
-	                      <td><%=projectList.get(i).getClIENT_PART()%></td>
-	                      <td><%=projectList.get(i).getMAN_MONTH()%></td>
-	                      <td><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
-	                      <td><%=projectList.get(i).getFH_ORDER()%></td>
-	                      <td><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></td>
-	                      <td><%=projectList.get(i).getFH_SALES()%></td>
-	                      <td><%=projectList.get(i).getSH_ORDER()%></td>
-	                      <td><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
-	                      <td><%=projectList.get(i).getSH_SALES()%></td>
-	                      <td><%=projectList.get(i).getPROJECT_START()%></td>
-	                      <td><%=projectList.get(i).getPROJECT_END()%></td>
-	                      <td><%=projectList.get(i).getCLIENT_PTB()%></td>
-	                      <td><%=projectList.get(i).getWORK_PLACE()%></td>
-	                      <td><%=projectList.get(i).getWORK()%></td>
-	                      <td><%=projectList.get(i).getPROJECT_MANAGER()%></td>
-	                      <td><%=projectList.get(i).getWORKER_LIST()%></td>
-	                      <td><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
-	                      <td><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
-	                      <td><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
+	                      <td><div><%=projectList.get(i).getTEAM()%></div></td>
+	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
+	                      <td><div><%=projectList.get(i).getPROJECT_NAME()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getSTATE()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getPART()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getCLIENT()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getClIENT_PART()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getMAN_MONTH()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getPROJECT_DESOPIT()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getFH_ORDER()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getFH_SALES()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getSH_ORDER()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getSH_SALES()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getPROJECT_START()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getPROJECT_END()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getCLIENT_PTB()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getWORK_PLACE()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getWORK()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getPROJECT_MANAGER()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getWORKER_LIST()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getASSESSMENT_TYPE()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getEMPLOY_DEMAND()%></div></td>
+	                      <td class="td"><div><%=projectList.get(i).getOUTSOURCE_DEMAND()%></div></td>
                     	</tr>
                   		<%	
                   	}
                   %>
-                    </tbody>                           
+                                              
                 </table>
               </div>   
               </div>     
-   				<div class="card-body" style="margin: 0 auto;">
-                   <!-- 	 <input id="pro_make" type="button" name="pro_make" class="btn btn-primary" value="프로젝트 생성하기"> -->
-                  	 <a href="project_make.jsp" class="btn btn-primary">프로젝트 생성하기</a>
-                   	 <input id="pro_update" type="button" name="pro_make" class="btn btn-primary" value="프로젝트 수정하기">
-             	   </div>   
-             	   
+   				<div id="project_btn">
+            
+                	 <a href="project_make.jsp" class="btn btn-primary">프로젝트 생성</a>
+              </div>
          </div>
         <!-- /.container-fluid -->
 <!--프로젝트 조회 테이블 끝        *********************************************************** -->
-      </div>
+
       <!-- End of Main Content -->
 
     </div>
