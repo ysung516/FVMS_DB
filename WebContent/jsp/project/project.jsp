@@ -37,9 +37,7 @@
 			workerIdList.add(workerIdArray);
 		}
 	}
-	for(int a =0;a<workerIdList.size();a++){
-		System.out.println("list : " + workerIdList.get(a)[a]);
-	}
+
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -142,39 +140,27 @@
                 }    
         });
     }
+    
+    function stateColor(){
+    	
+    	var str = $(".state").val();
+    	console.log(str);
+    }
 
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbAll();
         cbSlow();
+        stateColor();
     });
    </script>
 <script type="text/javascript">
-
-// display 속성을 이용하면 손쉽게 어떠한 블럭을 보이거나 안보이게 할 수 있습니다.
-// 대부분의 태그에 적용할 수 있으며 속성은
-// 'none'과 'block'을 사용합니다.
-// none - 안보이게 함
-// block - 보이게 함
-//function onShow(i){
-//testObj[i].style.display=(testObj[i].style.display=='none')?'block':'none';
-//}
-
-
-// $(document).ready(function(){
-//    $(document).on("click","#TEAM",function(event){
-      // 동적으로 여러 태그가 생성된 경우라면 이런식으로 클릭된 객체를 this 키워드를 이용해서 잡아올 수 있다.  
- //    $("#TEAM2").attr('style',"display:none;");
-      
-//    });
-// }); 
-
-	/* 
+	
 	<!-- 로딩화면 -->
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
-	}); */
+	}); 
 </script>
 <body id="page-top">
 	 <!--  로딩화면  시작  
@@ -427,28 +413,28 @@
 	                      <td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
-	                      <td class="td"><div><%=projectList.get(i).getSTATE()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getPART()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getCLIENT()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getClIENT_PART()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getMAN_MONTH()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getPROJECT_DESOPIT()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getFH_ORDER()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getFH_SALES()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getSH_ORDER()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getSH_SALES()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getPROJECT_START()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getPROJECT_END()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getCLIENT_PTB()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getWORK_PLACE()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getWORK()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getPROJECT_MANAGER()%></div></td>
-	                      <td class="td"><div><%if(i<workerIdList.size()){ for(int a=0;a<workerIdList.get(i).length;a++){%><%=workerIdList.get(i)[a]%> <%}} %></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getASSESSMENT_TYPE()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getEMPLOY_DEMAND()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getOUTSOURCE_DEMAND()%></div></td>
+	                      <td class="td" class="state"><%=projectList.get(i).getSTATE()%></td>
+	                      <td class="td"><%=projectList.get(i).getPART()%></td>
+	                      <td class="td"><%=projectList.get(i).getCLIENT()%></td>
+	                      <td class="td"><%=projectList.get(i).getClIENT_PART()%></td>
+	                      <td class="td"><%=projectList.get(i).getMAN_MONTH()%></td>
+	                      <td class="td"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
+	                      <td class="td"><%=projectList.get(i).getFH_ORDER()%></td>
+	                      <td class="td"><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></td>
+	                      <td class="td"><%=projectList.get(i).getFH_SALES()%></td>
+	                      <td class="td"><%=projectList.get(i).getSH_ORDER()%></td>
+	                      <td class="td"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
+	                      <td class="td"><%=projectList.get(i).getSH_SALES()%></td>
+	                      <td class="td"><%=projectList.get(i).getPROJECT_START()%></td>
+	                      <td class="td"><%=projectList.get(i).getPROJECT_END()%></td>
+	                      <td class="td"><%=projectList.get(i).getCLIENT_PTB()%></td>
+	                      <td class="td"><%=projectList.get(i).getWORK_PLACE()%></td>
+	                      <td class="td"><%=projectList.get(i).getWORK()%></td>
+	                      <td class="td"><%=projectList.get(i).getPROJECT_MANAGER()%></td>
+	                      <td class="td"><%if(i<workerIdList.size()){ for(int a=0;a<workerIdList.get(i).length;a++){%><%=workerIdList.get(i)[a]%> <%}} %></td>
+	                      <td class="td"><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
+	                      <td class="td"><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
+	                      <td class="td"><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
                     	</tr>
                   		<%
                   	}
