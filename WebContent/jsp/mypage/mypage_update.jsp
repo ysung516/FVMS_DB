@@ -293,7 +293,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="career" id="career" placeholder="<%=member.getCareer()%>" rows="5"style=width:100%;></textarea></td>
+			      <td colspan="3"><textarea name="career" id="career" rows="5"style=width:100%;><%=member.getCareer()%></textarea></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 
