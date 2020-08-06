@@ -22,9 +22,24 @@
 	session.setMaxInactiveInterval(15*60);
 	
 	ProjectDAO projectDao = new ProjectDAO();
+	MemberDAO memberDao = new MemberDAO();
 	ArrayList<ProjectBean> projectList = new ArrayList<ProjectBean>();
 	projectList = projectDao.getProjectList();
 	
+	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
+	String[] workerIdArray = {};
+	for(int i=0; i<projectList.size();i++){
+		if(projectList.get(i).getWORKER_LIST() != null){
+			workerIdArray =  projectList.get(i).getWORKER_LIST().split(" ");
+			for(int a=0; a<workerIdArray.length;a++){
+				workerIdArray[a] = memberDao.returnMember(workerIdArray[a]).getNAME();
+			}
+			workerIdList.add(workerIdArray);
+		}
+	}
+	for(int a =0;a<workerIdList.size();a++){
+		System.out.println("list : " + workerIdList.get(a)[a]);
+	}
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -98,102 +113,42 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-    $(document).ready(function(){
-        //최상단 체크박스 클릭
-        $("#checkall").click(function(){
-        	 $( ".td" ).toggle( 'slow' );
+    function cbSlow(){
+    	$( '.cb' ).click( function() {
+    		var clickId = $(this).attr('id');
+    		num = clickId.split("b");
+    		if($("#cb"+num[1]).prop("checked")){
+    			$('td:nth-child('+num[1]+')').show();
+    		}else{
+    			$('td:nth-child('+num[1]+')').hide();
+    		}
+            
+        });
+    }
+    
+    function cbAll(){
+    	$("#checkall").click(function(){
             //클릭되었으면
             if($("#checkall").prop("checked")){
+           	 	$( ".td" ).show();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
                 $("input[name=cb]").prop("checked",true);
-                
-                //클릭이 안되있으면
+            //클릭이 안되있으면
             }else{
+            	$( ".td" ).hide();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
                 $("input[name=cb]").prop("checked",false);
-         
+         		
                 }    
         });
+    }
+
+    $(document).ready(function(){
+        //최상단 체크박스 클릭
+        cbAll();
+        cbSlow();
     });
-    
-      $(document).ready( function() {
-       /*  $( '#check_team' ).click( function() {
-          $( 'td:first-child' ).toggle( 'slow' );
-        });
-        $( '#check_projectcode' ).click( function() {
-            $( 'td:nth-child(2)' ).toggle( 'slow' );
-          });
-        $( '#cb3' ).click( function() {
-            $( 'td:nth-child(3)' ).toggle( 'slow' );
-          }); */
-        $( '#cb4' ).click( function() {
-            $( 'td:nth-child(4)' ).toggle( 'slow' );
-          });
-        $( '#cb5' ).click( function() {
-            $( 'td:nth-child(5)' ).toggle( 'slow' );
-          });
-        $( '#cb6' ).click( function() {
-            $( 'td:nth-child(6)' ).toggle( 'slow' );
-          });
-        $( '#cb7' ).click( function() {
-            $( 'td:nth-child(7)' ).toggle( 'slow' );
-          });
-        $( '#cb8' ).click( function() {
-            $( 'td:nth-child(8)' ).toggle( 'slow' );
-          });
-        $( '#cb9' ).click( function() {
-            $( 'td:nth-child(9)' ).toggle( 'slow' );
-          });
-        $( '#cb10' ).click( function() {
-            $( 'td:nth-child(10)' ).toggle( 'slow' );
-          });
-        $( '#cb11' ).click( function() {
-            $( 'td:nth-child(11)' ).toggle( 'slow' );
-          });
-        $( '#cb12' ).click( function() {
-            $( 'td:nth-child(12)' ).toggle( 'slow' );
-          });
-        $( '#cb13' ).click( function() {
-            $( 'td:nth-child(13)' ).toggle( 'slow' );
-          });
-        $( '#cb14' ).click( function() {
-            $( 'td:nth-child(14)' ).toggle( 'slow' );
-          });
-        $( '#cb15' ).click( function() {
-            $( 'td:nth-child(15)' ).toggle( 'slow' );
-          });
-        $( '#cb16' ).click( function() {
-            $( 'td:nth-child(16)' ).toggle( 'slow' );
-          });
-        $( '#cb17' ).click( function() {
-            $( 'td:nth-child(17)' ).toggle( 'slow' );
-          });
-        $( '#cb18' ).click( function() {
-            $( 'td:nth-child(18)' ).toggle( 'slow' );
-          });
-        $( '#cb19' ).click( function() {
-            $( 'td:nth-child(19)' ).toggle( 'slow' );
-          });
-        $( '#cb20' ).click( function() {
-            $( 'td:nth-child(20)' ).toggle( 'slow' );
-          });
-      $( '#cb21' ).click( function() {
-          $( 'td:nth-child(21)' ).toggle( 'slow' );
-        });
-      $( '#cb22' ).click( function() {
-          $( 'td:nth-child(22)' ).toggle( 'slow' );
-        });
-      $( '#cb23' ).click( function() {
-          $( 'td:nth-child(23)' ).toggle( 'slow' );
-        });
-      $( '#cb24' ).click( function() {
-          $( 'td:nth-child(24)' ).toggle( 'slow' );
-        });
-      $( '#cb25' ).click( function() {
-          $( 'td:nth-child(25)' ).toggle( 'slow' );
-        });
-      });
-    </script>
+   </script>
 <script type="text/javascript">
 
 // display 속성을 이용하면 손쉽게 어떠한 블럭을 보이거나 안보이게 할 수 있습니다.
@@ -380,50 +335,50 @@
       			 <table>
       			 <tr><td>
       			 <label><input type="checkbox" id="checkall">모두보기</label>
-      			 <label><input type="checkbox" id="cb4" name="cb"> 상태</label>
+      			 <label><input type="checkbox" id="cb4" name="cb" class="cb"> 상태</label>
       			  </td></tr>
       			  <tr><td>
-      			 <label><input type="checkbox" id="cb5" name="cb"> 실</label>
-      			 <label><input type="checkbox" id="cb6" name="cb"> 고객사</label>
+      			 <label><input type="checkbox" id="cb5" name="cb" class="cb"> 실</label>
+      			 <label><input type="checkbox" id="cb6" name="cb" class="cb"> 고객사</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb7" name="cb"> 고객부서</label>
-      			 <label><input type="checkbox" id="cb8" name="cb"> M/M</label>
+      			 <label><input type="checkbox" id="cb7" name="cb" class="cb"> 고객부서</label>
+      			 <label><input type="checkbox" id="cb8" name="cb" class="cb"> M/M</label>
       			 </td></tr>
       			 <tr><td>
-      			<label><input type="checkbox" id="cb9" name="cb"> 프로젝트계약금액</label>
-      			 <label><input type="checkbox" id="cb10" name="cb"> 상반기 수주</label>
+      			<label><input type="checkbox" id="cb9" name="cb" class="cb"> 프로젝트계약금액</label>
+      			 <label><input type="checkbox" id="cb10" name="cb" class="cb"> 상반기 수주</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb11" name="cb"> 상반기예상매출</label>
-      			 <label><input type="checkbox" id="cb12" name="cb"> 상반기매출</label>
+      			 <label><input type="checkbox" id="cb11" name="cb" class="cb"> 상반기예상매출</label>
+      			 <label><input type="checkbox" id="cb12" name="cb" class="cb"> 상반기매출</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb13" name="cb"> 하반기수주</label>
-      			 <label><input type="checkbox" id="cb14" name="cb"> 하반기예상매출</label>
+      			 <label><input type="checkbox" id="cb13" name="cb" class="cb"> 하반기수주</label>
+      			 <label><input type="checkbox" id="cb14" name="cb" class="cb"> 하반기예상매출</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb15" name="cb"> 하반기매출</label>
-      			 <label><input type="checkbox" id="cb16" name="cb"> 착수</label>
+      			 <label><input type="checkbox" id="cb15" name="cb" class="cb"> 하반기매출</label>
+      			 <label><input type="checkbox" id="cb16" name="cb" class="cb"> 착수</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb17" name="cb"> 종료</label>
-      			 <label><input type="checkbox" id="cb18" name="cb"> 고객담당자</label>
+      			 <label><input type="checkbox" id="cb17" name="cb" class="cb"> 종료</label>
+      			 <label><input type="checkbox" id="cb18" name="cb" class="cb"> 고객담당자</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb19" name="cb"> 근무지</label>
-      			 <label><input type="checkbox" id="cb20" name="cb"> 업무</label>
+      			 <label><input type="checkbox" id="cb19" name="cb" class="cb"> 근무지</label>
+      			 <label><input type="checkbox" id="cb20" name="cb" class="cb"> 업무</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb21" name="cb"> PM</label>
-      			 <label><input type="checkbox" id="cb22" name="cb"> 투입명단</label>
+      			 <label><input type="checkbox" id="cb21" name="cb" class="cb"> PM</label>
+      			 <label><input type="checkbox" id="cb22" name="cb" class="cb"> 투입명단</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb23" name="cb"> 2020(상)평가유형</label>
-      			 <label><input type="checkbox" id="cb24" name="cb"> 채용수요</label>
+      			 <label><input type="checkbox" id="cb23" name="cb" class="cb"> 2020(상)평가유형</label>
+      			 <label><input type="checkbox" id="cb24" name="cb" class="cb"> 채용수요</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb25" name="cb"> 외주수요</label>
+      			 <label><input type="checkbox" id="cb25" name="cb" class="cb"> 외주수요</label>
       			 </td></tr>
       			 </table>
       			 </details>
@@ -471,7 +426,7 @@
 	                      <%if(sessionID.equals("hlshin") || sessionID.equals("ysung516") || sessionID.equals("hykim") || sessionID.equals("swlee")){%>
 	                      <td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
-	                      <td><%=projectList.get(i).getPROJECT_NAME()%><%} %></td>
+	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
 	                      <td class="td"><div><%=projectList.get(i).getSTATE()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getPART()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getCLIENT()%></div></td>
@@ -490,7 +445,7 @@
 	                      <td class="td"><div><%=projectList.get(i).getWORK_PLACE()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getWORK()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getPROJECT_MANAGER()%></div></td>
-	                      <td class="td"><div><%=projectList.get(i).getWORKER_LIST()%></div></td>
+	                      <td class="td"><div><%if(i<workerIdList.size()){ for(int a=0;a<workerIdList.get(i).length;a++){%><%=workerIdList.get(i)[a]%> <%}} %></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getASSESSMENT_TYPE()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getEMPLOY_DEMAND()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getOUTSOURCE_DEMAND()%></div></td>
