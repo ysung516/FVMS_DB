@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
+    import = "java.util.ArrayList"
     import = "jsp.Bean.model.*"
     import = "jsp.DB.method.*"
     %>
@@ -15,7 +16,6 @@
 $(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
     $('.loading').hide();
 });
-	
 </script>
 <%
 	PrintWriter script =  response.getWriter();
@@ -26,10 +26,19 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-
-	
+	String id = request.getParameter("id");
+	MemberDAO memberDao = new MemberDAO();
+	ProjectDAO projectDao = new ProjectDAO();
+	ArrayList<String> teamList = projectDao.getTeamData();
+	MemberBean member = memberDao.returnMember(id);
 %>
 
+<script>
+	$(document).ready(function(){
+		$("#team").val("<%=member.getTEAM()%>").prop("selected", true);	
+	});
+	
+</script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -245,63 +254,65 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 	   <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">김땡땡 정보 수정</h6>
+                  <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;"><%=member.getNAME()%> 정보 수정</h6>
                 </div>
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form method="post" action="manager_updatePro.jsp">       
+          <form method="post" action="manager_updatePro.jsp">
+          	<input type="hidden" name="id" value="<%=id%>">       
 			  <table class="table table-bordered" id="dataTable">
-				 <tr>
-				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름</td>
-				      <td colspan="3"><input class="update_input" name="" value=""></td>
-			     </tr>
-			     <tr>
-				      <td class="m-0 text-primary" align="center">ID</td>
-				      <td colspan="3" style="white-space: nowrap;"><input name="" value="" style=width:80%;> 
-				      <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
-			     </tr>
-			     <tr>
+			  		<tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
-			     </tr>
-			     <tr>
-				      <td class="m-0 text-primary" align="center">팀</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
-			     </tr>
+				      <td colspan="3"><input name="part" value="<%=member.getPART()%>" class="update_input"></td>
+			     	</tr>
 			     
+			     <tr>
+			     	  <td class="m-0 text-primary" align="center">팀</td>
+				      <td colspan="3">
+				      <select id="team" name="team">
+                      	<%
+                      		for(int i=0; i<teamList.size(); i++){
+                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+                      		}
+                      	%>
+                      	</select></td>
+			     </tr>
+			      <tr>
+				      <td class="m-0 text-primary" align="center">권한</td>
+				      <td colspan="3"><input name="permission" value="<%=member.getPermission()%>" class="update_input"></td>
+			     </tr>
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
+				      <td colspan="3"><input name="rank" value="<%=member.getRANK()%>" class="update_input"></td>
 			     </tr>
-			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">직책</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
+				      <td colspan="3"><input name="position" value="<%=member.getPosition()%>" class="update_input"></td>
 			     </tr>
 			    <tr>
 				      <td class="m-0 text-primary" align="center">moblie</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
+				      <td colspan="3"><input name="mobile" value="<%=member.getMOBILE()%>" class="update_input"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">gmail</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
+				      <td colspan="3"><input name="gmail" value="<%=member.getGMAIL()%>" class="update_input"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>
-				      <td colspan="3"><input name="" value="" class="update_input"></td>
+				      <td colspan="3"><input name="address" value="<%=member.getADDRESS()%>" class="update_input"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">입사일</td>
-				      <td colspan="3"><input name="" value=""class="update_input"></td>
+				      <td colspan="3"><input name="comDate" value="<%=member.getComDate()%>"class="update_input"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">연차</td>
-				      <td colspan="3"><input name="" value=""class="update_input"></td>
+				      <td colspan="3"><input name="wyear" value="<%=member.getWyear()%>"class="update_input"></td>
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="career" rows="5"class="update_input"></textarea></td>
+			      <td colspan="3"><input name="career" value="<%=member.getCareer()%>"class="update_input"></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 

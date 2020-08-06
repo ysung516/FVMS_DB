@@ -10,8 +10,7 @@ public class MemberBean
 	 private String NO;	//사원번호
 	 private String PART;	//소속
 	 private String TEAM;	//팀
-
-	private String name;        // 이름
+	 private String name;        // 이름
 	 private String GMAIL;        // 이메일 
 	 private String MOBILE;        // 전화
 	 private String ADDRESS;        // 주소
@@ -60,12 +59,7 @@ public class MemberBean
 	public void setComDate(String comDate) {
 		this.comDate = comDate;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public String getPosition() {
 		return Position;
 	}

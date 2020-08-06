@@ -18,6 +18,9 @@
 			
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
+		
+		MemberDAO memberDao = new MemberDAO();
+		ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	%>
 
   <meta charset="utf-8">
@@ -300,19 +303,24 @@
 			<table id ="managerTable">
 		<thead>
 		 <tr>
-		   <th>이름</th>
-		   <th>ID</th>
-		   <th>팀</th>
-		   <th>직급</th>
+		 	<th>팀</th>
+		 	<th>이름</th>
+		 	<th>직급</th>
+		 	<th>ID</th>
 		 </tr>
 		  </thead> 
 		  <tbody id="manager_List">
-		  	<tr>
-		  		<td><a href="manager_view.jsp">김땡땡</a></td>
-		  		<td>ddkim</td>
-		  		<td>미래차검증</td>
-		  		<td>인턴</td>
-		  	</tr>
+		  <%
+		  	for(int i=0; i<memberList.size(); i++){
+		  		%><tr>
+		  			<td><%=memberList.get(i).getTEAM()%></td>
+			  		<td><a href="manager_view.jsp?id=<%=memberList.get(i).getID()%>"><%=memberList.get(i).getNAME() %></a></td>
+			  		<td><%=memberList.get(i).getRANK()%></td>
+			  		<td><%=memberList.get(i).getID() %></td>
+		  		</tr><%	
+		  	}
+		  %>
+		  	
 		  </tbody>
 			       </table>   
 			       </div>

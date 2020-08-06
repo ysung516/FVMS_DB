@@ -5,7 +5,6 @@
     import = "java.util.ArrayList"
     import = "java.util.List"
     import = "jsp.DB.method.*"
-    import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +19,10 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(15*60);
-
+		
+		MemberDAO memberDao = new MemberDAO();
+		String id = request.getParameter("id");
+		MemberBean member = memberDao.returnMember(id);
 	%>
 
   <meta charset="utf-8">
@@ -256,61 +258,63 @@
          
 					<table class="table table-bordered" id="dataTable">
 					<tr>
-						<td>이름</td>
-						<td>김땡땡</td>
-					</tr>	
+						<td>팀</td>
+						<td><%=member.getTEAM()%></td>
+					</tr>
 					<tr>
-						<td>ID</td>
-						<td>ddkim</td>
+						<td>이름</td>
+						<td><%=member.getNAME()%></td>
+					</tr>
+					<tr>
+						<td>권한</td>
+						<td><%=member.getPermission()%></td>
 					</tr>
 					<tr>
 						<td>소속</td>
-						<td>VT</td>
-					</tr>
-					<tr>
-						<td>팀</td>
-						<td>제어로직</td>
+						<td><%=member.getPART()%></td>
 					</tr>
 					<tr>
 						<td>직급</td>
-						<td>전임</td>
+						<td><%=member.getRANK()%></td>
 					</tr>
 					<tr>
 						<td>직책</td>
-						<td>팀장</td>
+						<td><%=member.getPosition()%></td>
 					</tr>
 					<tr>
-					<tr>
 						<td>mobile</td>
-						<td>010-1234-5678</td>
+						<td><%=member.getMOBILE()%></td>
 					</tr>
 					<tr>
 						<td>gmail</td>
-						<td>abcd@gmail.com</td>
-					</tr>
-					
-						<td>거주지</td>
-						<td>수원</td>
+						<td><%=member.getGMAIL()%></td>
 					</tr>
 					<tr>
-						<td>입사일</td>
-						<td>2020-01-01</td>
+						<td>거주지</td>
+						<td><%=member.getADDRESS()%></td>
 					</tr>
 					<tr>
 						<td>연차</td>
-						<td>7</td>
+						<td><%=member.getWyear()%></td>
+					</tr>
+					<tr>
+						<td>입사일</td>
+						<td><%=member.getComDate()%></td>
 					</tr>
 					<tr>
 						<td>프로젝트 수행 이력</td>
-						<td>없다</td>
+						<td><%=member.getCareer()%></td>
 					</tr>
-
+					<tr>
+						<td>ID</td>
+						<td><%=member.getID()%></td>
+					</tr>
 					</table>
           
 	     <table style="margin: 0 auto;">
 	     <tr>
 	     <td colspan="2">
-	       <a href="manager_update.jsp" class="btn btn-primary">수정</a>
+	       <a href="manager_update.jsp?id=<%=id%>" class="btn btn-primary">수정</a>
 	       <a href="manager.jsp" class="btn btn-primary">목록</a>
 	       </td>
 	     </tr>

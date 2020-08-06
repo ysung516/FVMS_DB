@@ -26,7 +26,7 @@
     if (memberDao.logincheck(ID, PW) == 1){
 	      script.print("<script> location.href = '../jsp/manager_schedule/manager_schedule.jsp'; </script>");
 	      session.setAttribute("sessionID", ID);
-	      sessionName = member.getName();
+	      sessionName = member.getNAME();
 	      session.setAttribute("sessionName", sessionName);
      
      } else 

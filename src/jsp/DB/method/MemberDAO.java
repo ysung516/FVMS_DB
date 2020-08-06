@@ -23,7 +23,7 @@ public class MemberDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from member");
+	    	query.append("select * from member order by 팀,직급");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
