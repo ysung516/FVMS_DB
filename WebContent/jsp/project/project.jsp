@@ -450,7 +450,7 @@
 	                      <td class="td"><div><%=projectList.get(i).getEMPLOY_DEMAND()%></div></td>
 	                      <td class="td"><div><%=projectList.get(i).getOUTSOURCE_DEMAND()%></div></td>
                     	</tr>
-                  		<%	
+                  		<%
                   	}
                   %>
                                               
