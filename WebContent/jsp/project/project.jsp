@@ -44,6 +44,22 @@
 </head>
 <style>
 
+		details summary{
+		font-weight:700;
+		border: 1px solid black;
+		padding: 5px;
+		box-shadow: 0px 2px 1px 0px;
+		border-radius: 6px;
+	}
+	details{
+		line-height: 1;margin:5px auto;
+		position:sticky; 
+		white-space:nowrap;
+	}
+	label:nth-child(odd){
+    	width: 56%;
+    	}
+
 	#project_btn{
 		position: fixed;
 		bottom: 0;
@@ -99,9 +115,6 @@
             }
         })
     })
-
-
-    출처: https://hellogk.tistory.com/5 [IT Code Storage]
     
       $(document).ready( function() {
        /*  $( '#check_team' ).click( function() {
@@ -359,37 +372,65 @@
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
             </div>
             <div class="card-body">
-              <div style="position:sticky;">
+            	<details>
+            	<summary>체크박스</summary>
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
       			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
-      			 <label></label><input type="checkbox" id="checkall">모두보기</label>
+      			 <table>
+      			 <tr><td>
+      			 <label><input type="checkbox" id="checkall">모두보기</label>
       			 <label><input type="checkbox" id="cb4" name="cb"> 상태</label>
+      			  </td></tr>
+      			  <tr><td>
       			 <label><input type="checkbox" id="cb5" name="cb"> 실</label>
       			 <label><input type="checkbox" id="cb6" name="cb"> 고객사</label>
+      			 </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb7" name="cb"> 고객부서</label>
       			 <label><input type="checkbox" id="cb8" name="cb"> M/M</label>
-      			 <label><input type="checkbox" id="cb9" name="cb"> 프로젝트계약금액</label>
+      			 </td></tr>
+      			 <tr><td>
+      			<label><input type="checkbox" id="cb9" name="cb"> 프로젝트계약금액</label>
       			 <label><input type="checkbox" id="cb10" name="cb"> 상반기 수주</label>
+      			 </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb11" name="cb"> 상반기예상매출</label>
       			 <label><input type="checkbox" id="cb12" name="cb"> 상반기매출</label>
+      			  </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb13" name="cb"> 하반기수주</label>
       			 <label><input type="checkbox" id="cb14" name="cb"> 하반기예상매출</label>
+      			 </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb15" name="cb"> 하반기매출</label>
       			 <label><input type="checkbox" id="cb16" name="cb"> 착수</label>
+      			  </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb17" name="cb"> 종료</label>
       			 <label><input type="checkbox" id="cb18" name="cb"> 고객담당자</label>
+      			 </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb19" name="cb"> 근무지</label>
       			 <label><input type="checkbox" id="cb20" name="cb"> 업무</label>
+      			  </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb21" name="cb"> PM</label>
       			 <label><input type="checkbox" id="cb22" name="cb"> 투입명단</label>
+      			 </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb23" name="cb"> 2020(상)평가유형</label>
       			 <label><input type="checkbox" id="cb24" name="cb"> 채용수요</label>
+      			  </td></tr>
+      			 <tr><td>
       			 <label><input type="checkbox" id="cb25" name="cb"> 외주수요</label>
-              </div>
+      			 </td></tr>
+      			 </table>
+      			 </details>
+             
               <div class="table-responsive" style="overflow:overlay;">
             
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;font-size:small;">
                   
                     <tr class="m-0 text-primary">
 	                    <td>팀</td>
