@@ -29,7 +29,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	session.setMaxInactiveInterval(15*60);
 	
 	ProjectDAO projectDao = new ProjectDAO();
+	ReportDAO reportDao = new ReportDAO();
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
+	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
+
 %>
 
   <meta charset="utf-8">
@@ -270,8 +273,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     <tr>
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
 		      <td><select name="TITLE">
-		      	<%for(int i=0; i<pjList.size(); i++){
-		      		%><option value="<%=pjList.get(i).getPROJECT_NAME()%>"><%=pjList.get(i).getPROJECT_NAME()%></option><%
+		      	<%for(int i=0; i<unWrite.size(); i++){
+		      		%><option value="<%=unWrite.get(i)%>"><%=unWrite.get(i)%></option><%
 		      	}
 		      	%>
 		      </select></td>
