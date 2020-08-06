@@ -292,6 +292,14 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td colspan="3"><input name="wyear" id="wyear" value="<%=member.getWyear()%>" style=width:100%;></td>
 			     </tr>
 			      <tr>
+				      <td class="m-0 text-primary" align="center">mobile</td>
+				      <td colspan="3"><input name="mobile" id="mobile" value="<%=member.getMOBILE() %>" style=width:100%;></td>
+			     </tr>
+			      <tr>
+				      <td class="m-0 text-primary" align="center">Gmail</td>
+				      <td colspan="3"><input name="gmail" id="" value="<%=member.getGMAIL() %>" style=width:100%;></td>
+			     </tr>
+			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
 			      <td colspan="3"><textarea name="career" id="career" rows="5"style=width:100%;><%=member.getCareer()%></textarea></td>
 			     </tr>
