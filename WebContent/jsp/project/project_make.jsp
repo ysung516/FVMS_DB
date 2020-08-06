@@ -1,3 +1,4 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
@@ -95,22 +96,48 @@ function sortSelect(selId) {
 		sel.html(optionList); 
 	}
 
-function getSelectValue()
-{
-	//var a = $("#WORKER_LIST").text();
+//명단선택
+function getSelectValue(){
+	//팀, 이름 저장
 	var a = $("#WORKER_LIST option:selected").text();
 	var b = $("#WORKER_LIST option:selected").val();
-	$("#textValue").append(a+"\n")
-	$("#textValue2").append(b+" ")
+	$("#textValue").append(a+"\n");
+	var worker = a.split('-');
+	var team = worker[0];
+	var name = worker[1];
+	var inner = "";
+	inner += "<tr>";
+	inner += "<td style='display:none;'>"+b+"</td>";
+	inner += "<td>"+team+"</td>";
+	inner += "<td>"+name+"</td>";
+	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
+	inner += "</tr>";
+	$('#workerList > tbody:last').append(inner);
+	//id 저장
+	$("#textValue2").append(b+" ");
 }
-	
-	$(document).ready(function(){
-		sortSelect('WORKER_LIST'); 
+
+//명단삭제
+$(function(){
+	$(document).on("click",".workDel",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		var text = $("#textValue2").text();
+		var te = text.replace(delID+" ", "");
+		$("#textValue2").text(te);
+		tr.remove();
 	});
-	
+});
 
-
+$(document).ready(function(){
+	sortSelect('WORKER_LIST'); 
+});
 </script>
+
 <body id="page-top">
 	
 	 <!--  로딩화면  시작  -->
@@ -394,14 +421,14 @@ function getSelectValue()
 						<tr>
 						<th>착수</th> 
 						<td>
-                      		<input id="PROJECT_START" name="PROJECT_START"></input>
+                      		<input id="PROJECT_START" name="PROJECT_START" placeholder="ex)0000-00-00"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>종료</th> 
 						<td>
-                      		<input id="PROJECT_END" name="PROJECT_END"></input>
+                      		<input id="PROJECT_END" name="PROJECT_END" placeholder="ex)0000-00-00"></input>
                       	</td> 
 						</tr>
 						
@@ -435,17 +462,26 @@ function getSelectValue()
 						
 						<tr>
 						<th>투입 명단</th> 
-						<td>
+						<td id ="WorkerList">
 						<select id="WORKER_LIST" name="WORKER_LIST" onChange="getSelectValue();">
                       		 <option value="" selected disabled hidden>선택</option>
                       		<%
                       			for(int i=0; i<memberList.size(); i++){
-                      				%><option value="<%=memberList.get(i).getID()%>"><%=memberList.get(i).getTEAM()%>-<%=memberList.get(i).getName()%></option><%		
+                      				%><option value="<%=memberList.get(i).getID()%>"><%=memberList.get(i).getTEAM()%>-<%=memberList.get(i).getNAME()%></option><%		
                       			}
                       		%>
                       	</select>
-                      	<textarea id="textValue" name="WORKER_LIST" style="display:block;"></textarea>
                       	<textarea id="textValue2" name="WORKER_LIST2" style="display:none;"></textarea>
+                      		<table id = "workerList" style="margin-top:5px;">
+                      			<thead>
+                      				<th style="display:none;">id</th>
+                      				<th>팀</th>
+                      				<th>이름</th>
+                      				<th>  </th>
+                      			</thead>
+                      			<tbody id="workerListAdd">
+                      			</tbody>
+                      		</table>
                       	</td>
 						</tr>
 						<tr>
