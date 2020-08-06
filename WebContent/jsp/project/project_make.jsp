@@ -118,7 +118,7 @@ function getSelectValue(){
 }
 
 //명단삭제
-$(function(){
+function workDelete(){
 	$(document).on("click",".workDel",function(){
 		var str =""
 		var tdArr = new Array();
@@ -131,10 +131,11 @@ $(function(){
 		$("#textValue2").text(te);
 		tr.remove();
 	});
-});
+}
 
 $(document).ready(function(){
 	sortSelect('WORKER_LIST'); 
+	workDelete();
 });
 </script>
 
@@ -302,7 +303,7 @@ $(document).ready(function(){
             <form method="post" action="project_makePro.jsp">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th>팀</th>
+                      <th><span style="color:red;">*</span>팀</th>
                       <td>
                       	<select id="team" name="team">
                       	<%
@@ -314,13 +315,13 @@ $(document).ready(function(){
                       	</td>
                       </tr>
                       <tr>
-                      	<th>프로젝트 코드</th>
+                      	<th><span style="color:red;">*</span>프로젝트 코드</th>
                       	<td>
                       		<input name="PROJECT_CODE"  id="PROJECT_CODE" ></input>	
                       	</td>
                       </tr>
                       <tr>
-                      <th>프로젝트 명</th>
+                      <th><span style="color:red;">*</span>프로젝트 명</th>
                       <td>
                       	<input id="PROJECT_NAME" name="PROJECT_NAME"></input>
                       	</td>
@@ -454,7 +455,7 @@ $(document).ready(function(){
 						</tr>
 						
 						<tr>
-						<th>PM</th> 
+						<th><span style="color:red;">*</span>PM</th> 
 						<td>
                       		<input id="PROJECT_MANAGER" name="PROJECT_MANAGER"></input>
                       	</td>

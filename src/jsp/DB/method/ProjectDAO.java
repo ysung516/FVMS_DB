@@ -213,6 +213,81 @@ public class ProjectDAO {
 		return rs;
 	}
 	
+	// 프로젝트 수정
+	public int updateProject(
+		String TEAM,
+		String RPOJECT_CODE,
+		String PROJECT_NAME,
+		String STATE,
+		String PART,
+		String CLIENT,
+		String CLIENT_PART,
+		float MAN_MONTH,
+		float PROJECT_DESOPIT,
+		float FH_ORDER, 
+		float FH_SALES_PROJECTIONS, 
+		float FH_SALES,
+		float SH_ORDER,
+		float SH_SALES_PROJECTIONS,
+		float SH_SALES,
+		String PROJECT_START,
+		String PROJECT_END,
+		String CLIENT_PTB,
+		String WORK_PLACE,
+		String WORK,
+		String PROJECT_MANAGER,
+		String WORKER_LIST,
+		String ASSESSMENT_TYPE,
+		float EMPLOY_DEMAND,
+		float OUTSOURCE_DEMAND) 
+	
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("UPDATE project SET 팀=?,프로젝트코드=?,프로젝트명=?,상태=?,실=?,고객사=?,고객부서=?,ManMonth=?,프로젝트계약금액_백만=?,"
+	    			+ "상반기수주=?,상반기예상매출=?,상반기매출=?,하반기수주=?,하반기예상매출=?,하반기매출=?,착수=?,종료=?,고객담당자=?,근무지=?,"
+	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=? WHERE 프로젝트코드=?");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, TEAM);
+	    	pstmt.setString(2, RPOJECT_CODE);
+	    	pstmt.setString(3, PROJECT_NAME);
+	    	pstmt.setString(4, STATE);
+	    	pstmt.setString(5, PART);
+	    	pstmt.setString(6, CLIENT);
+	    	pstmt.setString(7, CLIENT_PART);
+	    	pstmt.setFloat(8, MAN_MONTH);
+	    	pstmt.setFloat(9, PROJECT_DESOPIT);
+	    	pstmt.setFloat(10, FH_ORDER);
+	    	pstmt.setFloat(11, FH_SALES_PROJECTIONS);
+	    	pstmt.setFloat(12, FH_SALES);
+	    	pstmt.setFloat(13, SH_ORDER);
+	    	pstmt.setFloat(14, SH_SALES_PROJECTIONS);
+	    	pstmt.setFloat(15, SH_SALES);
+	    	pstmt.setString(16, PROJECT_START);
+	    	pstmt.setString(17, PROJECT_END);
+	    	pstmt.setString(18, CLIENT_PTB);
+	    	pstmt.setString(19, WORK_PLACE);
+	    	pstmt.setString(20, WORK);
+	    	pstmt.setString(21, PROJECT_MANAGER);
+	    	pstmt.setString(22, WORKER_LIST);
+	    	pstmt.setString(23, ASSESSMENT_TYPE);
+	    	pstmt.setFloat(24, EMPLOY_DEMAND);
+	    	pstmt.setFloat(25, OUTSOURCE_DEMAND);
+	    	pstmt.setString(26, RPOJECT_CODE);
+	    	rs = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+	
 	// 프로젝트 리스트 가져오기
 	public ArrayList<ProjectBean> getProjectList(){
 		ArrayList<ProjectBean> projectList = new ArrayList<ProjectBean>();
@@ -263,6 +338,23 @@ public class ProjectDAO {
 		
 		
 		return projectList;
+	}
+	
+	public int deleteProject(String projectCode) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("delete from project where 프로젝트코드=?");
+			pstmt.setString(1, projectCode);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	

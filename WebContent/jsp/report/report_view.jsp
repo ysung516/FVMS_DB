@@ -273,19 +273,16 @@
        <div class="card shadow mb-4">
         <div class="card-header py-3">
          <h6 class="m-0 font-weight-bold text-primary" id="view_btn">주간보고서 조회</h6>
-         
-         <form method="post" action="report_deletePro.jsp">
-         	<input type="hidden" name="no" value=<%=NO%>>
-         	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
-         </form>
+         <a id="Delete" href="report_deletePro.jsp?no=<%=NO%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
          
         </div>
           <div class="radio_body">
-			 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('1')">금일계획 <br>
-			 <input type="radio" name="chk_info" value="금일진행" onclick="fnMove('2')">금일진행 <br>
-			 <input type="radio" name="chk_info" value="차일계획" onclick="fnMove('3')">차일계획<br>
-			 <input type="radio" name="chk_info" value="특이사항" onclick="fnMove('4')">특이사항<br>
-			 <input type="radio" name="chk_info" value="비고" onclick="fnMove('5')">비고
+          	 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('1')">프로젝트명<br>
+			 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('2')">금주계획<br>
+			 <input type="radio" name="chk_info" value="금일진행" onclick="fnMove('3')">금주진행<br>
+			 <input type="radio" name="chk_info" value="차일계획" onclick="fnMove('4')">차주계획<br>
+			 <input type="radio" name="chk_info" value="특이사항" onclick="fnMove('5')">특이사항<br>
+			 <input type="radio" name="chk_info" value="비고" onclick="fnMove('6')">비고
 			</div>
          <div class="card-body">
          <div class="table-responsive">
@@ -293,11 +290,11 @@
          	<input type="hidden" name="no" value=<%=NO%>>
 			<table class="table table-bordered" id="dataTable">
 					<tr>
-						<td class="m-0 text-primary">프로젝트</td>
+						<td class="m-0 text-primary" id="move1">프로젝트</td>
 						<td><div class="report_div"><%=report.getTitle()%></div></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary">작성자</td>
+						<td class="m-0 text-primary" >작성자</td>
 						<td><div class="report_div"><%=report.getName()%></div></td>
 					</tr>
 					<tr>
@@ -321,7 +318,7 @@
 						<td><%=project.getPROJECT_END()%></td>
 					</tr>
 					<tr>
-						<td colspan="2"><h6 class="m-0 text-primary">금주계획</h6><div class="report_div"></td>
+						<td colspan="2" id="move2"><h6 class="m-0 text-primary">금주계획</h6><div class="report_div"></td>
 						</tr>
 						<tr>
 						<td colspan="2"><%
@@ -334,7 +331,7 @@
 					     </td>
 					</tr>
 					<tr>
-						<td colspan="2" ><h6 class="m-0 text-primary">금주진행</h6></td>
+						<td colspan="2" id="move3"><h6 class="m-0 text-primary">금주진행</h6></td>
 						</tr>
 						<tr>
 						<td colspan="2"><%
@@ -347,7 +344,7 @@
 						
 					</tr>
 					<tr>
-						<td colspan="2"><h6 class="m-0 text-primary">차주계획</h6></td>
+						<td colspan="2" id="move4"><h6 class="m-0 text-primary">차주계획</h6></td>
 						</tr>
 						<tr>
 						<td colspan="2"><%
@@ -359,7 +356,7 @@
 					    </td>	
 					</tr>
 					<tr>
-						<td colspan="2"><h6 class="m-0 text-primary">특이사항</h6></td>
+						<td colspan="2" id="move5"><h6 class="m-0 text-primary">특이사항</h6></td>
 						</tr>
 						<tr>
 						<td colspan="2"><%
@@ -371,7 +368,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><h6 class="m-0 text-primary">비고</h6></td>
+						<td colspan="2" id="move6"><h6 class="m-0 text-primary">비고</h6></td>
 						</tr>
 						<tr>
 						<td colspan="2"><%

@@ -29,6 +29,7 @@
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	String code = request.getParameter("code");
 	ProjectBean project = projectDao.getProjectBean_code(code);
+	String[] workerID = {};	//투입명단 id 저장용
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +38,7 @@
   <meta name="author" content="">
 
 
-  <title>Sure FVMS - Project_Make</title>
+  <title>Sure FVMS - Project_update</title>
 
   <!-- Custom fonts for this template-->
   <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -68,6 +69,13 @@
 		left: 50%;
 		transform:translate(-50%, -50%);
 	}
+	#Delete{
+     right: 0;
+     margin-right: 24px;
+     display: inline-block;
+     position: absolute;
+     top: 9px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
@@ -119,7 +127,7 @@ function getSelectValue(){
 }
 
 //명단삭제
-$(function(){
+function workDelete(){
 	$(document).on("click",".workDel",function(){
 		var str =""
 		var tdArr = new Array();
@@ -132,10 +140,13 @@ $(function(){
 		$("#textValue2").text(te);
 		tr.remove();
 	});
-});
+}
 
 $(document).ready(function(){
 	sortSelect('WORKER_LIST'); 
+	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
+	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
+	workDelete();
 });
 </script>
 
@@ -297,31 +308,32 @@ $(document).ready(function(){
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 수정</h6>
+	         	<a id="Delete" href="project_deletePro.jsp?code=<%=code%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
             </div>
             <div class="card-body" style="width: 75%; margin: 0 auto;">
             <div class="table-responsive">
-            <form method="post" action="project_makePro.jsp">
+            <form method="post" action="project_updatePro.jsp">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th>팀</th>
+                      <th><span style="color:red;">*</span>팀</th>
                       <td>
                       	<select id="team" name="team">
                       	<%
-                      		for(int i=0; i<teamList.size(); i++){
-                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
-                      		}
+	                      	for(int i=0; i<teamList.size(); i++){
+	                  			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+	                  		}
                       	%>
                       	</select>
                       	</td>
                       </tr>
                       <tr>
-                      	<th>프로젝트 코드</th>
+                      	<th><span style="color:red;">*</span>프로젝트 코드</th>
                       	<td>
-                      		<input name="PROJECT_CODE"  id="PROJECT_CODE" value="<%=project.getPROJECT_CODE()%>"></input>	
+                      		<input name="PROJECT_CODE"  id="PROJECT_CODE" value="<%=project.getPROJECT_CODE()%>" readonly ></input>	
                       	</td>
                       </tr>
                       <tr>
-                      <th>프로젝트 명</th>
+                      <th><span style="color:red;">*</span>프로젝트 명</th>
                       <td>
                       	<input id="PROJECT_NAME" name="PROJECT_NAME" value="<%=project.getPROJECT_NAME()%>"></input>
                       	</td>
@@ -332,14 +344,14 @@ $(document).ready(function(){
                       <td>
                       	<select id="STATE" name="STATE">
                       		<option value="상태">상태</option>
-                      		<option value="예산확보">1.예산확보</option>
-                      		<option value="고객의사">2.고객의사</option>
-                      		<option value="제안단계">3.제안단계</option>
-                      		<option value="업체선정">4.업체선정</option>
-                      		<option value="진행예정">5.진행예정</option>
-                      		<option value="진행중">6.진행중</option>
-                      		<option value="종료">7.종료</option>
-                      		<option value="Dropped">8.Dropped</option>
+                      		<option value="1.예산확보">1.예산확보</option>
+                      		<option value="2.고객의사">2.고객의사</option>
+                      		<option value="3.제안단계">3.제안단계</option>
+                      		<option value="4.업체선정">4.업체선정</option>
+                      		<option value="5.진행예정">5.진행예정</option>
+                      		<option value="6.진행중">6.진행중</option>
+                      		<option value="7.종료">7.종료</option>
+                      		<option value="8.Dropped">8.Dropped</option>
                       	</select>
                       	</td>
                       </tr>
@@ -359,7 +371,7 @@ $(document).ready(function(){
                       <tr>
                       <th>고객부서</th>
                      <td>
-                      	<input id="CLIENT_PART" name="CLIENT_PART" <%=project.getClIENT_PART() %>>
+                      	<input id="CLIENT_PART" name="CLIENT_PART" value="<%=project.getClIENT_PART()%>">
                       	</td>
                       </tr>
                       
@@ -380,84 +392,84 @@ $(document).ready(function(){
 					  <tr>
 					  <th>상반기수주</th> 
 					  <td>
-                      	<input id="FH_ORDER" name="FH_ORDER" value="0">
+                      	<input id="FH_ORDER" name="FH_ORDER" value="<%=project.getFH_ORDER()%>">
                       </td> 
 					</tr>
 						
 						<tr>
 						<th>상반기예상매출</th>
 						<td>
-                      		<input id="FH_SALES_PROJECTIONS" name="FH_SALES_PROJECTIONS" value="0">
+                      		<input id="FH_SALES_PROJECTIONS" name="FH_SALES_PROJECTIONS" value="<%=project.getFH_SALES_PROJECTIONS()%>">
                       	</td> 
 						</tr>
 						
 						<tr>
 						<th>상반기매출 </th>
 						<td>
-                      		<input id="FH_SALES" name="FH_SALES" value="0">
+                      		<input id="FH_SALES" name="FH_SALES" value="<%=project.getFH_SALES()%>">
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>하반기수주 </th>
 						<td>
-                      		<input id="SH_ORDER" name="SH_ORDER" value="0">
+                      		<input id="SH_ORDER" name="SH_ORDER" value="<%=project.getSH_ORDER()%>">
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>하반기예상매출 </th>
 						<td>
-                      		<input id="SH_SALES_PROJECTIONS" name="SH_SALES_PROJECTIONS" value="0">
+                      		<input id="SH_SALES_PROJECTIONS" name="SH_SALES_PROJECTIONS" value="<%=project.getSH_SALES_PROJECTIONS()%>">
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>하반기매출 </th>
 						<td>
-                      		<input id="SH_SALES" name="SH_SALES" value="0"></input>
+                      		<input id="SH_SALES" name="SH_SALES" value="<%=project.getSH_SALES()%>"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>착수</th> 
 						<td>
-                      		<input id="PROJECT_START" name="PROJECT_START" placeholder="ex)0000-00-00"></input>
+                      		<input id="PROJECT_START" name="PROJECT_START" value="<%=project.getPROJECT_START()%>"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>종료</th> 
 						<td>
-                      		<input id="PROJECT_END" name="PROJECT_END" placeholder="ex)0000-00-00"></input>
+                      		<input id="PROJECT_END" name="PROJECT_END" value="<%=project.getPROJECT_END()%>"></input>
                       	</td> 
 						</tr>
 						
 						<tr>
 						<th>고객담당자</th>
 						<td>
-                      		<input id="CLIENT_PTB" name="CLIENT_PTB"></input>
+                      		<input id="CLIENT_PTB" name="CLIENT_PTB" value="<%=project.getCLIENT_PTB()%>"></input>
                       	</td> 
 						</tr>
 						
 						<tr>
 						<th>근무지</th> 
 						<td>
-                      		<input id="WORK_PLACE" name="WORK_PLACE"></input>
+                      		<input id="WORK_PLACE" name="WORK_PLACE" value="<%=project.getWORK_PLACE()%>"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>업무</th>
 						<td>
-                      		<input id="WORK" name="WORK"></input>
+                      		<input id="WORK" name="WORK" value="<%=project.getWORK()%>"></input>
                       	</td> 
 						</tr>
 						
 						<tr>
-						<th>PM</th> 
+						<th><span style="color:red;">*</span>PM</th> 
 						<td>
-                      		<input id="PROJECT_MANAGER" name="PROJECT_MANAGER"></input>
+                      		<input id="PROJECT_MANAGER" name="PROJECT_MANAGER" value="<%=project.getPROJECT_MANAGER()%>"></input>
                       	</td>
 						</tr>
 						
@@ -472,7 +484,7 @@ $(document).ready(function(){
                       			}
                       		%>
                       	</select>
-                      	<textarea id="textValue2" name="WORKER_LIST2" style="display:none;"></textarea>
+                      	<textarea id="textValue2" name="WORKER_LIST2" style="display:block;"><%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
                       		<table id = "workerList" style="margin-top:5px;">
                       			<thead>
                       				<th style="display:none;">id</th>
@@ -481,6 +493,17 @@ $(document).ready(function(){
                       				<th>  </th>
                       			</thead>
                       			<tbody id="workerListAdd">
+                      				<%if(project.getWORKER_LIST() != null) {
+                      				workerID = project.getWORKER_LIST().split(" ");
+                      				for(int c=0; c<workerID.length;c++){
+										MemberBean member = memberDao.returnMember(workerID[c]); %>
+	                      				<tr>
+	                      					<td style='display:none;'><%=workerID[c]%></td>
+	                      					<td><%=member.getTEAM()%></td>
+	                      					<td><%=member.getNAME()%></td>
+	                      					<td><input type='button' class='workDel' value='삭제'/></td>
+	                      				</tr>
+                      				<%}} %>
                       			</tbody>
                       		</table>
                       	</td>
@@ -488,26 +511,26 @@ $(document).ready(function(){
 						<tr>
 						<th>2020(상)평가유형</th> 
 						<td>
-                      		<input id="ASSESSMENT_TYPE" name="ASSESSMENT_TYPE"></input>
+                      		<input id="ASSESSMENT_TYPE" name="ASSESSMENT_TYPE" value="<%=project.getASSESSMENT_TYPE()%>"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>채용수요</th> 
 						<td>
-                      		<input id="EMPLOY_DEMAND" name="EMPLOY_DEMAND" value="0"></input>
+                      		<input id="EMPLOY_DEMAND" name="EMPLOY_DEMAND" value="<%=project.getEMPLOY_DEMAND()%>"></input>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>외주수요</th>  
 						<td>
-                      		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="0"></input>
+                      		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="<%=project.getOUTSOURCE_DEMAND()%>"></input>
                       	</td>
                         </tr>
                 </table>
                   <div class="card-body" style="margin: 0 auto;">
-                	<input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary">
+                	<input id="COMPLETE" type="submit" name="COMPLETE" value="수정"  class="btn btn-primary">
        				 <a href="project.jsp" class="btn btn-primary">취소</a>
               	</div>
                 </form>  

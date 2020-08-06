@@ -352,10 +352,7 @@
                 <div class="card-header py-3">
                 
                   <h6 class="m-0 font-weight-bold text-primary"><%=sessionName%> 일정수정</h6>
-                  <form method="post" action="manager_schedule_deletePro.jsp" style="display: inline !important;">
-				 	<input type="hidden" name = "num" value="<%=num%>">
-				 	<input id="Delete" type="submit" name="Delete" value=삭제 class="btn btn-secondary btn-icon-split">
-				 </form>
+				 <a id="Delete" href="manager_schedule_deletePro.jsp?num=<%=num%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
                 </div>
                <div class="card-body" style="margin-bottom:52px;">
 	  		<div class="table-responsive"> 
@@ -442,7 +439,8 @@
      </table>
      
  	<input type="hidden" name = "num" value="<%=num%>">
-   	<input id="Update" type="submit" name="COMPLETE" value="수정" class="btn btn-primary" >
+   	<input id="Update" type="submit" name="COMPLETE" value="수정" class="btn btn-primary">
+   	
 </form>
 
 	 
