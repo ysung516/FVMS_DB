@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
     import = "java.util.ArrayList"
-    import = "jsp.sheet.method.*"
+    import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
@@ -28,8 +28,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	
-	sheetMethod method = new sheetMethod();
-	ArrayList<ProjectBean> pjList = method.getProjectList();
+	ProjectDAO projectDao = new ProjectDAO();
+	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
 %>
 
   <meta charset="utf-8">
@@ -274,13 +274,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		      		%><option value="<%=pjList.get(i).getPROJECT_NAME()%>"><%=pjList.get(i).getPROJECT_NAME()%></option><%
 		      	}
 		      	%>
-		      		
 		      </select></td>
 		     </tr>
 
 		    <tr>
 		      <td class="m-0 text-primary" align="center">작성자</td>
-		      <td><input id="name" name="NAME"></td>
+		      <td><input id="name" name="NAME" value="<%=sessionName%>" readonly></td>
 		     </tr>  
 		    <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea name="WeekPlan" rows="10"></textarea></td>

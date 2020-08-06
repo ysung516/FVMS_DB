@@ -265,9 +265,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                  <div class="card-body">
            
                  <div class="table-responsive">
-		    <form method = "post" action = "report_writePro.jsp">
+		<form method = "post" action = "report_updatePro.jsp">
+		    <input type="hidden" name="no" value="<%=no%>">
 		   <table class="table table-bordered" id="dataTable">
-		    
 		     <tr>
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
 		      <td name="projectName"><%=report.getTitle()%></td>

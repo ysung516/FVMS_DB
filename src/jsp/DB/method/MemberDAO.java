@@ -171,14 +171,50 @@ public class MemberDAO {
 			  return x;
 			 }
 
-		 //마이페이지 수정
-		 public int mypageUpdate(String id, String address, String comeDate, String wyear, String mobile, String gmail, String career) {
+		 //관리자페이지에서 회원 수정
+		 public int managerUpdate(String id, String address, String comeDate, String wyear, String mobile,
+				 String gmail, String career, String part, String team, String permission, String rank, String position) {
 			 Connection conn = null;
 			 PreparedStatement pstmt = null;
-		      int rs = 0;
+		     int rs = 0;
 		   
 		      try {
-		       String query = "UPDATE member SET 거주지 = ?, 입사일 = ?, 연차 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ? WHERE id = ?";
+		       String query = "update member set 거주지 = ?, 입사일 = ?, 연차 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, "
+		       		+ "소속=?,팀=?,permission=?,직급=?,직책=? where id = ?";
+		       conn = DBconnection.getConnection();
+		       pstmt = conn.prepareStatement(query.toString());
+		       
+		       pstmt.setString(1, address);
+		       pstmt.setString(2, comeDate);
+		       pstmt.setString(3, wyear);
+		       pstmt.setString(4, mobile);
+		       pstmt.setString(5, gmail);
+		       pstmt.setString(6, career);
+		       pstmt.setString(7, part);
+		       pstmt.setString(8, team);
+		       pstmt.setString(9, permission);
+		       pstmt.setString(10, rank);
+		       pstmt.setString(11, position);
+		       pstmt.setString(12, id);
+		       rs = pstmt.executeUpdate();
+		       
+		      }  catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		    
+		   }
+		      return rs;
+		 }
+		 
+		 // 마이페이지 수정
+		 public int mypageUpdate(String id, String address, String comeDate, String wyear, String mobile,
+				 String gmail, String career) {
+			 Connection conn = null;
+			 PreparedStatement pstmt = null;
+		     int rs = 0;
+		   
+		      try {
+		       String query = "update member set 거주지 = ?, 입사일 = ?, 연차 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?,where id = ?";
 		       conn = DBconnection.getConnection();
 		       pstmt = conn.prepareStatement(query.toString());
 		       
@@ -194,17 +230,28 @@ public class MemberDAO {
 		      }  catch (SQLException e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
-		    return 0;
-		   }
-		     
-			if(rs == 1) {
-				return 1;
-			}
-			else {
-				return 0;
-			}
 		    
+		   }
+		      return rs;
+		 }
+		 
+		 
+		 // 회원삭제
+		 public int deleteMember(String id) {
+			 Connection conn = null;
+			 PreparedStatement pstmt = null;
+		     int rs = 0;
+		     try {
+			    	String query = "delete from member where no =?";
+			    	conn = DBconnection.getConnection();
+			    	pstmt = conn.prepareStatement(query.toString());
+			    	pstmt.setString(1, id);
+			    	rs = pstmt.executeUpdate();
+			    }catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		     return rs;
 		 }
 	
-	
-}
+}	//end 

@@ -275,7 +275,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">이름</td>
-				      <td colspan="3"><%=member.getName()%></td>
+				      <td colspan="3"><%=member.getNAME()%></td>
 			     </tr>
 			       <tr>
 				      <td class="m-0 text-primary" align="center">거주지</td>

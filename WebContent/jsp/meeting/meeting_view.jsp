@@ -289,7 +289,6 @@
           <form method="post" action="meeting_deletePro.jsp">
 	     	<input type="hidden" name="no" value="<%=no%>">
 	     	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary"  >
-	     	
 	     </form>
         </div>
           
