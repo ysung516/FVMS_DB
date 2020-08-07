@@ -322,31 +322,31 @@ public class ProjectDAO {
 	    	
 	    	while(rs.next()) {
 	    		ProjectBean project = new ProjectBean();
-	    		project.setTEAM(rs.getString(1));
-	    		project.setPROJECT_CODE(rs.getString(2));
-	    		project.setPROJECT_NAME(rs.getString(3));
-	    		project.setSTATE(rs.getString(4));
-	    		project.setPART(rs.getString(5));
-	    		project.setCLIENT(rs.getString(6));
-	    		project.setClIENT_PART(rs.getString(7));
-	    		project.setMAN_MONTH(rs.getFloat(8));
-	    		project.setPROJECT_DESOPIT(rs.getFloat(9));
-	    		project.setFH_ORDER(rs.getFloat(10));
-	    		project.setFH_SALES_PROJECTIONS(rs.getFloat(11));
-	    		project.setFH_SALES(rs.getFloat(12));
-	    		project.setSH_ORDER(rs.getFloat(13));
-	    		project.setSH_SALES_PROJECTIONS(rs.getFloat(14));
-	    		project.setSH_SALES(rs.getFloat(15));
-	    		project.setPROJECT_START(rs.getString(16));
-	    		project.setPROJECT_END(rs.getString(17));
-	    		project.setCLIENT_PTB(rs.getString(18));
-	    		project.setWORK_PLACE(rs.getString(19));
-	    		project.setWORK(rs.getString(20));
-	    		project.setPROJECT_MANAGER(rs.getString(21));
-	    		project.setWORKER_LIST(rs.getString(22));
-	    		project.setASSESSMENT_TYPE(rs.getString(23));
-	    		project.setEMPLOY_DEMAND(rs.getFloat(24));
-	    		project.setOUTSOURCE_DEMAND(rs.getFloat(25));
+	    		project.setTEAM(rs.getString("팀"));
+	    		project.setPROJECT_CODE(rs.getString("프로젝트코드"));
+	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
+	    		project.setSTATE(rs.getString("상태"));
+	    		project.setPART(rs.getString("실"));
+	    		project.setCLIENT(rs.getString("고객사"));
+	    		project.setClIENT_PART(rs.getString("고객부서"));
+	    		project.setMAN_MONTH(rs.getFloat("ManMonth"));
+	    		project.setPROJECT_DESOPIT(rs.getFloat("프로젝트계약금액_백만"));
+	    		project.setFH_ORDER(rs.getFloat("상반기수주"));
+	    		project.setFH_SALES_PROJECTIONS(rs.getFloat("상반기예상매출"));
+	    		project.setFH_SALES(rs.getFloat("상반기매출"));
+	    		project.setSH_ORDER(rs.getFloat("하반기수주"));
+	    		project.setSH_SALES_PROJECTIONS(rs.getFloat("하반기예상매출"));
+	    		project.setSH_SALES(rs.getFloat("하반기매출"));
+	    		project.setPROJECT_START(rs.getString("착수"));
+	    		project.setPROJECT_END(rs.getString("종료"));
+	    		project.setCLIENT_PTB(rs.getString("고객담당자"));
+	    		project.setWORK_PLACE(rs.getString("근무지"));
+	    		project.setWORK(rs.getString("업무"));
+	    		project.setPROJECT_MANAGER(rs.getString("PM"));
+	    		project.setWORKER_LIST(rs.getString("투입명단"));
+	    		project.setASSESSMENT_TYPE(rs.getString("평가유형"));
+	    		project.setEMPLOY_DEMAND(rs.getFloat("채용수요"));
+	    		project.setOUTSOURCE_DEMAND(rs.getFloat("외주수요"));
 	    		projectList.add(project);
 	    	}
 		}catch (SQLException e) {
@@ -357,8 +357,6 @@ public class ProjectDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-		
-		
 		return projectList;
 	}
 	

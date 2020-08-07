@@ -23,8 +23,7 @@
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<ProjectBean> projectList = new ArrayList<ProjectBean>();
-	projectList = projectDao.getProjectList();
+	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
 	
 	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
 	String[] workerIdArray = {};

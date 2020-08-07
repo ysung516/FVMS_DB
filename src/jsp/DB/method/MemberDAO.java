@@ -82,7 +82,6 @@ public class MemberDAO {
 	    	pstmt.setString(1, id);
 	    	rs2 = pstmt.executeQuery();
 
-	    	
 	    	if(rs.next()) {
 	    		member.setID(rs.getString("id"));
 	    		member.setPART(rs.getString("소속"));
@@ -107,6 +106,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(rs2 != null) try {rs.close();} catch(SQLException ex) {}
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
