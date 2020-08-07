@@ -212,7 +212,6 @@
     <!-- End of Topbar -->
 
   <!-- Begin Page Content -->
-    <div class="container-fluid">
      
       <!-- DataTales Example -->
           <div class="card shadow mb-4">
