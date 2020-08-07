@@ -39,6 +39,15 @@
 
 </head>
 <style>
+	@media(max-width:800px){
+		.container-fluid{
+			padding: 0;
+		}
+		.card-header:first-child{
+			padding: 0;
+		}
+}
+
 	.loading{
 		position:fixed;
 		text-align: center;
@@ -344,7 +353,7 @@
       <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary">수주 & 매출</h6>
+         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출</h6>
         </div>
             <div class="card-body"> 
               <div class="table-responsive">
@@ -608,7 +617,7 @@
          </div>
    
     <!-- /.container-fluid -->
-
+</div>
 
    <!-- End of Main Content -->
 
