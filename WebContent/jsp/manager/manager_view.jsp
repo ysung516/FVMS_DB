@@ -242,7 +242,7 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->http://localhost:8080/FVMS_project/jsp/mypage/mypage.jsp
+        <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">

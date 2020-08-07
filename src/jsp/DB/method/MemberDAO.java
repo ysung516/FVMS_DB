@@ -138,7 +138,6 @@ public class MemberDAO {
 		 public int pwdCheck(String id, String now_pwd, String next_pwd, String pwd) {
 			  
 			  int x = -1;
-			  
 
 			  if(now_pwd.equals(pwd)){
 			      
@@ -242,7 +241,7 @@ public class MemberDAO {
 			 PreparedStatement pstmt = null;
 		     int rs = 0;
 		     try {
-			    	String query = "delete from member where no =?";
+			    	String query = "delete from member where id =?";
 			    	conn = DBconnection.getConnection();
 			    	pstmt = conn.prepareStatement(query.toString());
 			    	pstmt.setString(1, id);
@@ -254,4 +253,34 @@ public class MemberDAO {
 		     return rs;
 		 }
 	
+		 // 회원등록 등록
+		 public int insertMember(String name, String id, String pw, String part, String team, 
+				 String rank, String position, String permission) {
+			 Connection conn = null;
+			 PreparedStatement pstmt = null;
+		     int rs = 0;
+		     
+		     try {
+		    	 	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission)"
+		    	 			+ "values(?,?,?,?,?,?,?,?)";
+			    	conn = DBconnection.getConnection();
+			    	pstmt = conn.prepareStatement(query.toString());
+			    	pstmt.setString(1, id);
+			    	pstmt.setString(2, pw);
+			    	pstmt.setString(3, part);
+			    	pstmt.setString(4, team);
+			    	pstmt.setString(5, name);
+			    	pstmt.setString(6, rank);
+			    	pstmt.setString(7, position);
+			    	pstmt.setString(8, permission);
+			    	rs = pstmt.executeUpdate();
+		     }catch (SQLException e) {
+					e.printStackTrace();
+				}
+			 return rs;
+		 }
+		 
+		 
+		 
+		 
 }	//end 

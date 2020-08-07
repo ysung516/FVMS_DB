@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
     import = "jsp.DB.method.*"
-    import = "jsp.Bean.model.*
+    import = "jsp.Bean.model.*"
     %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +25,8 @@
 		
 		if(memberDao.deleteMember(id) == 1){
 			script.print("<script> alert('회원이 삭제되었습니다.'); location.href = 'manager.jsp'; </script>");
+		}else{
+			script.print("<script> alert('삭제 실패했습니다.'); history.back(); </script>");
 		}
 	%>
 </body>

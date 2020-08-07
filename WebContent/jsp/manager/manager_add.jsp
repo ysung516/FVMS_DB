@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
+    import = "java.util.ArrayList"
     import = "jsp.Bean.model.*"
     import = "jsp.DB.method.*"
     %>
@@ -26,7 +27,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
-
+	ProjectDAO projectDao = new ProjectDAO();
+	ArrayList<String> teamList = projectDao.getTeamData();
 	
 %>
 
@@ -250,40 +252,50 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form method="post" action="mypage_updatePro.jsp">       
+          <form method="post" action="manager_addPro.jsp">       
 			  <table class="table table-bordered" id="dataTable">
 				 <tr>
-				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름</td>
-				      <td colspan="3"><input class="add_input" name="" value=""></td>
+				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름 *</td>
+				      <td colspan="3"><input class="add_input" name="name"></td>
 			     </tr>
 			     
 			     <tr>
-				      <td class="m-0 text-primary" align="center">ID</td>
+				      <td class="m-0 text-primary" align="center">ID *</td>
 				       <td colspan="3" style="white-space: nowrap;">
-				       <input name="" value="" style="width:80%;">
+				       <input name="id" style="width:80%;">
 				       <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
 			     </tr>
 			     <tr>
-				      <td class="m-0 text-primary" align="center">PW</td>
-				      <td colspan="3"><input class="add_input" name="" value=""></td>
+				      <td class="m-0 text-primary" align="center">PW *</td>
+				      <td colspan="3"><input class="add_input" name="pw"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
-				      <td colspan="3"><input class="add_input" name="" value=""></td>
+				      <td colspan="3"><input class="add_input" name="part" value="VT"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">팀</td>
-				      <td colspan="3"><input class="add_input" name="" value=""></td>
+				      <td colspan="3"><select id="team" name="team">
+                      	<%
+                      		for(int i=0; i<teamList.size(); i++){
+                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+                      		}
+                      	%>
+                      	</select></td>
 			     </tr>
 			     
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>
-				      <td colspan="3"><input class="add_input" name="" value=""></td>
+				      <td colspan="3"><input class="add_input" name="rank"></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">직책</td>
-				      <td colspan="3"><input class="add_input" name="" value=""></td>
+				      <td colspan="3"><input class="add_input" name="position"></td>
+			     </tr>
+			      <tr>
+				      <td class="m-0 text-primary" align="center">권한</td>
+				      <td colspan="3"><input class="add_input" name="permission" ></td>
 			     </tr>
 			     
 			     <tr align="center">
