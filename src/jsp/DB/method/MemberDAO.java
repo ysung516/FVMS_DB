@@ -60,6 +60,7 @@ public class MemberDAO {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
+	    ResultSet rs2 = null;
 	    MemberBean member = new MemberBean();
 	    
 	    try {
@@ -69,9 +70,17 @@ public class MemberDAO {
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, id);
 	    	rs = pstmt.executeQuery();
+	    	
+	    	StringBuffer query2 = new StringBuffer();
+	    	query2.append("SELECT AES_DECRYPT(UNHEX(pw), 'suresoft') AS pw FROM member WHERE id=?");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query2.toString());
+	    	pstmt.setString(1, id);
+	    	rs2 = pstmt.executeQuery();
+
+	    	
 	    	if(rs.next()) {
 	    		member.setID(rs.getString("id"));
-	    		member.setPASSWORD(rs.getString("pw"));
 	    		member.setPART(rs.getString("소속"));
 	    		member.setTEAM(rs.getString("팀"));
 	    		member.setNAME(rs.getString("이름"));
@@ -85,6 +94,9 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    	}
+	    	if(rs2.next()) {
+	    		member.setPASSWORD(rs2.getString("pw"));
 	    	}
 	    }  catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -102,12 +114,11 @@ public class MemberDAO {
 	    
 	    String dbPW = "";
 	    int x = -1;
-	    
+	    System.out.println(pw);
 		try {
-			
 			StringBuffer query = new StringBuffer();
-	        query.append("SELECT pw FROM member WHERE id=?");
-	        
+			query.append("SELECT AES_DECRYPT(UNHEX(pw), 'suresoft') AS pw FROM member WHERE id=?");
+
 	        conn = DBconnection.getConnection();
 	        pstmt = conn.prepareStatement(query.toString());
             pstmt.setString(1, id);
@@ -115,6 +126,7 @@ public class MemberDAO {
             
             if(rs.next())
             {
+            	
             	dbPW = rs.getString("pw");
             	if(dbPW.equals(pw)) {
             		x = 1;	// 인증성공
@@ -138,16 +150,16 @@ public class MemberDAO {
 		 public int pwdCheck(String id, String now_pwd, String next_pwd, String pwd) {
 			  
 			  int x = -1;
-
+			  System.out.println(pwd);
 			  if(now_pwd.equals(pwd)){
-			      
+			      System.out.println(pwd);
 			      Connection conn = null;
 			      PreparedStatement pstmt = null;
 			      int rs = 0;
 			     
 			      try {
 			       String query = new String();
-			       query = "UPDATE member SET pw = ? WHERE id = ?";
+			       query = "UPDATE member SET pw = HEX(AES_ENCRYPT(?, 'suresoft')) WHERE id = ?";
 			       
 			       conn = DBconnection.getConnection();
 			       pstmt = conn.prepareStatement(query);
