@@ -479,7 +479,7 @@
     <form method = "post" action = "../LogoutPro.jsp">
      	  <input type="submit" class="btn btn-primary" value="Logout" />
      </form>
-   
+  
     </div>
    </div>
   </div>

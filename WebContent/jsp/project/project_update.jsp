@@ -11,7 +11,6 @@
 <html lang="en">
 
 <head>
-
 <%
 
 	PrintWriter script =  response.getWriter();
@@ -484,7 +483,7 @@ $(document).ready(function(){
                       			}
                       		%>
                       	</select>
-                      	<textarea id="textValue2" name="WORKER_LIST2" style="display:block;"><%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
+                      	<textarea id="textValue2" name="WORKER_LIST2" style="display:none;"><%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
                       		<table id = "workerList" style="margin-top:5px;">
                       			<thead>
                       				<th style="display:none;">id</th>
