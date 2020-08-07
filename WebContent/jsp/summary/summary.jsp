@@ -39,6 +39,15 @@
 
 </head>
 <style>
+	@media(max-width:800px){
+		.container-fluid{
+			padding: 0;
+		}
+		.card-header:first-child{
+			padding: 0;
+		}
+}
+
 	.loading{
 		position:fixed;
 		text-align: center;
@@ -212,6 +221,7 @@
     <!-- End of Topbar -->
 
   <!-- Begin Page Content -->
+    <div class="container-fluid">
      
       <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -607,7 +617,7 @@
          </div>
    
     <!-- /.container-fluid -->
-
+</div>
 
    <!-- End of Main Content -->
 
