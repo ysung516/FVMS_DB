@@ -25,7 +25,7 @@
      MemberBean member = memberDao.returnMember(ID);
    
     if (memberDao.logincheck(ID, PW) == 1){
-	      script.print("<script> location.href = '../jsp/manager_schedule/manager_schedule.jsp'; </script>");
+	      script.print("<script> location.href = '../jsp/report/report.jsp'; </script>");
 	      session.setAttribute("sessionID", ID);
 	      sessionName = member.getNAME();
 	      session.setAttribute("sessionName", sessionName);

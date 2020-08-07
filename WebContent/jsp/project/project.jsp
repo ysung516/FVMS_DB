@@ -36,6 +36,7 @@
 			workerIdList.add(workerIdArray);
 		}
 	}
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 
 %>
   <meta charset="utf-8">
@@ -408,7 +409,7 @@
 	                      <td><div><%=projectList.get(i).getTEAM()%></div></td>
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
-	                      <%if(sessionID.equals("hlshin") || sessionID.equals("ysung516") || sessionID.equals("hykim") || sessionID.equals("swlee") || sessionID.equals("ymyou")){%>
+	                      <%if(permission <= 1){%>
 	                      <td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
@@ -442,10 +443,13 @@
                 </table>
               </div>   
               </div>     
-   				<div id="project_btn">
-            
+              <%
+          	if (permission <= 1){
+        		%><div id="project_btn">
                 	 <a href="project_make.jsp" class="btn btn-primary">프로젝트 생성</a>
-              </div>
+              </div><%
+        	} %>
+   				
          </div>
         <!-- /.container-fluid -->
 <!--프로젝트 조회 테이블 끝        *********************************************************** -->
