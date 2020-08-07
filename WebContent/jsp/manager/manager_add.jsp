@@ -16,6 +16,18 @@
 $(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
     $('.loading').hide();
 });
+
+var count = 0;
+//ID 중복확인 버튼클릭 시
+function button_onclick(){
+	count++;
+}
+// 정보등록 확인 버튼 클릭 시 
+function button_onclick2(){
+	if(count==0){
+		alert("ID중복체크를 해주세요");
+	}
+}
 	
 </script>
 <%
@@ -263,7 +275,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 				      <td class="m-0 text-primary" align="center">ID *</td>
 				       <td colspan="3" style="white-space: nowrap;">
 				       <input name="id" style="width:80%;">
-				       <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 "></td>
+				       <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 " onclick=button_onclick()></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">PW *</td>
@@ -300,7 +312,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     
 			     <tr align="center">
 			      <td colspan="4"> 
-			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" >
+			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" onclick=button_onclick2()>
 			       <a href="manager.jsp" class="btn btn-primary">취소</a>
 			       </td>
 			     </tr>
