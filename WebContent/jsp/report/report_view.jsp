@@ -288,6 +288,7 @@
          <div class="table-responsive">
          <form method="post" action="report_update.jsp">
          	<input type="hidden" name="no" value=<%=NO%>>
+         	<input type="hidden" name="reoirtTitle" value=<%=report.getTitle()%>>
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary" id="move1">프로젝트</td>

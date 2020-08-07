@@ -32,6 +32,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	ReportDAO reportDao = new ReportDAO();
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
+	ProjectBean pjBean = new ProjectBean();
 
 %>
 
@@ -274,7 +275,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
 		      <td><select name="TITLE">
 		      	<%for(int i=0; i<unWrite.size(); i++){
-		      		%><option value="<%=unWrite.get(i)%>"><%=unWrite.get(i)%></option><%
+		      		pjBean = projectDao.getProjectBean_name(unWrite.get(i));
+		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionName)){
+		      		%><option value="<%=unWrite.get(i)%>"><%=unWrite.get(i)%></option><%}
 		      	}
 		      	%>
 		      </select></td>
