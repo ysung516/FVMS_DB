@@ -18,6 +18,7 @@
      String ID = request.getParameter("ID").toLowerCase();
      String PW = request.getParameter("PW");
      String sessionName;
+     String permission;
      PrintWriter script =  response.getWriter();
      
      MemberDAO memberDao = new MemberDAO();
@@ -28,11 +29,11 @@
 	      session.setAttribute("sessionID", ID);
 	      sessionName = member.getNAME();
 	      session.setAttribute("sessionName", sessionName);
-     
+	      permission = member.getPermission();
+	      session.setAttribute("permission", permission);
      } else 
       script.print("<script> alert('아이디 혹은 비밀번호가 틀립니다.'); history.back(); </script>");
-    
-  
+
  %>
 
 </body>
