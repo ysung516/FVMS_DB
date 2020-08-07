@@ -9,6 +9,11 @@
 <html lang="en">
 
 <head>
+<%
+	MemberDAO memberDao = new MemberDAO();
+	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+	memberList = memberDao.getMemberData();
+%>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
 
@@ -20,12 +25,18 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 var count = 0;
 //ID 중복확인 버튼클릭 시
 function button_onclick(){
-	count++;
+	for(var a=0;a<<%=memberList.size()%>;a++){
+		id.
+	}
+	count = 1;
 }
 // 정보등록 확인 버튼 클릭 시 
 function button_onclick2(){
 	if(count==0){
-		alert("ID중복체크를 해주세요");
+		alert("ID중복체크를 해주세요");	
+	}
+	else {
+		document.addPro.submit();
 	}
 }
 	
@@ -264,7 +275,7 @@ function button_onclick2(){
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form method="post" action="manager_addPro.jsp">       
+          <form name="addPro" method="post">       
 			  <table class="table table-bordered" id="dataTable">
 				 <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름 *</td>
@@ -312,7 +323,7 @@ function button_onclick2(){
 			     
 			     <tr align="center">
 			      <td colspan="4"> 
-			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" onclick=button_onclick2()>
+			      <input id="COMPLETE" type="button" name="COMPLETE" value="완료"  class="btn btn-primary" onclick=button_onclick2()>
 			       <a href="manager.jsp" class="btn btn-primary">취소</a>
 			       </td>
 			     </tr>

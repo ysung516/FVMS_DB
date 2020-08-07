@@ -35,10 +35,10 @@
 		String permission = request.getParameter("permission");
 		
 		if(memberDao.insertMember(name, id, pw, part, team, rank, position, permission) == 1){
-			script.print("<script> alert('회원 정보 수정 되었습니다..'); location.href = 'manager.jsp'; </script>");
+			script.print("<script> alert('회원이 등록 되었습니다..'); location.href = 'manager.jsp'; </script>");
 		}
 		else{
-			script.print("<script> alert('회의 정보 수정에 실패했습니다.'); history.back(); </script>");
+			script.print("<script> alert('회원 등록에 실패했습니다.'); history.back(); </script>");
 		}
 		
 	%>

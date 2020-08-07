@@ -49,6 +49,10 @@ public class MemberDAO {
 	    }  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 	    
 	    return list;
@@ -101,6 +105,10 @@ public class MemberDAO {
 	    }  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 	    
 	    return member; 
@@ -114,7 +122,6 @@ public class MemberDAO {
 	    
 	    String dbPW = "";
 	    int x = -1;
-	    System.out.println(pw);
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("SELECT AES_DECRYPT(UNHEX(pw), 'suresoft') AS pw FROM member WHERE id=?");
@@ -126,7 +133,6 @@ public class MemberDAO {
             
             if(rs.next())
             {
-            	
             	dbPW = rs.getString("pw");
             	if(dbPW.equals(pw)) {
             		x = 1;	// 인증성공
@@ -141,11 +147,44 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 	
 		return x;
 	 }
 	
+	// 아이디 중복 체크
+		public int id_doubleCheck(String id) {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    int cnt = 0;
+			
+		    try {
+		    	StringBuffer query = new StringBuffer();
+				query.append("select id from member where id =?");
+				pstmt = conn.prepareStatement(query.toString());
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					cnt = 1;
+				}
+		    } catch (SQLException e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			   } finally {
+					if(rs != null) try {rs.close();} catch(SQLException ex) {}
+					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+					if(conn != null) try {conn.close();} catch(SQLException ex) {}
+				}
+			return cnt;
+		}
+	
+		
 	//비밀번호 체크
 		 public int pwdCheck(String id, String now_pwd, String next_pwd, String pwd) {
 			  
@@ -172,7 +211,10 @@ public class MemberDAO {
 			      }  catch (SQLException e) {
 			    // TODO Auto-generated catch block
 			    e.printStackTrace();
-			   }
+			   } finally {
+					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+					if(conn != null) try {conn.close();} catch(SQLException ex) {}
+				}
 			      
 			     } else {
 			      
@@ -213,7 +255,10 @@ public class MemberDAO {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		    
-		   }
+		   } finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
 		      return rs;
 		 }
 		 
@@ -242,7 +287,10 @@ public class MemberDAO {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		    
-		   }
+		   } finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
 		      return rs;
 		 }
 		 
@@ -261,6 +309,9 @@ public class MemberDAO {
 			    }catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} finally {
+					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+					if(conn != null) try {conn.close();} catch(SQLException ex) {}
 				}
 		     return rs;
 		 }
@@ -288,6 +339,9 @@ public class MemberDAO {
 			    	rs = pstmt.executeUpdate();
 		     }catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+					if(conn != null) try {conn.close();} catch(SQLException ex) {}
 				}
 			 return rs;
 		 }

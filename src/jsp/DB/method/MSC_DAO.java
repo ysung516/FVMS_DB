@@ -43,6 +43,10 @@ public class MSC_DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
 		return msc;
@@ -71,6 +75,10 @@ public class MSC_DAO {
 			else {return 0;}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 
 		return no;
@@ -103,6 +111,10 @@ public class MSC_DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
 		return msc;
@@ -132,6 +144,9 @@ public class MSC_DAO {
 				rs = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
 		return rs;
@@ -150,6 +165,9 @@ public class MSC_DAO {
 				result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
 		return result;
@@ -171,6 +189,9 @@ public class MSC_DAO {
 				result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
 		return result;
