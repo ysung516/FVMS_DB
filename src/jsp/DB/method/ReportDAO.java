@@ -201,5 +201,97 @@ public class ReportDAO {
 	    return list;
 	}
 	
+	// 보고서 백업
+	public void backUp() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("INSERT INTO reportBackUp SELECT * FROM report");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	}
+	
+	// 주간보고서 삭제
+	public void deleteAllreport() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("truncate report;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	}
+	
+	// 백업보고서 삭제
+	public void deleteAllbackUp() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("truncate reportBackUp;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	}
+	
+	// 보고서 작성시 저번주 데이터 가져오기
+	public ArrayList<ReportBean> loadData() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<ReportBean> reportList = new ArrayList<ReportBean>();
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select * from reportBackUp");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		ReportBean report = new ReportBean();
+	    		report.setTitle(rs.getString("프로젝트명"));
+	    		report.setNextPlan(rs.getString("차주계획"));
+	    		report.setSpecialty(rs.getString("특이사항"));
+	    		report.setNote(rs.getString("비고"));
+	    		reportList.add(report);
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    return reportList;
+	}
+	
+
 	
 }	// end DAO

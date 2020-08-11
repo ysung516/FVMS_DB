@@ -36,6 +36,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 <script>
 	$(document).ready(function(){
 		$("#team").val("<%=member.getTEAM()%>").prop("selected", true);		
+		$("#permission").val("<%=member.getPermission()%>").prop("selected", true);
 	});
 	
 </script>
@@ -280,7 +281,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">권한</td>
-				      <td colspan="3"><input name="permission" value="<%=member.getPermission()%>" class="update_input"></td>
+				      <td colspan="3"><select id="permission" name="permission">
+				      	<option value="0">마스터</option>
+				      	<option value="1">관리자</option>
+				      	<option value="2">일반</option>
+				      	<option value="3">게스트 </option>
+				      </select></td>
 			     </tr>
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>

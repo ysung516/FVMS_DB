@@ -18,15 +18,7 @@
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
 		String sessionID = (String)session.getAttribute("sessionID");
-		
-		
-		if(request.getParameter("MAN_MONTH") == "" || request.getParameter("PROJECT_DESOPIT") == "" || request.getParameter("FH_ORDER") == "" ||
-				request.getParameter("FH_SALES_PROJECTIONS") == "" || request.getParameter("FH_SALES") == "" || 
-				request.getParameter("SH_ORDER") == ""|| request.getParameter("SH_SALES_PROJECTIONS") == "" || 
-				request.getParameter("SH_SALES") == "" || request.getParameter("EMPLOY_DEMAND") == "" || request.getParameter("OUTSOURCE_DEMAND") == ""){
-			script.print("<script> alert('등록 실패!!'); history.back();</script>");
-		}
-		
+	
 		ProjectDAO projectDao = new ProjectDAO();
 		String TEAM = request.getParameter("team");
 		String RPOJECT_CODE = request.getParameter("PROJECT_CODE");

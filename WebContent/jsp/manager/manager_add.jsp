@@ -10,38 +10,6 @@
 
 <head>
 <%
-	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
-	memberList = memberDao.getMemberData();
-%>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script type="text/javascript">
-
-
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-});
-
-var count = 0;
-//ID 중복확인 버튼클릭 시
-function button_onclick(){
-	for(var a=0;a<<%=memberList.size()%>;a++){
-		id.
-	}
-	count = 1;
-}
-// 정보등록 확인 버튼 클릭 시 
-function button_onclick2(){
-	if(count==0){
-		alert("ID중복체크를 해주세요");	
-	}
-	else {
-		document.addPro.submit();
-	}
-}
-	
-</script>
-<%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
@@ -52,8 +20,61 @@ function button_onclick2(){
 	session.setMaxInactiveInterval(15*60);
 	ProjectDAO projectDao = new ProjectDAO();
 	ArrayList<String> teamList = projectDao.getTeamData();
+	MemberDAO memberDao = new MemberDAO();
+	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+	memberList = memberDao.getMemberData();
 	
 %>
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript">
+	$(window).load(function () {
+		$('.loading').hide();
+	});
+	
+	
+	var idList = new Array();
+	<%
+		for(int i=0; i<memberList.size(); i++){
+			%>idList[<%=i%>] = '<%=memberList.get(i).getID()%>';<%
+		}%>
+	
+	
+	var count = 0;
+	//ID 중복확인 버튼클릭 시
+	function button_onclick(){
+		for(var a=0; a<idList.length; a++){
+			if($('#id').val().length <= 3){
+				count = -1;
+				break;
+			}
+			if($('#id').val() == idList[a]){
+				count = 0;
+				break;
+			} else{
+				count = 1;
+			}
+		}
+		if(count == 0){
+			alert("이 아이디는 사용하실 수 없습니다.")
+		} else if (count == 1){
+			alert("사용가능한 아이디 입니다.")
+		} else if(count == -1){
+			alert("아이디 최소길이가 3글자 이상이여야 합니다.")
+		}
+	}
+	// 정보등록 확인 버튼 클릭 시 
+	function button_onclick2(){
+		if(count != 1){
+			
+			alert("ID중복체크를 해주세요");	
+		}
+		else if(count == 1){
+			console.log(count);
+			document.addPro.submit();
+		}
+	}
+	
+</script>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -275,7 +296,7 @@ function button_onclick2(){
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form name="addPro" method="post">       
+          <form id="addPro" name="addPro" method="post" action="manager_addPro.jsp">       
 			  <table class="table table-bordered" id="dataTable">
 				 <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">이름 *</td>
@@ -285,7 +306,7 @@ function button_onclick2(){
 			     <tr>
 				      <td class="m-0 text-primary" align="center">ID *</td>
 				       <td colspan="3" style="white-space: nowrap;">
-				       <input name="id" style="width:80%;">
+				       <input id ="id" name="id" style="width:80%;">
 				       <input type="button" class="btn btn-info btn-icon-split btn-sm" value=" 확인 " onclick=button_onclick()></td>
 			     </tr>
 			     <tr>
@@ -301,7 +322,7 @@ function button_onclick2(){
 				      <td colspan="3"><select id="team" name="team">
                       	<%
                       		for(int i=0; i<teamList.size(); i++){
-                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+                      			%><option value='<%=teamList.get(i)%>'><%=teamList.get(i)%></option><%
                       		}
                       	%>
                       	</select></td>
@@ -318,8 +339,13 @@ function button_onclick2(){
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">권한</td>
-				      <td colspan="3"><input class="add_input" name="permission" ></td>
-			     </tr>
+				      <td>
+				      <select id="permission" name="permission">
+				      	<option value="0">마스터</option>
+				      	<option value="1">관리자</option>
+				      	<option value="2">일반</option>
+				      	<option value="3">게스트 </option>
+				      </select></td></tr>
 			     
 			     <tr align="center">
 			      <td colspan="4"> 

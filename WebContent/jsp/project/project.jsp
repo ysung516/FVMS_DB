@@ -431,7 +431,11 @@
 	                      <td class="td"><%=projectList.get(i).getWORK_PLACE()%></td>
 	                      <td class="td"><%=projectList.get(i).getWORK()%></td>
 	                      <td class="td"><%=projectList.get(i).getPROJECT_MANAGER()%></td>
-	                      <td class="td"><%if(i<workerIdList.size()){ for(int a=0;a<workerIdList.get(i).length;a++){%><%=workerIdList.get(i)[a]%> <%}} %></td>
+	                      <td class="td">
+	                      <%
+	                      	if(i<workerIdList.size()){ 
+	                      		for(int a=0;a<workerIdList.get(i).length;a++){%>
+	                      			<%=workerIdList.get(i)[a]%> <%}} %></td>
 	                      <td class="td"><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
 	                      <td class="td"><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
 	                      <td class="td"><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
@@ -444,10 +448,10 @@
               </div>   
               </div>     
               <%
-          	if (permission <= 1){
-        		%><div id="project_btn">
-                	 <a href="project_make.jsp" class="btn btn-primary">프로젝트 생성</a>
-              </div><%
+	          	if (permission <= 1){
+	        		%><div id="project_btn">
+	                	 <a href="project_make.jsp" class="btn btn-primary">프로젝트 생성</a>
+	              </div><%
         	} %>
    				
          </div>

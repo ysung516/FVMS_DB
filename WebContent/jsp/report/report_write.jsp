@@ -15,6 +15,7 @@
 
 $(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
     $('.loading').hide();
+	loadData();
 });
 	
 </script>
@@ -30,12 +31,39 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	ReportDAO reportDao = new ReportDAO();
+	ReportBean report = new ReportBean();
+	ArrayList<ReportBean> reportList = reportDao.loadData();
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
-
 %>
+<script>
+function loadData(){
+	
+	$('#WeekPlan').val('');
+	$('#specialty').val('');
+	$('#note').val('');
+	var title = $('#title').val();
+	console.log(title);
+	<%for(int j=0; j < reportList.size(); j++){%>
+	if (title == "<%=reportList.get(j).getTitle()%>"){
+		
+		<%for(int a=0; a<reportList.get(j).getP_nextPlan().length; a++){
+			%>document.getElementById('WeekPlan').value += '<%=reportList.get(j).getP_nextPlan()[a].trim()%>\n';	
+		<%}
+		for(int b=0; b<reportList.get(j).getP_specialty().length; b++){
+			%>document.getElementById('specialty').value += '<%=reportList.get(j).getP_specialty()[b].trim()%>\n';	
+		<%}		
+		for(int c=0; c<reportList.get(j).getP_note().length; c++){
+			%>document.getElementById('note').value += '<%=reportList.get(j).getP_note()[c].trim()%>\n';
+	<%}%>
+	}
+<%}%>
+}
 
+
+
+</script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -273,7 +301,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		    
 		     <tr>
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
-		      <td><select name="TITLE">
+		      <td><select id="title" name="TITLE" onchange="loadData()">
 		      	<%for(int i=0; i<unWrite.size(); i++){
 		      		pjBean = projectDao.getProjectBean_name(unWrite.get(i));
 		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionName)){
@@ -288,7 +316,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		      <td><input id="name" name="NAME" value="<%=sessionName%>" readonly></td>
 		     </tr>  
 		    <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea name="WeekPlan" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea id="WeekPlan" name="WeekPlan" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><textarea name="WeekPro" rows="10"></textarea></td>
@@ -297,10 +325,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><textarea name="NextPlan" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><textarea name="specialty" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><textarea id="specialty" name="specialty" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6><textarea name="note" rows="10" ></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6><textarea id="note" name="note" rows="10" ></textarea></td>
 		     </tr>
 		
 		     <tr align="center">

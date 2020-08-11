@@ -156,34 +156,6 @@ public class MemberDAO {
 		return x;
 	 }
 	
-	// 아이디 중복 체크
-		public int id_doubleCheck(String id) {
-			Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    int cnt = 0;
-			
-		    try {
-		    	StringBuffer query = new StringBuffer();
-				query.append("select id from member where id =?");
-				pstmt = conn.prepareStatement(query.toString());
-				pstmt.setString(1, id);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					cnt = 1;
-				}
-		    } catch (SQLException e) {
-			    // TODO Auto-generated catch block
-			    e.printStackTrace();
-			   } finally {
-					if(rs != null) try {rs.close();} catch(SQLException ex) {}
-					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-					if(conn != null) try {conn.close();} catch(SQLException ex) {}
-				}
-			return cnt;
-		}
-	
 		
 	//비밀번호 체크
 		 public int pwdCheck(String id, String now_pwd, String next_pwd, String pwd) {
