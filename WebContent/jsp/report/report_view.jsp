@@ -61,10 +61,8 @@
 </script>
 
 <style>
-
-	.m-0 .text-primary{
-		vertical-align:middle;
-		text-align:center;
+	h6{
+	text-align:left;
 	}
 	
 	#view_btn{

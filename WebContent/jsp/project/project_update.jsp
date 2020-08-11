@@ -79,6 +79,17 @@
      position: absolute;
      top: 9px;
     }
+    	@media(max-width:800px){
+		.container-fluid{
+			padding: 0;
+		}
+		.card-header:first-child{
+			padding: 0;
+		}
+		.card-body{
+		padding:0;
+		}
+}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
@@ -311,13 +322,13 @@ function workDelete(){
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">프로젝트 수정</h6>
+              <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 수정</h6>
 	         	<a id="Delete" href="project_deletePro.jsp?code=<%=code%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
             </div>
-            <div class="card-body" style="width: 75%; margin: 0 auto;">
+            <div class="card-body">
             <div class="table-responsive">
             <form method="post" action="project_updatePro.jsp">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable">
                     <tr>
                       <th><span style="color:red;">*</span>팀</th>
                       <td>
@@ -532,11 +543,14 @@ function workDelete(){
                       		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="<%=project.getOUTSOURCE_DEMAND()%>"></input>
                       	</td>
                         </tr>
-                </table>
-                  <div class="card-body" style="margin: 0 auto;">
-                	<input id="COMPLETE" type="submit" name="COMPLETE" value="수정"  class="btn btn-primary">
+                         <tr align="center">
+                  	<td  colspan="2">
+                        <input id="COMPLETE" type="submit" name="COMPLETE" value="수정"  class="btn btn-primary">
        				 <a href="project.jsp" class="btn btn-primary">취소</a>
-              	</div>
+       				 </td>
+              	</tr>
+                </table>
+                 
                 </form>  
               </div>     		
             </div>
