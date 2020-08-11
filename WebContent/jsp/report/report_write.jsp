@@ -44,7 +44,6 @@ function loadData(){
 	$('#specialty').val('');
 	$('#note').val('');
 	var title = $('#title').val();
-	console.log(title);
 	<%for(int j=0; j < reportList.size(); j++){%>
 	if (title == "<%=reportList.get(j).getTitle()%>"){
 		

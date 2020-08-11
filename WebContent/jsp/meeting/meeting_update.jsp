@@ -53,7 +53,7 @@
 	//뒤로가기 막기
 	history.pushState(null, null, location.href); 
 	window.onpopstate = function(event) { 	
-		var back = window.confirm('나가겠습니까?');
+		var back = window.confirm('저장 되지않을 수 있습니다. 나가겠습니까?');
 		if(back){
 			location.href="meeting.jsp";
 		}
@@ -68,7 +68,7 @@
 			meet_update.submit();
 		}
 		else
-			location.href="meeting.jsp";
+			return;
 	}
 
 </script>
