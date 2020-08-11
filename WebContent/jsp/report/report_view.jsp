@@ -319,7 +319,7 @@
 						<td><%=project.getPROJECT_END()%></td>
 					</tr>
 					<tr>
-						<td colspan="2" id="move2"><h6 class="m-0 text-primary">금주계획</h6><div class="report_div"></td>
+						<td colspan="2" id="move2"><h6 class="m-0 text-primary">금주계획</h6></td>
 						</tr>
 						<tr>
 						<td colspan="2"><%
@@ -328,7 +328,6 @@
 					      		%><p><%=li%></p><%
 					      	}
 					     	 %>
-					     	 </div>
 					     </td>
 					</tr>
 					<tr>
@@ -361,7 +360,7 @@
 						</tr>
 						<tr>
 						<td colspan="2"><%
-					      	line = report.getP_nextPlan();
+					      	line = report.getP_specialty();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
 					      	}
@@ -373,7 +372,7 @@
 						</tr>
 						<tr>
 						<td colspan="2"><%
-					      	line = report.getP_nextPlan();
+					      	line = report.getP_note();
 					      	for(String li : line){
 					      		%><p><%=li%></p><%
 					      	}

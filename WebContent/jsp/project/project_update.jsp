@@ -82,15 +82,22 @@
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-	<!-- 로딩화면 -->
-	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-	    $('.loading').hide();
-	});
-
-</script>
-
-<script>
+$(document).ready(function () {
+	$('.loading').hide();
+	sortSelect('WORKER_LIST'); 
+	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
+	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
+	workDelete();
+	
+    // Warning
+    $(window).on('beforeunload', function(){
+        return "Any changes will be lost";
+    });
+    // Form Submit
+    $(document).on("submit", "form", function(event){
+        $(window).off('beforeunload');
+    });
+})
 
 //정렬함수
 function sortSelect(selId) {
@@ -145,12 +152,6 @@ function workDelete(){
 	});
 }
 
-$(document).ready(function(){
-	sortSelect('WORKER_LIST'); 
-	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
-	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
-	workDelete();
-});
 </script>
 
 <body id="page-top">

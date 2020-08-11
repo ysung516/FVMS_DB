@@ -9,14 +9,9 @@
 <head>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-
-
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-});
-	
 	
 $(document).ready(function () {
+	$('.loading').hide();
     // Warning
     $(window).on('beforeunload', function(){
         return "Any changes will be lost";

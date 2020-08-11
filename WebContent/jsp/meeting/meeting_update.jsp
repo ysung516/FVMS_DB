@@ -50,26 +50,17 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-	//뒤로가기 막기
-	history.pushState(null, null, location.href); 
-	window.onpopstate = function(event) { 	
-		var back = window.confirm('저장 되지않을 수 있습니다. 나가겠습니까?');
-		if(back){
-			location.href="meeting.jsp";
-		}
-		else
-			return;
-	}
- 
-	//수정확인 알림창
-	function ok_btn(){
-		var result = window.confirm('수정하시겠습니까?');
-		if(result){
-			meet_update.submit();
-		}
-		else
-			return;
-	}
+$(document).ready(function () {
+	$('.loading').hide();
+    // Warning
+    $(window).on('beforeunload', function(){
+        return "Any changes will be lost";
+    });
+    // Form Submit
+    $(document).on("submit", "form", function(event){
+        $(window).off('beforeunload');
+    });
+})
 
 </script>
 <style>
@@ -332,7 +323,7 @@
 						</td>
 					</tr>
 			<tr>
-			<td colspan="2"><input type="button" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
+			<td colspan="2"><input type="submit" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
 			</tr>
 				<input type="hidden" name="no" value="<%=no%>">
 				<input type="hidden" name="writer" value="<%=writer%>">

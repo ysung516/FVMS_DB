@@ -9,16 +9,7 @@
 <html lang="en">
 
 <head>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script type="text/javascript">
 
-
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-	loadData();
-});
-	
-</script>
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
@@ -37,7 +28,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
 %>
-<script>
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript">
+
 function loadData(){
 	
 	$('#WeekPlan').val('');
@@ -61,6 +54,20 @@ function loadData(){
 }
 
 
+$(document).ready(function () {
+	$('.loading').hide();
+	loadData();	// 주간보고서 작성시 백업테이블에서 데이터 가져오기
+
+    $(window).on('beforeunload', function(){
+        return "Any changes will be lost";
+    });
+    
+    $(document).on("submit", "form", function(event){
+        $(window).off('beforeunload');
+    });
+    
+    
+})
 
 </script>
   <meta charset="utf-8">
