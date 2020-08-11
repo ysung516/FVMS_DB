@@ -16,11 +16,18 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 });
 	
 	
-window.onbeforeunload = function(e){
-	var dialogText = 'Dialog text here';
-	e.returnValue = dialogText;
-	return dialogText;		
-}
+$(document).ready(function () {
+    // Warning
+    $(window).on('beforeunload', function(){
+        return "Any changes will be lost";
+    });
+    // Form Submit
+    $(document).on("submit", "form", function(event){
+        $(window).off('beforeunload');
+    });
+})
+
+
 </script>
 <%
 	PrintWriter script =  response.getWriter();
