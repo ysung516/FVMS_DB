@@ -68,6 +68,7 @@ public class MeetingDAO {
 	    	
 	    	if(rs.next()) {
 	    		meet.setMeetName(rs.getString("회의명"));
+	    		meet.setId(rs.getString("ID"));
 	    		meet.setWriter(rs.getString("작성자"));
 	    		meet.setDate(rs.getString("작성날짜"));
 	    		meet.setMeetDate(rs.getString("회의일시"));

@@ -21,6 +21,8 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	MeetingDAO meetDao = new MeetingDAO();
+	MemberDAO member = new MemberDAO();
+	int permission = Integer.parseInt(member.returnMember(sessionID).getPermission());
 	ArrayList<MeetBean> list = meetDao.getMeetBean();
 	
  %>
@@ -217,7 +219,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	     	</li>
 	     	
 	     	<!-- Nav Item - manager page -->
-     	<%if(sessionID.equals("ymyou")){ %>
+     	<%if(permission == 0){ %>
 			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 

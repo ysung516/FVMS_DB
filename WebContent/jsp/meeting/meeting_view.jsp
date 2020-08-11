@@ -22,7 +22,10 @@
 		int no = Integer.parseInt(request.getParameter("no"));
 		MeetingDAO meetDao = new MeetingDAO();
 		MeetBean mb = meetDao.getMeetList(no);
+		String id = mb.getId();
 		
+		System.out.println(sessionID);
+		System.out.println(id);
 		// 출력
 		String [] line;
 		
@@ -288,7 +291,11 @@
          <h6 class="m-0 font-weight-bold text-primary" id="view_btn">회의록 조회</h6>
           <form method="post" action="meeting_deletePro.jsp">
 	     	<input type="hidden" name="no" value="<%=no%>">
-	     	<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary"  >
+	     	<%
+	     		if(sessionID.equals(id)){
+	     			%><input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary"><%	
+	     		}
+	     	%>
 	     </form>
         </div>
           
@@ -345,7 +352,12 @@
 							<input type="hidden" name="attendees" value="<%=mb.getAttendees()%>">
 							<input type="hidden" name="MeetNote" value="<%=mb.getP_meetnote()%>">
 							<input type="hidden" name="nextPlan" value="<%=mb.getP_nextplan()%>">
-							<input id="update" type="submit" name="update" value="수정"  class="btn btn-primary">
+							<%
+								if(sessionID.equals(id)){
+									%><input id="update" type="submit" name="update" value="수정"  class="btn btn-primary"><%
+								}
+							%>
+							
 						</form>	
 							<a href="meeting.jsp" class="btn btn-primary">목록</a>
 						</td>
