@@ -62,6 +62,10 @@
 </script>
 
 <style>
+	p{
+		margin-bottom:0;
+	}
+	
 	h6{
 	text-align:left;
 	}
@@ -80,7 +84,7 @@
 	    }
 	    
 	#dataTable td:nth-child(odd){
-    text-align: center;
+   	text-align:center;
     vertical-align: middle;
     word-break:keep-all;
     width:10%;
@@ -321,10 +325,10 @@
 						<td colspan="2" id="move2"><h6 class="m-0 text-primary">금주계획</h6></td>
 						</tr>
 						<tr>
-						<td colspan="2"><%
+						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_weekPlan();
 					      	for(String li : line){
-					      		%><p><%=li%></p><%
+					      		%><p><%=li.trim()%></p><%
 					      	}
 					     	 %>
 					     </td>
@@ -333,10 +337,10 @@
 						<td colspan="2" id="move3"><h6 class="m-0 text-primary">금주진행</h6></td>
 						</tr>
 						<tr>
-						<td colspan="2"><%
+						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_weekPro();
 					      	for(String li : line){
-					      		%><p><%=li%></p><%
+					      		%><p><%=li.trim()%></p><%
 					      	}
 					      %>
 					     </td>
@@ -346,10 +350,10 @@
 						<td colspan="2" id="move4"><h6 class="m-0 text-primary">차주계획</h6></td>
 						</tr>
 						<tr>
-						<td colspan="2"><%
+						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_nextPlan();
 					      	for(String li : line){
-					      		%><p><%=li%></p><%
+					      		%><p><%=li.trim()%></p><%
 					      	}
 					      %>
 					    </td>	
@@ -358,10 +362,10 @@
 						<td colspan="2" id="move5"><h6 class="m-0 text-primary">특이사항</h6></td>
 						</tr>
 						<tr>
-						<td colspan="2"><%
+						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_specialty();
 					      	for(String li : line){
-					      		%><p><%=li%></p><%
+					      		%><p><%=li.trim()%></p><%
 					      	}
 					      %>
 						</td>
@@ -370,10 +374,10 @@
 						<td colspan="2" id="move6"><h6 class="m-0 text-primary">비고</h6></td>
 						</tr>
 						<tr>
-						<td colspan="2"><%
+						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_note();
 					      	for(String li : line){
-					      		%><p><%=li%></p><%
+					      		%><p><%=li.trim()%></p><%
 					      	}
 					      %>
 	      				</td>	

@@ -63,7 +63,10 @@
 	});
 </script>
 <style>
-	
+
+	p{
+		margin-bottom:0;
+	}	
 	#view_btn{
 		vertical-align: middle;
 		padding-left:17px;
@@ -329,7 +332,7 @@
 						<td><%
 							line = mb.getMeetNote();
 							for(String li : line){
-								%><p><%=li%></p><%
+								%><p><%=li.trim()%></p><%
 							}
 							
 						%></td>
@@ -339,7 +342,7 @@
 						<td><%
 							line = mb.getNextPlan();
 							for(String li : line){
-								%><p><%=li%></p><%
+								%><p><%=li.trim()%></p><%
 							}
 						%></td>
 					</tr>
