@@ -70,6 +70,7 @@ function input_check_func() {
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	
 	
 %>
@@ -226,7 +227,7 @@ function input_check_func() {
 			</li>
 			
 			<!-- Nav Item - manager page -->
-     	<%if(sessionID.equals("ymyou")){ %>
+     	<%if(permission == 0){ %>
 			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 

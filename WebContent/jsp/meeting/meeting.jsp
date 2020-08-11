@@ -21,8 +21,7 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	MeetingDAO meetDao = new MeetingDAO();
-	MemberDAO member = new MemberDAO();
-	int permission = Integer.parseInt(member.returnMember(sessionID).getPermission());
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	ArrayList<MeetBean> list = meetDao.getMeetBean();
 	
  %>

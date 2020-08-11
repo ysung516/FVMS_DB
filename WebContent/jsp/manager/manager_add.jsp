@@ -21,6 +21,7 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	ArrayList<String> teamList = projectDao.getTeamData();
 	MemberDAO memberDao = new MemberDAO();
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
 	memberList = memberDao.getMemberData();
 	
@@ -222,15 +223,14 @@
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>회의록</span></a>
 			</li>
-      	<!-- Nav Item - manager page -->
-     	<%if(sessionID.equals("ymyou")){ %>
-			<li class="nav-item active">
+        	<!-- Nav Item - manager page -->
+     	<%if(permission == 0){ %>
+			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
 			  <span>관리자 페이지</span></a>
 			</li>
 			<% }%>
-
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

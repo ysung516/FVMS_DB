@@ -34,6 +34,8 @@ $(document).ready(function () {
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	
 %>
 
   <meta charset="utf-8">
@@ -191,7 +193,7 @@ $(document).ready(function () {
 			  <span>회의록</span></a>
 			</li>
 		<!-- Nav Item - manager page -->
-     	<%if(sessionID.equals("ymyou")){ %>
+     	<%if(permission == 0){ %>
 			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 

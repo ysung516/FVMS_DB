@@ -362,7 +362,7 @@
 			</li>
 		
 		<!-- Nav Item - manager page -->
-     	<%if(sessionID.equals("ymyou")){ %>
+     	<%if(permission == 0){ %>
 			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 

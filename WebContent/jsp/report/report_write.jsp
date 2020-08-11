@@ -27,6 +27,7 @@
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 %>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
@@ -227,8 +228,8 @@ $(document).ready(function () {
 			  <span>회의록</span></a>
 			</li>
 			
-     	<!-- Nav Item - manager page -->
-     	<%if(sessionID.equals("ymyou")){ %>
+     		<!-- Nav Item - manager page -->
+     	<%if(permission == 0){ %>
 			<li class="nav-item">
 			  <a class="nav-link" href="../manager/manager.jsp">
 			  <i class="fas fa-fw fa-clipboard-list"></i> 
