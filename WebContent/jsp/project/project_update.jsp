@@ -31,9 +31,7 @@
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	String code = request.getParameter("code");
-	
 	ProjectBean project = projectDao.getProjectBean_code(code);
-	System.out.println(project.getPROJECT_MANAGER());
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
 	
 	String[] workerID = {};	//투입명단 id 저장용
@@ -544,7 +542,8 @@ function teamMember(team, member){
                       				<th></th>
                       			</thead>
                       			<tbody id="workerListAdd">
-                      				<%if(project.getWORKER_LIST() != null) {
+                      				<%
+                      				if(project.getWORKER_LIST().length() != 0) {
                       				workerID = project.getWORKER_LIST().split(" ");
                       				for(int c=0; c<workerID.length;c++){
 										MemberBean member = memberDao.returnMember(workerID[c]); %>
