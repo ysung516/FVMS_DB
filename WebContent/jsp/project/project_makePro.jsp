@@ -25,7 +25,6 @@
 		String PROJECT_NAME = request.getParameter("PROJECT_NAME");
 		String STATE = request.getParameter("STATE");
 		String PART = request.getParameter("PART");
-		System.out.print(PART);
 		String CLIENT = request.getParameter("CLIENT");
 		String CLIENT_PART = request.getParameter("CLIENT_PART");
 		float MAN_MONTH = Float.valueOf(request.getParameter("MAN_MONTH"));

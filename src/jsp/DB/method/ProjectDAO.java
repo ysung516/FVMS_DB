@@ -360,6 +360,7 @@ public class ProjectDAO {
 		return projectList;
 	}
 	
+	// 프로젝트 삭제
 	public int deleteProject(String projectCode) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -379,6 +380,7 @@ public class ProjectDAO {
 		
 		return result;
 	}
+	
 	
 	
 }	// end 

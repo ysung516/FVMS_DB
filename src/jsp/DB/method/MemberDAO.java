@@ -317,8 +317,7 @@ public class MemberDAO {
 				}
 			 return rs;
 		 }
-		 
-		 
+
 		 
 		 
 }	//end 

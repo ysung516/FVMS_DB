@@ -142,7 +142,6 @@
     }
     
     function stateColor(){
-    	
     	var str = $(".state").val();
     	console.log(str);
     }

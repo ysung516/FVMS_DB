@@ -31,7 +31,11 @@
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	String code = request.getParameter("code");
+	
 	ProjectBean project = projectDao.getProjectBean_code(code);
+	System.out.println(project.getPROJECT_MANAGER());
+	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
+	
 	String[] workerID = {};	//투입명단 id 저장용
 %>
   <meta charset="utf-8">
@@ -95,11 +99,16 @@
 <script type="text/javascript">
 $(document).ready(function () {
 	$('.loading').hide();
-	sortSelect('WORKER_LIST'); 
+	sortSelect('WORKER_LIST');
+	workDelete();
+	teamMember('#PM-team','#PROJECT_MANAGER');
+	teamMember('#teamlist','#WORKER_LIST');
+	
+	$('#PM-team').val("<%=PMdata.getTEAM()%>").prop("selected", true);
 	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
 	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
-	workDelete();
-	
+	$('#PROJECT_MANAGER').append($("<option selected disabled hidden><%=PMdata.getNAME()%></option>"))
+
     // Warning
     $(window).on('beforeunload', function(){
         return "Any changes will be lost";
@@ -129,22 +138,19 @@ function sortSelect(selId) {
 //명단선택
 function getSelectValue(){
 	//팀, 이름 저장
-	var a = $("#WORKER_LIST option:selected").text();
-	var b = $("#WORKER_LIST option:selected").val();
-	$("#textValue").append(a+"\n");
-	var worker = a.split('-');
-	var team = worker[0];
-	var name = worker[1];
+	var team = $("#teamlist option:selected").val();
+	var id = $("#WORKER_LIST option:selected").val();
+	var name = $("#WORKER_LIST option:selected").text();
 	var inner = "";
 	inner += "<tr>";
-	inner += "<td style='display:none;'>"+b+"</td>";
+	inner += "<td style='display:none;'>"+id+"</td>";
 	inner += "<td>"+team+"</td>";
 	inner += "<td>"+name+"</td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
 	$('#workerList > tbody:last').append(inner);
 	//id 저장
-	$("#textValue2").append(b+" ");
+	$("#textValue2").append(id+" ");
 }
 
 //명단삭제
@@ -162,6 +168,28 @@ function workDelete(){
 		tr.remove();
 	});
 }
+
+//팀별 명단
+function teamMember(team, member){
+	var team1 = $(team).val();
+	var memberName;
+	var memberID;
+	var dfselect = $("<option selected disabled hidden>선택</option>");
+	$(member).empty();
+	$(member).append(dfselect);
+	
+	<%
+		for(int j=0; j<memberList.size(); j++){
+			%>if(team1 == '<%=memberList.get(j).getTEAM()%>'){
+				memberName = '<%=memberList.get(j).getNAME()%>';
+				memberID = '<%=memberList.get(j).getID()%>';
+				var option = $("<option value="+memberID+">"+ memberName +"</option>");
+				$(member).append(option);
+			}
+			
+	<%}%>
+}
+
 
 </script>
 
@@ -484,28 +512,36 @@ function workDelete(){
 						<tr>
 						<th><span style="color:red;">*</span>PM</th> 
 						<td>
-                      		<input id="PROJECT_MANAGER" name="PROJECT_MANAGER" value="<%=project.getPROJECT_MANAGER()%>"></input>
+							<select id="PM-team" name="PM-team" onchange="teamMember('#PM-team','#PROJECT_MANAGER')">
+								<%
+		                      		for(int i=0; i<teamList.size(); i++){
+		                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+		                      		}
+		                      	%>
+							</select>
+							<select id="PROJECT_MANAGER" name="PROJECT_MANAGER"></select>
                       	</td>
 						</tr>
 						
 						<tr>
 						<th>투입 명단</th> 
 						<td id ="WorkerList">
-						<select id="WORKER_LIST" name="WORKER_LIST" onChange="getSelectValue();">
-                      		 <option value="" selected disabled hidden>선택</option>
-                      		<%
-                      			for(int i=0; i<memberList.size(); i++){
-                      				%><option value="<%=memberList.get(i).getID()%>"><%=memberList.get(i).getTEAM()%>-<%=memberList.get(i).getNAME()%></option><%		
-                      			}
-                      		%>
-                      	</select>
+							<select id="teamlist" name="teamlist" onchange="teamMember('#teamlist','#WORKER_LIST')">
+								<%
+		                      		for(int i=0; i<teamList.size(); i++){
+		                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+		                      		}
+		                      	%>
+							</select>
+						<select id="WORKER_LIST" name="WORKER_LIST" onChange="getSelectValue();"></select>
+							
                       	<textarea id="textValue2" name="WORKER_LIST2" style="display:none;"><%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
                       		<table id = "workerList" style="margin-top:5px;">
                       			<thead>
                       				<th style="display:none;">id</th>
                       				<th>팀</th>
                       				<th>이름</th>
-                      				<th>  </th>
+                      				<th></th>
                       			</thead>
                       			<tbody id="workerListAdd">
                       				<%if(project.getWORKER_LIST() != null) {
