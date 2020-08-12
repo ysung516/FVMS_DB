@@ -105,7 +105,8 @@ $(document).ready(function () {
 	$('#PM-team').val("<%=PMdata.getTEAM()%>").prop("selected", true);
 	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
 	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
-	$('#PROJECT_MANAGER').append($("<option selected disabled hidden><%=PMdata.getNAME()%></option>"))
+	var pmID = '<%=PMdata.getID()%>';
+	$('#PROJECT_MANAGER').append($("<option selected hidden value="+pmID+" ><%=PMdata.getNAME()%></option>"));
 
     // Warning
     $(window).on('beforeunload', function(){
@@ -370,7 +371,7 @@ function teamMember(team, member){
                       <tr>
                       	<th><span style="color:red;">*</span>프로젝트 코드</th>
                       	<td>
-                      		<input name="PROJECT_CODE"  id="PROJECT_CODE" value="<%=project.getPROJECT_CODE()%>" readonly ></input>	
+                      		<input name="PROJECT_CODE"  id="PROJECT_CODE" value="<%=project.getPROJECT_CODE()%>"></input>	
                       	</td>
                       </tr>
                       <tr>

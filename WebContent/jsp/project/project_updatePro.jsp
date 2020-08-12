@@ -27,33 +27,33 @@
 			script.print("<script> alert('등록 실패!!'); history.back();</script>");
 		}
 		
-		ProjectDAO projectDao = new ProjectDAO();
-		String TEAM = request.getParameter("team");
-		String RPOJECT_CODE = request.getParameter("PROJECT_CODE");
-		String PROJECT_NAME = request.getParameter("PROJECT_NAME");
-		String STATE = request.getParameter("STATE");
-		String PART = request.getParameter("PART");
-		System.out.print(PART);
-		String CLIENT = request.getParameter("CLIENT");
-		String CLIENT_PART = request.getParameter("CLIENT_PART");
-		float MAN_MONTH = Float.valueOf(request.getParameter("MAN_MONTH"));
-		float PROJECT_DESOPIT = Float.valueOf(request.getParameter("PROJECT_DESOPIT"));
-		float FH_ORDER = Float.valueOf(request.getParameter("FH_ORDER")); 
-		float FH_SALES_PROJECTIONS = Float.valueOf(request.getParameter("FH_SALES_PROJECTIONS")); 
-		float FH_SALES = Float.valueOf(request.getParameter("FH_SALES"));
-		float SH_ORDER = Float.valueOf(request.getParameter("SH_ORDER"));
-		float SH_SALES_PROJECTIONS = Float.valueOf(request.getParameter("SH_SALES_PROJECTIONS"));
-		float SH_SALES = Float.valueOf(request.getParameter("SH_SALES"));
-		String PROJECT_START = request.getParameter("PROJECT_START");
-		String PROJECT_END = request.getParameter("PROJECT_END");
-		String CLIENT_PTB = request.getParameter("CLIENT_PTB");
-		String WORK_PLACE = request.getParameter("WORK_PLACE");
-		String WORK = request.getParameter("WORK");
-		String PROJECT_MANAGER = request.getParameter("PROJECT_MANAGER");
-		String WORKER_LIST = request.getParameter("WORKER_LIST2");
-		String ASSESSMENT_TYPE = request.getParameter("ASSESSMENT_TYPE");
-		float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
-		float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
+		  ProjectDAO projectDao = new ProjectDAO();
+		  String TEAM = request.getParameter("team");
+		  String RPOJECT_CODE = request.getParameter("PROJECT_CODE");
+		  String PROJECT_NAME = request.getParameter("PROJECT_NAME");
+		  String STATE = request.getParameter("STATE");
+		  String PART = request.getParameter("PART");
+		  
+		  String CLIENT = request.getParameter("CLIENT");
+		  String CLIENT_PART = request.getParameter("CLIENT_PART");
+		  float MAN_MONTH = Float.valueOf(request.getParameter("MAN_MONTH"));
+		  float PROJECT_DESOPIT = Float.valueOf(request.getParameter("PROJECT_DESOPIT"));
+		  float FH_ORDER = Float.valueOf(request.getParameter("FH_ORDER")); 
+		  float FH_SALES_PROJECTIONS = Float.valueOf(request.getParameter("FH_SALES_PROJECTIONS")); 
+		  float FH_SALES = Float.valueOf(request.getParameter("FH_SALES"));
+		  float SH_ORDER = Float.valueOf(request.getParameter("SH_ORDER"));
+		  float SH_SALES_PROJECTIONS = Float.valueOf(request.getParameter("SH_SALES_PROJECTIONS"));
+		  float SH_SALES = Float.valueOf(request.getParameter("SH_SALES"));
+		  String PROJECT_START = request.getParameter("PROJECT_START");
+		  String PROJECT_END = request.getParameter("PROJECT_END");
+		  String CLIENT_PTB = request.getParameter("CLIENT_PTB");
+		  String WORK_PLACE = request.getParameter("WORK_PLACE");
+		  String WORK = request.getParameter("WORK");
+		  String PROJECT_MANAGER = request.getParameter("PROJECT_MANAGER");
+		  String WORKER_LIST = request.getParameter("WORKER_LIST2");
+		  String ASSESSMENT_TYPE = request.getParameter("ASSESSMENT_TYPE");
+		  float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
+		  float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
 		
 		if(TEAM == null || TEAM =="" || RPOJECT_CODE == null || RPOJECT_CODE == "" || PROJECT_NAME ==null || PROJECT_NAME == "" || PROJECT_MANAGER ==null || PROJECT_MANAGER == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
@@ -65,7 +65,7 @@
 					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND) == 1){
 				script.print("<script> alert('프로젝트가 수정되었습니다.'); location.href = 'project.jsp'</script>");
 			}
-				else script.print("<script> alert('등록 실패!!'); history.back();</script>");
+				else script.print("<script> alert('수정 실패!!'); history.back();</script>");
 		}
 		
 	
