@@ -299,7 +299,7 @@
          <h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>    
         </div>
 
-         <div class="table-responsive">
+         <div class="table-responsive" style="margin-bottom: 40px;">
 			<table id ="managerTable">
 		<thead>
 		 <tr>

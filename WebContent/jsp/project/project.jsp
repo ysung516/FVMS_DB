@@ -41,7 +41,7 @@
 						workerIdArray[a] = memberList.get(b).getNAME();
 					}
 				}
-				
+
 				//workerIdArray[a] = memberDao.returnMember(workerIdArray[a]).getNAME();
 			}
 			workerIdList.add(workerIdArray);
@@ -337,7 +337,7 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="margin-bottom: 40px;">
             	<details>
             	<summary>체크박스</summary>
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
