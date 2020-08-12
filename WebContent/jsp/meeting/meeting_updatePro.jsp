@@ -20,12 +20,6 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
-		if(request.getParameter("MeetName") == null || request.getParameter("writer") == null || request.getParameter("MeetDate") == null
-				|| request.getParameter("MeetPlace") == null || request.getParameter("attendees") == null || request.getParameter("MeetNote") ==null
-				|| request.getParameter("nextPlan") == null){	
-			script.print("<script> alert('빈칸을 모두 작성해 주세요.'); history.back(); </script>");
-		}
-		
 		int no = Integer.parseInt(request.getParameter("no"));
 		String MeetName = request.getParameter("MeetName");
 		String writer = request.getParameter("writer");

@@ -17,6 +17,7 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
+	
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		

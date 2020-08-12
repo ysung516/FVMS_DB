@@ -23,6 +23,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	if(permission > 2){
+		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+	}
 	session.setMaxInactiveInterval(15*60);
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
@@ -38,7 +42,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	}
 	
 	String [] line;
-	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	
 %>
 
   <meta charset="utf-8">

@@ -15,6 +15,7 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
+		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
@@ -27,10 +28,7 @@
 		System.out.println(sessionID);
 		System.out.println(id);
 		// 출력
-		String [] line;
-		
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		
+		String [] line;		
 	%>
 
   <meta charset="utf-8">

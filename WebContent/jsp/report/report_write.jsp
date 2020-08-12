@@ -15,7 +15,10 @@
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
-	
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	if(permission > 2){
+		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+	}
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
@@ -27,7 +30,7 @@
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
-	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	
 %>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
