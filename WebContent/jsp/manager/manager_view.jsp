@@ -249,7 +249,7 @@
           
        <div class="card shadow mb-4">
         <div class="card-header py-3">
-         	<h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">김땡땡 정보 조회</h6>
+         	<h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;"><%=member.getNAME()%> 정보 조회</h6>
          	<form method="post" action="manager_deletePro.jsp">
          		<input type="hidden" name="id" value="<%=id%>">
          		<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >

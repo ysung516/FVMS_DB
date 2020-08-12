@@ -306,7 +306,7 @@
 		 	<th>팀</th>
 		 	<th>이름</th>
 		 	<th>직급</th>
-		 	<th>ID</th>
+		 	<th>권한</th>
 		 </tr>
 		  </thead> 
 		  <tbody id="manager_List">
@@ -316,7 +316,7 @@
 		  			<td><%=memberList.get(i).getTEAM()%></td>
 			  		<td><a href="manager_view.jsp?id=<%=memberList.get(i).getID()%>"><%=memberList.get(i).getNAME() %></a></td>
 			  		<td><%=memberList.get(i).getRANK()%></td>
-			  		<td><%=memberList.get(i).getID() %></td>
+			  		<td><%=memberList.get(i).getPermission() %></td>
 		  		</tr><%	
 		  	}
 		  %>
