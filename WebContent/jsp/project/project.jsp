@@ -24,18 +24,44 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
+	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
 	
 	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
+	ArrayList<String> PMnameList = new ArrayList<String>();
 	String[] workerIdArray = {};
+	String pmInfo="";
+	
+	// 투입명단 id >> 이름으로 변경
 	for(int i=0; i<projectList.size();i++){
 		if(projectList.get(i).getWORKER_LIST() != null){
 			workerIdArray =  projectList.get(i).getWORKER_LIST().split(" ");
-			for(int a=0; a<workerIdArray.length;a++){
-				workerIdArray[a] = memberDao.returnMember(workerIdArray[a]).getNAME();
+			for(int a=0; a<workerIdArray.length; a++){
+				for(int b=0; b<memberList.size(); b++){
+					if(workerIdArray[a].equals(memberList.get(b).getID())){
+						workerIdArray[a] = memberList.get(b).getNAME();
+					}
+				}
+				
+				//workerIdArray[a] = memberDao.returnMember(workerIdArray[a]).getNAME();
 			}
 			workerIdList.add(workerIdArray);
 		}
 	}
+	
+	// PM ID >> 이름 변경
+	for(int i=0; i<projectList.size();i++){
+		if(projectList.get(i).getWORKER_LIST() != null){
+			pmInfo =  projectList.get(i).getPROJECT_MANAGER();
+			for(int b=0; b<memberList.size(); b++){
+				if(pmInfo.equals(memberList.get(b).getID())){
+					pmInfo = memberList.get(b).getNAME();
+				}
+			}
+			PMnameList.add(pmInfo);
+		}
+	}
+	
+	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 
 %>
@@ -429,7 +455,12 @@
 	                      <td class="td"><%=projectList.get(i).getCLIENT_PTB()%></td>
 	                      <td class="td"><%=projectList.get(i).getWORK_PLACE()%></td>
 	                      <td class="td"><%=projectList.get(i).getWORK()%></td>
-	                      <td class="td"><%=projectList.get(i).getPROJECT_MANAGER()%></td>
+	                      <td class="td">
+	                      <%
+	                      	if(i<PMnameList.size()){
+	                      		out.print(PMnameList.get(i));
+	                      	}
+	                      %></td>
 	                      <td class="td">
 	                      <%
 	                      	if(i<workerIdList.size()){ 
