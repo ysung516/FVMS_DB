@@ -11,6 +11,7 @@
 <script type="text/javascript">
 	
 $(document).ready(function () {
+	rowAdd();
 	$('.loading').hide();
     // Warning
     $(window).on('beforeunload', function(){
@@ -21,8 +22,7 @@ $(document).ready(function () {
         $(window).off('beforeunload');
     });
 })
-
-
+	
 </script>
 <%
 	PrintWriter script =  response.getWriter();
@@ -54,6 +54,19 @@ $(document).ready(function () {
   <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<script>
+function rowAdd(){
+	var innerHtml = "";
+	innerHtml += '<tr>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '</tr>';
+	$('#dataTable').append(innerHtml);
+}
+
+</script>
 <style>
 	input{
 		border:1px solid #b7b9cc6e;
@@ -302,23 +315,19 @@ $(document).ready(function () {
 			      <tr>
 			      <td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>
 				     <div style="display: inline-block;float: right;">
-				      <input type="button" value="+"  class="btn btn-primary">
-				      <input type="button"  value="-"  class="btn btn-primary">
+				      <input type="button" value="+" onClick="rowAdd();" class="btn btn-primary">
+				      <input type="button"  value="-" onClick="rowDelete();" class="btn btn-primary">
 				      </div>
 				     </td>
 			     </tr>
 			     <tr>
-			     	<td class="m-0 text-primary">No</td>
-						<td class="m-0 text-primary">항목</td>
-						<td class="m-0 text-primary">기한</td>
-						<td class="m-0 text-primary">담당</td>
-					</tr>
-					<tr>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					</tr>
+			    	<td class="m-0 text-primary">No</td>
+			     	<td class="m-0 text-primary">항목</td>
+					<td class="m-0 text-primary">기한</td>
+					<td class="m-0 text-primary">담당</td>
+				</tr>
+				</table>
+				<table>
 			     <tr align="center">
 			      <td colspan="4" style="border-color: #fff;"> 
 			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" >
@@ -328,7 +337,6 @@ $(document).ready(function () {
 		    </form>
 		 </div>
 		    <!-- /.container-fluid -->
-		
 		      </div>
 		      <!-- End of Main Content -->
 		</div>
