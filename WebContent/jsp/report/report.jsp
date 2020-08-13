@@ -118,6 +118,7 @@
 		border-bottom: 1px solid black !important;
 		border-bottom-right-radius:5px;
 		border-bottom-left-radius:5px;
+		margin-bottom:50px;
 	}
 	tr:last-child{
 		border-bottom:1px solid #fff !important;
