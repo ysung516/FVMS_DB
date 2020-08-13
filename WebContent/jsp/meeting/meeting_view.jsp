@@ -78,7 +78,7 @@
 	     top: 9px;
 	    }
 	     	
-    #dataTable td:nth-child(odd){
+    #dataTable td:first-child{
     text-align: center;
     vertical-align: middle;
     word-break:keep-all;
@@ -307,27 +307,31 @@
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary">회의명</td>
-						<td><%=mb.getMeetName()%></td>
+						<td colspan="3"><%=mb.getMeetName()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">작성자</td>
-						<td><%=mb.getWriter() %></td>
+						<td colspan="3"><%=mb.getWriter() %></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의일시</td>
-						<td><%=mb.getMeetDate() %></td> 
+						<td colspan="3"><%=mb.getMeetDate() %></td> 
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의 장소</td>
-						<td><%=mb.getMeetPlace()%></td>
+						<td colspan="3"><%=mb.getMeetPlace()%></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary">참석자 </td>
-						<td><%=mb.getAttendees()%></td>
+						<td class="m-0 text-primary">참석자 슈어</td>
+						<td colspan="3"><%=mb.getAttendees()%></td>
+					</tr>
+					<tr>
+						<td class="m-0 text-primary">참석자 고객사</td>
+						<td colspan="3">고객사 뜨게 바꾸기!!!</td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의내용</td>
-						<td><%
+						<td colspan="3"><%
 							line = mb.getMeetNote();
 							for(String li : line){
 								%><p><%=li.trim()%></p><%
@@ -336,16 +340,32 @@
 						%></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary">향후일정</td>
-						<td><%
+						<td class="m-0 text-primary">이슈사항</td>
+						<td colspan="3">이슈사항 내용나오게하기!!</td>
+					</tr>
+					<tr>
+						<td colspan="4"class="m-0 text-primary">향후일정</td>
+						</tr>
+						<tr>
+						<td class="m-0 text-primary">No</td>
+						<td class="m-0 text-primary">항목</td>
+						<td class="m-0 text-primary">기한</td>
+						<td class="m-0 text-primary">담당</td>
+					</tr>
+					<tr>
+					<td>1</td>
+					<td>작성하기</td>
+					<td>~9/9</td>
+					<td> <%
 							line = mb.getNextPlan();
 							for(String li : line){
 								%><p><%=li.trim()%></p><%
 							}
 						%></td>
 					</tr>
+					
 					<tr>
-						<td colspan="2">
+						<td colspan="4">
 						<form method="post" action="meeting_update.jsp"  style="display: contents;">
 							<input type="hidden" name="MeetName" value="<%=mb.getMeetName()%>">
 							<input type="hidden" name="no" value="<%=no%>">

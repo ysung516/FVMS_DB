@@ -29,14 +29,12 @@ $(document).ready(function () {
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
-	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	if(permission > 3){
-		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
-	}
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
+	
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	
 %>
 
@@ -57,15 +55,13 @@ $(document).ready(function () {
 
 </head>
 <style>
-
 	input{
-		
 		border:1px solid #b7b9cc6e;
 		padding:5px;
 		border-radius:5px;
 	}
 	
-	#dataTable td:nth-child(odd){
+	#dataTable td{
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -271,38 +267,60 @@ $(document).ready(function () {
                  <div class="table-responsive">
           <form method="post" action="meeting_writePro.jsp">       
 			  <table class="table table-bordered" id="dataTable">
-	
 			     <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
-				      <td><input name="MeetName"  style=width:100%; placeholder="회의 명"></td>
+				      <td colspan="4"><input name="MeetName"  style=width:100%; placeholder="회의 명"></td>
 			     </tr>
 			    <tr>
 				      <td class="m-0 text-primary" align="center">작성자</td>
-				      <td><input name="NAME" style=width:100%; value="<%=sessionName%>" readonly></td>
+				      <td colspan="4"><input name="NAME" style=width:100%; value="<%=sessionName%>" readonly></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">회의일시</td>
-				      <td><input type="date" name="MeetDate"></td>
+				      <td colspan="4" style="text-align:left"><input type="date" name="MeetDate"></td>
 			     </tr>
 			      
 			       <tr>
 				      <td class="m-0 text-primary" align="center">회의장소</td>
-				      <td><input name="MeetPlace" style=width:100%;></td>
+				      <td colspan="4"><input name="MeetPlace" style=width:100%;></td>
 			     </tr>
 			     
 			     <tr>
-				      <td class="m-0 text-primary" align="center">참석자</td>
-				      <td><input name="attendees" style=width:100%;></td>
+				      <td class="m-0 text-primary" align="center">참석자(슈어)</td>
+				      <td colspan="4"><input name="attendees" style=width:100%;></td>
 			     </tr>
-			     
+			       <tr>
+				      <td class="m-0 text-primary" align="center">참석자(고객사)</td>
+				      <td colspan="4"><input name="attendees" style=width:100%;></td>
+			     </tr>
 			      <tr>
-			      <td class="m-0 text-primary" colspan="2"><h6>회의내용</h6><textarea name="meetnote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+			      <td class="m-0 text-primary" colspan="4"><h6>회의내용</h6><textarea name="meetnote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
 			     </tr>
+			     <tr>
+						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6><textarea name="" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+					</tr>
 			      <tr>
-			      <td class="m-0 text-primary" colspan="2"><h6>향후일정</h6><textarea name="nextplan" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+			      <td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>
+				     <div style="display: inline-block;float: right;">
+				      <input type="button" value="+"  class="btn btn-primary">
+				      <input type="button"  value="-"  class="btn btn-primary">
+				      </div>
+				     </td>
 			     </tr>
+			     <tr>
+			     	<td class="m-0 text-primary">No</td>
+						<td class="m-0 text-primary">항목</td>
+						<td class="m-0 text-primary">기한</td>
+						<td class="m-0 text-primary">담당</td>
+					</tr>
+					<tr>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					</tr>
 			     <tr align="center">
-			      <td colspan="2"> 
+			      <td colspan="4" style="border-color: #fff;"> 
 			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" >
 			       <a href="meeting.jsp" class="btn btn-primary">취소</a>
 			     </tr>

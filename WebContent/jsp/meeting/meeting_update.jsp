@@ -76,7 +76,7 @@ $(document).ready(function () {
 		padding:5px;
 		border-radius:5px;
 	}
-	#dataTable td:nth-child(odd){
+	#dataTable td{
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -292,26 +292,30 @@ $(document).ready(function () {
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
-						<td><input name="MeetName" style=width:100%; value="<%=MeetName%>" placeholder="<%=MeetName%>"></td>
+						<td colspan="4"><input name="MeetName" style=width:100%; value="<%=MeetName%>" placeholder="<%=MeetName%>"></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">작성자</td>
-						<td><input name="NAME" style="width:100%;" value="<%=writer%>" placeholder="<%=writer%>"></td>
+						<td colspan="4"><input name="NAME" style="width:100%;" value="<%=writer%>" placeholder="<%=writer%>"></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의일시</td>
-						<td><input type="date" name="MeetDate" value="<%=MeetDate%>"></td> 
+						<td colspan="4"  style="text-align:left"><input type="date" name="MeetDate" value="<%=MeetDate%>"></td> 
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의 장소</td>
-						<td><input name="MeetPlace" style=width:100%; value="<%=MeetPlace%>" placeholder="<%=MeetPlace%>"></td>
+						<td colspan="4"><input name="MeetPlace" style=width:100%; value="<%=MeetPlace%>" placeholder="<%=MeetPlace%>"></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary">참석자 </td>
-						<td><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
+						<td class="m-0 text-primary">참석자(슈어) </td>
+						<td colspan="4"><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary" colspan="2"><h6>회의내용</h6>
+				      <td class="m-0 text-primary" align="center">참석자(고객사)</td>
+				      <td colspan="4"><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
+			     </tr>
+					<tr>
+						<td class="m-0 text-primary" colspan="4"><h6>회의내용</h6>
 						<textarea name="MeetNote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
 							line = P_MeetNote;
 							for(String li : line){
@@ -320,16 +324,29 @@ $(document).ready(function () {
 						%></textarea></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary" colspan="2"><h6>향후일정</h6>
-						<textarea name="nextPlan"  rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
-							line = P_nextPlan;
-							for(String li : line){
-								%><%=li%><%
-							}%></textarea>
+						<td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>
+						<div style="display: inline-block;float: right;">
+				      <input type="button" value="+"  class="btn btn-primary">
+				      <input type="button"  value="-"  class="btn btn-primary">
+				      </div>
 						</td>
 					</tr>
+					<tr>
+			     	<td class="m-0 text-primary">No</td>
+						<td class="m-0 text-primary">항목</td>
+						<td class="m-0 text-primary">기한</td>
+						<td class="m-0 text-primary">담당</td>
+					</tr>
+					<tr>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+					</tr>
+					
 			<tr>
-			<td colspan="2"><input type="submit" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
+			<td colspan="4" style="border-color: #fff;">
+			<input type="submit" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
 			</tr>
 				<input type="hidden" name="no" value="<%=no%>">
 				<input type="hidden" name="writer" value="<%=writer%>">
