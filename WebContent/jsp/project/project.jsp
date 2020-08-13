@@ -142,6 +142,16 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
+    function cbLoad(){
+    	for(var a=4;a<26;a++){
+	    	if($("input:checkbox[id='cb"+a+"']").is(":checked") == true){
+	    		$('td:nth-child('+a+')').show();
+	    	}else{
+				$('td:nth-child('+a+')').hide();
+			}
+    	}
+    }
+    
     function cbSlow(){
     	$( '.cb' ).click( function() {
     		var clickId = $(this).attr('id');
@@ -152,6 +162,14 @@
     			$('td:nth-child('+num[1]+')').hide();
     		}
             
+        });
+    }
+    
+    function cbCloseAllClose(){
+    	$( '.cb' ).click( function() {
+    		if($(this).is(":checked") == false){
+    			$("input:checkbox[id='checkall']").prop("checked", false);
+    		}
         });
     }
     
@@ -179,8 +197,10 @@
 
     $(document).ready(function(){
         //최상단 체크박스 클릭
+        cbLoad();
         cbAll();
         cbSlow();
+        cbCloseAllClose();
         stateColor();
     });
    </script>

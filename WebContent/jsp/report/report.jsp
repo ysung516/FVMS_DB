@@ -29,7 +29,7 @@
 	
 	ArrayList<ReportBean> list = reportDao.getReportList();
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
-	
+	int projectNum = projectDao.useReportProject();
 %>
 
   <meta charset="utf-8">
@@ -117,7 +117,7 @@
 		border-bottom: 1px solid black !important;
 		border-bottom-right-radius:5px;
 		border-bottom-left-radius:5px;
-		margin-bottom:50px;
+		margin-bottom:20%;
 	}
 	tr:last-child{
 		border-bottom:1px solid #fff !important;
@@ -347,7 +347,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                   </div>
                    <div class="details_body">
                     <details>
-                  		<summary>미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span>30</span></summary>
+                  		<summary>미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></summary>
         			<%
         				for(int i=0; i<unWrite.size(); i++){
         					%><p><%=unWrite.get(i)%></p>

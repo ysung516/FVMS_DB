@@ -314,7 +314,7 @@ $(document).ready(function () {
 		      <td><select id="title" name="TITLE" onchange="loadData()">
 		      	<%for(int i=0; i<unWrite.size(); i++){
 		      		pjBean = projectDao.getProjectBean_name(unWrite.get(i));
-		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionName)){
+		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionID)){
 		      		%><option value="<%=unWrite.get(i)%>"><%=unWrite.get(i)%></option><%}
 		      	}
 		      	%>

@@ -220,7 +220,7 @@ public class ReportDAO {
 	    
 	    try {
 	    	String query = "SELECT a.프로젝트명 FROM project a left outer join report b on a.프로젝트명 = b.프로젝트명 "
-	    			+ "where b.프로젝트명 is null";
+	    			+ "where b.프로젝트명 is null AND a.주간보고서사용=1";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
