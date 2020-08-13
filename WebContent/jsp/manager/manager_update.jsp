@@ -347,24 +347,26 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="../../html/login.html">Logout</a>
-        </div>
-      </div>
+<!-- Logout Modal-->
+ <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+     </button>
     </div>
+    <div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+    <div class="modal-footer">
+     <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+    <form method = "post" action = "../LogoutPro.jsp">
+     	  <input type="submit" class="btn btn-primary" value="확인" />
+     </form>
+    </div>
+   </div>
   </div>
+ </div>
  
 
   <!-- Bootstrap core JavaScript-->
