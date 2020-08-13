@@ -292,8 +292,12 @@
 					 <tr> 
 				       	<td>비밀번호</td>
 					      <td>
-					      <!-- <input type="button" value="변경"> -->
 					      <a href="update_pwd.jsp"  class="btn btn-info btn-icon-split btn-sm" >변경</a>
+					    
+					    
+					     <p style="font-size:xx-small; color:red; margin:6px 0 0 0;">*비빌번호는 암호화가 되어있어 노출위험이 없습니다 :D
+					    	<br>*비밀번호 분실시 실장님께 초기화 요청이 가능합니다. 초기화 된 비밀호는 [12345] 입니다</p>
+				
 					      </td>
 			     	</tr>
 			     	<tr>
