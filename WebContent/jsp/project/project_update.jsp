@@ -99,14 +99,13 @@ $(document).ready(function () {
 	$('.loading').hide();
 	sortSelect('WORKER_LIST');
 	workDelete();
-	teamMember('#PM-team','#PROJECT_MANAGER');
 	teamMember('#teamlist','#WORKER_LIST');
 	
-	$('#PM-team').val("<%=PMdata.getTEAM()%>").prop("selected", true);
+	$('#PM-team').val('<%=PMdata.getTEAM()%>').prop('selected', true);
+	teamMember('#PM-team','#PROJECT_MANAGER');
 	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
 	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
-	var pmID = '<%=PMdata.getID()%>';
-	$('#PROJECT_MANAGER').append($("<option selected hidden value="+pmID+" ><%=PMdata.getNAME()%></option>"));
+	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
 
     // Warning
     $(window).on('beforeunload', function(){
