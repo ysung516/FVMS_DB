@@ -37,7 +37,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	ReportBean report = reportDao.getReportBean(no);
 	ProjectBean project = projectDao.getProjectBean_name(request.getParameter("reportTitle"));
 	
-	if(!(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionName))){
+	if(!(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID))){
 		script.print("<script> alert('해당 프로젝트 관계자가 아닙니다.'); history.back(); </script>");
 	}
 	
