@@ -78,26 +78,16 @@
 		border-top: 1px solid;
 	}
 	
-	details summary span{
-		font-size: 21px;
-		display: inline-table;
-		background-color:red;
-		color:#fff;
-		width: 27px;
-		height:25px;
-		text-align: center;
-		border-radius: 100%;
+	#span1{
+		color:red;
 	}
 	
 	details summary{
 		font-weight:700;
-		border: 1px solid black;
-		padding: 5px;
-		box-shadow: 0px 2px 1px 0px;
-		border-radius: 6px;
 	}
 	details{
-		line-height: 1;margin:0 auto;
+		line-height: 2;
+		margin:0 auto;
 	}
 	.details_body{
 		margin-right: 5%;
@@ -357,7 +347,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                   </div>
                    <div class="details_body">
                     <details>
-                  		<summary>미등록 프로젝트 <span><%=unWrite.size()%></span></summary>
+                  		<summary>미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span>30</span></summary>
         			<%
         				for(int i=0; i<unWrite.size(); i++){
         					%><p><%=unWrite.get(i)%></p>
