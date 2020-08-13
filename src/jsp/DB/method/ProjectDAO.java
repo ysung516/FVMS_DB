@@ -55,6 +55,7 @@ public class ProjectDAO {
 	    		project.setEMPLOY_DEMAND(rs.getFloat(24));
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat(25));
 	    		project.setREPORTCHECK(rs.getInt(26));
+	    		project.setNO(rs.getInt(27));
 	    	}
 	    	
 	    	
@@ -138,6 +139,7 @@ public class ProjectDAO {
 	    		project.setEMPLOY_DEMAND(rs.getFloat(24));
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat(25));
 	    		project.setREPORTCHECK(rs.getInt(26));
+	    		project.setNO(rs.getInt(27));
 	    	}
 	    	
 	    	
@@ -286,7 +288,8 @@ public class ProjectDAO {
 		String ASSESSMENT_TYPE,
 		float EMPLOY_DEMAND,
 		float OUTSOURCE_DEMAND,
-		int REPORT_CHECK) 
+		int REPORT_CHECK,
+		int NO) 
 	
 	{
 		Connection conn = null;
@@ -297,7 +300,7 @@ public class ProjectDAO {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET 팀=?,프로젝트코드=?,프로젝트명=?,상태=?,실=?,고객사=?,고객부서=?,ManMonth=?,프로젝트계약금액_백만=?,"
 	    			+ "상반기수주=?,상반기예상매출=?,상반기매출=?,하반기수주=?,하반기예상매출=?,하반기매출=?,착수=?,종료=?,고객담당자=?,근무지=?,"
-	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE 프로젝트코드=?");
+	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE no=?");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM);
@@ -326,7 +329,7 @@ public class ProjectDAO {
 	    	pstmt.setFloat(24, EMPLOY_DEMAND);
 	    	pstmt.setFloat(25, OUTSOURCE_DEMAND);
 	    	pstmt.setInt(26, REPORT_CHECK);
-	    	pstmt.setString(27, RPOJECT_CODE);
+	    	pstmt.setInt(27, NO);
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -380,7 +383,8 @@ public class ProjectDAO {
 	    		project.setASSESSMENT_TYPE(rs.getString("평가유형"));
 	    		project.setEMPLOY_DEMAND(rs.getFloat("채용수요"));
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat("외주수요"));
-	    		project.setOUTSOURCE_DEMAND(rs.getInt("주간보고서사용"));
+	    		project.setREPORTCHECK(rs.getInt("주간보고서사용"));
+	    		project.setNO(rs.getInt("no"));
 	    		projectList.add(project);
 	    	}
 		}catch (SQLException e) {

@@ -279,7 +279,7 @@
        <div class="card shadow mb-4">
         <div class="card-header py-3">
          <h6 class="m-0 font-weight-bold text-primary" id="view_btn">주간보고서 조회</h6>
-         <%if(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionName)){ %>
+         <%if(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID)){ %>
          <a id="Delete" href="report_deletePro.jsp?no=<%=NO%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
 		<% }%>
          
@@ -389,7 +389,7 @@
 					</tr>
 					  <tr>
 			     <td colspan="2">
-			     <%if(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionName)){ %>
+			     <%if(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID)){ %>
 			    <input id="update" type="submit" name="update" value="수정" class="btn btn-primary">
 				<% }%>
 			       <a href="report.jsp" class="btn btn-primary">목록</a>

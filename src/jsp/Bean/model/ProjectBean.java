@@ -27,6 +27,7 @@ public class ProjectBean {
 	private float EMPLOY_DEMAND;	//채용수요
 	private float OUTSOURCE_DEMAND;	//외주수요
 	private int REPORTCHECK; //주간보고서여부
+	private int NO;
 	
 	public String getTEAM() {
 		return TEAM;
@@ -184,5 +185,10 @@ public class ProjectBean {
 	public void setREPORTCHECK(int rEPORTCHECK) {
 		REPORTCHECK = rEPORTCHECK;
 	}
-	
+	public int getNO() {
+		return NO;
+	}
+	public void setNO(int nO) {
+		NO = nO;
+	}
 }

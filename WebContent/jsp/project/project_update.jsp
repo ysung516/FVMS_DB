@@ -31,6 +31,7 @@
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	String code = request.getParameter("code");
+	String no = request.getParameter("no");
 	ProjectBean project = projectDao.getProjectBean_code(code);
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
 	
@@ -364,6 +365,7 @@ function defaultTeam(){
             <div class="card-body">
             <div class="table-responsive">
             <form method="post" action="project_updatePro.jsp">
+            	<input type="hidden" name="NO" value="<%=no%>">
                 <table class="table table-bordered" id="dataTable">
                     <tr>
                       <th><span style="color:red;">*</span>팀</th>

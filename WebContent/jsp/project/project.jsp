@@ -460,7 +460,7 @@
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
 	                      <%if((permission==1 && projectList.get(i).getTEAM().equals(myInfo.getTEAM())) || permission==0){%>
-	                      		<td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
+	                      		<td><a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>&code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
 	                      <td class="td" class="state"><%=projectList.get(i).getSTATE()%></td>

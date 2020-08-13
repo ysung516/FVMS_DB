@@ -55,6 +55,7 @@
 		  float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
 		  float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
 		  int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
+		  int NO = Integer.parseInt(request.getParameter("NO"));
 		
 		if(TEAM == null || TEAM =="" || RPOJECT_CODE == null || RPOJECT_CODE == "" || PROJECT_NAME ==null || PROJECT_NAME == "" || PROJECT_MANAGER ==null || PROJECT_MANAGER == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
@@ -63,7 +64,7 @@
 			if(projectDao.updateProject(TEAM, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK) == 1){
+					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, NO) == 1){
 				script.print("<script> alert('프로젝트가 수정되었습니다.'); location.href = 'project.jsp'</script>");
 			}
 				else script.print("<script> alert('수정 실패!!'); history.back();</script>");
