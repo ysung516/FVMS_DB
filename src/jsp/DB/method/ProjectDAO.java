@@ -69,6 +69,33 @@ public class ProjectDAO {
 		return project;
 	}
 	
+	//주간보고서사용하는 프로젝트 개수
+	public int useReportProject() {
+		int num =0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select count(*) from project where 주간보고서사용=1");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	if(rs.next())
+	    		num = rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return num;
+	}
+	
 	// 프로젝트코드로 해당 데이터 가져오기
 	public ProjectBean getProjectBean_code(String projectCode) {
 		ProjectBean project = new ProjectBean();

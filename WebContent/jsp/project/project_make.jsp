@@ -31,7 +31,6 @@
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-
 %>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -158,8 +157,6 @@ function teamMember(team, member){
 	var team1 = $(team).val();
 	var memberName;
 	var memberID;
-	var opt = new List()
-	var position = '팀장';
 	var dfselect = $("<option selected disabled hidden>선택</option>");
 	$(member).empty();
 	$(member).append(dfselect);

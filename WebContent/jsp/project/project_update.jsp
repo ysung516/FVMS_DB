@@ -183,15 +183,22 @@ function teamMember(team, member){
 				memberID = '<%=memberList.get(j).getID()%>';
 				var option = $("<option value="+memberID+">"+ memberName +"</option>");
 				$(member).append(option);
+				if('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>'){
+					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");
+				}
 			}
 			
 	<%}%>
 }
 
-function reportCheck(){
-	
+function defaultTeam(){
+	var team = $("#team option:selected").val();
+	$("#PM-team").val(team).attr("selected", "selected");
+	$("#teamlist").val(team).attr("selected", "selected");
+	teamMember('#PM-team','#PROJECT_MANAGER');
+	$("#teamlist").val(team).attr("selected", "selected");
+	teamMember('#teamlist','#WORKER_LIST');
 }
-
 
 </script>
 
@@ -361,7 +368,7 @@ function reportCheck(){
                     <tr>
                       <th><span style="color:red;">*</span>팀</th>
                       <td>
-                      	<select id="team" name="team">
+                      	<select id="team" name="team" onchange="defaultTeam()">
                       	<%
 	                      	for(int i=0; i<teamList.size(); i++){
 	                  			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
