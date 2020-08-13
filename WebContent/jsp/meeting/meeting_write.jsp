@@ -337,7 +337,6 @@ function rowAdd(){
 		    </form>
 		 </div>
 		    <!-- /.container-fluid -->
-		
 		      </div>
 		      <!-- End of Main Content -->
 		</div>
