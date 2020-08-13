@@ -5,6 +5,7 @@
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.util.List"
+    import = "java.util.Calendar"
     %>
 
 <!DOCTYPE html>
@@ -28,7 +29,7 @@
 	
 	ArrayList<ReportBean> list = reportDao.getReportList();
 	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
-
+	
 %>
 
   <meta charset="utf-8">
@@ -386,7 +387,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 						<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
 						<td ><%=projectDao.getProjectBean_name(list.get(i).getTitle()).getCLIENT()%></td>
 						<td><%=projectDao.getProjectBean_name(list.get(i).getTitle()).getPROJECT_MANAGER()%></td>
-						<td><%=list.get(i).getDate()%></td>
+						<td><%=list.get(i).getDate()%> (<%=reportDao.validDate(list.get(i).getDate())%>)</td>
 					</tr>
 					<%
 				}

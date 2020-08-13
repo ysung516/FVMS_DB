@@ -4,12 +4,50 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import jsp.Bean.model.ReportBean;
 
 public class ReportDAO {
 	public ReportDAO() {}
+	
+	
+	// 등록날짜로 유효기간 보여주기
+	public String validDate(String writeDate) {
+	   Calendar cal = Calendar.getInstance();
+	   SimpleDateFormat dateFmt = new SimpleDateFormat("MM-dd");
+	    String date = writeDate;
+	    String MonDate = "";
+	    String FriDate = "";
+	    String returnDate = "";
+	   int y = Integer.parseInt(date.split("-")[0]);
+	   int m = Integer.parseInt(date.split("-")[1]) - 1;
+	   int w = Integer.parseInt(date.split("-")[2]);
+
+	   cal.set(Calendar.YEAR,y);
+	   cal.set(Calendar.MONTH,m);
+	   cal.set(Calendar.DATE, w);
+	   
+	   if(cal.getTime().toString().split(" ")[0].equals("Sun")) {
+	     cal.set(Calendar.DATE, w-7);
+	     cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	     MonDate = dateFmt.format(cal.getTime());
+	     cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+	     FriDate = dateFmt.format(cal.getTime());
+	     returnDate = MonDate + " ~ " + FriDate;
+	   }
+	   else {
+		   cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		   MonDate = dateFmt.format(cal.getTime());
+		   cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+		   FriDate = dateFmt.format(cal.getTime());
+		   returnDate = MonDate + "	 ~ " + FriDate;
+	   }
+	   return returnDate;
+	} 
+	
 	
 	// 보고서 작성
 	public int saveReport(String title, String writeDate,

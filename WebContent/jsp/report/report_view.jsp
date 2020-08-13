@@ -308,7 +308,7 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">작성일</td>
-						<td><div class="report_div"><%=report.getDate()%></div></td> 
+						<td><div class="report_div"><%=report.getDate()%> (<%=reportDao.validDate(report.getDate())%>)</div></td> 
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">PM</td>

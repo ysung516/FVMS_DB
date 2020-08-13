@@ -55,6 +55,31 @@
 		  float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
 		  float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
 		
+		  
+		  System.out.println(TEAM);
+		  System.out.println(RPOJECT_CODE);
+		  System.out.println(PROJECT_NAME);
+		  System.out.println(STATE);
+		  System.out.println(PART);
+		  System.out.println(CLIENT);
+		  System.out.println(CLIENT_PART);
+		  System.out.println(MAN_MONTH);
+		  System.out.println(PROJECT_DESOPIT);
+		  System.out.println(FH_ORDER);
+		  System.out.println(FH_SALES_PROJECTIONS);
+		  System.out.println(FH_SALES);
+		  System.out.println(PROJECT_START);
+		  System.out.println(PROJECT_END);
+		  System.out.println(CLIENT_PTB);
+		  System.out.println(WORK_PLACE);
+		  System.out.println(WORK);
+		  System.out.println(PROJECT_MANAGER);
+		  System.out.println(WORKER_LIST);
+		  System.out.println(ASSESSMENT_TYPE);
+		  System.out.println(ASSESSMENT_TYPE);
+		  System.out.println(EMPLOY_DEMAND);
+		  System.out.println(OUTSOURCE_DEMAND);
+		  
 		if(TEAM == null || TEAM =="" || RPOJECT_CODE == null || RPOJECT_CODE == "" || PROJECT_NAME ==null || PROJECT_NAME == "" || PROJECT_MANAGER ==null || PROJECT_MANAGER == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
