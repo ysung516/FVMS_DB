@@ -219,7 +219,6 @@ function teamMember(team, member){
       <hr class="sidebar-divider my-0">
 
     
-
       <!-- Heading -->
     
 
