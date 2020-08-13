@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	
 $(document).ready(function () {
-	rowAdd();
+	
 	$('.loading').hide();
     // Warning
     $(window).on('beforeunload', function(){
@@ -35,7 +35,7 @@ $(document).ready(function () {
 	session.setMaxInactiveInterval(15*60);
 	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	
+	int count = 1;
 %>
 
   <meta charset="utf-8">
@@ -55,14 +55,19 @@ $(document).ready(function () {
 
 </head>
 <script>
+
+var count = 0;
 function rowAdd(){
+	count++;
 	var innerHtml = "";
 	innerHtml += '<tr>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	//innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 1px solid;">'+count+'</td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="pm'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '</tr>';
+	$('#count').val(count);
 	$('#dataTable').append(innerHtml);
 }
 
@@ -278,7 +283,8 @@ function rowAdd(){
                  <div class="card-body">
            
                  <div class="table-responsive">
-          <form method="post" action="meeting_writePro.jsp">       
+          <form method="post" action="meeting_writePro.jsp">    
+          	<input type="hidden" id="count" name="count" value="">   
 			  <table class="table table-bordered" id="dataTable">
 			     <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
@@ -304,13 +310,13 @@ function rowAdd(){
 			     </tr>
 			       <tr>
 				      <td class="m-0 text-primary" align="center">참석자(고객사)</td>
-				      <td colspan="4"><input name="attendees" style=width:100%;></td>
+				      <td colspan="4"><input name="attendees_ex" style=width:100%;></td>
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" colspan="4"><h6>회의내용</h6><textarea name="meetnote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
 			     </tr>
 			     <tr>
-						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6><textarea name="" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6><textarea name="issue" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
 					</tr>
 			      <tr>
 			      <td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>

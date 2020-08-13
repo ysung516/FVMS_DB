@@ -12,12 +12,30 @@ public class MeetBean {
 	private String P_meetnote;
 	private String P_nextplan;
 	private String date;
+	private String issue;
+	private String attendees_ex;	//외부 참석자
 	
 
 	private String[] MeetNote;	// 회의내용
 	private String[] nextPlan;	// 향후일정
 	
 	
+	public String getIssue() {
+		return issue;
+	}
+
+	public void setIssue(String issue) {
+		this.issue = issue;
+	}
+
+	public String getAttendees_ex() {
+		return attendees_ex;
+	}
+
+	public void setAttendees_ex(String attendees_ex) {
+		this.attendees_ex = attendees_ex;
+	}
+
 	public String[] getMeetNote() {
 		String [] MeetNote = P_meetnote.split("\n");
 		return MeetNote;
