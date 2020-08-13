@@ -71,6 +71,16 @@ function rowAdd(){
 	$('#dataTable').append(innerHtml);
 }
 
+
+function rowDelete(){
+	var trCnt = $('#dataTable tr').length;
+	if(trCnt>10){
+		$('#dataTable tr:last').remove();
+	}else{
+		return fasle;
+	}
+}
+
 </script>
 <style>
 	input{
