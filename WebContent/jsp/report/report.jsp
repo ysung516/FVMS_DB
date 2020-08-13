@@ -99,8 +99,7 @@
 	.m-0.font-weight-bold.text-primary{
 		padding-left:17px;
 		display:inline !important"
-	}
-                  
+	}                
 	summary:focus { outline:none; }
 	
 	#reportList{
