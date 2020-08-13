@@ -106,7 +106,7 @@ $(document).ready(function () {
 	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
 	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
-
+	$("input:radio[name='reportCheck']:radio[value='<%=project.getREPORTCHECK()%>']").prop("checked", true);
     // Warning
     $(window).on('beforeunload', function(){
         return "Any changes will be lost";
@@ -186,6 +186,10 @@ function teamMember(team, member){
 			}
 			
 	<%}%>
+}
+
+function reportCheck(){
+	
 }
 
 
@@ -575,6 +579,13 @@ function teamMember(team, member){
 						<th>외주수요</th>  
 						<td>
                       		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="<%=project.getOUTSOURCE_DEMAND()%>"></input>
+                      	</td>
+                        </tr>
+                        <tr>
+                        <th><span style="color:red;">*</span>주간보고서</th>
+                      	<td>
+                      		<input type="radio" name="reportCheck" value="1">사용
+							<input type="radio" name="reportCheck" value="0">미사용
                       	</td>
                         </tr>
                          <tr align="center">

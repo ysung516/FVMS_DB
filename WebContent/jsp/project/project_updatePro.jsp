@@ -54,32 +54,8 @@
 		  String ASSESSMENT_TYPE = request.getParameter("ASSESSMENT_TYPE");
 		  float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
 		  float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
+		  int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
 		
-		  
-		  System.out.println(TEAM);
-		  System.out.println(RPOJECT_CODE);
-		  System.out.println(PROJECT_NAME);
-		  System.out.println(STATE);
-		  System.out.println(PART);
-		  System.out.println(CLIENT);
-		  System.out.println(CLIENT_PART);
-		  System.out.println(MAN_MONTH);
-		  System.out.println(PROJECT_DESOPIT);
-		  System.out.println(FH_ORDER);
-		  System.out.println(FH_SALES_PROJECTIONS);
-		  System.out.println(FH_SALES);
-		  System.out.println(PROJECT_START);
-		  System.out.println(PROJECT_END);
-		  System.out.println(CLIENT_PTB);
-		  System.out.println(WORK_PLACE);
-		  System.out.println(WORK);
-		  System.out.println(PROJECT_MANAGER);
-		  System.out.println(WORKER_LIST);
-		  System.out.println(ASSESSMENT_TYPE);
-		  System.out.println(ASSESSMENT_TYPE);
-		  System.out.println(EMPLOY_DEMAND);
-		  System.out.println(OUTSOURCE_DEMAND);
-		  
 		if(TEAM == null || TEAM =="" || RPOJECT_CODE == null || RPOJECT_CODE == "" || PROJECT_NAME ==null || PROJECT_NAME == "" || PROJECT_MANAGER ==null || PROJECT_MANAGER == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
@@ -87,15 +63,11 @@
 			if(projectDao.updateProject(TEAM, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND) == 1){
+					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK) == 1){
 				script.print("<script> alert('프로젝트가 수정되었습니다.'); location.href = 'project.jsp'</script>");
 			}
 				else script.print("<script> alert('수정 실패!!'); history.back();</script>");
 		}
-		
-	
-		
-		
 		
 	%>
 </body>

@@ -54,6 +54,7 @@ public class ProjectDAO {
 	    		project.setASSESSMENT_TYPE(rs.getString(23));
 	    		project.setEMPLOY_DEMAND(rs.getFloat(24));
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat(25));
+	    		project.setREPORTCHECK(rs.getInt(26));
 	    	}
 	    	
 	    	
@@ -109,6 +110,7 @@ public class ProjectDAO {
 	    		project.setASSESSMENT_TYPE(rs.getString(23));
 	    		project.setEMPLOY_DEMAND(rs.getFloat(24));
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat(25));
+	    		project.setREPORTCHECK(rs.getInt(26));
 	    	}
 	    	
 	    	
@@ -177,7 +179,8 @@ public class ProjectDAO {
 		String WORKER_LIST,
 		String ASSESSMENT_TYPE,
 		float EMPLOY_DEMAND,
-		float OUTSOURCE_DEMAND) 
+		float OUTSOURCE_DEMAND,
+		int REPORT_CHECK) 
 	
 	{
 		Connection conn = null;
@@ -188,7 +191,7 @@ public class ProjectDAO {
 			StringBuffer query = new StringBuffer();
 	    	query.append("insert into project(팀,프로젝트코드,프로젝트명,상태,실,고객사,고객부서,ManMonth,프로젝트계약금액_백만,"
 	    			+ "상반기수주,상반기예상매출,상반기매출,하반기수주,하반기예상매출,하반기매출,착수,종료,고객담당자,근무지,"
-	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요,주간보고서사용) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM);
@@ -216,6 +219,7 @@ public class ProjectDAO {
 	    	pstmt.setString(23, ASSESSMENT_TYPE);
 	    	pstmt.setFloat(24, EMPLOY_DEMAND);
 	    	pstmt.setFloat(25, OUTSOURCE_DEMAND);
+	    	pstmt.setInt(26, REPORT_CHECK);
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -254,7 +258,8 @@ public class ProjectDAO {
 		String WORKER_LIST,
 		String ASSESSMENT_TYPE,
 		float EMPLOY_DEMAND,
-		float OUTSOURCE_DEMAND) 
+		float OUTSOURCE_DEMAND,
+		int REPORT_CHECK) 
 	
 	{
 		Connection conn = null;
@@ -265,7 +270,7 @@ public class ProjectDAO {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET 팀=?,프로젝트코드=?,프로젝트명=?,상태=?,실=?,고객사=?,고객부서=?,ManMonth=?,프로젝트계약금액_백만=?,"
 	    			+ "상반기수주=?,상반기예상매출=?,상반기매출=?,하반기수주=?,하반기예상매출=?,하반기매출=?,착수=?,종료=?,고객담당자=?,근무지=?,"
-	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=? WHERE 프로젝트코드=?");
+	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE 프로젝트코드=?");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM);
@@ -293,7 +298,8 @@ public class ProjectDAO {
 	    	pstmt.setString(23, ASSESSMENT_TYPE);
 	    	pstmt.setFloat(24, EMPLOY_DEMAND);
 	    	pstmt.setFloat(25, OUTSOURCE_DEMAND);
-	    	pstmt.setString(26, RPOJECT_CODE);
+	    	pstmt.setInt(26, REPORT_CHECK);
+	    	pstmt.setString(27, RPOJECT_CODE);
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -347,6 +353,7 @@ public class ProjectDAO {
 	    		project.setASSESSMENT_TYPE(rs.getString("평가유형"));
 	    		project.setEMPLOY_DEMAND(rs.getFloat("채용수요"));
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat("외주수요"));
+	    		project.setOUTSOURCE_DEMAND(rs.getInt("주간보고서사용"));
 	    		projectList.add(project);
 	    	}
 		}catch (SQLException e) {
