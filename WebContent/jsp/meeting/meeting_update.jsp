@@ -323,6 +323,10 @@ $(document).ready(function () {
 									}
 						%></textarea></td>
 					</tr>
+					 <tr>
+						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6
+						><textarea name="" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+					</tr>
 					<tr>
 						<td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>
 						<div style="display: inline-block;float: right;">
