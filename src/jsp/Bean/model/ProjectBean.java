@@ -26,6 +26,7 @@ public class ProjectBean {
 	private String ASSESSMENT_TYPE;	// 평가유형
 	private float EMPLOY_DEMAND;	//채용수요
 	private float OUTSOURCE_DEMAND;	//외주수요
+	private int REPORTCHECK; //주간보고서여부
 	
 	public String getTEAM() {
 		return TEAM;
@@ -176,6 +177,12 @@ public class ProjectBean {
 	}
 	public void setOUTSOURCE_DEMAND(float oUTSOURCE_DEMAND) {
 		OUTSOURCE_DEMAND = oUTSOURCE_DEMAND;
+	}
+	public int getREPORTCHECK() {
+		return REPORTCHECK;
+	}
+	public void setREPORTCHECK(int rEPORTCHECK) {
+		REPORTCHECK = rEPORTCHECK;
 	}
 	
 }

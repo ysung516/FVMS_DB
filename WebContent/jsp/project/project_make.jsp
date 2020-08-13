@@ -117,7 +117,7 @@ function sortSelect(selId) {
 			} 
 		}); 
 		sel.html(optionList); 
-	}
+}
 
 //명단선택
 function getSelectValue(){
@@ -158,6 +158,8 @@ function teamMember(team, member){
 	var team1 = $(team).val();
 	var memberName;
 	var memberID;
+	var opt = new List()
+	var position = '팀장';
 	var dfselect = $("<option selected disabled hidden>선택</option>");
 	$(member).empty();
 	$(member).append(dfselect);
@@ -169,11 +171,22 @@ function teamMember(team, member){
 				memberID = '<%=memberList.get(j).getID()%>';
 				var option = $("<option value="+memberID+">"+ memberName +"</option>");
 				$(member).append(option);
+				if('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>'){
+					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");
+				}
 			}
 			
 	<%}%>
 }
 
+function defaultTeam(){
+	var team = $("#team option:selected").val();
+	$("#PM-team").val(team).attr("selected", "selected");
+	$("#teamlist").val(team).attr("selected", "selected");
+	teamMember('#PM-team','#PROJECT_MANAGER');
+	$("#teamlist").val(team).attr("selected", "selected");
+	teamMember('#teamlist','#WORKER_LIST');
+}
 </script>
 
 <body id="page-top">
@@ -342,7 +355,7 @@ function teamMember(team, member){
                     <tr>
                       <th><span style="color:red;">*</span>팀</th>
                       <td>
-                      	<select id="team" name="team">
+                      	<select id="team" name="team" onchange="defaultTeam()">
                       	<%
                       		for(int i=0; i<teamList.size(); i++){
                       			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
@@ -548,6 +561,13 @@ function teamMember(team, member){
 						<th>외주수요</th>  
 						<td>
                       		<input id="OUTSOURCE_DEMAND" name="OUTSOURCE_DEMAND" value="0"></input>
+                      	</td>
+                        </tr>
+                        <tr>
+                        <th><span style="color:red;">*</span>주간보고서</th>
+                      	<td>
+                      		<input type="radio" name="reportCheck" value="1" checked="checked">사용
+							<input type="radio" name="reportCheck" value="0">미사용
                       	</td>
                         </tr>
                   <tr align="center">

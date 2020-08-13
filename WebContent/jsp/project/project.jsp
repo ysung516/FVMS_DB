@@ -30,6 +30,7 @@
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
+	MemberBean myInfo = memberDao.returnMember(sessionID);
 	
 	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
 	ArrayList<String> PMnameList = new ArrayList<String>();
@@ -438,8 +439,8 @@
 	                      <td><div><%=projectList.get(i).getTEAM()%></div></td>
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
-	                      <%if(permission <= 1){%>
-	                      <td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
+	                      <%if((permission==1 && projectList.get(i).getTEAM().equals(myInfo.getTEAM())) || permission==0){%>
+	                      		<td><a href="project_update.jsp?code=<%=projectList.get(i).getPROJECT_CODE()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
 	                      <td class="td" class="state"><%=projectList.get(i).getSTATE()%></td>
