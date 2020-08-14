@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import jsp.Bean.model.ReportBean;
 
@@ -228,7 +229,7 @@ public class ReportDAO {
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
-	    		list.add(rs.getInt("프로젝트no"));
+	    		list.add(rs.getInt("no"));
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -241,6 +242,35 @@ public class ReportDAO {
 	    
 	    return list;
 	}
+	
+//	// 작성되지 않은 보고서만 가져오기
+//		public ArrayList<HashMap> getUnwrittenReportarr(){
+//			ArrayList<HashMap> list = new ArrayList<HashMap>();
+//			HashMap<Integer, String> mapData = new HashMap<Integer, String>();
+//			Connection conn = null;
+//		    PreparedStatement pstmt = null;
+//		    ResultSet rs = null;
+//		    
+//		    try {
+//		    	String query = "SELECT a.no, a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
+//		    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
+//		    	conn = DBconnection.getConnection();
+//		    	pstmt = conn.prepareStatement(query.toString());
+//		    	rs = pstmt.executeQuery();
+//		    	while(rs.next()) {
+//		    		list.add(rs.getInt("no"));
+//		    	}
+//		    }catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally {
+//				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+//				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+//				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+//			}
+//		    
+//		    return list;
+//		}
 	
 	// 보고서 백업
 	public void backUp() {
