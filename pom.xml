@@ -19,13 +19,22 @@
 			<artifactId>google-api-services-oauth2</artifactId>
 			<version>v1-rev88-1.19.1</version>
 		</dependency>
+		
 		<dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi</artifactId>
-        <version>3.13</version>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.13</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.13</version>
+		</dependency>
+
 	</dependencies>
-  
+
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
