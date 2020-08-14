@@ -52,7 +52,7 @@ public class ReportDAO {
 	// 보고서 작성
 	public int saveReport(String title, String writeDate,
 			 String weekPlan, String weekPro, String nextPlan, String user_id, 
-			 String name, String specialty, String note) {
+			 String name, String specialty, String note, int projectNo) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -60,8 +60,8 @@ public class ReportDAO {
 		
 		try {
 			conn = DBconnection.getConnection();
-			pstmt = conn.prepareStatement("insert into report(id, 이름, 프로젝트명, 작성일, 금주계획, 금주진행, 차주계획, 특이사항, 비고)"
-					+ "values(?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into report(id, 이름, 프로젝트명, 작성일, 금주계획, 금주진행, 차주계획, 특이사항, 비고, 프로젝트no)"
+					+ "values(?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, user_id);
 			pstmt.setString(2, name);
 			pstmt.setString(3, title);
@@ -71,6 +71,7 @@ public class ReportDAO {
 			pstmt.setString(7, nextPlan);
 			pstmt.setString(8, specialty);
 			pstmt.setString(9, note);
+			pstmt.setInt(10, projectNo);
 			rs = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,6 +109,7 @@ public class ReportDAO {
 	    		report.setNextPlan(rs.getString("차주계획"));
 	    		report.setSpecialty(rs.getString("특이사항"));
 	    		report.setNote(rs.getString("비고"));
+	    		report.setProjectNo(rs.getInt("프로젝트no"));
 	    		reportList.add(report);
 	    	}
 		} catch (SQLException e) {
@@ -146,6 +148,7 @@ public class ReportDAO {
 	    		report.setNextPlan(rs.getString("차주계획"));
 	    		report.setSpecialty(rs.getString("특이사항"));
 	    		report.setNote(rs.getString("비고"));
+	    		report.setProjectNo(rs.getInt("프로젝트no"));
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -212,20 +215,20 @@ public class ReportDAO {
 	}
 	
 	// 작성되지 않은 보고서만 가져오기
-	public ArrayList<String> getUnwrittenReport(){
-		ArrayList<String> list = new ArrayList<String>();
+	public ArrayList<Integer> getUnwrittenReport(){
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    try {
-	    	String query = "SELECT a.프로젝트명 FROM project a left outer join report b on a.프로젝트명 = b.프로젝트명 "
-	    			+ "where b.프로젝트명 is null AND a.주간보고서사용=1";
+	    	String query = "SELECT a.no FROM project a left outer join report b on a.no = b.프로젝트no "
+	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
-	    		list.add(rs.getString("프로젝트명"));
+	    		list.add(rs.getInt("프로젝트no"));
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block

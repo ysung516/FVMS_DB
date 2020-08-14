@@ -28,7 +28,7 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	
 	ArrayList<ReportBean> list = reportDao.getReportList();
-	ArrayList<String> unWrite = reportDao.getUnwrittenReport();
+	ArrayList<Integer> unWrite = reportDao.getUnwrittenReport();
 	int projectNum = projectDao.useReportProject();
 %>
 
@@ -375,8 +375,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 					%>
 					<tr>
 						<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
-						<td ><%=projectDao.getProjectBean_name(list.get(i).getTitle()).getCLIENT()%></td>
-						<td><%=projectDao.getProjectBean_name(list.get(i).getTitle()).getPROJECT_MANAGER()%></td>
+						<td ><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getCLIENT()%></td>
+						<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getPROJECT_MANAGER()%></td>
 						<td><%=list.get(i).getDate()%> (<%=reportDao.validDate(list.get(i).getDate())%>)</td>
 					</tr>
 					<%
