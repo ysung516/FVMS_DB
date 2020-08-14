@@ -31,6 +31,9 @@
 	ArrayList<Integer> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
 	
+	String reportProjectNo = request.getParameter("no");
+	String str = "";
+	
 %>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
@@ -40,18 +43,23 @@ function loadData(){
 	$('#WeekPlan').val('');
 	$('#specialty').val('');
 	$('#note').val('');
-	var title = $('#title').val();
+	var title = $('#title option:selected').text();
+	console.log(title);
+	
 	<%for(int j=0; j < reportList.size(); j++){%>
 	if (title == "<%=reportList.get(j).getTitle()%>"){
 		
 		<%for(int a=0; a<reportList.get(j).getP_nextPlan().length; a++){
-			%>document.getElementById('WeekPlan').value += '<%=reportList.get(j).getP_nextPlan()[a].trim()%>\n';	
+			str = reportList.get(j).getP_nextPlan()[a].replaceAll("\\s+$","");
+			%>document.getElementById('WeekPlan').value += '<%=str%>\n';
 		<%}
 		for(int b=0; b<reportList.get(j).getP_specialty().length; b++){
-			%>document.getElementById('specialty').value += '<%=reportList.get(j).getP_specialty()[b].trim()%>\n';	
+			str = reportList.get(j).getP_specialty()[b].replaceAll("\\s+$","");
+			%>document.getElementById('specialty').value += '<%=str%>\n';
 		<%}		
 		for(int c=0; c<reportList.get(j).getP_note().length; c++){
-			%>document.getElementById('note').value += '<%=reportList.get(j).getP_note()[c].trim()%>\n';
+			str = reportList.get(j).getP_note()[c].replaceAll("\\s+$","");
+			%>document.getElementById('note').value += '<%=str%>\n';
 	<%}%>
 	}
 <%}%>
@@ -60,6 +68,9 @@ function loadData(){
 
 $(document).ready(function () {
 	$('.loading').hide();
+	<%if (reportProjectNo != null){%>
+    $('#title').val('<%=reportProjectNo%>').attr("selected", "selected");
+    <%}%>
 	loadData();	// 주간보고서 작성시 백업테이블에서 데이터 가져오기
 
     $(window).on('beforeunload', function(){
@@ -69,7 +80,6 @@ $(document).ready(function () {
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
     });
-    
     
 })
 

@@ -252,15 +252,17 @@ public class ReportDAO {
 	    ResultSet rs = null;
 	    
 	    try {
-	    	String query = "SELECT a.no, a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
+	    	String query = "SELECT a.* FROM project a left outer join report b on a.no = b.프로젝트no "
 	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
-	    		String[] data = new String[2];
+	    		String[] data = new String[4];
 	    		data[0] = Integer.toString(rs.getInt("no"));
 	    		data[1] = rs.getString("프로젝트명");
+	    		data[2] = rs.getString("PM");
+	    		data[3] = rs.getString("투입명단");
 	    		list.add(data);
 	    	}
 	    }catch (SQLException e) {
@@ -352,6 +354,7 @@ public class ReportDAO {
 	    		report.setNextPlan(rs.getString("차주계획"));
 	    		report.setSpecialty(rs.getString("특이사항"));
 	    		report.setNote(rs.getString("비고"));
+	    		report.setProjectNo(rs.getInt("프로젝트no"));
 	    		reportList.add(report);
 	    	}
 	    }catch (SQLException e) {

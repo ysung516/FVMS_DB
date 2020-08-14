@@ -351,8 +351,11 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                     <details>
                   		<summary>미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></summary>
         			<%for(int i=0; i<unWrite.size(); i++){
-        					%><p><%=unWrite.get(i)[1]%></p>
-        			<%}%>
+        				if(unWrite.get(i)[2].equals(sessionID) || unWrite.get(i)[3].contains(sessionID)){
+        					%><p><a href="report_write.jsp?no=<%=unWrite.get(i)[0]%>"><%=unWrite.get(i)[1]%></a></p>
+        			<%}else{%>
+        				<p><%=unWrite.get(i)[1]%></p>
+        			<% }}%>
 					      	
                   </details>
                   </div>

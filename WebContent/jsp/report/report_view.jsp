@@ -334,7 +334,7 @@
 						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_weekPlan();
 					      	for(String li : line){
-					      		%><p><%=li.trim()%></p><%
+					      		%><p style="white-space:pre;"><%=li%></p><%
 					      	}
 					     	 %>
 					     </td>
@@ -346,7 +346,7 @@
 						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_weekPro();
 					      	for(String li : line){
-					      		%><p><%=li.trim()%></p><%
+					      		%><p style="white-space:pre;"><%=li%></p><%
 					      	}
 					      %>
 					     </td>
@@ -359,7 +359,7 @@
 						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_nextPlan();
 					      	for(String li : line){
-					      		%><p><%=li.trim()%></p><%
+					      		%><p style="white-space:pre;"><%=li%></p><%
 					      	}
 					      %>
 					    </td>	
@@ -371,7 +371,7 @@
 						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_specialty();
 					      	for(String li : line){
-					      		%><p><%=li.trim()%></p><%
+					      		%><p style="white-space:pre;"><%=li%></p><%
 					      	}
 					      %>
 						</td>
@@ -383,7 +383,7 @@
 						<td colspan="2" style="text-align:left;"><%
 					      	line = report.getP_note();
 					      	for(String li : line){
-					      		%><p><%=li.trim()%></p><%
+					      		%><p style="white-space:pre;"><%=li%></p><%
 					      	}
 					      %>
 	      				</td>	
