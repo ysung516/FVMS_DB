@@ -192,8 +192,30 @@
     }
     
     function stateColor(){
-    	var str = $(".state").val();
-    	console.log(str);
+    	var str;
+    	for(var i=0;i<=<%=projectList.size()%>;i++){
+    		//var tr = $('#dataTable tr:eq('+i+')');
+    		//var td = tr.children();
+    		str = $('#dataTable tr:eq('+i+') td:eq(3)').text();
+    		console.log(str)
+    		if(str.indexOf('1')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#A9E2F3");
+    		}else if(str.indexOf('2')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#A9E2F3");
+    		}else if(str.indexOf('3')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#A9E2F3");
+    		}else if(str.indexOf('4')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#F6CEE3");
+    		}else if(str.indexOf('5')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#F6CEE3");
+    		}else if(str.indexOf('6')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#FFFFFF");
+    		}else if(str.indexOf('7')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#E6E6E6");
+    		}else if(str.indexOf('8')!=-1){
+    			$('#dataTable tr:eq('+i+')').css("background-color", "#A4A4A4");
+    		}
+    	}
     }
     
     $(document).ready(function(){
@@ -203,7 +225,7 @@
         cbSlow();
         cbCloseAllClose();
         stateColor();
-        $('#dataTable').tablesorter();
+        //$('#dataTable').tablesorter();
     });
    </script>
 <script type="text/javascript">
@@ -465,7 +487,7 @@
 	                      		<td><a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
-	                      <td class="td" class="state"><%=projectList.get(i).getSTATE()%></td>
+	                      <td class="td" id="state<%=projectList.get(i).getNO()%>"><%=projectList.get(i).getSTATE()%></td>
 	                      <td class="td"><%=projectList.get(i).getPART()%></td>
 	                      <td class="td"><%=projectList.get(i).getCLIENT()%></td>
 	                      <td class="td"><%=projectList.get(i).getClIENT_PART()%></td>
