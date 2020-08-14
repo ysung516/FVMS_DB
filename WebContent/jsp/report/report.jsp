@@ -26,9 +26,11 @@
 	session.setMaxInactiveInterval(15*60);
 	ReportDAO reportDao = new ReportDAO();
 	ProjectDAO projectDao = new ProjectDAO();
+	MemberDAO memberDao = new MemberDAO();
 	
 	ArrayList<ReportBean> list = reportDao.getReportList();
-	ArrayList<Integer> unWrite = reportDao.getUnwrittenReport();
+	//ArrayList<Integer> unWrite = reportDao.getUnwrittenReport();
+	ArrayList<String[]> unWrite = reportDao.getUnwrittenReportarr();
 	int projectNum = projectDao.useReportProject();
 %>
 
@@ -348,9 +350,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                    <div class="details_body">
                     <details>
                   		<summary>미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></summary>
-        			<%
-        				for(int i=0; i<unWrite.size(); i++){
-        					%><p><%=unWrite.get(i)%></p>
+        			<%for(int i=0; i<unWrite.size(); i++){
+        					%><p><%=unWrite.get(i)[1]%></p>
         			<%}%>
 					      	
                   </details>
@@ -372,11 +373,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			if(list != null){
 				
 				for(int i=0; i < list.size(); i++){
+					String pmID = projectDao.getProjectBean_no(list.get(i).getProjectNo()).getPROJECT_MANAGER();
 					%>
 					<tr>
 						<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
 						<td ><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getCLIENT()%></td>
-						<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getPROJECT_MANAGER()%></td>
+						<td><%=memberDao.returnMember(pmID).getNAME()%></td>
 						<td><%=list.get(i).getDate()%> (<%=reportDao.validDate(list.get(i).getDate())%>)</td>
 					</tr>
 					<%

@@ -215,7 +215,7 @@ public class ReportDAO {
 	    return rs;
 	}
 	
-	// 작성되지 않은 보고서만 가져오기
+	// 주간보고서가 작성되지 않은 프로젝트의 no와 제목 가져오기
 	public ArrayList<Integer> getUnwrittenReport(){
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		Connection conn = null;
@@ -243,35 +243,37 @@ public class ReportDAO {
 	    return list;
 	}
 	
-//	// 작성되지 않은 보고서만 가져오기
-//		public ArrayList<HashMap> getUnwrittenReportarr(){
-//			ArrayList<HashMap> list = new ArrayList<HashMap>();
-//			HashMap<Integer, String> mapData = new HashMap<Integer, String>();
-//			Connection conn = null;
-//		    PreparedStatement pstmt = null;
-//		    ResultSet rs = null;
-//		    
-//		    try {
-//		    	String query = "SELECT a.no, a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
-//		    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
-//		    	conn = DBconnection.getConnection();
-//		    	pstmt = conn.prepareStatement(query.toString());
-//		    	rs = pstmt.executeQuery();
-//		    	while(rs.next()) {
-//		    		list.add(rs.getInt("no"));
-//		    	}
-//		    }catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}finally {
-//				if(rs != null) try {rs.close();} catch(SQLException ex) {}
-//				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-//				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-//			}
-//		    
-//		    return list;
-//		}
-	
+	// 작성되지 않은 보고서만 가져오기
+	public ArrayList<String[]> getUnwrittenReportarr(){
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		//HashMap<Integer, String> mapData = new HashMap<Integer, String>();
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	String query = "SELECT a.no, a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
+	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		String[] data = new String[2];
+	    		data[0] = Integer.toString(rs.getInt("no"));
+	    		data[1] = rs.getString("프로젝트명");
+	    		list.add(data);
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    return list;
+	}
+
 	// 보고서 백업
 	public void backUp() {
 		Connection conn = null;
