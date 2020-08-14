@@ -407,7 +407,7 @@ public class ProjectDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from project");
+	    	query.append("select * from project order by 상태, 착수");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
