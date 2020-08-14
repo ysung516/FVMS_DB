@@ -25,7 +25,7 @@
 		int NO = Integer.parseInt(request.getParameter("no"));
 		ReportDAO reportDao = new ReportDAO();
 		ProjectDAO projectDao = new ProjectDAO();
-		
+		MemberDAO memberDao = new MemberDAO();
 		ReportBean report = reportDao.getReportBean(NO);
 		ProjectBean project = projectDao.getProjectBean_no(report.getProjectNo());
 	
@@ -313,7 +313,7 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">PM</td>
-						<td><%=project.getPROJECT_MANAGER()%></td>
+						<td><%=memberDao.returnMember(project.getPROJECT_MANAGER()).getNAME()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">상태</td>

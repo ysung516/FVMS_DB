@@ -141,6 +141,7 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     <script>
     function cbLoad(){
     	for(var a=4;a<26;a++){
@@ -194,7 +195,7 @@
     	var str = $(".state").val();
     	console.log(str);
     }
-
+    
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbLoad();
@@ -202,6 +203,7 @@
         cbSlow();
         cbCloseAllClose();
         stateColor();
+        $('#dataTable').tablesorter();
     });
    </script>
 <script type="text/javascript">
