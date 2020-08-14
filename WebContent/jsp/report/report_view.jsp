@@ -27,7 +27,7 @@
 		ProjectDAO projectDao = new ProjectDAO();
 		
 		ReportBean report = reportDao.getReportBean(NO);
-		ProjectBean project = projectDao.getProjectBean_name(report.getTitle());
+		ProjectBean project = projectDao.getProjectBean_no(report.getProjectNo());
 	
 		// 출력
 		String [] line;
@@ -296,6 +296,7 @@
          <div class="table-responsive">
          <form method="post" action="report_update.jsp">
          	<input type="hidden" name="no" value=<%=NO%>>
+         	<input type="hidden" name="projectNo" value=<%=report.getProjectNo()%>>
          	<input type="hidden" name="reportTitle" value=<%=report.getTitle()%>>
 			<table class="table table-bordered" id="dataTable">
 					<tr>

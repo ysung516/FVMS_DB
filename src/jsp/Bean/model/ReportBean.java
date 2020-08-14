@@ -13,6 +13,7 @@ public class ReportBean {
 	private String note;	// 비고
 	
 	private int no;
+	private int projectNo;
 	private String [] P_weekPlan;
 	private String [] P_weekPro;
 	private String [] P_nextPlan;
@@ -108,7 +109,12 @@ public class ReportBean {
 	public void setNextPlan(String nextPlan) {
 		this.nextPlan = nextPlan;
 	}
-	
+	public int getProjectNo() {
+		return projectNo;
+	}
+	public void setProjectNo(int projectNo) {
+		this.projectNo = projectNo;
+	}
 
 
 }

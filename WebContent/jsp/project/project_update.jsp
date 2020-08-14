@@ -30,9 +30,8 @@
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	String code = request.getParameter("code");
 	String no = request.getParameter("no");
-	ProjectBean project = projectDao.getProjectBean_code(code);
+	ProjectBean project = projectDao.getProjectBean_no(Integer.parseInt(no));
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
 	
 	String[] workerID = {};	//투입명단 id 저장용
@@ -360,7 +359,7 @@ function defaultTeam(){
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 수정</h6>
-	         	<a id="Delete" href="project_deletePro.jsp?code=<%=code%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
+	         	<a id="Delete" href="project_deletePro.jsp?no=<%=no%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
             </div>
             <div class="card-body">
             <div class="table-responsive">

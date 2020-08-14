@@ -19,9 +19,9 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
-		String code = request.getParameter("code");
+		int no = Integer.parseInt(request.getParameter("no"));
 		ProjectDAO projectDao = new ProjectDAO();
-		if(projectDao.deleteProject(code)==1){
+		if(projectDao.deleteProject(no)==1){
 			script.print("<script> alert('프로젝트가 삭제되었습니다.'); location.href = 'project.jsp'; </script>");
 		}else{
 			script.print("<script> alert('삭제 실패했습니다.'); history.back(); </script>");
