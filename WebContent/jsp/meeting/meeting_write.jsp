@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	
 $(document).ready(function () {
-	
+
 	$('.loading').hide();
     // Warning
     $(window).on('beforeunload', function(){
@@ -56,7 +56,8 @@ $(document).ready(function () {
 </head>
 <script>
 
-var count = 0;
+var count = $('#nextPlanTable > tbody tr').length;
+
 function rowAdd(){
 	count++;
 	var innerHtml = "";
@@ -66,20 +67,34 @@ function rowAdd(){
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="pm'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '</tr>';
 	$('#count').val(count);
 	$('#dataTable').append(innerHtml);
 }
 
-
-function rowDelete(){
-	var trCnt = $('#dataTable tr').length;
-	if(trCnt>10){
-		$('#dataTable tr:last').remove();
-	}else{
-		return fasle;
-	}
+function deleteNP(){
+	$(document).on("click",".deleteNP",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		tr.remove();
+		
+		var len = $('#nextPlanTable > tbody tr').length;
+		console.log(len);
+		for(var a=1; a<=len; a++){
+			$("#nextPlanTable tr:eq("+a+") td:eq(0)").text(a);
+			$("#nextPlanTable tr:eq("+a+") td:eq(1) input").attr("name", "item"+a);
+			$("#nextPlanTable tr:eq("+a+") td:eq(2) input").attr("name", "deadline"+a);
+			$("#nextPlanTable tr:eq("+a+") td:eq(3) input").attr("name", "pm"+a);
+		}
+		$('#count').val($('#nextPlanTable > tbody tr').length);
+	});
 }
+
 
 </script>
 <style>
@@ -294,7 +309,7 @@ function rowDelete(){
            
                  <div class="table-responsive">
           <form method="post" action="meeting_writePro.jsp">    
-          	<input type="hidden" id="count" name="count" value="">   
+          	<input type="hidden" id="count" name="count" value="0">   
 			  <table class="table table-bordered" id="dataTable">
 			     <tr>
 				      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
@@ -336,12 +351,22 @@ function rowDelete(){
 				      </div>
 				     </td>
 			     </tr>
+			     
 			     <tr>
-			    	<td class="m-0 text-primary">No</td>
-			     	<td class="m-0 text-primary">항목</td>
-					<td class="m-0 text-primary">기한</td>
-					<td class="m-0 text-primary">담당</td>
+				     <table id="nextPlanTable">
+				     	<thead>
+					    	<td class="m-0 text-primary">No</td>
+					     	<td class="m-0 text-primary">항목</td>
+							<td class="m-0 text-primary">기한</td>
+							<td class="m-0 text-primary">담당</td>
+							<td class="m-0 text-primary"></td>
+						</thead>
+						<tbody></tbody>
+					</table>
 				</tr>
+				
+				
+				
 				</table>
 				<table>
 			     <tr align="center">

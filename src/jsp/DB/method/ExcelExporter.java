@@ -8,16 +8,17 @@ import org.apache.poi.xssf.usermodel.*;
 
 public class ExcelExporter {
 
-	public static void main(String[] args) {
-		ExcelExporter test = new ExcelExporter();
-		System.out.println("출력 성공 전");
-		test.export();
-		System.out.println("출력 성공");
-	}
-
+//	public static void main(String[] args) {
+//		ExcelExporter test = new ExcelExporter();
+//		System.out.println("출력 성공 전");
+//		test.export();
+//		System.out.println("출력 성공");
+//	}
+//	
+	// 엑셀로 내보내기
 	public void export() {
 
-		String excelFilePath = "Report-export.xlsx";
+		String excelFilePath = "webapps/ROOT/Report-export.xlsx";
 
 		try (Connection connection = DBconnection.getConnection()) {
 			String sql = "SELECT * FROM reportBackUp";
@@ -48,6 +49,7 @@ public class ExcelExporter {
 		}
 	}
 
+	// 엑셀 제목 설정
 	private void writeHeaderLine(XSSFSheet sheet) {
 
 		Row headerRow = sheet.createRow(0);
@@ -83,6 +85,7 @@ public class ExcelExporter {
 		headerCell.setCellValue("비고");
 	}
 
+	// 엑셀에 데이터 추가
 	private void writeDataLines(ResultSet result, XSSFWorkbook workbook, XSSFSheet sheet) throws SQLException {
 		int rowCount = 1;
 

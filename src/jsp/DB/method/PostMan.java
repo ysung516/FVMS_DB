@@ -3,12 +3,11 @@ package jsp.DB.method;
 import javax.mail.MessagingException;
 
 public class PostMan {
-
+/*
 	public static void main(String[] args) {
-
+		
 		String from = "fvms@dsc05157.cafe24.com"; // 메일 보내는 사람
 		String to = "stkt12345@gmail.com"; // 메일 보낼사람
-		String cc = "cc@daum.net"; // 참조
 		String subject = "잘가는지 테스트 중~~~~~~~~~~";// 제목
 		String content = "안녕하세요. 반갑습니다.\n G-Mail을 이용한 메일 발송 예제입니다.\n 감사합니다.";// 내용
 
@@ -33,5 +32,5 @@ public class PostMan {
 			}
 		}
 	}
-
+*/
 }

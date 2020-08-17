@@ -15,7 +15,7 @@ public class MeetBean {
 	private String issue;
 	private String attendees_ex;	//외부 참석자
 	
-
+	private String[] P_issue;
 	private String[] MeetNote;	// 회의내용
 	private String[] nextPlan;	// 향후일정
 	
@@ -35,6 +35,11 @@ public class MeetBean {
 	public void setAttendees_ex(String attendees_ex) {
 		this.attendees_ex = attendees_ex;
 	}
+	public String[] getP_issue() {
+		String [] p_issue = issue.split("\n");
+		return p_issue;
+	}
+	
 
 	public String[] getMeetNote() {
 		String [] MeetNote = P_meetnote.split("\n");

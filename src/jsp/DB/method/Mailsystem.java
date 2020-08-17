@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMultipart;
 
 public class Mailsystem {
 
+	// TEXT만 보낼때
 	public void sendEmail(String from, String to, String cc, String subject, String content) throws Exception {
 
 		// Properties 설정
@@ -75,6 +76,8 @@ public class Mailsystem {
 	 * @param withFile  경로포함된 파일명(예:c:\temp\파일.xls)
 	 * @throws UnsupportedEncodingException
 	 */
+	
+	// 파일첨부
 	public void sendMailWithFile(String mail_addr, String to, String title, String contents, String withFile) throws Exception{
 
 		// Properties 설정
@@ -113,13 +116,13 @@ public class Mailsystem {
 		MimeMessage msg = new MimeMessage(mailSession);
 		msg.addHeader("Content-Transfer-Encoding", "base64"); // base64 처리
 
-		msg.setRecipient(Message.RecipientType.TO, address);
+		msg.setRecipient(Message.RecipientType.TO, address);//보내는 사람
 		
 		// 보내는 사람의 이름과 메일주소를 설정합니다.
 		// msg.setFrom(new InternetAddress(from, from));
 		// msg.setFrom(new InternetAddress(new String(this.sendName.getBytes("euc-kr"),
 		// "8859_1") + "<" + fromAddr + ">"));
-		msg.setFrom(new InternetAddress(mail_addr, "백업 데이터"));
+		msg.setFrom(new InternetAddress(mail_addr, "FVMS 관리자"));	 //받는 사람
 		// 제목을 설정합니다.
 		// msg.setSubject(title);
 		msg.setSubject(title, "utf-8");

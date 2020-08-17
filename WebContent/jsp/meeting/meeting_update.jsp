@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
     import = "jsp.Bean.model.*"
+    import = "jsp.DB.method.*"
+    import = "java.util.ArrayList"
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,16 +23,12 @@
 		}
 		
 		session.setMaxInactiveInterval(15*60);
-		String no = request.getParameter("no");
-		String MeetName = request.getParameter("MeetName");
-		String writer = request.getParameter("writer");
-		String MeetDate = request.getParameter("MeetDate");
-		String MeetPlace = request.getParameter("MeetPlace");
-		String attendees = request.getParameter("attendees");
-		String MeetNote = request.getParameter("MeetNote");
-		String nextPlan = request.getParameter("nextPlan");
-		String [] P_MeetNote = MeetNote.split("\n");
-		String [] P_nextPlan = nextPlan.split("\n");
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		MeetingDAO meetDao = new MeetingDAO();
+		MeetBean mb = meetDao.getMeetList(no);
+		ArrayList<nextPlanBean> nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());
+		
 		// 출력
 		String [] line;
 		
@@ -58,6 +56,7 @@
 
 $(document).ready(function () {
 	$('.loading').hide();
+
     // Warning
     $(window).on('beforeunload', function(){
         return "Any changes will be lost";
@@ -67,7 +66,43 @@ $(document).ready(function () {
         $(window).off('beforeunload');
     });
 })
+var count = $('#nextPlanTable > tbody tr').length;
+function rowAdd(){
+	count = $('#nextPlanTable > tbody tr').length;
+	count++;
+	var innerHtml = "";
+	innerHtml += '<tr>';
+	//innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 1px solid;">'+count+'</td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="pm'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '</tr>';
+	$('#count').val(count);
+	$('#nextPlanTable').append(innerHtml);
+}
 
+function deleteNP(){
+	$(document).on("click",".deleteNP",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		tr.remove();
+		
+		var len = $('#nextPlanTable > tbody tr').length;
+		for(var a=1; a<=len; a++){
+			$("#nextPlanTable tr:eq("+a+") td:eq(0)").text(a);
+			$("#nextPlanTable tr:eq("+a+") td:eq(1) input").attr("name", "item"+a);
+			$("#nextPlanTable tr:eq("+a+") td:eq(2) input").attr("name", "deadline"+a);
+			$("#nextPlanTable tr:eq("+a+") td:eq(3) input").attr("name", "pm"+a);
+		}
+		$('#count').val($('#nextPlanTable > tbody tr').length);
+	});
+}
 </script>
 <style>
 	input{
@@ -289,71 +324,87 @@ $(document).ready(function () {
            <div class="table-responsive">
            
            <form method ="post" action="meeting_updatePro.jsp" name="meet_update">
+           <input type="hidden" name="count" value="0"> 
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
-						<td colspan="4"><input name="MeetName" style=width:100%; value="<%=MeetName%>" placeholder="<%=MeetName%>"></td>
+						<td colspan="4"><input name="MeetName" style=width:100%; value="<%=mb.getMeetName()%>"></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">작성자</td>
-						<td colspan="4"><input name="NAME" style="width:100%;" value="<%=writer%>" placeholder="<%=writer%>"></td>
+						<td colspan="4"><input name="NAME" style="width:100%;" value="<%=mb.getWriter()%>"></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의일시</td>
-						<td colspan="4"  style="text-align:left"><input type="date" name="MeetDate" value="<%=MeetDate%>"></td> 
+						<td colspan="4"  style="text-align:left"><input type="date" name="MeetDate" value="<%=mb.getMeetDate()%>"></td> 
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의 장소</td>
-						<td colspan="4"><input name="MeetPlace" style=width:100%; value="<%=MeetPlace%>" placeholder="<%=MeetPlace%>"></td>
+						<td colspan="4"><input name="MeetPlace" style=width:100%; value="<%=mb.getMeetPlace()%>"></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">참석자(슈어) </td>
-						<td colspan="4"><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
+						<td colspan="4"><input name="attendees" style=width:100%; value="<%=mb.getAttendees()%>"></td>
 					</tr>
 					<tr>
 				      <td class="m-0 text-primary" align="center">참석자(고객사)</td>
-				      <td colspan="4"><input name="attendees" style=width:100%; value="<%=attendees%>" placeholder="<%=attendees%>"></td>
+				      <td colspan="4"><input name="attendees" style=width:100%; value="<%=mb.getAttendees_ex()%>"></td>
 			     </tr>
 					<tr>
 						<td class="m-0 text-primary" colspan="4"><h6>회의내용</h6>
 						<textarea name="MeetNote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
-							line = P_MeetNote;
+							line = mb.getMeetNote();
 							for(String li : line){
 							%><%=li%><%
-									}
+							}
 						%></textarea></td>
 					</tr>
 					 <tr>
-						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6
-						><textarea name="" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6>
+						<textarea name="issue" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"><%
+						line = mb.getP_issue();
+						for(String li : line){
+						%><%=li%><%
+						}
+						%></textarea></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>
 						<div style="display: inline-block;float: right;">
-				      <input type="button" value="+"  class="btn btn-primary">
+				      <input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();">
 				      <input type="button"  value="-"  class="btn btn-primary">
 				      </div>
 						</td>
 					</tr>
 					<tr>
-			     	<td class="m-0 text-primary">No</td>
-						<td class="m-0 text-primary">항목</td>
-						<td class="m-0 text-primary">기한</td>
-						<td class="m-0 text-primary">담당</td>
-					</tr>
+					<table id="nextPlanTable">
+					<thead>
+						<tr>
+				     	<td class="m-0 text-primary">No</td>
+							<td class="m-0 text-primary">항목</td>
+							<td class="m-0 text-primary">기한</td>
+							<td class="m-0 text-primary">담당</td>
+							<td class="m-0 text-primary"></td>
+						</tr>
+					</thead>
+					<tbody>
+					<%for(int i=0; i<nextPlanList.size(); i++){%>
 					<tr>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
-					<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>
+						<td class="firstTD" style="padding: 0px;border: 0px solid;"><%=nextPlanList.get(i).getNo()%></td>
+						<td style="padding: 0px;border: 0px solid;"><input name="item<%=nextPlanList.get(i).getNo()%>" value="<%=nextPlanList.get(i).getItem()%>" style="border-radius: 0;border-top: 0px;width:100%;"></td>
+						<td style="padding: 0px;border: 0px solid;"><input name="deadline<%=nextPlanList.get(i).getNo()%>" value="<%=nextPlanList.get(i).getDeadline()%>" style="border-radius: 0;border-top: 0px;width:100%;"></td>
+						<td style="padding: 0px;border: 0px solid;"><input name="pm<%=nextPlanList.get(i).getNo()%>" value="<%=nextPlanList.get(i).getPM()%>" style="border-radius: 0;border-top: 0px;width:100%;"></td>
+						<td style="padding: 0px;border: 0px solid;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>
 					</tr>
-					
+					<%} %>
+					</tbody>
+					</table>
+					</tr>
 			<tr>
 			<td colspan="4" style="border-color: #fff;">
 			<input type="submit" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
 			</tr>
 				<input type="hidden" name="no" value="<%=no%>">
-				<input type="hidden" name="writer" value="<%=writer%>">
 			</table>
 	      </form>
         </div>

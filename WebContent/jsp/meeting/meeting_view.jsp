@@ -23,10 +23,11 @@
 		int no = Integer.parseInt(request.getParameter("no"));
 		MeetingDAO meetDao = new MeetingDAO();
 		MeetBean mb = meetDao.getMeetList(no);
+		ArrayList<nextPlanBean> nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());
 		String id = mb.getId();
 		
-		System.out.println(sessionID);
-		System.out.println(id);
+		//System.out.println(sessionID);
+		//System.out.println(id);
 		// 출력
 		String [] line;		
 	%>
@@ -311,11 +312,11 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">작성자</td>
-						<td colspan="3"><%=mb.getWriter() %></td>
+						<td colspan="3"><%=mb.getWriter()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의일시</td>
-						<td colspan="3"><%=mb.getMeetDate() %></td> 
+						<td colspan="3"><%=mb.getMeetDate()%></td> 
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의 장소</td>
@@ -327,7 +328,7 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">참석자 고객사</td>
-						<td colspan="3">고객사 뜨게 바꾸기!!!</td>
+						<td colspan="3"><%=mb.getAttendees_ex()%></td>
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">회의내용</td>
@@ -341,40 +342,37 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">이슈사항</td>
-						<td colspan="3">이슈사항 내용나오게하기!!</td>
+						<td colspan="3"><%
+							line = mb.getP_issue();
+							for(String li : line){
+								%><p><%=li.trim()%></p><%
+							}
+							
+						%></td>
 					</tr>
 					<tr>
 						<td colspan="4"class="m-0 text-primary">향후일정</td>
 						</tr>
 						<tr>
-						<td class="m-0 text-primary">No</td>
+						<td class="m-0 text-primary">NO</td>
 						<td class="m-0 text-primary">항목</td>
 						<td class="m-0 text-primary">기한</td>
 						<td class="m-0 text-primary">담당</td>
 					</tr>
-					<tr>
-					<td>1</td>
-					<td>작성하기</td>
-					<td>~9/9</td>
-					<td> <%
-							line = mb.getNextPlan();
-							for(String li : line){
-								%><p><%=li.trim()%></p><%
-							}
-						%></td>
-					</tr>
 					
+					<%
+					for(int i=0; i<nextPlanList.size(); i++){%>
+						<tr>
+						<td><%=nextPlanList.get(i).getNo()%></td>
+						<td><%=nextPlanList.get(i).getItem()%></td>
+						<td><%=nextPlanList.get(i).getDeadline()%></td>
+						<td><%=nextPlanList.get(i).getPM()%></td>
+						</tr>	
+					<%}%>
 					<tr>
 						<td colspan="4">
 						<form method="post" action="meeting_update.jsp"  style="display: contents;">
-							<input type="hidden" name="MeetName" value="<%=mb.getMeetName()%>">
 							<input type="hidden" name="no" value="<%=no%>">
-							<input type="hidden" name="writer" value="<%=mb.getWriter()%>">
-							<input type="hidden" name="MeetDate" value="<%=mb.getMeetDate()%>">
-							<input type="hidden" name="MeetPlace" value="<%=mb.getMeetPlace()%>">
-							<input type="hidden" name="attendees" value="<%=mb.getAttendees()%>">
-							<input type="hidden" name="MeetNote" value="<%=mb.getP_meetnote()%>">
-							<input type="hidden" name="nextPlan" value="<%=mb.getP_nextplan()%>">
 							<%
 								if(sessionID.equals(id)){
 									%><input id="update" type="submit" name="update" value="수정"  class="btn btn-primary"><%

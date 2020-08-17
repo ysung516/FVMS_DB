@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import jsp.Bean.model.MeetBean;
+import jsp.Bean.model.nextPlanBean;
 
 public class MeetingDAO {
 
@@ -39,6 +40,8 @@ public class MeetingDAO {
 	    		meet.setAttendees(rs.getString("참석자"));
 	    		meet.setP_meetnote(rs.getString("회의내용"));
 	    		meet.setP_nextplan(rs.getString("향후일정"));
+	    		meet.setAttendees_ex(rs.getString("외부참석자"));
+	    		meet.setIssue(rs.getString("이슈사항"));
 	    		MeetList.add(meet);
 	    	}
 		} catch (SQLException e) {
@@ -77,6 +80,8 @@ public class MeetingDAO {
 	    		meet.setAttendees(rs.getString("참석자"));
 	    		meet.setP_meetnote(rs.getString("회의내용"));
 	    		meet.setP_nextplan(rs.getString("향후일정"));
+	    		meet.setAttendees_ex(rs.getString("외부참석자"));
+	    		meet.setIssue(rs.getString("이슈사항"));
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -89,17 +94,50 @@ public class MeetingDAO {
 	    
 	    return meet;
 	}
+
+	// 회의록 리스트 가져오기
+	public ArrayList<nextPlanBean> getNextPlan(String tableName){
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+		ArrayList<nextPlanBean> nextPlanList = new ArrayList<nextPlanBean>();
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from "+tableName+"");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		nextPlanBean nextPlan = new nextPlanBean();
+	    		nextPlan.setNo(rs.getInt("no"));
+	    		nextPlan.setItem(rs.getString("항목"));
+	    		nextPlan.setDeadline(rs.getString("기한"));
+	    		nextPlan.setPM(rs.getString("담당"));
+	    		nextPlanList.add(nextPlan);
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return nextPlanList;
+	}
 	
 	// 회의록 작성
 	public int saveMeet(String id, String MeetName, String writer, String MeetDate, String MeetPlace,
-			String attendees, String meetNote, String nextPlan, String date) {
+			String attendees, String meetNote, String nextPlan, String date,String attendees_ex, String issue) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    int rs = 0;
 	    
 	    try {
-	    	String query = "insert into meeting_log (ID,회의명,작성자,작성날짜,회의일시,회의장소,참석자,회의내용,향후일정)"
-	    			+ "values(?,?,?,?,?,?,?,?,?)";
+	    	String query = "insert into meeting_log (ID,회의명,작성자,작성날짜,회의일시,회의장소,참석자,회의내용,향후일정,외부참석자,이슈사항)"
+	    			+ "values(?,?,?,?,?,?,?,?,?,?,?)";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, id);
@@ -111,6 +149,8 @@ public class MeetingDAO {
 	    	pstmt.setString(7, attendees);
 	    	pstmt.setString(8, meetNote);
 	    	pstmt.setString(9, nextPlan);
+	    	pstmt.setString(10, attendees_ex);
+	    	pstmt.setString(11, issue);
 	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -172,6 +212,30 @@ public class MeetingDAO {
 	    return rs;
 	}
 	
+	// 향후일정 삭제
+		public int deleteNextPlan(int no, String tableName) {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    int rs = 0;
+		    
+		    try {
+		    	String query = "delete from "+tableName+" where no =?";
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setInt(1, no);
+		    	rs = pstmt.executeUpdate();
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		
+		    return rs;
+		}
+		
+	
 	// 향후일정 테이블 생성
 	public int createNextPlanTable(String name) {
 		Connection conn = null;
@@ -204,23 +268,29 @@ public class MeetingDAO {
 	    PreparedStatement pstmt = null;
 	    int rs = 0;
 	    try {
-	    	String query = "insert into ? (항목,기한,담당) values(?,?,?)";
-	    	for(int i=0; i<count-1; i++) {
-	    		query += ",values(?,?,?)";
+	    	String query = "insert into "+tableName+" (항목,기한,담당) values(?,?,?)";
+	    	if(count > 1) {
+	    		for(int i=0; i<count-1; i++) {
+		    		query += ",(?,?,?)";
+		    	}
+	    		query += ";";
 	    	}
-	    	
-	    	
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, tableName);
-	    	pstmt.setString(2, item[0]);
-	    	pstmt.setString(3, deadline[0]);
-	    	pstmt.setString(4, pm[0]);
+	    	pstmt.setString(1, item[0]);
+	    	pstmt.setString(2, deadline[0]);
+	    	pstmt.setString(3, pm[0]);
 	    	
-	    	for(int j=0; j<count-1; j++) {
-	    		pstmt.setString(5+j, item[j+1]);
-		    	pstmt.setString(6+j, deadline[j+1]);
-		    	pstmt.setString(7+j, pm[j+1]);
+	    	if(count > 1) {
+	    		int cnt = 4;
+	    		for(int j=0; j<count-1; j++) {
+		    		pstmt.setString(cnt, item[j+1]);
+		    		cnt++;
+			    	pstmt.setString(cnt, deadline[j+1]);
+			    	cnt++;
+			    	pstmt.setString(cnt, pm[j+1]);
+			    	cnt++;
+		    	}
 	    	}
 	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
@@ -262,13 +332,12 @@ public class MeetingDAO {
 	    ResultSet rs = null;
 	    int row = 0;
 	    try {
-	    	String query = "select no from meet_log";
+	    	String query = "SELECT no FROM meeting_log ORDER BY no DESC LIMIT 1;";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
 	    	
-	    	if(rs != null) {
-	    		rs.last();
+	    	if(rs.next()) {
 	    		row = rs.getInt("no");
 	    	}
 	    }catch (SQLException e) {

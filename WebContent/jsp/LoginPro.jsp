@@ -14,7 +14,6 @@
 <body>
 
  <%
-  
      String ID = request.getParameter("ID").toLowerCase();
      String PW = request.getParameter("PW");
      String sessionName;

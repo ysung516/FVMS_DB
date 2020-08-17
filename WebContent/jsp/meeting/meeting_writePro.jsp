@@ -25,8 +25,6 @@
 		String sessionName = (String)session.getAttribute("sessionName");
 		MeetingDAO meetDao = new MeetingDAO();
 		
-		//meetDao.createNextPlanTable("test222");
-		meetDao.dropNextPlanTable("test222");
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -41,23 +39,29 @@
 		String issue = request.getParameter("issue");
 		int count = Integer.parseInt(request.getParameter("count"));
 		int rowCount = meetDao.getRowCount();
-		String nextplan = Integer.toString(rowCount);
+		String nextplan = "-";
+		
+		if(count != 0){
+			nextplan = "nextPlan"+Integer.toString(rowCount + 1);
+		}	
+		
 		String [] item = new String[count];
 		String [] deadline = new String[count];
 		String [] pm = new String[count];
+		
 		
 		
 		if(MeetName == null || MeetName == ""){
 			script.print("<script> alert('회의명을 작성해주세요.'); history.back();</script>");
 		} else{
 			
-			if(meetDao.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace, attendees, meetnote, nextplan, date) == 1){
+			if(meetDao.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace, attendees, meetnote, nextplan, date, attendees_ex, issue) == 1){
 				if(count > 0){
-					String nextPlanTableName = "nextPlan"+ rowCount;
+					String nextPlanTableName = "nextPlan"+ (rowCount + 1);
 					for(int i=0; i<count; i++){
-						item[i] = request.getParameter("item"+count);
-						deadline[i] = request.getParameter("deadline"+count);
-						pm[i] = request.getParameter("pm"+count);
+						item[i] = request.getParameter("item"+(i+1));
+						deadline[i] = request.getParameter("deadline"+(i+1));
+						pm[i] = request.getParameter("pm"+(i+1));
 					}	
 					meetDao.createNextPlanTable(nextPlanTableName);
 					meetDao.insertNextPlanData(nextPlanTableName, item, deadline, pm, count);
