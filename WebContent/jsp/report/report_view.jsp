@@ -288,7 +288,7 @@
 						<td><div class="report_div"><%=report.getName()%></div></td>
 					</tr>
 					<tr>
-						<td class="m-0 text-primary">작성일</td>
+						<td class="m-0 text-primary">최종수정시간</td>
 						<td><div class="report_div"><%=report.getDate()%>  (<%=reportDao.validDate(report.getDate())%>)</div></td> 
 					</tr>
 					<tr>
