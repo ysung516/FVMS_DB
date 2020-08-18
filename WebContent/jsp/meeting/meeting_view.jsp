@@ -23,7 +23,11 @@
 		int no = Integer.parseInt(request.getParameter("no"));
 		MeetingDAO meetDao = new MeetingDAO();
 		MeetBean mb = meetDao.getMeetList(no);
-		ArrayList<nextPlanBean> nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());
+		ArrayList<nextPlanBean> nextPlanList = new ArrayList<nextPlanBean>();
+		if(!(mb.getP_nextplan().equals("-"))){
+			nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());			
+		}
+		
 		String id = mb.getId();
 		
 		//System.out.println(sessionID);

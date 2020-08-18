@@ -163,21 +163,22 @@ public class MeetingDAO {
 	}
 	
 	// 회의록 수정
-	public int updateMeet(int no, String MeetName, String MeetDate, String MeetPlace, String attendees, String meetNote, String  nextPlan) {
+	public int updateMeet(int no, String MeetName, String MeetDate, String MeetPlace, String attendees,String attendees_ex, String meetNote, String issue) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    int rs = 0;
 	    try {
-	    	String query = "update meeting_log set 회의명=?, 회의일시=?, 회의장소=?, 참석자=?, 회의내용=?, 향후일정=? where no =?";
+	    	String query = "update meeting_log set 회의명=?, 회의일시=?, 회의장소=?, 참석자=?, 외부참석자=?, 회의내용=?, 이슈사항=? where no =?";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, MeetName);
 	    	pstmt.setString(2, MeetDate);
 	    	pstmt.setString(3, MeetPlace);
 	    	pstmt.setString(4, attendees);
-	    	pstmt.setString(5, meetNote);
-	    	pstmt.setString(6, nextPlan);
-	    	pstmt.setInt(7, no);
+	    	pstmt.setString(5, attendees_ex);
+	    	pstmt.setString(6, meetNote);
+	    	pstmt.setString(7, issue);
+	    	pstmt.setInt(8, no);
 	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -211,30 +212,6 @@ public class MeetingDAO {
 	
 	    return rs;
 	}
-	
-	// 향후일정 삭제
-		public int deleteNextPlan(int no, String tableName) {
-			Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    int rs = 0;
-		    
-		    try {
-		    	String query = "delete from "+tableName+" where no =?";
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	pstmt.setInt(1, no);
-		    	rs = pstmt.executeUpdate();
-		    }catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-		
-		    return rs;
-		}
-		
 	
 	// 향후일정 테이블 생성
 	public int createNextPlanTable(String name) {
@@ -308,8 +285,7 @@ public class MeetingDAO {
 		Connection conn = null;
 		Statement stmt = null;
 	    int rs = 0;
-	    
-	    //String num = Integer.toString(no);
+	    	    
 	    try {
 	    	String query ="DROP TABLE "+name+"";
 	    	conn = DBconnection.getConnection();
@@ -320,6 +296,28 @@ public class MeetingDAO {
 			e.printStackTrace();
 		}finally {
 			if(stmt != null) try {stmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    return rs;
+	}
+	
+	// 회의록테이블의 향후일정 데이터 업데이트 
+	public int updateNextPlan(int no, String np) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    try {
+	    	String query = "update meeting_log set 향후일정=? where no =?";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, np);
+	    	pstmt.setInt(2, no);
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 	    return rs;

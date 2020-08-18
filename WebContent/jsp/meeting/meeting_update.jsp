@@ -27,7 +27,10 @@
 		int no = Integer.parseInt(request.getParameter("no"));
 		MeetingDAO meetDao = new MeetingDAO();
 		MeetBean mb = meetDao.getMeetList(no);
-		ArrayList<nextPlanBean> nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());
+		ArrayList<nextPlanBean> nextPlanList = new ArrayList<nextPlanBean>();
+		if(!(mb.getP_nextplan().equals("-"))){
+			nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());			
+		}
 		
 		// 출력
 		String [] line;
@@ -70,9 +73,9 @@ var count = $('#nextPlanTable > tbody tr').length;
 function rowAdd(){
 	count = $('#nextPlanTable > tbody tr').length;
 	count++;
+	console.log(count);
 	var innerHtml = "";
 	innerHtml += '<tr>';
-	//innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '<td style="padding: 0px;border: 1px solid;">'+count+'</td>';
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
@@ -324,7 +327,7 @@ function deleteNP(){
            <div class="table-responsive">
            
            <form method ="post" action="meeting_updatePro.jsp" name="meet_update">
-           <input type="hidden" name="count" value="0"> 
+           <input id="count" type="hidden" name="count" value="0"> 
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
@@ -348,7 +351,7 @@ function deleteNP(){
 					</tr>
 					<tr>
 				      <td class="m-0 text-primary" align="center">참석자(고객사)</td>
-				      <td colspan="4"><input name="attendees" style=width:100%; value="<%=mb.getAttendees_ex()%>"></td>
+				      <td colspan="4"><input name="attendees_ex" style=width:100%; value="<%=mb.getAttendees_ex()%>"></td>
 			     </tr>
 					<tr>
 						<td class="m-0 text-primary" colspan="4"><h6>회의내용</h6>
@@ -388,6 +391,7 @@ function deleteNP(){
 						</tr>
 					</thead>
 					<tbody>
+					
 					<%for(int i=0; i<nextPlanList.size(); i++){%>
 					<tr>
 						<td class="firstTD" style="padding: 0px;border: 0px solid;"><%=nextPlanList.get(i).getNo()%></td>
@@ -402,7 +406,7 @@ function deleteNP(){
 					</tr>
 			<tr>
 			<td colspan="4" style="border-color: #fff;">
-			<input type="submit" name="complete" id="complete" value="완료" onclick="ok_btn();" class="btn btn-primary" ></td>
+			<input type="submit" name="complete" id="complete" value="완료" class="btn btn-primary" ></td>
 			</tr>
 				<input type="hidden" name="no" value="<%=no%>">
 			</table>

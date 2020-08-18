@@ -49,8 +49,7 @@
 		String [] deadline = new String[count];
 		String [] pm = new String[count];
 		
-		
-		
+
 		if(MeetName == null || MeetName == ""){
 			script.print("<script> alert('회의명을 작성해주세요.'); history.back();</script>");
 		} else{

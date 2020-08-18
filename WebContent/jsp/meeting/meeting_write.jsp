@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	
 $(document).ready(function () {
-
+	console.log(count);
 	$('.loading').hide();
     // Warning
     $(window).on('beforeunload', function(){
@@ -35,7 +35,7 @@ $(document).ready(function () {
 	session.setMaxInactiveInterval(15*60);
 	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	int count = 1;
+	//int count = 1;
 %>
 
   <meta charset="utf-8">
@@ -59,10 +59,11 @@ $(document).ready(function () {
 var count = $('#nextPlanTable > tbody tr').length;
 
 function rowAdd(){
+	count = $('#nextPlanTable > tbody tr').length;
 	count++;
+	console.log(count);
 	var innerHtml = "";
 	innerHtml += '<tr>';
-	//innerHtml += '<td style="padding: 0px;border: 0px solid;"><input style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '<td style="padding: 0px;border: 1px solid;">'+count+'</td>';
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
@@ -70,7 +71,7 @@ function rowAdd(){
 	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '</tr>';
 	$('#count').val(count);
-	$('#dataTable').append(innerHtml);
+	$('#nextPlanTable').append(innerHtml);
 }
 
 function deleteNP(){
@@ -355,18 +356,18 @@ function deleteNP(){
 			     <tr>
 				     <table id="nextPlanTable">
 				     	<thead>
-					    	<td class="m-0 text-primary">No</td>
-					     	<td class="m-0 text-primary">항목</td>
-							<td class="m-0 text-primary">기한</td>
-							<td class="m-0 text-primary">담당</td>
-							<td class="m-0 text-primary"></td>
+				     		<tr>
+						    	<td class="m-0 text-primary">No</td>
+						     	<td class="m-0 text-primary">항목</td>
+								<td class="m-0 text-primary">기한</td>
+								<td class="m-0 text-primary">담당</td>
+								<td class="m-0 text-primary"></td>
+							</tr>
 						</thead>
 						<tbody></tbody>
 					</table>
 				</tr>
-				
-				
-				
+		
 				</table>
 				<table>
 			     <tr align="center">

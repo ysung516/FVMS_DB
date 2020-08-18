@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import jsp.Bean.model.ProjectBean;
 import jsp.Bean.model.ReportBean;
 
 public class ReportDAO {
@@ -216,20 +217,22 @@ public class ReportDAO {
 	}
 	
 	// 주간보고서가 작성되지 않은 프로젝트의 no와 제목 가져오기
-	public ArrayList<Integer> getUnwrittenReport(){
-		ArrayList<Integer> list = new ArrayList<Integer>();
+	public ArrayList<String> getUnwrittenReport(){
+		ArrayList<String> list = new ArrayList<String>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    try {
-	    	String query = "SELECT a.no FROM project a left outer join report b on a.no = b.프로젝트no "
+	    	String query = "SELECT a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
 	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
-	    		list.add(rs.getInt("no"));
+	    		String projectName;
+	    		projectName = rs.getString("프로젝트명");
+	    		list.add(projectName);
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
