@@ -363,6 +363,35 @@ public class MemberDAO {
 		 return teamMem;
 	 }
 
-		 
+	 //비밀번호 초기화
+	 public int pwdReset(String id, String pw) {
+
+		  System.out.println(pw);
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+	     int rs = 0;
+	   
+	      try {
+	    	  
+	       String query = "update member  SET pw = HEX(AES_ENCRYPT(?, 'suresoft')) where id = ?";
+	       conn = DBconnection.getConnection();
+	       pstmt = conn.prepareStatement(query.toString());
+	       
+	       pstmt.setString(1, pw);
+	       pstmt.setString(2, id);
+	
+	       rs = pstmt.executeUpdate();
+	 
+	      }  catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	    
+	   } finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	      return rs;
+	 }
+	
 		 
 }	//end 

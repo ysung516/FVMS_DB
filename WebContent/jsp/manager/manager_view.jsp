@@ -45,6 +45,16 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
+	function btn_event(){
+		if (confirm("비밀번호를 초기화합니다.") == true){
+			return 1;
+		}else{
+			 return;
+			 return -l;
+		}
+	}
+	
+	
 	function fnMove(seq){
 		var offset = $("#move" + seq).offset();
         $('html, body').animate({scrollTop : offset.top}, 400);
@@ -252,13 +262,15 @@
          	<h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;"><%=member.getNAME()%> 정보 조회</h6>
          	<form method="post" action="manager_deletePro.jsp">
          		<input type="hidden" name="id" value="<%=id%>">
+         		<input type="hidden" name="pwd" value="<%=member.getPASSWORD()%>">
          		<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
          	</form>
         </div>
           
          <div class="card-body">
            <div class="table-responsive">
-         
+         <form method="post" action="reset_pwdPro.jsp">
+         <input type="hidden" name="id" value="<%=id%>">  
 					<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td>팀</td>
@@ -312,16 +324,20 @@
 						<td>ID</td>
 						<td><%=member.getID()%></td>
 					</tr>
-					</table>
+				
           
-	     <table style="margin: 0 auto;">
+
 	     <tr>
 	     <td colspan="2">
 	       <a href="manager_update.jsp?id=<%=id%>" class="btn btn-primary">수정</a>
 	       <a href="manager.jsp" class="btn btn-primary">목록</a>
+	       	<input id="reset" type="submit" value="비밀번호 초기화" class="btn btn-primary" onclick="btn_event();">
+	        
 	       </td>
 	     </tr>
+	      
 	       </table>   
+	       </form>
         </div>
 
              <!-- /.container-fluid -->
