@@ -1,4 +1,4 @@
-package jsp.DB.method;
+package jsp.smtp.method;
 
 import javax.mail.MessagingException;
 

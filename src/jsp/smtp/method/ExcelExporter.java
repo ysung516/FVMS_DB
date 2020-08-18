@@ -1,4 +1,4 @@
-package jsp.DB.method;
+package jsp.smtp.method;
 
 import java.io.*;
 import java.sql.*;
@@ -6,19 +6,21 @@ import java.sql.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
+import jsp.DB.method.DBconnection;
+
 public class ExcelExporter {
 
-//	public static void main(String[] args) {
-//		ExcelExporter test = new ExcelExporter();
-//		System.out.println("출력 성공 전");
-//		test.export();
-//		System.out.println("출력 성공");
-//	}
-//	
+	public static void main(String[] args) {
+		ExcelExporter test = new ExcelExporter();
+		System.out.println("출력 성공 전");
+		test.export();
+		System.out.println("출력 성공");
+	}
+	
 	// 엑셀로 내보내기
 	public void export() {
 
-		String excelFilePath = "webapps/ROOT/Report-export.xlsx";
+		String excelFilePath = "Report-export.xlsx";
 
 		try (Connection connection = DBconnection.getConnection()) {
 			String sql = "SELECT * FROM reportBackUp";
@@ -55,33 +57,27 @@ public class ExcelExporter {
 		Row headerRow = sheet.createRow(0);
 
 		Cell headerCell = headerRow.createCell(0);
-		headerCell.setCellValue("no");
+		headerCell.setCellValue("PM");
 
 		headerCell = headerRow.createCell(1);
-		headerCell.setCellValue("id");
-
-		headerCell = headerRow.createCell(2);
-		headerCell.setCellValue("이름");
-
-		headerCell = headerRow.createCell(3);
 		headerCell.setCellValue("프로젝트명");
 
-		headerCell = headerRow.createCell(4);
+		headerCell = headerRow.createCell(2);
 		headerCell.setCellValue("작성일");
 
-		headerCell = headerRow.createCell(5);
+		headerCell = headerRow.createCell(3);
 		headerCell.setCellValue("금주계획");
 
-		headerCell = headerRow.createCell(6);
+		headerCell = headerRow.createCell(4);
 		headerCell.setCellValue("금주진행");
 
-		headerCell = headerRow.createCell(7);
+		headerCell = headerRow.createCell(5);
 		headerCell.setCellValue("차주계획");
 
-		headerCell = headerRow.createCell(8);
+		headerCell = headerRow.createCell(6);
 		headerCell.setCellValue("특이사항");
 
-		headerCell = headerRow.createCell(9);
+		headerCell = headerRow.createCell(7);
 		headerCell.setCellValue("비고");
 	}
 
@@ -90,8 +86,7 @@ public class ExcelExporter {
 		int rowCount = 1;
 
 		while (result.next()) {
-			String no = result.getString("no");
-			String id = result.getString("id");
+			
 			String name = result.getString("이름");
 			String projectName = result.getString("프로젝트명");
 			String writingDate = result.getString("작성일");
@@ -104,12 +99,6 @@ public class ExcelExporter {
 
 			int columnCount = 0;
 			Cell cell = row.createCell(columnCount++);
-			cell.setCellValue(no);
-
-			cell = row.createCell(columnCount++);
-			cell.setCellValue(id);
-
-			cell = row.createCell(columnCount++);
 			cell.setCellValue(name);
 
 			cell = row.createCell(columnCount++);

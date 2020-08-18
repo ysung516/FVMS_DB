@@ -1,4 +1,4 @@
-package jsp.DB.method;
+package jsp.smtp.method;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -103,7 +103,8 @@ public class Mailsystem {
 		 * getPasswordAuthentication() 메소드만 override 하면 된다. 머 사실 다른 메소드는 final 메소드여서
 		 * override 할 수 조차 없다. -ㅅ-;
 		 */
-		Authenticator auth = new SMTPAuthenticator();
+		SMTPAuthenticator auth = new SMTPAuthenticator();
+		
 		Session mailSession = Session.getDefaultInstance(props, auth);
 
 		String attFile = java.net.URLDecoder.decode(withFile);
