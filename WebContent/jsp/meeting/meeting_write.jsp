@@ -322,7 +322,7 @@ function deleteNP(){
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">회의일시</td>
-				      <td colspan="4" style="text-align:left"><input type="date" name="MeetDate"></td>
+				      <td colspan="4" style="text-align:left"><input type="datetime-local" name="MeetDate"></td>
 			     </tr>
 			      
 			       <tr>

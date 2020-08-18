@@ -262,7 +262,6 @@
          	<h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;"><%=member.getNAME()%> 정보 조회</h6>
          	<form method="post" action="manager_deletePro.jsp">
          		<input type="hidden" name="id" value="<%=id%>">
-         		<input type="hidden" name="pwd" value="<%=member.getPASSWORD()%>">
          		<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
          	</form>
         </div>

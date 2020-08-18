@@ -284,14 +284,14 @@
 		<% }%>
          
         </div>
-          <div class="radio_body">
+          <!-- <div class="radio_body">
           	 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('1')">프로젝트명<br>
 			 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('2')">금주계획<br>
 			 <input type="radio" name="chk_info" value="금일진행" onclick="fnMove('3')">금주진행<br>
 			 <input type="radio" name="chk_info" value="차일계획" onclick="fnMove('4')">차주계획<br>
 			 <input type="radio" name="chk_info" value="특이사항" onclick="fnMove('5')">특이사항<br>
 			 <input type="radio" name="chk_info" value="비고" onclick="fnMove('6')">비고
-			</div>
+			</div> -->
          <div class="card-body">
          <div class="table-responsive">
          <form method="post" action="report_update.jsp">
