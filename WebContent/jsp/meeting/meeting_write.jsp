@@ -64,11 +64,11 @@ function rowAdd(){
 	console.log(count);
 	var innerHtml = "";
 	innerHtml += '<tr>';
-	innerHtml += '<td style="padding: 0px;border: 1px solid;">'+count+'</td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input name="pm'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;border: 0px solid;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;">'+count+'</td>';
+	innerHtml += '<td style="padding: 0px;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;"><input name="pm'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+	innerHtml += '<td style="padding: 0px;;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
 	innerHtml += '</tr>';
 	$('#count').val(count);
 	$('#nextPlanTable').append(innerHtml);
@@ -137,21 +137,11 @@ function deleteNP(){
 		.card-header:first-child{
 			padding: 0;
 		}
+		.card-body{
+			padding:0;
+		}				
 }
 
- fieldset{
-	  border: 3px inset;
-	  border-color: #5d7ace;  
-	  margin-bottom: 15px;        	
-  }
-  
-  legend{
-  	color:#1b3787!important;
-  	font-size: 18px;
-  	font-weight: 600;
-  	width: auto;
-  	padding: 5px;
-  }
 
 </style>
 <body id="page-top">
@@ -348,28 +338,27 @@ function deleteNP(){
 			      <td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>
 				     <div style="display: inline-block;float: right;">
 				      <input type="button" value="+" onClick="rowAdd();" class="btn btn-primary">
-				      <input type="button"  value="-" onClick="rowDelete();" class="btn btn-primary">
 				      </div>
 				     </td>
 			     </tr>
 			     
 			     <tr>
-				     <table id="nextPlanTable">
+			    	 <td colspan="4" style="padding: 0px;" >
+				     <table id="nextPlanTable" style="width: 100%;">
 				     	<thead>
 				     		<tr>
 						    	<td class="m-0 text-primary">No</td>
 						     	<td class="m-0 text-primary">항목</td>
 								<td class="m-0 text-primary">기한</td>
-								<td class="m-0 text-primary">담당</td>
-								<td class="m-0 text-primary"></td>
+								<td class="m-0 text-primary" colspan="2">담당</td>
 							</tr>
 						</thead>
 						<tbody></tbody>
 					</table>
+					</td>
 				</tr>
-		
 				</table>
-				<table>
+				<table style="margin:0 auto 15px;">
 			     <tr align="center">
 			      <td colspan="4" style="border-color: #fff;"> 
 			      <input id="COMPLETE" type="submit" name="COMPLETE" value="완료"  class="btn btn-primary" >
