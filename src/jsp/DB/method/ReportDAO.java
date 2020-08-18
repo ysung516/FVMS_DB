@@ -166,22 +166,23 @@ public class ReportDAO {
 	
 	// 보고서 수정
 	public int updateReport(int no, String weekPlan, String weekPro,
-			String nextPlan, String specialty, String note) {
+			String nextPlan, String specialty, String note, String date) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    int rs = 0;
 	    
 	    try {
-	    	String query = "update report set 금주계획=?, 금주진행=?, 차주계획=?, 특이사항=?, 비고=? "
+	    	String query = "update report set 금주계획=?, 작성일=?, 금주진행=?, 차주계획=?, 특이사항=?, 비고=? "
 	    			+ "where no =?";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, weekPlan);
-	    	pstmt.setString(2, weekPro);
-	    	pstmt.setString(3, nextPlan);
-	    	pstmt.setString(4, specialty);
-	    	pstmt.setString(5, note);
-	    	pstmt.setInt(6, no);
+	    	pstmt.setString(2, date);
+	    	pstmt.setString(3, weekPro);
+	    	pstmt.setString(4, nextPlan);
+	    	pstmt.setString(5, specialty);
+	    	pstmt.setString(6, note);
+	    	pstmt.setInt(7, no);
 	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block

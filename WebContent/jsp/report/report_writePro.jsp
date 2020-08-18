@@ -28,7 +28,7 @@
 		MemberBean member = memberDao.returnMember(sessionID);
 		
 		Date nowTime = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
 		int projectNo = Integer.parseInt(request.getParameter("TITLE"));
 		String title = projectDao.getProjectBean_no(projectNo).getPROJECT_NAME();
 		String writeDate = sf.format(nowTime);

@@ -28,7 +28,7 @@
 		MemberDAO memberDao = new MemberDAO();
 		ReportBean report = reportDao.getReportBean(NO);
 		ProjectBean project = projectDao.getProjectBean_no(report.getProjectNo());
-	
+		 
 		// 출력
 		String [] line;
 		
@@ -296,7 +296,7 @@
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">작성일</td>
-						<td><div class="report_div"><%=report.getDate()%> (<%=reportDao.validDate(report.getDate())%>)</div></td> 
+						<td><div class="report_div"><%=report.getDate()%>  (<%=reportDao.validDate(report.getDate())%>)</div></td> 
 					</tr>
 					<tr>
 						<td class="m-0 text-primary">PM</td>

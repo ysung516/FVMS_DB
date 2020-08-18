@@ -31,7 +31,6 @@
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
 	
-	String reportProjectNo = request.getParameter("no");
 	String str = "";
 	
 %>
@@ -68,9 +67,6 @@ function loadData(){
 
 $(document).ready(function () {
 	$('.loading').hide();
-	<%if (reportProjectNo != null){%>
-    $('#title').val('<%=reportProjectNo%>').attr("selected", "selected");
-    <%}%>
 	loadData();	// 주간보고서 작성시 백업테이블에서 데이터 가져오기
 
     $(window).on('beforeunload', function(){
@@ -325,7 +321,7 @@ $(document).ready(function () {
 		      	<%for(int i=0; i<unWrite.size(); i++){
 		      		pjBean = projectDao.getProjectBean_no(unWrite.get(i).getNO());
 		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionID)){
-		      		%><option value="<%=unWrite.get(i)%>"><%=pjBean.getPROJECT_NAME()%></option><%}
+		      		%><option value="<%=unWrite.get(i).getNO()%>"><%=pjBean.getPROJECT_NAME()%></option><%}
 		      	}
 		      	%>
 		      </select></td>

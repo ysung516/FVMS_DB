@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
+    import = "java.util.Date"
+    import = "java.text.SimpleDateFormat"
     import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
     %>
@@ -26,12 +28,15 @@
 		String specialty = request.getParameter("specialty");
 		String note = request.getParameter("note");
 		
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+		String date = sf.format(nowTime);
 		
 		ReportDAO reportDao = new ReportDAO();
 		ReportBean report = reportDao.getReportBean(no);
 		
 		
-		if(reportDao.updateReport(no, WeekPlan, WeekPro, NextPlan,  specialty, note) == 1){
+		if(reportDao.updateReport(no, WeekPlan, WeekPro, NextPlan,  specialty, note, date) == 1){
 			script.print("<script> alert('보고서가 수정되었습니다.'); location.href = 'report.jsp'; </script>");
 		}
 		else{

@@ -343,7 +343,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
          
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">주간보고목록</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">주간보고목록 <%= %></h6>
             
                   </div>
                    <div class="details_body">
@@ -377,7 +377,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 						<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
 						<td ><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getCLIENT()%></td>
 						<td><%=memberDao.returnMember(pmID).getNAME()%></td>
-						<td><%=list.get(i).getDate()%> (<%=reportDao.validDate(list.get(i).getDate())%>)</td>
+						<td><%=list.get(i).getDate()%></td>
 					</tr>
 					<%
 				}
@@ -399,9 +399,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
       </div>
       <div id="report_btn">
-            
-                	 <a href="report_write.jsp" class="btn btn-primary">주간보고서 작성</a>
-              </div>
+      	<a href="report_write.jsp" class="btn btn-primary">주간보고서 작성</a>
+      	</div>
       <!-- End of Main Content -->
 
     </div>
