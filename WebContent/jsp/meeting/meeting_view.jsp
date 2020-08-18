@@ -195,12 +195,6 @@
              <span>프로젝트</span></a>
      	    </li>
       
-		    <!-- Nav Item - rowdata -->
-		    <li class="nav-item">
-		      <a class="nav-link" href="../rowdata/rowdata.jsp">
-		      <i class="fas fa-fw fa-chart-area"></i>
-		      <span>인력</span></a>
-     		</li>
      		
 	      <!-- Nav Item - schedule -->
 	      <li class="nav-item">
