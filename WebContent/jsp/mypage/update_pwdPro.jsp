@@ -38,14 +38,18 @@
 	 MemberBean member = memberDao.returnMember(sessionID);
 	  
    
-    if (memberDao.pwdCheck(sessionID, now_pwd, next_pwd, member.getPASSWORD()) == 1){
-     script.print("<script> alert('비밀번호가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
-     
-      
-   } else {
-    script.print("<script> alert('입력하신 비밀번호가 일지하지 않습니다. 다시 입력 해주세요');  history.back(); </script>");
- 
-    }
+	 if(memberDao.logincheck(sessionID, now_pwd) == 1){
+		
+			 if(memberDao.changePW(sessionID, next_pwd)==1){
+				 script.print("<script> alert('비밀번호가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
+			 }else{
+				 script.print("<script> alert('변경 실패!!');  history.back(); </script>");
+			 }
+
+	 } else{
+		 script.print("<script> alert('현재 비밀번호가 일지하지 않습니다. 다시 입력 해주세요');  history.back(); </script>");
+	 }
+	 
 %>
 
 

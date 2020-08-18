@@ -26,12 +26,15 @@
 		MeetingDAO meetDao = new MeetingDAO();
 		
 		Date nowTime = new Date();
+		
+		
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String MeetName = request.getParameter("MeetName");
 		String writer = sessionName;
 		String date = sf.format(nowTime);
 		String MeetDate = request.getParameter("MeetDate");
+		
 		String MeetPlace = request.getParameter("MeetPlace");
 		String attendees = request.getParameter("attendees");
 		String attendees_ex = request.getParameter("attendees-ex");

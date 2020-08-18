@@ -53,11 +53,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-	function fnMove(seq){
-		var offset = $("#move" + seq).offset();
-        $('html, body').animate({scrollTop : offset.top}, 400);
-	}
-	
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
@@ -284,14 +279,6 @@
 		<% }%>
          
         </div>
-          <!-- <div class="radio_body">
-          	 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('1')">프로젝트명<br>
-			 <input type="radio" name="chk_info" value="금일계획" onclick="fnMove('2')">금주계획<br>
-			 <input type="radio" name="chk_info" value="금일진행" onclick="fnMove('3')">금주진행<br>
-			 <input type="radio" name="chk_info" value="차일계획" onclick="fnMove('4')">차주계획<br>
-			 <input type="radio" name="chk_info" value="특이사항" onclick="fnMove('5')">특이사항<br>
-			 <input type="radio" name="chk_info" value="비고" onclick="fnMove('6')">비고
-			</div> -->
          <div class="card-body">
          <div class="table-responsive">
          <form method="post" action="report_update.jsp">

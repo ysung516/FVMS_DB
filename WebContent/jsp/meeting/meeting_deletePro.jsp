@@ -21,10 +21,17 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
-		int no = Integer.parseInt(request.getParameter("no"));
 		MeetingDAO meetDao = new MeetingDAO();
+		int no = Integer.parseInt(request.getParameter("no"));
+		String nextplan = meetDao.getMeetList(no).getP_nextplan();
+		
 		if(meetDao.deleteMeet(no) == 1){
+			if(!(nextplan.equals("-"))){
+				meetDao.dropNextPlanTable(nextplan);	
+			}
 			script.print("<script> alert('회의록이 삭제되었습니다.'); location.href = 'meeting.jsp'; </script>");
+		} else{
+			script.print("<script> alert('삭제 실패!!'); location.href = 'meeting.jsp'; </script>");
 		}
 	%>
 </body>

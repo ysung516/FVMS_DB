@@ -217,22 +217,23 @@ public class ReportDAO {
 	}
 	
 	// 주간보고서가 작성되지 않은 프로젝트의 no와 제목 가져오기
-	public ArrayList<String> getUnwrittenReport(){
-		ArrayList<String> list = new ArrayList<String>();
+	public ArrayList<ProjectBean> getUnwrittenReport(){
+		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    try {
-	    	String query = "SELECT a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
+	    	String query = "SELECT a.no, a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
 	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
-	    		String projectName;
-	    		projectName = rs.getString("프로젝트명");
-	    		list.add(projectName);
+	    		ProjectBean project = new ProjectBean();
+	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
+	    		project.setNO(rs.getInt("no"));
+	    		list.add(project);
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -242,7 +243,6 @@ public class ReportDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-	    
 	    return list;
 	}
 	

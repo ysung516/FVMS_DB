@@ -36,21 +36,10 @@
 		String [] item = new String[count];
 		String [] deadline = new String[count];
 		String [] pm = new String[count];
-		System.out.println(count);
 		if(!(meetDao.getMeetList(no).getP_nextplan().equals("-"))){
 			meetDao.dropNextPlanTable(nextplan);	
 			meetDao.updateNextPlan(no, "-");
 		}
-			
-			
-		/*
-
-		if(meetDao.updateMeet(no, MeetName, MeetDate, MeetPlace, attendees, meetNote, nextPlan) == 1){
-			script.print("<script> alert('회의록이 수정되었습니다.'); location.href = 'meeting.jsp'; </script>");
-		}
-		else{
-			script.print("<script> alert('회의록 수정에 실패했습니다.'); history.back(); </script>");
-		}*/
 		
 		if(MeetName == null || MeetName == ""){
 			script.print("<script> alert('회의명을 작성해주세요.'); history.back();</script>");
@@ -58,7 +47,6 @@
 			
 			if(meetDao.updateMeet(no, MeetName, MeetDate, MeetPlace, attendees, attendees_ex, meetNote, issue)== 1){
 				if(count > 0){
-					System.out.print('1');
 					String nextPlanTableName = "nextPlan"+ (rowCount);
 					meetDao.updateNextPlan(no, nextPlanTableName);
 					for(int i=0; i<count; i++){

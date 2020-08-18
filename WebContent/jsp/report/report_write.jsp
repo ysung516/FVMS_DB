@@ -28,7 +28,7 @@
 	ReportBean report = new ReportBean();
 	ArrayList<ReportBean> reportList = reportDao.loadData();
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
-	ArrayList<Integer> unWrite = reportDao.getUnwrittenReport();
+	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
 	
 	String reportProjectNo = request.getParameter("no");
@@ -323,7 +323,7 @@ $(document).ready(function () {
 		      <td class="m-0 text-primary" align="center" style="word-break: keep-all;">프로젝트</td>
 		      <td><select id="title" name="TITLE" onchange="loadData()">
 		      	<%for(int i=0; i<unWrite.size(); i++){
-		      		pjBean = projectDao.getProjectBean_no(unWrite.get(i));
+		      		pjBean = projectDao.getProjectBean_no(unWrite.get(i).getNO());
 		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionID)){
 		      		%><option value="<%=unWrite.get(i)%>"><%=pjBean.getPROJECT_NAME()%></option><%}
 		      	}
