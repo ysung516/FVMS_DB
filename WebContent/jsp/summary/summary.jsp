@@ -608,11 +608,297 @@
                     	<td></td>
                     	<td></td>
                     </tr>
+                  	  </tbody>                           
+               		 </table>
+             	 </div>  
+              </div>
+              </div>
+              
+               <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">인력</h6>
+        </div>
+            <div class="card-body"> 
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+                  <tr style="text-align:center;">
+	                    <th></th>
+	                    <th></th>
+	                    <th>total</th>
+	                    <th>수석</th>
+	                    <th>책임</th>
+	                    <th>선임</th>
+	                    <th>전임</th>
+	                    <th>협력업체</th>
+                    </tr>
+                    <tr bgcolor="skyblue" style="text-align:center;">
+	                    <th>미래차 검증전략실</th>
+	                    <th>유영민</th>
+	                    <th>15</th>
+	                    <th>3</th>
+	                    <th>3</th>
+	                    <th>7</th>
+	                    <th>2</th>
+	                    <th>3</th>
+                    </tr>
+                   <tr>
+          		 		<td>샤시힐스검증팀</td>
+                   		<td>송우람</td>
+                   		<td>3</td>
+                   		<td>0</td>
+                   		<td>1</td>
+                   		<td>1</td>
+                   		<td>1</td>
+                   		<td>1</td>
+                   </tr> 
+                   <tr>
+          		 		<td>바디힐스검증팀</td>
+                   		<td>최인석</td>
+                   		<td>3</td>
+                   		<td>0</td>
+                   		<td>1</td>
+                   		<td>2</td>
+                   		<td>0</td>
+                   		<td>1</td>
+                   </tr> 
+                   <tr>
+          		 		<td>제어로직검증팀</td>
+                   		<td>이창우</td>
+                   		<td>2</td>
+                   		<td>2</td>
+                   		<td>0</td>
+                   		<td>0</td>
+                   		<td>1</td>
+                   		<td>1</td>
+                   </tr> 
+                   <tr>
+          		 		<td>기능안전검증팀</td>
+                   		<td>윤영산</td>
+                   		<td>2</td>
+                   		<td>0</td>
+                   		<td>0</td>
+                   		<td>2</td>
+                   		<td>2</td>
+                   		<td>0</td>
+                   </tr> 
+                   <tr>
+          		 		<td>자율주행검증팀</td>
+                   		<td>이창수</td>
+                   		<td>4</td>
+                   		<td>0</td>
+                   		<td>1</td>
+                   		<td>2</td>
+                   		<td>1</td>
+                   		<td>1</td>
+                   </tr> 
+                                           
+                </table>
+                
+                <br>
+                <br>
+                
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+                  
+                    <tr bgcolor="skyblue" style="text-align:center;">
+	                    <th>NO</th>
+	                    <th>소속</th>
+	                    <th>팀</th>
+	                    <th>이름</th>
+	                    <th>직급</th>
+	                    <th>직책</th>
+	                    <th>Mobile</th>
+	                    <th>gmail</th>
+	                    <th>주소</th>
+	                    <th>비고</th>         
+                    </tr>
+                   <tr>
+          		 		<td>001</td>
+          		 		<td>VT</td>
+          		 		<td>-</td>
+          		 		<td>유영민</td>
+          		 		<td>수석</td>
+          		 		<td>실장</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr>  
+                    <tr style="background-color:#d4757580;">
+          		 		<td>002</td>
+          		 		<td>VT</td>
+          		 		<td>바디힐스검증팀</td>
+          		 		<td>최인석</td>
+          		 		<td>책임</td>
+          		 		<td>팀장</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#d4757580;">
+          		 		<td>003</td>
+          		 		<td>VT</td>
+          		 		<td>바디힐스검증팀</td>
+          		 		<td>김땡땡</td>
+          		 		<td>선임</td>
+          		 		<td>팀원</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#76c8ea78;">
+          		 		<td>004</td>
+          		 		<td>VT</td>
+          		 		<td>제어로직검증팀</td>
+          		 		<td>이창우</td>
+          		 		<td>수석</td>
+          		 		<td>팀장</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                    <tr style="background-color:#76c8ea78;">
+          		 		<td>005</td>
+          		 		<td>VT</td>
+          		 		<td>제어로직검증팀</td>
+          		 		<td>김땡땡</td>
+          		 		<td>수석</td>
+          		 		<td>팀원</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#f2d42969;">
+          		 		<td>006</td>
+          		 		<td>VT</td>
+          		 		<td>기능안전검증팀</td>
+          		 		<td>윤영산</td>
+          		 		<td>선임</td>
+          		 		<td>팀장</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#f2d42969;">
+          		 		<td>006</td>
+          		 		<td>VT</td>
+          		 		<td>기능안전검증팀</td>
+          		 		<td>박땡땡</td>
+          		 		<td>선임</td>
+          		 		<td>팀원</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                    <tr style="background-color:#f2d42969;">
+          		 		<td>007</td>
+          		 		<td>VT</td>
+          		 		<td>기능안전검증팀</td>
+          		 		<td>이땡댕</td>
+          		 		<td>선임</td>
+          		 		<td>팀원</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#d6bdde94;">
+          		 		<td>008</td>
+          		 		<td>VT</td>
+          		 		<td>자율주행검증팀</td>
+          		 		<td>이창수</td>
+          		 		<td>책임</td>
+          		 		<td>팀장</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                    <tr style="background-color:#d6bdde94;">
+          		 		<td>009</td>
+          		 		<td>VT</td>
+          		 		<td>자율주행검증팀</td>
+          		 		<td>준땡땡</td>
+          		 		<td>선임</td>
+          		 		<td>팀원</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#2daa2d5c;">
+          		 		<td>010</td>
+          		 		<td>VT</td>
+          		 		<td>샤시힐스검증팀</td>
+          		 		<td>송우람</td>
+          		 		<td>책임</td>
+          		 		<td>팀장</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                   <tr style="background-color:#2daa2d5c;">
+          		 		<td>011</td>
+          		 		<td>VT</td>
+          		 		<td>샤시힐스검증팀</td>
+          		 		<td>박땡땡</td>
+          		 		<td>선임</td>
+          		 		<td>팀원</td>
+          		 		<td>010-1234-5678</td>
+          		 		<td>~~@gmail.com</td>
+          		 		<td>한국</td>
+          		 		<td></td>
+                   </tr> 
+                </table>
+                
+              </div>   
+              </div>     
+         </div>
+         
+         
+     
+     	
+        <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수익률</h6>
+        </div>
+            <div class="card-body"> 
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+                  <thead>
+                   <tr>
+                    	<td colspan="3" style="border:0px;"></td>
+                    	<td colspan="6" bgcolor="skyblue" style="text-align:center;">상세내역</td>
+                    </tr>  
+                    <tr bgcolor="skyblue" style="text-align:center;">
+	                    <th>구분</th>
+	                    <th>상태</th>
+	                    <th>Total</th>
+	                    <th>샤시힐스</th>
+	                    <th>바디힐스</th>
+	                    <th>제어로직</th>
+	                    <th>기능안전</th>
+	                    <th>자율주행</th>
+	                    <th>실</th>
+                    </tr>
+                  </thead>  
+                  
+                  <tbody>
+                   
                     </tbody>                           
                 </table>
               </div>   
               </div>     
          </div>
+     
    
     <!-- /.container-fluid -->
 </div>
