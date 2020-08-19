@@ -29,6 +29,7 @@
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
+	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 %>
@@ -184,6 +185,110 @@ function defaultTeam(){
 	$("#teamlist").val(team).attr("selected", "selected");
 	teamMember('#teamlist','#WORKER_LIST');
 }
+
+function btn_insert(){
+	var copyProjectNO = sessionStorage.getItem("copyProjectNO");
+	console.log(copyProjectNO);
+	var no = new Array();
+	var team = new Array();
+	var state = new Array();
+	var client = new Array();
+	var client_part = new Array();
+	var man_month = new Array();
+	var project_desopit = new Array();
+	var fh_order = new Array();
+	var fh_sales_projections = new Array();
+	var fh_sales = new Array();
+	var sh_order =new Array();
+	var sh_sales_projections =new Array();
+	var sh_sales = new Array();
+	var project_start = new Array();
+	var project_end = new Array();
+	var client_ptb = new Array();
+	var work_place = new Array();
+	var work = new Array();
+	var project_manager = new Array();
+	var assessment_type = new Array();
+	var employ_demand = new Array();
+	var outsource_demand = new Array();
+	var reportcheck = new Array();
+	var sheetcheck = new Array();
+	
+	var cnt = -1;
+	<%
+		for(int z=0; z<projectList.size(); z++){
+			
+			%>
+				no[<%=z%>] = '<%=projectList.get(z).getNO()%>';
+				team[<%=z%>] = '<%=projectList.get(z).getTEAM()%>';
+				state[<%=z%>] = '<%=projectList.get(z).getSTATE()%>';
+				client[<%=z%>] = '<%=projectList.get(z).getCLIENT()%>';
+				client_part[<%=z%>] = '<%=projectList.get(z).getClIENT_PART()%>';
+				man_month[<%=z%>] = '<%=projectList.get(z).getMAN_MONTH()%>';
+				project_desopit[<%=z%>] = '<%=projectList.get(z).getPROJECT_DESOPIT()%>';
+				fh_order[<%=z%>] = '<%=projectList.get(z).getFH_ORDER()%>';
+				fh_sales_projections[<%=z%>] = '<%=projectList.get(z).getFH_SALES_PROJECTIONS()%>';
+				fh_sales[<%=z%>] = '<%=projectList.get(z).getFH_SALES()%>';
+				sh_order[<%=z%>] = '<%=projectList.get(z).getSH_ORDER()%>';
+				sh_sales_projections[<%=z%>] = '<%=projectList.get(z).getSH_SALES_PROJECTIONS()%>';
+				sh_sales[<%=z%>] = '<%=projectList.get(z).getSH_SALES()%>';
+				project_start[<%=z%>] = '<%=projectList.get(z).getPROJECT_START()%>';
+				project_end[<%=z%>] = '<%=projectList.get(z).getPROJECT_END()%>';
+				client_ptb[<%=z%>] = '<%=projectList.get(z).getCLIENT_PTB()%>';
+				work_place[<%=z%>] = '<%=projectList.get(z).getWORK_PLACE()%>';
+				work[<%=z%>] = '<%=projectList.get(z).getWORK()%>';
+				project_manager[<%=z%>] = '<%=projectList.get(z).getPROJECT_MANAGER()%>';
+				assessment_type[<%=z%>] = '<%=projectList.get(z).getASSESSMENT_TYPE()%>';
+				employ_demand[<%=z%>] = '<%=projectList.get(z).getEMPLOY_DEMAND()%>';
+				outsource_demand[<%=z%>] = '<%=projectList.get(z).getOUTSOURCE_DEMAND()%>';
+				reportcheck[<%=z%>] = '<%=projectList.get(z).getREPORTCHECK()%>';
+	<%}%>
+	
+	for(var a=0; a<no.length; a++){
+		if(no[a] == copyProjectNO){
+			cnt = a;
+		}
+	}
+	
+	if(cnt != -1){
+		
+		var parseSTATE = state[cnt].split('.');		
+		
+		$('#team').val(team[cnt]);
+		$('#STATE').val(parseSTATE[1]);
+		$('#CLIENT').val(client[cnt]);
+		$('#CLIENT_PART').val(client_part[cnt]);
+		$('#MAN_MONTH').val(man_month[cnt]);
+		$('#PROJECT_DESOPIT').val(project_desopit[cnt]);
+		$('#FH_ORDER').val(fh_order[cnt]);
+		$('#FH_SALES_PROJECTIONS').val(fh_sales_projections[cnt]);
+		$('#FH_SALES').val(fh_sales[cnt]);
+		$('#SH_ORDER').val(sh_order[cnt]);
+		$('#SH_SALES_PROJECTIONS').val(sh_sales_projections[cnt]);
+		$('#SH_SALES').val(sh_sales[cnt]);
+		$('#PROJECT_START').val(project_start[cnt]);
+		$('#PROJECT_END').val(project_end[cnt]);
+		$('#CLIENT_PTB').val(client_ptb[cnt]);
+		$('#WORK_PLACE').val(work_place[cnt]);
+		$('#WORK').val(work[cnt]);
+		$('#PROJECT_MANAGER').val(project_manager[cnt]);
+		$('#ASSESSMENT_TYPE').val(assessment_type[cnt]);
+		$('#EMPLOY_DEMAND').val(employ_demand[cnt]);
+		$('#OUTSOURCE_DEMAND').val(outsource_demand[cnt]);
+		
+		if(reportcheck[cnt] == 1){
+			$('#reportTrue').prop('checked',true);
+			$('#reportFalse').prop('checked',false);
+		} else if(reportcheck[cnt] == 0){
+			$('#reportTrue').prop('checked',false);
+			$('#reportFalse').prop('checked',true);
+		}
+		
+		
+	}
+
+}
+
 </script>
 
 <body id="page-top">
@@ -337,6 +442,7 @@ function defaultTeam(){
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 생성</h6>
+              <input id="insert" type="button" value="붙여넣기"  class="btn btn-primary" onclick="btn_insert()" >
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -556,15 +662,15 @@ function defaultTeam(){
                         <tr>
                         <th><span style="color:red;">*</span>주간보고서</th>
                       	<td>
-                      		<input type="radio" name="reportCheck" value="1" checked="checked">사용
-							<input type="radio" name="reportCheck" value="0">미사용
+                      		<input id="reportTrue" class="reportCheck" type="radio" name="reportCheck" value="1" checked="checked">사용
+							<input id="reportFalse" class="reportCheck" type="radio" name="reportCheck" value="0">미사용
                       	</td>
                         </tr>
                          <tr>
                         <th><span style="color:red;">*</span>실적보고</th>
                       	<td>
-                      		<input type="radio" name="reportCheck" value="1" checked="checked">사용
-							<input type="radio" name="reportCheck" value="0">미사용
+                      		<input class="sheetCheck" type="radio" name="sheetCheck" value="1" checked="checked">사용
+							<input class="sheetCheck" type="radio" name="sheetCheck" value="0">미사용
                       	</td>
                         </tr>
                   <tr align="center">

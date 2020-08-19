@@ -12,7 +12,6 @@
 
 <head>
 <%
-
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
@@ -200,6 +199,11 @@ function defaultTeam(){
 	teamMember('#teamlist','#WORKER_LIST');
 }
 
+function btn_copy(){
+	sessionStorage.removeItem("copyProjectNO");
+	sessionStorage.setItem("copyProjectNO","<%=no%>");
+	alert('복사되었습니다.')
+}
 </script>
 
 <body id="page-top">
@@ -354,6 +358,7 @@ function defaultTeam(){
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 수정</h6>
 	         	<a id="Delete" href="project_deletePro.jsp?no=<%=no%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
+	         	<input id="copy" type="button" value="복사"  class="btn btn-primary" onclick="btn_copy()" >
             </div>
             <div class="card-body">
             <div class="table-responsive">
