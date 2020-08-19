@@ -54,6 +54,7 @@
 	function btn_event(){
 		
 	}
+
 	function pwd_submit(){
 		if (confirm("비밀번호를 초기화합니다.") == true){
 			return true;
@@ -61,19 +62,15 @@
 			return false;
 		}
 	}
-
-
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 	});
-
 	
 	function fnMove(seq){
 		var offset = $("#move" + seq).offset();
         $('html, body').animate({scrollTop : offset.top}, 400);
 	}
-	
 
 </script>
 <style>
