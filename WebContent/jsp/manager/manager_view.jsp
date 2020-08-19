@@ -45,6 +45,11 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
+	function btn_copy(){
+		sessionStorage.removeItem("copyID");
+		sessionStorage.setItem("copyID","<%=id%>");
+	}
+
 	function btn_event(){
 		if (confirm("비밀번호를 초기화합니다.") == true){
 			return 1;
@@ -53,13 +58,7 @@
 			 return -l;
 		}
 	}
-	
-	
-	function fnMove(seq){
-		var offset = $("#move" + seq).offset();
-        $('html, body').animate({scrollTop : offset.top}, 400);
-	}
-	
+
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
@@ -257,6 +256,7 @@
          	<form method="post" action="manager_deletePro.jsp">
          		<input type="hidden" name="id" value="<%=id%>">
          		<input id="Delete" type="submit" name="Delete" value="삭제"  class="btn btn-primary" >
+         		<input id="copy" type="button" value="복사"  class="btn btn-primary" onclick="btn_copy()" >
          	</form>
         </div>
           

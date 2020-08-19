@@ -44,7 +44,7 @@
 	//ID 중복확인 버튼클릭 시
 	function button_onclick(){
 		for(var a=0; a<idList.length; a++){
-			if($('#id').val().length <= 3){
+			if($('#id').val().length < 3){
 				count = -1;
 				break;
 			}
@@ -73,6 +73,28 @@
 			console.log(count);
 			document.addPro.submit();
 		}
+	}
+	
+	function btn_insert(){
+		var copyID = sessionStorage.getItem("copyID");
+		var member_ID = new Array();
+		var cnt = -1;
+		<%
+			for(int z=0; z<memberList.size(); z++){
+				%>member_ID[<%=z%>] = '<%=memberList.get(z).getID()%>' 
+		<%}%>
+		
+		for(var a=0; a<member_ID.length; a++){
+			if(member_ID[a] == copyID){
+				cnt = a
+			}
+		}
+		
+		if(cnt != -1){
+			console.log(copyID);
+			
+		}
+
 	}
 	
 </script>
@@ -286,6 +308,7 @@
 	   <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">정보 등록</h6>
+                  <input id="insert" type="button" value="붙여넣기"  class="btn btn-primary" onclick="btn_insert()" >
                 </div>
                  <div class="card-body">
            

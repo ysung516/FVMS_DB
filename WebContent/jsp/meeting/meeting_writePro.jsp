@@ -59,6 +59,7 @@
 			
 			if(meetDao.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace, attendees, meetnote, nextplan, date, attendees_ex, issue) == 1){
 				if(count > 0){
+					
 					String nextPlanTableName = "nextPlan"+ (rowCount + 1);
 					for(int i=0; i<count; i++){
 						item[i] = request.getParameter("item"+(i+1));

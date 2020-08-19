@@ -10,13 +10,14 @@ import jsp.DB.method.DBconnection;
 
 public class ExcelExporter {
 
+	/*
 	public static void main(String[] args) {
 		ExcelExporter test = new ExcelExporter();
 		System.out.println("출력 성공 전");
 		test.export();
 		System.out.println("출력 성공");
 	}
-	
+	*/
 	// 엑셀로 내보내기
 	public void export() {
 
