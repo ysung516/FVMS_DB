@@ -49,6 +49,7 @@
 	function btn_copy(){
 		sessionStorage.removeItem("copyID");
 		sessionStorage.setItem("copyID","<%=id%>");
+		alert('복사되었습니다.')
 	}
 
 	function btn_event(){
@@ -66,11 +67,6 @@
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 	});
-	
-	function fnMove(seq){
-		var offset = $("#move" + seq).offset();
-        $('html, body').animate({scrollTop : offset.top}, 400);
-	}
 
 </script>
 <style>

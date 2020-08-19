@@ -83,21 +83,33 @@
 	function btn_insert(){
 		var copyID = sessionStorage.getItem("copyID");
 		var member_ID = new Array();
+		var member_team = new Array();
+		var member_rank = new Array();
+		var member_position = new Array();
+		var member_permission = new Array();
+		
 		var cnt = -1;
 		<%
 			for(int z=0; z<memberList.size(); z++){
-				%>member_ID[<%=z%>] = '<%=memberList.get(z).getID()%>' 
+				%>member_ID[<%=z%>] = '<%=memberList.get(z).getID()%>'
+				  member_team[<%=z%>] = '<%=memberList.get(z).getTEAM()%>'
+				  member_rank[<%=z%>] = '<%=memberList.get(z).getRANK()%>'
+				  member_position[<%=z%>] = '<%=memberList.get(z).getPosition()%>'
+				  member_permission[<%=z%>] = '<%=memberList.get(z).getPermission()%>'
 		<%}%>
 		
 		for(var a=0; a<member_ID.length; a++){
 			if(member_ID[a] == copyID){
-				cnt = a
+				cnt = a;
 			}
 		}
 		
 		if(cnt != -1){
-			console.log(copyID);
-			
+			console.log(member_rank[cnt]);
+			$('#team').val(member_team[cnt]);
+			$('#rank').val(member_rank[cnt]);
+			$('#position').val(member_position[cnt]);
+			$('#permission').val(member_permission[cnt]);
 		}
 
 	}
@@ -333,7 +345,7 @@
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">PW *</td>
-				      <td colspan="3"><input class="add_input" name="pw"></td>
+				      <td colspan="3"><input value="12345" class="add_input" name="pw"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
@@ -352,12 +364,12 @@
 			     
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>
-				      <td colspan="3"><input class="add_input" name="rank"></td>
+				      <td colspan="3"><input  id="rank" class="add_input" name="rank"></td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">직책</td>
-				      <td colspan="3"><input class="add_input" name="position"></td>
+				      <td colspan="3"><input id="position" class="add_input" name="position"></td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">권한</td>
