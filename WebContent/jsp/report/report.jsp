@@ -60,6 +60,7 @@
 		overflow:auto;
 		width:100%;
 		margin-top:10px;
+		word-break:keep-all;
 	}
 	details p{
 		margin: 0;

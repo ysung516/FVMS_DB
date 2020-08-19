@@ -355,7 +355,7 @@
 						<td class="m-0 text-primary">NO</td>
 						<td class="m-0 text-primary">항목</td>
 						<td class="m-0 text-primary">기한</td>
-						<td class="m-0 text-primary">담당</td>
+						<td class="m-0 text-primary" colspan="2">담당</td>
 					</tr>
 					
 					<%

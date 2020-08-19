@@ -24,6 +24,8 @@
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		String id = request.getParameter("id");
 		MemberBean member = memberDao.returnMember(id);
+		
+		String [] line;
 	%>
 
   <meta charset="utf-8">
@@ -314,7 +316,12 @@
 					</tr>
 					<tr>
 						<td>프로젝트 수행 이력</td>
-						<td><%=member.getCareer()%></td>
+						<td><%
+					      	line = member.getP_career();
+					      	for(String li : line){
+					      		%><p style="white-space:pre;"><%=li%></p><%
+					      	}
+					     	 %></td>
 					</tr>
 					<tr>
 						<td>ID</td>

@@ -75,6 +75,7 @@
 		border-right: 1px solid #b7b9cc;
 		padding:6px;
 	}
+	
 	#meetingList td:last-child{
 		border:0px;
 	}
@@ -282,15 +283,32 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary" style="padding-left:17px;display:inline !important">회의록 목록</h6>
                   </div>
-                 
+         
 	<table id ="meetingTable">
 		<thead>
 		 <tr>
 		   <th>회의명</th>
+		   <th>고객사</th>
 		   <th>회의 일시</th>	
 		   <th>회의 장소</th>
+		   <th>작성자</th>
+		   </tr>
+		  
 		  </thead>  
 		  <tbody id ="meetingList" name="meetingList" class="meetingList" style="white-space: initial;">
+	  		 <tr>
+		   		<td></td>
+		   		<td><input type="button" value="▲">
+		   			<input type="button" value="▼">
+		   		</td>
+		   		<td><input type="button" value="▲">
+		   			<input type="button" value="▼">
+		   		</td>
+		   		<td></td>
+		   		<td><input type="button" value="▲">
+		   			<input type="button" value="▼">
+		   		</td>
+		   </tr>
 	  		<%
 	  			
 	  			if(list != null){
@@ -299,8 +317,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	  						<tr style="text-align:center; border-bottom: 1px solid #d1d3e2;">
 								
 								<td><a href="meeting_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getMeetName()%></a></td>
+								<td>고객사</td>
 								<td><%=list.get(i).getMeetDate()%></td>
 								<td><%=list.get(i).getMeetPlace()%></td>
+								<td><%=list.get(i).getWriter()%></td>
 							</tr>
 						<%
 	  				}
