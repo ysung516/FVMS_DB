@@ -44,7 +44,12 @@
 	//ID 중복확인 버튼클릭 시
 	function button_onclick(){
 		for(var a=0; a<idList.length; a++){
+
 			if($('#id').val().length < 3){
+				count = -1;
+				break;
+			}
+			if($('#id').val().length <= 2){
 				count = -1;
 				break;
 			}

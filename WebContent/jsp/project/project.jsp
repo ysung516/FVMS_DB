@@ -438,7 +438,7 @@
              
               <div class="table-responsive" style="overflow:overlay;">
             
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;font-size:small;">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;font-size:small;width:0%;">
                   
                     <tr class="m-0 text-primary">
 	                    <td>팀</td>

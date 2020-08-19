@@ -49,7 +49,9 @@
 </script>
 
 <style>
-
+	.card{
+		width:50%;
+	}
 	#manager_List{
 		white-space: initial;
 	}
@@ -142,6 +144,9 @@
 		}
 		.card-header:first-child{
 			padding: 0;
+		}
+		.card{
+		width: 100%;
 		}
 }
 
