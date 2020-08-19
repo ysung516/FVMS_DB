@@ -45,25 +45,19 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-	function btn_event(){
+	function pwd_submit(){
 		if (confirm("비밀번호를 초기화합니다.") == true){
-			return 1;
+			return true;
 		}else{
-			 return;
-			 return -l;
+			return false;
 		}
 	}
-	
 	
 	function fnMove(seq){
 		var offset = $("#move" + seq).offset();
         $('html, body').animate({scrollTop : offset.top}, 400);
 	}
 	
-	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-	    $('.loading').hide();
-	});
 </script>
 <style>
 	#Delete{
@@ -113,13 +107,7 @@
 </style>
 
 <body id="page-top">
-	 <!--  로딩화면  시작  -->
-				  <div class="loading">
-				  <div id="load">
-				<i class="fas fa-spinner fa-10x fa-spin"></i>
-				  </div>
-				  </div>
-		<!--  로딩화면  끝  -->
+	
   <!-- Page Wrapper -->
   <div id="wrapper">
 	
@@ -262,7 +250,7 @@
           
          <div class="card-body">
            <div class="table-responsive">
-         <form method="post" action="reset_pwdPro.jsp">
+         <form method="post" action="reset_pwdPro.jsp" onsubmit='return pwd_submit();'>
          <input type="hidden" name="id" value="<%=id%>">  
 					<table class="table table-bordered" id="dataTable">
 					<tr>
@@ -324,8 +312,7 @@
 	     <td colspan="2">
 	       <a href="manager_update.jsp?id=<%=id%>" class="btn btn-primary">수정</a>
 	       <a href="manager.jsp" class="btn btn-primary">목록</a>
-	       	<input id="reset" type="submit" value="비밀번호 초기화" class="btn btn-primary" onclick="btn_event();">
-	        
+	       	<input id="reset" type="submit" value="비밀번호 초기화" class="btn btn-primary">
 	       </td>
 	     </tr>
 	      
