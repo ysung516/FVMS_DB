@@ -18,7 +18,7 @@
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	if(permission != 0){
+	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	

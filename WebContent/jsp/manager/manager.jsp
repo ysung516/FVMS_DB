@@ -303,9 +303,11 @@
 		<thead>
 		 <tr>
 		 	<th>팀</th>
+		 	<th>소속</th>
 		 	<th>이름</th>
 		 	<th>직급</th>
 		 	<th>권한</th>
+		 	
 		 </tr>
 		  </thead> 
 		  <tbody id="manager_List">
@@ -313,6 +315,7 @@
 		  	for(int i=0; i<memberList.size(); i++){
 		  		%><tr>
 		  			<td><%=memberList.get(i).getTEAM()%></td>
+		  			<td><%=memberList.get(i).getPART() %></td>
 			  		<td><a href="manager_view.jsp?id=<%=memberList.get(i).getID()%>"><%=memberList.get(i).getNAME() %></a></td>
 			  		<td><%=memberList.get(i).getRANK()%></td>
 			  		<td><%=memberList.get(i).getPermission() %></td>

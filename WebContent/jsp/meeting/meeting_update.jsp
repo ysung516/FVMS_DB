@@ -18,7 +18,7 @@
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		if(permission > 3){
+		if(permission > 2){
 			script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 		}
 		

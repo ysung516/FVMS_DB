@@ -478,14 +478,14 @@ function btn_insert(){
                       <td>
                       	<select id="STATE" name="STATE">
                       		<option value="상태">상태</option>
-                      		<option value="예산확보">1.예산확보</option>
-                      		<option value="고객의사">2.고객의사</option>
-                      		<option value="제안단계">3.제안단계</option>
-                      		<option value="업체선정">4.업체선정</option>
-                      		<option value="진행예정">5.진행예정</option>
-                      		<option value="진행중">6.진행중</option>
-                      		<option value="종료">7.종료</option>
-                      		<option value="Dropped">8.Dropped</option>
+                      		<option value="1.예산확보">1.예산확보</option>
+                      		<option value="2.고객의사">2.고객의사</option>
+                      		<option value="3.제안단계">3.제안단계</option>
+                      		<option value="4.업체선정">4.업체선정</option>
+                      		<option value="5.진행예정">5.진행예정</option>
+                      		<option value="6.진행중">6.진행중</option>
+                      		<option value="7.종료">7.종료</option>
+                      		<option value="8.Dropped">8.Dropped</option>
                       	</select>
                       	</td>
                       </tr>

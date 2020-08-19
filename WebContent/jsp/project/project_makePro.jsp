@@ -24,6 +24,7 @@
 		String RPOJECT_CODE = request.getParameter("PROJECT_CODE");
 		String PROJECT_NAME = request.getParameter("PROJECT_NAME");
 		String STATE = request.getParameter("STATE");
+		System.out.print(STATE);
 		String PART = request.getParameter("PART");
 		String CLIENT = request.getParameter("CLIENT");
 		String CLIENT_PART = request.getParameter("CLIENT_PART");
