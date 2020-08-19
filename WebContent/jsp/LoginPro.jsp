@@ -3,8 +3,6 @@
     import = "java.io.PrintWriter"
     import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
-    import = "jsp.smtp.method.*"
-    import = "javax.mail.MessagingException"
     %>
     
 <!DOCTYPE html>

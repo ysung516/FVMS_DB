@@ -288,27 +288,27 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		<thead>
 		 <tr>
 		   <th>회의명</th>
-		   <th>회의 장소</th>
-		   <th>회의 일시</th>
-		   <th>작성 일시</th>
-		   <th>작성자</th>
+		   <th>회의 장소 
+			   	<input type="button" value="▲">
+			   	<input type="button" value="▼">
+		   	</th>
+		   <th>회의 일시
+			   <input type="button" value="▲">
+			   <input type="button" value="▼"> 
+		   </th>
+		   <th>작성 일시
+			   <input type="button" value="▲">
+			   <input type="button" value="▼">
+		   </th>
+		   <th>작성자
+			   <input type="button" value="▲">
+			   <input type="button" value="▼">
+		   </th>
 		   </tr>
 		  
 		  </thead>  
 		  <tbody id ="meetingList" name="meetingList" class="meetingList" style="white-space: initial;">
-	  		 <tr>
-		   		<td></td>
-		   		<td><input type="button" value="▲">
-		   			<input type="button" value="▼">
-		   		</td>
-		   		<td><input type="button" value="▲">
-		   			<input type="button" value="▼">
-		   		</td>
-		   		<td></td>
-		   		<td><input type="button" value="▲">
-		   			<input type="button" value="▼">
-		   		</td>
-		   </tr>
+
 	  		<%
 	  			
 	  			if(list != null){

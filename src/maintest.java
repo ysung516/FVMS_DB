@@ -1,23 +1,11 @@
-import java.io.IOException;
-import jsp.smtp.method.*;
-
-import java.security.GeneralSecurityException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import com.google.gdata.util.ServiceException;
-
+import jsp.smtp.method.PostMan;
 
 public class maintest {
 	
-	
-	//public static void main(String[] args) throws GeneralSecurityException, IOException, ServiceException {
+	/*
+	public static void main(String[] args) {
 		 //TODO Auto-generated method stub
-		
-		
-	//}
+		PostMan post = new PostMan();
+		post.post();
+	}*/
 }

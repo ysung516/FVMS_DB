@@ -23,7 +23,7 @@ public class MeetingDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from meeting_log");
+	    	query.append("select * from meeting_log order by 회의일시;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
