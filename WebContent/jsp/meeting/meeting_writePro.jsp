@@ -26,9 +26,7 @@
 		MeetingDAO meetDao = new MeetingDAO();
 		
 		Date nowTime = new Date();
-		
-		
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
 		
 		String MeetName = request.getParameter("MeetName");
 		String writer = sessionName;

@@ -48,7 +48,7 @@
 		float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
 		int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
 		
-		if(TEAM == null || TEAM =="" || RPOJECT_CODE == null || RPOJECT_CODE == "" || PROJECT_NAME ==null || PROJECT_NAME == "" || PROJECT_MANAGER ==null || PROJECT_MANAGER == ""){
+		if( PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
 			

@@ -22,6 +22,10 @@
 		MemberDAO memberDao = new MemberDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		ArrayList<MemberBean> memberList = memberDao.getMemberData();
+		
+		System.out.println(memberList.size());
+		System.out.println(memberDao.returnMember("kyu698").getNAME());
+		System.out.println(memberDao.returnMember("kyu6982").getNAME());
 	%>
 
   <meta charset="utf-8">

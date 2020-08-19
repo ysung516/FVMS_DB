@@ -288,9 +288,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		<thead>
 		 <tr>
 		   <th>회의명</th>
-		   <th>고객사</th>
-		   <th>회의 일시</th>	
 		   <th>회의 장소</th>
+		   <th>회의 일시</th>
+		   <th>작성 일시</th>
 		   <th>작성자</th>
 		   </tr>
 		  
@@ -317,9 +317,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	  						<tr style="text-align:center; border-bottom: 1px solid #d1d3e2;">
 								
 								<td><a href="meeting_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getMeetName()%></a></td>
-								<td>고객사</td>
-								<td><%=list.get(i).getMeetDate()%></td>
 								<td><%=list.get(i).getMeetPlace()%></td>
+								<td><%=list.get(i).getMeetDate()%></td>
+								<td><%=list.get(i).getDate()%></td>
 								<td><%=list.get(i).getWriter()%></td>
 							</tr>
 						<%
