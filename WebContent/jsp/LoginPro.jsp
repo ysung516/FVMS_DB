@@ -3,6 +3,7 @@
     import = "java.io.PrintWriter"
     import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
+    import ="jsp.smtp.method.*"
     %>
     
 <!DOCTYPE html>
@@ -22,6 +23,9 @@
      
      MemberDAO memberDao = new MemberDAO();
      MemberBean member = memberDao.returnMember(ID);
+     
+     PostMan post = new PostMan();
+     post.post();
    
     if (memberDao.logincheck(ID, PW) == 1){
 	      script.print("<script> location.href = '../jsp/report/report.jsp'; </script>");
