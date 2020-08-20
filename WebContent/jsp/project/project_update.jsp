@@ -102,10 +102,12 @@ $(document).ready(function () {
 	
 	$('#PM-team').val('<%=PMdata.getTEAM()%>').prop('selected', true);
 	teamMember('#PM-team','#PROJECT_MANAGER');
-	$("#team").val("<%=project.getTEAM()%>").prop("selected", true);
+	$("#team_sales").val("<%=project.getTEAM_SALES()%>").prop("selected", true);
+	$("#team_order").val("<%=project.getTEAM_ORDER()%>").prop("selected", true);
 	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
 	$("input:radio[name='reportCheck']:radio[value='<%=project.getREPORTCHECK()%>']").prop("checked", true);
+	$("input:radio[name='sheetCheck']:radio[value='<%=project.getRESULT_REPORT()%>']").prop("checked", true);
     // Warning
     $(window).on('beforeunload', function(){
         return "Any changes will be lost";
@@ -182,21 +184,12 @@ function teamMember(team, member){
 				memberID = '<%=memberList.get(j).getID()%>';
 				var option = $("<option value="+memberID+">"+ memberName +"</option>");
 				$(member).append(option);
-				if('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>'){
+				if($("#PM-team").val() == team1 && ('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>')){
 					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");
 				}
 			}
 			
 	<%}%>
-}
-
-function defaultTeam(){
-	var team = $("#team option:selected").val();
-	$("#PM-team").val(team).attr("selected", "selected");
-	$("#teamlist").val(team).attr("selected", "selected");
-	teamMember('#PM-team','#PROJECT_MANAGER');
-	$("#teamlist").val(team).attr("selected", "selected");
-	teamMember('#teamlist','#WORKER_LIST');
 }
 
 function btn_copy(){
@@ -366,9 +359,22 @@ function btn_copy(){
             	<input type="hidden" name="NO" value="<%=no%>">
                 <table class="table table-bordered" id="dataTable">
                     <tr>
-                      <th><span style="color:red;">*</span>팀</th>
+                      <th><span style="color:red;">*</span>팀(수주)</th>
                       <td>
-                      	<select id="team" name="team" onchange="defaultTeam()">
+                      	<select id="team_sales" name="team_sales">
+                      	<%
+	                      	for(int i=0; i<teamList.size(); i++){
+	                  			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+	                  		}
+                      	%>
+                      	</select>
+                      	</td>
+                      </tr>
+                       <tr>
+                      <th><span style="color:red;">*</span>팀(매출)</th>
+                      <td>
+                      	<select id="team_order" name="team_order">
+                      	<option value="-">-</option>
                       	<%
 	                      	for(int i=0; i<teamList.size(); i++){
 	                  			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
@@ -441,6 +447,13 @@ function btn_copy(){
 					  </tr>
 					  
 					  <tr>
+					  <th>상반기예상수주</th> 
+					  <td>
+                      	<input id="FH_ORDER_PROJECTIONS" name="FH_ORDER_PROJECTIONS" value="<%=project.getFH_ORDER_PROJECTIONS()%>">
+                      </td> 
+					</tr>
+					  
+					  <tr>
 					  <th>상반기수주</th> 
 					  <td>
                       	<input id="FH_ORDER" name="FH_ORDER" value="<%=project.getFH_ORDER()%>">
@@ -459,6 +472,13 @@ function btn_copy(){
 						<td>
                       		<input id="FH_SALES" name="FH_SALES" value="<%=project.getFH_SALES()%>">
                       	</td>
+						</tr>
+						
+						<tr>
+						  <th>하반기예상수주</th> 
+						  <td>
+	                      	<input id="SH_ORDER_PROJECTIONS" name="SH_ORDER_PROJECTIONS" value="<%=project.getSH_ORDER_PROJECTIONS()%>">
+	                      </td> 
 						</tr>
 						
 						<tr>
@@ -593,6 +613,13 @@ function btn_copy(){
                       	<td>
                       		<input type="radio" name="reportCheck" value="1">사용
 							<input type="radio" name="reportCheck" value="0">미사용
+                      	</td>
+                        </tr>
+                         <tr>
+                        <th><span style="color:red;">*</span>실적보고</th>
+                      	<td>
+                      		<input class="sheetCheck" type="radio" name="sheetCheck" value="1" checked="checked">사용
+							<input class="sheetCheck" type="radio" name="sheetCheck" value="0">미사용
                       	</td>
                         </tr>
                          <tr align="center">

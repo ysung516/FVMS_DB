@@ -50,8 +50,9 @@
 </script>
 
 <style>
-	.card{
-		width:50%;
+	.table-responsive{
+		width:70%;
+		margin:0 auto;
 	}
 	#manager_List{
 		white-space: initial;
@@ -146,9 +147,9 @@
 		.card-header:first-child{
 			padding: 0;
 		}
-		.card{
-		width: 100%;
-		}
+		.table-responsive{
+		width:100%;
+	}
 }
 
 .sortDIV{

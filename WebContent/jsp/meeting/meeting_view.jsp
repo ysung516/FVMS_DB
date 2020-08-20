@@ -333,7 +333,7 @@
 						<td colspan="3"><%
 							line = mb.getMeetNote();
 							for(String li : line){
-								%><p style="white-space:pre;"><%=li%></p><%
+								%><p><%=li%></p><%
 							}
 							
 						%></td>
@@ -343,7 +343,7 @@
 						<td colspan="3"><%
 							line = mb.getP_issue();
 							for(String li : line){
-								%><p style="white-space:pre;"><%=li%></p><%
+								%><p><%=li%></p><%
 							}
 							
 						%></td>

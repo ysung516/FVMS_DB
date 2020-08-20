@@ -65,7 +65,7 @@
 	}
 	
 	#meetingTable{
-		white-space: nowrap;
+		word-break:keep-all;
 		overflow:auto;
 		width:100%; 
 		margin-top:10px;
@@ -419,21 +419,25 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
          
 	<table id ="meetingTable">
 		<thead>
-		 <tr>
+		 <tr style="white-space:nowrap;">
 		   <th>회의명</th>
 		   <th>회의 장소 
+		   <br>
 			   	<input type="button" value="▲" onclick="sortTD (1)">
 			   	<input type="button" value="▼" onclick="reverseTD (1)">
 		   	</th>
 		   <th>회의 일시
+		   <br>
 			   <input type="button" value="▲" onclick="sortTD (2)">
 			   <input type="button" value="▼" onclick="reverseTD (2)"> 
 		   </th>
 		   <th>작성 일시
+		   <br>
 			   <input type="button" value="▲" onclick="sortTD (3)">
 			   <input type="button" value="▼" onclick="reverseTD (3)">
 		   </th>
 		   <th>작성자
+		   <br>
 			   <input type="button" value="▲" onclick="sortTD (4)">
 			   <input type="button" value="▼" onclick="reverseTD (4)">
 		   </th>

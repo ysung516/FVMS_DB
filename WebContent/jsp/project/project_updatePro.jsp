@@ -28,7 +28,8 @@
 		}
 		
 		  ProjectDAO projectDao = new ProjectDAO();
-		  String TEAM = request.getParameter("team");
+		  String TEAM_SALES = request.getParameter("team_sales");
+		  String TEAM_ORDER = request.getParameter("team_order");
 		  String RPOJECT_CODE = request.getParameter("PROJECT_CODE");
 		  String PROJECT_NAME = request.getParameter("PROJECT_NAME");
 		  String STATE = request.getParameter("STATE");
@@ -38,9 +39,11 @@
 		  String CLIENT_PART = request.getParameter("CLIENT_PART");
 		  float MAN_MONTH = Float.valueOf(request.getParameter("MAN_MONTH"));
 		  float PROJECT_DESOPIT = Float.valueOf(request.getParameter("PROJECT_DESOPIT"));
+		  float FH_ORDER_PROJECTIONS = Float.valueOf(request.getParameter("FH_ORDER_PROJECTIONS"));
 		  float FH_ORDER = Float.valueOf(request.getParameter("FH_ORDER")); 
 		  float FH_SALES_PROJECTIONS = Float.valueOf(request.getParameter("FH_SALES_PROJECTIONS")); 
 		  float FH_SALES = Float.valueOf(request.getParameter("FH_SALES"));
+		  float SH_ORDER_PROJECTIONS = Float.valueOf(request.getParameter("SH_ORDER_PROJECTIONS")); 
 		  float SH_ORDER = Float.valueOf(request.getParameter("SH_ORDER"));
 		  float SH_SALES_PROJECTIONS = Float.valueOf(request.getParameter("SH_SALES_PROJECTIONS"));
 		  float SH_SALES = Float.valueOf(request.getParameter("SH_SALES"));
@@ -55,16 +58,17 @@
 		  float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
 		  float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
 		  int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
+		  int RESULT_REPORT = Integer.parseInt(request.getParameter("sheetCheck"));
 		  int NO = Integer.parseInt(request.getParameter("NO"));
 		
-		if(TEAM == null || TEAM =="" || RPOJECT_CODE == null || RPOJECT_CODE == "" || PROJECT_NAME ==null || PROJECT_NAME == "" || PROJECT_MANAGER ==null || PROJECT_MANAGER == ""){
+		if(PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
 			
-			if(projectDao.updateProject(TEAM, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
-					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
-					SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, NO) == 1){
+			if(projectDao.updateProject(TEAM_SALES, TEAM_ORDER, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
+					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS,FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
+					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
+					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO) == 1){
 				script.print("<script> alert('프로젝트가 수정되었습니다.'); location.href = 'project.jsp'</script>");
 			}
 				else script.print("<script> alert('수정 실패!!'); history.back();</script>");
