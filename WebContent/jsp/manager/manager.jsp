@@ -41,6 +41,7 @@
 
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script>
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
@@ -150,7 +151,148 @@
 		}
 }
 
+.sortDIV{
+	display : inline;
+}
+
 </style>
+
+<!-- sorting table -->
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript">
+function sortingNumber( a , b ){  
+        if ( typeof a == "number" && typeof b == "number" ) return a - b; 
+        // 천단위 쉼표와 공백문자만 삭제하기.  
+        var a = ( a + "" ).replace( /[,\s\xA0]+/g , "" ); 
+        var b = ( b + "" ).replace( /[,\s\xA0]+/g , "" ); 
+        var numA = parseFloat( a ) + ""; 
+        var numB = parseFloat( b ) + ""; 
+        if ( numA == "NaN" || numB == "NaN" || a != numA || b != numB ) return false; 
+        return parseFloat( a ) - parseFloat( b ); 
+} 
+/* changeForSorting() : 문자열 바꾸기. */ 
+function changeForSorting( first , second ){  
+        // 문자열의 복사본 만들기. 
+        var a = first.toString().replace( /[\s\xA0]+/g , " " ); 
+        var b = second.toString().replace( /[\s\xA0]+/g , " " ); 
+        var change = { first : a, second : b }; 
+        if ( a.search( /\d/ ) < 0 || b.search( /\d/ ) < 0 || a.length == 0 || b.length == 0 ) return change; 
+        var regExp = /(\d),(\d)/g; // 천단위 쉼표를 찾기 위한 정규식. 
+        a = a.replace( regExp , "$1" + "$2" ); 
+        b = b.replace( regExp , "$1" + "$2" ); 
+        var unit = 0; 
+        var aNb = a + " " + b; 
+        var numbers = aNb.match( /\d+/g ); // 문자열에 들어있는 숫자 찾기 
+        for ( var x = 0; x < numbers.length; x++ ){ 
+                var length = numbers[ x ].length; 
+                if ( unit < length ) unit = length; 
+        } 
+        var addZero = function( string ){ // 숫자들의 단위 맞추기 
+                var match = string.match( /^0+/ ); 
+                if ( string.length == unit ) return ( match == null ) ? string : match + string; 
+                var zero = "0"; 
+                for ( var x = string.length; x < unit; x++ ) string = zero + string; 
+                return ( match == null ) ? string : match + string; 
+        }; 
+        change.first = a.replace( /\d+/g, addZero ); 
+        change.second = b.replace( /\d+/g, addZero ); 
+        return change; 
+} 
+/* byLocale() */ 
+function byLocale(){ 
+        var compare = function( a , b ){ 
+                var sorting = sortingNumber( a , b ); 
+                if ( typeof sorting == "number" ) return sorting; 
+                var change = changeForSorting( a , b ); 
+                var a = change.first; 
+                var b = change.second; 
+                return a.localeCompare( b ); 
+        }; 
+        var ascendingOrder = function( a , b ){  return compare( a , b );  }; 
+        var descendingOrder = function( a , b ){  return compare( b , a );  }; 
+        return { ascending : ascendingOrder, descending : descendingOrder }; 
+} 
+/* replacement() */ 
+ 
+function replacement( parent ){  
+        var tagName = parent.tagName.toLowerCase(); 
+        if ( tagName == "table" ) parent = parent.tBodies[ 0 ]; 
+        tagName = parent.tagName.toLowerCase(); 
+        if ( tagName == "tbody" ) var children = parent.rows; 
+        else var children = parent.getElementsByTagName( "li" ); 
+        var replace = { 
+                order : byLocale(), 
+                index : false, 
+                array : function(){ 
+                        var array = [ ]; 
+                        for ( var x = 0; x < children.length; x++ ) array[ x ] = children[ x ]; 
+                        return array; 
+                }(), 
+                checkIndex : function( index ){ 
+                        if ( index ) this.index = parseInt( index, 10 ); 
+                        var tagName = parent.tagName.toLowerCase(); 
+                        if ( tagName == "tbody" && ! index ) this.index = 0; 
+                }, 
+                getText : function( child ){ 
+                        if ( this.index ) child = child.cells[ this.index ]; 
+                        return getTextByClone( child ); 
+                }, 
+                setChildren : function(){ 
+                        var array = this.array; 
+                        while ( parent.hasChildNodes() ) parent.removeChild( parent.firstChild ); 
+                        for ( var x = 0; x < array.length; x++ ) parent.appendChild( array[ x ] ); 
+                }, 
+                ascending : function( index ){ // 오름차순 
+                        this.checkIndex( index ); 
+                        var _self = this; 
+                        var order = this.order; 
+                        var ascending = function( a, b ){ 
+                                var a = _self.getText( a ); 
+                                var b = _self.getText( b ); 
+                                return order.ascending( a, b ); 
+                        }; 
+                        this.array.sort( ascending ); 
+                        this.setChildren(); 
+                }, 
+                descending : function( index ){ // 내림차순
+                        this.checkIndex( index ); 
+                        var _self = this; 
+                        var order = this.order; 
+                        var descending = function( a, b ){ 
+                                var a = _self.getText( a ); 
+                                var b = _self.getText( b ); 
+                                return order.descending( a, b ); 
+                        }; 
+                        this.array.sort( descending ); 
+                        this.setChildren(); 
+                } 
+        }; 
+        return replace; 
+} 
+function getTextByClone( tag ){  
+        var clone = tag.cloneNode( true ); // 태그의 복사본 만들기. 
+        var br = clone.getElementsByTagName( "br" ); 
+        while ( br[0] ){ 
+                var blank = document.createTextNode( " " ); 
+                clone.insertBefore( blank , br[0] ); 
+                clone.removeChild( br[0] ); 
+        } 
+        var isBlock = function( tag ){ 
+                var display = ""; 
+                if ( window.getComputedStyle ) display = window.getComputedStyle ( tag, "" )[ "display" ]; 
+                else display = tag.currentStyle[ "display" ]; 
+                return ( display == "block" ) ? true : false; 
+        }; 
+        var children = clone.getElementsByTagName( "*" ); 
+        for ( var x = 0; x < children.length; x++){ 
+                var child = children[ x ]; 
+                if ( ! ("value" in child) && isBlock(child) ) child.innerHTML = child.innerHTML + " "; 
+        } 
+        var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
+        return textContent; 
+}
+
+</script>
 
 <body id="page-top">
 	 <!--  로딩화면  시작  -->
@@ -295,18 +437,30 @@
           
        <div class="card shadow mb-4">
         <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>    
+         <h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
         </div>
 
          <div class="table-responsive" style="margin-bottom: 40px;">
 			<table id ="managerTable">
 		<thead>
 		 <tr>
-		 	<th>팀</th>
-		 	<th>소속</th>
-		 	<th>이름</th>
-		 	<th>직급</th>
-		 	<th>권한</th>
+		 	<th>팀
+		 	<button class="sortBTN" onclick="sort_team()">▼</button>
+		 	</th>
+		 	<th>소속
+		 	<button class="sortBTN" onclick="sort_part()">▼</button>
+		 	</th>
+		 	<th>이름
+		 	<button class="sortBTN" onclick="sortTD (2)">▲</button>
+		 	<button class="sortBTN" onclick="reverseTD (2)">▼</button>
+		 	</th>
+		 	<th>직급
+		 	<button class="sortBTN" onclick="sort_rank()">▼</button>
+		 	</th>
+		 	<th>권한
+		 	<button class="sortBTN" onclick="sortTD (4)">▲</button>
+		 	<button class="sortBTN" onclick="reverseTD (4)">▼</button>
+		 	</th>
 		 	
 		 </tr>
 		  </thead> 
@@ -315,9 +469,13 @@
 		  	for(int i=0; i<memberList.size(); i++){
 		  		%><tr>
 		  			<td><%=memberList.get(i).getTEAM()%></td>
-		  			<td><%=memberList.get(i).getPART() %></td>
+		  			
+		  			<td><%=memberList.get(i).getPART()%></td>
+		  			
 			  		<td><a href="manager_view.jsp?id=<%=memberList.get(i).getID()%>"><%=memberList.get(i).getNAME() %></a></td>
-			  		<td><%=memberList.get(i).getRANK()%></td>
+			  		
+		  			<td><%=memberList.get(i).getRANK()%></td>
+			  		
 			  		<td><%=memberList.get(i).getPermission() %></td>
 		  		</tr><%	
 		  	}
@@ -325,6 +483,61 @@
 		  	
 		  </tbody>
 			       </table>   
+			       <script type="text/javascript">
+			       var myTable = document.getElementById( "managerTable" ); 
+			       var replace = replacement( myTable ); 
+			       function sortTD( index ){replace.ascending( index ); } 
+			       function reverseTD( index ){replace.descending( index );} 
+			       
+
+				   	function sort_team(){
+				   		var html = '';
+				   		<%memberList = memberDao.getMemberData();
+				   		for (int i=0; i<memberList.size() ; i++){%>
+				   		html += '<tr>';
+				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
+				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+				   		html += '</tr>';
+				   		<%}%>
+				   		$("#manager_List").empty();
+				   		$("#manager_List").append(html);
+				   	}
+				   	
+				   	function sort_part(){
+				   		var html = '';
+				   		<%memberList = memberDao.getMemberData_part();
+				   		for (int i=0; i<memberList.size() ; i++){%>
+				   		html += '<tr>';
+				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
+				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+				   		html += '</tr>';
+				   		<%}%>
+				   		$("#manager_List").empty();
+				   		$("#manager_List").append(html);
+				   	}
+				   	
+				   	function sort_rank(){
+				   		var html = '';
+				   		<%memberList = memberDao.getMemberData_rank();
+				   		for (int i=0; i<memberList.size() ; i++){%>
+				   		html += '<tr>';
+				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
+				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
+				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+				   		html += '</tr>';
+				   		<%}%>
+				   		$("#manager_List").empty();
+				   		$("#manager_List").append(html);
+				   	}
+			       </script>
 			       </div>
 
              <!-- /.container-fluid -->

@@ -359,7 +359,7 @@
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">소속</td>
-				      <td colspan="3"><input class="add_input" name="part" value="VT"></td>
+				      <td colspan="3"><input class="add_input" name="part" value="슈어소프트테크"></td>
 			     </tr>
 			     <tr>
 				      <td class="m-0 text-primary" align="center">팀</td>
@@ -374,12 +374,26 @@
 			     
 			       <tr>
 				      <td class="m-0 text-primary" align="center">직급</td>
-				      <td colspan="3"><input  id="rank" class="add_input" name="rank"></td>
+				      <td colspan="3">
+				      <select id="rank" name="rank">
+				      	<option value="수석">수석</option>
+				      	<option value="책임">책임</option>
+				      	<option value="선임">선임</option>
+				      	<option value="전임">전임</option>
+				      	<option value="인턴">인턴</option>
+				      </select>
+				      </td>
 			     </tr>
 			     
 			     <tr>
 				      <td class="m-0 text-primary" align="center">직책</td>
-				      <td colspan="3"><input id="position" class="add_input" name="position"></td>
+				      <td colspan="3">
+				      <select id="position" name="position">
+				      	<option value="실장">실장</option>
+				      	<option value="팀장">팀장</option>
+				      	<option value="-">-</option>
+				      </select>
+				      </td>
 			     </tr>
 			      <tr>
 				      <td class="m-0 text-primary" align="center">권한</td>
@@ -388,7 +402,7 @@
 				      	<option value="0">마스터</option>
 				      	<option value="1">관리자</option>
 				      	<option value="2">일반</option>
-				      	<option value="3">게스트 </option>
+				      	<option value="3" selected="selected">게스트 </option>
 				      </select></td></tr>
 			     
 			     <tr align="center">
