@@ -374,6 +374,7 @@ function btn_copy(){
                       <th><span style="color:red;">*</span>팀(매출)</th>
                       <td>
                       	<select id="team_order" name="team_order">
+                      	<option value="-">-</option>
                       	<%
 	                      	for(int i=0; i<teamList.size(); i++){
 	                  			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
