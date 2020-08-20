@@ -23,7 +23,7 @@ public class MemberDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT a.* FROM member as a, rank as b, position as c WHERE a.직급=b.rank AND a.직책=c.position ORDER BY a.팀, c.num, b.rank_id");
+	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName ORDER BY d.teamNum, a.소속, c.num, b.rank_id");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

@@ -169,7 +169,7 @@ function teamMember(team, member){
 				memberID = '<%=memberList.get(j).getID()%>';
 				var option = $("<option value="+memberID+">"+ memberName +"</option>");
 				$(member).append(option);
-				if('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>'){
+				if($("#PM-team").val() == team1 && ('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>')){
 					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");
 				}
 			}
