@@ -27,6 +27,7 @@
 		
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+		SimpleDateFormat sf2 = new SimpleDateFormat("yyyyMMddahhmmss");
 		
 		String MeetName = request.getParameter("MeetName");
 		String writer = sessionName;
@@ -39,11 +40,10 @@
 		String meetnote = request.getParameter("meetnote");
 		String issue = request.getParameter("issue");
 		int count = Integer.parseInt(request.getParameter("count"));
-		int rowCount = meetDao.getRowCount();
 		String nextplan = "-";
 		
 		if(count != 0){
-			nextplan = "nextPlan"+Integer.toString(rowCount + 1);
+			nextplan = sf2.format(nowTime);
 		}	
 		
 		String [] item = new String[count];
@@ -57,15 +57,13 @@
 			
 			if(meetDao.saveMeet(sessionID, MeetName, writer, MeetDate, MeetPlace, attendees, meetnote, nextplan, date, attendees_ex, issue) == 1){
 				if(count > 0){
-					
-					String nextPlanTableName = "nextPlan"+ (rowCount + 1);
 					for(int i=0; i<count; i++){
 						item[i] = request.getParameter("item"+(i+1));
 						deadline[i] = request.getParameter("deadline"+(i+1));
 						pm[i] = request.getParameter("pm"+(i+1));
 					}	
-					meetDao.createNextPlanTable(nextPlanTableName);
-					meetDao.insertNextPlanData(nextPlanTableName, item, deadline, pm, count);
+					meetDao.createNextPlanTable(nextplan);
+					meetDao.insertNextPlanData(nextplan, item, deadline, pm, count);
 				}
 				
 				script.print("<script> alert('회의록 작성이 되었습니다.'); location.href = 'meeting.jsp'</script>");

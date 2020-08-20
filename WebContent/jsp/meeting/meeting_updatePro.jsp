@@ -3,6 +3,8 @@
     import = "java.io.PrintWriter"
     import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
+    import = "java.util.Date"
+    import = "java.text.SimpleDateFormat"
     %>
 <!DOCTYPE html>
 <html>
@@ -20,6 +22,9 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
+		Date nowTime = new Date();
+		SimpleDateFormat sf2 = new SimpleDateFormat("yyyyMMddahhmmss");
+		
 		MeetingDAO meetDao = new MeetingDAO();
 		int no = Integer.parseInt(request.getParameter("no"));
 		String MeetName = request.getParameter("MeetName");
@@ -31,14 +36,18 @@
 		String meetNote = request.getParameter("MeetNote");
 		String issue = request.getParameter("issue");
 		int count = Integer.parseInt(request.getParameter("count"));
-		int rowCount = meetDao.getRowCount();
 		String nextplan = meetDao.getMeetList(no).getP_nextplan();
 		String [] item = new String[count];
 		String [] deadline = new String[count];
 		String [] pm = new String[count];
+		String nextPlanTableName;
+		
 		if(!(meetDao.getMeetList(no).getP_nextplan().equals("-"))){
+			nextPlanTableName = nextplan;
 			meetDao.dropNextPlanTable(nextplan);	
 			meetDao.updateNextPlan(no, "-");
+		} else{
+			nextPlanTableName = sf2.format(nowTime);
 		}
 		
 		if(MeetName == null || MeetName == ""){
@@ -47,7 +56,6 @@
 			
 			if(meetDao.updateMeet(no, MeetName, MeetDate, MeetPlace, attendees, attendees_ex, meetNote, issue)== 1){
 				if(count > 0){
-					String nextPlanTableName = "nextPlan"+ (rowCount);
 					meetDao.updateNextPlan(no, nextPlanTableName);
 					for(int i=0; i<count; i++){
 						item[i] = request.getParameter("item"+(i+1));
