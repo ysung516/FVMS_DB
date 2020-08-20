@@ -144,7 +144,7 @@
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     <script>
     function cbLoad(){
-    	for(var a=4;a<26;a++){
+    	for(var a=5;a<29;a++){
 	    	if($("input:checkbox[id='cb"+a+"']").is(":checked") == true){
 	    		$('td:nth-child('+a+')').show();
 	    	}else{
@@ -196,7 +196,7 @@
     	for(var i=0;i<=<%=projectList.size()%>;i++){
     		//var tr = $('#dataTable tr:eq('+i+')');
     		//var td = tr.children();
-    		str = $('#dataTable tr:eq('+i+') td:eq(3)').text();
+    		str = $('#dataTable tr:eq('+i+') td:eq(4)').text();
     		console.log(str)
     		if(str.indexOf('1')!=-1){
     			$('#dataTable tr:eq('+i+')').css("background-color", "#A9E2F3");
@@ -388,50 +388,52 @@
       			 <table>
       			 <tr><td>
       			 <label><input type="checkbox" id="checkall">모두보기</label>
-      			 <label><input type="checkbox" id="cb4" name="cb" class="cb"> 상태</label>
+      			 <label><input type="checkbox" id="cb5" name="cb" class="cb"> 상태</label>
       			  </td></tr>
       			  <tr><td>
-      			 <label><input type="checkbox" id="cb5" name="cb" class="cb"> 실</label>
-      			 <label><input type="checkbox" id="cb6" name="cb" class="cb"> 고객사</label>
+      			 <label><input type="checkbox" id="cb6" name="cb" class="cb"> 실</label>
+      			 <label><input type="checkbox" id="cb7" name="cb" class="cb"> 고객사</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb7" name="cb" class="cb"> 고객부서</label>
-      			 <label><input type="checkbox" id="cb8" name="cb" class="cb"> M/M</label>
+      			 <label><input type="checkbox" id="cb8" name="cb" class="cb"> 고객부서</label>
+      			 <label><input type="checkbox" id="cb9" name="cb" class="cb"> M/M</label>
       			 </td></tr>
       			 <tr><td>
-      			<label><input type="checkbox" id="cb9" name="cb" class="cb"> 프로젝트계약금액</label>
-      			 <label><input type="checkbox" id="cb10" name="cb" class="cb"> 상반기 수주</label>
+      			<label><input type="checkbox" id="cb10" name="cb" class="cb"> 프로젝트계약금액</label>
+      			 <label><input type="checkbox" id="cb11" name="cb" class="cb"> 상반기예상수주</label>
+      			 <label><input type="checkbox" id="cb12" name="cb" class="cb"> 상반기수주</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb11" name="cb" class="cb"> 상반기예상매출</label>
-      			 <label><input type="checkbox" id="cb12" name="cb" class="cb"> 상반기매출</label>
+      			 <label><input type="checkbox" id="cb13" name="cb" class="cb"> 상반기예상매출</label>
+      			 <label><input type="checkbox" id="cb14" name="cb" class="cb"> 상반기매출</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb13" name="cb" class="cb"> 하반기수주</label>
-      			 <label><input type="checkbox" id="cb14" name="cb" class="cb"> 하반기예상매출</label>
+      			 <label><input type="checkbox" id="cb15" name="cb" class="cb"> 하반기예상수주</label>
+      			 <label><input type="checkbox" id="cb16" name="cb" class="cb"> 하반기수주</label>
+      			 <label><input type="checkbox" id="cb17" name="cb" class="cb"> 하반기예상매출</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb15" name="cb" class="cb"> 하반기매출</label>
-      			 <label><input type="checkbox" id="cb16" name="cb" class="cb"> 착수</label>
+      			 <label><input type="checkbox" id="cb18" name="cb" class="cb"> 하반기매출</label>
+      			 <label><input type="checkbox" id="cb19" name="cb" class="cb"> 착수</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb17" name="cb" class="cb"> 종료</label>
-      			 <label><input type="checkbox" id="cb18" name="cb" class="cb"> 고객담당자</label>
+      			 <label><input type="checkbox" id="cb20" name="cb" class="cb"> 종료</label>
+      			 <label><input type="checkbox" id="cb21" name="cb" class="cb"> 고객담당자</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb19" name="cb" class="cb"> 근무지</label>
-      			 <label><input type="checkbox" id="cb20" name="cb" class="cb"> 업무</label>
+      			 <label><input type="checkbox" id="cb22" name="cb" class="cb"> 근무지</label>
+      			 <label><input type="checkbox" id="cb23" name="cb" class="cb"> 업무</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb21" name="cb" class="cb"> PM</label>
-      			 <label><input type="checkbox" id="cb22" name="cb" class="cb"> 투입명단</label>
+      			 <label><input type="checkbox" id="cb24" name="cb" class="cb"> PM</label>
+      			 <label><input type="checkbox" id="cb25" name="cb" class="cb"> 투입명단</label>
       			 </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb23" name="cb" class="cb"> 2020(상)평가유형</label>
-      			 <label><input type="checkbox" id="cb24" name="cb" class="cb"> 채용수요</label>
+      			 <label><input type="checkbox" id="cb26" name="cb" class="cb"> 2020(상)평가유형</label>
+      			 <label><input type="checkbox" id="cb27" name="cb" class="cb"> 채용수요</label>
       			  </td></tr>
       			 <tr><td>
-      			 <label><input type="checkbox" id="cb25" name="cb" class="cb"> 외주수요</label>
+      			 <label><input type="checkbox" id="cb28" name="cb" class="cb"> 외주수요</label>
       			 </td></tr>
       			 </table>
       			 </details>
@@ -441,7 +443,8 @@
                 <table class="table table-bordered" id="dataTable" style="white-space: nowrap;font-size:small;width:0%;">
                   
                     <tr class="m-0 text-primary">
-	                    <td>팀</td>
+	                    <td>팀(매출)</td>
+	                    <td>팀(수주)</td>
 	                    <td >프로젝트 코드</td>
 	                    <td >프로젝트 명</td>
 	                    <td class="td">상태</td>
@@ -450,9 +453,11 @@
 	                    <td class="td">고객부서</td>
 	                    <td class="td">M/M</td>
 						<td class="td">프로젝트계약금액</td> 
+						<td class="td">상반기예상수주</td>  
 						<td class="td">상반기수주</td>  
 						<td class="td">상반기예상매출</td> 
 						<td class="td">상반기매출 </td>
+						<td class="td">하반기예상수주</td>  
 						<td class="td">하반기수주 </td>
 						<td class="td">하반기예상매출 </td>
 						<td class="td">하반기매출 </td>
@@ -473,10 +478,11 @@
                   	for(int i=0; i<projectList.size(); i++){
                   		%>
                   		 <tr>
-	                      <td><div><%=projectList.get(i).getTEAM()%></div></td>
+	                      <td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>
+	                      <td><div><%=projectList.get(i).getTEAM_ORDER()%></div></td>
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
-	                      <%if((permission==1 && projectList.get(i).getTEAM().equals(myInfo.getTEAM())) || permission==0){%>
+	                      <%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
 	                      		<td><a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
@@ -486,9 +492,11 @@
 	                      <td class="td"><%=projectList.get(i).getClIENT_PART()%></td>
 	                      <td class="td"><%=projectList.get(i).getMAN_MONTH()%></td>
 	                      <td class="td"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
+	                      <td class="td"><%=projectList.get(i).getFH_ORDER_PROJECTIONS()%></td>
 	                      <td class="td"><%=projectList.get(i).getFH_ORDER()%></td>
 	                      <td class="td"><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></td>
 	                      <td class="td"><%=projectList.get(i).getFH_SALES()%></td>
+	                      <td class="td"><%=projectList.get(i).getSH_ORDER_PROJECTIONS()%></td>
 	                      <td class="td"><%=projectList.get(i).getSH_ORDER()%></td>
 	                      <td class="td"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
 	                      <td class="td"><%=projectList.get(i).getSH_SALES()%></td>

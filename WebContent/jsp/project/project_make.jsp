@@ -178,7 +178,8 @@ function teamMember(team, member){
 }
 
 function defaultTeam(){
-	var team = $("#team option:selected").val();
+	var team = $("#team_sales option:selected").val();
+	$("#team_order").val(team).attr("selected", "selected");
 	$("#PM-team").val(team).attr("selected", "selected");
 	$("#teamlist").val(team).attr("selected", "selected");
 	teamMember('#PM-team','#PROJECT_MANAGER');
@@ -190,15 +191,18 @@ function btn_insert(){
 	var copyProjectNO = sessionStorage.getItem("copyProjectNO");
 	console.log(copyProjectNO);
 	var no = new Array();
-	var team = new Array();
+	var team_sales = new Array();
+	var team_order = new Array();
 	var state = new Array();
 	var client = new Array();
 	var client_part = new Array();
 	var man_month = new Array();
 	var project_desopit = new Array();
+	var fh_order_projections = new Array();
 	var fh_order = new Array();
 	var fh_sales_projections = new Array();
 	var fh_sales = new Array();
+	var sh_order_projections = new Array();
 	var sh_order =new Array();
 	var sh_sales_projections =new Array();
 	var sh_sales = new Array();
@@ -220,15 +224,18 @@ function btn_insert(){
 			
 			%>
 				no[<%=z%>] = '<%=projectList.get(z).getNO()%>';
-				team[<%=z%>] = '<%=projectList.get(z).getTEAM()%>';
+				team_sales[<%=z%>] = '<%=projectList.get(z).getTEAM_SALES()%>';
+				team_order[<%=z%>] = '<%=projectList.get(z).getTEAM_ORDER()%>';
 				state[<%=z%>] = '<%=projectList.get(z).getSTATE()%>';
 				client[<%=z%>] = '<%=projectList.get(z).getCLIENT()%>';
 				client_part[<%=z%>] = '<%=projectList.get(z).getClIENT_PART()%>';
 				man_month[<%=z%>] = '<%=projectList.get(z).getMAN_MONTH()%>';
 				project_desopit[<%=z%>] = '<%=projectList.get(z).getPROJECT_DESOPIT()%>';
+				fh_order_projections[<%=z%>] = '<%=projectList.get(z).getFH_ORDER_PROJECTIONS()%>';
 				fh_order[<%=z%>] = '<%=projectList.get(z).getFH_ORDER()%>';
 				fh_sales_projections[<%=z%>] = '<%=projectList.get(z).getFH_SALES_PROJECTIONS()%>';
 				fh_sales[<%=z%>] = '<%=projectList.get(z).getFH_SALES()%>';
+				sh_order_projections[<%=z%>] = '<%=projectList.get(z).getSH_ORDER_PROJECTIONS()%>';
 				sh_order[<%=z%>] = '<%=projectList.get(z).getSH_ORDER()%>';
 				sh_sales_projections[<%=z%>] = '<%=projectList.get(z).getSH_SALES_PROJECTIONS()%>';
 				sh_sales[<%=z%>] = '<%=projectList.get(z).getSH_SALES()%>';
@@ -449,9 +456,21 @@ function btn_insert(){
             <form method="post" action="project_makePro.jsp">
                 <table class="table table-bordered" id="dataTable">
                     <tr>
-                      <th><span style="color:red;">*</span>팀</th>
+                      <th><span style="color:red;">*</span>팀(수주)</th>
                       <td>
-                      	<select id="team" name="team" onchange="defaultTeam()">
+                      	<select id="team_sales" name="team_sales" onchange="defaultTeam()">
+                      	<%
+                      		for(int i=0; i<teamList.size(); i++){
+                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
+                      		}
+                      	%>
+                      	</select>
+                      	</td>
+                      </tr>
+                      <tr>
+                      <th>팀(매출)</th>
+                      <td>
+                      	<select id="team_order" name="team_order">
                       	<%
                       		for(int i=0; i<teamList.size(); i++){
                       			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
@@ -524,6 +543,13 @@ function btn_insert(){
 					  </tr>
 					  
 					  <tr>
+					  <th>상반기예상수주</th> 
+					  <td>
+                      	<input id="FH_ORDER_PROJECTIONS" name="FH_ORDER_PROJECTIONS" value="0">
+                      </td> 
+					</tr>
+					  
+					  <tr>
 					  <th>상반기수주</th> 
 					  <td>
                       	<input id="FH_ORDER" name="FH_ORDER" value="0">
@@ -542,6 +568,13 @@ function btn_insert(){
 						<td>
                       		<input id="FH_SALES" name="FH_SALES" value="0">
                       	</td>
+						</tr>
+						
+						<tr>
+						  <th>하반기예상수주</th> 
+						  <td>
+	                      	<input id="SH_ORDER_PROJECTIONS" name="SH_ORDER_PROJECTIONS" value="0">
+	                      </td> 
 						</tr>
 						
 						<tr>

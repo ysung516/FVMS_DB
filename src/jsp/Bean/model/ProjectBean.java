@@ -1,7 +1,8 @@
 package jsp.Bean.model;
 
 public class ProjectBean {
-	private String TEAM;	// 팀
+	private String TEAM_SALES;	// 팀(매출)
+	private String TEAM_ORDER;	// 팀(수주)
 	private String PROJECT_CODE;	// 프로젝트 코드
 	private String PROJECT_NAME;	// 프로젝트 
 	private String STATE;	// 상태
@@ -10,9 +11,11 @@ public class ProjectBean {
 	private String ClIENT_PART;	// 고객부서
 	private float MAN_MONTH;	// M/M
 	private float PROJECT_DESOPIT;	// 프로젝트계약금액
+	private float FH_ORDER_PROJECTIONS; //상반기 예상 수주
 	private float FH_ORDER;	// 상반기수주
 	private float FH_SALES_PROJECTIONS;	// 상반기 예상 매출
 	private float FH_SALES;	//상반기 매출
+	private float SH_ORDER_PROJECTIONS; //하반기 예상 수주
 	private float SH_ORDER;	//하반기 수주
 	private float SH_SALES_PROJECTIONS;	// 하반기 예상 매출
 	private float SH_SALES;	//하반기 매출
@@ -27,13 +30,20 @@ public class ProjectBean {
 	private float EMPLOY_DEMAND;	//채용수요
 	private float OUTSOURCE_DEMAND;	//외주수요
 	private int REPORTCHECK; //주간보고서여부
+	private int RESULT_REPORT; //실적보고
 	private int NO;
 	
-	public String getTEAM() {
-		return TEAM;
+	public String getTEAM_SALES() {
+		return TEAM_SALES;
 	}
-	public void setTEAM(String tEAM) {
-		TEAM = tEAM;
+	public void setTEAM_SALES(String tEAM_SALES) {
+		TEAM_SALES = tEAM_SALES;
+	}
+	public String getTEAM_ORDER() {
+		return TEAM_ORDER;
+	}
+	public void setTEAM_ORDER(String tEAM_ORDER) {
+		TEAM_ORDER = tEAM_ORDER;
 	}
 	public String getPROJECT_CODE() {
 		return PROJECT_CODE;
@@ -83,6 +93,12 @@ public class ProjectBean {
 	public void setPROJECT_DESOPIT(float pROJECT_DESOPIT) {
 		PROJECT_DESOPIT = pROJECT_DESOPIT;
 	}
+	public float getFH_ORDER_PROJECTIONS() {
+		return FH_ORDER_PROJECTIONS;
+	}
+	public void setFH_ORDER_PROJECTIONS(float fH_ORDER_PROJECTIONS) {
+		FH_ORDER_PROJECTIONS = fH_ORDER_PROJECTIONS;
+	}
 	public float getFH_ORDER() {
 		return FH_ORDER;
 	}
@@ -100,6 +116,12 @@ public class ProjectBean {
 	}
 	public void setFH_SALES(float fH_SALES) {
 		FH_SALES = fH_SALES;
+	}
+	public float getSH_ORDER_PROJECTIONS() {
+		return SH_ORDER_PROJECTIONS;
+	}
+	public void setSH_ORDER_PROJECTIONS(float sH_ORDER_PROJECTIONS) {
+		SH_ORDER_PROJECTIONS = sH_ORDER_PROJECTIONS;
 	}
 	public float getSH_ORDER() {
 		return SH_ORDER;
@@ -184,6 +206,12 @@ public class ProjectBean {
 	}
 	public void setREPORTCHECK(int rEPORTCHECK) {
 		REPORTCHECK = rEPORTCHECK;
+	}
+	public int getRESULT_REPORT() {
+		return RESULT_REPORT;
+	}
+	public void setRESULT_REPORT(int rESULT_REPORT) {
+		RESULT_REPORT = rESULT_REPORT;
 	}
 	public int getNO() {
 		return NO;
