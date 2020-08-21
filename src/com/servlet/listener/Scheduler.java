@@ -35,23 +35,23 @@ public class Scheduler {
     }
     
     
-    public long calcTaskTime(int startTime) {
-
-        if(startTime > 23 || startTime < 0){
-            return 0;
-        }
-        Calendar calendar = new GregorianCalendar(Locale.KOREA);
-        calendar.set(Calendar.HOUR_OF_DAY, startTime);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        long nowDate = new Date().getTime();
-
-        if (nowDate > calendar.getTime().getTime()) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-        }
-        long waiting = (calendar.getTime().getTime() - nowDate)/1000;
-
-        return (int)waiting;
-    }
+//    public long calcTaskTime(int startTime) {
+//
+//        if(startTime > 23 || startTime < 0){
+//            return 0;
+//        }
+//        Calendar calendar = new GregorianCalendar(Locale.KOREA);
+//        calendar.set(Calendar.HOUR_OF_DAY, startTime);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+//
+//        long nowDate = new Date().getTime();
+//
+//        if (nowDate > calendar.getTime().getTime()) {
+//            calendar.add(Calendar.DAY_OF_YEAR, 1);
+//        }
+//        long waiting = (calendar.getTime().getTime() - nowDate)/1000;
+//
+//        return (int)waiting;
+//    }
 }

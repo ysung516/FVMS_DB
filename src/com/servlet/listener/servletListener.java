@@ -1,9 +1,8 @@
 package com.servlet.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-/*
-public class servletListener implements ServletContextListener{
 
+public class servletListener implements ServletContextListener{
 	
 	// 웹 종료시
 	@Override
@@ -23,4 +22,3 @@ public class servletListener implements ServletContextListener{
 	}
 	
 }
-*/
