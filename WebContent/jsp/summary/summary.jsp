@@ -1,8 +1,10 @@
+<%@page import="jsp.DB.method.SummaryDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import = "java.io.PrintWriter"
     import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.*"
+    import = "java.util.ArrayList"
     
     %>
 <!DOCTYPE html>
@@ -13,7 +15,7 @@
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); response.sendRedirect('login.html') </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if(permission != 0){
@@ -24,6 +26,11 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(15*60);
 	
+	SummaryDAO summaryDao = new SummaryDAO();
+	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
+	ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
+	
+	//ArrayList<int[]> cntState = summaryDao.stateNum();
 %>
 
 <meta charset="utf-8">
@@ -73,10 +80,132 @@
 		left: 50%;
 		transform:translate(-50%, -50%);
 	}
-	
+	td{
+		text-align : center;
+	}
+	.sale{
+		width : 50px;
+	}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
+	function tableInsert(){
+		<%for(int i=0; i<saleTeamList.size(); i++) {
+          	StateOfProBean ST = saleTeamList.get(i);%>
+          	<%if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("1")){%>
+          	$("#projectNow tr:eq(2) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("1")){%>
+          	$("#projectNow tr:eq(2) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("1")){%>
+          	$("#projectNow tr:eq(2) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("1")){%>
+          	$("#projectNow tr:eq(2) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("1")){%>
+          	$("#projectNow tr:eq(2) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("1")){%>
+          	$("#projectNow tr:eq(2) td:eq(8)").html('<%=ST.getCnt()%>');
+          	
+          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("2")){%>
+          	$("#projectNow tr:eq(3) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("2")){%>
+          	$("#projectNow tr:eq(3) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("2")){%>
+          	$("#projectNow tr:eq(3) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("2")){%>
+          	$("#projectNow tr:eq(3) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("2")){%>
+          	$("#projectNow tr:eq(3) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("2")){%>
+          	$("#projectNow tr:eq(3) td:eq(8)").html('<%=ST.getCnt()%>');
+          	
+          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("3")){%>
+          	$("#projectNow tr:eq(4) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("3")){%>
+          	$("#projectNow tr:eq(4) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("3")){%>
+          	$("#projectNow tr:eq(4) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("3")){%>
+          	$("#projectNow tr:eq(4) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("3")){%>
+          	$("#projectNow tr:eq(4) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("3")){%>
+          	$("#projectNow tr:eq(4) td:eq(8)").html('<%=ST.getCnt()%>');
+        <%}}%>
+        
+        <%for(int i=0; i<orderTeamList.size(); i++) {
+          	StateOfProBean ST = orderTeamList.get(i);%>
+          	<%if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("4")){%>
+          	$("#projectNow tr:eq(5) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("4")){%>
+          	$("#projectNow tr:eq(5) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("4")){%>
+          	$("#projectNow tr:eq(5) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("4")){%>
+          	$("#projectNow tr:eq(5) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("4")){%>
+          	$("#projectNow tr:eq(5) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("4")){%>
+          	$("#projectNow tr:eq(5) td:eq(8)").html('<%=ST.getCnt()%>');
+          	
+          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("5")){%>
+          	$("#projectNow tr:eq(6) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("5")){%>
+          	$("#projectNow tr:eq(6) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("5")){%>
+          	$("#projectNow tr:eq(6) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("5")){%>
+          	$("#projectNow tr:eq(6) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("5")){%>
+          	$("#projectNow tr:eq(6) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("5")){%>
+          	$("#projectNow tr:eq(6) td:eq(8)").html('<%=ST.getCnt()%>');
+          	
+          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("6")){%>
+          	$("#projectNow tr:eq(7) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("6")){%>
+          	$("#projectNow tr:eq(7) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("6")){%>
+          	$("#projectNow tr:eq(7) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("6")){%>
+          	$("#projectNow tr:eq(7) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("6")){%>
+          	$("#projectNow tr:eq(7) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("6")){%>
+          	$("#projectNow tr:eq(7) td:eq(8)").html('<%=ST.getCnt()%>');
+          	
+          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("7")){%>
+          	$("#projectNow tr:eq(8) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("7")){%>
+          	$("#projectNow tr:eq(8) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("7")){%>
+          	$("#projectNow tr:eq(8) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("7")){%>
+          	$("#projectNow tr:eq(8) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("7")){%>
+          	$("#projectNow tr:eq(8) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("7")){%>
+          	$("#projectNow tr:eq(8) td:eq(8)").html('<%=ST.getCnt()%>');
+          	
+          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("8")){%>
+          	$("#projectNow tr:eq(9) td:eq(3)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("8")){%>
+          	$("#projectNow tr:eq(9) td:eq(4)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("8")){%>
+          	$("#projectNow tr:eq(9) td:eq(5)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("8")){%>
+          	$("#projectNow tr:eq(9) td:eq(6)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("8")){%>
+          	$("#projectNow tr:eq(9) td:eq(7)").html('<%=ST.getCnt()%>');
+          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("8")){%>
+          	$("#projectNow tr:eq(9) td:eq(8)").html('<%=ST.getCnt()%>');
+         <%}}%>
+        
+	}
+	
+	$(document).ready(function(){
+		tableInsert();
+	});
+	
 	<!-- 로딩화면 -->
 	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function
@@ -228,7 +357,7 @@
         </div>
             <div class="card-body"> 
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+                <table class="table table-bordered" id="projectNow" style="white-space: nowrap;">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
@@ -379,12 +508,12 @@
                     	<td rowspan="10" style="text-align:center; vertical-align: middle;">상반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
+                    	<td><input class="sale" name="chassis"></td>
+                    	<td><input class="sale" name="body"></td>
+                    	<td><input class="sale" name="control"></td>
+                    	<td><input class="sale" name="safe"></td>
+                    	<td><input class="sale" name="auto"></td>
+                    	<td><input class="sale" name="VT"></td>
                     	
                     </tr>
                     <tr style="text-align:center;">
