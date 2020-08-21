@@ -15,6 +15,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 public class Mailsystem {
 
@@ -134,7 +135,8 @@ public class Mailsystem {
 		// 파일이 있을 경우를 생각해서 MimeBodyPart객체를 생성합니다.
 		MimeBodyPart contentsBodyPart = new MimeBodyPart();
 		// contentsBodyPart.setContent(contents, "text/html; charset=euc-kr");
-		contentsBodyPart.setContent(contents, "text/html; charset=utf-8");
+		//contentsBodyPart.setContent(contents, "text/html; charset=utf-8");
+		contentsBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(contents, "text/html;charset=euc-kr")));
 
 		multiPart.addBodyPart(contentsBodyPart);
 
@@ -149,6 +151,7 @@ public class Mailsystem {
 		}
 
 		msg.setContent(multiPart);
+		//msg.setDataHandler(new DataHandler(new ByteArrayDataSource(multiPark, "text/html;charset=euc-kr")));
 		msg.setSentDate(new Date());
 
 		// If the desired charset is known, you can use
