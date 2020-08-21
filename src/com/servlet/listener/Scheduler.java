@@ -1,5 +1,6 @@
 package com.servlet.listener;
 import java.text.SimpleDateFormat;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,15 +14,17 @@ import jsp.smtp.method.PostMan;
 
 public class Scheduler {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
+    
     public void startScheduleTask() {
     final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
         new Runnable() {
             public void run() {
                 try {
-//                	PostMan post = new PostMan();
-//                	post.post();
-                    getDataFromDatabase();
+                	
+                
+                	PostMan post = new PostMan();
+                	post.post();
+                    //getDataFromDatabase();
                     
                 }catch(Exception ex) {
                     ex.printStackTrace(); //or loggger would be better

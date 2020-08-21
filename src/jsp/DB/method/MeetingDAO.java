@@ -95,7 +95,7 @@ public class MeetingDAO {
 	    return meet;
 	}
 
-	// 회의록 리스트 가져오기
+	// 회의록  향후일정 리스트 가져오기
 	public ArrayList<nextPlanBean> getNextPlan(String tableName){
 		Connection conn = null;
 	    PreparedStatement pstmt = null;

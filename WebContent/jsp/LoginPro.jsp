@@ -23,7 +23,6 @@
      
      MemberDAO memberDao = new MemberDAO();
      MemberBean member = memberDao.returnMember(ID);
-     
      //PostMan post = new PostMan();
      //post.post();
    

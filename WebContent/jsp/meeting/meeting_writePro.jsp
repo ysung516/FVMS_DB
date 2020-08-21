@@ -5,6 +5,7 @@
     import = "java.io.PrintWriter"
     import = "java.util.Date"
     import = "java.text.SimpleDateFormat"
+    import = "jsp.smtp.method.*"
     %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,8 @@
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
 		
-
+		ExcelExporter excel = new ExcelExporter();
+		PostMan post = new PostMan();
 		String sessionID = (String)session.getAttribute("sessionID");
 		String sessionName = (String)session.getAttribute("sessionName");
 		MeetingDAO meetDao = new MeetingDAO();
@@ -36,7 +38,7 @@
 		
 		String MeetPlace = request.getParameter("MeetPlace");
 		String attendees = request.getParameter("attendees");
-		String attendees_ex = request.getParameter("attendees-ex");
+		String attendees_ex = request.getParameter("attendees_ex");
 		String meetnote = request.getParameter("meetnote");
 		String issue = request.getParameter("issue");
 		int count = Integer.parseInt(request.getParameter("count"));
@@ -65,8 +67,9 @@
 					meetDao.createNextPlanTable(nextplan);
 					meetDao.insertNextPlanData(nextplan, item, deadline, pm, count);
 				}
-				
 				script.print("<script> alert('회의록 작성이 되었습니다.'); location.href = 'meeting.jsp'</script>");
+				excel.MeetExport(MeetName, writer, meetnote, nextplan, issue, date, MeetDate, attendees, attendees_ex, MeetPlace);
+				post.post2();
 			}
 				else script.print("<script> alert('작성 실패!!'); history.back();</script>");
 		}
