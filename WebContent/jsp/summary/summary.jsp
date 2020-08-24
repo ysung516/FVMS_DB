@@ -30,6 +30,9 @@
 	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
 	ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
 	
+	StateOfProBean ST = new StateOfProBean();
+	StateOfProBean ST2 = new StateOfProBean();
+	
 	//ArrayList<int[]> cntState = summaryDao.stateNum();
 %>
 
@@ -91,7 +94,7 @@
 <script type="text/javascript">
 	function tableInsert(){
 		<%for(int i=0; i<saleTeamList.size(); i++) {
-          	StateOfProBean ST = saleTeamList.get(i);%>
+          	ST = saleTeamList.get(i);%>
           	<%if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("1")){%>
           	$("#projectNow tr:eq(2) td:eq(3)").html('<%=ST.getCnt()%>');
           	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("1")){%>
@@ -132,86 +135,35 @@
           	$("#projectNow tr:eq(4) td:eq(8)").html('<%=ST.getCnt()%>');
         <%}}%>
         
+	}
+	function tableInsert2(){
         <%for(int i=0; i<orderTeamList.size(); i++) {
-          	StateOfProBean ST = orderTeamList.get(i);%>
-          	<%if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("4")){%>
-          	$("#projectNow tr:eq(5) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("4")){%>
-          	$("#projectNow tr:eq(5) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("4")){%>
-          	$("#projectNow tr:eq(5) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("4")){%>
-          	$("#projectNow tr:eq(5) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("4")){%>
-          	$("#projectNow tr:eq(5) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("4")){%>
-          	$("#projectNow tr:eq(5) td:eq(8)").html('<%=ST.getCnt()%>');
-          	
-          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("5")){%>
-          	$("#projectNow tr:eq(6) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("5")){%>
-          	$("#projectNow tr:eq(6) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("5")){%>
-          	$("#projectNow tr:eq(6) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("5")){%>
-          	$("#projectNow tr:eq(6) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("5")){%>
-          	$("#projectNow tr:eq(6) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("5")){%>
-          	$("#projectNow tr:eq(6) td:eq(8)").html('<%=ST.getCnt()%>');
-          	
-          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("6")){%>
-          	$("#projectNow tr:eq(7) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("6")){%>
-          	$("#projectNow tr:eq(7) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("6")){%>
-          	$("#projectNow tr:eq(7) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("6")){%>
-          	$("#projectNow tr:eq(7) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("6")){%>
-          	$("#projectNow tr:eq(7) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("6")){%>
-          	$("#projectNow tr:eq(7) td:eq(8)").html('<%=ST.getCnt()%>');
-          	
-          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("7")){%>
-          	$("#projectNow tr:eq(8) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("7")){%>
-          	$("#projectNow tr:eq(8) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("7")){%>
-          	$("#projectNow tr:eq(8) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("7")){%>
-          	$("#projectNow tr:eq(8) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("7")){%>
-          	$("#projectNow tr:eq(8) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("7")){%>
-          	$("#projectNow tr:eq(8) td:eq(8)").html('<%=ST.getCnt()%>');
-          	
-          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("8")){%>
-          	$("#projectNow tr:eq(9) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("8")){%>
-          	$("#projectNow tr:eq(9) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("8")){%>
-          	$("#projectNow tr:eq(9) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("8")){%>
-          	$("#projectNow tr:eq(9) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("8")){%>
-          	$("#projectNow tr:eq(9) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("8")){%>
-          	$("#projectNow tr:eq(9) td:eq(8)").html('<%=ST.getCnt()%>');
-         <%}}%>
-        
+          	ST2 = orderTeamList.get(i);%>          	
+	        <%if(ST2.getState().contains("4")){
+	          	if(ST2.getTeam().contains("샤시힐스")){%>
+	          	$("#projectNow tr:eq(5) td:eq(3)").html('<%=ST2.getCnt()%>');
+	          	<%}else if(ST2.getTeam().contains("바디힐스")){%>
+	          	$("#projectNow tr:eq(5) td:eq(4)").html('<%=ST2.getCnt()%>');
+	          	<%}else if(ST2.getTeam().contains("제어로직")){%>
+	          	$("#projectNow tr:eq(5) td:eq(5)").html('<%=ST2.getCnt()%>');
+	          	<%}else if(ST2.getTeam().contains("기능안전")){%>
+	          	$("#projectNow tr:eq(5) td:eq(6)").html('<%=ST2.getCnt()%>');
+	          	<%}else if(ST2.getTeam().contains("자율주행")){%>
+	          	$("#projectNow tr:eq(5) td:eq(7)").html('<%=ST2.getCnt()%>');
+	          	<%}else if(ST2.getTeam().contains("미래차검증")){%>
+	          	$("#projectNow tr:eq(5) td:eq(8)").html('<%=ST2.getCnt()%>');
+          	<%}}%>
+		}
 	}
 	
-	$(document).ready(function(){
-		tableInsert();
-	});
 	
-	<!-- 로딩화면 -->
-	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-	$(window).load(function
-() {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-	    $('.loading').hide();
+	$(document).ready(function(){
+		$('.loading').hide();
+		tableInsert();
+		tableInsert2();
 	});
+	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
+	
 </script>
 <body id="page-top">
 	<!--  로딩화면  시작  -->

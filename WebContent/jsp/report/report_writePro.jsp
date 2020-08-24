@@ -40,10 +40,16 @@
 		String name = member.getNAME(); 
 		String user_id = member.getID();
 		
-		if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo) == 1){
-			script.print("<script> alert('보고서 작성이 완료되었습니다.'); location.href = 'report.jsp'</script>");
-			
-		} else script.print("<script> alert('제목 혹은 작성일이 입력되지 않았습니다.'); history.back(); </script>");
+		if(title == null || title == ""){
+			script.print("<script> alert('제목 혹은 작성일이 입력되지 않았습니다.'); history.back(); </script>");
+		}	else {
+				if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo) == 1){
+					script.print("<script> alert('보고서 작성이 완료되었습니다.'); location.href = 'report.jsp'</script>");
+					
+				} else script.print("<script> alert('보고서작성 실패!!'); history.back(); </script>");
+		}
+		
+		 
 %>
 </body>
 </html>

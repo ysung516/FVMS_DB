@@ -14,9 +14,12 @@
 
 	<%
 		request.setCharacterEncoding("UTF-8");
+		PrintWriter script =  response.getWriter();
+		if (session.getAttribute("sessionID") == null){
+			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		}
 		MSC_DAO mscDao = new MSC_DAO();
 		MSC_Bean mb = new MSC_Bean();
-		PrintWriter script =  response.getWriter();
 		String sessionID = session.getAttribute("sessionID").toString();
 		String date = request.getParameter("date");
 		int num = mscDao.returnNo(sessionID, date);

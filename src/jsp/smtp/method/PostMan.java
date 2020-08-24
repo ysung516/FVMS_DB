@@ -11,8 +11,8 @@ public class PostMan {
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String backupDate = sf.format(date);
 	final String from = "fvms@dsc05157.cafe24.com"; // 메일 보내는 사람
-	//final String to = "ymyou@suresofttech.com";
-	final String to = "ysung516@gmail.com"; // 메일 보낼사람
+	final String to = "ymyou@suresofttech.com";
+	//final String to = "ysung516@gmail.com"; // 메일 보낼사람
 	//String to = "shinhaelim@gmail.com"; // 메일 보낼사람
 	
 	public void post() {
