@@ -24,7 +24,7 @@
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(15*60);
+	session.setMaxInactiveInterval(30*60);
 	
 	SummaryDAO summaryDao = new SummaryDAO();
 	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
@@ -33,7 +33,14 @@
 	StateOfProBean ST = new StateOfProBean();
 	StateOfProBean ST2 = new StateOfProBean();
 	
-	//ArrayList<int[]> cntState = summaryDao.stateNum();
+	int totalY2=0;
+	int totalY3=0;
+	int totalY4=0;
+	int totalY5=0;
+	int totalY6=0;
+	int totalY7=0;
+	int totalY8=0;
+
 %>
 
 <meta charset="utf-8">
@@ -89,78 +96,297 @@
 	.sale{
 		width : 50px;
 	}
+	ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	}
+	
+	ul.tabs li{
+	  display: inline-block;
+		background: #898989;
+		color: white;
+		padding: 10px 15px;
+		cursor: pointer;
+	}
+	
+	ul.tabs li.current{
+		background: #e0e0e0;
+		color: #222;
+	}
+	
+	.tab-content{
+	  	display: none;
+	}
+	
+	.tab-content.current{
+		display: inherit;
+	}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-	function tableInsert(){
+	function ProjectTable(){
 		<%for(int i=0; i<saleTeamList.size(); i++) {
           	ST = saleTeamList.get(i);%>
-          	<%if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("1")){%>
-          	$("#projectNow tr:eq(2) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("1")){%>
-          	$("#projectNow tr:eq(2) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("1")){%>
-          	$("#projectNow tr:eq(2) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("1")){%>
-          	$("#projectNow tr:eq(2) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("1")){%>
-          	$("#projectNow tr:eq(2) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("1")){%>
-          	$("#projectNow tr:eq(2) td:eq(8)").html('<%=ST.getCnt()%>');
           	
-          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("2")){%>
-          	$("#projectNow tr:eq(3) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("2")){%>
-          	$("#projectNow tr:eq(3) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("2")){%>
-          	$("#projectNow tr:eq(3) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("2")){%>
-          	$("#projectNow tr:eq(3) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("2")){%>
-          	$("#projectNow tr:eq(3) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("2")){%>
-          	$("#projectNow tr:eq(3) td:eq(8)").html('<%=ST.getCnt()%>');
-          	
-          	<%}else if(ST.getTeam().contains("샤시힐스") && ST.getState().contains("3")){%>
-          	$("#projectNow tr:eq(4) td:eq(3)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("바디힐스") && ST.getState().contains("3")){%>
-          	$("#projectNow tr:eq(4) td:eq(4)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("제어로직") && ST.getState().contains("3")){%>
-          	$("#projectNow tr:eq(4) td:eq(5)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("기능안전") && ST.getState().contains("3")){%>
-          	$("#projectNow tr:eq(4) td:eq(6)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("자율주행") && ST.getState().contains("3")){%>
-          	$("#projectNow tr:eq(4) td:eq(7)").html('<%=ST.getCnt()%>');
-          	<%}else if(ST.getTeam().contains("미래차검증") && ST.getState().contains("3")){%>
-          	$("#projectNow tr:eq(4) td:eq(8)").html('<%=ST.getCnt()%>');
-        <%}}%>
-        
+          	 <%if(ST.getState().contains("1")){
+ 	          	if(ST.getTeam().contains("샤시힐스")){%>
+ 	          	$("#projectNow tr:eq(2) td:eq(3)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY2 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("바디힐스")){%>
+ 	          	$("#projectNow tr:eq(2) td:eq(4)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY3 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("제어로직")){%>
+ 	          	$("#projectNow tr:eq(2) td:eq(5)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY4 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("기능안전")){%>
+ 	          	$("#projectNow tr:eq(2) td:eq(6)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY5 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("자율주행")){%>
+ 	          	$("#projectNow tr:eq(2) td:eq(7)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY6 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("미래차검증")){%>
+ 	          	$("#projectNow tr:eq(2) td:eq(8)").html('<%=ST.getCnt()%>');
+           		<%	totalY7 += ST.getCnt();}
+ 	          	}%>
+ 	          	
+          	<%if(ST.getState().contains("2")){
+ 	          	if(ST.getTeam().contains("샤시힐스")){%>
+ 	          	$("#projectNow tr:eq(3) td:eq(2)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY2 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("바디힐스")){%>
+ 	          	$("#projectNow tr:eq(3) td:eq(3)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY3 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("제어로직")){%>
+ 	          	$("#projectNow tr:eq(3) td:eq(4)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY4 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("기능안전")){%>
+ 	          	$("#projectNow tr:eq(3) td:eq(5)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY5 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("자율주행")){%>
+ 	          	$("#projectNow tr:eq(3) td:eq(6)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY6 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("미래차검증")){%>
+ 	          	$("#projectNow tr:eq(3) td:eq(7)").html('<%=ST.getCnt()%>');
+           		<%totalY7 += ST.getCnt();}
+ 	          	}%>
+           	
+          	<%if(ST.getState().contains("3")){
+ 	          	if(ST.getTeam().contains("샤시힐스")){%>
+ 	          	$("#projectNow tr:eq(4) td:eq(2)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY2 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("바디힐스")){%>
+ 	          	$("#projectNow tr:eq(4) td:eq(3)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY3 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("제어로직")){%>
+ 	          	$("#projectNow tr:eq(4) td:eq(4)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY4 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("기능안전")){%>
+ 	          	$("#projectNow tr:eq(4) td:eq(5)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY5 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("자율주행")){%>
+ 	          	$("#projectNow tr:eq(4) td:eq(6)").html('<%=ST.getCnt()%>');
+ 	          	<%	totalY6 += ST.getCnt();}
+ 	          	
+ 	          	else if(ST.getTeam().contains("미래차검증")){%>
+ 	          	$("#projectNow tr:eq(4) td:eq(7)").html('<%=ST.getCnt()%>');
+           		<%	totalY7 += ST.getCnt();}}}%>
 	}
-	function tableInsert2(){
+	
+	function ProjectTable2(){
         <%for(int i=0; i<orderTeamList.size(); i++) {
           	ST2 = orderTeamList.get(i);%>          	
 	        <%if(ST2.getState().contains("4")){
 	          	if(ST2.getTeam().contains("샤시힐스")){%>
 	          	$("#projectNow tr:eq(5) td:eq(3)").html('<%=ST2.getCnt()%>');
-	          	<%}else if(ST2.getTeam().contains("바디힐스")){%>
+	          	<%	totalY2 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("바디힐스")){%>
 	          	$("#projectNow tr:eq(5) td:eq(4)").html('<%=ST2.getCnt()%>');
-	          	<%}else if(ST2.getTeam().contains("제어로직")){%>
+	          	<%	totalY3 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("제어로직")){%>
 	          	$("#projectNow tr:eq(5) td:eq(5)").html('<%=ST2.getCnt()%>');
-	          	<%}else if(ST2.getTeam().contains("기능안전")){%>
+	          	<%	totalY4 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("기능안전")){%>
 	          	$("#projectNow tr:eq(5) td:eq(6)").html('<%=ST2.getCnt()%>');
-	          	<%}else if(ST2.getTeam().contains("자율주행")){%>
+	          	<%	totalY5 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("자율주행")){%>
 	          	$("#projectNow tr:eq(5) td:eq(7)").html('<%=ST2.getCnt()%>');
-	          	<%}else if(ST2.getTeam().contains("미래차검증")){%>
+	          	<%	totalY6 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("미래차검증")){%>
 	          	$("#projectNow tr:eq(5) td:eq(8)").html('<%=ST2.getCnt()%>');
-          	<%}}%>
-		}
+	          	<%	totalY7 += ST2.getCnt();}}%>
+	          	
+         	<%if(ST2.getState().contains("5")){
+	          	if(ST2.getTeam().contains("샤시힐스")){%>
+	          	$("#projectNow tr:eq(6) td:eq(2)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY2 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("바디힐스")){%>
+	          	$("#projectNow tr:eq(6) td:eq(3)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY3 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("제어로직")){%>
+	          	$("#projectNow tr:eq(6) td:eq(4)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY4 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("기능안전")){%>
+	          	$("#projectNow tr:eq(6) td:eq(5)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY5 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("자율주행")){%>
+	          	$("#projectNow tr:eq(6) td:eq(6)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY6 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("미래차검증")){%>
+	          	$("#projectNow tr:eq(6) td:eq(7)").html('<%=ST2.getCnt()%>');
+          		<%totalY7 += ST2.getCnt();}}%>
+          	
+         	<%if(ST2.getState().contains("6")){
+	          	if(ST2.getTeam().contains("샤시힐스")){%>
+	          	$("#projectNow tr:eq(7) td:eq(3)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY2 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("바디힐스")){%>
+	          	$("#projectNow tr:eq(7) td:eq(4)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY3 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("제어로직")){%>
+	          	$("#projectNow tr:eq(7) td:eq(5)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY4 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("기능안전")){%>
+	          	$("#projectNow tr:eq(7) td:eq(6)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY5 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("자율주행")){%>
+	          	$("#projectNow tr:eq(7) td:eq(7)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY6 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("미래차검증")){%>
+	          	$("#projectNow tr:eq(7) td:eq(8)").html('<%=ST2.getCnt()%>');
+          		<%	totalY7 += ST2.getCnt();}}%>
+          	
+         	<%if(ST2.getState().contains("7")){
+	          	if(ST2.getTeam().contains("샤시힐스")){%>
+	          	$("#projectNow tr:eq(8) td:eq(3)").html('<%=ST2.getCnt()%>');
+	          	<% totalY2 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("바디힐스")){%>
+	          	$("#projectNow tr:eq(8) td:eq(4)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY3 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("제어로직")){%>
+	          	$("#projectNow tr:eq(8) td:eq(5)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY4 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("기능안전")){%>
+	          	$("#projectNow tr:eq(8) td:eq(6)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY5 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("자율주행")){%>
+	          	$("#projectNow tr:eq(8) td:eq(7)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY6 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("미래차검증")){%>
+	          	$("#projectNow tr:eq(8) td:eq(8)").html('<%=ST2.getCnt()%>');
+          		<%	totalY7 += ST2.getCnt();}}%>
+          	
+         	<%if(ST2.getState().contains("8")){
+	          	if(ST2.getTeam().contains("샤시힐스")){%>
+	          	$("#projectNow tr:eq(9) td:eq(2)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY2 += ST2.getCnt();} 
+	          	
+	          	else if(ST2.getTeam().contains("바디힐스")){%>
+	          	$("#projectNow tr:eq(9) td:eq(3)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY3 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("제어로직")){%>
+	          	$("#projectNow tr:eq(9) td:eq(4)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY4 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("기능안전")){%>
+	          	$("#projectNow tr:eq(9) td:eq(5)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY5 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("자율주행")){%>
+	          	$("#projectNow tr:eq(9) td:eq(6)").html('<%=ST2.getCnt()%>');
+	          	<%	totalY6 += ST2.getCnt();}
+	          	
+	          	else if(ST2.getTeam().contains("미래차검증")){%>
+	          	$("#projectNow tr:eq(9) td:eq(7)").html('<%=ST2.getCnt()%>');
+          		<%	totalY7 += ST2.getCnt();}}}%>
 	}
+	
+	function stateTotal(){
+		<%
+			int total1 = summaryDao.State_ProjectCount("1.예산확보");
+			int total2 = summaryDao.State_ProjectCount("2.고객의사");
+			int total3 = summaryDao.State_ProjectCount("3.제안단계");
+			int total4 = summaryDao.State_ProjectCount("4.업체선정");
+			int total5 = summaryDao.State_ProjectCount("5.진행예정");
+			int total6 = summaryDao.State_ProjectCount("6.진행중");
+			int total7 = summaryDao.State_ProjectCount("7.종료");
+			int total8 = summaryDao.State_ProjectCount("8.Dropped");
+			
+			int totalY1 = total1 + total2 + total3 + total4 + total5 + total6 + total7 + total8;
+
+		%>
+		$("#projectNow tr:eq(2) td:eq(2)").html('<%=total1%>');
+		$("#projectNow tr:eq(3) td:eq(1)").html('<%=total2%>');
+		$("#projectNow tr:eq(4) td:eq(1)").html('<%=total3%>');
+		$("#projectNow tr:eq(5) td:eq(2)").html('<%=total4%>');
+		$("#projectNow tr:eq(6) td:eq(1)").html('<%=total5%>');
+		$("#projectNow tr:eq(7) td:eq(2)").html('<%=total6%>');
+		$("#projectNow tr:eq(8) td:eq(2)").html('<%=total7%>');
+		$("#projectNow tr:eq(9) td:eq(1)").html('<%=total8%>');
+		
+		$("#projectNow tr:eq(10) td:eq(2)").html('<%=totalY1%>');
+		$("#projectNow tr:eq(10) td:eq(3)").html('<%=totalY2%>');
+		$("#projectNow tr:eq(10) td:eq(4)").html('<%=totalY3%>');
+		$("#projectNow tr:eq(10) td:eq(5)").html('<%=totalY4%>');
+		$("#projectNow tr:eq(10) td:eq(6)").html('<%=totalY5%>');
+		$("#projectNow tr:eq(10) td:eq(7)").html('<%=totalY6%>');
+		$("#projectNow tr:eq(10) td:eq(8)").html('<%=totalY7%>');
+	}
+
+	function tabMenu(){
+		$('ul.tabs li').click(function(){							
+			var tab_id = $(this).attr('data-tab');
+			$('ul.tabs li').removeClass('current');			 
+			$('.tab-content').removeClass('current');		
+			$(this).addClass('current');								
+			$("#" + tab_id).addClass('current');
+		})
+	}
+	
+	
 	
 	
 	$(document).ready(function(){
 		$('.loading').hide();
-		tableInsert();
-		tableInsert2();
+		ProjectTable();
+		ProjectTable2();
+		stateTotal();
+		tabMenu();
 	});
 	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	
@@ -414,33 +640,41 @@
                     	<td></td>
                     </tr>
                     <tr>
-                    	<td colspan="2" style="border:0px; bgcolor:#fff;"></td>
-                    	<td bgcolor="yellow"></td>
-                    	<td bgcolor="yellow"></td>
-                    	<td bgcolor="yellow"></td>
-                    	<td bgcolor="yellow"></td>
-                    	<td bgcolor="yellow"></td>
-                    	<td bgcolor="yellow"></td>
-                    	<td bgcolor="yellow"></td>
+                    	
+                    	<td style="border:0px; bgcolor:#fff;"></td>
+                    	<td bgcolor="yellow">Total</td>
+                    	<td></td>
+                    	<td></td>
+                    	<td></td>
+                    	<td></td>
+                    	<td></td>
+                    	<td></td>
+                    	<td></td>
                     </tr>  
                     </tbody>                           
                 </table>
-              </div>   
-              </div>     
-         </div>
-     
+                </div>          	    
+             </div>     
+        </div>
+    
       <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
          <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출</h6>
         </div>
-            <div class="card-body"> 
-              <div class="table-responsive">
+            <div class="card-body">
+             <ul class="tabs">
+             	<li class="tab-link current" data-tab="tab-1">메뉴_하나</li>
+				<li class="tab-link" data-tab="tab-2">메뉴_둘</li>
+				<li class="tab-link" data-tab="tab-3">메뉴_셋</li>
+             </ul>
+              <div id="tab-1" class="table-responsive tab-content current">
                 <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="6" bgcolor="skyblue" style="text-align:center;">상세내역(단위: 백만)</td>
+                    	<td colspan="5" bgcolor="skyblue" style="text-align:center;">상세내역(단위: 백만)</td>
+                    	<td><input type="button" value="저장"></td>
                     </tr>  
                     <tr bgcolor="skyblue" style="text-align:center;">
 	                    <th>구분</th>
@@ -465,8 +699,7 @@
                     	<td><input class="sale" name="control"></td>
                     	<td><input class="sale" name="safe"></td>
                     	<td><input class="sale" name="auto"></td>
-                    	<td><input class="sale" name="VT"></td>
-                    	
+                    	<td><input class="sale" name="vt"></td>
                     </tr>
                     <tr style="text-align:center;">
                     	<td>예상 수주</td>
@@ -479,7 +712,7 @@
                     	<td></td>
                     </tr>
                      <tr style="text-align:center;">
-                    	<td>예상 수주%</td>
+                    	<td>예상 수주(%)</td>
                     	<td></td>
                     	<td></td>
                     	<td></td>
@@ -510,13 +743,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>목표 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
+                        <td></td>
+                    	<td><input class="sale" name="chassis"></td>
+                    	<td><input class="sale" name="body"></td>
+                    	<td><input class="sale" name="control"></td>
+                    	<td><input class="sale" name="safe"></td>
+                    	<td><input class="sale" name="auto"></td>
+                    	<td><input class="sale" name="vt"></td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>예상 매츨</td>
@@ -691,7 +924,11 @@
                     </tr>
                   	  </tbody>                           
                		 </table>
-             	 </div>  
+             	 </div>
+             	 
+             	 <div id="tab-2" class="tab-content">
+             	 <p>123</p>
+             	 </div>
               </div>
               </div>
               

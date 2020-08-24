@@ -76,6 +76,34 @@ public class SummaryDAO {
 	    return list;
 	}
 	
+	// 상태별 total
+	public int State_ProjectCount(String state) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int cnt = 0;
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	conn = DBconnection.getConnection();
+	    	query.append("SELECT count(*) from project where 상태 = ?;");
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, state);
+	    	
+	    	rs = pstmt.executeQuery();
+	    	if(rs.next()) {
+	    		cnt = rs.getInt(1);
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    return cnt;
+	}
+	
 	//프로젝트 단계별 합
 	public ArrayList<int[]> stateNum() {
 		ArrayList<int[]> list = new ArrayList<int[]>();

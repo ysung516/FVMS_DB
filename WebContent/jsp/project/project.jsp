@@ -47,8 +47,6 @@
 						workerIdArray[a] = memberList.get(b).getNAME();
 					}
 				}
-
-				//workerIdArray[a] = memberDao.returnMember(workerIdArray[a]).getNAME();
 			}
 			workerIdList.add(workerIdArray);
 		}
@@ -148,29 +146,135 @@
  
     <script>
     function cbLoad(){
-    	for(var a=5;a<29;a++){
-	    	if($("input:checkbox[id='cb"+a+"']").is(":checked") == true){
-	    		$('td:nth-child('+a+')').show();
-    			$('th:nth-child('+a+')').show();
-	    	}else{
-				$('td:nth-child('+a+')').hide();
-    			$('th:nth-child('+a+')').hide();
-			}
+    	for(var a=6;a<29;a++){
+    		$('td:nth-child('+a+')').hide();
+			$('th:nth-child('+a+')').hide()
     	}
     }
     
     function cbSlow(){
     	$( '.cb' ).click( function() {
     		var clickId = $(this).attr('id');
-    		num = clickId.split("b");
-    		if($("#cb"+num[1]).prop("checked")){
-    			$('td:nth-child('+num[1]+')').show();
-    			$('th:nth-child('+num[1]+')').show();
-    		}else{
-    			$('td:nth-child('+num[1]+')').hide();
-    			$('th:nth-child('+num[1]+')').hide();
-    		}
-            
+    		if(clickId == 'cb1'){
+    			if($("#cb1").prop("checked")){
+    				$('th:nth-child(6)').show();
+    				$('td:nth-child(6)').show();
+    				$('th:nth-child(7)').show();
+    				$('td:nth-child(7)').show();
+    				$('th:nth-child(8)').show();
+    				$('td:nth-child(8)').show();
+    				$('th:nth-child(9)').show();
+    				$('td:nth-child(9)').show();
+    				$('th:nth-child(10)').show();
+    				$('td:nth-child(10)').show();
+    				$('th:nth-child(21)').show();
+    				$('td:nth-child(21)').show();
+    				$('th:nth-child(22)').show();
+    				$('td:nth-child(22)').show();
+    				$('th:nth-child(23)').show();
+    				$('td:nth-child(23)').show();
+    			} else{
+    				$('th:nth-child(6)').hide();
+    				$('td:nth-child(6)').hide();
+    				$('th:nth-child(7)').hide();
+    				$('td:nth-child(7)').hide();
+    				$('th:nth-child(8)').hide();
+    				$('td:nth-child(8)').hide();
+    				$('th:nth-child(9)').hide();
+    				$('td:nth-child(9)').hide();
+    				$('th:nth-child(10)').hide();
+    				$('td:nth-child(10)').hide();
+    				$('th:nth-child(21)').hide();
+    				$('td:nth-child(21)').hide();
+    				$('th:nth-child(22)').hide();
+    				$('td:nth-child(22)').hide();
+    				$('th:nth-child(23)').hide();
+    				$('td:nth-child(23)').hide();
+    			}
+    		} else if(clickId == 'cb2'){
+    			if($("#cb2").prop("checked")){
+    				$('th:nth-child(11)').show();
+    				$('td:nth-child(11)').show();
+    				$('th:nth-child(12)').show();
+    				$('td:nth-child(12)').show();
+    				$('th:nth-child(13)').show();
+    				$('td:nth-child(13)').show();
+    				$('th:nth-child(14)').show();
+    				$('td:nth-child(14)').show();
+    			} else{
+    				$('th:nth-child(11)').hide();
+    				$('td:nth-child(11)').hide();
+    				$('th:nth-child(12)').hide();
+    				$('td:nth-child(12)').hide();
+    				$('th:nth-child(13)').hide();
+    				$('td:nth-child(13)').hide();
+    				$('th:nth-child(14)').hide();
+    				$('td:nth-child(14)').hide();
+    			}
+    		} else if(clickId == 'cb3'){
+    			if($("#cb3").prop("checked")){
+        			$('th:nth-child(15)').show();
+    				$('td:nth-child(15)').show();
+    				$('th:nth-child(16)').show();
+    				$('td:nth-child(16)').show();
+    				$('th:nth-child(17)').show();
+    				$('td:nth-child(17)').show();
+    				$('th:nth-child(18)').show();
+    				$('td:nth-child(18)').show();	
+    			} else{
+        			$('th:nth-child(15)').hide();
+    				$('td:nth-child(15)').hide();
+    				$('th:nth-child(16)').hide();
+    				$('td:nth-child(16)').hide();
+    				$('th:nth-child(17)').hide();
+    				$('td:nth-child(17)').hide();
+    				$('th:nth-child(18)').hide();
+    				$('td:nth-child(18)').hide();
+        		}
+    		} else if(clickId == 'cb4'){
+    			if($("#cb4").prop("checked")){
+        			$('th:nth-child(19)').show();
+    				$('td:nth-child(19)').show();
+    				$('th:nth-child(20)').show();
+    				$('td:nth-child(20)').show();
+    			} else{
+    				$('th:nth-child(19)').hide();
+    				$('td:nth-child(19)').hide();
+    				$('th:nth-child(20)').hide();
+    				$('td:nth-child(20)').hide();
+        		}
+    		} else if(clickId == 'cb5'){
+    			if($("#cb5").prop("checked")){
+        			$('th:nth-child(24)').show();
+    				$('td:nth-child(24)').show();
+    				$('th:nth-child(25)').show();
+    				$('td:nth-child(25)').show();
+    				$('th:nth-child(27)').show();
+    				$('td:nth-child(27)').show();
+    				$('th:nth-child(28)').show();
+    				$('td:nth-child(28)').show();
+    			} else{
+    				$('th:nth-child(24)').hide();
+    				$('td:nth-child(24)').hide();
+    				$('th:nth-child(25)').hide();
+    				$('td:nth-child(25)').hide();
+    				$('th:nth-child(27)').hide();
+    				$('td:nth-child(27)').hide();
+    				$('th:nth-child(28)').hide();
+    				$('td:nth-child(28)').hide();
+        		}
+    		} else if(clickId == 'cb6'){
+    			if($("#cb6").prop("checked")){
+        			$('th:nth-child(26)').show();
+    				$('td:nth-child(26)').show();
+    			} else{
+    				$('th:nth-child(26)').hide();
+    				$('td:nth-child(26)').hide();
+        		}
+    		} 
+    		
+    		
+
         });
     }
     
@@ -207,7 +311,6 @@
     		//var tr = $('#dataTable tr:eq('+i+')');
     		//var td = tr.children();
     		str = $('#dataTable tr:eq('+i+') td:eq(4)').text();
-    		console.log(str)
     		if(str.indexOf('1')!=-1){
     			$('#dataTable tr:eq('+i+')').css("background-color", "#A9E2F3");
     		}else if(str.indexOf('2')!=-1){
@@ -529,55 +632,41 @@
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
       			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
       			 <table>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="checkall">모두보기</label>
-      			 <label><input type="checkbox" id="cb5" name="cb" class="cb"> 상태</label>
-      			  </td></tr>
-      			  <tr><td>
-      			 <label><input type="checkbox" id="cb6" name="cb" class="cb"> 실</label>
-      			 <label><input type="checkbox" id="cb7" name="cb" class="cb"> 고객사</label>
-      			 </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb8" name="cb" class="cb"> 고객부서</label>
-      			 <label><input type="checkbox" id="cb9" name="cb" class="cb"> M/M</label>
-      			 </td></tr>
-      			 <tr><td>
-      			<label><input type="checkbox" id="cb10" name="cb" class="cb"> 프로젝트계약금액</label>
-      			 <label><input type="checkbox" id="cb11" name="cb" class="cb"> 상반기예상수주</label>
-      			 <label><input type="checkbox" id="cb12" name="cb" class="cb"> 상반기수주</label>
-      			 </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb13" name="cb" class="cb"> 상반기예상매출</label>
-      			 <label><input type="checkbox" id="cb14" name="cb" class="cb"> 상반기매출</label>
-      			  </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb15" name="cb" class="cb"> 하반기예상수주</label>
-      			 <label><input type="checkbox" id="cb16" name="cb" class="cb"> 하반기수주</label>
-      			 <label><input type="checkbox" id="cb17" name="cb" class="cb"> 하반기예상매출</label>
-      			 </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb18" name="cb" class="cb"> 하반기매출</label>
-      			 <label><input type="checkbox" id="cb19" name="cb" class="cb"> 착수</label>
-      			  </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb20" name="cb" class="cb"> 종료</label>
-      			 <label><input type="checkbox" id="cb21" name="cb" class="cb"> 고객담당자</label>
-      			 </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb22" name="cb" class="cb"> 근무지</label>
-      			 <label><input type="checkbox" id="cb23" name="cb" class="cb"> 업무</label>
-      			  </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb24" name="cb" class="cb"> PM</label>
-      			 <label><input type="checkbox" id="cb25" name="cb" class="cb"> 투입명단</label>
-      			 </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb26" name="cb" class="cb"> 2020(상)평가유형</label>
-      			 <label><input type="checkbox" id="cb27" name="cb" class="cb"> 채용수요</label>
-      			  </td></tr>
-      			 <tr><td>
-      			 <label><input type="checkbox" id="cb28" name="cb" class="cb"> 외주수요</label>
-      			 </td></tr>
+      			 	 <tr>
+		      			 <td>
+		      			 	<label><input type="checkbox" id="checkall"> 모두보기</label>
+		      			  </td>
+	      			  </tr>
+	      			 <tr>
+		      			 <td>
+		      			 	<label><input type="checkbox" id="cb1" name="cb" class="cb"> 개요(실, 고객사, 고객부서, M/M, 프로젝트 계약 금액, 고객담당자, 근무지, 업무)</label>
+		      			  </td>
+	      			  </tr>
+	      			 <tr>
+		      			 <td>
+		      			 	<label><input type="checkbox" id="cb2" name="cb" class="cb"> 상반기 실적(상반기 예상수주, 상반기 수주, 상반기 예상매출, 하반기 매출)</label>
+		      			 </td>
+	      			 </tr>
+	      			 <tr>
+		      			 <td>
+		      			 	<label><input type="checkbox" id="cb3" name="cb" class="cb"> 하반기 실적(하반기 예상수주, 하반기 수주, 하반기 예상매출, 하반기 매출)</label>
+		      			 </td>
+	      			 </tr>
+	      			 <tr>
+		      			 <td>
+		      			 	<label><input type="checkbox" id="cb4" name="cb" class="cb"> 일정(착수, 종료)</label>
+		      			 </td>
+	      			 </tr>
+	      			 <tr>
+		      			 <td>
+		      				<label><input type="checkbox" id="cb5" name="cb" class="cb"> 인원	(PM, 투입명단, 채용수요, 외주수요)</label>
+		      			 </td>
+	      			 </tr>
+	      			 <tr>
+		      			 <td>
+		      			 	<label><input type="checkbox" id="cb6" name="cb" class="cb"> 평가	(상반기 평가유형, 하반기 평가유형)</label>
+		      			 </td>
+	      			  </tr>
       			 </table>
       			 </details>
              
@@ -589,9 +678,9 @@
 	                    <th>팀(매출)</th>
 	                    <th>프로젝트 코드</th>
 	                    <th>프로젝트 명</th>
-	                    <th class="th">상태
-					 	<button class="sortBTN" onclick="sortTD (4)">▲</button>
-					 	<button class="sortBTN" onclick="reverseTD (4)">▼</button>
+	                    <th>상태
+						 	<button class="sortBTN" onclick="sortTD (4)">▲</button>
+						 	<button class="sortBTN" onclick="reverseTD (4)">▼</button>
 	                    </th>
 	                    <th class="th">실</th>
 	                    <th class="th">고객사</th>
@@ -629,12 +718,13 @@
 	                      <td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>
 	                      <td><div><%=projectList.get(i).getTEAM_ORDER()%></div></td>
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
+	                      
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
 	                      <%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
 	                      		<td><a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
 	                      <%}else{%>
-	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%} %>
-	                      <td class="td" id="state<%=projectList.get(i).getNO()%>"><%=projectList.get(i).getSTATE()%></td>
+	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%}%>
+	                      <td id="state<%=projectList.get(i).getNO()%>"><div><%=projectList.get(i).getSTATE()%></div></td>
 	                      <td class="td"><%=projectList.get(i).getPART()%></td>
 	                      <td class="td"><%=projectList.get(i).getCLIENT()%></td>
 	                      <td class="td"><%=projectList.get(i).getClIENT_PART()%></td>

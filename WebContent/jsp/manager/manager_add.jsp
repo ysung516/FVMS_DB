@@ -48,11 +48,6 @@
 				count = -1;
 				break;
 			}
-
-			if($('#id').val().length <= 2){
-				count = -1;
-				break;
-			}
 			if($('#id').val() == idList[a]){
 				count = 0;
 				break;
