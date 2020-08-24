@@ -22,7 +22,7 @@
 			script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 		}
 		
-		session.setMaxInactiveInterval(15*60);
+		session.setMaxInactiveInterval(30*60);
 		
 		int no = Integer.parseInt(request.getParameter("no"));
 		MeetingDAO meetDao = new MeetingDAO();

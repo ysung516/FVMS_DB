@@ -22,7 +22,7 @@
 		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(15*60);
+		session.setMaxInactiveInterval(30*60);
 		String date = request.getParameter("weekDate");
 		
 		// 문자형 date형으로 변환

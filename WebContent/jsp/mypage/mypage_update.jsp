@@ -25,7 +25,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(15*60);
+	session.setMaxInactiveInterval(30*60);
 	String no = request.getParameter("no");
 	
 	// 출력

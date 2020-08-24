@@ -24,7 +24,7 @@
 	}
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(15*60);
+	session.setMaxInactiveInterval(30*60);
 	
 %>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
