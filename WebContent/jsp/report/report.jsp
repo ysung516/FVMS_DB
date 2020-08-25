@@ -189,7 +189,7 @@
 			     $("#summary_p").show();
 			    	}
 			    	else  
-			     $("#summary_p).hide();
+			     $("#summary_p").hide();
 			    });
 		 
 	    $("body").click( function(e){
