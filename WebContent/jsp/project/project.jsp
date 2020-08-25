@@ -85,21 +85,18 @@
 
 </head>
 <style>
-	details summary{
-		font-weight:700;
-		border: 1px solid black;
-		padding: 5px;
-		box-shadow: 0px 2px 1px 0px;
-		border-radius: 6px;
+
+	.check_div{
+    border: 1px solid black;
+    padding: 5px;
+    width: fit-content;
+    margin-bottom: 5px;
+    border-radius: 6px;
+}
+	.check_table{
+		display:none;
 	}
-	details{
-		line-height: 1;margin:5px auto;
-		position:sticky; 
-		white-space:nowrap;
-	}
-	label:nth-child(odd){
-    	width: 56%;
-    	}
+
 
 	#project_btn{
 		position: fixed;
@@ -146,7 +143,9 @@
  
     <script>
     function cbLoad(){
-    	for(var a=6;a<29;a++){
+    	$('td:nth-child(6)').hide();
+		$('th:nth-child(6)').hide();
+    	for(var a=8;a<29;a++){
     		$('td:nth-child('+a+')').hide();
 			$('th:nth-child('+a+')').hide()
     	}
@@ -159,8 +158,6 @@
     			if($("#cb1").prop("checked")){
     				$('th:nth-child(6)').show();
     				$('td:nth-child(6)').show();
-    				$('th:nth-child(7)').show();
-    				$('td:nth-child(7)').show();
     				$('th:nth-child(8)').show();
     				$('td:nth-child(8)').show();
     				$('th:nth-child(9)').show();
@@ -176,8 +173,6 @@
     			} else{
     				$('th:nth-child(6)').hide();
     				$('td:nth-child(6)').hide();
-    				$('th:nth-child(7)').hide();
-    				$('td:nth-child(7)').hide();
     				$('th:nth-child(8)').hide();
     				$('td:nth-child(8)').hide();
     				$('th:nth-child(9)').hide();
@@ -339,13 +334,15 @@
         cbCloseAllClose();
         stateColor();
         
-        $(".check_details").click(function(e){
-        	 $(".check_table").show();
+        $(".check_div").click(function(e){
+         $(".check_table").show();
+         $(".check_div").hide();
         });
+        
         $("body").click( function(e){
-            if(e.target.className !== "check_details"){
-              $(".check_table").hide();
-              $(".check_details").click();
+            if(e.target.className !== "check_table" && e.target.className !== "cb"){
+              $(".check_table").hide();    
+              $(".check_div").show();
             }
           });
     });
@@ -639,20 +636,20 @@
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
             </div>
             <div class="card-body" style="margin-bottom: 40px;">
-            	<details >
-            	<summary class="check_details">체크박스</summary>
+            	
+            	<div class="check_div" >체크박스</div>
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
       			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
       			 <table class="check_table">
       			 	 <tr>
 		      			 <td>
-		      			 	<label><input type="checkbox" id="checkall"> 모두보기</label>
+		      			 	<label><input type="checkbox" id="checkall" class="cb"> 모두보기</label>
 		      			  </td>
 	      			  </tr>
 	      			 <tr>
 		      			 <td>
-		      			 	<label><input type="checkbox" id="cb1" name="cb" class="cb"> 개요(실, 고객사, 고객부서, M/M, 프로젝트 계약 금액, 고객담당자, 근무지, 업무)</label>
+		      			 	<label><input type="checkbox" id="cb1" name="cb" class="cb"> 개요(실, 고객부서, M/M, 프로젝트 계약 금액, 고객담당자, 근무지, 업무)</label>
 		      			  </td>
 	      			  </tr>
 	      			 <tr>
@@ -681,14 +678,21 @@
 		      			 </td>
 	      			  </tr>
       			 </table>
-      			 </details>
+      		
+      			
              
               <div class="table-responsive">
                 <table class="table" id="dataTable" style="white-space: nowrap;font-size:small;width:0%;">
                   <thead>
                     <tr class="m-0 text-primary">
-	                    <th>팀(수주)</th>
-	                    <th>팀(매출)</th>
+	                    <th>팀(수주)
+	                    	<button class="sortBTN" onclick="sortTD (0)">▲</button>
+						 	<button class="sortBTN" onclick="reverseTD (0)">▼</button>
+	                    </th>
+	                    <th>팀(매출)
+	                    	<button class="sortBTN" onclick="sortTD (1)">▲</button>
+						 	<button class="sortBTN" onclick="reverseTD (1)">▼</button>
+	                    </th>
 	                    <th>프로젝트 코드</th>
 	                    <th>프로젝트 명</th>
 	                    <th>상태
@@ -696,7 +700,10 @@
 						 	<button class="sortBTN" onclick="reverseTD (4)">▼</button>
 	                    </th>
 	                    <th class="th">실</th>
-	                    <th class="th">고객사</th>
+	                    <th>고객사
+	                    	<button class="sortBTN" onclick="sortTD (6)">▲</button>
+						 	<button class="sortBTN" onclick="reverseTD (6)">▼</button>
+	                    </th>
 	                    <th class="th">고객부서</th>
 	                    <th class="th">M/M</th>
 						<th class="th">프로젝트계약금액</th> 
@@ -712,7 +719,10 @@
 					 	<button class="sortBTN" onclick="sortTD (18)">▲</button>
 					 	<button class="sortBTN" onclick="reverseTD (18)">▼</button>
 	                    </th>
-						<th class="th">종료</th> 
+						<th class="th">종료
+							<button class="sortBTN" onclick="sortTD (19)">▲</button>
+						 	<button class="sortBTN" onclick="reverseTD (19)">▼</button>
+						</th> 
 						<th class="th">고객담당자</th> 
 						<th class="th">근무지</th> 
 						<th class="th">업무</th> 
@@ -728,8 +738,8 @@
                   	for(int i=0; i<projectList.size(); i++){
                   		%>
                   		 <tr>
-	                      <td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>
 	                      <td><div><%=projectList.get(i).getTEAM_ORDER()%></div></td>
+	                      <td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
 	                      
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->
@@ -739,7 +749,7 @@
 	                      <td><%=projectList.get(i).getPROJECT_NAME()%></td><%}%>
 	                      <td id="state<%=projectList.get(i).getNO()%>"><div><%=projectList.get(i).getSTATE()%></div></td>
 	                      <td class="td"><%=projectList.get(i).getPART()%></td>
-	                      <td class="td"><%=projectList.get(i).getCLIENT()%></td>
+	                      <td><%=projectList.get(i).getCLIENT()%></td>
 	                      <td class="td"><%=projectList.get(i).getClIENT_PART()%></td>
 	                      <td class="td"><%=projectList.get(i).getMAN_MONTH()%></td>
 	                      <td class="td"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
