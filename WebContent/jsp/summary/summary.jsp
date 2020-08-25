@@ -311,6 +311,15 @@
 			SH_vt_RSALES += pjList_sales.get(i).getSH_SALES();
 		}
 	}
+	FH_total_ORDER = FH_chassis_ORDER + FH_body_ORDER + FH_control_ORDER + FH_safe_ORDER + FH_auto_ORDER + FH_vt_ORDER;
+	SH_total_ORDER = SH_chassis_ORDER + SH_body_ORDER + SH_control_ORDER + SH_safe_ORDER + SH_auto_ORDER + SH_vt_ORDER;
+	FH_total_RPJ = FH_total_PJ/FH_total_ORDER;
+	SH_total_RPJ = SH_total_PJ/SH_total_ORDER;
+	FH_total_PJSALES = FH_chassis_PJSALES + FH_body_PJSALES + FH_control_PJSALES + FH_safe_PJSALES + FH_auto_PJSALES + FH_vt_PJSALES;
+	SH_total_PJSALES = SH_chassis_PJSALES + SH_body_PJSALES + SH_control_PJSALES + SH_safe_PJSALES + SH_auto_PJSALES + SH_vt_PJSALES;
+	FH_total_RSALES = FH_chassis_RSALES + FH_body_RSALES + FH_control_RSALES + FH_safe_RSALES + FH_auto_RSALES + FH_vt_RSALES;
+	SH_total_RSALES = SH_chassis_RSALES + SH_body_RSALES + SH_control_RSALES + SH_safe_RSALES + SH_auto_RSALES + SH_vt_RSALES;
+	
 %>
 
 <meta charset="utf-8">
@@ -991,13 +1000,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>예상 수주(%)</td>
-                    	<td><%=FH_total_ORDER/FH_total_PJ *100%></td>
-                    	<td><%=FH_chassis_ORDER/FH_chassis_PJ *100%></td>
-                    	<td><%=FH_body_ORDER/FH_body_PJ *100%></td>
-                    	<td><%=FH_control_ORDER/FH_control_PJ *100%></td>
-                    	<td><%=FH_safe_ORDER/FH_safe_PJ *100%></td>
-                    	<td><%=FH_auto_ORDER/FH_auto_PJ *100%></td>
-                    	<td><%=FH_vt_ORDER/FH_vt_PJ *100%></td>
+                    	<td><%=FH_total_ORDER/FH_total_PJ *100%>(%)</td>
+                    	<td><%=FH_chassis_ORDER/FH_chassis_PJ *100%>(%)</td>
+                    	<td><%=FH_body_ORDER/FH_body_PJ *100%>(%)</td>
+                    	<td><%=FH_control_ORDER/FH_control_PJ *100%>(%)</td>
+                    	<td><%=FH_safe_ORDER/FH_safe_PJ *100%>(%)</td>
+                    	<td><%=FH_auto_ORDER/FH_auto_PJ *100%>(%)</td>
+                    	<td><%=FH_vt_ORDER/FH_vt_PJ *100%>(%)</td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>달성</td>
@@ -1012,13 +1021,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>수주 달성률</td>
-                   		<td><%=FH_total_RPJ/FH_total_PJ *100%></td>
-                    	<td><%=FH_chassis_RPJ/FH_chassis_PJ *100%></td>
-                    	<td><%=FH_body_RPJ/FH_body_PJ*100 %></td>
-                    	<td><%=FH_control_RPJ/FH_control_PJ *100%></td>
-                    	<td><%=FH_safe_RPJ/FH_safe_PJ *100%></td>
-                    	<td><%=FH_auto_RPJ/FH_auto_PJ*100 %></td>
-                    	<td><%=FH_vt_RPJ/FH_vt_PJ*100 %></td>
+                   		<td><%=FH_total_RPJ/FH_total_PJ *100%>(%)</td>
+                    	<td><%=FH_chassis_RPJ/FH_chassis_PJ *100%>(%)</td>
+                    	<td><%=FH_body_RPJ/FH_body_PJ*100 %>(%)</td>
+                    	<td><%=FH_control_RPJ/FH_control_PJ *100%>(%)</td>
+                    	<td><%=FH_safe_RPJ/FH_safe_PJ *100%>(%)</td>
+                    	<td><%=FH_auto_RPJ/FH_auto_PJ*100 %>(%)</td>
+                    	<td><%=FH_vt_RPJ/FH_vt_PJ*100 %>(%)</td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>목표 매출</td>
@@ -1042,13 +1051,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>예상 매출(%)</td>
-                        <td><%=FH_total_PJSALES/FH_total_SALES*100 %></td>
-                    	<td><%=FH_chassis_PJSALES/FH_chassis_SALES *100%></td>
-                    	<td><%=FH_body_PJSALES/FH_body_SALES *100%></td>
-                    	<td><%=FH_control_PJSALES/FH_control_SALES *100%></td>
-                    	<td><%=FH_safe_PJSALES/FH_safe_SALES *100%></td>
-                    	<td><%=FH_auto_PJSALES/FH_auto_SALES *100%></td>
-                    	<td><%=FH_vt_PJSALES/FH_vt_SALES *100%></td>
+                        <td><%=FH_total_PJSALES/FH_total_SALES*100 %>(%)</td>
+                    	<td><%=FH_chassis_PJSALES/FH_chassis_SALES *100%>(%)</td>
+                    	<td><%=FH_body_PJSALES/FH_body_SALES *100%>(%)</td>
+                    	<td><%=FH_control_PJSALES/FH_control_SALES *100%>(%)</td>
+                    	<td><%=FH_safe_PJSALES/FH_safe_SALES *100%>(%)</td>
+                    	<td><%=FH_auto_PJSALES/FH_auto_SALES *100%>(%)</td>
+                    	<td><%=FH_vt_PJSALES/FH_vt_SALES *100%>(%)</td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>달성</td>
@@ -1063,13 +1072,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>매출 달성률</td>
-                   		<td><%=FH_total_RSALES/FH_total_SALES*100 %></td>
-                   		<td><%=FH_chassis_RSALES/FH_chassis_SALES*100 %></td>
-                    	<td><%=FH_body_RSALES/FH_body_SALES*100 %></td>
-                    	<td><%=FH_control_RSALES/FH_control_SALES*100 %></td>
-                    	<td><%=FH_safe_RSALES/FH_safe_SALES*100 %></td>
-                    	<td><%=FH_auto_RSALES/FH_auto_SALES*100 %></td>
-                    	<td><%=FH_vt_RSALES/FH_vt_SALES *100%></td>
+                   		<td><%=FH_total_RSALES/FH_total_SALES*100 %>(%)</td>
+                   		<td><%=FH_chassis_RSALES/FH_chassis_SALES*100 %>(%)</td>
+                    	<td><%=FH_body_RSALES/FH_body_SALES*100 %>(%)</td>
+                    	<td><%=FH_control_RSALES/FH_control_SALES*100 %>(%)</td>
+                    	<td><%=FH_safe_RSALES/FH_safe_SALES*100 %>(%)</td>
+                    	<td><%=FH_auto_RSALES/FH_auto_SALES*100 %>(%)</td>
+                    	<td><%=FH_vt_RSALES/FH_vt_SALES *100%>(%)</td>
                     </tr>
                     
                      <tr style="text-align:center;">
@@ -1095,13 +1104,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>예상 수주(%)</td>
-                    	<td><%=SH_total_ORDER/SH_total_PJ*100 %></td>
-                    	<td><%=SH_chassis_ORDER/SH_chassis_PJ*100 %></td>
-                    	<td><%=SH_body_ORDER/SH_body_PJ*100 %></td>
-                    	<td><%=SH_control_ORDER/SH_control_PJ*100 %></td>
-                    	<td><%=SH_safe_ORDER/SH_safe_PJ*100 %></td>
-                    	<td><%=SH_auto_ORDER/SH_auto_PJ*100 %></td>
-                    	<td><%=SH_vt_ORDER/SH_vt_PJ*100 %></td>
+                    	<td><%=SH_total_ORDER/SH_total_PJ*100 %>(%)</td>
+                    	<td><%=SH_chassis_ORDER/SH_chassis_PJ*100 %>(%)</td>
+                    	<td><%=SH_body_ORDER/SH_body_PJ*100 %>(%)</td>
+                    	<td><%=SH_control_ORDER/SH_control_PJ*100 %>(%)</td>
+                    	<td><%=SH_safe_ORDER/SH_safe_PJ*100 %>(%)</td>
+                    	<td><%=SH_auto_ORDER/SH_auto_PJ*100 %>(%)</td>
+                    	<td><%=SH_vt_ORDER/SH_vt_PJ*100 %>(%)</td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>달성</td>
@@ -1116,13 +1125,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>수주 달성률</td>
-                   		<td><%=SH_total_RPJ/SH_total_PJ*100%></td>
-                    	<td><%=SH_chassis_RPJ/SH_chassis_PJ*100%></td>
-                    	<td><%=SH_body_RPJ/SH_body_PJ*100%></td>
-                    	<td><%=SH_control_RPJ/SH_control_PJ*100%></td>
-                    	<td><%=SH_safe_RPJ/SH_safe_PJ*100%></td>
-                    	<td><%=SH_auto_RPJ/SH_auto_PJ*100%></td>
-                    	<td><%=SH_vt_RPJ/SH_vt_PJ*100%></td>
+                   		<td><%=SH_total_RPJ/SH_total_PJ*100%>(%)</td>
+                    	<td><%=SH_chassis_RPJ/SH_chassis_PJ*100%>(%)</td>
+                    	<td><%=SH_body_RPJ/SH_body_PJ*100%>(%)</td>
+                    	<td><%=SH_control_RPJ/SH_control_PJ*100%>(%)</td>
+                    	<td><%=SH_safe_RPJ/SH_safe_PJ*100%>(%)</td>
+                    	<td><%=SH_auto_RPJ/SH_auto_PJ*100%>(%)</td>
+                    	<td><%=SH_vt_RPJ/SH_vt_PJ*100%>(%)</td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>목표 매출</td>
@@ -1146,13 +1155,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>예상 매출(%)</td>
-                        <td><%=SH_total_PJSALES/SH_total_SALES*100 %></td>
-                    	<td><%=SH_chassis_PJSALES/SH_chassis_SALES*100 %></td>
-                    	<td><%=SH_body_PJSALES/SH_body_SALES*100 %></td>
-                    	<td><%=SH_control_PJSALES/SH_control_SALES*100 %></td>
-                    	<td><%=SH_safe_PJSALES/SH_safe_SALES*100 %></td>
-                    	<td><%=SH_auto_PJSALES/SH_auto_SALES*100 %></td>
-                    	<td><%=SH_vt_PJSALES/SH_vt_SALES*100 %></td>
+                        <td><%=SH_total_PJSALES/SH_total_SALES*100 %>(%)</td>
+                    	<td><%=SH_chassis_PJSALES/SH_chassis_SALES*100 %>(%)</td>
+                    	<td><%=SH_body_PJSALES/SH_body_SALES*100 %>(%)</td>
+                    	<td><%=SH_control_PJSALES/SH_control_SALES*100 %>(%)</td>
+                    	<td><%=SH_safe_PJSALES/SH_safe_SALES*100 %>(%)</td>
+                    	<td><%=SH_auto_PJSALES/SH_auto_SALES*100 %>(%)</td>
+                    	<td><%=SH_vt_PJSALES/SH_vt_SALES*100 %>(%)</td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>달성</td>
@@ -1167,13 +1176,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>매출 달성률</td>
-                   		<td><%=SH_total_RSALES/SH_total_SALES*100 %></td>
-                   		<td><%=SH_chassis_RSALES/SH_chassis_SALES*100 %></td>
-                    	<td><%=SH_body_RSALES/SH_body_SALES*100 %></td>
-                    	<td><%=SH_control_RSALES/SH_control_SALES*100 %></td>
-                    	<td><%=SH_safe_RSALES/SH_safe_SALES*100 %></td>
-                    	<td><%=SH_auto_RSALES/SH_auto_SALES*100 %></td>
-                    	<td><%=SH_vt_RSALES/SH_vt_SALES*100 %></td>
+                   		<td><%=SH_total_RSALES/SH_total_SALES*100 %>(%)</td>
+                   		<td><%=SH_chassis_RSALES/SH_chassis_SALES*100 %>(%)</td>
+                    	<td><%=SH_body_RSALES/SH_body_SALES*100 %>(%)</td>
+                    	<td><%=SH_control_RSALES/SH_control_SALES*100 %>(%)</td>
+                    	<td><%=SH_safe_RSALES/SH_safe_SALES*100 %>(%)</td>
+                    	<td><%=SH_auto_RSALES/SH_auto_SALES*100 %>(%)</td>
+                    	<td><%=SH_vt_RSALES/SH_vt_SALES*100 %>(%)</td>
                     </tr>
                     
                     <tr style="text-align:center;">
