@@ -73,7 +73,7 @@
 		left: 50%;
 		transform:translate(-50%, -50%);
 	}
-	#Delete{
+	.btn_group{
      right: 0;
      margin-right: 24px;
      display: inline-block;
@@ -350,8 +350,10 @@ function btn_copy(){
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 수정</h6>
+	         	<div class="btn_group">
 	         	<a id="Delete" href="project_deletePro.jsp?no=<%=no%>" class="btn btn-secondary btn-icon-split" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
-	         	<input id="copy" type="button" value="복사"  class="btn btn-primary" onclick="btn_copy()" >
+	         	<input id="copy" type="button" value="복사"  class="btn btn-secondary btn-icon-split" onclick="btn_copy()" >
+            </div>
             </div>
             <div class="card-body">
             <div class="table-responsive">

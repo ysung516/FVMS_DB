@@ -85,13 +85,19 @@
 
 </head>
 <style>
-
+	.cb{
+    height: 18px;
+    width: 18px;
+    vertical-align: baseline;
+	}
 	.check_div{
     border: 1px solid black;
     padding: 5px;
     width: fit-content;
     margin-bottom: 5px;
     border-radius: 6px;
+    font-weight:bold;
+    color:black;
 }
 	.check_table{
 		display:none;
@@ -326,6 +332,23 @@
     	}
     }
 
+    function check_box(){
+    	   $(".check_div").click(function(e){
+           	if($(".check_table").css('display')=='none'){
+            $(".check_table").show();
+           	}
+           	else  
+            $(".check_table").hide();
+           });
+           
+           $("body").click( function(e){
+               if(e.target.className !== "check_div" && e.target.className !== "cb"){
+                 $(".check_table").hide();    
+                 $(".check_div").show();
+               }
+             });
+    }
+    
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbLoad();
@@ -333,18 +356,9 @@
         cbSlow();
         cbCloseAllClose();
         stateColor();
+        check_box();
         
-        $(".check_div").click(function(e){
-         $(".check_table").show();
-         $(".check_div").hide();
-        });
-        
-        $("body").click( function(e){
-            if(e.target.className !== "check_table" && e.target.className !== "cb"){
-              $(".check_table").hide();    
-              $(".check_div").show();
-            }
-          });
+     
     });
     
     //table sorting
@@ -678,7 +692,7 @@
 		      			 </td>
 	      			  </tr>
       			 </table>
-      		
+      			
       			
              
               <div class="table-responsive">
@@ -738,8 +752,8 @@
                   	for(int i=0; i<projectList.size(); i++){
                   		%>
                   		 <tr>
-	                      <td><div><%=projectList.get(i).getTEAM_ORDER()%></div></td>
-	                      <td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>
+                  		  <td><div><%=projectList.get(i).getTEAM_ORDER()%></div></td>
+	                      <td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>                     
 	                      <td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
 	                      
 	                      <!-- 권한에 따라 수정페이지 접근 가능 -->

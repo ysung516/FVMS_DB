@@ -62,13 +62,14 @@
 		margin-top:10px;
 		word-break:keep-all;
 	}
-	details p{
+	#summary_p{
 		margin: 0;
 		padding: 5px;
 		border-left: 1px solid black;
 		border-right: 1px solid black;
 		background-color:#fff;
 		font-weight:bold;
+		display:none;
 	}
 	#report_btn{
 		position: fixed;
@@ -84,25 +85,22 @@
 		color:red;
 	}
 	
-	details summary{
+	.summary{
 		font-weight:700;
 	}
-	details{
-		line-height: 2;
-		margin:0 auto;
-	}
+	
 	.details_body{
 		margin-right: 5%;
 		right: 0;
 		position: absolute;
-		top:8px;
+		top:14px;
 		background:#fff;
 	}
 	.m-0.font-weight-bold.text-primary{
 		padding-left:17px;
 		display:inline !important"
 	}                
-	summary:focus { outline:none; }
+	.summary:focus { outline:none; }
 	
 	#reportList{
 		white-space: initial;
@@ -183,26 +181,36 @@
 	}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script>
+
+	function yet_project(){
+		 $(".summary").click(function(e){
+			 if($("#summary_p").css('display')=='none'){
+			     $("#summary_p").show();
+			    	}
+			    	else  
+			     $("#summary_p).hide();
+			    });
+		 
+	    $("body").click( function(e){
+	        if(e.target.className !== "summary"){
+	          $("#summary_p").hide();
+	          $(".summary").show();
+	        }
+	      });  
+	}
+	
+	 $(document).ready(function(){
+		 yet_project();
+	 });
+</script>	 
 <script type="text/javascript">
-
-$(document).ready(function(){
-    $(".summary").click(function(e){
-    	 $(".summary_p").show();
-    });
-    $("body").click( function(e){
-        if(e.target.className !== "summary"){
-          $(".summary_p").hide();
-          $(".summary").click();
-        }
-      });
-});
-
 <!-- 로딩화면 -->
-window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-    console.log(sessionStorage.length);
-});
+	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
+	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
+	    $('.loading').hide();
+	    console.log(sessionStorage.length);
+	});
 </script>
 
 <body id="page-top" style="color:#4c5280 !important">
@@ -354,12 +362,12 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
             
                   </div>
                    <div class="details_body">
-                    <details>
-                  		<summary class="summary">미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></summary>
+                    
+                  		<div class="summary">미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></div>
         			<%for(int i=0; i<unWrite.size(); i++){
         				%><p id="summary_p"><%=unWrite.get(i).getPROJECT_NAME()%></p>
         				<%}%>
-                  </details>
+                  
                   </div>
                 
                 

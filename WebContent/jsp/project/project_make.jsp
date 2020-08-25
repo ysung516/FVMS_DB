@@ -51,6 +51,13 @@
 
 </head>
 <style>
+
+	#insert{
+    float: right;
+    margin-right: 5px;
+    display: inline-block;
+    height: 36px;
+	}
 	.loading{
 		position:fixed;
 		text-align: center;
@@ -448,7 +455,7 @@ function btn_insert(){
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 생성</h6>
+              <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px; display:inline">프로젝트 생성</h6>
               <input id="insert" type="button" value="붙여넣기"  class="btn btn-primary" onclick="btn_insert()" >
             </div>
             <div class="card-body">
