@@ -330,7 +330,7 @@
     		}
     	}
     }
-    
+
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbLoad();
@@ -338,6 +338,16 @@
         cbSlow();
         cbCloseAllClose();
         stateColor();
+        
+        $(".check_details").click(function(e){
+        	 $(".check_table").show();
+        });
+        $("body").click( function(e){
+            if(e.target.className !== "check_details"){
+              $(".check_table").hide();
+              $(".check_details").click();
+            }
+          });
     });
     
     //table sorting
@@ -472,7 +482,8 @@
 	        var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
 	        return textContent; 
 	}
-
+	
+	
    </script>
 <script type="text/javascript">
 	
@@ -481,6 +492,8 @@
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 	}); 
+	
+	
 </script>
 <body id="page-top">
 	 <!--  로딩화면  시작  
@@ -626,12 +639,12 @@
               <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
             </div>
             <div class="card-body" style="margin-bottom: 40px;">
-            	<details>
-            	<summary>체크박스</summary>
+            	<details >
+            	<summary class="check_details">체크박스</summary>
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
       			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
-      			 <table>
+      			 <table class="check_table">
       			 	 <tr>
 		      			 <td>
 		      			 	<label><input type="checkbox" id="checkall"> 모두보기</label>
