@@ -357,8 +357,6 @@
         cbCloseAllClose();
         stateColor();
         check_box();
-        
-     
     });
     
     //table sorting

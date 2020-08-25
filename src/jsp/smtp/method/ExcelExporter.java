@@ -199,7 +199,6 @@ public class ExcelExporter {
 			}
 		}
 		
-		System.out.println(str.toString());
 		int rowCount = 1;
 
 			Row row = sheet.createRow(rowCount++);

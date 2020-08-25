@@ -28,8 +28,8 @@ public class ProjectDAO {
 	    	rs = pstmt.executeQuery();
 	    	
 	    	if(rs.next()) {
-	    		project.setTEAM_SALES(rs.getString(1));
-	    		project.setTEAM_ORDER(rs.getString(2));
+	    		project.setTEAM_ORDER(rs.getString(1));
+	    		project.setTEAM_SALES(rs.getString(2));
 	    		project.setPROJECT_CODE(rs.getString(3));
 	    		project.setPROJECT_NAME(rs.getString(4));
 	    		project.setSTATE(rs.getString(5));
@@ -130,8 +130,8 @@ public class ProjectDAO {
 	
 	// 프로젝트 작성
 	public int setProject(
-		String TEAM_SALES,
 		String TEAM_ORDER,
+		String TEAM_SALES,
 		String RPOJECT_CODE,
 		String PROJECT_NAME,
 		String STATE,
@@ -173,8 +173,8 @@ public class ProjectDAO {
 	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요,주간보고서사용,실적보고) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, TEAM_SALES);
-	    	pstmt.setString(2, TEAM_ORDER);
+	    	pstmt.setString(1, TEAM_ORDER);
+	    	pstmt.setString(2, TEAM_SALES);
 	    	pstmt.setString(3, RPOJECT_CODE);
 	    	pstmt.setString(4, PROJECT_NAME);
 	    	pstmt.setString(5, STATE);
@@ -217,8 +217,8 @@ public class ProjectDAO {
 	
 	// 프로젝트 수정
 	public int updateProject(
-		String TEAM_SALES,
 		String TEAM_ORDER,
+		String TEAM_SALES,
 		String RPOJECT_CODE,
 		String PROJECT_NAME,
 		String STATE,
@@ -261,8 +261,8 @@ public class ProjectDAO {
 	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=?,실적보고=? WHERE no=?;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, TEAM_SALES);
-	    	pstmt.setString(2, TEAM_ORDER);
+	    	pstmt.setString(1, TEAM_ORDER);
+	    	pstmt.setString(2, TEAM_SALES);
 	    	pstmt.setString(3, RPOJECT_CODE);
 	    	pstmt.setString(4, PROJECT_NAME);
 	    	pstmt.setString(5, STATE);
@@ -320,8 +320,8 @@ public class ProjectDAO {
 	    	
 	    	while(rs.next()) {
 	    		ProjectBean project = new ProjectBean();
-	    		project.setTEAM_SALES(rs.getString("팀_수주"));
-	    		project.setTEAM_ORDER(rs.getString("팀_매출"));
+	    		project.setTEAM_ORDER(rs.getString("팀_수주"));
+	    		project.setTEAM_SALES(rs.getString("팀_매출"));
 	    		project.setPROJECT_CODE(rs.getString("프로젝트코드"));
 	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
 	    		project.setSTATE(rs.getString("상태"));

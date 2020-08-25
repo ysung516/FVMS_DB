@@ -1,8 +1,8 @@
 package jsp.Bean.model;
 
 public class ProjectBean {
-	private String TEAM_SALES;	// 팀(매출)
 	private String TEAM_ORDER;	// 팀(수주)
+	private String TEAM_SALES;	// 팀(매출)
 	private String PROJECT_CODE;	// 프로젝트 코드
 	private String PROJECT_NAME;	// 프로젝트 
 	private String STATE;	// 상태

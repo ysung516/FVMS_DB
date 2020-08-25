@@ -47,19 +47,26 @@ function loadData(){
 	
 	<%for(int j=0; j < reportList.size(); j++){%>
 	if (title == "<%=reportList.get(j).getTitle()%>"){
-		
-		<%for(int a=0; a<reportList.get(j).getP_nextPlan().length; a++){
-			str = reportList.get(j).getP_nextPlan()[a].replaceAll("\\s+$","");
+		<%for(int a=0; a<reportList.get(j).getP_weekPlan().length; a++){
+			str = reportList.get(j).getP_weekPlan()[a].replaceAll("\\s+$","");
 			%>document.getElementById('WeekPlan').value += '<%=str%>\n';
 		<%}
-		for(int b=0; b<reportList.get(j).getP_specialty().length; b++){
-			str = reportList.get(j).getP_specialty()[b].replaceAll("\\s+$","");
-			%>document.getElementById('specialty').value += '<%=str%>\n';
+		for(int b=0; b<reportList.get(j).getP_weekPro().length; b++){
+			str = reportList.get(j).getP_weekPro()[b].replaceAll("\\s+$","");
+			%>document.getElementById('WeekPro').value += '<%=str%>\n';
 		<%}		
-		for(int c=0; c<reportList.get(j).getP_note().length; c++){
-			str = reportList.get(j).getP_note()[c].replaceAll("\\s+$","");
+		for(int c=0; c<reportList.get(j).getP_nextPlan().length; c++){
+			str = reportList.get(j).getP_nextPlan()[c].replaceAll("\\s+$","");
+			%>document.getElementById('NextPlan').value += '<%=str%>\n';
+		<%}
+		for(int d=0; d<reportList.get(j).getP_specialty().length; d++){
+			str = reportList.get(j).getP_specialty()[d].replaceAll("\\s+$","");
+			%>document.getElementById('specialty').value += '<%=str%>\n';
+		<%}
+		for(int e=0; e<reportList.get(j).getP_note().length; e++){
+			str = reportList.get(j).getP_note()[e].replaceAll("\\s+$","");
 			%>document.getElementById('note').value += '<%=str%>\n';
-	<%}%>
+		<%}%>
 	}
 <%}%>
 }
@@ -328,10 +335,10 @@ $(document).ready(function () {
 		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea id="WeekPlan" name="WeekPlan" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><textarea name="WeekPro" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><textarea id="WeekPro" name="WeekPro" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><textarea name="NextPlan" rows="10"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><textarea id="NextPlan" name="NextPlan" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><textarea id="specialty" name="specialty" rows="10"></textarea></td>

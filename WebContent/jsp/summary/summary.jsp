@@ -18,7 +18,7 @@
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	if(permission != 0){
+	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	
@@ -29,10 +29,15 @@
 	SummaryDAO summaryDao = new SummaryDAO();
 	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
 	ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
+	ArrayList<ProjectBean> pjList_order = summaryDao.getProjectData_OrderTeam();
+	ArrayList<ProjectBean> pjList_sales = summaryDao.getProjectData_SalesTeam();
 	
+	ArrayList<String> teamNameList = new ArrayList<String>(); 
+	ArrayList<TeamBean> teamList = summaryDao.getTagetData();
 	StateOfProBean ST = new StateOfProBean();
 	StateOfProBean ST2 = new StateOfProBean();
 	
+	// 프로젝트 현황
 	int totalY2=0;
 	int totalY3=0;
 	int totalY4=0;
@@ -40,7 +45,272 @@
 	int totalY6=0;
 	int totalY7=0;
 	int totalY8=0;
+	
 
+	// 상반기 예상 수주
+	float FH_chassis_ORDER = 0; 
+	float FH_body_ORDER = 0;
+	float FH_control_ORDER = 0; 
+	float FH_safe_ORDER = 0;
+	float FH_auto_ORDER = 0;
+	float FH_vt_ORDER = 0;
+	float FH_total_ORDER = 0;
+	
+	// 하반기 예상 수주
+	float SH_chassis_ORDER = 0; 
+	float SH_body_ORDER = 0;
+	float SH_control_ORDER = 0; 
+	float SH_safe_ORDER = 0;
+	float SH_auto_ORDER = 0;
+	float SH_vt_ORDER = 0;
+	float SH_total_ORDER = 0;
+	
+	// 상반기 수주 달성
+	float FH_chassis_RPJ = 0;
+	float FH_body_RPJ = 0;
+	float FH_control_RPJ = 0;
+	float FH_safe_RPJ = 0;
+	float FH_auto_RPJ = 0;
+	float FH_vt_RPJ = 0;
+	float FH_total_RPJ = 0;
+	
+	// 하반기 수주 달성
+	float SH_chassis_RPJ = 0;
+	float SH_body_RPJ = 0;
+	float SH_control_RPJ = 0;
+	float SH_safe_RPJ = 0;
+	float SH_auto_RPJ = 0;
+	float SH_vt_RPJ = 0;
+	float SH_total_RPJ = 0;
+	
+	// 상반기 예상 매출
+	float FH_chassis_PJSALES = 0;
+	float FH_body_PJSALES = 0;
+	float FH_control_PJSALES = 0;
+	float FH_safe_PJSALES = 0;
+	float FH_auto_PJSALES = 0;
+	float FH_vt_PJSALES = 0;
+	float FH_total_PJSALES = 0;
+
+	// 하반기 예상 매출
+	float SH_chassis_PJSALES = 0;
+	float SH_body_PJSALES = 0;
+	float SH_control_PJSALES = 0;
+	float SH_safe_PJSALES = 0;
+	float SH_auto_PJSALES = 0;
+	float SH_vt_PJSALES = 0;
+	float SH_total_PJSALES = 0;
+	
+	// 상반기 매출 달성
+	float FH_chassis_RSALES = 0;
+	float FH_body_RSALES = 0;
+	float FH_control_RSALES = 0;
+	float FH_safe_RSALES = 0;
+	float FH_auto_RSALES = 0;
+	float FH_vt_RSALES = 0;
+	float FH_total_RSALES = 0;
+	
+	// 하반기 매출 달성
+	float SH_chassis_RSALES = 0;
+	float SH_body_RSALES = 0;
+	float SH_control_RSALES = 0;
+	float SH_safe_RSALES = 0;
+	float SH_auto_RSALES = 0;
+	float SH_vt_RSALES = 0;
+	float SH_total_RSALES = 0;
+	
+	// 수주 & 매출 관련 변수
+	for(int i=0; i<teamList.size(); i++){
+		teamNameList.add(i, teamList.get(i).getTeamName()); 		
+	}
+	
+	int target = teamNameList.indexOf("샤시힐스검증팀");
+	int target1 = teamNameList.indexOf("바디힐스검증팀");
+	int target2 = teamNameList.indexOf("제어로직검증팀");
+	int target3 = teamNameList.indexOf("기능안전검증팀");
+	int target4 = teamNameList.indexOf("자율주행검증팀");
+	int target5 = teamNameList.indexOf("미래차검증전략실");
+
+	
+	// 상반기 목표 수주,매출
+	float FH_chassis_PJ = teamList.get(target).getFH_targetOrder();
+	float FH_body_PJ = teamList.get(target1).getFH_targetOrder();
+	float FH_control_PJ = teamList.get(target2).getFH_targetOrder();
+	float FH_safe_PJ = teamList.get(target3).getFH_targetOrder();
+	float FH_auto_PJ = teamList.get(target4).getFH_targetOrder();
+	float FH_vt_PJ = teamList.get(target5).getFH_targetOrder();
+	float FH_total_PJ = FH_chassis_PJ + FH_body_PJ + FH_control_PJ + FH_safe_PJ + FH_vt_PJ;
+	
+	float FH_chassis_SALES = teamList.get(target).getFH_targetSales();
+	float FH_body_SALES = teamList.get(target1).getFH_targetSales();
+	float FH_control_SALES = teamList.get(target2).getFH_targetSales();
+	float FH_safe_SALES = teamList.get(target3).getFH_targetSales();
+	float FH_auto_SALES = teamList.get(target4).getFH_targetSales();
+	float FH_vt_SALES = teamList.get(target5).getFH_targetSales();
+	float FH_total_SALES = FH_chassis_SALES + FH_body_SALES + FH_control_SALES + FH_safe_SALES + FH_auto_SALES + FH_vt_SALES;
+	
+
+	// 하반기 목표수주,매출
+	float SH_chassis_PJ = teamList.get(target).getSH_targetOrder();
+	float SH_body_PJ = teamList.get(target1).getSH_targetOrder();
+	float SH_control_PJ = teamList.get(target2).getSH_targetOrder();
+	float SH_safe_PJ = teamList.get(target3).getSH_targetOrder();
+	float SH_auto_PJ = teamList.get(target4).getSH_targetOrder();
+	float SH_vt_PJ = teamList.get(target5).getSH_targetOrder();
+	float SH_total_PJ = SH_chassis_PJ + SH_body_PJ + SH_control_PJ + SH_safe_PJ + SH_auto_PJ + SH_vt_PJ;
+	
+	float SH_chassis_SALES = teamList.get(target).getSH_targetSales();
+	float SH_body_SALES = teamList.get(target1).getSH_targetSales();
+	float SH_control_SALES = teamList.get(target2).getSH_targetSales();
+	float SH_safe_SALES = teamList.get(target3).getSH_targetSales();
+	float SH_auto_SALES = teamList.get(target4).getSH_targetSales();
+	float SH_vt_SALES = teamList.get(target5).getSH_targetSales();
+	float SH_total_SALES = SH_chassis_SALES + SH_body_SALES + SH_control_SALES + SH_safe_SALES + SH_auto_SALES + SH_vt_SALES;
+	
+	// 연간
+	float Y_chassis_PJ = FH_chassis_PJ + SH_chassis_PJ;
+	float Y_body_PJ = FH_body_PJ + SH_body_PJ;
+	float Y_control_PJ = FH_control_PJ + SH_control_PJ;
+	float Y_safe_PJ = FH_safe_PJ + SH_safe_PJ;
+	float Y_auto_PJ = FH_auto_PJ + SH_auto_PJ;
+	float Y_vt_PJ = FH_vt_PJ + SH_vt_PJ;
+	float Y_totla_pj = FH_total_PJ + SH_total_PJ;
+	
+	float Y_chassis_SALES = FH_chassis_SALES + SH_chassis_SALES;
+	float Y_body_SALES = FH_body_SALES + SH_body_SALES;
+	float Y_control_SALES = FH_control_SALES + SH_control_SALES;
+	float Y_safe_SALES = FH_safe_SALES + SH_safe_SALES;
+	float Y_auto_SALES = FH_auto_SALES + SH_auto_SALES;
+	float Y_vt_SALES = FH_vt_SALES + SH_vt_SALES;
+	float Y_totla_SALES = FH_total_SALES + SH_total_SALES;
+
+	
+	for(int i=0; i<pjList_order.size(); i++){
+		if(pjList_order.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
+			FH_chassis_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
+			FH_chassis_RPJ += pjList_order.get(i).getFH_ORDER();
+			FH_chassis_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
+			FH_chassis_RSALES += pjList_order.get(i).getFH_SALES();
+			SH_chassis_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
+			SH_chassis_RPJ += pjList_order.get(i).getSH_ORDER();
+			SH_chassis_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
+			SH_chassis_RSALES += pjList_order.get(i).getSH_SALES();
+			
+		} else if(pjList_order.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+			FH_body_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
+			FH_body_RPJ += pjList_order.get(i).getFH_ORDER();
+			FH_body_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
+			FH_body_RSALES += pjList_order.get(i).getFH_SALES();
+			SH_body_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
+			SH_body_RPJ += pjList_order.get(i).getSH_ORDER();
+			SH_body_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
+			SH_body_RSALES += pjList_order.get(i).getSH_SALES();
+			
+		} else if(pjList_order.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+			FH_control_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
+			FH_control_RPJ += pjList_order.get(i).getFH_ORDER();
+			FH_control_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
+			FH_control_RSALES += pjList_order.get(i).getFH_SALES();
+			SH_control_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
+			SH_control_RPJ += pjList_order.get(i).getSH_ORDER();
+			SH_control_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
+			SH_control_RSALES += pjList_order.get(i).getSH_SALES();
+			
+		} else if(pjList_order.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+			FH_safe_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
+			FH_safe_RPJ += pjList_order.get(i).getFH_ORDER();
+			FH_safe_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
+			FH_safe_RSALES += pjList_order.get(i).getFH_SALES();
+			SH_safe_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
+			SH_safe_RPJ += pjList_order.get(i).getSH_ORDER();
+			SH_safe_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
+			SH_safe_RSALES += pjList_order.get(i).getSH_SALES();
+			
+		} else if(pjList_order.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+			FH_auto_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
+			FH_auto_RPJ += pjList_order.get(i).getFH_ORDER();
+			FH_auto_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
+			FH_auto_RSALES += pjList_order.get(i).getFH_SALES();
+			SH_auto_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
+			SH_auto_RPJ += pjList_order.get(i).getSH_ORDER();
+			SH_auto_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
+			SH_auto_RSALES += pjList_order.get(i).getSH_SALES();
+			
+		} else if(pjList_order.get(i).getTEAM_ORDER().equals("미래차검증전략실")){
+			FH_vt_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
+			FH_vt_RPJ += pjList_order.get(i).getFH_ORDER();
+			FH_vt_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
+			FH_vt_RSALES += pjList_order.get(i).getFH_SALES();
+			SH_vt_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
+			SH_vt_RPJ += pjList_order.get(i).getSH_ORDER();
+			SH_vt_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
+			SH_vt_RSALES += pjList_order.get(i).getSH_SALES();
+		}
+	}
+	
+	for(int i=0; i<pjList_sales.size(); i++){
+		if(pjList_sales.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
+			FH_chassis_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
+			FH_chassis_RPJ += pjList_sales.get(i).getFH_ORDER();
+			FH_chassis_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
+			FH_chassis_RSALES += pjList_sales.get(i).getFH_SALES();
+			SH_chassis_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
+			SH_chassis_RPJ += pjList_sales.get(i).getSH_ORDER();
+			SH_chassis_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
+			SH_chassis_RSALES += pjList_sales.get(i).getSH_SALES();
+			
+			
+		} else if(pjList_sales.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
+			FH_body_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
+			FH_body_RPJ += pjList_sales.get(i).getFH_ORDER();
+			FH_body_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
+			FH_body_RSALES += pjList_sales.get(i).getFH_SALES();
+			SH_body_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
+			SH_body_RPJ += pjList_sales.get(i).getSH_ORDER();
+			SH_body_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
+			SH_body_RSALES += pjList_sales.get(i).getSH_SALES();
+			
+		} else if(pjList_sales.get(i).getTEAM_SALES().equals("제어로직검증팀")){
+			FH_control_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
+			FH_control_RPJ += pjList_sales.get(i).getFH_ORDER();
+			FH_control_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
+			FH_control_RSALES += pjList_sales.get(i).getFH_SALES();
+			SH_control_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
+			SH_control_RPJ += pjList_sales.get(i).getSH_ORDER();
+			SH_control_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
+			SH_control_RSALES += pjList_sales.get(i).getSH_SALES();
+			
+		} else if(pjList_sales.get(i).getTEAM_SALES().equals("기능안전검증팀")){
+			FH_safe_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
+			FH_safe_RPJ += pjList_sales.get(i).getFH_ORDER();
+			FH_safe_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
+			FH_safe_RSALES += pjList_sales.get(i).getFH_SALES();
+			SH_safe_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
+			SH_safe_RPJ += pjList_sales.get(i).getSH_ORDER();
+			SH_safe_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
+			SH_safe_RSALES += pjList_sales.get(i).getSH_SALES();
+			
+		} else if(pjList_sales.get(i).getTEAM_SALES().equals("자율주행검증팀")){
+			FH_auto_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
+			FH_auto_RPJ += pjList_sales.get(i).getFH_ORDER();
+			FH_auto_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
+			FH_auto_RSALES += pjList_sales.get(i).getFH_SALES();
+			SH_auto_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
+			SH_auto_RPJ += pjList_sales.get(i).getSH_ORDER();
+			SH_auto_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
+			SH_auto_RSALES += pjList_sales.get(i).getSH_SALES();
+			
+		} else if(pjList_sales.get(i).getTEAM_SALES().equals("미래차검증전략실")){
+			FH_vt_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
+			FH_vt_RPJ += pjList_sales.get(i).getFH_ORDER();
+			FH_vt_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
+			FH_vt_RSALES += pjList_sales.get(i).getFH_SALES();
+			SH_vt_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
+			SH_vt_RPJ += pjList_sales.get(i).getSH_ORDER();
+			SH_vt_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
+			SH_vt_RSALES += pjList_sales.get(i).getSH_SALES();
+		}
+	}
 %>
 
 <meta charset="utf-8">
@@ -94,7 +364,7 @@
 		text-align : center;
 	}
 	.sale{
-		width : 50px;
+		width : 65px;
 	}
 	ul.tabs{
 	margin: 0px;
@@ -122,6 +392,7 @@
 	.tab-content.current{
 		display: inherit;
 	}
+
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
@@ -669,12 +940,19 @@
 				<li class="tab-link" data-tab="tab-3">메뉴_셋</li>
              </ul>
               <div id="tab-1" class="table-responsive tab-content current">
+              <form method="post" action="Save_targetData.jsp">
                 <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
                     	<td colspan="5" bgcolor="skyblue" style="text-align:center;">상세내역(단위: 백만)</td>
-                    	<td><input type="button" value="저장"></td>
+                    	<td>
+                    	<%
+                    		if(permission == 0){
+                    			%><input type="submit" value="저장"><%	
+                    		}	
+                    	%>
+                    	</td>
                     </tr>  
                     <tr bgcolor="skyblue" style="text-align:center;">
 	                    <th>구분</th>
@@ -693,13 +971,221 @@
                     <tr>
                     	<td rowspan="10" style="text-align:center; vertical-align: middle;">상반기</td>
                     	<td style="text-align:center;">목표 수주</td>
-                    	<td></td>
-                    	<td><input class="sale" name="chassis"></td>
-                    	<td><input class="sale" name="body"></td>
-                    	<td><input class="sale" name="control"></td>
-                    	<td><input class="sale" name="safe"></td>
-                    	<td><input class="sale" name="auto"></td>
-                    	<td><input class="sale" name="vt"></td>
+                    	<td><%=FH_total_PJ%></td>
+                    	<td><input class="sale" name="FH_chassis_PJ" value='<%=FH_chassis_PJ%>'></td>
+                    	<td><input class="sale" name="FH_body_PJ" value='<%=FH_body_PJ%>'></td>
+                    	<td><input class="sale" name="FH_control_PJ" value='<%=FH_control_PJ%>'></td>
+                    	<td><input class="sale" name="FH_safe_PJ" value='<%=FH_safe_PJ%>'></td>
+                    	<td><input class="sale" name="FH_auto_PJ" value='<%=FH_auto_PJ%>'></td>
+                    	<td><input class="sale" name="FH_vt_PJ" value='<%=FH_vt_PJ%>'></td>
+                    </tr>
+                    <tr style="text-align:center;">
+                    	<td>예상 수주</td>
+                    	<td><%=FH_total_ORDER%></td>
+                    	<td><%=FH_chassis_ORDER%></td>
+                    	<td><%=FH_body_ORDER%></td>
+                    	<td><%=FH_control_ORDER%></td>
+                    	<td><%=FH_safe_ORDER%></td>
+                    	<td><%=FH_auto_ORDER%></td>
+                    	<td><%=FH_vt_ORDER%></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 수주(%)</td>
+                    	<td><%=FH_total_ORDER/FH_total_PJ *100%></td>
+                    	<td><%=FH_chassis_ORDER/FH_chassis_PJ *100%></td>
+                    	<td><%=FH_body_ORDER/FH_body_PJ *100%></td>
+                    	<td><%=FH_control_ORDER/FH_control_PJ *100%></td>
+                    	<td><%=FH_safe_ORDER/FH_safe_PJ *100%></td>
+                    	<td><%=FH_auto_ORDER/FH_auto_PJ *100%></td>
+                    	<td><%=FH_vt_ORDER/FH_vt_PJ *100%></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>달성</td>
+                    	<td><%=FH_total_RPJ%></td>
+                    	<td><%=FH_chassis_RPJ%></td>
+                    	<td><%=FH_body_RPJ%></td>
+                    	<td><%=FH_control_RPJ%></td>
+                    	<td><%=FH_safe_RPJ%></td>
+                    	<td><%=FH_auto_RPJ%></td>
+                    	<td><%=FH_vt_RPJ%></td>
+                    	
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>수주 달성률</td>
+                   		<td><%=FH_total_RPJ/FH_total_PJ *100%></td>
+                    	<td><%=FH_chassis_RPJ/FH_chassis_PJ *100%></td>
+                    	<td><%=FH_body_RPJ/FH_body_PJ*100 %></td>
+                    	<td><%=FH_control_RPJ/FH_control_PJ *100%></td>
+                    	<td><%=FH_safe_RPJ/FH_safe_PJ *100%></td>
+                    	<td><%=FH_auto_RPJ/FH_auto_PJ*100 %></td>
+                    	<td><%=FH_vt_RPJ/FH_vt_PJ*100 %></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>목표 매출</td>
+                        <td><%=FH_total_SALES%></td>
+                    	<td><input class="sale" name="FH_chassis_SALES" value='<%=FH_chassis_SALES %>'></td>
+                    	<td><input class="sale" name="FH_body_SALES" value='<%=FH_body_SALES %>'></td>
+                    	<td><input class="sale" name="FH_control_SALES" value='<%=FH_control_SALES %>'></td>
+                    	<td><input class="sale" name="FH_safe_SALES" value='<%=FH_safe_SALES %>'></td>
+                    	<td><input class="sale" name="FH_auto_SALES" value='<%=FH_auto_SALES %>'></td>
+                    	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_vt_SALES %>'></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 매츨</td>
+                    	<td><%=FH_total_PJSALES %></td>
+                    	<td><%=FH_chassis_PJSALES %></td>
+                    	<td><%=FH_body_PJSALES %></td>
+                    	<td><%=FH_control_PJSALES %></td>
+                    	<td><%=FH_safe_PJSALES %></td>
+                    	<td><%=FH_auto_PJSALES %></td>
+                    	<td><%=FH_vt_PJSALES %></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 매출(%)</td>
+                        <td><%=FH_total_PJSALES/FH_total_SALES*100 %></td>
+                    	<td><%=FH_chassis_PJSALES/FH_chassis_SALES *100%></td>
+                    	<td><%=FH_body_PJSALES/FH_body_SALES *100%></td>
+                    	<td><%=FH_control_PJSALES/FH_control_SALES *100%></td>
+                    	<td><%=FH_safe_PJSALES/FH_safe_SALES *100%></td>
+                    	<td><%=FH_auto_PJSALES/FH_auto_SALES *100%></td>
+                    	<td><%=FH_vt_PJSALES/FH_vt_SALES *100%></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>달성</td>
+                    	<td><%=FH_total_RSALES %></td>
+                   		<td><%=FH_chassis_RSALES %></td>
+                    	<td><%=FH_body_RSALES %></td>
+                    	<td><%=FH_control_RSALES %></td>
+                    	<td><%=FH_safe_RSALES %></td>
+                    	<td><%=FH_auto_RSALES %></td>
+                    	<td><%=FH_vt_RSALES %></td>
+                    	
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>매출 달성률</td>
+                   		<td><%=FH_total_RSALES/FH_total_SALES*100 %></td>
+                   		<td><%=FH_chassis_RSALES/FH_chassis_SALES*100 %></td>
+                    	<td><%=FH_body_RSALES/FH_body_SALES*100 %></td>
+                    	<td><%=FH_control_RSALES/FH_control_SALES*100 %></td>
+                    	<td><%=FH_safe_RSALES/FH_safe_SALES*100 %></td>
+                    	<td><%=FH_auto_RSALES/FH_auto_SALES*100 %></td>
+                    	<td><%=FH_vt_RSALES/FH_vt_SALES *100%></td>
+                    </tr>
+                    
+                     <tr style="text-align:center;">
+                    	<td rowspan="10" style=" vertical-align: middle;">하반기</td>
+                    	<td style="text-align:center;">목표 수주</td>
+                    	<td><%=SH_total_PJ%></td>
+                    	<td><input class="sale" name="SH_chassis_PJ" value='<%=SH_chassis_PJ %>'></td>
+                    	<td><input class="sale" name="SH_body_PJ" value='<%=SH_body_PJ %>'></td>
+                    	<td><input class="sale" name="SH_control_PJ" value='<%=SH_control_PJ %>'></td>
+                    	<td><input class="sale" name="SH_safe_PJ" value='<%=SH_safe_PJ %>'></td>
+                    	<td><input class="sale" name="SH_auto_PJ" value='<%=SH_auto_PJ %>'></td>
+                    	<td><input class="sale" name="SH_vt_PJ" value='<%=SH_vt_PJ %>'></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 수주</td>
+                    	<td><%=SH_total_ORDER%></td>
+                    	<td><%=SH_chassis_ORDER%></td>
+                    	<td><%=SH_body_ORDER%></td>
+                    	<td><%=SH_control_ORDER%></td>
+                    	<td><%=SH_safe_ORDER%></td>
+                    	<td><%=SH_auto_ORDER%></td>
+                    	<td><%=SH_vt_ORDER%></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 수주(%)</td>
+                    	<td><%=SH_total_ORDER/SH_total_PJ*100 %></td>
+                    	<td><%=SH_chassis_ORDER/SH_chassis_PJ*100 %></td>
+                    	<td><%=SH_body_ORDER/SH_body_PJ*100 %></td>
+                    	<td><%=SH_control_ORDER/SH_control_PJ*100 %></td>
+                    	<td><%=SH_safe_ORDER/SH_safe_PJ*100 %></td>
+                    	<td><%=SH_auto_ORDER/SH_auto_PJ*100 %></td>
+                    	<td><%=SH_vt_ORDER/SH_vt_PJ*100 %></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>달성</td>
+                    	<td><%=SH_total_RPJ%></td>
+                    	<td><%=SH_chassis_RPJ%></td>
+                    	<td><%=SH_body_RPJ%></td>
+                    	<td><%=SH_control_RPJ%></td>
+                    	<td><%=SH_safe_RPJ%></td>
+                    	<td><%=SH_auto_RPJ%></td>
+                    	<td><%=SH_vt_RPJ%></td>
+                    	
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>수주 달성률</td>
+                   		<td><%=SH_total_RPJ/SH_total_PJ*100%></td>
+                    	<td><%=SH_chassis_RPJ/SH_chassis_PJ*100%></td>
+                    	<td><%=SH_body_RPJ/SH_body_PJ*100%></td>
+                    	<td><%=SH_control_RPJ/SH_control_PJ*100%></td>
+                    	<td><%=SH_safe_RPJ/SH_safe_PJ*100%></td>
+                    	<td><%=SH_auto_RPJ/SH_auto_PJ*100%></td>
+                    	<td><%=SH_vt_RPJ/SH_vt_PJ*100%></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>목표 매출</td>
+                        <td><%=SH_total_SALES%></td>
+                    	<td><input class="sale" name="SH_chassis_SALES" value='<%=SH_chassis_SALES %>'></td>
+                    	<td><input class="sale" name="SH_body_SALES" value='<%=SH_body_SALES %>'></td>
+                    	<td><input class="sale" name="SH_control_SALES" value='<%=SH_control_SALES %>'></td>
+                    	<td><input class="sale" name="SH_safe_SALES" value='<%=SH_safe_SALES %>'></td>
+                    	<td><input class="sale" name="SH_auto_SALES" value='<%=SH_auto_SALES %>'></td>
+                    	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_vt_SALES %>'></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 매츨</td>
+                    	<td><%=SH_total_PJSALES %></td>
+                    	<td><%=SH_chassis_PJSALES %></td>
+                    	<td><%=SH_body_PJSALES %></td>
+                    	<td><%=SH_control_PJSALES %></td>
+                    	<td><%=SH_safe_PJSALES %></td>
+                    	<td><%=SH_auto_PJSALES %></td>
+                    	<td><%=SH_vt_PJSALES %></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>예상 매출(%)</td>
+                        <td><%=SH_total_PJSALES/SH_total_SALES*100 %></td>
+                    	<td><%=SH_chassis_PJSALES/SH_chassis_SALES*100 %></td>
+                    	<td><%=SH_body_PJSALES/SH_body_SALES*100 %></td>
+                    	<td><%=SH_control_PJSALES/SH_control_SALES*100 %></td>
+                    	<td><%=SH_safe_PJSALES/SH_safe_SALES*100 %></td>
+                    	<td><%=SH_auto_PJSALES/SH_auto_SALES*100 %></td>
+                    	<td><%=SH_vt_PJSALES/SH_vt_SALES*100 %></td>
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>달성</td>
+                    	<td><%=SH_total_RSALES %></td>
+                   		<td><%=SH_chassis_RSALES %></td>
+                    	<td><%=SH_body_RSALES %></td>
+                    	<td><%=SH_control_RSALES %></td>
+                    	<td><%=SH_safe_RSALES %></td>
+                    	<td><%=SH_auto_RSALES %></td>
+                    	<td><%=SH_vt_RSALES %></td>
+                    	
+                    </tr>
+                     <tr style="text-align:center;">
+                    	<td>매출 달성률</td>
+                   		<td><%=SH_total_RSALES/SH_total_SALES*100 %></td>
+                   		<td><%=SH_chassis_RSALES/SH_chassis_SALES*100 %></td>
+                    	<td><%=SH_body_RSALES/SH_body_SALES*100 %></td>
+                    	<td><%=SH_control_RSALES/SH_control_SALES*100 %></td>
+                    	<td><%=SH_safe_RSALES/SH_safe_SALES*100 %></td>
+                    	<td><%=SH_auto_RSALES/SH_auto_SALES*100 %></td>
+                    	<td><%=SH_vt_RSALES/SH_vt_SALES*100 %></td>
+                    </tr>
+                    
+                    <tr style="text-align:center;">
+                    	<td rowspan="10" style=" vertical-align: middle;" >연간</td>
+                    <td style="text-align:center;">목표 수주</td>
+                    	<td><%=Y_totla_pj %></td>
+                    	<td><%=Y_chassis_PJ %></td>
+                    	<td><%=Y_body_PJ %></td>
+                    	<td><%=Y_control_PJ %></td>
+                    	<td><%=Y_safe_PJ %></td>
+                    	<td><%=Y_auto_PJ %></td>
+                    	<td><%=Y_vt_PJ %></td>
                     </tr>
                     <tr style="text-align:center;">
                     	<td>예상 수주</td>
@@ -722,7 +1208,7 @@
                     	<td></td>
                     </tr>
                      <tr style="text-align:center;">
-                    	<td>수주</td>
+                    	<td>달성</td>
                     	<td></td>
                     	<td></td>
                     	<td></td>
@@ -743,13 +1229,13 @@
                     </tr>
                      <tr style="text-align:center;">
                     	<td>목표 매출</td>
-                        <td></td>
-                    	<td><input class="sale" name="chassis"></td>
-                    	<td><input class="sale" name="body"></td>
-                    	<td><input class="sale" name="control"></td>
-                    	<td><input class="sale" name="safe"></td>
-                    	<td><input class="sale" name="auto"></td>
-                    	<td><input class="sale" name="vt"></td>
+                        <td><%=Y_totla_SALES %></td>
+                    	<td><%=Y_chassis_SALES %></td>
+                    	<td><%=Y_body_SALES %></td>
+                    	<td><%=Y_control_SALES %></td>
+                    	<td><%=Y_safe_SALES %></td>
+                    	<td><%=Y_auto_SALES %></td>
+                    	<td><%=Y_vt_SALES %></td>
                     </tr>
                      <tr style="text-align:center;">
                     	<td>예상 매츨</td>
@@ -762,7 +1248,7 @@
                     	<td></td>
                     </tr>
                      <tr style="text-align:center;">
-                    	<td>예상 매출%</td>
+                    	<td>예상 매출(%)</td>
                     	<td></td>
                     	<td></td>
                     	<td></td>
@@ -772,138 +1258,7 @@
                     	<td></td>
                     </tr>
                      <tr style="text-align:center;">
-                    	<td>현재 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>매출 달성률</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td rowspan="6" style=" vertical-align: middle;">하반기</td>
-                    	<td>목표수주</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>수주</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>예상 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>현재 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>잔여 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>달성률</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr style="text-align:center;">
-                    	<td rowspan="7" style=" vertical-align: middle;" >연간</td>
-                    	<td>목표수주</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>수주</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr style="text-align:center;">
-                    	<td>수주 달성률</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>예상 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>현재 매출</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>잔여 매출</td>
+                    	<td>달성</td>
                     	<td></td>
                     	<td></td>
                     	<td></td>
@@ -922,7 +1277,8 @@
                     	<td></td>
                     	<td></td>
                     </tr>
-                  	  </tbody>                           
+                  	  </tbody>         
+                  	  </form>                  
                		 </table>
              	 </div>
              	 

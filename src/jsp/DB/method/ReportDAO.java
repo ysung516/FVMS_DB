@@ -355,6 +355,8 @@ public class ReportDAO {
 	    	while(rs.next()) {
 	    		ReportBean report = new ReportBean();
 	    		report.setTitle(rs.getString("프로젝트명"));
+	    		report.setWeekPlan(rs.getString("금주계획"));
+	    		report.setWeekPro(rs.getString("금주진행"));
 	    		report.setNextPlan(rs.getString("차주계획"));
 	    		report.setSpecialty(rs.getString("특이사항"));
 	    		report.setNote(rs.getString("비고"));
