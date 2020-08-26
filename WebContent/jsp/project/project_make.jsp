@@ -185,8 +185,8 @@ function teamMember(team, member){
 }
 
 function defaultTeam(){
-	var team = $("#team_sales option:selected").val();
-	$("#team_order").val(team).attr("selected", "selected");
+	var team = $("#team_order option:selected").val();
+	$("#team_sales").val(team).attr("selected", "selected");
 	$("#PM-team").val(team).attr("selected", "selected");
 	$("#teamlist").val(team).attr("selected", "selected");
 	teamMember('#PM-team','#PROJECT_MANAGER');
@@ -465,7 +465,7 @@ function btn_insert(){
                     <tr>
                       <th><span style="color:red;">*</span>팀(수주)</th>
                       <td>
-                      	<select id="team_sales" name="team_sales" onchange="defaultTeam()">
+                      	<select id="team_order" name="team_order" onchange="defaultTeam()">
                       	<%
                       		for(int i=0; i<teamList.size(); i++){
                       			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
@@ -477,7 +477,7 @@ function btn_insert(){
                       <tr>
                       <th>팀(매출)</th>
                       <td>
-                      	<select id="team_order" name="team_order">
+                      	<select id="team_sales" name="team_sales">
                       	<option value="-">-</option>
                       	<%
                       		for(int i=0; i<teamList.size(); i++){
