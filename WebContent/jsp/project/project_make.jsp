@@ -96,6 +96,7 @@
 
 	$(document).ready(function () {
 		$('.loading').hide();
+		$("#team_sales").val('<%=teamList.get(0)%>').attr("selected", "selected");
 		sortSelect('WORKER_LIST'); 
 		workDelete();
 		teamMember('#PM-team','#PROJECT_MANAGER');
@@ -478,7 +479,6 @@ function btn_insert(){
                       <th>팀(매출)</th>
                       <td>
                       	<select id="team_sales" name="team_sales">
-                      	<option value="-">-</option>
                       	<%
                       		for(int i=0; i<teamList.size(); i++){
                       			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option><%
