@@ -347,6 +347,9 @@
 		.card-header:first-child{
 			padding: 0;
 		}
+		
+		body{
+		font-size:small;}
 }
 
 	.loading{
@@ -814,8 +817,8 @@
          <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 현황</h6>
         </div>
             <div class="card-body"> 
-              <div class="table-responsive">
-                <table class="table table-bordered" id="projectNow" style="white-space: nowrap;">
+              <div class="table-responsive" style="table-layout:fixed; display:table;">
+                <table class="table table-bordered" id="projectNow" style="white-space: nowrap;display:table-cell;overflow:auto;">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
@@ -948,9 +951,10 @@
 				<li class="tab-link" data-tab="tab-2">메뉴_둘</li>
 				<li class="tab-link" data-tab="tab-3">메뉴_셋</li>
              </ul>
-              <div id="tab-1" class="table-responsive tab-content current">
+              
               <form method="post" action="Save_targetData.jsp">
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+ 				<div id="tab-1" class="table-responsive tab-content current" style="display:table;table-layout:fixed">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;display:table-cell;overflow:auto;">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
@@ -1286,12 +1290,12 @@
                     	<td></td>
                     	<td></td>
                     </tr>
-                  	  </tbody>         
-                  	  </form>                  
+                  	  </tbody>                            
                		 </table>
-             	 </div>
+               		 </div>
+               		 </form> 
              	 
-             	 <div id="tab-2" class="tab-content">
+             	  <div id="tab-2"  class="table-responsive tab-content" style="display:table;table-layout:fixed">
              	 <p>123</p>
              	 </div>
               </div>
@@ -1303,8 +1307,8 @@
          <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">인력</h6>
         </div>
             <div class="card-body"> 
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+              <div class="table-responsive" style="display:table;table-layout:fixed">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;display:table-cell;overflow:auto;">
                   <tr style="text-align:center;">
 	                    <th></th>
 	                    <th></th>
@@ -1381,7 +1385,7 @@
                 <br>
                 <br>
                 
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;display:table-cell;overflow:auto;">
                   
                     <tr bgcolor="skyblue" style="text-align:center;">
 	                    <th>NO</th>
@@ -1554,8 +1558,8 @@
          <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수익률</h6>
         </div>
             <div class="card-body"> 
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;">
+              <div class="table-responsive" style="display:table;table-layout:fixed">
+                <table class="table table-bordered" id="dataTable" style="white-space: nowrap;display:table-cell;overflow:auto;">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>

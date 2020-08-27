@@ -62,7 +62,7 @@
 		margin-top:10px;
 		word-break:keep-all;
 	}
-	#summary_p{
+	.summary_p{
 		margin: 0;
 		padding: 5px;
 		border-left: 1px solid black;
@@ -185,16 +185,16 @@
 
 	function yet_project(){
 		 $(".summary").click(function(e){
-			 if($("#summary_p").css('display')=='none'){
-			     $("#summary_p").show();
+			 if($(".summary_p").css('display')=='none'){
+			     $(".summary_p").show();
 			    	}
 			    	else  
-			     $("#summary_p").hide();
+			     $(".summary_p").hide();
 			    });
 		 
 	    $("body").click( function(e){
 	        if(e.target.className !== "summary"){
-	          $("#summary_p").hide();
+	          $(".summary_p").hide();
 	          $(".summary").show();
 	        }
 	      });  
@@ -365,7 +365,7 @@
                     
                   		<div class="summary">미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></div>
         			<%for(int i=0; i<unWrite.size(); i++){
-        				%><p id="summary_p"><%=unWrite.get(i).getPROJECT_NAME()%></p>
+        				%><p class="summary_p"><%=unWrite.get(i).getPROJECT_NAME()%></p>
         				<%}%>
                   
                   </div>
