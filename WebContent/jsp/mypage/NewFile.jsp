@@ -1,3 +1,4 @@
+bower install tui-chart
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="tabWrap">
@@ -14,93 +15,10 @@
 	</ul>
 	<div class="tab_Content_Wrap">
 		<div id="tabContent01" class="tabPage">
-			<table id ="meetingTable">
-		<thead>
-		 <tr style="white-space:nowrap;">
-		   <th>회의명</th>
-		   <th>회의 장소 
-		   <br>
-			   	<input type="button" value="▲" onclick="sortTD (1)">
-			   	<input type="button" value="▼" onclick="reverseTD (1)">
-		   	</th>
-		   <th>회의 일시
-		   <br>
-			   <input type="button" value="▲" onclick="sortTD (2)">
-			   <input type="button" value="▼" onclick="reverseTD (2)"> 
-		   </th>
-		   <th>작성 일시
-		   <br>
-			   <input type="button" value="▲" onclick="sortTD (3)">
-			   <input type="button" value="▼" onclick="reverseTD (3)">
-		   </th>
-		   <th>작성자
-		   <br>
-			   <input type="button" value="▲" onclick="sortTD (4)">
-			   <input type="button" value="▼" onclick="reverseTD (4)">
-		   </th>
-		   </tr>
-		  
-		  </thead>  
-		  </table>
+			
 		</div>
 		<div id="tabContent02" class="tabPage">
-			<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-		<div class="col-xl-10 col-lg-12 col-md-9">
-      <div>
-        <div class="card o-hidden border-0 my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row" style="background-color:#4e73df;">
-              <div class="d-none d-lg-block"></div>
-              <div class="card col-lg-6" style="margin: 0 auto; background-color:#fff;">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">로그인</h1>
-                  </div>
-	 	<form class="user" method = "post" action = "../jsp/LoginPro.jsp">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-user" name = "ID" id="ID" aria-describedby="emailHelp" placeholder="ID">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="PW" id="PW" placeholder="Password" >
-                    </div>
-                    <!-- <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">자동로그인</label>
-                      </div>
-                    </div> -->
-                    <div>
-                    <input id="login" type="submit" name="login" value="Login" class="btn btn-primary btn-user btn-block">
-                    </div>
-                     
-                  </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="small" href="../jsp/release.html">FVMS_2.4_2020-08-20: 17:30</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
- </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
+			Tab2 Content
 		</div>
 		<div id="tabContent03" class="tabPage">
 			Tab3 Content
@@ -124,15 +42,7 @@
 </style>
 
 
-<!-- include application-chart.min.css -->
-<link rel="stylesheet" type="text/css" href="bower_components/tui-chart/dist/chart.min.css" />
 
-<!-- include libraries -->
-<script src="bower_components/tui-code-snippet/code-snippet.min.js"></script>
-<script src="bower_components/tui-component-effects/effects.min.js"></script>
-<script src="bower_components/raphael/raphael-min.js"></script>
-<!-- include chart.min.js -->
-<script src="bower_components/tui-chart/dist/chart.min.js"></script>
 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>

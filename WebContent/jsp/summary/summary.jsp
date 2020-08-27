@@ -447,15 +447,61 @@
 		color: #222;
 	}
 	
-	.tab-content{
-	  	display: none;
-	}
-	
-	.tab-content.current{
-		display: inherit;
-	}
+	.tab_Menu { margin: 0px; padding: 0px; list-style: none; }
+	.tabMenu { width: 150px; margin: 0px; text-align: center; 
+			   padding-top: 10px; padding-bottom: 10px; float: left; }
+	.tabMenu a { color: #000000; font-weight: bold; text-decoration: none; }
+	.current { background-color:#564a4a4d; 
+			    border-bottom:hidden; }
+	.tabPage { width: 900px; height: 470px; float: left; 
+			   border: 1px solid blue; }
 
 </style>
+<link rel="stylesheet" type="text/css" href="bower_components/tui-chart/dist/chart.min.css" />
+
+<!-- include libraries -->
+<script src="bower_components/tui-code-snippet/code-snippet.min.js"></script>
+<script src="bower_components/tui-component-effects/effects.min.js"></script>
+<script src="bower_components/raphael/raphael-min.js"></script>
+<!-- include chart.min.js -->
+<script src="bower_components/tui-chart/dist/chart.min.js"></script>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
+<script type="text/javascript">
+	function tabSetting() {
+		// 탭 컨텐츠 hide 후 현재 탭메뉴 페이지만 show
+		$('.tabPage').hide();
+		$($('.current').find('a').attr('href')).show();
+
+		// Tab 메뉴 클릭 이벤트 생성
+		$('li').click(function (event) {
+			var tagName = event.target.tagName; // 현재 선택된 태그네임
+			var selectedLiTag = (tagName.toString() == 'A') ? $(event.target).parent('li') : $(event.target); // A태그일 경우 상위 Li태그 선택, Li태그일 경우 그대로 태그 객체
+			var currentLiTag = $('li[class~=current]'); // 현재 current 클래그를 가진 탭
+			var isCurrent = false;  
+			
+			// 현재 클릭된 탭이 current를 가졌는지 확인
+			isCurrent = $(selectedLiTag).hasClass('current');
+			
+			// current를 가지지 않았을 경우만 실행
+			if (!isCurrent) {
+				$($(currentLiTag).find('a').attr('href')).hide();
+				$(currentLiTag).removeClass('current');
+
+				$(selectedLiTag).addClass('current');
+				$($(selectedLiTag).find('a').attr('href')).show();
+			}
+
+			return false;
+		});
+	}
+
+	$(function () {
+		// 탭 초기화 및 설정
+		tabSetting();
+	});
+</script>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -482,13 +528,13 @@
 
         var fh_order_option = {
           chart: {
-            title: '상반기 수주',
+            title: '상반기 수주',width: '700', height:'300'
           }
         };
 
         var fh_order_chart = new google.charts.Bar(document.getElementById('fh_order_chart'));
 
-        fh_order_chart.draw(fh_order_data, google.charts.Bar.convertOptions(fh_order_option));
+        fh_order_chart.draw(fh_order_data, google.charts.Bar.convertOptions('fh_order_option'));
       }
       
  function fh_sales() {
@@ -1286,14 +1332,33 @@ function count_auto() {
          <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출</h6>
         </div>
             <div class="card-body">
-             <ul class="tabs">
-             	<li class="tab-link current" data-tab="tab-1">메뉴_하나</li>
-				<li class="tab-link" data-tab="tab-2">메뉴_둘</li>
-				<li class="tab-link" data-tab="tab-3">메뉴_셋</li>
-             </ul>
+            
+            
+            
+            <div class="tabWrap">
+	<ul class="tab_Menu">
+		<li class="tabMenu current">
+			<a href="#tabContent01" >Tab 1</a>
+		</li>
+		<li class="tabMenu">
+			<a href="#tabContent02" >Tab 2</a>
+		</li>
+		<li class="tabMenu">
+			<a href="#tabContent03" >Tab 3</a>
+		</li>
+	</ul>
+	
+	
+	<div class="tab_Content_Wrap">
+		
+			
+
+            
+            
+            
               
               <form method="post" action="Save_targetData.jsp">
- 				<div id="tab-1" class="table-responsive tab-content current">
+ 				<div id="tabContent01" class="table-responsive tab-content">
                 <table class="table table-bordered" id="dataTable">
                   <thead>
                    <tr>
@@ -1634,24 +1699,25 @@ function count_auto() {
                		 </table>
                		 </div>
                		 </form> 
+               		 </div>
              	 
-             	  <div id="tab-2"  class="table-responsive tab-content">
-		             	 <div id="fh_order_chart" style="width: 800px; height: 500px;"></div>
-						 <div id="fh_sales_chart" style="width: 800px; height: 500px;"></div>
-						 <div id="sh_order_chart" style="width: 800px; height: 500px;"></div>
-						 <div id="sh_sales_chart" style="width: 800px; height: 500px;"></div>
-						 <div id="y_order_chart" style="width: 800px; height: 500px;"></div>
-						 <div id="y_sales_chart" style="width: 800px; height: 500px;"></div>
+             	 <div id="tabContent02" class="table-responsive tab-content">
+	             	  <div id="fh_order_chart"style="width: 700px; height: 300px;"></div>
+					 <div id="fh_sales_chart"style="width: 700px; height: 300px;"></div>
+					 <div id="sh_order_chart"style="width: 700px; height: 300px;"></div>
+					 <div id="sh_sales_chart"style="width: 700px; height: 300px;"></div>
+					 <div id="y_order_chart"style="width: 700px; height: 300px;"></div>
+					 <div id="y_sales_chart"style="width: 700px; height: 300px;"></div>
              	 </div>
              	 
-             	 <div id="tab-3"  class="table-responsive tab-content">
-				      <div id="VT_Team_chart" style="width: 900px; height: 500px;"></div>
-					 <div id="count_VT_chart" style="width: 900px; height: 500px;"></div>
-					 <div id="count_chassis_chart" style="width: 900px; height: 500px;"></div>
-					 <div id="count_body_chart" style="width: 900px; height: 500px;"></div>
-					 <div id="count_control_chart" style="width: 900px; height: 500px;"></div>
-					 <div id="count_safe_chart" style="width: 900px; height: 500px;"></div>
-					 <div id="count_auto_chart" style="width: 900px; height: 500px;"></div>
+             	 <div id="tabContent03"class="table-responsive tab-content">
+			             <div id="VT_Team_chart" style="width: 900px; height: 500px;"></div>
+						 <div id="count_VT_chart" style="width: 900px; height: 500px;"></div>
+						 <div id="count_chassis_chart" style="width: 900px; height: 500px;"></div>
+						 <div id="count_body_chart" style="width: 900px; height: 500px;"></div>
+						 <div id="count_control_chart" style="width: 900px; height: 500px;"></div>
+						 <div id="count_safe_chart" style="width: 900px; height: 500px;"></div>
+						 <div id="count_auto_chart" style="width: 900px; height: 500px;"></div>
              	 </div>
               </div>
               </div>
