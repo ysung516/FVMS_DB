@@ -108,15 +108,12 @@ $(document).ready(function () {
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
 	$("input:radio[name='reportCheck']:radio[value='<%=project.getREPORTCHECK()%>']").prop("checked", true);
 	$("input:radio[name='sheetCheck']:radio[value='<%=project.getRESULT_REPORT()%>']").prop("checked", true);
-    // Warning
-    $(window).on('beforeunload', function(){
-        return "Any changes will be lost";
-    });
+   
     // Form Submit
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
     });
-})
+});
 
 //정렬함수
 function sortSelect(selId) {
