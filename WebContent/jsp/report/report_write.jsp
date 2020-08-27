@@ -146,6 +146,9 @@ $(document).ready(function () {
 		.card-header:first-child{
 			padding: 0;
 		}
+		
+		body{
+		font-size:small;}
 }
 
  fieldset{

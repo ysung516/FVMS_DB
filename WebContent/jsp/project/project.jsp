@@ -85,6 +85,35 @@
 
 </head>
 <style>
+	@media(max-width:800px){
+	
+		body{
+		font-size:small;}
+		.container-fluid{
+			padding: 0;
+		}
+		.card-header:first-child{
+			padding: 0;
+		}
+		
+		body{
+		font-size:small;
+		}
+		.table td, .table th{
+			padding:0.4rem;
+		}
+		.card-body{
+		padding:0;}
+		
+		.py-3{
+			margin-bottom:6px;
+		}
+		
+		.m-0{
+			margin-left:14px !important;
+		}
+}
+
 	.cb{
     height: 18px;
     width: 18px;

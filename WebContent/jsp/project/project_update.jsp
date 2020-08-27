@@ -90,6 +90,9 @@
 		.card-body{
 		padding:0;
 		}
+		
+		body{
+		font-size:small;}
 }
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>

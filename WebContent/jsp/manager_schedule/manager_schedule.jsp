@@ -420,6 +420,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	display:flex;
 }
 @media(max-width:320px){
+
+
+		body{
+		font-size:small;}
 	
 	.container-fluid{
 		padding: 0;

@@ -150,6 +150,9 @@
 		.table-responsive{
 		width:100%;
 	}
+	
+		body{
+		font-size:small;}
 }
 
 .sortDIV{

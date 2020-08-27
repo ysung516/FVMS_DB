@@ -127,6 +127,9 @@ function input_check_func() {
 		.card-header:first-child{
 			padding: 0;
 		}
+		
+		body{
+		font-size:small;}
 }
 
  fieldset{

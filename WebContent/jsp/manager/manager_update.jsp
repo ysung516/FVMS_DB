@@ -104,6 +104,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		.card-header:first-child{
 			padding: 0;
 		}
+		
+		body{
+		font-size:small;}
 }
 
 </style>

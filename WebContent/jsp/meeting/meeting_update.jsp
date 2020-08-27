@@ -160,6 +160,9 @@ function deleteNP(){
 		.card-body{
 			padding:0;
 		}	
+		
+		body{
+		font-size:small;}
 }
   
   .report_div{
