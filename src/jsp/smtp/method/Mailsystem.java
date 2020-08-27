@@ -20,7 +20,7 @@ import javax.mail.util.ByteArrayDataSource;
 public class Mailsystem {
 
 	// TEXT만 보낼때
-	public void sendEmail(String from, String to, String cc, String subject, String content) throws Exception {
+	public void sendEmail(String from, String to, String subject, String content) throws Exception {
 
 		// Properties 설정
 		// 프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
@@ -54,10 +54,6 @@ public class Mailsystem {
 		// set the from and to address
 		msg.setFrom(new InternetAddress(from));// 보내는 사람 설정
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));// 받는 사람설정
-
-		if (!cc.trim().equals("")) {
-			msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(cc, false));
-		}
 
 		// Setting the Subject and Content Type
 		msg.setSubject(subject); // 제목 설정

@@ -43,6 +43,19 @@
 		String issue = request.getParameter("issue");
 		int count = Integer.parseInt(request.getParameter("count"));
 		String nextplan = "-";
+		String content = "회의명 : " + MeetName +"\n"
+						+ "회의일시 : " +  MeetDate + "\n"
+						+ "회의장소 : " + MeetPlace + "\n"
+						+ "작성자 : " + writer + "\n"
+						+ "작성날짜 : " + date + "\n"
+						+ "참석자 : " + attendees + "\n"
+						+ "외부참석자 : " + attendees_ex + "\n\n" 
+						+ "회의내용 : " + meetnote + "\n\n"
+						+ "이슈사항 : " + issue + "\n\n"
+						+ "향후일정 : \n";
+		
+						
+		
 		
 		if(count != 0){
 			nextplan = sf2.format(nowTime);
@@ -63,13 +76,16 @@
 						item[i] = request.getParameter("item"+(i+1));
 						deadline[i] = request.getParameter("deadline"+(i+1));
 						pm[i] = request.getParameter("pm"+(i+1));
+						content += "항목 :" + request.getParameter("item"+(i+1)) +"   "
+						+ "기한 : " + request.getParameter("deadline"+(i+1)) +"   "
+						+ "담당자 : " + request.getParameter("pm"+(i+1)) +"\n"; 
 					}	
 					meetDao.createNextPlanTable(nextplan);
 					meetDao.insertNextPlanData(nextplan, item, deadline, pm, count);
+					
 				}
 				script.print("<script> alert('회의록 작성이 되었습니다.'); location.href = 'meeting.jsp'</script>");
-				excel.MeetExport(MeetName, writer, meetnote, nextplan, issue, date, MeetDate, attendees, attendees_ex, MeetPlace);
-				post.post2();
+				post.textPost(content);
 			}
 				else script.print("<script> alert('작성 실패!!'); history.back();</script>");
 		}
