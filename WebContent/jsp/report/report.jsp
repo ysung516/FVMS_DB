@@ -365,8 +365,11 @@
                     
                   		<div class="summary">미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span></div>
         			<%for(int i=0; i<unWrite.size(); i++){
-        				%><p class="summary_p"><%=unWrite.get(i).getPROJECT_NAME()%></p>
-        				<%}%>
+        				if(unWrite.get(i).getPROJECT_MANAGER().equals(sessionID) || unWrite.get(i).getWORKER_LIST().contains(sessionID)){
+        					%><p class="summary_p"><a href="report_write.jsp?no=<%=unWrite.get(i).getNO()%>"><%=unWrite.get(i).getPROJECT_NAME()%></a></p>
+        			<%}else{%>
+        				<p class="summary_p"><%=unWrite.get(i).getPROJECT_NAME()%></p>
+        			<% }}%>
                   
                   </div>
                 

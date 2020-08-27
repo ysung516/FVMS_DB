@@ -225,7 +225,7 @@ public class ReportDAO {
 	    ResultSet rs = null;
 	    
 	    try {
-	    	String query = "SELECT a.no, a.프로젝트명 FROM project a left outer join report b on a.no = b.프로젝트no "
+	    	String query = "SELECT a.no, a.프로젝트명, a.PM, a.투입명단 FROM project a left outer join report b on a.no = b.프로젝트no "
 	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
@@ -234,6 +234,8 @@ public class ReportDAO {
 	    		ProjectBean project = new ProjectBean();
 	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
 	    		project.setNO(rs.getInt("no"));
+	    		project.setPROJECT_MANAGER(rs.getNString("PM"));
+	    		project.setWORKER_LIST(rs.getNString("투입명단"));
 	    		list.add(project);
 	    	}
 	    }catch (SQLException e) {
