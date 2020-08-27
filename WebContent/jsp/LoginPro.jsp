@@ -27,12 +27,15 @@
      //post.post();
    
     if (memberDao.logincheck(ID, PW) == 1){
-	      script.print("<script> location.href = '../jsp/report/report.jsp'; </script>");
 	      session.setAttribute("sessionID", ID);
 	      sessionName = member.getNAME();
 	      session.setAttribute("sessionName", sessionName);
 	      permission = member.getPermission();
 	      session.setAttribute("permission", permission);
+	      if(permission.equals("0") || permission.equals("1")){
+	      	script.print("<script> location.href = '../jsp/manager_schedule/manager_schedule.jsp'; </script>");}
+	      else{
+		    script.print("<script> location.href = '../jsp/report/report.jsp'; </script>");}
      } else 
       script.print("<script> alert('아이디 혹은 비밀번호가 틀립니다.'); history.back(); </script>");
 
