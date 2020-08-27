@@ -24,7 +24,7 @@
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(30*60);
+	session.setMaxInactiveInterval(60*60);
 	
 	SummaryDAO summaryDao = new SummaryDAO();
 	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();

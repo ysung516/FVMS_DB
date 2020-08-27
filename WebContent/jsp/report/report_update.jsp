@@ -27,7 +27,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
-	session.setMaxInactiveInterval(30*60);
+	session.setMaxInactiveInterval(60*60);
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	
