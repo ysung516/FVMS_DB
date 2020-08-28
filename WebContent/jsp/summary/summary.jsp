@@ -479,17 +479,17 @@
       
       function fh_order() {
         var fh_order_data = google.visualization.arrayToDataTable([
-          ['Team', '목표수주', '예상수주', '수주 달성률'],
-          ['샤시힐스', 500, 400, 200],
-          ['바디힐스', 1170, 460, 250],
-          ['제어로직', 660, 1120, 300],
-          ['기능안전', 1030, 540, 350],
-          ['자율주행', 1170, 460, 250],
-          ['실', 660, 1120, 300]
+          ['Team', '목표수주', '예상수주', '수주 달성'],
+          ['샤시힐스', <%=FH_chassis_PJ%>, <%=FH_chassis_ORDER%>, <%=FH_chassis_RPJ%>],
+          ['바디힐스', <%=FH_body_PJ%>, <%=FH_body_ORDER%>, <%=FH_body_RPJ%>],
+          ['제어로직', <%=FH_control_PJ%>, <%=FH_control_ORDER%>, <%=FH_control_RPJ%>],
+          ['기능안전', <%=FH_safe_PJ%>, <%=FH_safe_ORDER%>, <%=FH_safe_RPJ%>],
+          ['자율주행', <%=FH_auto_PJ%>, <%=FH_auto_ORDER%>, <%=FH_auto_RPJ%>],
+          ['실', <%=FH_vt_PJ%>, <%=FH_vt_ORDER%>, <%=FH_vt_RPJ%>]
         ]);
 
         var fh_order_option = { 
-        		title: '상반기 수주'
+        		title: '상반기 수주', width:'800', height:'300'
         };
 
         var fh_order_chart = new google.charts.Bar(document.getElementById('fh_order_chart'));
@@ -499,18 +499,18 @@
       
  function fh_sales() {
           var fh_sales_data = google.visualization.arrayToDataTable([
-            ['Team', '목표매출', '예상매출', '매출 달성률'],
-            ['샤시힐스', 3000, 400, 200],
-            ['바디힐스', 1170, 460, 250],
-            ['제어로직', 660, 1120, 300],
-            ['기능안전', 1030, 540, 350],
-            ['자율주행', 1170, 460, 250],
-            ['실', 660, 1120, 300]
+            ['Team', '목표매출', '예상매출', '매출 달성'],
+            ['샤시힐스', <%=FH_chassis_SALES%>, <%=FH_chassis_PJSALES%>, <%=FH_chassis_RSALES%>],
+            ['바디힐스', <%=FH_body_SALES%>, <%=FH_body_PJSALES%>, <%=FH_body_RSALES%>],
+            ['제어로직', <%=FH_control_SALES%>, <%=FH_control_PJSALES%>, <%=FH_control_RSALES%>],
+            ['기능안전', <%=FH_safe_SALES%>, <%=FH_safe_PJSALES%>, <%=FH_safe_RSALES%>],
+            ['자율주행', <%=FH_auto_SALES%>, <%=FH_auto_PJSALES%>, <%=FH_auto_RSALES%>],
+            ['실', <%=FH_vt_SALES%>, <%=FH_vt_PJSALES%>, <%=FH_vt_RSALES%>]
           ]);
 
           var fh_sales_option = {
             chart: {
-              title: '상반기 매출',
+              title: '상반기 매출', width:'800', height:'300'
       
             }
           };
@@ -522,19 +522,17 @@
  
  function sh_order() {
      var sh_order_data = google.visualization.arrayToDataTable([
-       ['Team', '목표수주', '예상수주', '수주 달성률'],
-       ['샤시힐스', 500, 400, 200],
-       ['바디힐스', 1170, 460, 250],
-       ['제어로직', 660, 1120, 300],
-       ['기능안전', 1030, 540, 350],
-       ['자율주행', 1170, 460, 250],
-       ['실', 660, 1120, 300]
+       ['Team', '목표수주', '예상수주', '수주 달성'],
+       ['샤시힐스', <%=SH_chassis_PJ%>, <%=SH_chassis_ORDER%>, <%=SH_chassis_RPJ%>],
+       ['바디힐스', <%=SH_body_PJ%>, <%=SH_body_ORDER%>, <%=SH_body_RPJ%>],
+       ['제어로직', <%=SH_control_PJ%>, <%=SH_control_ORDER%>, <%=SH_control_RPJ%>],
+       ['기능안전', <%=SH_safe_PJ%>, <%=SH_safe_ORDER%>, <%=SH_safe_RPJ%>],
+       ['자율주행', <%=SH_auto_PJ%>, <%=SH_auto_ORDER%>, <%=SH_auto_RPJ%>],
+       ['실', <%=SH_vt_PJ%>, <%=SH_vt_ORDER%>, <%=SH_vt_RPJ%>]
      ]);
 
-     var sh_order_option = {
-       chart: {
-         title: '하반기 수주'
-       }
+     var sh_order_option = { 
+     		title: '하반기 수주', width:'800', height:'300'
      };
 
      var sh_order_chart = new google.charts.Bar(document.getElementById('sh_order_chart'));
@@ -544,18 +542,18 @@
    
 function sh_sales() {
        var sh_sales_data = google.visualization.arrayToDataTable([
-         ['Team', '목표매출', '예상매출', '매출 달성률'],
-         ['샤시힐스', 1000, 400, 200],
-         ['바디힐스', 1170, 460, 250],
-         ['제어로직', 660, 1120, 300],
-         ['기능안전', 1030, 540, 350],
-         ['자율주행', 1170, 460, 250],
-         ['실', 660, 1120, 300]
+    	   ['Team', '목표매출', '예상매출', '매출 달성'],
+           ['샤시힐스', <%=SH_chassis_SALES%>, <%=SH_chassis_PJSALES%>, <%=SH_chassis_RSALES%>],
+           ['바디힐스', <%=SH_body_SALES%>, <%=SH_body_PJSALES%>, <%=SH_body_RSALES%>],
+           ['제어로직', <%=SH_control_SALES%>, <%=SH_control_PJSALES%>, <%=SH_control_RSALES%>],
+           ['기능안전', <%=SH_safe_SALES%>, <%=SH_safe_PJSALES%>, <%=SH_safe_RSALES%>],
+           ['자율주행', <%=SH_auto_SALES%>, <%=SH_auto_PJSALES%>, <%=SH_auto_RSALES%>],
+           ['실', <%=SH_vt_SALES%>, <%=SH_vt_PJSALES%>, <%=SH_vt_RSALES%>]
        ]);
 
        var sh_sales_option = {
          chart: {
-           title: '하반기 매출',
+           title: '하반기 매출', width:'800', height:'300'
          }
        };
 
@@ -566,18 +564,18 @@ function sh_sales() {
      
 function y_order() {
     var y_order_data = google.visualization.arrayToDataTable([
-      ['Team', '목표수주', '예상수주', '수주 달성률'],
-      ['샤시힐스', 500, 400, 200],
-      ['바디힐스', 1170, 460, 250],
-      ['제어로직', 660, 1120, 300],
-      ['기능안전', 1030, 540, 350],
-      ['자율주행', 1170, 460, 250],
-      ['실', 660, 1120, 300]
+      ['Team', '목표수주', '예상수주', '수주 달성'],
+      ['샤시힐스', <%=Y_chassis_PJ%>, <%=Y_chassis_ORDER%>, <%=Y_chassis_RPJ%>],
+      ['바디힐스', <%=Y_body_PJ%>, <%=Y_body_ORDER%>, <%=Y_body_RPJ%>],
+      ['제어로직', <%=Y_control_PJ%>, <%=Y_control_ORDER%>, <%=Y_control_RPJ%>],
+      ['기능안전', <%=Y_safe_PJ%>, <%=Y_safe_ORDER%>, <%=Y_safe_RPJ%>],
+      ['자율주행', <%=Y_auto_PJ%>, <%=Y_auto_ORDER%>, <%=Y_auto_RPJ%>],
+      ['실', <%=Y_vt_PJ%>, <%=Y_vt_ORDER%>, <%=Y_vt_RPJ%>]
     ]);
 
     var y_order_option = {
       chart: {
-        title: '연간 수주',
+        title: '연간 수주', width:'800', height:'300'
       }
     };
 
@@ -588,18 +586,18 @@ function y_order() {
   
 function y_sales() {
       var y_sales_data = google.visualization.arrayToDataTable([
-        ['Team', '목표매출', '예상매출', '매출 달성률'],
-        ['샤시힐스', 1500, 400, 200],
-        ['바디힐스', 1870, 460, 250],
-        ['제어로직', 660, 1720, 300],
-        ['기능안전', 1030, 540, 350],
-        ['자율주행', 1370, 460, 250],
-        ['실', 660, 1420, 300]
+    	  ['Team', '목표매출', '예상매출', '매출 달성'],
+          ['샤시힐스', <%=Y_chassis_SALES%>, <%=Y_chassis_PJSALES%>, <%=Y_chassis_RSALES%>],
+          ['바디힐스', <%=Y_body_SALES%>, <%=Y_body_PJSALES%>, <%=Y_body_RSALES%>],
+          ['제어로직', <%=Y_control_SALES%>, <%=Y_control_PJSALES%>, <%=Y_control_RSALES%>],
+          ['기능안전', <%=Y_safe_SALES%>, <%=Y_safe_PJSALES%>, <%=Y_safe_RSALES%>],
+          ['자율주행', <%=Y_auto_SALES%>, <%=Y_auto_PJSALES%>, <%=Y_auto_RSALES%>],
+          ['실', <%=Y_vt_SALES%>, <%=Y_vt_PJSALES%>, <%=Y_vt_RSALES%>]
       ]);
 
       var y_sales_option = {
         chart: {
-          title: '연간 매출',
+          title: '연간 매출', width:'800', height:'300'
         }
       };
 
