@@ -429,52 +429,40 @@
 		width : 65px;
 	}
 
-	/*.tabWrap { width: 100%; height: 100%; }*/
-	.tab_Menu { margin: 0px; padding: 0px; list-style: none; }
-	.tabMenu { width: 150px; margin: 0px; text-align: center; 
-			   padding-top: 10px; padding-bottom: 10px; float: left; }
-	.tabMenu a { color: #000000; font-weight: bold; text-decoration: none; }
-	.current { background-color:#564a4a4d; 
-			    border-bottom:hidden; }
-	.tabPage { width: 100%; height: 100%; float: left; }
 
+	button {
+	  background:none;
+	  border:0;
+	  outline:0;
+	  cursor:pointer;
+	}
+	.tab_menu_container {
+	  display:flex;
+	}
+	.tab_menu_btn {
+	  width:80px;
+	  height:40px;
+	  transition:0.3s all;
+	}
+	.tab_menu_btn.on {
+	  border-bottom:2px solid #df0000;
+	  font-weight:700;
+	  color:#df0000;
+	}
+	.tab_menu_btn:hover {
+	  color:#df0000;
+	}
+	.tab_box {
+	  display:none;
+	  padding:20px;
+	}
+	.tab_box.on {
+	  display:block;
+	}
 </style>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
-<script type="text/javascript">
-	function tabSetting() {
-		// 탭 컨텐츠 hide 후 현재 탭메뉴 페이지만 show
-		$('.tabPage').hide();
-		$($('.current').find('a').attr('href')).show();
 
-		// Tab 메뉴 클릭 이벤트 생성
-		$('li').click(function (event) {
-			var tagName = event.target.tagName; // 현재 선택된 태그네임
-			var selectedLiTag = (tagName.toString() == 'A') ? $(event.target).parent('li') : $(event.target); // A태그일 경우 상위 Li태그 선택, Li태그일 경우 그대로 태그 객체
-			var currentLiTag = $('li[class~=current]'); // 현재 current 클래그를 가진 탭
-			var isCurrent = false;  
-			
-			// 현재 클릭된 탭이 current를 가졌는지 확인
-			isCurrent = $(selectedLiTag).hasClass('current');
-			
-			// current를 가지지 않았을 경우만 실행
-			if (!isCurrent) {
-				$($(currentLiTag).find('a').attr('href')).hide();
-				$(currentLiTag).removeClass('current');
-
-				$(selectedLiTag).addClass('current');
-				$($(selectedLiTag).find('a').attr('href')).show();
-			}
-
-			return false;
-		});
-	}
-
-	$(function () {
-		// 탭 초기화 및 설정
-		tabSetting();
-	});
-</script>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
  <script src="https://code.jquery.com/jquery.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -1017,6 +1005,18 @@ function count_auto() {
 		ProjectTable2();
 		stateTotal();
 		
+		$('.tab_menu_btn').on('click',function(){
+			  //버튼 색 제거,추가
+			  $('.tab_menu_btn').removeClass('on');
+			  $(this).addClass('on')
+			  
+			  //컨텐츠 제거 후 인덱스에 맞는 컨텐츠 노출
+			  var idx = $('.tab_menu_btn').index(this);
+			  
+			  $('.tab_box').hide();
+			  $('.tab_box').eq(idx).show();
+			});
+		
 	});
 	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	
@@ -1294,20 +1294,16 @@ function count_auto() {
             <div class="card-body">
 
 	 <div class="tabWrap">
-			<ul class="tab_Menu">
-				<li class="tabMenu current">
-					<a href="#tabContent01" >Tab 1</a>
-				</li>
-				<li class="tabMenu">
-					<a href="#tabContent02" >Tab 2</a>
-				</li>
-				<li class="tabMenu">
-					<a href="#tabContent03" >Tab 3</a>
-				</li>
-			</ul>
-			<div class="tab_Content_Wrap">
+			  <div class="tab_menu_container">
+			    <button class="tab_menu_btn1 tab_menu_btn on" type="button">1</button>
+			    <button class="tab_menu_btn2 tab_menu_btn" type="button">2</button>
+			    <button class="tab_menu_btn3 tab_menu_btn" type="button">3</button>
+			    <button class="tab_menu_btn4 tab_menu_btn" type="button">4</button>
+			    <button class="tab_menu_btn5 tab_menu_btn" type="button">5</button>
+			  </div> <!-- tab_menu_container e -->
+			<div class="tab_Content_Wrap tab_box_container">
 
- 				<div id="tabContent01" class="tabPage">
+ 				<div id="tabContent01" class="tab_box1 tab_box on">
  				<form method="post" action="Save_targetData.jsp">
                 <table class="table table-bordered" id="dataTable">
                   <thead>
@@ -1651,7 +1647,7 @@ function count_auto() {
                		 </div>
                		 
                		 
-               	<div id="tabContent02" class="tabPage">
+               	<div id="tabContent02" class="tab_box2 tab_box">
                	<div>
 	             	 <div id="fh_order_chart"style="width:800px; height:300px;"></div>
 	             	 <div id="fh_sales_chart"style="width:800px; height:300px;"></div>
@@ -1662,7 +1658,7 @@ function count_auto() {
              	 </div>	
              	 </div>
              	 
-             	 <div id="tabContent03"class="tabPage">
+             	 <div id="tabContent03"class="tab_box3 tab_box">
              	 <div>
 			             <div id="VT_Team_chart" style="width:100%; height:100%;"></div>
 						 <div id="count_VT_chart" style="width:100%; height:100%;"></div>
