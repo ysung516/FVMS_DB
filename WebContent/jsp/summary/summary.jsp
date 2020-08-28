@@ -429,7 +429,10 @@
 		width : 65px;
 	}
 
-
+	.chart{		
+  	width: 100%; 
+	}
+	
 	button {
 	  background:none;
 	  border:0;
@@ -467,6 +470,7 @@
  <script src="https://code.jquery.com/jquery.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+  
     
     /* 막대 차트 */
       google.charts.load('current', {'packages':['bar']});
@@ -479,7 +483,7 @@
       
       function fh_order() {
         var fh_order_data = google.visualization.arrayToDataTable([
-          ['Team', '목표수주', '예상수주', '수주 달성'],
+          ['Team', 		'목표수주',			 '예상수주',			 '수주 달성'],
           ['샤시힐스', <%=FH_chassis_PJ%>, <%=FH_chassis_ORDER%>, <%=FH_chassis_RPJ%>],
           ['바디힐스', <%=FH_body_PJ%>, <%=FH_body_ORDER%>, <%=FH_body_RPJ%>],
           ['제어로직', <%=FH_control_PJ%>, <%=FH_control_ORDER%>, <%=FH_control_RPJ%>],
@@ -489,7 +493,7 @@
         ]);
 
         var fh_order_option = { 
-        		title: '상반기 수주', width:'800', height:'300'
+        		title: '상반기 수주', width:800, height:300
         };
 
         var fh_order_chart = new google.charts.Bar(document.getElementById('fh_order_chart'));
@@ -509,10 +513,10 @@
           ]);
 
           var fh_sales_option = {
-            chart: {
-              title: '상반기 매출', width:'800', height:'300'
+           
+              title: '상반기 매출', width:800, height:300
       
-            }
+           
           };
 
           var fh_sales_chart = new google.charts.Bar(document.getElementById('fh_sales_chart'));
@@ -532,7 +536,7 @@
      ]);
 
      var sh_order_option = { 
-     		title: '하반기 수주', width:'800', height:'300'
+     		title: '하반기 수주',  width:800, height:300
      };
 
      var sh_order_chart = new google.charts.Bar(document.getElementById('sh_order_chart'));
@@ -552,9 +556,9 @@ function sh_sales() {
        ]);
 
        var sh_sales_option = {
-         chart: {
-           title: '하반기 매출', width:'800', height:'300'
-         }
+      
+           title: '하반기 매출', width:800, height:300
+      
        };
 
        var sh_sales_chart = new google.charts.Bar(document.getElementById('sh_sales_chart'));
@@ -574,9 +578,9 @@ function y_order() {
     ]);
 
     var y_order_option = {
-      chart: {
-        title: '연간 수주', width:'800', height:'300'
-      }
+  
+        title: '연간 수주', width:800, height:300
+    
     };
 
     var y_order_chart = new google.charts.Bar(document.getElementById('y_order_chart'));
@@ -596,9 +600,9 @@ function y_sales() {
       ]);
 
       var y_sales_option = {
-        chart: {
-          title: '연간 매출', width:'800', height:'300'
-        }
+       
+          title: '연간 매출',  width:800, height:300
+      
       };
 
       var y_sales_chart = new google.charts.Bar(document.getElementById('y_sales_chart'));
@@ -629,7 +633,7 @@ function VT_Team() {
 
 	  var VT_Team_options = {
 	    title: '미래차 검증 전략실 팀',
-	    pieHole: 0.4,
+	    pieHole: 0.4, width:800, height:300
 	  };
 
 	  var VT_Team_chart = new google.visualization.PieChart(document.getElementById('VT_Team_chart'));
@@ -649,7 +653,7 @@ function count_VT() {
 
   var count_VT_options = {
     title: '미래차 검증 전략실',
-    pieHole: 0.4,
+    pieHole: 0.4, width:800, height:300
   };
 
   var count_VT_chart = new google.visualization.PieChart(document.getElementById('count_VT_chart'));
@@ -668,7 +672,7 @@ function count_chassis() {
 
 	  var count_chassis_options = {
 	    title: '샤시힐스 검증팀',
-	    pieHole: 0.4,
+	    pieHole: 0.4, width:800, height:300
 	  };
 
 	  var count_chassis_chart = new google.visualization.PieChart(document.getElementById('count_chassis_chart'));
@@ -687,7 +691,7 @@ function count_body() {
 
 	  var count_body_options = {
 	    title: '바디힐스 검증팀',
-	    pieHole: 0.4,
+	    pieHole: 0.4, width:800, height:300
 	  };
 
 	  var count_body_chart = new google.visualization.PieChart(document.getElementById('count_body_chart'));
@@ -706,7 +710,7 @@ function count_control() {
 
 	  var count_control_options = {
 	    title: '제어로직 검증팀',
-	    pieHole: 0.4,
+	    pieHole: 0.4, width:800, height:300
 	  };
 
 	  var count_control_chart = new google.visualization.PieChart(document.getElementById('count_control_chart'));
@@ -725,7 +729,7 @@ function count_safe() {
 
 	  var count_safe_options = {
 	    title: '기능안전 검증팀',
-	    pieHole: 0.4,
+	    pieHole: 0.4, width:800, height:300
 	  };
 
 	  var count_safe_chart = new google.visualization.PieChart(document.getElementById('count_safe_chart'));
@@ -744,7 +748,7 @@ function count_auto() {
 
 	  var count_auto_options = {
 	    title: '자율주행 검증팀',
-	    pieHole: 0.4,
+	    pieHole: 0.4, width:800, height:300
 	  };
 
 	  var count_auto_chart = new google.visualization.PieChart(document.getElementById('count_auto_chart'));
@@ -1296,8 +1300,6 @@ function count_auto() {
 			    <button class="tab_menu_btn1 tab_menu_btn on" type="button">1</button>
 			    <button class="tab_menu_btn2 tab_menu_btn" type="button">2</button>
 			    <button class="tab_menu_btn3 tab_menu_btn" type="button">3</button>
-			    <button class="tab_menu_btn4 tab_menu_btn" type="button">4</button>
-			    <button class="tab_menu_btn5 tab_menu_btn" type="button">5</button>
 			  </div> <!-- tab_menu_container e -->
 			<div class="tab_Content_Wrap tab_box_container">
 
@@ -1644,27 +1646,29 @@ function count_auto() {
                		 </form> 
                		 </div>
                		 
-               		 
-               	<div id="tabContent02" class="tab_box2 tab_box">
-               	<div>
-	             	 <div id="fh_order_chart"style="width:800px; height:300px;"></div>
-	             	 <div id="fh_sales_chart"style="width:800px; height:300px;"></div>
-					 <div id="sh_order_chart"style="width:800px; height:300px;" ></div>
-					 <div id="sh_sales_chart" style="width:800px; height:300px;"></div>
-					 <div id="y_order_chart" style="width:800px; height:300px;"></div>
-					 <div id="y_sales_chart" style="width:800px; height:300px;"></div>
-             	 </div>	
+              
+               	<div id="tabContent02" class="tab_box2 tab_box" style="display:table; table-layout:fixed;">
+               		<table style="display:table-cell;">
+	            	 <tr><td> <div id="fh_order_chart" class="chart"></div></td></tr>
+	             	 <tr><td> <div id="fh_sales_chart" class="chart"></div></td></tr>
+					 <tr><td>  <div id="sh_order_chart" class="chart" ></div></td></tr>
+					 <tr><td>  <div id="sh_sales_chart" class="chart"></div></td></tr>
+					 <tr><td>  <div id="y_order_chart" class="chart"></div></td></tr>
+					 <tr><td>  <div id="y_sales_chart" class="chart"></div></td></tr>
+             	 </table>
              	 </div>
              	 
-             	 <div id="tabContent03"class="tab_box3 tab_box">
-             	 <div>
-			             <div id="VT_Team_chart" style="width:100%; height:100%;"></div>
-						 <div id="count_VT_chart" style="width:100%; height:100%;"></div>
-						 <div id="count_chassis_chart" style="width:100%; height:100%;"></div>
-						 <div id="count_body_chart" style="width:100%; height:100%;"></div>
-						 <div id="count_control_chart" style="width:100%; height:100%;"></div>
-						 <div id="count_safe_chart" style="width:100%; height:100%;"></div>
-						 <div id="count_auto_chart" style="width:100%; height:100%;"></div>
+             	  <div>
+             	 <div id="tabContent03"class="tab_box3 tab_box" style="display:table; table-layout:fixed;">
+             			<table style="display:table-cell;">
+			            	<tr><td> <div id="VT_Team_chart" class="chart"></div></td></tr>
+						 	<tr><td> <div id="count_VT_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="count_chassis_chart" class="chart"></div></td></tr>
+							<tr><td><div id="count_body_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="count_control_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="count_safe_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="count_auto_chart" class="chart"></div></td></tr>
+						 </table>
              	 </div>
              	 </div>
                		 </div>	 
