@@ -1006,7 +1006,8 @@ function count_auto() {
 		ProjectTable();
 		ProjectTable2();
 		stateTotal();
-		
+		$('.tab_box').hide();
+		$('.on').show();
 		$('.tab_menu_btn').on('click',function(){
 			  //버튼 색 제거,추가
 			  $('.tab_menu_btn').removeClass('on');
