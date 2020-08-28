@@ -612,147 +612,131 @@ function y_sales() {
     
 /*도넛 차트*/
 google.charts.load("current", {packages:["corechart"]});
-google.charts.setOnLoadCallback(VT_Team);
-google.charts.setOnLoadCallback(count_VT);
-google.charts.setOnLoadCallback(count_chassis);
-google.charts.setOnLoadCallback(count_body);
-google.charts.setOnLoadCallback(count_control);
-google.charts.setOnLoadCallback(count_safe);
-google.charts.setOnLoadCallback(count_auto);
+google.charts.setOnLoadCallback(fh_rpj);
+google.charts.setOnLoadCallback(sh_rpj);
+google.charts.setOnLoadCallback(y_rpj);
+google.charts.setOnLoadCallback(fh_rsales);
+google.charts.setOnLoadCallback(sh_rsales);
+google.charts.setOnLoadCallback(y_rsales);
 
-function VT_Team() {
-	  var VT_Team_data = google.visualization.arrayToDataTable([
+function fh_rpj() {
+	  var fh_rpj_data = google.visualization.arrayToDataTable([
 	    ['Count', 'How Many'],
-	    ['샤시힐스',   14],
-	    ['바디힐스',   10],
-	    ['제어로직',  9],
-	    ['기능안전',  7],
-	    ['자율주행',  9],
-	    ['미포함',  6],
+	    ['샤시힐스',   <%=FH_chassis_RPJ%>],
+	    ['바디힐스',   <%=FH_body_RPJ%>],
+	    ['제어로직',  <%=FH_control_RPJ%>],
+	    ['기능안전',  <%=FH_safe_RPJ%>],
+	    ['자율주행',  <%=FH_auto_RPJ%>],
+	    ['실',  <%=FH_vt_RPJ%>],
 	  ]);
 
-	  var VT_Team_options = {
-	    title: '미래차 검증 전략실 팀',
+	  var fh_rpj_options = {
+	    title: '상반기 수주 달성',
 	    pieHole: 0.4, width:800, height:300
 	  };
 
-	  var VT_Team_chart = new google.visualization.PieChart(document.getElementById('VT_Team_chart'));
-	  VT_Team_chart.draw( VT_Team_data, VT_Team_options);
-	}
-
-
-function count_VT() {
-  var count_VT_data = google.visualization.arrayToDataTable([
-    ['Count', 'How Many'],
-    ['수석',   1],
-    ['책임',   6],
-    ['선임',  9],
-    ['전임',  17],
-    ['협력업체',  3]
-  ]);
-
-  var count_VT_options = {
-    title: '미래차 검증 전략실',
-    pieHole: 0.4, width:800, height:300
-  };
-
-  var count_VT_chart = new google.visualization.PieChart(document.getElementById('count_VT_chart'));
-  count_VT_chart.draw(count_VT_data,count_VT_options);
-}
-
-function count_chassis() {
-	  var count_chassis_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['수석',   0],
-	    ['책임',   1],
-	    ['선임',  2],
-	    ['전임',  5],
-	    ['협력업체',  3]
-	  ]);
-
-	  var count_chassis_options = {
-	    title: '샤시힐스 검증팀',
-	    pieHole: 0.4, width:800, height:300
-	  };
-
-	  var count_chassis_chart = new google.visualization.PieChart(document.getElementById('count_chassis_chart'));
-	  count_chassis_chart.draw(count_chassis_data,count_chassis_options);
+	  var fh_rpj_chart = new google.visualization.PieChart(document.getElementById('fh_rpj_chart'));
+	  fh_rpj_chart.draw( fh_rpj_data, fh_rpj_options);
 	}
 	
-function count_body() {
-	  var count_body_data = google.visualization.arrayToDataTable([
+function sh_rpj() {
+	  var sh_rpj_data = google.visualization.arrayToDataTable([
 	    ['Count', 'How Many'],
-	    ['수석',   0],
-	    ['책임',   1],
-	    ['선임',  5],
-	    ['전임',  7],
-	    ['협력업체',  2]
+	    ['샤시힐스',   <%=SH_chassis_RPJ%>],
+	    ['바디힐스',   <%=SH_body_RPJ%>],
+	    ['제어로직',  <%=SH_control_RPJ%>],
+	    ['기능안전',  <%=SH_safe_RPJ%>],
+	    ['자율주행',  <%=SH_auto_RPJ%>],
+	    ['실',  <%=SH_vt_RPJ%>],
 	  ]);
 
-	  var count_body_options = {
-	    title: '바디힐스 검증팀',
+	  var sh_rpj_options = {
+	    title: '하반기 수주 달성',
 	    pieHole: 0.4, width:800, height:300
-	  };
+	  };S
 
-	  var count_body_chart = new google.visualization.PieChart(document.getElementById('count_body_chart'));
-	  count_body_chart.draw(count_body_data,count_body_options);
+	  var sh_rpj_chart = new google.visualization.PieChart(document.getElementById('sh_rpj_chart'));
+	  sh_rpj_chart.draw( sh_rpj_data, sh_rpj_options);
 	}
 	
-function count_control() {
-	  var count_control_data = google.visualization.arrayToDataTable([
+function y_rpj() {
+	  var y_rpj_data = google.visualization.arrayToDataTable([
 	    ['Count', 'How Many'],
-	    ['수석',   0],
-	    ['책임',   1],
-	    ['선임',  4],
-	    ['전임',  8],
-	    ['협력업체',  4]
+	    ['샤시힐스',   <%=Y_chassis_RPJ%>],
+	    ['바디힐스',   <%=Y_body_RPJ%>],
+	    ['제어로직',  <%=Y_control_RPJ%>],
+	    ['기능안전',  <%=Y_safe_RPJ%>],
+	    ['자율주행',  <%=Y_auto_RPJ%>],
+	    ['실',  <%=Y_vt_RPJ%>],
 	  ]);
 
-	  var count_control_options = {
-	    title: '제어로직 검증팀',
+	  var y_rpj_options = {
+	    title: '연간 수주 달성',
 	    pieHole: 0.4, width:800, height:300
 	  };
 
-	  var count_control_chart = new google.visualization.PieChart(document.getElementById('count_control_chart'));
-	  count_control_chart.draw(count_control_data,count_control_options);
+	  var y_rpj_chart = new google.visualization.PieChart(document.getElementById('y_rpj_chart'));
+	  y_rpj_chart.draw( y_rpj_data, y_rpj_options);
 	}
- 
-function count_safe() {
-	  var count_safe_data = google.visualization.arrayToDataTable([
+
+function fh_rsales() {
+	  var fh_rsales_data = google.visualization.arrayToDataTable([
 	    ['Count', 'How Many'],
-	    ['수석',   0],
-	    ['책임',   1],
-	    ['선임',  4],
-	    ['전임',  8],
-	    ['협력업체',  4]
+	    ['샤시힐스',   <%=FH_chassis_RSALES%>],
+	    ['바디힐스',   <%=FH_body_RSALES%>],
+	    ['제어로직',  <%=FH_control_RSALES%>],
+	    ['기능안전',  <%=FH_safe_RSALES%>],
+	    ['자율주행',  <%=FH_auto_RSALES%>],
+	    ['실',  <%=FH_vt_RSALES%>],
 	  ]);
 
-	  var count_safe_options = {
-	    title: '기능안전 검증팀',
+	  var fh_rsales_options = {
+	    title: '상반기 매출 달성',
 	    pieHole: 0.4, width:800, height:300
 	  };
 
-	  var count_safe_chart = new google.visualization.PieChart(document.getElementById('count_safe_chart'));
-	  count_safe_chart.draw(count_safe_data,count_safe_options);
+	  var fh_rsales_chart = new google.visualization.PieChart(document.getElementById('fh_rsales_chart'));
+	  fh_rsales_chart.draw( fh_rsales_data, fh_rsales_options);
 	}
 	
-function count_auto() {
-	  var count_auto_data = google.visualization.arrayToDataTable([
+function sh_rsales() {
+	  var sh_rsales_data = google.visualization.arrayToDataTable([
 	    ['Count', 'How Many'],
-	    ['수석',   0],
-	    ['책임',   1],
-	    ['선임',  4],
-	    ['전임',  8],
-	    ['협력업체',  4]
+	    ['샤시힐스',   <%=SH_chassis_RSALES%>],
+	    ['바디힐스',   <%=SH_body_RSALES%>],
+	    ['제어로직',  <%=SH_control_RSALES%>],
+	    ['기능안전',  <%=SH_safe_RSALES%>],
+	    ['자율주행',  <%=SH_auto_RSALES%>],
+	    ['실',  <%=SH_vt_RSALES%>],
 	  ]);
 
-	  var count_auto_options = {
-	    title: '자율주행 검증팀',
+	  var sh_rsales_options = {
+	    title: '하반기 매출 달성',
 	    pieHole: 0.4, width:800, height:300
 	  };
 
-	  var count_auto_chart = new google.visualization.PieChart(document.getElementById('count_auto_chart'));
-	  count_auto_chart.draw(count_auto_data,count_auto_options);
+	  var sh_rsales_chart = new google.visualization.PieChart(document.getElementById('sh_rsales_chart'));
+	  sh_rsales_chart.draw( sh_rsales_data, sh_rsales_options);
+	}
+	
+function y_rsales() {
+	  var y_rsales_data = google.visualization.arrayToDataTable([
+	    ['Count', 'How Many'],
+	    ['샤시힐스',   <%=Y_chassis_RSALES%>],
+	    ['바디힐스',   <%=Y_body_RSALES%>],
+	    ['제어로직',  <%=Y_control_RSALES%>],
+	    ['기능안전',  <%=Y_safe_RSALES%>],
+	    ['자율주행',  <%=Y_auto_RSALES%>],
+	    ['실',  <%=Y_vt_RSALES%>],
+	  ]);
+
+	  var y_rsales_options = {
+	    title: '연간 매출 달성',
+	    pieHole: 0.4, width:800, height:300
+	  };
+
+	  var y_rsales_chart = new google.visualization.PieChart(document.getElementById('y_rsales_chart'));
+	  y_rsales_chart.draw( y_rsales_data, y_rsales_options);
 	}
 </script>
 
@@ -1662,13 +1646,12 @@ function count_auto() {
              	  <div>
              	 <div id="tabContent03"class="tab_box3 tab_box" style="display:table; table-layout:fixed;">
              			<table style="display:table-cell;">
-			            	<tr><td> <div id="VT_Team_chart" class="chart"></div></td></tr>
-						 	<tr><td> <div id="count_VT_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="count_chassis_chart" class="chart"></div></td></tr>
-							<tr><td><div id="count_body_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="count_control_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="count_safe_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="count_auto_chart" class="chart"></div></td></tr>
+			            	<tr><td> <div id="fh_rpj_chart" class="chart"></div></td></tr>
+						 	<tr><td> <div id="sh_rpj_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="y_rpj_chart" class="chart"></div></td></tr>
+							<tr><td><div id="fh_rsales_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="sh_rsales_chart" class="chart"></div></td></tr>
+						 	<tr><td><div id="y_rsales_chart" class="chart"></div></td></tr>
 						 </table>
              	 </div>
              	 </div>
