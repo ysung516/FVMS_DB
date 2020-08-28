@@ -13,23 +13,36 @@
 			<artifactId>core</artifactId>
 			<version>1.47.1</version>
 		</dependency>
-
+		  
+		  <dependency>
+		   	  <groupId>com.google.oauth-client</groupId>
+		      <artifactId>google-oauth-client-jetty</artifactId>
+		      <version>1.23.0</version>
+		  </dependency>
+		  
+		  <dependency>
+		   	  <groupId>com.google.apis</groupId>
+		      <artifactId>google-api-services-appsactivity</artifactId>
+		      <version>v1-rev136-1.23.0</version>
+		  </dependency>
+  
+		<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-oauth2 -->
 		<dependency>
-			<groupId>com.google.apis</groupId>
-			<artifactId>google-api-services-oauth2</artifactId>
-			<version>v1-rev88-1.19.1</version>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-oauth2</artifactId>
+		    <version>v1-rev88-1.19.1</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>com.google.api-client</groupId>
 		    <artifactId>google-api-client</artifactId>
-		    <version>1.30.10</version>
+		    <version>1.23.0</version>
 		</dependency>
 		
 		<dependency>
 		    <groupId>com.google.apis</groupId>
 		    <artifactId>google-api-services-drive</artifactId>
-		    <version>v3-rev197-1.25.0</version>
+		    <version>v3-rev110-1.23.0</version>
 		</dependency>
 		
 		<dependency>

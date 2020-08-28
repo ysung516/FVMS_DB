@@ -34,8 +34,8 @@ public class DriveQuickstart {
      * Global instance of the scopes required by this quickstart.
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
-    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials3.json";
+    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
+    private static final String CREDENTIALS_FILE_PATH = "/credentials2.json";
 
     /**
      * Creates an authorized Credential object.
@@ -83,13 +83,13 @@ public class DriveQuickstart {
             }
         }
         
-//        File fileMetadata = new File();
-//        fileMetadata.setName("photo.jpg");
-//        java.io.File filePath = new java.io.File("../ddd.png");
-//        FileContent mediaContent = new FileContent("image/png", filePath);
-//        File file = service.files().create(fileMetadata, mediaContent)
-//            .setFields("id")
-//            .execute();
-//        System.out.println("File ID: " + file.getId());
+        File fileMetadata = new File();
+        fileMetadata.setName("Report-export.xlsx");
+        java.io.File filePath = new java.io.File("C:\\Users\\User\\git\\FVMS_DB\\Report-export.xlsx");
+        FileContent mediaContent = new FileContent("text/xlsx", filePath);
+        File file = service.files().create(fileMetadata, mediaContent)
+            .setFields("id")
+            .execute();
+        System.out.println("File ID: " + file.getId());
     }
 }
