@@ -674,11 +674,12 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">프로젝트 목록</h6>
+              <h6 class="m-0 font-weight-bold text-primary" style="display:inline-block;">프로젝트 목록</h6>
+              <div style="display:inline-block; float:right;"><input type="button" value="동기화"></div>
             </div>
             <div class="card-body" style="margin-bottom: 40px;">
             	
-            	<div class="check_div" >체크박스</div>
+            	<input type="button" value="체크박스" class="check_div">
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
       			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->

@@ -1326,6 +1326,7 @@ function y_rsales() {
 
  				<div id="tab-1" class="tab-content current">
  				<form method="post" action="Save_targetData.jsp">
+ 				 <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable">
                   <thead>
                    <tr>
@@ -1664,6 +1665,7 @@ function y_rsales() {
                     </tr>
                   	  </tbody>                            
                		 </table>
+               		 </div>
                		 </form> 
                		 </div>
                		 

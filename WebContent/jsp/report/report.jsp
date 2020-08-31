@@ -50,7 +50,9 @@
 
 </head>
 <style>
-	
+	.table-responsive{
+	overflow:auto;
+	}
 	#reportTable tr{
 	 	border-bottom: 1px solid #d1d3e2;
 		text-align:center;
@@ -376,7 +378,7 @@
                   
                   </div>
                 
-                
+    <div class="table-responsive">   
 	<table id ="reportTable">
 		<thead>
 		 <tr>
@@ -407,6 +409,7 @@
 		  
 		  </tbody>
 		 </table>
+		 </div>
  
 <script type="text/javascript">
 	var myTable = document.getElementById( "reportTable" ); 

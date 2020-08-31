@@ -419,7 +419,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary" style="padding-left:17px;display:inline !important">회의록 목록</h6>
                   </div>
-         
+     <div class="table-responsive">
 	<table id ="meetingTable">
 		<thead>
 		 <tr style="white-space:nowrap;">
@@ -471,6 +471,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 					 
 		  </tbody>
 		 </table>	
+		 </div>
 		 
 		<script type="text/javascript">
 			var myTable = document.getElementById( "meetingTable" ); 
