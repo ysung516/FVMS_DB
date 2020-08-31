@@ -322,7 +322,7 @@
 						<td><%
 					      	line = member.getP_career();
 					      	for(String li : line){
-					      		%><p style="white-space:pre;"><%=li%></p><%
+					      		%><p style="white-space:break-spaces;"><%=li%></p><%
 					      	}
 					     	 %></td>
 					</tr>

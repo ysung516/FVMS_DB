@@ -336,19 +336,19 @@ $(document).ready(function () {
 		      <td><input id="name" name="NAME" value="<%=sessionName%>" readonly></td>
 		     </tr>  
 		    <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea id="WeekPlan" name="WeekPlan" rows="10" wrap="hard"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6><textarea id="WeekPlan" name="WeekPlan" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><textarea id="WeekPro" name="WeekPro" rows="20 "wrap="hard"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6><textarea id="WeekPro" name="WeekPro" rows="20"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><textarea id="NextPlan" name="NextPlan" rows="10" wrap="hard"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6><textarea id="NextPlan" name="NextPlan" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><textarea id="specialty" name="specialty" rows="10"  wrap="hard"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6><textarea id="specialty" name="specialty" rows="10"></textarea></td>
 		     </tr>
 		      <tr>
-		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6><textarea id="note" name="note" rows="10" cols="40"></textarea></td>
+		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6><textarea id="note" name="note" rows="10"></textarea></td>
 		     </tr>
 		
 		     <tr align="center">

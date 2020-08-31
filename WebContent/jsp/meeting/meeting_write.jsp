@@ -99,6 +99,11 @@ function deleteNP(){
 
 </script>
 <style>
+	textarea{
+	width: 100%;
+	border: 1px solid #d1d3e2;
+	border-radius: 5px;
+	}
 	input{
 		border:1px solid #b7b9cc6e;
 		padding:5px;
@@ -326,10 +331,10 @@ function deleteNP(){
 				      <td colspan="4"><input name="attendees_ex" style=width:100%;></td>
 			     </tr>
 			      <tr>
-			      <td class="m-0 text-primary" colspan="4"><h6>회의내용</h6><textarea name="meetnote" rows="10" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+			      <td class="m-0 text-primary" colspan="4"><h6>회의내용</h6><textarea name="meetnote" rows="10" ></textarea></td>
 			     </tr>
 			     <tr>
-						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6><textarea name="issue" rows="5" style="width: 100%;border: 1px solid #d1d3e2;border-radius: 5px;"></textarea></td>
+						<td class="m-0 text-primary" colspan="4"><h6>이슈사항</h6><textarea name="issue" rows="5"></textarea></td>
 					</tr>
 			      <tr>
 			      <td class="m-0 text-primary" colspan="4"><h6 style="display: inline-block;">향후일정</h6>

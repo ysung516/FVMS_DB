@@ -58,7 +58,9 @@
 	});
 </script>
 <style>
-	
+	textarea{
+		width:100%;
+	}
 	#dataTable td:nth-child(odd){
     text-align: center;
     vertical-align: middle;
@@ -331,7 +333,7 @@
 						<td><%
 					      	line = member.getP_career();
 					      	for(String li : line){
-					      		%><p style="white-space:pre;"><%=li%></p><%
+					      		%><p style="white-space:break-spaces"><%=li%></p><%
 					      	}
 					     	 %>
 						</td>
