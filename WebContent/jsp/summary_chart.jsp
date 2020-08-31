@@ -7,12 +7,12 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     
     /* 막대 차트 */
-      google.charts.load('current', {'packages':['bar']});
+      google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(fh_order);
       google.charts.setOnLoadCallback(fh_sales);
       google.charts.setOnLoadCallback(sh_order);
@@ -37,7 +37,7 @@
           }
         };
 
-        var fh_order_chart = new google.charts.Bar(document.getElementById('fh_order_chart'));
+        var fh_order_chart = new google.visualization.ColumnChart(document.getElementById('fh_order_chart'));
 
         fh_order_chart.draw(fh_order_data, google.charts.Bar.convertOptions(fh_order_option));
       }
@@ -59,7 +59,7 @@
             }
           };
 
-          var fh_sales_chart = new google.charts.Bar(document.getElementById('fh_sales_chart'));
+          var fh_sales_chart =  new google.visualization.ColumnChart(document.getElementById('fh_sales_chart'));
 
           fh_sales_chart.draw(fh_sales_data, google.charts.Bar.convertOptions(fh_sales_option));
         }

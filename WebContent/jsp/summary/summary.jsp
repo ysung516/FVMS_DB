@@ -378,6 +378,39 @@
 </head>
 <style>
 	
+	.container2{
+}
+	ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	background: none;
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+ul.tabs li:hover {
+	  font-weight:bold;
+	}
+
+ul.tabs li.current{
+	border-bottom:3px solid #5bb8e4ad;
+	border:1px soid #ededed;
+	color: #222;
+}
+
+.tab-content{
+	display: none;
+	padding: 15px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
+
 	.table-responsive{
 	table-layout:fixed;
 	 display:table;
@@ -439,37 +472,14 @@
 	  outline:0;
 	  cursor:pointer;
 	}
-	.tab_menu_container {
-	  display:flex;
-	}
-	.tab_menu_btn {
-	  width:80px;
-	  height:40px;
-	  transition:0.3s all;
-	}
-	.tab_menu_btn.on {
-	  border-bottom:2px solid #df0000;
-	  font-weight:700;
-	  color:#df0000;
-	}
-	.tab_menu_btn:hover {
-	  color:#df0000;
-	}
-	.tab_box {
-	  display:none;
-	  padding:20px;
-	}
-	.tab_box.on {
-	  display:block;
-	}
+	
 </style>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
-
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
- <script src="https://code.jquery.com/jquery.min.js"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
   
     
     /* 막대 차트 */
@@ -480,7 +490,7 @@
       google.charts.setOnLoadCallback(sh_sales);
       google.charts.setOnLoadCallback(y_order);
       google.charts.setOnLoadCallback(y_sales);
-      
+ 
       function fh_order() {
         var fh_order_data = google.visualization.arrayToDataTable([
           ['Team', 		'목표수주',			 '예상수주',			 '수주 달성'],
@@ -493,7 +503,12 @@
         ]);
 
         var fh_order_option = { 
-        		title: '상반기 수주', width:800, height:300
+        		title: '상반기 수주', 
+        		'width': 600,
+                'height': 400,
+                'chartArea': {'width': '100%', 'height': '80%',left:10,top:20,},
+                'legend': {'position': 'bottom'}
+	
         };
 
         var fh_order_chart = new google.charts.Bar(document.getElementById('fh_order_chart'));
@@ -514,7 +529,11 @@
 
           var fh_sales_option = {
            
-              title: '상반기 매출', width:800, height:300
+              title: '상반기 매출',
+              'width': 600,
+              'height': 400,
+              'chartArea': {'width': '100%', 'height': '80%'},
+              'legend': {'position': 'bottom'}
       
            
           };
@@ -536,7 +555,11 @@
      ]);
 
      var sh_order_option = { 
-     		title: '하반기 수주',  width:800, height:300
+     		title: '하반기 수주',
+     		'width': 600,
+            'height': 400,
+            'chartArea': {'width': '100%', 'height': '80%'},
+            'legend': {'position': 'bottom'}
      };
 
      var sh_order_chart = new google.charts.Bar(document.getElementById('sh_order_chart'));
@@ -557,7 +580,11 @@ function sh_sales() {
 
        var sh_sales_option = {
       
-           title: '하반기 매출', width:800, height:300
+           title: '하반기 매출',
+           'width': 600,
+           'height': 400,
+           'chartArea': {'width': '100%', 'height': '80%'},
+           'legend': {'position': 'bottom'}
       
        };
 
@@ -579,7 +606,11 @@ function y_order() {
 
     var y_order_option = {
   
-        title: '연간 수주', width:800, height:300
+        title: '연간 수주',
+        'width': 600,
+        'height': 400,
+        'chartArea': {'width': '100%', 'height': '80%'},
+        'legend': {'position': 'bottom'}
     
     };
 
@@ -601,7 +632,11 @@ function y_sales() {
 
       var y_sales_option = {
        
-          title: '연간 매출',  width:800, height:300
+          title: '연간 매출', 
+          'width': 600,
+          'height': 400,
+          'chartArea': {'width': '100%', 'height': '80%'},
+          'legend': {'position': 'bottom'}
       
       };
 
@@ -632,7 +667,7 @@ function fh_rpj() {
 
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
-	    pieHole: 0.4, width:800, height:300
+	    pieHole: 0.4, width:800, height:415
 	  };
 
 	  var fh_rpj_chart = new google.visualization.PieChart(document.getElementById('fh_rpj_chart'));
@@ -652,7 +687,7 @@ function sh_rpj() {
 
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
-	    pieHole: 0.4, width:800, height:300
+	    pieHole: 0.4, width:800, height:415
 	  };S
 
 	  var sh_rpj_chart = new google.visualization.PieChart(document.getElementById('sh_rpj_chart'));
@@ -672,7 +707,7 @@ function y_rpj() {
 
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
-	    pieHole: 0.4, width:800, height:300
+	    pieHole: 0.4, width:800, height:415
 	  };
 
 	  var y_rpj_chart = new google.visualization.PieChart(document.getElementById('y_rpj_chart'));
@@ -692,7 +727,7 @@ function fh_rsales() {
 
 	  var fh_rsales_options = {
 	    title: '상반기 매출 달성',
-	    pieHole: 0.4, width:800, height:300
+	    pieHole: 0.4, width:800, height:415
 	  };
 
 	  var fh_rsales_chart = new google.visualization.PieChart(document.getElementById('fh_rsales_chart'));
@@ -712,7 +747,7 @@ function sh_rsales() {
 
 	  var sh_rsales_options = {
 	    title: '하반기 매출 달성',
-	    pieHole: 0.4, width:800, height:300
+	    pieHole: 0.4, width:800, height:415
 	  };
 
 	  var sh_rsales_chart = new google.visualization.PieChart(document.getElementById('sh_rsales_chart'));
@@ -732,7 +767,7 @@ function y_rsales() {
 
 	  var y_rsales_options = {
 	    title: '연간 매출 달성',
-	    pieHole: 0.4, width:800, height:300
+	    pieHole: 0.4, width:800, height:415
 	  };
 
 	  var y_rsales_chart = new google.visualization.PieChart(document.getElementById('y_rsales_chart'));
@@ -990,19 +1025,19 @@ function y_rsales() {
 		ProjectTable();
 		ProjectTable2();
 		stateTotal();
-		$('.tab_box').hide();
-		$('.on').show();
-		$('.tab_menu_btn').on('click',function(){
-			  //버튼 색 제거,추가
-			  $('.tab_menu_btn').removeClass('on');
-			  $(this).addClass('on')
-			  
-			  //컨텐츠 제거 후 인덱스에 맞는 컨텐츠 노출
-			  var idx = $('.tab_menu_btn').index(this);
-			  
-			  $('.tab_box').hide();
-			  $('.tab_box').eq(idx).show();
+		
+	
+			
+			$('ul.tabs li').click(function(){
+				var tab_id = $(this).attr('data-tab');
+
+				$('ul.tabs li').removeClass('current');
+				$('.tab-content').removeClass('current');
+
+				$(this).addClass('current');
+				$("#"+tab_id).addClass('current');
 			});
+
 		
 	});
 	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
@@ -1161,6 +1196,7 @@ function y_rsales() {
 	                    <th>구분</th>
 	                    <th>상태</th>
 	                    <th>Total</th>
+	                   
 	                    <th>샤시힐스</th>
 	                    <th>바디힐스</th>
 	                    <th>제어로직</th>
@@ -1279,16 +1315,16 @@ function y_rsales() {
          <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출</h6>
         </div>
             <div class="card-body">
+	<div class="container2">
+	<ul class="tabs">
+		<li class="tab-link current" data-tab="tab-1">전체보기</li>
+		<li class="tab-link" data-tab="tab-2">상반기</li>
+		<li class="tab-link" data-tab="tab-3">하반기</li>
+		<li class="tab-link" data-tab="tab-4">연간</li>
+	</ul>
+			
 
-	 <div class="tabWrap">
-			  <div class="tab_menu_container">
-			    <button class="tab_menu_btn1 tab_menu_btn on" type="button">1</button>
-			    <button class="tab_menu_btn2 tab_menu_btn" type="button">2</button>
-			    <button class="tab_menu_btn3 tab_menu_btn" type="button">3</button>
-			  </div> <!-- tab_menu_container e -->
-			<div class="tab_Content_Wrap tab_box_container">
-
- 				<div id="tabContent01" class="tab_box1 tab_box on">
+ 				<div id="tab-1" class="tab-content current">
  				<form method="post" action="Save_targetData.jsp">
                 <table class="table table-bordered" id="dataTable">
                   <thead>
@@ -1632,36 +1668,35 @@ function y_rsales() {
                		 </div>
                		 
               
-               	<div id="tabContent02" class="tab_box2 tab_box" style="display:table; table-layout:fixed;">
-               		<table style="display:table-cell;">
-	            	 <tr><td> <div id="fh_order_chart" class="chart"></div></td></tr>
-	             	 <tr><td> <div id="fh_sales_chart" class="chart"></div></td></tr>
-					 <tr><td>  <div id="sh_order_chart" class="chart" ></div></td></tr>
-					 <tr><td>  <div id="sh_sales_chart" class="chart"></div></td></tr>
-					 <tr><td>  <div id="y_order_chart" class="chart"></div></td></tr>
-					 <tr><td>  <div id="y_sales_chart" class="chart"></div></td></tr>
+               <div id="tab-2" class="tab-content current">
+               		<table style="display:table-cell;" >
+	            	 <tr><td><div id="fh_order_chart" class="chart"></div></td></tr>
+	             	 <tr><td><div id="fh_sales_chart" class="chart"></div></td></tr>
+	             	 <tr><td><div id="fh_rsales_chart" class="chart"></div></td></tr>
              	 </table>
              	 </div>
              	 
-             	  <div>
-             	 <div id="tabContent03"class="tab_box3 tab_box" style="display:table; table-layout:fixed;">
-             			<table style="display:table-cell;">
-			            	<tr><td> <div id="fh_rpj_chart" class="chart"></div></td></tr>
-						 	<tr><td> <div id="sh_rpj_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="y_rpj_chart" class="chart"></div></td></tr>
-							<tr><td><div id="fh_rsales_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="sh_rsales_chart" class="chart"></div></td></tr>
+             	  <div id="tab-3" class="tab-content current">
+               		<table style="display:table-cell;" >
+					 <tr><td><div id="sh_order_chart" class="chart" ></div></td></tr>
+					 <tr><td><div id="sh_sales_chart" class="chart"></div></td></tr>
+					 <tr><td><div id="sh_rsales_chart" class="chart"></div></td></tr>
+             	 </table>
+             	 </div>
+             	 
+             	  <div id="tab-4" class="tab-content current">
+               		<table style="display:table-cell;" >
+					 <tr><td><div id="y_order_chart" class="chart"></div></td></tr>
+					 <tr><td><div id="y_sales_chart" class="chart"></div></td></tr>
+					 	<tr><td><div id="y_rpj_chart" class="chart"></div></td></tr>
 						 	<tr><td><div id="y_rsales_chart" class="chart"></div></td></tr>
-						 </table>
+             	 </table>
              	 </div>
-             	 </div>
-               		 </div>	 
-	
-	
-             	
-        </div>
+             
+    </div>
+    </div>
               </div>
-              </div>
+              
               
                <!-- DataTales Example -->
           <div class="card shadow mb-4">
