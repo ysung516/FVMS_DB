@@ -141,7 +141,7 @@
 	float FH_safe_PJ = teamList.get(target3).getFH_targetOrder();
 	float FH_auto_PJ = teamList.get(target4).getFH_targetOrder();
 	float FH_vt_PJ = teamList.get(target5).getFH_targetOrder();
-	float FH_total_PJ = FH_chassis_PJ + FH_body_PJ + FH_control_PJ + FH_safe_PJ + FH_vt_PJ;
+	float FH_total_PJ = FH_chassis_PJ + FH_body_PJ + FH_control_PJ + FH_safe_PJ + FH_auto_PJ + FH_vt_PJ;
 	
 	float FH_chassis_SALES = teamList.get(target).getFH_targetSales();
 	float FH_body_SALES = teamList.get(target1).getFH_targetSales();

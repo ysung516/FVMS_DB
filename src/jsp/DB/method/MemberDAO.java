@@ -162,9 +162,6 @@ public class MemberDAO {
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, id);
 	    	rs = pstmt.executeQuery();
-	    	
-	
-
 	    	if(rs.next()) {
 	    		member.setID(rs.getString("id"));
 	    		member.setPART(rs.getString("소속"));
