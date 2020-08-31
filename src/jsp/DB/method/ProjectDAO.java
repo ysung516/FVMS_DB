@@ -72,6 +72,67 @@ public class ProjectDAO {
 		}
 		return project;
 	}
+	// 시트에 동기화할 리스트 가져오기
+		public ArrayList<ProjectBean> getProject_synchronization() {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<ProjectBean> pjList = new ArrayList<ProjectBean>();
+			try {
+				StringBuffer query = new StringBuffer();
+		    	query.append("select * from project where 실적보고 = 1 order by 상태");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	
+		    	while(rs.next()) {
+		    		ProjectBean project = new ProjectBean();
+		    		project.setTEAM_ORDER(rs.getString(1));
+		    		project.setTEAM_SALES(rs.getString(2));
+		    		project.setPROJECT_CODE(rs.getString(3));
+		    		project.setPROJECT_NAME(rs.getString(4));
+		    		project.setSTATE(rs.getString(5));
+		    		project.setPART(rs.getString(6));
+		    		project.setCLIENT(rs.getString(7));
+		    		project.setClIENT_PART(rs.getString(8));
+		    		project.setMAN_MONTH(rs.getFloat(9));
+		    		project.setPROJECT_DESOPIT(rs.getFloat(10));
+		    		project.setFH_ORDER_PROJECTIONS(rs.getFloat(11));
+		    		project.setFH_ORDER(rs.getFloat(12));
+		    		project.setFH_SALES_PROJECTIONS(rs.getFloat(13));
+		    		project.setFH_SALES(rs.getFloat(14));
+		    		project.setSH_ORDER_PROJECTIONS(rs.getFloat(15));
+		    		project.setSH_ORDER(rs.getFloat(16));
+		    		project.setSH_SALES_PROJECTIONS(rs.getFloat(17));
+		    		project.setSH_SALES(rs.getFloat(18));
+		    		project.setPROJECT_START(rs.getString(19));
+		    		project.setPROJECT_END(rs.getString(20));
+		    		project.setCLIENT_PTB(rs.getString(21));
+		    		project.setWORK_PLACE(rs.getString(22));
+		    		project.setWORK(rs.getString(23));
+		    		project.setPROJECT_MANAGER(rs.getString(24));
+		    		project.setWORKER_LIST(rs.getString(25));
+		    		project.setASSESSMENT_TYPE(rs.getString(26));
+		    		project.setEMPLOY_DEMAND(rs.getFloat(27));
+		    		project.setOUTSOURCE_DEMAND(rs.getFloat(28));
+		    		project.setREPORTCHECK(rs.getInt(29));
+		    		project.setRESULT_REPORT(rs.getInt(30));
+		    		project.setNO(rs.getInt(31));
+		    		pjList.add(project);
+		    	}
+		    	
+		    	
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			return pjList;
+		}
+		
 		
 	//주간보고서사용하는 프로젝트 개수
 	public int useReportProject() {

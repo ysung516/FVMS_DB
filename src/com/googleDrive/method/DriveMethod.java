@@ -84,12 +84,5 @@ public class DriveMethod {
         		.execute();
         System.out.println("File ID: " + file.getId());
   }
-    /*
-	public static void main(String[] args) throws GeneralSecurityException, IOException, Exception {
-		 //TODO Auto-generated method stub
-		
-		DriveMethod.upload();
-		
-	}
-    */
+
 }
