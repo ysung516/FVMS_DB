@@ -38,8 +38,9 @@
 <script type="text/javascript">
 
 function loadData(){
-	
 	$('#WeekPlan').val('');
+	$('#WeekPro').val('');
+	$('#NextPlan').val('');
 	$('#specialty').val('');
 	$('#note').val('');
 	var title = $('#title option:selected').text();

@@ -1,6 +1,8 @@
 package com.servlet.listener;
 import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.GeneralSecurityException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,6 +12,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import com.googleDrive.method.DriveMethod;
+
+import jsp.DB.method.ReportDAO;
+import jsp.smtp.method.ExcelExporter;
 import jsp.smtp.method.PostMan;
 
 public class Scheduler {
@@ -21,40 +27,34 @@ public class Scheduler {
             public void run() {
                 try {
                 	
-                
-                	PostMan post = new PostMan();
-                	post.post();
-                    //getDataFromDatabase();
+                	Calendar cal = Calendar.getInstance();
+            		String day = cal.getTime().toString().split(" ")[0];
+            		String time = cal.getTime().toString().split(" |:")[3];
+            		if(day.equals("Wed") && time.equals("18")) {
+            			reportBackUp();
+            		}
                     
                 }catch(Exception ex) {
                     ex.printStackTrace(); //or loggger would be better
                 }
             }
-        }, 0, 10, TimeUnit.SECONDS);
-    }
-
-    private void getDataFromDatabase() {
-        System.out.println("getting data...");
+        }, 0, 60, TimeUnit.MINUTES);
     }
     
+    public void reportBackUp() throws GeneralSecurityException, IOException, Exception {
+    	
+    	PostMan post = new PostMan();
+		ExcelExporter excel = new ExcelExporter();
+		ReportDAO reportDao = new ReportDAO();
+		
+		// 매주 수욜
+		reportDao.deleteAllbackUp();	// 백업 테이블 비움
+		reportDao.backUp();	// 보고서 백업
+		excel.export();	// 엑셀로 내보냄
+		//post.post();	// 메일 보냄
+		DriveMethod.upload();	// 구글드라이브에 엑셀 업로드
+		reportDao.deleteAllreport();	// 보고서 비움
+		
+    }
     
-//    public long calcTaskTime(int startTime) {
-//
-//        if(startTime > 23 || startTime < 0){
-//            return 0;
-//        }
-//        Calendar calendar = new GregorianCalendar(Locale.KOREA);
-//        calendar.set(Calendar.HOUR_OF_DAY, startTime);
-//        calendar.set(Calendar.MINUTE, 0);
-//        calendar.set(Calendar.SECOND, 0);
-//
-//        long nowDate = new Date().getTime();
-//
-//        if (nowDate > calendar.getTime().getTime()) {
-//            calendar.add(Calendar.DAY_OF_YEAR, 1);
-//        }
-//        long waiting = (calendar.getTime().getTime() - nowDate)/1000;
-//
-//        return (int)waiting;
-//    }
 }

@@ -28,28 +28,25 @@
 		MemberBean member = memberDao.returnMember(sessionID);
 		
 		Date nowTime = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
-		int projectNo = Integer.parseInt(request.getParameter("TITLE"));
-		String title = projectDao.getProjectBean_no(projectNo).getPROJECT_NAME();
-		String writeDate = sf.format(nowTime);
-		String weekPlan = request.getParameter("WeekPlan");
-		String weekPro = request.getParameter("WeekPro");
-		String nextPlan = request.getParameter("NextPlan");
-		String note = request.getParameter("note");
-		String specialty = request.getParameter("specialty");
-		String name = member.getNAME(); 
-		String user_id = member.getID();
-		
-		if(title == null || title == ""){
-			script.print("<script> alert('제목 혹은 작성일이 입력되지 않았습니다.'); history.back(); </script>");
+		if(request.getParameter("TITLE") == null){
+			script.print("<script> alert('보고서 제목이 입력되지 않았습니다.'); history.back(); </script>");
 		}	else {
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+				int projectNo = Integer.parseInt(request.getParameter("TITLE"));
+				String title = projectDao.getProjectBean_no(projectNo).getPROJECT_NAME();
+				String writeDate = sf.format(nowTime);
+				String weekPlan = request.getParameter("WeekPlan");
+				String weekPro = request.getParameter("WeekPro");
+				String nextPlan = request.getParameter("NextPlan");
+				String note = request.getParameter("note");
+				String specialty = request.getParameter("specialty");
+				String name = member.getNAME(); 
+				String user_id = member.getID();
 				if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo) == 1){
 					script.print("<script> alert('보고서 작성이 완료되었습니다.'); location.href = 'report.jsp'</script>");
 					
 				} else script.print("<script> alert('보고서작성 실패!!'); history.back(); </script>");
-		}
-		
-		 
+		}	 
 %>
 </body>
 </html>
