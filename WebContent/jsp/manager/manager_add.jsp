@@ -128,7 +128,11 @@
 
 </head>
 <style>
-
+	#insert{
+    width: 100%;
+    font-size: small;
+    padding: 5px;
+	}
 	.btn_group{
 		right: 0;
 		margin-right: 24px; 

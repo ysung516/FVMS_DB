@@ -55,7 +55,11 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
-
+	textarea{
+		
+		wrap:hard;
+		cols="40";
+	}
 	#dataTable td:nth-child(odd){
     text-align: center;
     vertical-align: middle;
@@ -84,7 +88,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		transform:translate(-50%, -50%);
 	}
 	@media(max-width:800px){
-		.container-fluid{
+	ontainer-fluid{
 			padding: 0;
 		}
 		.card-header:first-child{
@@ -299,7 +303,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			     </tr>
 			      <tr>
 			      <td class="m-0 text-primary" align="center" style="vertical-align:middle;">프로젝트 수행 이력</td>
-			      <td colspan="3"><textarea name="career" id="career" rows="5"style=width:100%;><%=member.getCareer()%></textarea></td>
+			      <td colspan="3"><textarea name="career" id="career" rows="5" wrap="hard"><%=member.getCareer()%></textarea></td>
 			     </tr>
 			     <tr align="center">
 			      <td colspan="4"> 

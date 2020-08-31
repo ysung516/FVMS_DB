@@ -286,7 +286,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     </tr>  
 		    <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6>
-		      <textarea name="WeekPlan" rows="10"><%
+		      <textarea name="WeekPlan" rows="10" wrap="hard"><%
 		      	 line = report.getP_weekPlan();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -294,7 +294,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     </tr>
 		      <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6>
-		      <textarea name="WeekPro" rows="10"><%
+		      <textarea name="WeekPro" rows="10" wrap="hard"><%
 		      	 line = report.getP_weekPro();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -302,7 +302,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     </tr>
 		      <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6>
-		      <textarea name="NextPlan" rows="10"><%
+		      <textarea name="NextPlan" rows="10" wrap="hard"><%
 		      	 line = report.getP_nextPlan();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -310,7 +310,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     </tr>
 		      <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6>
-		      <textarea name="specialty" rows="10"><%
+		      <textarea name="specialty" rows="10" wrap="hard"><%
 		      	 line = report.getP_specialty();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -318,7 +318,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		     </tr>
 		      <tr>
 		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6>
-		      <textarea name="note" rows="10" ><%
+		      <textarea name="note" rows="10" wrap="hard"><%
 		      	 line = report.getP_note();
 		      	 for(String li : line){
 						%><%=li%><%
