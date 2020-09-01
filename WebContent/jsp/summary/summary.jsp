@@ -361,8 +361,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
- content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -378,8 +377,17 @@
 </head>
 <style>
 	
-	.container2{
-}
+	.fh_tr{
+		background-color:#f2f3bbb0;
+	}
+	.sh_tr{
+	text-align:center;
+	background-color:#e4c4266b;
+	}
+	.y_tr{
+	text-align:center;
+	background-color:#eaa55085;
+	}
 	ul.tabs{
 	margin: 0px;
 	padding: 0px;
@@ -494,6 +502,7 @@ ul.tabs li.current{
       function fh_order() {
         var fh_order_data = google.visualization.arrayToDataTable([
           ['Team', 		'목표수주',			 '예상수주',			 '수주 달성'],
+          ['Total', <%=FH_total_PJ%>, <%=FH_total_ORDER%>, <%=FH_total_RPJ%>],
           ['샤시힐스', <%=FH_chassis_PJ%>, <%=FH_chassis_ORDER%>, <%=FH_chassis_RPJ%>],
           ['바디힐스', <%=FH_body_PJ%>, <%=FH_body_ORDER%>, <%=FH_body_RPJ%>],
           ['제어로직', <%=FH_control_PJ%>, <%=FH_control_ORDER%>, <%=FH_control_RPJ%>],
@@ -507,8 +516,12 @@ ul.tabs li.current{
         		'width': 600,
                 'height': 400,
                 'chartArea': {'width': '100%', 'height': '80%',left:10,top:20,},
-                'legend': {'position': 'bottom'}
-	
+                'legend': {'position': 'bottom'},
+                series: {
+                    0: { color: '#d4fc79' },
+                    1: { color: '#84fab0' },
+                    2: { color: '#96e6a1' }
+                  }
         };
 
         var fh_order_chart = new google.charts.Bar(document.getElementById('fh_order_chart'));
@@ -519,6 +532,7 @@ ul.tabs li.current{
  function fh_sales() {
           var fh_sales_data = google.visualization.arrayToDataTable([
             ['Team', '목표매출', '예상매출', '매출 달성'],
+            ['Total', <%=FH_total_SALES%>, <%=FH_total_PJSALES%>, <%=FH_total_RSALES%>],
             ['샤시힐스', <%=FH_chassis_SALES%>, <%=FH_chassis_PJSALES%>, <%=FH_chassis_RSALES%>],
             ['바디힐스', <%=FH_body_SALES%>, <%=FH_body_PJSALES%>, <%=FH_body_RSALES%>],
             ['제어로직', <%=FH_control_SALES%>, <%=FH_control_PJSALES%>, <%=FH_control_RSALES%>],
@@ -533,9 +547,12 @@ ul.tabs li.current{
               'width': 600,
               'height': 400,
               'chartArea': {'width': '100%', 'height': '80%'},
-              'legend': {'position': 'bottom'}
-      
-           
+              'legend': {'position': 'bottom'},
+              series: {
+                  0: { color: '#ffd1ff' },
+                  1: { color: '#fbc2eb' },
+                  2: { color: '#a18cd1' }
+                }
           };
 
           var fh_sales_chart = new google.charts.Bar(document.getElementById('fh_sales_chart'));
@@ -546,6 +563,7 @@ ul.tabs li.current{
  function sh_order() {
      var sh_order_data = google.visualization.arrayToDataTable([
        ['Team', '목표수주', '예상수주', '수주 달성'],
+       ['Total', <%=SH_total_PJ%>, <%=SH_total_ORDER%>, <%=SH_total_RPJ%>],
        ['샤시힐스', <%=SH_chassis_PJ%>, <%=SH_chassis_ORDER%>, <%=SH_chassis_RPJ%>],
        ['바디힐스', <%=SH_body_PJ%>, <%=SH_body_ORDER%>, <%=SH_body_RPJ%>],
        ['제어로직', <%=SH_control_PJ%>, <%=SH_control_ORDER%>, <%=SH_control_RPJ%>],
@@ -559,7 +577,12 @@ ul.tabs li.current{
      		'width': 600,
             'height': 400,
             'chartArea': {'width': '100%', 'height': '80%'},
-            'legend': {'position': 'bottom'}
+            'legend': {'position': 'bottom'},
+            series: {
+                0: { color: '#ffd1ff' },
+                1: { color: '#fbc2eb' },
+                2: { color: '#a18cd1' }
+              }
      };
 
      var sh_order_chart = new google.charts.Bar(document.getElementById('sh_order_chart'));
@@ -570,6 +593,7 @@ ul.tabs li.current{
 function sh_sales() {
        var sh_sales_data = google.visualization.arrayToDataTable([
     	   ['Team', '목표매출', '예상매출', '매출 달성'],
+    	   ['Total', <%=SH_total_SALES%>, <%=SH_total_PJSALES%>, <%=SH_total_RSALES%>],
            ['샤시힐스', <%=SH_chassis_SALES%>, <%=SH_chassis_PJSALES%>, <%=SH_chassis_RSALES%>],
            ['바디힐스', <%=SH_body_SALES%>, <%=SH_body_PJSALES%>, <%=SH_body_RSALES%>],
            ['제어로직', <%=SH_control_SALES%>, <%=SH_control_PJSALES%>, <%=SH_control_RSALES%>],
@@ -584,7 +608,12 @@ function sh_sales() {
            'width': 600,
            'height': 400,
            'chartArea': {'width': '100%', 'height': '80%'},
-           'legend': {'position': 'bottom'}
+           'legend': {'position': 'bottom'},
+           series: {
+               0: { color: '#ffd1ff' },
+               1: { color: '#fbc2eb' },
+               2: { color: '#a18cd1' }
+             }
       
        };
 
@@ -596,6 +625,7 @@ function sh_sales() {
 function y_order() {
     var y_order_data = google.visualization.arrayToDataTable([
       ['Team', '목표수주', '예상수주', '수주 달성'],
+      ['Total', <%=Y_total_pj%>, <%=Y_total_ORDER%>, <%=Y_total_RPJ%>],
       ['샤시힐스', <%=Y_chassis_PJ%>, <%=Y_chassis_ORDER%>, <%=Y_chassis_RPJ%>],
       ['바디힐스', <%=Y_body_PJ%>, <%=Y_body_ORDER%>, <%=Y_body_RPJ%>],
       ['제어로직', <%=Y_control_PJ%>, <%=Y_control_ORDER%>, <%=Y_control_RPJ%>],
@@ -610,7 +640,12 @@ function y_order() {
         'width': 600,
         'height': 400,
         'chartArea': {'width': '100%', 'height': '80%'},
-        'legend': {'position': 'bottom'}
+        'legend': {'position': 'bottom'},
+        series: {
+            0: { color: '#ffd1ff' },
+            1: { color: '#fbc2eb' },
+            2: { color: '#a18cd1' }
+          }
     
     };
 
@@ -622,6 +657,7 @@ function y_order() {
 function y_sales() {
       var y_sales_data = google.visualization.arrayToDataTable([
     	  ['Team', '목표매출', '예상매출', '매출 달성'],
+    	  ['Total', <%=Y_total_SALES%>, <%=Y_total_PJSALES%>, <%=Y_total_RSALES%>],
           ['샤시힐스', <%=Y_chassis_SALES%>, <%=Y_chassis_PJSALES%>, <%=Y_chassis_RSALES%>],
           ['바디힐스', <%=Y_body_SALES%>, <%=Y_body_PJSALES%>, <%=Y_body_RSALES%>],
           ['제어로직', <%=Y_control_SALES%>, <%=Y_control_PJSALES%>, <%=Y_control_RSALES%>],
@@ -636,7 +672,12 @@ function y_sales() {
           'width': 600,
           'height': 400,
           'chartArea': {'width': '100%', 'height': '80%'},
-          'legend': {'position': 'bottom'}
+          'legend': {'position': 'bottom'},
+          series: {
+              0: { color: '#ffd1ff' },
+              1: { color: '#fbc2eb' },
+              2: { color: '#a18cd1' }
+            }
       
       };
 
@@ -667,7 +708,8 @@ function fh_rpj() {
 
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
-	    pieHole: 0.4, width:800, height:415
+	    pieHole: 0.4, width:800, height:415,
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
 	  };
 
 	  var fh_rpj_chart = new google.visualization.PieChart(document.getElementById('fh_rpj_chart'));
@@ -687,8 +729,9 @@ function sh_rpj() {
 
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
-	    pieHole: 0.4, width:800, height:415
-	  };S
+	    pieHole: 0.4, width:800, height:415,
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	  };
 
 	  var sh_rpj_chart = new google.visualization.PieChart(document.getElementById('sh_rpj_chart'));
 	  sh_rpj_chart.draw( sh_rpj_data, sh_rpj_options);
@@ -707,7 +750,8 @@ function y_rpj() {
 
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
-	    pieHole: 0.4, width:800, height:415
+	    pieHole: 0.4, width:800, height:415,
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
 	  };
 
 	  var y_rpj_chart = new google.visualization.PieChart(document.getElementById('y_rpj_chart'));
@@ -727,7 +771,8 @@ function fh_rsales() {
 
 	  var fh_rsales_options = {
 	    title: '상반기 매출 달성',
-	    pieHole: 0.4, width:800, height:415
+	    pieHole: 0.4, width:800, height:415,
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
 	  };
 
 	  var fh_rsales_chart = new google.visualization.PieChart(document.getElementById('fh_rsales_chart'));
@@ -747,7 +792,8 @@ function sh_rsales() {
 
 	  var sh_rsales_options = {
 	    title: '하반기 매출 달성',
-	    pieHole: 0.4, width:800, height:415
+	    pieHole: 0.4, width:800, height:415,
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
 	  };
 
 	  var sh_rsales_chart = new google.visualization.PieChart(document.getElementById('sh_rsales_chart'));
@@ -767,7 +813,8 @@ function y_rsales() {
 
 	  var y_rsales_options = {
 	    title: '연간 매출 달성',
-	    pieHole: 0.4, width:800, height:415
+	    pieHole: 0.4, width:800, height:415,
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
 	  };
 
 	  var y_rsales_chart = new google.visualization.PieChart(document.getElementById('y_rsales_chart'));
@@ -1018,30 +1065,79 @@ function y_rsales() {
 		$("#projectNow tr:eq(10) td:eq(7)").html('<%=totalY6%>');
 		$("#projectNow tr:eq(10) td:eq(8)").html('<%=totalY7%>');
 	}
-
-
+	
+	//달성률에 따른 색 변화
+	 function stateColor(){
+		 var data;	 
+		 for(var y=6;y<=26;y+=5){
+			 
+			 for(var i=1;i<=6;i++){
+			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split("(")[0];
+					if(data>100){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#087f5b").css("font-weight","bold").css("color","white");
+					}
+					else if(data>90){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#099268").css("font-weight","bold").css("color","white");
+					}
+					else if(data>80){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#2b8a3e").css("font-weight","bold").css("color","white");
+					}
+					else if(data>70){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#2f9e44").css("font-weight","bold").css("color","white");
+					}
+					else if(data>60){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#37b24d").css("font-weight","bold").css("color","white");
+					}
+					else if(data>50){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#40c057").css("font-weight","bold").css("color","white");
+					}
+					else if(data>40){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#51cf66").css("font-weight","bold").css("color","white");
+					}
+					else if(data>30){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#69db7c").css("font-weight","bold").css("color","white");
+					}
+					else if(data>20){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#b2f2bb").css("font-weight","bold");
+					}
+					else if(data>10){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#d3f9d8").css("font-weight","bold");
+					}
+					else if(data>0){
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#e1fbe6").css("font-weight","bold");
+					}
+					else{
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#ebfbee").css("font-weight","bold");
+					}
+					
+			 	console.log(data);
+			 	}
+			 }
+		 }
+	 	
 	$(document).ready(function(){
 		$('.loading').hide();
 		ProjectTable();
 		ProjectTable2();
 		stateTotal();
-		
+		stateColor();
 	
-			
-			$('ul.tabs li').click(function(){
-				var tab_id = $(this).attr('data-tab');
-
-				$('ul.tabs li').removeClass('current');
-				$('.tab-content').removeClass('current');
-
-				$(this).addClass('current');
-				$("#"+tab_id).addClass('current');
-			});
-
 		
+	$('ul.tabs li').click(function() {
+			var tab_id = $(this).attr('data-tab');
+
+			$('ul.tabs li').removeClass('current');
+			$('.tab-content').removeClass('current');
+
+			$(this).addClass('current');
+			$("#" + tab_id).addClass('current');
+		});
+
 	});
-	window.onbeforeunload = function() { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	
+	window.onbeforeunload = function() {
+		$('.loading').show();
+	} //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 </script>
 <body id="page-top">
 	<!--  로딩화면  시작  -->
@@ -1190,9 +1286,9 @@ function y_rsales() {
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="6" bgcolor="skyblue" style="text-align:center;">상세내역</td>
+                    	<td colspan="6" style="text-align:center;background-color:#15a3da52;">상세내역</td>
                     </tr>  
-                    <tr bgcolor="skyblue" style="text-align:center;">
+                    <tr style="text-align:center;background-color:#15a3da52;">
 	                    <th>구분</th>
 	                    <th>상태</th>
 	                    <th>Total</th>
@@ -1331,7 +1427,7 @@ function y_rsales() {
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="5" bgcolor="skyblue" style="text-align:center;">상세내역(단위: 백만)</td>
+                    	<td colspan="5"style="text-align:center;background-color:#15a3da52;">상세내역(단위: 백만)</td>
                     	<td>
                     	<%
                     		if(permission == 0){
@@ -1340,7 +1436,7 @@ function y_rsales() {
                     	%>
                     	</td>
                     </tr>  
-                    <tr bgcolor="skyblue" style="text-align:center;">
+                    <tr style="text-align:center;background-color:#15a3da52;">
 	                    <th>구분</th>
 	                    <th>항목</th>
 	                    <th>Total</th>
@@ -1354,7 +1450,7 @@ function y_rsales() {
                   </thead>  
                   
                   <tbody>
-                    <tr>
+                    <tr class="fh_tr">
                     	<td rowspan="10" style="text-align:center; vertical-align: middle;">상반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=FH_total_PJ%></td>
@@ -1365,7 +1461,7 @@ function y_rsales() {
                     	<td><input class="sale" name="FH_auto_PJ" value='<%=FH_auto_PJ%>'></td>
                     	<td><input class="sale" name="FH_vt_PJ" value='<%=FH_vt_PJ%>'></td>
                     </tr>
-                    <tr style="text-align:center;">
+                    <tr class="fh_tr">
                     	<td>예상 수주</td>
                     	<td><%=FH_total_ORDER%></td>
                     	<td><%=FH_chassis_ORDER%></td>
@@ -1375,7 +1471,7 @@ function y_rsales() {
                     	<td><%=FH_auto_ORDER%></td>
                     	<td><%=FH_vt_ORDER%></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>예상 수주(%)</td>
                     	<td><%=FH_total_ORDER/FH_total_PJ *100%>(%)</td>
                     	<td><%=FH_chassis_ORDER/FH_chassis_PJ *100%>(%)</td>
@@ -1385,7 +1481,7 @@ function y_rsales() {
                     	<td><%=FH_auto_ORDER/FH_auto_PJ *100%>(%)</td>
                     	<td><%=FH_vt_ORDER/FH_vt_PJ *100%>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>달성</td>
                     	<td><%=FH_total_RPJ%></td>
                     	<td><%=FH_chassis_RPJ%></td>
@@ -1396,17 +1492,17 @@ function y_rsales() {
                     	<td><%=FH_vt_RPJ%></td>
                     	
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>수주 달성률</td>
-                   		<td><%=FH_total_RPJ/FH_total_PJ *100%>(%)</td>
-                    	<td><%=FH_chassis_RPJ/FH_chassis_PJ *100%>(%)</td>
-                    	<td><%=FH_body_RPJ/FH_body_PJ*100 %>(%)</td>
-                    	<td><%=FH_control_RPJ/FH_control_PJ *100%>(%)</td>
-                    	<td><%=FH_safe_RPJ/FH_safe_PJ *100%>(%)</td>
-                    	<td><%=FH_auto_RPJ/FH_auto_PJ*100 %>(%)</td>
-                    	<td><%=FH_vt_RPJ/FH_vt_PJ*100 %>(%)</td>
+                   		<td class="pertd"><%=FH_total_RPJ/FH_total_PJ *100%>(%)</td>
+                    	<td class="pertd"><%=FH_chassis_RPJ/FH_chassis_PJ *100%>(%)</td>
+                    	<td class="pertd"><%=FH_body_RPJ/FH_body_PJ*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_control_RPJ/FH_control_PJ *100%>(%)</td>
+                    	<td class="pertd"><%=FH_safe_RPJ/FH_safe_PJ *100%>(%)</td>
+                    	<td class="pertd"><%=FH_auto_RPJ/FH_auto_PJ*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_vt_RPJ/FH_vt_PJ*100 %>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>목표 매출</td>
                         <td><%=FH_total_SALES%></td>
                     	<td><input class="sale" name="FH_chassis_SALES" value='<%=FH_chassis_SALES %>'></td>
@@ -1416,7 +1512,7 @@ function y_rsales() {
                     	<td><input class="sale" name="FH_auto_SALES" value='<%=FH_auto_SALES %>'></td>
                     	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_vt_SALES %>'></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>예상 매츨</td>
                     	<td><%=FH_total_PJSALES %></td>
                     	<td><%=FH_chassis_PJSALES %></td>
@@ -1426,7 +1522,7 @@ function y_rsales() {
                     	<td><%=FH_auto_PJSALES %></td>
                     	<td><%=FH_vt_PJSALES %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>예상 매출(%)</td>
                         <td><%=FH_total_PJSALES/FH_total_SALES*100 %>(%)</td>
                     	<td><%=FH_chassis_PJSALES/FH_chassis_SALES *100%>(%)</td>
@@ -1436,7 +1532,7 @@ function y_rsales() {
                     	<td><%=FH_auto_PJSALES/FH_auto_SALES *100%>(%)</td>
                     	<td><%=FH_vt_PJSALES/FH_vt_SALES *100%>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>달성</td>
                     	<td><%=FH_total_RSALES %></td>
                    		<td><%=FH_chassis_RSALES %></td>
@@ -1447,18 +1543,18 @@ function y_rsales() {
                     	<td><%=FH_vt_RSALES %></td>
                     	
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="fh_tr">
                     	<td>매출 달성률</td>
-                   		<td><%=FH_total_RSALES/FH_total_SALES*100 %>(%)</td>
-                   		<td><%=FH_chassis_RSALES/FH_chassis_SALES*100 %>(%)</td>
-                    	<td><%=FH_body_RSALES/FH_body_SALES*100 %>(%)</td>
-                    	<td><%=FH_control_RSALES/FH_control_SALES*100 %>(%)</td>
-                    	<td><%=FH_safe_RSALES/FH_safe_SALES*100 %>(%)</td>
-                    	<td><%=FH_auto_RSALES/FH_auto_SALES*100 %>(%)</td>
-                    	<td><%=FH_vt_RSALES/FH_vt_SALES *100%>(%)</td>
+                   		<td class="pertd"><%=FH_total_RSALES/FH_total_SALES*100 %>(%)</td>
+                   		<td class="pertd"><%=FH_chassis_RSALES/FH_chassis_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_body_RSALES/FH_body_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_control_RSALES/FH_control_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_safe_RSALES/FH_safe_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_auto_RSALES/FH_auto_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=FH_vt_RSALES/FH_vt_SALES *100%>(%)</td>
                     </tr>
                     
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td rowspan="10" style=" vertical-align: middle;">하반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=SH_total_PJ%></td>
@@ -1469,7 +1565,7 @@ function y_rsales() {
                     	<td><input class="sale" name="SH_auto_PJ" value='<%=SH_auto_PJ %>'></td>
                     	<td><input class="sale" name="SH_vt_PJ" value='<%=SH_vt_PJ %>'></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>예상 수주</td>
                     	<td><%=SH_total_ORDER%></td>
                     	<td><%=SH_chassis_ORDER%></td>
@@ -1479,7 +1575,7 @@ function y_rsales() {
                     	<td><%=SH_auto_ORDER%></td>
                     	<td><%=SH_vt_ORDER%></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>예상 수주(%)</td>
                     	<td><%=SH_total_ORDER/SH_total_PJ*100 %>(%)</td>
                     	<td><%=SH_chassis_ORDER/SH_chassis_PJ*100 %>(%)</td>
@@ -1489,7 +1585,7 @@ function y_rsales() {
                     	<td><%=SH_auto_ORDER/SH_auto_PJ*100 %>(%)</td>
                     	<td><%=SH_vt_ORDER/SH_vt_PJ*100 %>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>달성</td>
                     	<td><%=SH_total_RPJ%></td>
                     	<td><%=SH_chassis_RPJ%></td>
@@ -1500,17 +1596,17 @@ function y_rsales() {
                     	<td><%=SH_vt_RPJ%></td>
                     	
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>수주 달성률</td>
-                   		<td><%=SH_total_RPJ/SH_total_PJ*100%>(%)</td>
-                    	<td><%=SH_chassis_RPJ/SH_chassis_PJ*100%>(%)</td>
-                    	<td><%=SH_body_RPJ/SH_body_PJ*100%>(%)</td>
-                    	<td><%=SH_control_RPJ/SH_control_PJ*100%>(%)</td>
-                    	<td><%=SH_safe_RPJ/SH_safe_PJ*100%>(%)</td>
-                    	<td><%=SH_auto_RPJ/SH_auto_PJ*100%>(%)</td>
-                    	<td><%=SH_vt_RPJ/SH_vt_PJ*100%>(%)</td>
+                   		<td class="pertd"><%=SH_total_RPJ/SH_total_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=SH_chassis_RPJ/SH_chassis_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=SH_body_RPJ/SH_body_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=SH_control_RPJ/SH_control_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=SH_safe_RPJ/SH_safe_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=SH_auto_RPJ/SH_auto_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=SH_vt_RPJ/SH_vt_PJ*100%>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>목표 매출</td>
                         <td><%=SH_total_SALES%></td>
                     	<td><input class="sale" name="SH_chassis_SALES" value='<%=SH_chassis_SALES %>'></td>
@@ -1520,7 +1616,7 @@ function y_rsales() {
                     	<td><input class="sale" name="SH_auto_SALES" value='<%=SH_auto_SALES %>'></td>
                     	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_vt_SALES %>'></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>예상 매츨</td>
                     	<td><%=SH_total_PJSALES %></td>
                     	<td><%=SH_chassis_PJSALES %></td>
@@ -1530,7 +1626,7 @@ function y_rsales() {
                     	<td><%=SH_auto_PJSALES %></td>
                     	<td><%=SH_vt_PJSALES %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>예상 매출(%)</td>
                         <td><%=SH_total_PJSALES/SH_total_SALES*100 %>(%)</td>
                     	<td><%=SH_chassis_PJSALES/SH_chassis_SALES*100 %>(%)</td>
@@ -1540,7 +1636,7 @@ function y_rsales() {
                     	<td><%=SH_auto_PJSALES/SH_auto_SALES*100 %>(%)</td>
                     	<td><%=SH_vt_PJSALES/SH_vt_SALES*100 %>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>달성</td>
                     	<td><%=SH_total_RSALES %></td>
                    		<td><%=SH_chassis_RSALES %></td>
@@ -1551,19 +1647,19 @@ function y_rsales() {
                     	<td><%=SH_vt_RSALES %></td>
                     	
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="sh_tr">
                     	<td>매출 달성률</td>
-                   		<td><%=SH_total_RSALES/SH_total_SALES*100 %>(%)</td>
-                   		<td><%=SH_chassis_RSALES/SH_chassis_SALES*100 %>(%)</td>
-                    	<td><%=SH_body_RSALES/SH_body_SALES*100 %>(%)</td>
-                    	<td><%=SH_control_RSALES/SH_control_SALES*100 %>(%)</td>
-                    	<td><%=SH_safe_RSALES/SH_safe_SALES*100 %>(%)</td>
-                    	<td><%=SH_auto_RSALES/SH_auto_SALES*100 %>(%)</td>
-                    	<td><%=SH_vt_RSALES/SH_vt_SALES*100 %>(%)</td>
+                   		<td class="pertd"><%=SH_total_RSALES/SH_total_SALES*100 %>(%)</td>
+                   		<td class="pertd"><%=SH_chassis_RSALES/SH_chassis_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=SH_body_RSALES/SH_body_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=SH_control_RSALES/SH_control_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=SH_safe_RSALES/SH_safe_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=SH_auto_RSALES/SH_auto_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=SH_vt_RSALES/SH_vt_SALES*100 %>(%)</td>
                     </tr>
                     
-                    <tr style="text-align:center;">
-                    	<td rowspan="10" style=" vertical-align: middle;" >연간</td>
+                    <tr class="y_tr">
+                    	<td rowspan="10" style=" vertical-align:middle;">연간</td>
                     <td style="text-align:center;">목표 수주</td>
                     	<td><%=Y_total_pj %></td>
                     	<td><%=Y_chassis_PJ %></td>
@@ -1573,7 +1669,7 @@ function y_rsales() {
                     	<td><%=Y_auto_PJ %></td>
                     	<td><%=Y_vt_PJ %></td>
                     </tr>
-                    <tr style="text-align:center;">
+                    <tr class="y_tr">
                     	<td>예상 수주</td>
                     	<td><%=Y_total_ORDER %></td>
                     	<td><%=Y_chassis_ORDER %></td>
@@ -1583,7 +1679,7 @@ function y_rsales() {
                     	<td><%=Y_auto_ORDER %></td>
                     	<td><%=Y_vt_ORDER %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>예상 수주(%)</td>
                     	<td><%=Y_total_ORDER/Y_total_pj*100 %>(%)</td>
                     	<td><%=Y_chassis_ORDER/Y_chassis_PJ*100 %>(%)</td>
@@ -1593,7 +1689,7 @@ function y_rsales() {
                     	<td><%=Y_auto_ORDER/Y_auto_PJ*100 %>(%)</td>
                     	<td><%=Y_vt_ORDER/Y_vt_PJ*100 %>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>달성</td>
                     	<td><%=Y_total_RPJ %></td>
                     	<td><%=Y_chassis_RPJ %></td>
@@ -1603,17 +1699,17 @@ function y_rsales() {
                     	<td><%=Y_auto_RPJ %></td>
                     	<td><%=Y_vt_RPJ %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>수주 달성률</td>
-                   		<td><%=Y_total_RPJ/Y_total_pj*100%>(%)</td>
-                    	<td><%=Y_chassis_RPJ/Y_chassis_PJ*100%>(%)</td>
-                    	<td><%=Y_body_RPJ/Y_body_PJ*100%>(%)</td>
-                    	<td><%=Y_control_RPJ/Y_control_PJ*100%>(%)</td>
-                    	<td><%=Y_safe_RPJ/Y_safe_PJ*100%>(%)</td>
-                    	<td><%=Y_auto_RPJ/Y_auto_PJ*100%>(%)</td>
-                    	<td><%=Y_vt_RPJ/Y_vt_PJ*100%>(%)</td>
+                   		<td class="pertd"><%=Y_total_RPJ/Y_total_pj*100%>(%)</td>
+                    	<td class="pertd"><%=Y_chassis_RPJ/Y_chassis_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=Y_body_RPJ/Y_body_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=Y_control_RPJ/Y_control_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=Y_safe_RPJ/Y_safe_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=Y_auto_RPJ/Y_auto_PJ*100%>(%)</td>
+                    	<td class="pertd"><%=Y_vt_RPJ/Y_vt_PJ*100%>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>목표 매출</td>
                         <td><%=Y_total_SALES %></td>
                     	<td><%=Y_chassis_SALES %></td>
@@ -1623,7 +1719,7 @@ function y_rsales() {
                     	<td><%=Y_auto_SALES %></td>
                     	<td><%=Y_vt_SALES %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>예상 매츨</td>
                     	<td><%=Y_total_PJSALES %></td>
                     	<td><%=Y_chassis_PJSALES %></td>
@@ -1633,7 +1729,7 @@ function y_rsales() {
                     	<td><%=Y_auto_PJSALES %></td>
                     	<td><%=Y_vt_PJSALES %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>예상 매출(%)</td>
                         <td><%=Y_total_PJSALES/Y_total_SALES*100 %>(%)</td>
                     	<td><%=Y_chassis_PJSALES/Y_chassis_SALES*100 %>(%)</td>
@@ -1643,7 +1739,7 @@ function y_rsales() {
                     	<td><%=Y_auto_PJSALES/Y_auto_SALES*100 %>(%)</td>
                     	<td><%=Y_vt_PJSALES/Y_vt_SALES*100 %>(%)</td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>달성</td>
                     	<td><%=Y_total_RSALES %></td>
                     	<td><%=Y_chassis_RSALES %></td>
@@ -1653,15 +1749,15 @@ function y_rsales() {
                     	<td><%=Y_auto_RSALES %></td>
                     	<td><%=Y_vt_RSALES %></td>
                     </tr>
-                     <tr style="text-align:center;">
+                     <tr class="y_tr">
                     	<td>매출 달성률</td>
-                   		<td><%=Y_total_RSALES/Y_total_SALES*100 %>(%)</td>
-                   		<td><%=Y_chassis_RSALES/Y_chassis_SALES*100 %>(%)</td>
-                    	<td><%=Y_body_RSALES/Y_body_SALES*100 %>(%)</td>
-                    	<td><%=Y_control_RSALES/Y_control_SALES*100 %>(%)</td>
-                    	<td><%=Y_safe_RSALES/Y_safe_SALES*100 %>(%)</td>
-                    	<td><%=Y_auto_RSALES/Y_auto_SALES*100 %>(%)</td>
-                    	<td><%=Y_vt_RSALES/Y_vt_SALES*100 %>(%)</td>
+                   		<td class="pertd"><%=Y_total_RSALES/Y_total_SALES*100 %>(%)</td>
+                   		<td class="pertd"><%=Y_chassis_RSALES/Y_chassis_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=Y_body_RSALES/Y_body_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=Y_control_RSALES/Y_control_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=Y_safe_RSALES/Y_safe_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=Y_auto_RSALES/Y_auto_SALES*100 %>(%)</td>
+                    	<td class="pertd"><%=Y_vt_RSALES/Y_vt_SALES*100 %>(%)</td>
                     </tr>
                   	  </tbody>                            
                		 </table>
@@ -1674,6 +1770,7 @@ function y_rsales() {
                		<table style="display:table-cell;" >
 	            	 <tr><td><div id="fh_order_chart" class="chart"></div></td></tr>
 	             	 <tr><td><div id="fh_sales_chart" class="chart"></div></td></tr>
+	             	 <tr><td><div id="fh_rpj_chart" class="chart"></div></td></tr>
 	             	 <tr><td><div id="fh_rsales_chart" class="chart"></div></td></tr>
              	 </table>
              	 </div>
@@ -1682,6 +1779,7 @@ function y_rsales() {
                		<table style="display:table-cell;" >
 					 <tr><td><div id="sh_order_chart" class="chart" ></div></td></tr>
 					 <tr><td><div id="sh_sales_chart" class="chart"></div></td></tr>
+					 <tr><td><div id="fh_rpj_chart" class="chart"></div></td></tr>
 					 <tr><td><div id="sh_rsales_chart" class="chart"></div></td></tr>
              	 </table>
              	 </div>
@@ -1690,7 +1788,7 @@ function y_rsales() {
                		<table style="display:table-cell;" >
 					 <tr><td><div id="y_order_chart" class="chart"></div></td></tr>
 					 <tr><td><div id="y_sales_chart" class="chart"></div></td></tr>
-					 	<tr><td><div id="y_rpj_chart" class="chart"></div></td></tr>
+					 	<tr><td><div id="fh_rpj_chart" class="chart"></div></td></tr>
 						 	<tr><td><div id="y_rsales_chart" class="chart"></div></td></tr>
              	 </table>
              	 </div>
@@ -1718,7 +1816,7 @@ function y_rsales() {
 	                    <th>전임</th>
 	                    <th>협력업체</th>
                     </tr>
-                    <tr bgcolor="skyblue" style="text-align:center;">
+                    <tr style="text-align:center;background-color:#15a3da52;">
 	                    <th>미래차 검증전략실</th>
 	                    <th>유영민</th>
 	                    <th>15</th>
@@ -1782,7 +1880,7 @@ function y_rsales() {
                 </table>
                 
                 <table class="table table-bordered" id="dataTable">
-                    <tr bgcolor="skyblue" style="text-align:center;">
+                    <tr  style="text-align:center;background-color:#15a3da52;">
 	                    <th>NO</th>
 	                    <th>소속</th>
 	                    <th>팀</th>
@@ -1958,9 +2056,9 @@ function y_rsales() {
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="6" bgcolor="skyblue" style="text-align:center;">상세내역</td>
+                    	<td colspan="6" style="text-align:center;background-color:#15a3da52;">상세내역</td>
                     </tr>  
-                    <tr bgcolor="skyblue" style="text-align:center;">
+                    <tr style="text-align:center;background-color:#15a3da52;">
 	                    <th>구분</th>
 	                    <th>상태</th>
 	                    <th>Total</th>
