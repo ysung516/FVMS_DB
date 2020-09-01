@@ -673,7 +673,13 @@
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary" style="display:inline-block;">프로젝트 목록</h6>
-              <div style="display:inline-block; float:right;"><input type="button" value="동기화"></div>
+              <%
+              	if(permission == 0){
+              		%><form action ="project_synchronization.jsp" method="post" style="display: inline; float: right">
+	              	<input type="submit" value="동기화"></div>
+	              </form><%
+              	}
+              %>
             </div>
             <div class="card-body" style="margin-bottom: 40px;">
             	
