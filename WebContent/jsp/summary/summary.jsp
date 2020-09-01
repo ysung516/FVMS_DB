@@ -5,6 +5,7 @@
     import = "jsp.sheet.method.*"
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
+    import = "java.awt.Color" 
     
     %>
 <!DOCTYPE html>
@@ -315,8 +316,8 @@
 	}
 	FH_total_ORDER = FH_chassis_ORDER + FH_body_ORDER + FH_control_ORDER + FH_safe_ORDER + FH_auto_ORDER + FH_vt_ORDER;
 	SH_total_ORDER = SH_chassis_ORDER + SH_body_ORDER + SH_control_ORDER + SH_safe_ORDER + SH_auto_ORDER + SH_vt_ORDER;
-	FH_total_RPJ = FH_total_PJ/FH_total_ORDER;
-	SH_total_RPJ = SH_total_PJ/SH_total_ORDER;
+	FH_total_RPJ = FH_chassis_RPJ + FH_body_RPJ + FH_control_RPJ + FH_safe_RPJ + FH_auto_RPJ + FH_vt_RPJ;
+	SH_total_RPJ = SH_chassis_RPJ + SH_body_RPJ + SH_control_RPJ + SH_safe_RPJ + SH_auto_RPJ + SH_vt_RPJ;
 	FH_total_PJSALES = FH_chassis_PJSALES + FH_body_PJSALES + FH_control_PJSALES + FH_safe_PJSALES + FH_auto_PJSALES + FH_vt_PJSALES;
 	SH_total_PJSALES = SH_chassis_PJSALES + SH_body_PJSALES + SH_control_PJSALES + SH_safe_PJSALES + SH_auto_PJSALES + SH_vt_PJSALES;
 	FH_total_RSALES = FH_chassis_RSALES + FH_body_RSALES + FH_control_RSALES + FH_safe_RSALES + FH_auto_RSALES + FH_vt_RSALES;
@@ -376,7 +377,10 @@
 
 </head>
 <style>
-	
+	.table td{
+		padding:0.2rem;
+		font-weight:bold !important;
+	}
 	.fh_tr{
 		background-color:#f2f3bbb0;
 	}
@@ -1068,49 +1072,15 @@ function y_rsales() {
 	
 	//달성률에 따른 색 변화
 	 function stateColor(){
-		 var data;	 
+		 var data;
 		 for(var y=6;y<=26;y+=5){
 			 
 			 for(var i=1;i<=6;i++){
-			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split("(")[0];
+			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
 			 	//data값만큼 rgb에 더하기
-					if(data>100){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#087f5b").css("font-weight","bold").css("color","white");
-					}
-					else if(data>90){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#099268").css("font-weight","bold").css("color","white");
-					}
-					else if(data>80){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#2b8a3e").css("font-weight","bold").css("color","white");
-					}
-					else if(data>70){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#2f9e44").css("font-weight","bold").css("color","white");
-					}
-					else if(data>60){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#37b24d").css("font-weight","bold").css("color","white");
-					}
-					else if(data>50){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#40c057").css("font-weight","bold").css("color","white");
-					}
-					else if(data>40){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#51cf66").css("font-weight","bold").css("color","white");
-					}
-					else if(data>30){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#69db7c").css("font-weight","bold").css("color","white");
-					}
-					else if(data>20){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#b2f2bb").css("font-weight","bold");
-					}
-					else if(data>10){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#d3f9d8").css("font-weight","bold");
-					}
-					else if(data>0){
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#e1fbe6").css("font-weight","bold");
-					}
-					else{
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#ebfbee").css("font-weight","bold");
-					}
-					
+			 	
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(' + data + ',200 -' + data + ',200- ' + data + ')')
+			
 			 	console.log(data);
 			 	}
 			 }
@@ -1483,7 +1453,7 @@ function y_rsales() {
                     	<td><%=FH_vt_ORDER/FH_vt_PJ *100%>(%)</td>
                     </tr>
                      <tr class="fh_tr">
-                    	<td>달성</td>
+                    	<td>달성</td> 	
                     	<td><%=FH_total_RPJ%></td>
                     	<td><%=FH_chassis_RPJ%></td>
                     	<td><%=FH_body_RPJ%></td>
