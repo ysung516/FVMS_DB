@@ -1073,6 +1073,7 @@ function y_rsales() {
 			 
 			 for(var i=1;i<=6;i++){
 			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split("(")[0];
+			 	//data값만큼 rgb에 더하기
 					if(data>100){
 						$('#dataTable tr:eq('+y+') td:eq('+i+')').css("background","#087f5b").css("font-weight","bold").css("color","white");
 					}
