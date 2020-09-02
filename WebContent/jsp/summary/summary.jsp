@@ -410,6 +410,7 @@ ul.tabs li:hover {
 
 ul.tabs li.current{
 	border-bottom:3px solid #5bb8e4ad;
+	background-color:#00a1ff36;
 	border:1px soid #ededed;
 	color: #222;
 }
@@ -583,9 +584,9 @@ ul.tabs li.current{
             'chartArea': {'width': '100%', 'height': '80%'},
             'legend': {'position': 'bottom'},
             series: {
-                0: { color: '#ffd1ff' },
-                1: { color: '#fbc2eb' },
-                2: { color: '#a18cd1' }
+            	 0: { color: '#d4fc79' },
+                 1: { color: '#84fab0' },
+                 2: { color: '#96e6a1' }
               }
      };
 
@@ -646,9 +647,9 @@ function y_order() {
         'chartArea': {'width': '100%', 'height': '80%'},
         'legend': {'position': 'bottom'},
         series: {
-            0: { color: '#ffd1ff' },
-            1: { color: '#fbc2eb' },
-            2: { color: '#a18cd1' }
+        	 0: { color: '#d4fc79' },
+             1: { color: '#84fab0' },
+             2: { color: '#96e6a1' }
           }
     
     };
@@ -713,7 +714,7 @@ function fh_rpj() {
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
 	    pieHole: 0.4, width:800, height:415,
-	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
 	  var fh_rpj_chart = new google.visualization.PieChart(document.getElementById('fh_rpj_chart'));
@@ -734,7 +735,7 @@ function sh_rpj() {
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
 	    pieHole: 0.4, width:800, height:415,
-	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
 	  var sh_rpj_chart = new google.visualization.PieChart(document.getElementById('sh_rpj_chart'));
@@ -755,7 +756,7 @@ function y_rpj() {
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
 	    pieHole: 0.4, width:800, height:415,
-	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
 	  var y_rpj_chart = new google.visualization.PieChart(document.getElementById('y_rpj_chart'));
@@ -776,7 +777,7 @@ function fh_rsales() {
 	  var fh_rsales_options = {
 	    title: '상반기 매출 달성',
 	    pieHole: 0.4, width:800, height:415,
-	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
 	  var fh_rsales_chart = new google.visualization.PieChart(document.getElementById('fh_rsales_chart'));
@@ -797,7 +798,7 @@ function sh_rsales() {
 	  var sh_rsales_options = {
 	    title: '하반기 매출 달성',
 	    pieHole: 0.4, width:800, height:415,
-	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
 	  var sh_rsales_chart = new google.visualization.PieChart(document.getElementById('sh_rsales_chart'));
@@ -818,7 +819,7 @@ function y_rsales() {
 	  var y_rsales_options = {
 	    title: '연간 매출 달성',
 	    pieHole: 0.4, width:800, height:415,
-	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F']
+	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
 	  var y_rsales_chart = new google.visualization.PieChart(document.getElementById('y_rsales_chart'));
@@ -1774,7 +1775,7 @@ function y_rsales() {
                		<table style="display:table-cell;" >
 					 <tr><td><div id="y_order_chart" class="chart"></div></td></tr>
 					 <tr><td><div id="y_sales_chart" class="chart"></div></td></tr>
-					 	<tr><td><div id="fh_rpj_chart" class="chart"></div></td></tr>
+					 	<tr><td><div id="y_rpj_chart" class="chart"></div></td></tr>
 						 	<tr><td><div id="y_rsales_chart" class="chart"></div></td></tr>
              	 </table>
              	 </div>
