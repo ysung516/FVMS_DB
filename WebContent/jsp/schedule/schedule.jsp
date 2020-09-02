@@ -223,7 +223,76 @@
                   <h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
                 </div>
                 <div class="card-body">
-           아직 미구현
+<link href="jsgantt.css" rel="stylesheet" type="text/css"/>
+<script src="jsgantt.js" type="text/javascript"></script>
+
+<div style="position:relative" class="gantt" id="GanttChartDIV"></div>
+
+<script>
+
+var g = new JSGantt.GanttChart(document.getElementById('GanttChartDIV'), 'day');
+
+g.setOptions({
+  vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,
+  vQuarterColWidth: 36,
+  vDateTaskDisplayFormat: 'day dd month yyyy', // Shown in tool tip box
+  vDayMajorDateDisplayFormat: 'mon yyyy - Week ww',// Set format to dates in the "Major" header of the "Day" view
+  vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view
+  vLang: 'en',
+  vShowTaskInfoLink: 1, // 툴팁에 링크 표시(0/1)
+  vShowEndWeekDate: 0,  // 일별 머리글에 요일의 마지막 날짜 표시/숨기기
+  vUseSingleCell: 10000, // 테이블 행당 임계값 셀 설정(대량 데이터에 대한 성능 지원)
+  vFormatArr: ['Day', 'Week', 'Month'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers,
+
+});
+
+// Load from a Json url
+JSGantt.parseJSON('./fixes/data.json', g);
+
+// Or Adding  Manually
+g.AddTaskItemObject({
+  pID: 1,
+  pName: "갈비찜을 밥 위에 얹어주세용",
+  pStart: "2017-02-25",
+  pEnd: "2017-03-17",
+  pClass: "ggroupblack",
+  pLink: "",
+  pMile: 0,
+  pRes: "냠냠",
+  pGroup: 0,
+  pParent: 0,
+  pOpen: 1,
+  pDepend: "",
+  pCaption: "",
+  pCost: 1000,
+  pNotes: "Some Notes text",
+  category: "My Category",
+  sector: "Finance"
+});
+g.AddTaskItemObject({
+  pID: 2,
+  pName: "내가 제일 좋아하는 갈비찜 덮밥",
+  pStart: "2017-03-17",
+  pEnd: "2017-03-30",
+  pClass: "ggroupblack",
+  pLink: "",
+  pMile: 0,
+  pRes: "냠냠",
+  pGroup: 0,
+  pParent: 0,
+  pOpen: 1,
+  pDepend: "",
+  pCaption: "",
+  pCost: 1000,
+  pNotes: "Some Notes text",
+  category: "My Category",
+  sector: "Finance"
+});
+
+g.Draw();
+
+</script>
+
               </div>
                    
 
