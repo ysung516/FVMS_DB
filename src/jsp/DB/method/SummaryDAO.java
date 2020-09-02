@@ -22,7 +22,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from project where 상태 like '1%' OR 상태 like '2%' OR 상태 like '3%';");
+	    	query.append("SELECT * from project where (상태 like '1%' OR 상태 like '2%' OR 상태 like '3%) and 실적보고 = 1';");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -61,7 +61,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from project where 상태 like '4%' OR 상태 like '5%' OR 상태 like '6%' OR 상태 like '7%' OR 상태 like '8%';");
+	    	query.append("select * from project where (상태 like '4%' OR 상태 like '5%' OR 상태 like '6%' OR 상태 like '7%' OR 상태 like '8%') and 실적보고 = 1;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -102,7 +102,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT 팀_수주, 상태, count(*) from project where 상태 like '1%' OR 상태 like '2%' OR 상태 like '3%' group by 팀_수주, 상태;");
+	    	query.append("SELECT 팀_수주, 상태, count(*) from project where (상태 like '1%' OR 상태 like '2%' OR 상태 like '3%') and 실적보고 = 1 group by 팀_수주, 상태;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -135,7 +135,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT 팀_매출, 상태, count(*) from project where 상태 like '4%' OR 상태 like '5%' OR 상태 like '6%' OR 상태 like '7%' OR 상태 like '8%' group by 팀_매출, 상태;");
+	    	query.append("SELECT 팀_매출, 상태, count(*) from project where (상태 like '4%' OR 상태 like '5%' OR 상태 like '6%' OR 상태 like '7%' OR 상태 like '8%') and 실적보고 = 1 group by 팀_매출, 상태;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -168,7 +168,7 @@ public class SummaryDAO {
 	    try {
 	    	StringBuffer query = new StringBuffer();
 	    	conn = DBconnection.getConnection();
-	    	query.append("SELECT count(*) from project where 상태 = ?;");
+	    	query.append("SELECT count(*) from project where 상태 = ? and 실적보고 = 1;");
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, state);
 	    	
@@ -197,7 +197,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT 상태, count(*) from project group by 상태;");
+	    	query.append("SELECT 상태, count(*) from project where 실적보고 = 1 group by 상태;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

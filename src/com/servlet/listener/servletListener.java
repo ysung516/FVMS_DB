@@ -18,7 +18,7 @@ public class servletListener implements ServletContextListener{
 		// TODO Auto-generated method stub
 		System.out.println("시작");
 		Scheduler ste = new Scheduler();
-        //ste.startScheduleTask();
+        ste.startScheduleTask();
 	}
 	
 }

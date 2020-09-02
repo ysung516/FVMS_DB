@@ -85,6 +85,8 @@
 
 </head>
 <style>
+
+   
 	@media(max-width:800px){
 	
 		body{
@@ -120,19 +122,29 @@
     vertical-align: baseline;
 	}
 	.check_div{
-    border: 1px solid black;
     padding: 5px;
     width: fit-content;
     margin-bottom: 5px;
     border-radius: 6px;
-    font-weight:bold;
-    color:black;
+    border:0px;
+    color:white;
+    background-color:#4e73df;
+}
+
+.check_div:active{
+    padding: 5px;
+    width: fit-content;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    box-shadow:0px 0 3px 3px #324dd2;
+    color:white;
+    background-color:#4e73df;
 }
 	.check_table{
 		display:none;
 	}
 
-
+	 *:focus { outline:none; }
 	#project_btn{
 		position: fixed;
 		bottom: 0;
@@ -169,7 +181,7 @@
 	.table { border:1px solid; border-collapse: collapse; white-space: nowrap; }
     .table td, .test-table th { border: 1px solid;width: 80px; }
     .table thead th { position:sticky; top: 0; background-color: white; border:1px solid; }
-    .table-responsive { width: 100%; height: 780px; overflow: auto; }
+    .table-responsive { width: 100%; overflow: auto; }
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -673,7 +685,13 @@
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary" style="display:inline-block;">프로젝트 목록</h6>
-              <div style="display:inline-block; float:right;"><input type="button" value="동기화"></div>
+              <%
+              	if(permission == 0){
+              		%><form action ="project_synchronization.jsp" method="post" style="display: inline; float: right">
+	              	<input type="submit" value="동기화"  class="btn btn-primary"></div>
+	              </form><%
+              	}
+              %>
             </div>
             <div class="card-body" style="margin-bottom: 40px;">
             	
