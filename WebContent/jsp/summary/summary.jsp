@@ -1077,9 +1077,10 @@ function y_rsales() {
 			 
 			 for(var i=1;i<=6;i++){
 			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
+			 	date = data + 100;
 			 	//data값만큼 rgb에 더하기
 			 	
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(' + data + ',' + data + ', ' + data + ')');
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb('+data+',' + data + ', ' + data + ')');
 			
 			 	console.log(data);
 			 	}
