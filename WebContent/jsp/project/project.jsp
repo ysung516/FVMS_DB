@@ -180,8 +180,8 @@
 	}
 	.table { border:1px solid; border-collapse: collapse; white-space: nowrap; }
     .table td, .test-table th { border: 1px solid;width: 80px; }
-    .table thead th { position:sticky; top: 0; background-color: white; border:1px solid; }
-    .table-responsive { width: 100%; overflow: auto; }
+   /* .table thead th { position:sticky; top: 0; background-color: white; border:1px solid; }*/
+    .table-responsive { width: 100%;}
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -692,9 +692,8 @@
 	              </form><%
               	}
               %>
-            </div>
             <div class="card-body" style="margin-bottom: 40px;">
-            	
+            	<div>
             	<input type="button" value="체크박스" class="check_div">
               	<!--  <label><input type="checkbox" id="check_team"> 팀</label>
       			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
@@ -736,12 +735,12 @@
 		      			 </td>
 	      			  </tr>
       			 </table>
-      			
+      			</div>
       			
              
               <div class="table-responsive">
-                <table class="table" id="dataTable" style="white-space: nowrap;font-size:small;width:0%;">
-                  <thead>
+                <table class="table" id="dataTable" style="white-space: nowrap;font-size:small;">
+                  <thead style=" text-align: center; background-color: yellow;padding: 10px 0px;width: 100%;position: sticky;top: 0;">
                     <tr class="m-0 text-primary">
 	                    <th>팀(수주)
 	                    	<button class="sortBTN" onclick="sortTD (0)">▲</button>
@@ -791,7 +790,7 @@
 						<th class="th">외주수요</th>  
                     </tr>
                 </thead>
-                <tbody> 
+                <tbody style="height:1000px;"> 
                   <%
                   	for(int i=0; i<projectList.size(); i++){
                   		%>
@@ -851,6 +850,7 @@
 			       function reverseTD( index ){replace.descending( index );} 
 			       </script>
               </div>   
+              </div>
               </div>     
               <%
 	          	if (permission <= 1){

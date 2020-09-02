@@ -713,7 +713,7 @@ function fh_rpj() {
 
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
-	    pieHole: 0.4, width:'100%', height:415,
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -734,7 +734,7 @@ function sh_rpj() {
 
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
-	    pieHole: 0.4, width: '100%', height:415,
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -755,7 +755,7 @@ function y_rpj() {
 
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
-	    pieHole: 0.4, width: '100%', height:415,
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -1081,7 +1081,6 @@ function y_rsales() {
 			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
 			 	z = (data/100)+0.1;
 			 	//data값만큼 rgb에 더하기
-			 	console.log(z);
 			 	
 						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
 						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
@@ -1093,11 +1092,20 @@ function y_rsales() {
 				 data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
 				 	z = (data/100)+0.1;
 				 	//data값만큼 rgb에 더하기
-				 	console.log(z);
+				 	console.log(data);
 				 	
 							$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
 							$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
 				 }
+			 }
+		 for(var i=1;i<=7;i++){
+			 data =  $('#dataTable tr:eq(31) td:eq('+i+')').text().split(".")[0];
+			 	z = (data/100)+0.1;
+			 	//data값만큼 rgb에 더하기
+			 	console.log(data);
+			 	
+						$('#dataTable tr:eq(31) td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
+						$('#dataTable tr:eq(31) td:eq('+i+')').css('color','white');
 			 }
 		 }
 	
