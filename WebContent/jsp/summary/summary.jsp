@@ -1076,18 +1076,30 @@ function y_rsales() {
 		 var z;
 		 for(var y=6;y<=26;y+=5){
 			 
-			 for(var i=1;i<=6;i++){
+			 for(var i=1;i<=7;i++){
 			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
 			 	z = (data/100)+0.1;
 			 	//data값만큼 rgb에 더하기
 			 	console.log(z);
 			 	
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,240, '+z+')');
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
 						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
 			 
 			 	}
 			 }
+		 for(var y=4;y<=31;y+=5){
+			 for(var i=1;i<=7;i++){
+				 data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
+				 	z = (data/100)+0.1;
+				 	//data값만큼 rgb에 더하기
+				 	console.log(z);
+				 	
+							$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
+							$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
+				 }
+			 }
 		 }
+	
 	 	
 	$(document).ready(function(){
 		$('.loading').hide();
