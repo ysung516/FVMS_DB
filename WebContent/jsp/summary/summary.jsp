@@ -1073,16 +1073,18 @@ function y_rsales() {
 	//달성률에 따른 색 변화
 	 function stateColor(){
 		 var data;
+		 var z;
 		 for(var y=6;y<=26;y+=5){
 			 
 			 for(var i=1;i<=6;i++){
 			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
-			 	date = data + 100;
+			 	z = (data/100)+0.1;
 			 	//data값만큼 rgb에 더하기
+			 	console.log(z);
 			 	
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb('+data+',' + data + ', ' + data + ')');
-			
-			 	console.log(data);
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,240, '+z+')');
+						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
+			 
 			 	}
 			 }
 		 }
@@ -1751,7 +1753,7 @@ function y_rsales() {
                		<table style="display:table-cell;" >
 					 <tr><td><div id="sh_order_chart" class="chart" ></div></td></tr>
 					 <tr><td><div id="sh_sales_chart" class="chart"></div></td></tr>
-					 <tr><td><div id="fh_rpj_chart" class="chart"></div></td></tr>
+					 <tr><td><div id="sh_rpj_chart" class="chart"></div></td></tr>
 					 <tr><td><div id="sh_rsales_chart" class="chart"></div></td></tr>
              	 </table>
              	 </div>
