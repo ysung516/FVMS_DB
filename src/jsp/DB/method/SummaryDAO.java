@@ -22,7 +22,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from project where (상태 like '1%' OR 상태 like '2%' OR 상태 like '3%) and 실적보고 = 1';");
+	    	query.append("SELECT * from project where (상태 like '1%' OR 상태 like '2%' OR 상태 like '3%') and 실적보고 = 1;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
