@@ -290,7 +290,7 @@ public class ReportDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("INSERT INTO reportBackUp SELECT * FROM report");
+	    	query.append("INSERT INTO reportBackUp SELECT * FROM reportTEST");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

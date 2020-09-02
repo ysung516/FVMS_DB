@@ -13,64 +13,64 @@
 			<artifactId>core</artifactId>
 			<version>1.47.1</version>
 		</dependency>
-		  
-		  <dependency>
-		   	  <groupId>com.google.oauth-client</groupId>
-		      <artifactId>google-oauth-client-jetty</artifactId>
-		      <version>1.23.0</version>
-		  </dependency>
-		  
-		  <dependency>
-		   	  <groupId>com.google.apis</groupId>
-		      <artifactId>google-api-services-appsactivity</artifactId>
-		      <version>v1-rev136-1.23.0</version>
-		  </dependency>
-  
+
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-jetty</artifactId>
+			<version>1.23.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-appsactivity</artifactId>
+			<version>v1-rev136-1.23.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-oauth2 -->
 		<dependency>
-		    <groupId>com.google.apis</groupId>
-		    <artifactId>google-api-services-oauth2</artifactId>
-		    <version>v1-rev88-1.19.1</version>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-oauth2</artifactId>
+			<version>v1-rev88-1.19.1</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.google.api-client</groupId>
-		    <artifactId>google-api-client</artifactId>
-		    <version>1.23.0</version>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.23.0</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.google.apis</groupId>
-		    <artifactId>google-api-services-drive</artifactId>
-		    <version>v3-rev110-1.23.0</version>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-drive</artifactId>
+			<version>v3-rev110-1.23.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.13</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.13</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
 		<dependency>
-	       <groupId>javax.activation</groupId>
-	       <artifactId>activation</artifactId>
-	       <version>1.1</version>
-	   </dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1</version>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
-	
+
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>

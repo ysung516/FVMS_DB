@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"
-    import = "java.io.PrintWriter"
-    import = "jsp.Bean.model.*"
-    import = "java.util.ArrayList"
-    import = "java.util.List"
-	import = "jsp.DB.method.*"
-	import = "jsp.Bean.model.*"  
-    %>
+	pageEncoding="UTF-8" import="java.io.PrintWriter"
+	import="jsp.Bean.model.*" import="java.util.ArrayList"
+	import="java.util.List" import="jsp.DB.method.*"
+	import="jsp.Bean.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +12,7 @@
 <body>
 
 
-<%
+	<%
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter script =  response.getWriter(); 
 		if (session.getAttribute("sessionID") == null){
@@ -46,4 +42,4 @@
 
 
 </body>
-</html> 
+</html>

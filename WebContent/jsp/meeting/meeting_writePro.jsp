@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import = "jsp.DB.method.*"
-    import = "jsp.Bean.model.*"
-    import = "java.io.PrintWriter"
-    import = "java.util.Date"
-    import = "java.text.SimpleDateFormat"
-    import = "jsp.smtp.method.*"
-    %>
+	pageEncoding="UTF-8" import="jsp.DB.method.*" import="jsp.Bean.model.*"
+	import="java.io.PrintWriter" import="java.util.Date"
+	import="java.text.SimpleDateFormat" import="jsp.smtp.method.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,6 +87,6 @@
 		
 	%>
 
-		
+
 </body>
 </html>

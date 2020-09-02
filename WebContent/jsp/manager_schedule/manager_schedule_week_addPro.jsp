@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import = "java.io.PrintWriter"
-    import = "java.util.ArrayList"
-	import = "java.util.Arrays"
-	import = "java.util.List"
-	import = "jsp.DB.method.*"
-	%>
+	pageEncoding="UTF-8" import="java.io.PrintWriter"
+	import="java.util.ArrayList" import="java.util.Arrays"
+	import="java.util.List" import="jsp.DB.method.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,8 +141,9 @@
 		List<String> print = mscDao.weekAdd_MSC(AmPlace_arr, PmPlace_arr, date_arr, team, sessionID, sessionName);
 		if(print.isEmpty() == false){
 			%><script> alert('<%for(String value : print){out.print(value);%>'+'\n'+'<%}%>'+'\n일정이 입력되었습니다.'); 
-							location.href = 'manager_schedule.jsp'; </script><%
+							location.href = 'manager_schedule.jsp'; </script>
+	<%
 		}	else  %><script> alert('일정 입력이 실패되었습니다.'); location.href = 'manager_schedule.jsp'; </script>
-		
+
 </body>
 </html>

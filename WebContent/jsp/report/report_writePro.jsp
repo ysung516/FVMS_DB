@@ -1,10 +1,8 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import = "jsp.Bean.model.*"
-    import = "java.io.PrintWriter"
-    import = "java.util.Date"
-    import = "jsp.DB.method.*"
-    import = "java.text.SimpleDateFormat"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="jsp.Bean.model.*"
+	import="java.io.PrintWriter" import="java.util.Date"
+	import="jsp.DB.method.*" import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
 <head>

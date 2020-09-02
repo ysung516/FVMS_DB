@@ -57,4 +57,13 @@ public class Scheduler {
 		
     }
     
+    public static void main(String[] args) throws GeneralSecurityException, IOException, Exception {
+		 //TODO Auto-generated method stub
+		
+		PostMan post = new PostMan();
+		ExcelExporter excel = new ExcelExporter();
+		ReportDAO reportDao = new ReportDAO();
+		reportDao.backUp();	// 보고서 백업
+	}
+    
 }
