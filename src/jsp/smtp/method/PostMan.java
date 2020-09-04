@@ -30,6 +30,7 @@ public class PostMan {
 				// 메일보내기
 				//mt.sendEmail(from, to, cc, subject, content);
 				mt.sendMailWithFile(from, to, subject, content, "Report-export.xlsx");
+				//mt.sendMailWithFile(from, to, subject, content, "C:\\Users\\User\\git\\FVMS_DB\\Report-export.xlsx");
 				System.out.println("메일 전송에 성공하였습니다.");
 			} catch (MessagingException me) {
 				System.out.println("메일 전송에 실패하였습니다.");

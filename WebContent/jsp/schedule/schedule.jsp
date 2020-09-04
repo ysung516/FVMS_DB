@@ -39,8 +39,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -49,7 +48,7 @@
 <link href="jsgantt.css" rel="stylesheet" type="text/css" />
 
 </head>
-<style>
+<style>	
 .loading {
 	position: fixed;
 	text-align: center;
@@ -71,6 +70,11 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.ggroupblack {
+	height: 7px;
+	background: #36b9cc;
+	margin-top: 2px;
+}
 </style>
 
 
@@ -81,15 +85,13 @@
 	function drawSch(){
 		var g = new JSGantt.GanttChart(document.getElementById('GanttChartDIV'), 'day');	
 		//var g = new JSGantt.GanttChart('g',document.getElementById('GanttChartDIV'), 'day');
-
-		  출처: https://lahuman.jabsiri.co.kr/77 [lahuman & jabsiri 노트]
 		g.setOptions({
 		  vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,
 		  vQuarterColWidth: 36,
 		  vDateTaskDisplayFormat: 'yyyy-mm-dd', // Shown in tool tip box
-		  vDayMajorDateDisplayFormat: 'mon yyyy - Week ww',// Set format to dates in the "Major" header of the "Day" view
+		  vDayMajorDateDisplayFormat: 'yyyy-mm-dd',// Set format to dates in the "Major" header of the "Day" view
 		  vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view
-		  vLang: 'en',
+		  vLang: 'lang',
 		  vShowTaskInfoLink: 1, // 툴팁에 링크 표시(0/1)
 		  vShowEndWeekDate: 0,  // 일별 머리글에 요일의 마지막 날짜 표시/숨기기
 		  vUseSingleCell: 10000, // 테이블 행당 임계값 셀 설정(대량 데이터에 대한 성능 지원)
@@ -101,73 +103,39 @@
 		JSGantt.parseJSON('./fixes/data.json', g);
 		
 		// Or Adding  Manually
-		g.AddTaskItemObject({
-		  pID: 1,
-		  pName: "갈비찜을 밥 위에 얹어주세용",
-		  pStart: "2017-05-17",
-		  pEnd: "2017-07-30",
-		  pClass: "ggroupblack",
-		  pLink: "",
-		  pMile: 0,
-		  pRes: "냠냠",
-		  pGroup: 1,
-		  pParent: 0,
-		  pOpen: 1,
-		  pDepend: "",
-		  pCaption: "",
-		  pCost: 1000,
-		  pNotes: "Some Notes text",
-		  category: "My Category",
-		  sector: "Finance"
-		});
-		g.AddTaskItemObject({
-		  pID: 2,
-		  pName: "내가 제일 좋아하는 갈비찜 덮밥",
-		  pStart: "2017-03-17",
-		  pEnd: "2017-03-30",
-		  pClass: "ggroupblack",
-		  pLink: "",
-		  pMile: 0,
-		  pRes: "냠냠",
-		  pGroup: 0,
-		  pParent: 0,
-		  pOpen: 1,
-		  pDepend: "",
-		  pCaption: "",
-		  pCost: 1000,
-		  pNotes: "Some Notes text",
-		  category: "My Category",
-		  sector: "Finance"
-		});
-		
 		<%
-			for(int i=0; i<memberList.size(); i++){ %>
-				g.AddTaskItemObject({
-					  pID: "<%=memberList.get(i).getID()%>",
-					  pName: "<%=memberList.get(i).getNAME()%>",
-					  pStart: "2017-03-17",
-					  pEnd: "2017-03-30",
-					  pClass: "ggroupblack",
-					  pLink: "",
-					  pMile: 0,
-					  pRes: "냠냠",
-					  pGroup: 0,
-					  pParent: 0,
-					  pOpen: 1,
-					  pDepend: "",
-					  pCaption: "",
-					  pCost: 1000,
-					  pNotes: "Some Notes text",
-					  category: "My Category",
-					  sector: "Finance"
-					});
+		for(int i=0; i<memberList.size(); i++){%>
+		
+			g.AddTaskItemObject({
+				  pID: "<%=i%>",
+				  pName: "<%=memberList.get(i).getTEAM()+"/"+memberList.get(i).getNAME()+"/"+memberList.get(i).getRANK()%>",
+				  pStart: "2020-09-03",
+				  pEnd: "2020-09-15",
+				  pPlanStart: "2020-09-20",
+				  pPlanEnd: "2020-09-25",
+				  
+				  pClass: "ggroupblack",
+				  pLink: "",
+				  pMile: 0,
+				  pRes: "냠냠",
+				  pGroup: 0,
+				  pParent: 0,
+				  pOpen: 1,
+				  pDepend: "",
+				  pCaption: "",
+				  pCost: 1000,
+				  pNotes: "Some Notes text",
+				  category: "My Category",
+				  sector: "Finance"
+				});
+
+		<%}
+	%>
 	
-			<%}
-		%>
 	
 		g.Draw();
 	}
-
+	
 		<!-- 로딩화면 -->
 		
 		window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능

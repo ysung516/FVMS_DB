@@ -283,37 +283,38 @@ public class ReportDAO {
 	}
 
 	// 보고서 백업
-	public void backUp() {
+	public int backUp() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+	    int rs = 0;
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("INSERT INTO reportBackUp SELECT * FROM reportTEST");
+	    	query.append("INSERT INTO reportBackUp SELECT * FROM report");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
+	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+	    return rs;
 	}
 	
 	// 주간보고서 삭제
-	public void deleteAllreport() {
+	public int deleteAllreport() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
+	    int rs = 0;
 	    try {
 	    	StringBuffer query = new StringBuffer();
 	    	query.append("truncate report;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.executeUpdate();
+	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -321,18 +322,20 @@ public class ReportDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+	    return rs;
 	}
 	
 	// 백업보고서 삭제
-	public void deleteAllbackUp() {
+	public int deleteAllbackUp() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
+	    int rs = 0;
 	    try {
 	    	StringBuffer query = new StringBuffer();
 	    	query.append("truncate reportBackUp;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.executeUpdate();
+	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -340,6 +343,7 @@ public class ReportDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+	    return rs;
 	}
 	
 	// 보고서 작성시 저번주 데이터 가져오기
