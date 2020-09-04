@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import = "java.io.PrintWriter"
-    import = "jsp.DB.method.*"
-    import = "jsp.Bean.model.*"
-    import ="jsp.smtp.method.*"
-    %>
-    
+	pageEncoding="UTF-8" import="java.io.PrintWriter"
+	import="jsp.DB.method.*" import="jsp.Bean.model.*"
+	import="jsp.smtp.method.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +11,7 @@
 </head>
 <body>
 
- <%
+	<%
      String ID = request.getParameter("ID").toLowerCase();
      String PW = request.getParameter("PW");
      String sessionName;

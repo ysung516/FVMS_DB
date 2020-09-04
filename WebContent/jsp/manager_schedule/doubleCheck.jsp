@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import ="jsp.Bean.model.MSC_Bean"
-    import = "java.io.PrintWriter"
-    import = "jsp.DB.method.*"
-    %>
+	pageEncoding="UTF-8" import="jsp.Bean.model.MSC_Bean"
+	import="java.io.PrintWriter" import="jsp.DB.method.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,23 +29,27 @@
 		}
 		
 		%>
-		
-		<form id="GoAdd" name="GoAdd"method="post" action="manager_schedule_add.jsp">
-			<input type="hidden" name = "date" value="<%=date%>"/>
-		</form>
-		<form id="GoUpdate" name="GoUpdate" method="post" action="manager_schedule_update.jsp">
-			<input type="hidden" name = "date" value="<%=date%>"/>
-			<input type="hidden" name = "num" value="<%=num%>"/>
-			<input type="hidden" name = "amPlace" value="<%=amPlace%>"/>
-			<input type="hidden" name = "pmPlace" value="<%=pmPlace%>"/>
-		</form>
-		
-		<%
+
+	<form id="GoAdd" name="GoAdd" method="post"
+		action="manager_schedule_add.jsp">
+		<input type="hidden" name="date" value="<%=date%>" />
+	</form>
+	<form id="GoUpdate" name="GoUpdate" method="post"
+		action="manager_schedule_update.jsp">
+		<input type="hidden" name="date" value="<%=date%>" /> <input
+			type="hidden" name="num" value="<%=num%>" /> <input type="hidden"
+			name="amPlace" value="<%=amPlace%>" /> <input type="hidden"
+			name="pmPlace" value="<%=pmPlace%>" />
+	</form>
+
+	<%
 		if(num == 0){
-			%><script>document.GoAdd.submit();</script><%
+			%><script>document.GoAdd.submit();</script>
+	<%
 		}
 		else{
-			%><script>document.GoUpdate.submit();</script><%
+			%><script>document.GoUpdate.submit();</script>
+	<%
 		}
 	%>
 

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-     import ="jsp.sheet.method.*"
-     import = "jsp.DB.method.*"
-    import = "java.io.PrintWriter"
-    %>
+	pageEncoding="UTF-8" import="jsp.sheet.method.*"
+	import="jsp.DB.method.*" import="java.io.PrintWriter"%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -46,15 +46,11 @@ public class Scheduler {
     	PostMan post = new PostMan();
 		ExcelExporter excel = new ExcelExporter();
 		ReportDAO reportDao = new ReportDAO();
-		
-		// 매주 수욜
-		reportDao.deleteAllbackUp();	// 백업 테이블 비움
-		reportDao.backUp();	// 보고서 백업
-		excel.export();	// 엑셀로 내보냄
-		//post.post();	// 메일 보냄
-		DriveMethod.upload();	// 구글드라이브에 엑셀 업로드
-		reportDao.deleteAllreport();	// 보고서 비움
-		
-    }
-    
+
+		reportDao.deleteAllbackUp();
+		reportDao.backUp();
+		excel.export();
+		DriveMethod.upload();
+		reportDao.deleteAllreport();
+	}
 }

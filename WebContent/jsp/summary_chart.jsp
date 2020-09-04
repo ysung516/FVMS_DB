@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
     
     /* 막대 차트 */
       google.charts.load('current', {'packages':['corechart']});
@@ -298,21 +299,21 @@ function count_auto() {
 	  count_auto_chart.draw(count_auto_data,count_auto_options);
 	}
 </script>
-    
+
 </head>
 <body>
-	 <div id="fh_order_chart" style="width: 800px; height: 500px;"></div>
-	 <div id="fh_sales_chart" style="width: 800px; height: 500px;"></div>
-	 <div id="sh_order_chart" style="width: 800px; height: 500px;"></div>
-	 <div id="sh_sales_chart" style="width: 800px; height: 500px;"></div>
-	 <div id="y_order_chart" style="width: 800px; height: 500px;"></div>
-	 <div id="y_sales_chart" style="width: 800px; height: 500px;"></div>
-	 <div id="VT_Team_chart" style="width: 900px; height: 500px;"></div>
-	 <div id="count_VT_chart" style="width: 900px; height: 500px;"></div>
-	 <div id="count_chassis_chart" style="width: 900px; height: 500px;"></div>
-	 <div id="count_body_chart" style="width: 900px; height: 500px;"></div>
-	 <div id="count_control_chart" style="width: 900px; height: 500px;"></div>
-	 <div id="count_safe_chart" style="width: 900px; height: 500px;"></div>
-	 <div id="count_auto_chart" style="width: 900px; height: 500px;"></div>
+	<div id="fh_order_chart" style="width: 800px; height: 500px;"></div>
+	<div id="fh_sales_chart" style="width: 800px; height: 500px;"></div>
+	<div id="sh_order_chart" style="width: 800px; height: 500px;"></div>
+	<div id="sh_sales_chart" style="width: 800px; height: 500px;"></div>
+	<div id="y_order_chart" style="width: 800px; height: 500px;"></div>
+	<div id="y_sales_chart" style="width: 800px; height: 500px;"></div>
+	<div id="VT_Team_chart" style="width: 900px; height: 500px;"></div>
+	<div id="count_VT_chart" style="width: 900px; height: 500px;"></div>
+	<div id="count_chassis_chart" style="width: 900px; height: 500px;"></div>
+	<div id="count_body_chart" style="width: 900px; height: 500px;"></div>
+	<div id="count_control_chart" style="width: 900px; height: 500px;"></div>
+	<div id="count_safe_chart" style="width: 900px; height: 500px;"></div>
+	<div id="count_auto_chart" style="width: 900px; height: 500px;"></div>
 </body>
 </html>

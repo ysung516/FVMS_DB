@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import = "java.io.PrintWriter"
-    import = "jsp.Bean.model.*"
-    import = "java.util.ArrayList"
-    import = "java.util.List"
-	import = "jsp.DB.method.*"
-	import = "jsp.Bean.model.*"  
-    %>
+	pageEncoding="UTF-8" import="java.io.PrintWriter"
+	import="jsp.Bean.model.*" import="java.util.ArrayList"
+	import="java.util.List" import="jsp.DB.method.*"
+	import="jsp.Bean.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +12,7 @@
 <body>
 
 
-<%
+	<%
 	 PrintWriter script =  response.getWriter(); 
 	 if (session.getAttribute("sessionID") == null){
 	  script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
@@ -54,4 +50,4 @@
 
 
 </body>
-</html> 
+</html>

@@ -23,7 +23,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-8.0.20.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jcommon-1.0.23.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
