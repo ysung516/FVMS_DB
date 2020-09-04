@@ -184,9 +184,16 @@
 }
 
 .table { border:1px solid; border-collapse: collapse; white-space: nowrap;}
-.table td, .test-table th { border: 1px solid;width: 90px; }
+.table td, .test-table th { border: 1px solid; width: 90px; }
 .table thead th { position:sticky; top: 0; background-color: yellow; border:1px solid; }
-.table-responsive { width:100%; height:100vh; overflow: auto; }
+.table-responsive { width:100% ;height:100vh; overflow: auto; }
+
+.textover{
+	width:10vw;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -738,7 +745,6 @@
 								</tr>
 							</table>
 						</div>
-
 						<div class="table-responsive">
 							<table class="table TABLE" id="dataTable"
 								style="white-space: nowrap; font-size: small;">
@@ -792,7 +798,7 @@
 										<th class="th">외주수요</th>
 									</tr>
 								</thead>
-								<tbody style="height: 1000px;">
+								<tbody>
 									<%
                   	for(int i=0; i<projectList.size(); i++){
                   		%>
@@ -804,9 +810,9 @@
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
 										<%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
 										<td><a
-											href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><%=projectList.get(i).getPROJECT_NAME()%></a></td>
+											href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
 										<%}else{%>
-										<td><%=projectList.get(i).getPROJECT_NAME()%></td>
+										<td><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></td>
 										<%}%>
 										<td id="state<%=projectList.get(i).getNO()%>"><div><%=projectList.get(i).getSTATE()%></div></td>
 										<td class="td"><%=projectList.get(i).getPART()%></td>
@@ -856,7 +862,7 @@
 			       function reverseTD( index ){replace.descending( index );} 
 			       </script>
 						</div>
-					</div>
+					</div> 
 				</div>
 				<%
 	          	if (permission <= 1){
