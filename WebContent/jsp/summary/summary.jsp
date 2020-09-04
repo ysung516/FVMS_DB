@@ -502,7 +502,7 @@ ul.tabs li.current{
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script src="https://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="chart.js"></script>
 <script type="text/javascript">
   
     
@@ -518,7 +518,7 @@ ul.tabs li.current{
       function fh_order() {
         var fh_order_data = google.visualization.arrayToDataTable([
           ['Team', 		'목표수주',			 '예상수주',			 '수주 달성'],
-          ['Total', <%=FH_total_PJ%>, <%=FH_total_ORDER%>, <%=FH_total_RPJ%>],
+          ['total', <%=FH_total_PJ%>, <%=FH_total_ORDER%>, <%=FH_total_RPJ%>],
           ['샤시힐스', <%=FH_chassis_PJ%>, <%=FH_chassis_ORDER%>, <%=FH_chassis_RPJ%>],
           ['바디힐스', <%=FH_body_PJ%>, <%=FH_body_ORDER%>, <%=FH_body_RPJ%>],
           ['제어로직', <%=FH_control_PJ%>, <%=FH_control_ORDER%>, <%=FH_control_RPJ%>],
@@ -531,8 +531,8 @@ ul.tabs li.current{
         		title: '상반기 수주', 
         		width: '100%',
                 'height': 300,
-                'chartArea': {'width': '100%', 'height': '80%',top:20},
-                'legend': {'position': 'bottom'},
+                'chartArea': {'width': '100%', 'height': '80%'},
+                'legend': {'position': 'bottom'}, 
                 series: {
                     0: { color: '#d4fc79' },
                     1: { color: '#84fab0' },
@@ -724,7 +724,7 @@ function fh_rpj() {
 
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
-	    pieHole: 0.4, width: '100%', height:'100%',
+	    pieHole: 0.3, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -745,7 +745,7 @@ function sh_rpj() {
 
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
-	    pieHole: 0.4, width: '100%', height:'100%',
+	    pieHole: 0.3, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -766,7 +766,7 @@ function y_rpj() {
 
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
-	    pieHole: 0.4, width: '100%', height:'100%',
+	    pieHole: 0.3, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -787,7 +787,7 @@ function fh_rsales() {
 
 	  var fh_rsales_options = {
 	    title: '상반기 매출 달성',
-	    pieHole: 0.4, width: '100%', height:'100%',
+	    pieHole: 0.3, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
@@ -808,7 +808,7 @@ function sh_rsales() {
 
 	  var sh_rsales_options = {
 	    title: '하반기 매출 달성',
-	    pieHole: 0.4, width: '100%', height:'100%',
+	    pieHole: 0.3, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
@@ -829,7 +829,7 @@ function y_rsales() {
 
 	  var y_rsales_options = {
 	    title: '연간 매출 달성',
-	    pieHole: 0.4, width: '100%', height:'100%',
+	    pieHole: 0.3, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
