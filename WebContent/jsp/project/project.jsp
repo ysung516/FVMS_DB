@@ -18,7 +18,7 @@
 	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
-
+	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
@@ -183,20 +183,11 @@
 	transform: translate(-50%, -50%);
 }
 
-.table {
-	border: 1px solid;
-	border-collapse: collapse;
-	white-space: nowrap;
-}
 
-.table td, .test-table th {
-	border: 1px solid;
-	width: 80px;
-}
-/* .table thead th { position:sticky; top: 0; background-color: white; border:1px solid; }*/
-.table-responsive {
-	width: 100%;
-}
+.table { border:1px solid; border-collapse: collapse; white-space: nowrap; }
+.table td, .test-table th { border: 1px solid;width: 80px; }
+.table thead th { position:sticky; top: 0; background-color: yellow; border:1px solid; }
+.table-responsive { width: 100vw; height: 100vh; overflow: auto; }
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -414,6 +405,10 @@
         stateColor();
         check_box();
         $('.loading').hide();
+        $( window ).resize(function() {
+        	var windowWidth = $( window ).height();
+        	console.log(windowWidth);
+        });
     });
     
     //table sorting
@@ -747,10 +742,9 @@
 
 
 						<div class="table-responsive">
-							<table class="table" id="dataTable"
+							<table class="table TABLE" id="dataTable"
 								style="white-space: nowrap; font-size: small;">
-								<thead
-									style="text-align: center; background-color: yellow; padding: 10px 0px; width: 100%; position: sticky; top: 0;">
+								<thead>
 									<tr class="m-0 text-primary">
 										<th>팀(수주)
 											<button class="sortBTN" onclick="sortTD (0)">▲</button>
@@ -913,7 +907,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<!-- Bootstrap core JavaScript-->
 		<script src="../../vendor/jquery/jquery.min.js"></script>
