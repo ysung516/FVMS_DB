@@ -183,11 +183,10 @@
 	transform: translate(-50%, -50%);
 }
 
-
-.table { border:1px solid; border-collapse: collapse; white-space: nowrap; }
+.table { border:1px solid; border-collapse: collapse; white-space: nowrap;}
 .table td, .test-table th { border: 1px solid;width: 90px; }
 .table thead th { position:sticky; top: 0; background-color: yellow; border:1px solid; }
-.table-responsive { width: 100%; height: 100vh; overflow: auto; }
+.table-responsive { width:100%; height:100vh; overflow: auto; }
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -739,7 +738,6 @@
 								</tr>
 							</table>
 						</div>
-
 
 						<div class="table-responsive">
 							<table class="table TABLE" id="dataTable"
