@@ -80,60 +80,43 @@
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="jsgantt.js" type="text/javascript"></script>
-<script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
 	function drawSch(){
-		var g = new JSGantt.GanttChart(document.getElementById('GanttChartDIV'), 'day');	
-		//var g = new JSGantt.GanttChart('g',document.getElementById('GanttChartDIV'), 'day');
-		g.setOptions({
-		  vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,
-		  vQuarterColWidth: 36,
-		  vDateTaskDisplayFormat: 'yyyy-mm-dd', // Shown in tool tip box
-		  vDayMajorDateDisplayFormat: 'yyyy-mm-dd',// Set format to dates in the "Major" header of the "Day" view
-		  vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view
-		  vLang: 'lang',
-		  vShowTaskInfoLink: 1, // 툴팁에 링크 표시(0/1)
-		  vShowEndWeekDate: 0,  // 일별 머리글에 요일의 마지막 날짜 표시/숨기기
-		  vUseSingleCell: 10000, // 테이블 행당 임계값 셀 설정(대량 데이터에 대한 성능 지원)
-		  vFormatArr: ['Day', 'Week', 'Month'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers,
-		
-		});
-		
-		// Load from a Json url
-		JSGantt.parseJSON('./fixes/data.json', g);
-		
-		// Or Adding  Manually
-		<%
-		for(int i=0; i<memberList.size(); i++){%>
-		
-			g.AddTaskItemObject({
-				  pID: "<%=i%>",
-				  pName: "<%=memberList.get(i).getTEAM()+"/"+memberList.get(i).getNAME()+"/"+memberList.get(i).getRANK()%>",
-				  pStart: "2020-09-03",
-				  pEnd: "2020-09-15",
-				  pPlanStart: "2020-09-20",
-				  pPlanEnd: "2020-09-25",
-				  
-				  pClass: "ggroupblack",
-				  pLink: "",
-				  pMile: 0,
-				  pRes: "냠냠",
-				  pGroup: 0,
-				  pParent: 0,
-				  pOpen: 1,
-				  pDepend: "",
-				  pCaption: "",
-				  pCost: 1000,
-				  pNotes: "Some Notes text",
-				  category: "My Category",
-				  sector: "Finance"
-				});
+          google.charts.load("current", {packages:["timeline"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
 
-		<%}
-	%>
-	
-	
-		g.Draw();
+            var container = document.getElementById('example3.1');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn({ type: 'string', id: 'Position' });
+            dataTable.addColumn({ type: 'string', id: 'Name' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addRows([
+              [ 'President', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
+              [ 'President', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4) ],
+              [ 'President', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4) ],
+              [ 'Vice President', 'John Adams', new Date(1789, 3, 21), new Date(1797, 2, 4)],
+              [ 'Vice President', 'Thomas Jefferson', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+              [ 'Vice President', 'Aaron Burr', new Date(1801, 2, 4), new Date(1805, 2, 4)],
+              [ 'Vice President', 'George Clinton', new Date(1805, 2, 4), new Date(1812, 3, 20)],
+              [ 'Secretary of State', 'John Jay', new Date(1789, 8, 25), new Date(1790, 2, 22)],
+              [ 'Secretary of State', 'Thomas Jefferson', new Date(1790, 2, 22), new Date(1793, 11, 31)],
+              [ 'Secretary of State', 'Edmund Randolph', new Date(1794, 0, 2), new Date(1795, 7, 20)],
+              [ 'Secretary of State', 'Timothy Pickering', new Date(1795, 7, 20), new Date(1800, 4, 12)],
+              [ 'Secretary of State', 'Charles Lee', new Date(1800, 4, 13), new Date(1800, 5, 5)],
+              [ 'Secretary of State', 'John Marshall', new Date(1800, 5, 13), new Date(1801, 2, 4)],
+              [ 'Secretary of State', 'Levi Lincoln', new Date(1801, 2, 5), new Date(1801, 4, 1)],
+              [ 'Secretary of State', 'James Madison', new Date(1801, 4, 2), new Date(1809, 2, 3)]
+            ]);
+
+            chart.draw(dataTable);
+          }
+     
+
+ 
 	}
 	
 		<!-- 로딩화면 -->
@@ -290,8 +273,7 @@
 							<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
 						</div>
 						<div class="card-body">
-
-							<div style="position: relative" class="gantt" id="GanttChartDIV"></div>
+       						<div id="example3.1" style="height: 200px;"></div>
 						</div>
 
 
