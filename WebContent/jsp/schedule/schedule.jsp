@@ -23,8 +23,10 @@
 	session.setMaxInactiveInterval(60*60);
 	
 	MemberDAO memberDao = new MemberDAO();
+	ProjectDAO projectDao = new ProjectDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-
+	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
+	ArrayList<schBean> schList = new ArrayList<schBean>();
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,8 +46,6 @@
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
 
-<!-- gantt차트 css -->
-<link href="jsgantt.css" rel="stylesheet" type="text/css" />
 
 </head>
 <style>	
@@ -75,6 +75,9 @@
 	background: #36b9cc;
 	margin-top: 2px;
 }
+#timelineChart:first-child{
+	position: initial !important;
+}
 </style>
 
 
@@ -82,42 +85,58 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-	function drawSch(){
+		
           google.charts.load("current", {packages:["timeline"]});
           google.charts.setOnLoadCallback(drawChart);
           function drawChart() {
+        	   	<%
+        		for(int i=0; i<memberList.size(); i++){
+        			for(int j=0; j<projectList.size(); j++){
+   
+        				for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
+        					if(memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
+        						//프로젝트 명, 착수, 종료, (이름, 소속팀, 직급)
+        						schBean sch = new schBean();
+        						sch.setName(memberList.get(i).getNAME());
+        						sch.setTeam(memberList.get(i).getTEAM());
+        						sch.setRank(memberList.get(i).getRANK());
+        						sch.setProjectName(projectList.get(j).getPROJECT_NAME());
+        						sch.setStart(projectList.get(j).getPROJECT_START());
+        						sch.setEnd(projectList.get(j).getPROJECT_END());
+        						schList.add(sch);
+        					}	
+        				}
+        			}
+        		}
+            	for(int a=0; a<schList.size();a++){
+            		System.out.println(schList.get(a).getName());
+            		System.out.println(schList.get(a).getProjectName());
+            		System.out.println(schList.get(a).getStart());
+            	}
+        	%>
 
-            var container = document.getElementById('example3.1');
+            var container = document.getElementById('timelineChart');
             var chart = new google.visualization.Timeline(container);
             var dataTable = new google.visualization.DataTable();
+      
+            
+            
             dataTable.addColumn({ type: 'string', id: 'Position' });
             dataTable.addColumn({ type: 'string', id: 'Name' });
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
-              [ 'President', 'George Washington', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
-              [ 'President', 'John Adams', new Date(1797, 2, 4), new Date(1801, 2, 4) ],
-              [ 'President', 'Thomas Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4) ],
-              [ 'Vice President', 'John Adams', new Date(1789, 3, 21), new Date(1797, 2, 4)],
-              [ 'Vice President', 'Thomas Jefferson', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-              [ 'Vice President', 'Aaron Burr', new Date(1801, 2, 4), new Date(1805, 2, 4)],
-              [ 'Vice President', 'George Clinton', new Date(1805, 2, 4), new Date(1812, 3, 20)],
-              [ 'Secretary of State', 'John Jay', new Date(1789, 8, 25), new Date(1790, 2, 22)],
-              [ 'Secretary of State', 'Thomas Jefferson', new Date(1790, 2, 22), new Date(1793, 11, 31)],
-              [ 'Secretary of State', 'Edmund Randolph', new Date(1794, 0, 2), new Date(1795, 7, 20)],
-              [ 'Secretary of State', 'Timothy Pickering', new Date(1795, 7, 20), new Date(1800, 4, 12)],
-              [ 'Secretary of State', 'Charles Lee', new Date(1800, 4, 13), new Date(1800, 5, 5)],
-              [ 'Secretary of State', 'John Marshall', new Date(1800, 5, 13), new Date(1801, 2, 4)],
-              [ 'Secretary of State', 'Levi Lincoln', new Date(1801, 2, 5), new Date(1801, 4, 1)],
-              [ 'Secretary of State', 'James Madison', new Date(1801, 4, 2), new Date(1809, 2, 3)]
+            	['<%=schList.get(0).getName()%>', '<%=schList.get(0).getProjectName()%>', new Date('<%=schList.get(0).getStart()%>'), new Date('<%=schList.get(0).getEnd()%>')]
+            	<%
+            		for(int b=1; b<schList.size(); b++){%>
+            			,['<%=schList.get(b).getName()%>', '<%=schList.get(b).getProjectName()%>', new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
+            		<%}
+            	%>
             ]);
-
             chart.draw(dataTable);
+            
           }
-     
-
- 
-	}
+    
 	
 		<!-- 로딩화면 -->
 		
@@ -128,7 +147,7 @@
 		
 		// 페이지 시작시 호출 함수
 		$(function(){
-			drawSch();	
+			drawChart();
 		});
 		
 	</script>
@@ -150,8 +169,7 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="../summary/summary.jsp">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
@@ -224,7 +242,7 @@
 		<div id="content-wrapper" class="d-flex flex-column">
 
 			<!-- Main Content -->
-			<div id="content">
+			
 
 				<!-- Topbar -->
 				<nav
@@ -240,7 +258,7 @@
 					<ul class="navbar-nav ml-auto">
 
 
-						<div class="topbar-divider d-none d-sm-block"></div>
+						
 
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
@@ -263,27 +281,16 @@
 					</ul>
 
 				</nav>
-				<!-- End of Topbar -->
-
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
-
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
-						</div>
-						<div class="card-body">
-       						<div id="example3.1" style="height: 200px;"></div>
-						</div>
-
-
-
+				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
+				<div id="timelineChart" style="height: 90%"></div>
+						
+			</div>			
 						<!-- /.container-fluid -->
-					</div>
+				
 					<!-- End of Main Content -->
-				</div>
+			
 				<!-- End of Content Wrapper -->
-			</div>
+			
 			<!-- End of Page Wrapper -->
 			<!-- Scroll to Top Button-->
 			<a class="scroll-to-top rounded" href="#page-top"> <i
