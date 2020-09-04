@@ -505,7 +505,6 @@ ul.tabs li.current{
 <script src="chart.js"></script>
 <script type="text/javascript">
   
-    
     /* 막대 차트 */
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(fh_order);
