@@ -377,6 +377,10 @@
 
 </head>
 <style>
+	.pie{
+		height:350px;
+		width:500px;
+	}
 	.table td{
 		padding:0.2rem;
 		font-weight:bold !important;
@@ -437,6 +441,13 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:800px){
+		.card-body{
+			padding:0px;
+		}
+		.pie{
+		height:100%;
+		width:100%;
+	}
 		.container-fluid{
 			padding: 0;
 		}
@@ -1763,28 +1774,28 @@ function y_rsales() {
               
                <div id="tab-2" class="tab-content current">
                		<table class="table-responsive">
-	            	 <tr><td><div id="fh_order_chart" class="chart"></div></td></tr>
-	             	 <tr><td><div id="fh_sales_chart" class="chart"></div></td></tr>
-	             	 <tr><td><div id="fh_rpj_chart" class="chart"></div></td></tr>
-	             	 <tr><td><div id="fh_rsales_chart" class="chart"></div></td></tr>
+	            	 <tr><td><div id="fh_order_chart" class="chart bar"></div></td></tr>
+	             	 <tr><td><div id="fh_sales_chart" class="chart bar"></div></td></tr>
+	             	 <tr><td><div id="fh_rpj_chart" class="chart pie"></div></td></tr>
+	             	 <tr><td><div id="fh_rsales_chart" class="chart pie"></div></td></tr>
              	 </table>
              	 </div>
              	 
              	  <div id="tab-3" class="tab-content current">
                		<table class="table-responsive">
-					 <tr><td><div id="sh_order_chart" class="chart" ></div></td></tr>
-					 <tr><td><div id="sh_sales_chart" class="chart"></div></td></tr>
-					 <tr><td><div id="sh_rpj_chart" class="chart"></div></td></tr>
-					 <tr><td><div id="sh_rsales_chart" class="chart"></div></td></tr>
+					 <tr><td><div id="sh_order_chart" class="chart bar" ></div></td></tr>
+					 <tr><td><div id="sh_sales_chart" class="chart bar"></div></td></tr>
+					 <tr><td><div id="sh_rpj_chart" class="chart pie"></div></td></tr>
+					 <tr><td><div id="sh_rsales_chart" class="chart pie"></div></td></tr>
              	 </table>
              	 </div>
              	 
              	  <div id="tab-4" class="tab-content current">
                		<table class="table-responsive">
-					 <tr><td><div id="y_order_chart" class="chart"></div></td></tr>
-					 <tr><td><div id="y_sales_chart" class="chart"></div></td></tr>
-					 	<tr><td><div id="y_rpj_chart" class="chart"></div></td></tr>
-						 	<tr><td><div id="y_rsales_chart" class="chart"></div></td></tr>
+					 <tr><td><div id="y_order_chart" class="chart bar"></div></td></tr>
+					 <tr><td><div id="y_sales_chart" class="chart bar"></div></td></tr>
+					 	<tr><td><div id="y_rpj_chart" class="chart pie"></div></td></tr>
+						 	<tr><td><div id="y_rsales_chart" class="chart pie"></div></td></tr>
              	 </table>
              	 </div>
              
