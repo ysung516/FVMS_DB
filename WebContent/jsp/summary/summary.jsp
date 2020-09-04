@@ -1086,39 +1086,18 @@ function y_rsales() {
 	 function stateColor(){
 		 var data;
 		 var z;
-		 for(var y=6;y<=26;y+=5){
-			 
-			 for(var i=1;i<=7;i++){
-			 	data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
-			 	z = (data/100)+0.1;
-			 	//data값만큼 rgb에 더하기
-			 	
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
-						$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
-			 
-			 	}
-			 }
-		 for(var y=4;y<=31;y+=5){
-			 for(var i=1;i<=7;i++){
-				 data =  $('#dataTable tr:eq('+y+') td:eq('+i+')').text().split(".")[0];
-				 	z = (data/100)+0.1;
-				 	//data값만큼 rgb에 더하기
-				 	console.log(data);
-				 	
-							$('#dataTable tr:eq('+y+') td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
-							$('#dataTable tr:eq('+y+') td:eq('+i+')').css('color','white');
-				 }
-			 }
-		 for(var i=1;i<=7;i++){
-			 data =  $('#dataTable tr:eq(31) td:eq('+i+')').text().split(".")[0];
-			 	z = (data/100)+0.1;
-			 	//data값만큼 rgb에 더하기
-			 	console.log(data);
-			 	
-						$('#dataTable tr:eq(31) td:eq('+i+')').css('background', 'rgb(130,130,250, '+z+')');
-						$('#dataTable tr:eq(31) td:eq('+i+')').css('color','white');
+		 var arr = new Array();
+		 var arr = [4, 6, 9, 11, 14, 16, 19, 21, 24, 26, 29, 31];
+		 for(var i=0; i<12; i++){
+			 for(var a=1; a<8; a++){
+				 data =  $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').text().split(".")[0];
+				 console.log(data)
+				 z = (data/100)+0.1;
+				 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('background', 'rgb(130,130,250, '+z+')')
+				 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('color','white');
 			 }
 		 }
+	}
 	
 	 	
 	$(document).ready(function(){
