@@ -202,7 +202,6 @@ function defaultTeam(){
 
 function btn_insert(){
 	var copyProjectNO = sessionStorage.getItem("copyProjectNO");
-	console.log(copyProjectNO);
 	var no = new Array();
 	var team_sales = new Array();
 	var team_order = new Array();

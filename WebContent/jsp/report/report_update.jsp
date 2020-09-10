@@ -9,15 +9,7 @@
 <html lang="en">
 
 <head>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script type="text/javascript">
 
-
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-});
-	
-</script>
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
@@ -31,12 +23,16 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	
-	ProjectDAO projectDao = new ProjectDAO();
 	ReportDAO reportDao = new ReportDAO();
+	ArrayList<ReportBean> reportList = reportDao.loadData();
+	ProjectDAO projectDao = new ProjectDAO();
 	int no = Integer.parseInt(request.getParameter("no"));
 	int projectNo = Integer.parseInt(request.getParameter("projectNo"));
 	ReportBean report = reportDao.getReportBean(no);
 	ProjectBean project = projectDao.getProjectBean_no(projectNo);
+	String str = "";
+	
+	ReportBean backupReport = reportDao.getReportBackUp(projectNo);
 	
 	if(!(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID))){
 		script.print("<script> alert('해당 프로젝트 관계자가 아닙니다.'); history.back(); </script>");
@@ -45,7 +41,43 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String [] line;
 	
 %>
-
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript">
+	function loadData(){
+		$('#WeekPlan').val('');
+		$('#WeekPro').val('');
+		$('#NextPlan').val('');
+		$('#specialty').val('');
+		$('#note').val('');
+			
+			<%for(int a=0; a<backupReport.getP_weekPlan().length; a++){
+				str = backupReport.getP_weekPlan()[a].replaceAll("\\s+$","");
+				%>document.getElementById('PreWeekPlan').value += '<%=str%>\n';
+			<%}
+			for(int b=0; b<backupReport.getP_weekPro().length; b++){
+				str = backupReport.getP_weekPro()[b].replaceAll("\\s+$","");
+				%>document.getElementById('PreWeekPro').value += '<%=str%>\n';
+			<%}		
+			for(int c=0; c<backupReport.getP_nextPlan().length; c++){
+				str = backupReport.getP_nextPlan()[c].replaceAll("\\s+$","");
+				%>document.getElementById('PreNextPlan').value += '<%=str%>\n';
+			<%}
+			for(int d=0; d<backupReport.getP_specialty().length; d++){
+				str = backupReport.getP_specialty()[d].replaceAll("\\s+$","");
+				%>document.getElementById('Prespecialty').value += '<%=str%>\n';
+			<%}
+			for(int e=0; e<backupReport.getP_note().length; e++){
+				str = backupReport.getP_note()[e].replaceAll("\\s+$","");
+				%>document.getElementById('Prenote').value += '<%=str%>\n';
+			<%}%>
+		}
+	
+	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
+	    $('.loading').hide();
+		loadData();
+	});
+		
+</script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -284,7 +316,11 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		      <td class="m-0 text-primary" align="center">작성자</td>
 		      <td name="writer"><%=report.getName()%></td>
 		     </tr>  
+		     
 		    <tr>
+		    <td colspan="1" class="m-0 text-primary"><h6>(전)금주계획</h6> 
+		    <textarea id="PreWeekPlan" rows="10" readonly></textarea></td>
+		    
 		      <td colspan="2" class="m-0 text-primary"><h6>금주계획</h6>
 		      <textarea name="WeekPlan" rows="10"><%
 		      	 line = report.getP_weekPlan();
@@ -293,14 +329,20 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 					}%></textarea></td>
 		     </tr>
 		      <tr>
+		      <td colspan="1" class="m-0 text-primary"><h6>(전)금주진행</h6> 
+		      <textarea id="PreWeekPro" rows="25" readonly></textarea></td>
+		      
 		      <td colspan="2" class="m-0 text-primary"><h6>금주진행</h6>
-		      <textarea name="WeekPro" rows="20"><%
+		      <textarea name="WeekPro" rows="25"><%
 		      	 line = report.getP_weekPro();
 		      	 for(String li : line){
 						%><%=li%><%
 					}%></textarea></td>
 		     </tr>
 		      <tr>
+		      <td colspan="1" class="m-0 text-primary"><h6>(전)차주계획</h6> 
+		      <textarea id="PreNextPlan" rows="10" readonly></textarea></td>
+		      
 		      <td colspan="2" class="m-0 text-primary"><h6>차주계획</h6>
 		      <textarea name="NextPlan" rows="10" wrap="hard"><%
 		      	 line = report.getP_nextPlan();
@@ -309,6 +351,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 					}%></textarea></td>
 		     </tr>
 		      <tr>
+		      <td colspan="1" class="m-0 text-primary"><h6>(전)특이사항</h6> 
+		      <textarea id="Prespecialty" rows="10" readonly></textarea></td>
+		      
 		      <td colspan="2" class="m-0 text-primary"><h6>특이사항</h6>
 		      <textarea name="specialty" rows="10"><%
 		      	 line = report.getP_specialty();
@@ -317,8 +362,11 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 					}%></textarea></td>
 		     </tr>
 		      <tr>
+		      <td colspan="1" class="m-0 text-primary"><h6>(전)비고</h6> 
+		      <textarea id="Prenote" rows="5" readonly></textarea></td>
+		      
 		      <td colspan="2" class="m-0 text-primary"><h6>비고</h6>
-		      <textarea name="note" rows="10"><%
+		      <textarea name="note" rows="5"><%
 		      	 line = report.getP_note();
 		      	 for(String li : line){
 						%><%=li%><%

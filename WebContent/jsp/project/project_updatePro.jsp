@@ -50,7 +50,7 @@
 		  String WORK_PLACE = request.getParameter("WORK_PLACE");
 		  String WORK = request.getParameter("WORK");
 		  String PROJECT_MANAGER = request.getParameter("PROJECT_MANAGER");
-		  String WORKER_LIST = request.getParameter("WORKER_LIST2");
+		  String WORKER_LIST = request.getParameter("WORKER_LIST2").trim()+" ";
 		  String ASSESSMENT_TYPE = request.getParameter("ASSESSMENT_TYPE");
 		  float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
 		  float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));

@@ -163,6 +163,44 @@ public class ReportDAO {
 	    
 	    return report;
 	}
+	// 키값으로 특정보고서 가져오기
+		public ReportBean getReportBackUp(int no) {
+			ReportBean report = new ReportBean();
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("select * from reportBackUp where 프로젝트no=?");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setInt(1, no);
+		    	rs = pstmt.executeQuery();
+		    	
+		    	if(rs.next()) {
+		    		report.setId(rs.getString("id"));
+		    		report.setName(rs.getString("이름"));
+		    		report.setTitle(rs.getString("프로젝트명"));
+		    		report.setDate(rs.getString("작성일"));
+		    		report.setWeekPlan(rs.getString("금주계획"));
+		    		report.setWeekPro(rs.getString("금주진행"));
+		    		report.setNextPlan(rs.getString("차주계획"));
+		    		report.setSpecialty(rs.getString("특이사항"));
+		    		report.setNote(rs.getString("비고"));
+		    		report.setProjectNo(rs.getInt("프로젝트no"));
+		    	}
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    
+		    return report;
+		}
 	
 	// 보고서 수정
 	public int updateReport(int no, String weekPlan, String weekPro,

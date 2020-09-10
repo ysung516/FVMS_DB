@@ -446,6 +446,29 @@ public class ProjectDAO {
 		return result;
 	}
 	
+	public int updateData(int no, String data, String attr) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update project set "+attr+"=? where no=?");
+			pstmt.setString(1, data);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		
+		return result;
+	}
+	
 	
 	
 }	// end 

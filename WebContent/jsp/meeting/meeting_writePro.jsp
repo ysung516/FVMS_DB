@@ -21,6 +21,7 @@
 		String sessionID = (String)session.getAttribute("sessionID");
 		String sessionName = (String)session.getAttribute("sessionName");
 		MeetingDAO meetDao = new MeetingDAO();
+		MemberDAO memberDao = new MemberDAO();
 		
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
@@ -80,7 +81,7 @@
 					
 				}
 				script.print("<script> alert('회의록 작성이 되었습니다.'); location.href = 'meeting.jsp'</script>");
-				post.textPost(content);
+				post.textPost(content, MeetName, sessionID);
 			}
 				else script.print("<script> alert('작성 실패!!'); history.back();</script>");
 		}
