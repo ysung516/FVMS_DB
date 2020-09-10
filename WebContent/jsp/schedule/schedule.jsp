@@ -14,7 +14,7 @@
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	if(permission != 0){
+	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	
@@ -24,9 +24,13 @@
 	
 	MemberDAO memberDao = new MemberDAO();
 	ProjectDAO projectDao = new ProjectDAO();
+	SchDAO schDao = new SchDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
+	ArrayList<ProjectBean> projectList = schDao.getProjectList_sch();
 	ArrayList<schBean> schList = new ArrayList<schBean>();
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	String date = sf.format(nowTime);
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,6 +53,21 @@
 
 </head>
 <style>	
+.memberTable{
+	width : 100%;
+	height: 100%;
+	text-align:center;
+}
+.tableST{
+	width : 40%;
+	height: 40%;
+	float : left;
+}
+#timelineChart{
+	height: 90%;
+	width:  60%;
+	float : left;
+}
 .loading {
 	position: fixed;
 	text-align: center;
@@ -70,14 +89,6 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-.ggroupblack {
-	height: 7px;
-	background: #36b9cc;
-	margin-top: 2px;
-}
-#timelineChart:first-child{
-	position: initial !important;
-}
 </style>
 
 
@@ -86,15 +97,26 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 		
+		
           google.charts.load("current", {packages:["timeline"]});
           google.charts.setOnLoadCallback(drawChart);
+          
           function drawChart() {
         	   	<%
         		for(int i=0; i<memberList.size(); i++){
         			for(int j=0; j<projectList.size(); j++){
-   
+        				schBean PMsch = new schBean();
+    					if(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())){
+    						PMsch.setName(memberList.get(i).getNAME());
+    						PMsch.setTeam(memberList.get(i).getTEAM());
+    						PMsch.setRank(memberList.get(i).getRANK());
+    						PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
+    						PMsch.setStart(projectList.get(j).getPROJECT_START());
+    						PMsch.setEnd(projectList.get(j).getPROJECT_END());
+    						schList.add(PMsch);
+    					}
         				for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
-        					if(memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
+        					if(!(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())) && memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
         						//프로젝트 명, 착수, 종료, (이름, 소속팀, 직급)
         						schBean sch = new schBean();
         						sch.setName(memberList.get(i).getNAME());
@@ -108,36 +130,36 @@
         				}
         			}
         		}
-            	for(int a=0; a<schList.size();a++){
-            		System.out.println(schList.get(a).getName());
-            		System.out.println(schList.get(a).getProjectName());
-            		System.out.println(schList.get(a).getStart());
-            	}
         	%>
 
             var container = document.getElementById('timelineChart');
             var chart = new google.visualization.Timeline(container);
             var dataTable = new google.visualization.DataTable();
       
-            
-            
             dataTable.addColumn({ type: 'string', id: 'Position' });
             dataTable.addColumn({ type: 'string', id: 'Name' });
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
-            	['<%=schList.get(0).getName()%>', '<%=schList.get(0).getProjectName()%>', new Date('<%=schList.get(0).getStart()%>'), new Date('<%=schList.get(0).getEnd()%>')]
-            	<%
-            		for(int b=1; b<schList.size(); b++){%>
-            			,['<%=schList.get(b).getName()%>', '<%=schList.get(b).getProjectName()%>', new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
-            		<%}
+              		['<%=schList.get(0).getTeam()%>'+' | '+'<%=schList.get(0).getName()%>'+' | '+'<%=schList.get(0).getRank()%>', '<%=schList.get(0).getProjectName()%>', new Date('<%=schList.get(0).getStart()%>'), new Date('<%=schList.get(0).getEnd()%>')]
+              		<%
+	            		for(int b=1; b<schList.size(); b++){%>
+	            			,['<%=schList.get(b).getTeam()%>'+' | '+'<%=schList.get(b).getName()%>'+' | '+'<%=schList.get(b).getRank()%>', '<%=schList.get(b).getProjectName()%>', new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
+	            		<%}
             	%>
             ]);
             chart.draw(dataTable);
-            
+            var st = container.getElementsByTagName("div")[0];
+			st.style.position = 'inherit';
           }
-    
-	
+          
+          
+          function memberData(){
+        	  <%
+        	  	
+        	  %>
+          }
+          	
 		<!-- 로딩화면 -->
 		
 		window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
@@ -161,7 +183,7 @@
 	</div>
 	<!--  로딩화면  끝  -->
 	<!-- Page Wrapper -->
-	<div id="wrapper">
+	<div id="wrapper" style="overflow-y: hidden">
 
 		<!-- Sidebar -->
 		<ul
@@ -239,7 +261,7 @@
 		<!-- End of Sidebar -->
 
 		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
+		<div id="content-wrapper" class="flex-column" style="display: inline">
 
 			<!-- Main Content -->
 			
@@ -282,8 +304,79 @@
 
 				</nav>
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
-				<div id="timelineChart" style="height: 90%"></div>
-						
+				
+                <div id="timelineChart"></div>	
+                <div class="tableST">
+				<table class="memberTable" id="dataTable">
+				<thead>
+	                  <tr style="background-color:#15a3da52;">
+		                    <th></th>
+		                    <th>total</th>
+		                    <th>수석</th>
+		                    <th>책임</th>
+		                    <th>선임</th>
+		                    <th>전임</th>
+		                    <th>협력업체</th>
+	                    </tr>
+                    </thead>
+                    <tbody>
+	                    <tr>
+		                    <td>미래차 검증전략실</td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+		                    <td></td>
+	                    </tr>
+	                   <tr>
+	          		 		<td>샤시힐스검증팀</td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   </tr> 
+	                   <tr>
+	          		 		<td>바디힐스검증팀</td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   </tr> 
+	                   <tr>
+	          		 		<td>제어로직검증팀</td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   </tr> 
+	                   <tr>
+	          		 		<td>기능안전검증팀</td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   </tr> 
+	                   <tr>
+	          		 		<td>자율주행검증팀</td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   		<td></td>
+	                   </tr>
+                   </tbody>
+                </table>
+                </div>	
 			</div>			
 						<!-- /.container-fluid -->
 				

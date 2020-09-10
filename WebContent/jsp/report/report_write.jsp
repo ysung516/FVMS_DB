@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
-	import="java.util.ArrayList" import="jsp.DB.method.*"
+	import="java.util.ArrayList" 
+	import="jsp.DB.method.*"
 	import="jsp.Bean.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,30 +41,29 @@ function loadData(){
 	$('#NextPlan').val('');
 	$('#specialty').val('');
 	$('#note').val('');
-	var title = $('#title option:selected').text();
-	console.log(title);
+	var title = $('#title option:selected').val();
 	
 	<%for(int j=0; j < reportList.size(); j++){%>
-	if (title == "<%=reportList.get(j).getTitle()%>"){
+	if (title == "<%=reportList.get(j).getProjectNo()%>"){
 		<%for(int a=0; a<reportList.get(j).getP_weekPlan().length; a++){
 			str = reportList.get(j).getP_weekPlan()[a].replaceAll("\\s+$","");
-			%>document.getElementById('WeekPlan').value += '<%=str%>\n';
+			%>document.getElementById('PreWeekPlan').value += '<%=str%>\n';
 		<%}
 		for(int b=0; b<reportList.get(j).getP_weekPro().length; b++){
 			str = reportList.get(j).getP_weekPro()[b].replaceAll("\\s+$","");
-			%>document.getElementById('WeekPro').value += '<%=str%>\n';
+			%>document.getElementById('PreWeekPro').value += '<%=str%>\n';
 		<%}		
 		for(int c=0; c<reportList.get(j).getP_nextPlan().length; c++){
 			str = reportList.get(j).getP_nextPlan()[c].replaceAll("\\s+$","");
-			%>document.getElementById('NextPlan').value += '<%=str%>\n';
+			%>document.getElementById('PreNextPlan').value += '<%=str%>\n';
 		<%}
 		for(int d=0; d<reportList.get(j).getP_specialty().length; d++){
 			str = reportList.get(j).getP_specialty()[d].replaceAll("\\s+$","");
-			%>document.getElementById('specialty').value += '<%=str%>\n';
+			%>document.getElementById('Prespecialty').value += '<%=str%>\n';
 		<%}
 		for(int e=0; e<reportList.get(j).getP_note().length; e++){
 			str = reportList.get(j).getP_note()[e].replaceAll("\\s+$","");
-			%>document.getElementById('note').value += '<%=str%>\n';
+			%>document.getElementById('Prenote').value += '<%=str%>\n';
 		<%}%>
 	}
 <%}%>
@@ -338,24 +338,34 @@ legend {
 												value="<%=sessionName%>" readonly></td>
 										</tr>
 										<tr>
-											<td colspan="2" class="m-0 text-primary"><h6>금주계획</h6> <textarea
+											<td colspan="1" class="m-0 text-primary"><h6>(전)금주계획</h6> <textarea
+													id="PreWeekPlan" rows="10" readonly></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>금주계획</h6> <textarea
 													id="WeekPlan" name="WeekPlan" rows="10"></textarea></td>
 										</tr>
 										<tr>
-											<td colspan="2" class="m-0 text-primary"><h6>금주진행</h6> <textarea
-													id="WeekPro" name="WeekPro" rows="20"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>(전)금주진행</h6> <textarea
+													id="PreWeekPro" rows="25" readonly></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>금주진행</h6> <textarea
+													id="WeekPro" name="WeekPro" rows="25"></textarea></td>
 										</tr>
 										<tr>
-											<td colspan="2" class="m-0 text-primary"><h6>차주계획</h6> <textarea
+											<td colspan="1" class="m-0 text-primary"><h6>(전)차주계획</h6> <textarea
+													id="PreNextPlan" rows="10" readonly></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>차주계획</h6> <textarea
 													id="NextPlan" name="NextPlan" rows="10"></textarea></td>
 										</tr>
 										<tr>
-											<td colspan="2" class="m-0 text-primary"><h6>특이사항</h6> <textarea
+											<td colspan="1" class="m-0 text-primary"><h6>(전)특이사항</h6> <textarea
+													id="Prespecialty" rows="10" readonly></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>특이사항</h6> <textarea
 													id="specialty" name="specialty" rows="10"></textarea></td>
 										</tr>
 										<tr>
-											<td colspan="2" class="m-0 text-primary"><h6>비고</h6> <textarea
-													id="note" name="note" rows="10"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>(전)비고</h6> <textarea
+													id="Prenote" rows="5" readonly></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>비고</h6> <textarea
+													id="note" name="note" rows="5"></textarea></td>
 										</tr>
 
 										<tr align="center">

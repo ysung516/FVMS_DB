@@ -78,7 +78,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -160,7 +160,12 @@
 .td {
 	display: none;
 }
-
+.th{
+	display: none;
+}
+#dataTable td:hover{
+	background-color: black;
+}
 .loading {
 	position: fixed;
 	text-align: center;
@@ -197,9 +202,6 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-
-
 <script>
     function cbLoad(){
     	$('td:nth-child(6)').hide();
@@ -402,6 +404,31 @@
              });
     }
     
+    function updateData(projectNo, projectName, attr){
+    	var tdID = projectNo+attr;
+    	var value = document.getElementById(tdID);
+    	var text = prompt(projectName + ' - ' +attr + ' 수정', value.innerHTML);
+    	if(text != null){
+    		value.innerHTML = text;
+	  		$.ajax({
+	  			url : 'data_updatePro.jsp',
+	  			type : 'post',
+	  			dataType: "json",
+	  			data : {
+	  				no : projectNo,
+	  				data2 : text,
+	  				attribute : attr,
+	  			}
+	  		});
+    	}
+    	
+    	
+    }
+    
+    function updatefocus(str, focus){
+    	location.href = "project_update.jsp?no="+str;
+    }
+    
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbLoad();
@@ -576,8 +603,7 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="../summary/summary.jsp">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
@@ -700,11 +726,11 @@
               		%><form action="project_synchronization.jsp"
 							method="post" style="display: inline; float: right">
 							<input type="submit" value="동기화" class="btn btn-primary">
-					</div>
 					</form>
 					<%
               	}
               %>
+              </div>
 					<div class="card-body" style="margin-bottom: 40px;">
 						<div>
 							<input type="button" value="체크박스" class="check_div">
@@ -796,25 +822,77 @@
 										<th class="th">2020(상)평가유형</th>
 										<th class="th">채용수요</th>
 										<th class="th">외주수요</th>
+										<th class="th">주간보고서사용</th>
+										<th class="th">실적보고</th>
 									</tr>
 								</thead>
 								<tbody>
-									<%
-                  	for(int i=0; i<projectList.size(); i++){
-                  		%>
+                  			<%for(int i=0; i<projectList.size(); i++){%>
 									<tr>
-										<td><div><%=projectList.get(i).getTEAM_ORDER()%></div></td>
-										<td><div><%=projectList.get(i).getTEAM_SALES()%></div></td>
-										<td><div><%=projectList.get(i).getPROJECT_CODE()%></div></td>
+										<td onclick="updatefocus('<%=projectList.get(i).getNO()%>','team_order')"><%=projectList.get(i).getTEAM_ORDER()%></td>
+										<td onclick="updatefocus('<%=projectList.get(i).getNO()%>','team_sales')"><%=projectList.get(i).getTEAM_SALES()%></td>			
 
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
 										<%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
-										<td><a
-											href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
-										<%}else{%>
+										<td id="<%=projectList.get(i).getNO()%>프로젝트코드"onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트코드')"><%=projectList.get(i).getPROJECT_CODE()%></td>
+										<td>
+										<a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
+										
+										<td id="state<%=projectList.get(i).getNO()%>" onclick="updatefocus('<%=projectList.get(i).getNO()%>','STATE')"><%=projectList.get(i).getSTATE()%></td>
+										<td id="<%=projectList.get(i).getNO()%>실" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','실')"><%=projectList.get(i).getPART()%></td>
+										<td id="<%=projectList.get(i).getNO()%>고객사" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객사')"><%=projectList.get(i).getCLIENT()%></td>
+										<td id="<%=projectList.get(i).getNO()%>고객부서" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객부서')"><%=projectList.get(i).getClIENT_PART()%></td>
+										<td id="<%=projectList.get(i).getNO()%>ManMonth" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','ManMonth')"><%=projectList.get(i).getMAN_MONTH()%></td>
+										<td id="<%=projectList.get(i).getNO()%>프로젝트계약금액_백만" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트계약금액_백만')"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
+										<td id="<%=projectList.get(i).getNO()%>상반기예상수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기예상수주')"><%=projectList.get(i).getFH_ORDER_PROJECTIONS()%></td>
+										<td id="<%=projectList.get(i).getNO()%>상반가수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반가수주')"><%=projectList.get(i).getFH_ORDER()%></td>
+										<td id="<%=projectList.get(i).getNO()%>상반기예상매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기예상매출')"><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></td>
+										<td id="<%=projectList.get(i).getNO()%>상반기매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기매출','<%=projectList.get(i).getFH_SALES()%>')"><%=projectList.get(i).getFH_SALES()%></td>
+										<td id="<%=projectList.get(i).getNO()%>하반기예상수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기예상수주')"><%=projectList.get(i).getSH_ORDER_PROJECTIONS()%></td>
+										<td id="<%=projectList.get(i).getNO()%>하반기수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기수주')"><%=projectList.get(i).getSH_ORDER()%></td>
+										<td id="<%=projectList.get(i).getNO()%>하반기예상매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기예상매출')"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
+										<td id="<%=projectList.get(i).getNO()%>하반기매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기매출')"><%=projectList.get(i).getSH_SALES()%></td>
+										<td id="<%=projectList.get(i).getNO()%>착수" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','착수')"><%=projectList.get(i).getPROJECT_START()%></td>
+										<td id="<%=projectList.get(i).getNO()%>종료" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','종료')"><%=projectList.get(i).getPROJECT_END()%></td>
+										<td id="<%=projectList.get(i).getNO()%>고객담당자" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객담당자')"><%=projectList.get(i).getCLIENT_PTB()%></td>
+										<td id="<%=projectList.get(i).getNO()%>근무지" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','근무지')"><%=projectList.get(i).getWORK_PLACE()%></td>
+										<td id="<%=projectList.get(i).getNO()%>업무" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','업무')"><%=projectList.get(i).getWORK()%></td>	
+										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>','PMTD')">
+											<%
+						                      	if(i<PMnameList.size()){
+						                      		out.print(PMnameList.get(i));
+						                      	}
+						                      %>
+										</td>
+										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>','WorkerList')">
+											<%
+						                      	if(i<workerIdList.size()){ 
+						                      		for(int a=0;a<workerIdList.get(i).length;a++){%>
+																<%=workerIdList.get(i)[a]%> <%}} %>
+										</td>
+										<td id="<%=projectList.get(i).getNO()%>평가유형" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','평가유형','<%=projectList.get(i).getASSESSMENT_TYPE()%>')"><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
+										<td id="<%=projectList.get(i).getNO()%>채용수요" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','채용수요','<%=projectList.get(i).getEMPLOY_DEMAND()%>')"><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
+										<td id="<%=projectList.get(i).getNO()%>외주수요" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','외주수요','<%=projectList.get(i).getOUTSOURCE_DEMAND()%>')"><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
+										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>','reportFocus')">
+										<%
+											if(projectList.get(i).getREPORTCHECK() == 1){
+												out.print("ON");
+											} else {
+												out.print("OFF");
+											}
+											%></td>
+										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>', resultFocus)">
+										<%
+											if(projectList.get(i).getRESULT_REPORT() == 1){
+												out.print("ON");
+											} else {
+												out.print("OFF");
+											}
+											%></td>
+										<%}
+										
+										else{%>
 										<td><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></td>
-										<%}%>
-										<td id="state<%=projectList.get(i).getNO()%>"><div><%=projectList.get(i).getSTATE()%></div></td>
 										<td class="td"><%=projectList.get(i).getPART()%></td>
 										<td><%=projectList.get(i).getCLIENT()%></td>
 										<td class="td"><%=projectList.get(i).getClIENT_PART()%></td>
@@ -835,24 +913,40 @@
 										<td class="td"><%=projectList.get(i).getWORK()%></td>
 										<td class="td">
 											<%
-	                      	if(i<PMnameList.size()){
-	                      		out.print(PMnameList.get(i));
-	                      	}
-	                      %>
+						                      	if(i<PMnameList.size()){
+						                      		out.print(PMnameList.get(i));
+						                      	}
+						                      %>
 										</td>
 										<td class="td">
 											<%
-	                      	if(i<workerIdList.size()){ 
-	                      		for(int a=0;a<workerIdList.get(i).length;a++){%>
-											<%=workerIdList.get(i)[a]%> <%}} %>
+						                      	if(i<workerIdList.size()){ 
+						                      		for(int a=0;a<workerIdList.get(i).length;a++){%>
+																<%=workerIdList.get(i)[a]%> <%}} %>
 										</td>
 										<td class="td"><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
 										<td class="td"><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
 										<td class="td"><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
+										<td class="td">
+										<%
+											if(projectList.get(i).getREPORTCHECK() == 1){
+												out.print("ON");
+											} else {
+												out.print("OFF");
+											}
+											%></td>
+										<td class="td">
+										<%
+											if(projectList.get(i).getRESULT_REPORT() == 1){
+												out.print("ON");
+											} else {
+												out.print("OFF");
+											}
+											%></td>	
+										<%}%>
+
 									</tr>
-									<%
-                  	}
-                  %>
+						<% } %>
 								</tbody>
 							</table>
 							<script type="text/javascript">
@@ -922,13 +1016,6 @@
 		<!-- Custom scripts for all pages-->
 		<script src="../../js/sb-admin-2.min.js"></script>
 
-		<!-- Page level plugins -->
-		<script src="../../vendor/chart.js/Chart.min.js"></script>
-
-		<!-- Page level custom scripts -->
-		<script src="../../js/demo/chart-area-demo.js"></script>
-		<script src="../../js/demo/chart-pie-demo.js"></script>
-		<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

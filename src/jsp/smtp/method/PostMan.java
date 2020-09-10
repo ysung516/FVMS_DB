@@ -43,8 +43,8 @@ public class PostMan {
 	}
 	
 	
-	public void post2(){	
-		String subject = backupDate+"회의록 파일 입니다.";// 제목
+	public void post2(String name){	
+		String subject = name+"("+backupDate+") 회의록입니다.";// 제목
 		String content = "안녕하세요. 반갑습니다.\n G-Mail을 이용한 메일 발송 입니다.\n 감사합니다.";// 내용
 
 		if (from.trim().equals("")) {
@@ -69,10 +69,11 @@ public class PostMan {
 		}
 	}
 	
-	public void textPost(String  text){	
-		String subject = backupDate+"회의록 입니다.";// 제목
+	public void textPost(String  text, String name, String id){	
+		String subject = name+"("+backupDate+") 회의록입니다."; //제목
 		String content = ""; 
-				content = text;
+		String mailAddress = id+"@suresofttech.com";
+		content = text;
 
 		if (from.trim().equals("")) {
 			System.out.println("보내는 사람을 입력하지 않았습니다.");
@@ -83,7 +84,8 @@ public class PostMan {
 				Mailsystem mt = new Mailsystem();
 				// 메일보내기
 				mt.sendEmail(from, to, subject, content);
-			
+				mt.sendEmail(from, mailAddress, subject, content);
+				
 				System.out.println("메일 전송에 성공하였습니다.");
 			} catch (MessagingException me) {
 				System.out.println("메일 전송에 실패하였습니다.");

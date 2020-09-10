@@ -46,7 +46,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -115,12 +115,14 @@ $(document).ready(function () {
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
 	$("input:radio[name='reportCheck']:radio[value='<%=project.getREPORTCHECK()%>']").prop("checked", true);
 	$("input:radio[name='sheetCheck']:radio[value='<%=project.getRESULT_REPORT()%>']").prop("checked", true);
-   
+	
     // Form Submit
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
     });
 });
+
+
 
 //정렬함수
 function sortSelect(selId) {
@@ -523,7 +525,7 @@ function btn_copy(){
 
 										<tr>
 											<th><span style="color: red;">*</span>PM</th>
-											<td><select id="PM-team" name="PM-team"
+											<td id="PMTD"><select id="PM-team" name="PM-team"
 												onchange="teamMember('#PM-team','#PROJECT_MANAGER')">
 													<%
 		                      		for(int i=0; i<teamList.size(); i++){
@@ -592,13 +594,13 @@ function btn_copy(){
 										</tr>
 										<tr>
 											<th><span style="color: red;">*</span>주간보고서</th>
-											<td><input type="radio" name="reportCheck" value="1">사용
+											<td id="reportFocus"><input type="radio" name="reportCheck" value="1">사용
 												<input type="radio" name="reportCheck" value="0">미사용
 											</td>
 										</tr>
 										<tr>
 											<th><span style="color: red;">*</span>실적보고</th>
-											<td><input class="sheetCheck" type="radio"
+											<td id="resultFocus"><input class="sheetCheck" type="radio"
 												name="sheetCheck" value="1" checked="checked">사용 <input
 												class="sheetCheck" type="radio" name="sheetCheck" value="0">미사용
 											</td>
