@@ -53,9 +53,7 @@
 
 </head>
 <style>	
-
 @media(max-width:800px){
-	
 	.tableST{
 	width : 100% !important;
 	height: 40%;
@@ -76,12 +74,12 @@
 .tableST{
 	width : 40%;
 	height: 40%;
-	float : left;
+	float:right;
 }
 #timelineChart{
 	height: 90%;
 	width:  60%;
-	float : left;
+	float : right;
 }
 .loading {
 	position: fixed;
@@ -319,9 +317,7 @@
 
 				</nav>
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
-				
-                <div id="timelineChart"></div>	
-                <div class="tableST">
+				<div class="tableST">
 				<table class="memberTable" id="dataTable">
 				<thead>
 	                  <tr style="background-color:#15a3da52;">
@@ -392,6 +388,8 @@
                    </tbody>
                 </table>
                 </div>	
+                <div id="timelineChart"></div>	
+                
 			</div>			
 						<!-- /.container-fluid -->
 				
