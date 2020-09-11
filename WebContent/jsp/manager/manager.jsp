@@ -51,6 +51,14 @@
 </script>
 
 <style>
+	.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
+	
 .table-responsive {
 	width: 70%;
 	margin: 0 auto;
@@ -150,6 +158,9 @@ tr:last-child {
 }
 
 @media ( max-width :800px) {
+	#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -374,7 +385,7 @@ function getTextByClone( tag ){
 
 			<!-- Nav Item - manager page -->
 			<%if(permission == 0){ %>
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item active"><a class="nav-link"
 				href="../manager/manager.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>

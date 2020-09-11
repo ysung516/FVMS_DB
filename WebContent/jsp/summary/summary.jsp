@@ -377,6 +377,14 @@
 
 </head>
 <style>
+
+	.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 	.pie{
 		height:350px;
 		width:500px;
@@ -441,6 +449,9 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:800px){
+		#content{
+		margin-left:0px;
+	}
 		.card-body{
 			padding:0px;
 		}

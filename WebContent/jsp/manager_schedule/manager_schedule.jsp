@@ -309,6 +309,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	rel="stylesheet">
 
 <style>
+	.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 #reload_btn a {
 	box-shadow: 1px 2px 0px 0px #3ba9e0;
 	background-color: white;
@@ -465,6 +472,7 @@ button:focus {
 }
 
 @media ( max-width :360px) and (min-width:321px) {
+	
 	.container-fluid {
 		padding: 0;
 	}
@@ -559,6 +567,9 @@ button:focus {
 }
 
 @media ( max-width :800px) {
+#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}
