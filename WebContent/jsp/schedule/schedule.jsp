@@ -53,6 +53,9 @@
 
 </head>
 <style>	
+body{
+overflow-y:hidden;
+}
 @media(max-width:800px){
 	.tableST{
 	width : 100% !important;
