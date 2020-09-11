@@ -347,6 +347,8 @@ legend {
 											<td><input id="name" name="NAME"
 												value="<%=sessionName%>" readonly></td>
 										</tr>
+										</table>
+										<table  class="table table-bordered" id="dataTable">
 										<tr>
 											<td colspan="1" class="m-0 text-primary"><h6>(전)금주계획</h6> <textarea
 													id="PreWeekPlan" rows="10" readonly></textarea></td>

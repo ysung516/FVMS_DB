@@ -322,7 +322,8 @@ h6 {
 											<td class="m-0 text-primary">착수 종료일</td>
 											<td><%=project.getPROJECT_END()%></td>
 										</tr>
-	
+										</table>
+										<table class="table table-bordered" id="dataTable">
 										<tr>
 											<td colspan="1"><h6 class="m-0 text-primary">(전)금주계획</h6></td>
 											<td colspan="1"><h6 class="m-0 text-primary">금주계획</h6></td>
@@ -404,7 +405,7 @@ h6 {
 					      							}
 					      						%>
 											</td>
-											<td colspan="1" style="text-align: left;">
+											<td style="text-align: left;">
 												<%
 					      							line = report.getP_specialty();
 					      							for(String li : line){
