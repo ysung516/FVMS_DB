@@ -554,10 +554,12 @@ function btn_copy(){
 													<%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
 												<table id="workerList" style="margin-top: 5px;">
 													<thead>
-														<th style="display: none;">id</th>
-														<th>팀</th>
-														<th>이름</th>
-														<th></th>
+														<tr>
+															<th style="display: none;">id</th>
+															<th>팀</th>
+															<th>이름</th>
+															<th></th>
+														</tr>
 													</thead>
 													<tbody id="workerListAdd">
 														<%

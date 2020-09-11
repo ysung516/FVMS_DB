@@ -191,7 +191,7 @@
 .table { border:1px solid; border-collapse: collapse; white-space: nowrap;}
 .table td, .test-table th { border: 1px solid; width: 90px; }
 .table thead th { position:sticky; top: 0; background-color: yellow; border:1px solid; }
-.table-responsive { width:100% ;height:100vh; overflow: auto; }
+.table-responsive { width:100% ;height:70vh; overflow: auto; }
 
 .textover{
 	width:10vw;
@@ -427,6 +427,31 @@
     
     function updatefocus(str, focus){
     	location.href = "project_update.jsp?no="+str;
+    }
+    
+    function updateCheck(projectNo, projectName, check, attr){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_reportcheck.jsp?no=' + projectNo + '&name=' + projectName + '&check=' + check + '&attr=' + attr, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    }
+    
+    function updateState(projectNo, projectName, state){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_state.jsp?no=' + projectNo + '&name=' + projectName + '&state=' + state, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250'); 
+    }
+    
+    function updateTeam(projectNo, projectName, team, what){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_team.jsp?no=' + projectNo + '&name=' + projectName + '&team=' + team + '&what=' + what, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    }
+    
+    function updatePM(projectNo, projectName){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_pm.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    }
+    
+    function updateWorker(projectNo, projectName){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_worker.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
     }
     
     $(document).ready(function(){
@@ -829,8 +854,8 @@
 								<tbody>
                   			<%for(int i=0; i<projectList.size(); i++){%>
 									<tr>
-										<td onclick="updatefocus('<%=projectList.get(i).getNO()%>','team_order')"><%=projectList.get(i).getTEAM_ORDER()%></td>
-										<td onclick="updatefocus('<%=projectList.get(i).getNO()%>','team_sales')"><%=projectList.get(i).getTEAM_SALES()%></td>			
+										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_ORDER()%>', '수주')"><%=projectList.get(i).getTEAM_ORDER()%></td>
+										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_SALES()%>', '매출')"><%=projectList.get(i).getTEAM_SALES()%></td>			
 
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
 										<%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
@@ -838,7 +863,7 @@
 										<td>
 										<a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
 										
-										<td id="state<%=projectList.get(i).getNO()%>" onclick="updatefocus('<%=projectList.get(i).getNO()%>','STATE')"><%=projectList.get(i).getSTATE()%></td>
+										<td id="state<%=projectList.get(i).getNO()%>" onclick="updateState('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getSTATE()%>')"><%=projectList.get(i).getSTATE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>실" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','실')"><%=projectList.get(i).getPART()%></td>
 										<td id="<%=projectList.get(i).getNO()%>고객사" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객사')"><%=projectList.get(i).getCLIENT()%></td>
 										<td id="<%=projectList.get(i).getNO()%>고객부서" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객부서')"><%=projectList.get(i).getClIENT_PART()%></td>
@@ -857,14 +882,14 @@
 										<td id="<%=projectList.get(i).getNO()%>고객담당자" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객담당자')"><%=projectList.get(i).getCLIENT_PTB()%></td>
 										<td id="<%=projectList.get(i).getNO()%>근무지" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','근무지')"><%=projectList.get(i).getWORK_PLACE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>업무" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','업무')"><%=projectList.get(i).getWORK()%></td>	
-										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>','PMTD')">
+										<td class="td" onclick="updatePM('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>')">
 											<%
 						                      	if(i<PMnameList.size()){
 						                      		out.print(PMnameList.get(i));
 						                      	}
 						                      %>
 										</td>
-										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>','WorkerList')">
+										<td class="td" onclick="updateWorker('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>')">
 											<%
 						                      	if(i<workerIdList.size()){ 
 						                      		for(int a=0;a<workerIdList.get(i).length;a++){%>
@@ -873,7 +898,7 @@
 										<td id="<%=projectList.get(i).getNO()%>평가유형" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','평가유형','<%=projectList.get(i).getASSESSMENT_TYPE()%>')"><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>채용수요" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','채용수요','<%=projectList.get(i).getEMPLOY_DEMAND()%>')"><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
 										<td id="<%=projectList.get(i).getNO()%>외주수요" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','외주수요','<%=projectList.get(i).getOUTSOURCE_DEMAND()%>')"><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
-										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>','reportFocus')">
+										<td class="td" onclick="updateCheck('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getREPORTCHECK()%>', '주간보고서사용')">
 										<%
 											if(projectList.get(i).getREPORTCHECK() == 1){
 												out.print("ON");
@@ -881,7 +906,7 @@
 												out.print("OFF");
 											}
 											%></td>
-										<td class="td" onclick="updatefocus('<%=projectList.get(i).getNO()%>', resultFocus)">
+										<td class="td" onclick="updateCheck('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getRESULT_REPORT()%>', '실적보고')">
 										<%
 											if(projectList.get(i).getRESULT_REPORT() == 1){
 												out.print("ON");

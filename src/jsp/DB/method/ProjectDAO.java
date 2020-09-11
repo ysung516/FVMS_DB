@@ -469,6 +469,119 @@ public class ProjectDAO {
 		return result;
 	}
 	
+	public int updateCheck(int no, int check, String attr) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update project set " + attr + "=? where no=?");
+			pstmt.setInt(1, check);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		
+		return result;
+	}
 	
+	public int updateState(int no, String state) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update project set 상태=? where no=?");
+			pstmt.setString(1, state);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		
+		return result;
+	}
 	
+	public int updateTeam(int no, String team, String what) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sel = "팀_" + what;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update project set "+sel+"=? where no=?");
+			pstmt.setString(1, team);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		
+		return result;
+	}
+	
+	public int updatePM(int no, String pm) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update project set PM=? where no=?");
+			pstmt.setString(1, pm);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		
+		return result;
+	}
+	
+	public int updateWorker(int no, String worker) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update project set 투입명단=? where no=?");
+			pstmt.setString(1, worker);
+			pstmt.setInt(2, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		
+		return result;
+	}
 }	// end 
