@@ -7,33 +7,31 @@
 <head>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
-	
-$(document).ready(function () {
-	console.log(count);
-	$('.loading').hide();
-    // Warning
-    $(window).on('beforeunload', function(){
-        return "Any changes will be lost";
-    });
-    // Form Submit
-    $(document).on("submit", "form", function(event){
-        $(window).off('beforeunload');
-    });
-})
-	
+	$(document).ready(function() {
+		console.log(count);
+		$('.loading').hide();
+		// Warning
+		$(window).on('beforeunload', function() {
+			return "Any changes will be lost";
+		});
+		// Form Submit
+		$(document).on("submit", "form", function(event) {
+			$(window).off('beforeunload');
+		});
+	})
 </script>
 <%
-	PrintWriter script =  response.getWriter();
-	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
-	}
-	
-	String sessionID = session.getAttribute("sessionID").toString();
-	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*60);
-	
-	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	//int count = 1;
+	PrintWriter script = response.getWriter();
+if (session.getAttribute("sessionID") == null) {
+	script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+}
+
+String sessionID = session.getAttribute("sessionID").toString();
+String sessionName = session.getAttribute("sessionName").toString();
+session.setMaxInactiveInterval(60 * 60);
+
+int permission = Integer.parseInt(session.getAttribute("permission").toString());
+//int count = 1;
 %>
 
 <meta charset="utf-8">
@@ -57,50 +55,68 @@ $(document).ready(function () {
 
 </head>
 <script>
+	var count = $('#nextPlanTable > tbody tr').length;
 
-var count = $('#nextPlanTable > tbody tr').length;
+	function rowAdd() {
+		count = $('#nextPlanTable > tbody tr').length;
+		count++;
+		console.log(count);
+		var innerHtml = "";
+		innerHtml += '<tr>';
+		innerHtml += '<td style="padding: 0px;">' + count + '</td>';
+		innerHtml += '<td style="padding: 0px;"><input name="item'
+				+ count
+				+ '" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+		innerHtml += '<td style="padding: 0px;"><input name="deadline'
+				+ count
+				+ '" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+		innerHtml += '<td style="padding: 0px;"><input name="pm'
+				+ count
+				+ '" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+		innerHtml += '<td style="padding: 0px;;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
+		innerHtml += '</tr>';
+		$('#count').val(count);
+		$('#nextPlanTable').append(innerHtml);
+	}
 
-function rowAdd(){
-	count = $('#nextPlanTable > tbody tr').length;
-	count++;
-	console.log(count);
-	var innerHtml = "";
-	innerHtml += '<tr>';
-	innerHtml += '<td style="padding: 0px;">'+count+'</td>';
-	innerHtml += '<td style="padding: 0px;"><input name="item'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;"><input name="deadline'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;"><input name="pm'+count+'" style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '<td style="padding: 0px;;"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"style="border-radius: 0;border-top: 0px;width:100%;"></td>';
-	innerHtml += '</tr>';
-	$('#count').val(count);
-	$('#nextPlanTable').append(innerHtml);
-}
+	function deleteNP() {
+		$(document).on(
+				"click",
+				".deleteNP",
+				function() {
+					var str = ""
+					var tdArr = new Array();
+					var btn = $(this);
+					var tr = btn.parent().parent();
+					var td = tr.children();
+					var delID = td.eq(0).text();
+					tr.remove();
 
-function deleteNP(){
-	$(document).on("click",".deleteNP",function(){
-		var str =""
-		var tdArr = new Array();
-		var btn = $(this);
-		var tr = btn.parent().parent();
-		var td = tr.children();
-		var delID = td.eq(0).text();
-		tr.remove();
-		
-		var len = $('#nextPlanTable > tbody tr').length;
-		console.log(len);
-		for(var a=1; a<=len; a++){
-			$("#nextPlanTable tr:eq("+a+") td:eq(0)").text(a);
-			$("#nextPlanTable tr:eq("+a+") td:eq(1) input").attr("name", "item"+a);
-			$("#nextPlanTable tr:eq("+a+") td:eq(2) input").attr("name", "deadline"+a);
-			$("#nextPlanTable tr:eq("+a+") td:eq(3) input").attr("name", "pm"+a);
-		}
-		$('#count').val($('#nextPlanTable > tbody tr').length);
-	});
-}
-
-
+					var len = $('#nextPlanTable > tbody tr').length;
+					console.log(len);
+					for (var a = 1; a <= len; a++) {
+						$("#nextPlanTable tr:eq(" + a + ") td:eq(0)").text(a);
+						$("#nextPlanTable tr:eq(" + a + ") td:eq(1) input")
+								.attr("name", "item" + a);
+						$("#nextPlanTable tr:eq(" + a + ") td:eq(2) input")
+								.attr("name", "deadline" + a);
+						$("#nextPlanTable tr:eq(" + a + ") td:eq(3) input")
+								.attr("name", "pm" + a);
+					}
+					$('#count').val($('#nextPlanTable > tbody tr').length);
+				});
+	}
 </script>
 <style>
+.sidebar {
+	position: fixed;
+	z-index: 1;
+}
+
+#content {
+	margin-left: 90px;
+}
+
 textarea {
 	width: 100%;
 	border: 1px solid #d1d3e2;
@@ -142,6 +158,9 @@ input {
 }
 
 @media ( max-width :800px) {
+	#content {
+		margin-left: 0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -221,11 +240,15 @@ input {
 				href="../meeting/meeting.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>회의록</span></a></li>
 			<!-- Nav Item - manager page -->
-			<%if(permission == 0){ %>
+			<%
+				if (permission == 0) {
+			%>
 			<li class="nav-item"><a class="nav-link"
 				href="../manager/manager.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
-			<% }%>
+			<%
+				}
+			%>
 
 
 

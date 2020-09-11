@@ -53,7 +53,9 @@
 
 </head>
 <style>	
+
 @media(max-width:800px){
+	
 	.tableST{
 	width : 100% !important;
 	height: 40%;

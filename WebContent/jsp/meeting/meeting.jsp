@@ -48,6 +48,13 @@
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 #meeting_btn {
 	position: fixed;
 	bottom: 0;
@@ -116,6 +123,9 @@ tr:last-child {
 }
 
 @media ( max-width :800px) {
+#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}

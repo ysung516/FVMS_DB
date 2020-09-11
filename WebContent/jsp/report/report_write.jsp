@@ -106,6 +106,13 @@ $(document).ready(function () {
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 .m-0 .text-primary {
 	vertical-align: middle;
 	text-align: center;
@@ -146,6 +153,9 @@ textarea {
 }
 
 @media ( max-width :800px) {
+#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}

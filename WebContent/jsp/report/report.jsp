@@ -50,6 +50,13 @@
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 .table-responsive {
 	overflow: auto;
 }
@@ -159,6 +166,9 @@ tr:last-child {
 }
 
 @media ( max-width :800px) {
+#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}

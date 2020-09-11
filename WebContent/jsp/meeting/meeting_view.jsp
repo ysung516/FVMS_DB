@@ -67,6 +67,13 @@
 	});
 </script>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 p {
 	margin-bottom: 0;
 }
@@ -124,6 +131,9 @@ p {
 }
 
 @media ( max-width :800px) {
+#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}

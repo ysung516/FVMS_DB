@@ -95,7 +95,13 @@
 
 </head>
 <style>
-
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 	.m-0 .text-primary{
 		vertical-align:middle;
 		text-align:center;
@@ -131,6 +137,9 @@
 		transform:translate(-50%, -50%);
 	}
 	@media(max-width:800px){
+	#content{
+		margin-left:0px;
+	}
 		.container-fluid{
 			padding: 0;
 		}

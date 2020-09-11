@@ -65,6 +65,15 @@
 </script>
 
 <style>
+
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
+
 p {
 	margin-bottom: 0;
 }
@@ -91,7 +100,6 @@ h6 {
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
-	width: 10%;
 }
 
 .loading {
@@ -117,6 +125,9 @@ h6 {
 }
 
 @media ( max-width :800px) {
+#content{
+		margin-left:0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -359,9 +370,11 @@ h6 {
 											</td>
 										</tr>
 										<tr>
+											<td colspan="1" id="move4"><h6 class="m-0 text-primary">(전)차주진행</h6></td>
 											<td colspan="1" id="move4"><h6 class="m-0 text-primary">차주계획</h6></td>
 										</tr>
 										<tr>
+											<td></td>
 											<td colspan="1" style="text-align: left;">
 												<%
 					      	line = report.getP_nextPlan();
@@ -372,9 +385,11 @@ h6 {
 											</td>
 										</tr>
 										<tr>
+											<td colspan="1" id="move5"><h6 class="m-0 text-primary">(전)특이사항</h6></td>
 											<td colspan="1" id="move5"><h6 class="m-0 text-primary">특이사항</h6></td>
 										</tr>
 										<tr>
+											<td></td>
 											<td colspan="1" style="text-align: left;">
 												<%
 					      	line = report.getP_specialty();
@@ -385,9 +400,11 @@ h6 {
 											</td>
 										</tr>
 										<tr>
+											<td colspan="1" id="move6"><h6 class="m-0 text-primary">(전)비고</h6></td>
 											<td colspan="1" id="move6"><h6 class="m-0 text-primary">비고</h6></td>
 										</tr>
 										<tr>
+											<td></td>
 											<td colspan="1" style="text-align: left;">
 												<%
 					      	line = report.getP_note();

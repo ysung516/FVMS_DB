@@ -108,6 +108,13 @@ function deleteNP(){
 }
 </script>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:1;
+	}
+	#content{
+		margin-left:90px;
+	}
 	input{
 		
 		border:1px solid #b7b9cc6e;
@@ -151,6 +158,7 @@ function deleteNP(){
 	}
 
 	@media(max-width:800px){
+	
 		.container-fluid{
 			padding: 0;
 		}
