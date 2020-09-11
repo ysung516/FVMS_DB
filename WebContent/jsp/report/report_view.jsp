@@ -374,14 +374,21 @@ h6 {
 											<td colspan="1" id="move4"><h6 class="m-0 text-primary">차주계획</h6></td>
 										</tr>
 										<tr>
-											<td></td>
+											<td style="text-align: left;">
+												<%
+					      							line = reportBackUp.getP_nextPlan();
+					      							for(String li : line){
+					      							%><p style="white-space: break-spaces;"><%=li%></p> <%
+					      							}
+					      						%>
+											</td>
 											<td colspan="1" style="text-align: left;">
 												<%
-					      	line = report.getP_nextPlan();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      	}
-					      %>
+					      							line = report.getP_nextPlan();
+					      							for(String li : line){
+					      							%><p style="white-space: break-spaces;"><%=li%></p> <%
+					      							}
+					      						%>
 											</td>
 										</tr>
 										<tr>
@@ -389,14 +396,21 @@ h6 {
 											<td colspan="1" id="move5"><h6 class="m-0 text-primary">특이사항</h6></td>
 										</tr>
 										<tr>
-											<td></td>
+											<td style="text-align: left;">
+												<%
+					      							line = reportBackUp.getP_specialty();
+					      							for(String li : line){
+					      							%><p style="white-space: break-spaces;"><%=li%></p> <%
+					      							}
+					      						%>
+											</td>
 											<td colspan="1" style="text-align: left;">
 												<%
-					      	line = report.getP_specialty();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      	}
-					      %>
+					      							line = report.getP_specialty();
+					      							for(String li : line){
+					      							%><p style="white-space: break-spaces;"><%=li%></p> <%
+					      							}
+					      						%>
 											</td>
 										</tr>
 										<tr>
@@ -404,14 +418,22 @@ h6 {
 											<td colspan="1" id="move6"><h6 class="m-0 text-primary">비고</h6></td>
 										</tr>
 										<tr>
-											<td></td>
+											<td style="text-align: left;">
+												<%
+											      	line = reportBackUp.getP_note();
+											      	for(String li : line){
+											      		%><p style="white-space: break-spaces;"><%=li%></p> <%
+											      	}
+											     %>
+											
+											</td>
 											<td colspan="1" style="text-align: left;">
 												<%
-					      	line = report.getP_note();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      	}
-					      %>
+											      	line = report.getP_note();
+											      	for(String li : line){
+											      		%><p style="white-space: break-spaces;"><%=li%></p> <%
+											      	}
+											     %>
 											</td>
 										</tr>
 										<tr>
