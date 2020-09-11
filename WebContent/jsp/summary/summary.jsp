@@ -30,8 +30,7 @@
 	SummaryDAO summaryDao = new SummaryDAO();
 	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
 	ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
-	ArrayList<ProjectBean> pjList_order = summaryDao.getProjectData_OrderTeam();
-	ArrayList<ProjectBean> pjList_sales = summaryDao.getProjectData_SalesTeam();
+	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
 	ArrayList<TeamBean> teamList = summaryDao.getTagetData();
@@ -46,9 +45,6 @@
 	int totalY6=0;
 	int totalY7=0;
 	int totalY8=0;
-	
-
-	
 	
 	// 상반기 예상 수주
 	float FH_chassis_ORDER = 0; 
@@ -188,130 +184,65 @@
 	float Y_total_SALES = FH_total_SALES + SH_total_SALES;
 
 	
-	for(int i=0; i<pjList_order.size(); i++){
-		if(pjList_order.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
-			FH_chassis_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
-			FH_chassis_RPJ += pjList_order.get(i).getFH_ORDER();
-			FH_chassis_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
-			FH_chassis_RSALES += pjList_order.get(i).getFH_SALES();
-			SH_chassis_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
-			SH_chassis_RPJ += pjList_order.get(i).getSH_ORDER();
-			SH_chassis_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
-			SH_chassis_RSALES += pjList_order.get(i).getSH_SALES();
+	for(int i=0; i<pjList.size(); i++){
+		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
+			FH_chassis_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_chassis_RPJ += pjList.get(i).getFH_ORDER();
+			FH_chassis_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_chassis_RSALES += pjList.get(i).getFH_SALES();
+			SH_chassis_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_chassis_RPJ += pjList.get(i).getSH_ORDER();
+			SH_chassis_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_chassis_RSALES += pjList.get(i).getSH_SALES();
 			
-		} else if(pjList_order.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
-			FH_body_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
-			FH_body_RPJ += pjList_order.get(i).getFH_ORDER();
-			FH_body_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
-			FH_body_RSALES += pjList_order.get(i).getFH_SALES();
-			SH_body_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
-			SH_body_RPJ += pjList_order.get(i).getSH_ORDER();
-			SH_body_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
-			SH_body_RSALES += pjList_order.get(i).getSH_SALES();
+		} else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+			FH_body_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_body_RPJ += pjList.get(i).getFH_ORDER();
+			FH_body_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_body_RSALES += pjList.get(i).getFH_SALES();
+			SH_body_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_body_RPJ += pjList.get(i).getSH_ORDER();
+			SH_body_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_body_RSALES += pjList.get(i).getSH_SALES();
 			
-		} else if(pjList_order.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
-			FH_control_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
-			FH_control_RPJ += pjList_order.get(i).getFH_ORDER();
-			FH_control_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
-			FH_control_RSALES += pjList_order.get(i).getFH_SALES();
-			SH_control_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
-			SH_control_RPJ += pjList_order.get(i).getSH_ORDER();
-			SH_control_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
-			SH_control_RSALES += pjList_order.get(i).getSH_SALES();
+		} else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+			FH_control_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_control_RPJ += pjList.get(i).getFH_ORDER();
+			FH_control_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_control_RSALES += pjList.get(i).getFH_SALES();
+			SH_control_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_control_RPJ += pjList.get(i).getSH_ORDER();
+			SH_control_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_control_RSALES += pjList.get(i).getSH_SALES();
 			
-		} else if(pjList_order.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
-			FH_safe_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
-			FH_safe_RPJ += pjList_order.get(i).getFH_ORDER();
-			FH_safe_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
-			FH_safe_RSALES += pjList_order.get(i).getFH_SALES();
-			SH_safe_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
-			SH_safe_RPJ += pjList_order.get(i).getSH_ORDER();
-			SH_safe_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
-			SH_safe_RSALES += pjList_order.get(i).getSH_SALES();
+		} else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+			FH_safe_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_safe_RPJ += pjList.get(i).getFH_ORDER();
+			FH_safe_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_safe_RSALES += pjList.get(i).getFH_SALES();
+			SH_safe_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_safe_RPJ += pjList.get(i).getSH_ORDER();
+			SH_safe_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_safe_RSALES += pjList.get(i).getSH_SALES();		
+		} else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+			FH_auto_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_auto_RPJ += pjList.get(i).getFH_ORDER();
+			FH_auto_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_auto_RSALES += pjList.get(i).getFH_SALES();
+			SH_auto_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_auto_RPJ += pjList.get(i).getSH_ORDER();
+			SH_auto_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_auto_RSALES += pjList.get(i).getSH_SALES();
 			
-		} else if(pjList_order.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
-			FH_auto_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
-			FH_auto_RPJ += pjList_order.get(i).getFH_ORDER();
-			FH_auto_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
-			FH_auto_RSALES += pjList_order.get(i).getFH_SALES();
-			SH_auto_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
-			SH_auto_RPJ += pjList_order.get(i).getSH_ORDER();
-			SH_auto_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
-			SH_auto_RSALES += pjList_order.get(i).getSH_SALES();
-			
-		} else if(pjList_order.get(i).getTEAM_ORDER().equals("미래차검증전략실")){
-			FH_vt_ORDER += pjList_order.get(i).getFH_ORDER_PROJECTIONS();
-			FH_vt_RPJ += pjList_order.get(i).getFH_ORDER();
-			FH_vt_PJSALES += pjList_order.get(i).getFH_SALES_PROJECTIONS();
-			FH_vt_RSALES += pjList_order.get(i).getFH_SALES();
-			SH_vt_ORDER += pjList_order.get(i).getSH_ORDER_PROJECTIONS();
-			SH_vt_RPJ += pjList_order.get(i).getSH_ORDER();
-			SH_vt_PJSALES += pjList_order.get(i).getSH_SALES_PROJECTIONS();
-			SH_vt_RSALES += pjList_order.get(i).getSH_SALES();
-		}
-	}
-	
-	for(int i=0; i<pjList_sales.size(); i++){
-		if(pjList_sales.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
-			FH_chassis_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
-			FH_chassis_RPJ += pjList_sales.get(i).getFH_ORDER();
-			FH_chassis_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
-			FH_chassis_RSALES += pjList_sales.get(i).getFH_SALES();
-			SH_chassis_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
-			SH_chassis_RPJ += pjList_sales.get(i).getSH_ORDER();
-			SH_chassis_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
-			SH_chassis_RSALES += pjList_sales.get(i).getSH_SALES();
-			
-			
-		} else if(pjList_sales.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
-			FH_body_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
-			FH_body_RPJ += pjList_sales.get(i).getFH_ORDER();
-			FH_body_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
-			FH_body_RSALES += pjList_sales.get(i).getFH_SALES();
-			SH_body_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
-			SH_body_RPJ += pjList_sales.get(i).getSH_ORDER();
-			SH_body_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
-			SH_body_RSALES += pjList_sales.get(i).getSH_SALES();
-			
-		} else if(pjList_sales.get(i).getTEAM_SALES().equals("제어로직검증팀")){
-			FH_control_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
-			FH_control_RPJ += pjList_sales.get(i).getFH_ORDER();
-			FH_control_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
-			FH_control_RSALES += pjList_sales.get(i).getFH_SALES();
-			SH_control_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
-			SH_control_RPJ += pjList_sales.get(i).getSH_ORDER();
-			SH_control_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
-			SH_control_RSALES += pjList_sales.get(i).getSH_SALES();
-			
-		} else if(pjList_sales.get(i).getTEAM_SALES().equals("기능안전검증팀")){
-			FH_safe_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
-			FH_safe_RPJ += pjList_sales.get(i).getFH_ORDER();
-			FH_safe_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
-			FH_safe_RSALES += pjList_sales.get(i).getFH_SALES();
-			SH_safe_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
-			SH_safe_RPJ += pjList_sales.get(i).getSH_ORDER();
-			SH_safe_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
-			SH_safe_RSALES += pjList_sales.get(i).getSH_SALES();
-			
-		} else if(pjList_sales.get(i).getTEAM_SALES().equals("자율주행검증팀")){
-			FH_auto_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
-			FH_auto_RPJ += pjList_sales.get(i).getFH_ORDER();
-			FH_auto_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
-			FH_auto_RSALES += pjList_sales.get(i).getFH_SALES();
-			SH_auto_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
-			SH_auto_RPJ += pjList_sales.get(i).getSH_ORDER();
-			SH_auto_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
-			SH_auto_RSALES += pjList_sales.get(i).getSH_SALES();
-			
-		} else if(pjList_sales.get(i).getTEAM_SALES().equals("미래차검증전략실")){
-			FH_vt_ORDER += pjList_sales.get(i).getFH_ORDER_PROJECTIONS();
-			FH_vt_RPJ += pjList_sales.get(i).getFH_ORDER();
-			FH_vt_PJSALES += pjList_sales.get(i).getFH_SALES_PROJECTIONS();
-			FH_vt_RSALES += pjList_sales.get(i).getFH_SALES();
-			SH_vt_ORDER += pjList_sales.get(i).getSH_ORDER_PROJECTIONS();
-			SH_vt_RPJ += pjList_sales.get(i).getSH_ORDER();
-			SH_vt_PJSALES += pjList_sales.get(i).getSH_SALES_PROJECTIONS();
-			SH_vt_RSALES += pjList_sales.get(i).getSH_SALES();
+		} else if(pjList.get(i).getTEAM_ORDER().equals("미래차검증전략실")){
+			FH_vt_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_vt_RPJ += pjList.get(i).getFH_ORDER();
+			FH_vt_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_vt_RSALES += pjList.get(i).getFH_SALES();
+			SH_vt_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_vt_RPJ += pjList.get(i).getSH_ORDER();
+			SH_vt_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_vt_RSALES += pjList.get(i).getSH_SALES();
 		}
 	}
 	FH_total_ORDER = FH_chassis_ORDER + FH_body_ORDER + FH_control_ORDER + FH_safe_ORDER + FH_auto_ORDER + FH_vt_ORDER;
@@ -377,14 +308,6 @@
 
 </head>
 <style>
-
-	.sidebar{
-		position:fixed;
-		z-index:1;
-	}
-	#content{
-		margin-left:90px;
-	}
 	.pie{
 		height:350px;
 		width:500px;
@@ -449,9 +372,6 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:800px){
-		#content{
-		margin-left:0px;
-	}
 		.card-body{
 			padding:0px;
 		}
@@ -513,9 +433,10 @@ ul.tabs li.current{
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script src="https://code.jquery.com/jquery.min.js"></script>
-<script src="chart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   
+    
     /* 막대 차트 */
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(fh_order);
@@ -528,7 +449,7 @@ ul.tabs li.current{
       function fh_order() {
         var fh_order_data = google.visualization.arrayToDataTable([
           ['Team', 		'목표수주',			 '예상수주',			 '수주 달성'],
-          ['total', <%=FH_total_PJ%>, <%=FH_total_ORDER%>, <%=FH_total_RPJ%>],
+          ['Total', <%=FH_total_PJ%>, <%=FH_total_ORDER%>, <%=FH_total_RPJ%>],
           ['샤시힐스', <%=FH_chassis_PJ%>, <%=FH_chassis_ORDER%>, <%=FH_chassis_RPJ%>],
           ['바디힐스', <%=FH_body_PJ%>, <%=FH_body_ORDER%>, <%=FH_body_RPJ%>],
           ['제어로직', <%=FH_control_PJ%>, <%=FH_control_ORDER%>, <%=FH_control_RPJ%>],
@@ -541,8 +462,8 @@ ul.tabs li.current{
         		title: '상반기 수주', 
         		width: '100%',
                 'height': 300,
-                'chartArea': {'width': '100%', 'height': '80%'},
-                'legend': {'position': 'bottom'}, 
+                'chartArea': {'width': '100%', 'height': '80%',top:20},
+                'legend': {'position': 'bottom'},
                 series: {
                     0: { color: '#d4fc79' },
                     1: { color: '#84fab0' },
@@ -734,7 +655,7 @@ function fh_rpj() {
 
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
-	    pieHole: 0.3, width: '100%', height:'100%',
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -755,7 +676,7 @@ function sh_rpj() {
 
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
-	    pieHole: 0.3, width: '100%', height:'100%',
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -776,7 +697,7 @@ function y_rpj() {
 
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
-	    pieHole: 0.3, width: '100%', height:'100%',
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
 
@@ -797,7 +718,7 @@ function fh_rsales() {
 
 	  var fh_rsales_options = {
 	    title: '상반기 매출 달성',
-	    pieHole: 0.3, width: '100%', height:'100%',
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
@@ -818,7 +739,7 @@ function sh_rsales() {
 
 	  var sh_rsales_options = {
 	    title: '하반기 매출 달성',
-	    pieHole: 0.3, width: '100%', height:'100%',
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 
@@ -839,7 +760,7 @@ function y_rsales() {
 
 	  var y_rsales_options = {
 	    title: '연간 매출 달성',
-	    pieHole: 0.3, width: '100%', height:'100%',
+	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
 

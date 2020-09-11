@@ -13,8 +13,8 @@ import jsp.Bean.model.TeamBean;
 public class SummaryDAO {
 	public SummaryDAO() {}
 	
-	// 단계가 1,2,3인 프로젝트이 데이터
-	public ArrayList<ProjectBean> getProjectData_OrderTeam(){
+	// 프로젝트이 데이터
+	public ArrayList<ProjectBean> getProjectList(){
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -22,7 +22,7 @@ public class SummaryDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from project where (상태 like '1%' OR 상태 like '2%' OR 상태 like '3%') and 실적보고 = 1;");
+	    	query.append("SELECT * from project where 실적보고 = 1;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -52,46 +52,6 @@ public class SummaryDAO {
 		}
 	    return list;
 	}
-	// 단계가 4,5,6,7,8인 프로젝트이 데이터
-	public ArrayList<ProjectBean> getProjectData_SalesTeam(){
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
-	    
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from project where (상태 like '4%' OR 상태 like '5%' OR 상태 like '6%' OR 상태 like '7%' OR 상태 like '8%') and 실적보고 = 1;");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	
-	    	while(rs.next()) {
-	    		ProjectBean project = new ProjectBean();
-	    		project.setTEAM_SALES(rs.getString("팀_매출"));
-	    		project.setMAN_MONTH(rs.getFloat("ManMonth"));
-	    		project.setFH_ORDER_PROJECTIONS(rs.getFloat("상반기예상수주"));
-	    		project.setFH_ORDER(rs.getFloat("상반기수주"));
-	    		project.setFH_SALES_PROJECTIONS(rs.getFloat("상반기예상매출"));
-	    		project.setFH_SALES(rs.getFloat("상반기매출"));
-	    		project.setSH_ORDER_PROJECTIONS(rs.getFloat("하반기예상수주"));
-	    		project.setSH_ORDER(rs.getFloat("하반기수주"));
-	    		project.setSH_SALES_PROJECTIONS(rs.getFloat("하반기예상매출"));
-	    		project.setSH_SALES(rs.getFloat("하반기매출"));
-	    		project.setNO(rs.getInt("no"));
-	    		list.add(project);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return list;
-	}
-	
 	
 	//단계가 1,2,3인 프로젝트의 팀정보
 	public ArrayList<StateOfProBean> StateProjectNum_sales() {

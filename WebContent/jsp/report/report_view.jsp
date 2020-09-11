@@ -22,8 +22,12 @@
 		ReportDAO reportDao = new ReportDAO();
 		ProjectDAO projectDao = new ProjectDAO();
 		MemberDAO memberDao = new MemberDAO();
+		
 		ReportBean report = reportDao.getReportBean(NO);
+		
+		ReportBean reportBackUp = reportDao.getReportBackUp(report.getProjectNo());
 		ProjectBean project = projectDao.getProjectBean_no(report.getProjectNo());
+		
 		 
 		// 출력
 		String [] line;
@@ -88,12 +92,6 @@ h6 {
 	vertical-align: middle;
 	word-break: keep-all;
 	width: 10%;
-}
-
-.radio_body {
-	position: fixed;
-	top: 100px;
-	right: 100px;
 }
 
 .loading {
@@ -285,17 +283,17 @@ h6 {
 									<table class="table table-bordered" id="dataTable">
 										<tr>
 											<td class="m-0 text-primary" id="move1">프로젝트</td>
-											<td><div class="report_div"><%=report.getTitle()%></div></td>
+											<td><%=report.getTitle()%></td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary">작성자</td>
-											<td><div class="report_div"><%=report.getName()%></div></td>
+											<td><%=report.getName()%></td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary">최종수정시간</td>
-											<td><div class="report_div"><%=report.getDate()%>
+											<td><%=report.getDate()%>
 													(<%=reportDao.validDate(report.getDate())%>)
-												</div></td>
+											</td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary">PM</td>
@@ -313,38 +311,58 @@ h6 {
 											<td class="m-0 text-primary">착수 종료일</td>
 											<td><%=project.getPROJECT_END()%></td>
 										</tr>
+	
 										<tr>
-											<td colspan="2" id="move2"><h6 class="m-0 text-primary">금주계획</h6></td>
+											<td colspan="1"><h6 class="m-0 text-primary">(전)금주계획</h6></td>
+											<td colspan="1"><h6 class="m-0 text-primary">금주계획</h6></td>
 										</tr>
 										<tr>
-											<td colspan="2" style="text-align: left;">
+										<td colspan="1" style="text-align: left;">
+											<%
+										      	line = reportBackUp.getP_weekPlan();
+										      	for(String li : line){
+										      		%><p style="white-space: break-spaces;"><%=li%></p> <%
+										      	}
+					     	 				%>
+										</td>
+										
+										<td colspan="1" style="text-align: left;">
+											<%
+										      	line = report.getP_weekPlan();
+										      	for(String li : line){
+										      		%><p style="white-space: break-spaces;"><%=li%></p> <%
+										      	}
+					     	 				%>
+											</td>
+										</tr>
+										
+										<tr>
+											<td colspan="1" id="move3"><h6 class="m-0 text-primary">(전)금주진행</h6></td>
+											<td colspan="1" id="move3"><h6 class="m-0 text-primary">금주진행</h6></td>
+										</tr>
+										<tr>
+											<td colspan="1" style="text-align: left;">
 												<%
-					      	line = report.getP_weekPlan();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      	}
-					     	 %>
+													line = reportBackUp.getP_weekPro();
+													for (String li : line) {
+													%><p style="white-space: break-spaces;"><%=li%></p> <%
+												 	}
+												 %>
+											</td>
+											<td colspan="1" style="text-align: left;">
+												<%
+													line = report.getP_weekPro();
+													for (String li : line) {
+													%><p style="white-space: break-spaces;"><%=li%></p> <%
+												 	}
+												 %>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" id="move3"><h6 class="m-0 text-primary">금주진행</h6></td>
+											<td colspan="1" id="move4"><h6 class="m-0 text-primary">차주계획</h6></td>
 										</tr>
 										<tr>
-											<td colspan="2" style="text-align: left;">
-												<%
-					      	line = report.getP_weekPro();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      	}
-					      %>
-											</td>
-
-										</tr>
-										<tr>
-											<td colspan="2" id="move4"><h6 class="m-0 text-primary">차주계획</h6></td>
-										</tr>
-										<tr>
-											<td colspan="2" style="text-align: left;">
+											<td colspan="1" style="text-align: left;">
 												<%
 					      	line = report.getP_nextPlan();
 					      	for(String li : line){
@@ -354,10 +372,10 @@ h6 {
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" id="move5"><h6 class="m-0 text-primary">특이사항</h6></td>
+											<td colspan="1" id="move5"><h6 class="m-0 text-primary">특이사항</h6></td>
 										</tr>
 										<tr>
-											<td colspan="2" style="text-align: left;">
+											<td colspan="1" style="text-align: left;">
 												<%
 					      	line = report.getP_specialty();
 					      	for(String li : line){
@@ -367,10 +385,10 @@ h6 {
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" id="move6"><h6 class="m-0 text-primary">비고</h6></td>
+											<td colspan="1" id="move6"><h6 class="m-0 text-primary">비고</h6></td>
 										</tr>
 										<tr>
-											<td colspan="2" style="text-align: left;">
+											<td colspan="1" style="text-align: left;">
 												<%
 					      	line = report.getP_note();
 					      	for(String li : line){
