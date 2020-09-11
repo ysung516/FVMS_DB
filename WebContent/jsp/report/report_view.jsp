@@ -349,8 +349,8 @@ h6 {
 										</tr>
 										
 										<tr>
-											<td colspan="1" id="move3"><h6 class="m-0 text-primary">(전)금주진행</h6></td>
-											<td colspan="1" id="move3"><h6 class="m-0 text-primary">금주진행</h6></td>
+											<td colspan="1" id="move3" style="width:50%"><h6 class="m-0 text-primary">(전)금주진행</h6></td>
+											<td colspan="1" id="move3" style="width:50%"><h6 class="m-0 text-primary">금주진행</h6></td>
 										</tr>
 										<tr>
 											<td colspan="1" style="text-align: left;">
