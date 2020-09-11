@@ -53,6 +53,19 @@
 
 </head>
 <style>	
+@media(max-width:800px){
+	.tableST{
+	width : 100% !important;
+	height: 40%;
+	
+}
+#timelineChart{
+	height: 90%;
+	width:  100% !important;
+
+}
+}
+
 .memberTable{
 	width : 100%;
 	height: 100%;
