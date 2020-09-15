@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.DB.method.*" import="jsp.Bean.model.*"
-	import="java.util.Date" import="java.text.SimpleDateFormat"%>
+	import="java.util.Date" import="java.text.SimpleDateFormat"
+	import="jsp.smtp.method.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,7 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		Date nowTime = new Date();
+		PostMan post = new PostMan();
 		SimpleDateFormat sf2 = new SimpleDateFormat("yyyyMMddahhmmss");
 		
 		MeetingDAO meetDao = new MeetingDAO();
@@ -37,6 +39,21 @@
 		String [] deadline = new String[count];
 		String [] pm = new String[count];
 		String nextPlanTableName;
+		
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+		String date = sf.format(nowTime);
+		String content = "회의명 : " + MeetName +"\n"
+				+ "회의일시 : " +  MeetDate + "\n"
+				+ "회의장소 : " + MeetPlace + "\n"
+				+ "작성자 : " + writer + "\n"
+				+ "수정날짜 : " + date + "\n"
+				+ "참석자 : " + attendees + "\n"
+				+ "외부참석자 : " + attendees_ex + "\n\n" 
+				+ "회의내용 : " + meetNote + "\n\n"
+				+ "이슈사항 : " + issue + "\n\n"
+				+ "향후일정 : \n";
+		
+		
 		
 		if(!(meetDao.getMeetList(no).getP_nextplan().equals("-"))){
 			nextPlanTableName = nextplan;
@@ -63,6 +80,7 @@
 				}
 				
 				script.print("<script> alert('회의록 수정 되었습니다.'); location.href = 'meeting.jsp'</script>");
+				post.textPost2(content, MeetName, sessionID);
 			}
 				else script.print("<script> alert('수정 실패!!'); history.back();</script>");
 		}

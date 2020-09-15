@@ -36,11 +36,11 @@
 <script type="text/javascript">
 
 function loadData(){
-	$('#WeekPlan').val('');
-	$('#WeekPro').val('');
-	$('#NextPlan').val('');
-	$('#specialty').val('');
-	$('#note').val('');
+	$('#PreWeekPlan').val('');
+	$('#PreWeekPro').val('');
+	$('#PreNextPlan').val('');
+	$('#Prespecialty').val('');
+	$('#Prenote').val('');
 	var title = $('#title option:selected').val();
 	
 	<%for(int j=0; j < reportList.size(); j++){%>

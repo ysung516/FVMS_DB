@@ -44,11 +44,11 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
 	function loadData(){
-		$('#WeekPlan').val('');
-		$('#WeekPro').val('');
-		$('#NextPlan').val('');
-		$('#specialty').val('');
-		$('#note').val('');
+		$('#PreWeekPlan').val('');
+		$('#PreWeekPro').val('');
+		$('#PreNextPlan').val('');
+		$('#Prespecialty').val('');
+		$('#Prenote').val('');
 			
 			<%for(int a=0; a<backupReport.getP_weekPlan().length; a++){
 				str = backupReport.getP_weekPlan()[a].replaceAll("\\s+$","");
