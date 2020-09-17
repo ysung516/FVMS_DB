@@ -19,6 +19,7 @@ public class servletListener implements ServletContextListener{
 		System.out.println("시작");
 		Scheduler ste = new Scheduler();
         ste.startScheduleTask();
+        ste.projectUpdate();
 	}
 	
 }

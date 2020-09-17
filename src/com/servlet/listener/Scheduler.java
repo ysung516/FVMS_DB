@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import com.googleDrive.method.DriveMethod;
 
 import jsp.DB.method.ReportDAO;
+import jsp.sheet.method.sheetMethod;
 import jsp.smtp.method.ExcelExporter;
 import jsp.smtp.method.PostMan;
 
@@ -40,6 +41,24 @@ public class Scheduler {
             }
         }, 0, 60, TimeUnit.MINUTES);
     }
+    public void projectUpdate() {
+    final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
+        new Runnable() {
+            public void run() {
+                try {
+                	
+                	Calendar cal = Calendar.getInstance();
+            		String time = cal.getTime().toString().split(" |:")[3];
+            		if(time.equals("05")) {
+            			sheetMethod.synchronization();
+            		}
+                    
+                }catch(Exception ex) {
+                    ex.printStackTrace(); //or loggger would be better
+                }
+            }
+        }, 0, 60, TimeUnit.MINUTES);
+    }
     
     public void reportBackUp() throws GeneralSecurityException, IOException, Exception {
     	
@@ -52,5 +71,17 @@ public class Scheduler {
 		excel.export();
 		DriveMethod.upload();
 		reportDao.deleteAllreport();
-	}
+		}
+
 }
+
+
+
+
+
+
+
+
+
+
+

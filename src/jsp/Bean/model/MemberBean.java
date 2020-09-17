@@ -10,7 +10,7 @@ public class MemberBean
 	 private String NO;	//사원번호
 	 private String PART;	//소속
 	 private String TEAM;	//팀
-	 private String name;        // 이름
+	 private String NAME;        // 이름
 	 private String GMAIL;        // 이메일 
 	 private String MOBILE;        // 전화
 	 private String ADDRESS;        // 주소
@@ -22,7 +22,14 @@ public class MemberBean
 	 private String career;	// 커리어
 	 private int level;	// 관리자 일정 정렬 순서
 	 private String permission; // 권한
-	 private String [] P_career;
+	 private String saveAttr;	// 프로젝트 속성탭 저장값
+	 public String getSaveAttr() {
+		return saveAttr;
+	}
+	public void setSaveAttr(String saveAttr) {
+		this.saveAttr = saveAttr;
+	}
+	private String [] P_career;
 	 
 	 
 	 public String [] getP_career() {
@@ -110,10 +117,10 @@ public class MemberBean
 	}
 	
 	public String getNAME() { 
-		return name;
+		return NAME;
 	}
 	public void setNAME(String name) {
-		this.name = name;
+		this.NAME = name;
 	}
 	
 	public String getGMAIL() {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.mysql.cj.protocol.Resultset;
 
+import jsp.Bean.model.MemberBean;
 import jsp.Bean.model.ProjectBean;
 
 public class ProjectDAO {
@@ -446,6 +447,7 @@ public class ProjectDAO {
 		return result;
 	}
 	
+	// 프로젝트 조회에서 업데이트
 	public int updateData(int no, String data, String attr) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -464,10 +466,33 @@ public class ProjectDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-		
-		
 		return result;
 	}
+	
+	// 탭 저장
+	public int updateAttrList(String list, String ID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement("update member set saveAttr=? where id=?");
+			pstmt.setString(1, list);
+			pstmt.setString(2, ID);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return result;
+	}
+	
+	
+	
 	
 	public int updateCheck(int no, int check, String attr) {
 		Connection conn = null;

@@ -177,6 +177,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setSaveAttr(rs.getString("saveAttr"));
 	    	}
 
 	    }  catch (SQLException e) {

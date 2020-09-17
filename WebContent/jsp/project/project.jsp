@@ -29,6 +29,7 @@
 	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
 	MemberBean myInfo = memberDao.returnMember(sessionID);
 	
+	
 	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
 	ArrayList<String> PMnameList = new ArrayList<String>();
 	String[] workerIdArray = {};
@@ -157,15 +158,6 @@
 	border-top: 1px solid;
 }
 
-.td {
-	display: none;
-}
-.th{
-	display: none;
-}
-#dataTable td:hover{
-	background-color: black;
-}
 .loading {
 	position: fixed;
 	text-align: center;
@@ -188,6 +180,7 @@
 	transform: translate(-50%, -50%);
 }
 
+
 .table { border:1px solid; border-collapse: collapse; white-space: nowrap;}
 .table td, .test-table th { border: 1px solid; width: 90px; }
 .table thead th { position:sticky; top: 0; background-color: yellow; border:1px solid; }
@@ -199,167 +192,327 @@
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
+
+#dataTable td:hover{
+	background-color: black;
+}
+#dataTable th:hover{
+	background-color: purple;
+}
+
+.labelST{
+	margin-left: 15px;
+}
+.labelST:hover{
+	color: red;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script>
+
+	var AttrList = '<%=myInfo.getSaveAttr()%>';
+	var outAttr = new Array();
+	for(var a=0; a<AttrList.split(" ").length; a++){
+		 outAttr[a] = AttrList.split(" ")[a];
+	}
+
     function cbLoad(){
-    	$('td:nth-child(6)').hide();
-		$('th:nth-child(6)').hide();
-    	for(var a=8;a<29;a++){
+    	for(var a=1;a<31;a++){
     		$('td:nth-child('+a+')').hide();
 			$('th:nth-child('+a+')').hide()
     	}
+       	var inner = "";
+       	var labelList = new Array();
+       	labelList = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21'
+       		,'22','23','24','25','26','27','28','29','30'];
+       	
+       	for(var c=0; c<outAttr.length; c++){
+       		if(outAttr[c] == '1'){
+       			$('td:nth-child(1)').show();
+       			$('th:nth-child(1)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '2'){
+       			$('td:nth-child(2)').show();
+       			$('th:nth-child(2)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '3'){
+       			$('td:nth-child(3)').show();
+       			$('th:nth-child(3)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '4'){
+       			$('td:nth-child(4)').show();
+       			$('th:nth-child(4)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '5'){
+       			$('td:nth-child(5)').show();
+       			$('th:nth-child(5)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '6'){
+       			$('td:nth-child(6)').show();
+       			$('th:nth-child(6)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '7'){
+       			$('td:nth-child(7)').show();
+       			$('th:nth-child(7)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '8'){
+       			$('td:nth-child(8)').show();
+       			$('th:nth-child(8)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '9'){
+       			$('td:nth-child(9)').show();
+       			$('th:nth-child(9)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '10'){
+       			$('td:nth-child(10)').show();
+       			$('th:nth-child(10)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '11'){
+       			$('td:nth-child(11)').show();
+       			$('th:nth-child(11)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '12'){
+       			$('td:nth-child(12)').show();
+       			$('th:nth-child(12)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '13'){
+       			$('td:nth-child(13)').show();
+       			$('th:nth-child(13)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '14'){
+       			$('td:nth-child(14)').show();
+       			$('th:nth-child(14)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '15'){
+       			$('td:nth-child(15)').show();
+       			$('th:nth-child(15)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '16'){
+       			$('td:nth-child(16)').show();
+       			$('th:nth-child(16)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '17'){       	    	
+       			$('td:nth-child(17)').show();
+       			$('th:nth-child(17)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '18'){
+       			$('td:nth-child(18)').show();
+       			$('th:nth-child(18)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '19'){       	    	
+       			$('td:nth-child(19)').show();
+       			$('th:nth-child(19)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '20'){
+       			$('td:nth-child(20)').show();
+       			$('th:nth-child(20)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '21'){
+       			$('td:nth-child(21)').show();
+       			$('th:nth-child(21)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '22'){
+       			$('td:nth-child(22)').show();
+       			$('th:nth-child(22)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '23'){
+       			$('td:nth-child(23)').show();
+       			$('th:nth-child(23)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '24'){
+       			$('td:nth-child(24)').show();
+       			$('th:nth-child(24)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '25'){
+       			$('td:nth-child(25)').show();
+       			$('th:nth-child(25)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '26'){
+       			$('td:nth-child(26)').show();
+       			$('th:nth-child(26)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '27'){
+       			$('td:nth-child(27)').show();
+       			$('th:nth-child(27)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '28'){
+       			$('td:nth-child(28)').show();
+       			$('th:nth-child(28)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '29'){
+       			$('td:nth-child(29)').show();
+       			$('th:nth-child(29)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '30'){
+       			$('td:nth-child(30)').show();
+       			$('th:nth-child(30)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}
+       	}
+       	for(var d=0; d<labelList.length; d++){
+       		if(labelList[d] == '1'){
+       			inner += "<label id=팀(수주) class=labelST onclick=labelEvent('팀(수주)','1')>팀(수주)</label>";
+       		}else if (labelList[d] == '2'){
+       			inner += "<label id=팀(매출) class=labelST onclick=labelEvent('팀(매출)','2')>팀(매출)</label>";
+       		}else if (labelList[d] == '3'){
+       			inner += "<label id=프로젝트코드 class=labelST onclick=labelEvent('프로젝트코드','3')>프로젝트코드</label>";
+       		}else if (labelList[d] == '4'){
+       			inner += "<label id=프로제트명 class=labelST onclick=labelEvent('프로제트명','4')>프로제트명</label>";
+       		}else if (labelList[d] == '5'){
+       			inner += "<label id=상태 class=labelST onclick=labelEvent('상태','5')>상태</label>";
+       		}else if (labelList[d] == '6'){
+       			inner += "<label id=실 class=labelST onclick=labelEvent('실','6')>실</label>";
+       		}else if (labelList[d] == '7'){
+       			inner += "<label id=고객사 class=labelST onclick=labelEvent('고객사','7')>고객사</label>";
+       		}else if (labelList[d] == '8'){
+       			inner += "<label id=고객부서 class=labelST onclick=labelEvent('고객부서','8')>고객부서</label>";
+       		}else if (labelList[d] == '9'){
+       			inner += "<label id=M/M class=labelST onclick=labelEvent('M/M','9')>M/M</label>";
+       		}else if (labelList[d] == '10'){
+       			inner += "<label id=프로젝트계약금액 class=labelST onclick=labelEvent('프로젝트계약금액','10')>프로젝트계약금액</label>";
+       		}else if (labelList[d] == '11'){
+       			inner += "<label id=상반기예상수주 class=labelST onclick=labelEvent('상반기예상수주','11')>상반기예상수주</label>";
+       		}else if (labelList[d] == '12'){
+       			inner += "<label id=상반기수주 class=labelST onclick=labelEvent('상반기수주','12')>상반기수주</label>";
+       		}else if (labelList[d] == '13'){
+       			inner += "<label id=상반기예상매출 class=labelST onclick=labelEvent('상반기예상매출','13')>상반기예상매출</label>";
+       		}else if (labelList[d] == '14'){
+       			inner += "<label id=상반기매출 class=labelST onclick=labelEvent('상반기매출','14')>상반기매출</label>";
+       		}else if (labelList[d] == '15'){
+       			inner += "<label id=하반기예상수주 class=labelST onclick=labelEvent('하반기예상수주','15')>하반기예상수주</label>";
+       		}else if (labelList[d] == '16'){
+       			inner += "<label id=하반기수주 class=labelST onclick=labelEvent('하반기수주','16')>하반기수주</label>";
+       		}else if (labelList[d] == '17'){
+       			inner += "<label id=하반기예상매출 class=labelST onclick=labelEvent('하반기예상매출','17')>하반기예상매출</label>";
+       		}else if (labelList[d] == '18'){
+       			inner += "<label id=하반기매출 class=labelST onclick=labelEvent('하반기매출','18')>하반기매출</label>";
+       		}else if (labelList[d] == '19'){
+       			inner += "<label id=착수 class=labelST onclick=labelEvent('착수','19')>착수</label>";
+       		}else if (labelList[d] == '20'){
+       			inner += "<label id=종료 class=labelST onclick=labelEvent('종료','20')>종료</label>";
+       		}else if (labelList[d] == '21'){
+       			inner += "<label id=고객담당자 class=labelST onclick=labelEvent('고객담당자','21')>고객담당자</label>";
+       		}else if (labelList[d] == '22'){
+       			inner += "<label id=근무지 class=labelST onclick=labelEvent('근무지','22')>근무지</label>";
+       		}else if (labelList[d] == '23'){
+       			inner += "<label id=업무 class=labelST onclick=labelEvent('업무','23')>업무</label>";
+       		}else if (labelList[d] == '24'){
+       			inner += "<label id=PM class=labelST onclick=labelEvent('PM','24')>PM</label>";
+       		}else if (labelList[d] == '25'){
+       			inner += "<label id=투입명단 class=labelST onclick=labelEvent('투입명단','25')>투입명단</label>";
+       		}else if (labelList[d] == '26'){
+       			inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','26')>평가유형</label>";
+       		}else if (labelList[d] == '27'){
+       			inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','27')>채용수요</label>";
+       		}else if (labelList[d] == '28'){
+       			inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','28')>외주수요</label>";
+       		}else if (labelList[d] == '29'){
+       			inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','29')>주간보고서사용</label>";
+       		}else if (labelList[d] == '30'){
+       			inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','30')>실적보고</label>";
+       		}
+       	}
+    	$('#list').append(inner);
+    	
+    	if($('.labelST').length == 0){
+    		$("input:checkbox[id='checkall']").prop("checked", true);
+    	}
     }
-    
-    function cbSlow(){
-    	$( '.cb' ).click( function() {
-    		var clickId = $(this).attr('id');
-    		if(clickId == 'cb1'){
-    			if($("#cb1").prop("checked")){
-    				$('th:nth-child(6)').show();
-    				$('td:nth-child(6)').show();
-    				$('th:nth-child(8)').show();
-    				$('td:nth-child(8)').show();
-    				$('th:nth-child(9)').show();
-    				$('td:nth-child(9)').show();
-    				$('th:nth-child(10)').show();
-    				$('td:nth-child(10)').show();
-    				$('th:nth-child(21)').show();
-    				$('td:nth-child(21)').show();
-    				$('th:nth-child(22)').show();
-    				$('td:nth-child(22)').show();
-    				$('th:nth-child(23)').show();
-    				$('td:nth-child(23)').show();
-    			} else{
-    				$('th:nth-child(6)').hide();
-    				$('td:nth-child(6)').hide();
-    				$('th:nth-child(8)').hide();
-    				$('td:nth-child(8)').hide();
-    				$('th:nth-child(9)').hide();
-    				$('td:nth-child(9)').hide();
-    				$('th:nth-child(10)').hide();
-    				$('td:nth-child(10)').hide();
-    				$('th:nth-child(21)').hide();
-    				$('td:nth-child(21)').hide();
-    				$('th:nth-child(22)').hide();
-    				$('td:nth-child(22)').hide();
-    				$('th:nth-child(23)').hide();
-    				$('td:nth-child(23)').hide();
-    			}
-    		} else if(clickId == 'cb2'){
-    			if($("#cb2").prop("checked")){
-    				$('th:nth-child(11)').show();
-    				$('td:nth-child(11)').show();
-    				$('th:nth-child(12)').show();
-    				$('td:nth-child(12)').show();
-    				$('th:nth-child(13)').show();
-    				$('td:nth-child(13)').show();
-    				$('th:nth-child(14)').show();
-    				$('td:nth-child(14)').show();
-    			} else{
-    				$('th:nth-child(11)').hide();
-    				$('td:nth-child(11)').hide();
-    				$('th:nth-child(12)').hide();
-    				$('td:nth-child(12)').hide();
-    				$('th:nth-child(13)').hide();
-    				$('td:nth-child(13)').hide();
-    				$('th:nth-child(14)').hide();
-    				$('td:nth-child(14)').hide();
-    			}
-    		} else if(clickId == 'cb3'){
-    			if($("#cb3").prop("checked")){
-        			$('th:nth-child(15)').show();
-    				$('td:nth-child(15)').show();
-    				$('th:nth-child(16)').show();
-    				$('td:nth-child(16)').show();
-    				$('th:nth-child(17)').show();
-    				$('td:nth-child(17)').show();
-    				$('th:nth-child(18)').show();
-    				$('td:nth-child(18)').show();	
-    			} else{
-        			$('th:nth-child(15)').hide();
-    				$('td:nth-child(15)').hide();
-    				$('th:nth-child(16)').hide();
-    				$('td:nth-child(16)').hide();
-    				$('th:nth-child(17)').hide();
-    				$('td:nth-child(17)').hide();
-    				$('th:nth-child(18)').hide();
-    				$('td:nth-child(18)').hide();
-        		}
-    		} else if(clickId == 'cb4'){
-    			if($("#cb4").prop("checked")){
-        			$('th:nth-child(19)').show();
-    				$('td:nth-child(19)').show();
-    				$('th:nth-child(20)').show();
-    				$('td:nth-child(20)').show();
-    			} else{
-    				$('th:nth-child(19)').hide();
-    				$('td:nth-child(19)').hide();
-    				$('th:nth-child(20)').hide();
-    				$('td:nth-child(20)').hide();
-        		}
-    		} else if(clickId == 'cb5'){
-    			if($("#cb5").prop("checked")){
-        			$('th:nth-child(24)').show();
-    				$('td:nth-child(24)').show();
-    				$('th:nth-child(25)').show();
-    				$('td:nth-child(25)').show();
-    				$('th:nth-child(27)').show();
-    				$('td:nth-child(27)').show();
-    				$('th:nth-child(28)').show();
-    				$('td:nth-child(28)').show();
-    			} else{
-    				$('th:nth-child(24)').hide();
-    				$('td:nth-child(24)').hide();
-    				$('th:nth-child(25)').hide();
-    				$('td:nth-child(25)').hide();
-    				$('th:nth-child(27)').hide();
-    				$('td:nth-child(27)').hide();
-    				$('th:nth-child(28)').hide();
-    				$('td:nth-child(28)').hide();
-        		}
-    		} else if(clickId == 'cb6'){
-    			if($("#cb6").prop("checked")){
-        			$('th:nth-child(26)').show();
-    				$('td:nth-child(26)').show();
-    			} else{
-    				$('th:nth-child(26)').hide();
-    				$('td:nth-child(26)').hide();
-        		}
-    		} 
-    		
-    		
 
-        });
+    function hideAttr(num){
+    	$("input:checkbox[id='checkall']").prop("checked", false);
+    	$('td:nth-child('+num+')').hide();
+    	$('th:nth-child('+num+')').hide();
+        
+    	var attr = $('th:nth-child('+num+')').text();
+    	var attr1 = attr.replace(/ /gi,"");
+    	var attName = attr1.split("▲")[0].trim();
+    	
+    	var inner = "";
+    	inner = "<label id="+attName+" class=labelST onclick=labelEvent('"+attName+"',"+num+")>"+attName+"</label>";
+    	$('#list').append(inner);
+    	AttrList = AttrList.replace(num, "");
+    	saveAttrTap();
+    	console.log(AttrList);
     }
     
-    function cbCloseAllClose(){
-    	$( '.cb' ).click( function() {
-    		if($(this).is(":checked") == false){
-    			$("input:checkbox[id='checkall']").prop("checked", false);
-    		}
-        });
+    function labelEvent(labelName, num){
+    	document.getElementById(labelName).remove();
+    	$('td:nth-child('+num+')').show();
+    	$('th:nth-child('+num+')').show();
+    	
+    	if($('.labelST').length == 0){
+    		$("input:checkbox[id='checkall']").prop("checked", true);
+    	}
+
+    	AttrList += " "+num;
+    	saveAttrTap();
+    	console.log(AttrList);
     }
     
     function cbAll(){
     	$("#checkall").click(function(){
             //클릭되었으면
             if($("#checkall").prop("checked")){
-           	 	$( ".td" ).show();
-           		$( ".th" ).show();
+           	 	$( "td" ).show();
+           		$( "th" ).show();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-                $("input[name=cb]").prop("checked",true);
+                $(".labelST").remove();
+                AttrList = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30";
+                saveAttrTap();
+                console.log(AttrList);
             //클릭이 안되있으면
             }else{
             	$( ".td" ).hide();
             	$( ".th" ).hide();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-                $("input[name=cb]").prop("checked",false);
-         		
-                }    
+               	var inner = "";
+            	inner += "<label id=실 class=labelST onclick=labelEvent('실','6')>실</label>";
+             	inner += "<label id=고객부서 class=labelST onclick=labelEvent('고객부서','8')>고객부서</label>";
+            	inner += "<label id=M/M class=labelST onclick=labelEvent('M/M','9')>M/M</label>";
+            	inner += "<label id=프로젝트계약금액 class=labelST onclick=labelEvent('프로젝트계약금액','10')>프로젝트계약금액</label>";
+            	inner += "<label id=상반기예상수주 class=labelST onclick=labelEvent('상반기예상수주','11')>상반기예상수주</label>";
+            	inner += "<label id=상반기수주 class=labelST onclick=labelEvent('상반기수주','12')>상반기수주</label>";
+            	inner += "<label id=상반기예상매출 class=labelST onclick=labelEvent('상반기예상매출','13')>상반기예상매출</label>";
+            	inner += "<label id=상반기매출 class=labelST onclick=labelEvent('상반기매출','14')>상반기매출</label>";
+            	inner += "<label id=하반기예상수주 class=labelST onclick=labelEvent('하반기예상수주','15')>하반기예상수주</label>";
+            	inner += "<label id=하반기수주 class=labelST onclick=labelEvent('하반기수주','16')>하반기수주</label>";
+            	inner += "<label id=하반기예상매출 class=labelST onclick=labelEvent('하반기예상매출','17')>하반기예상매출</label>";
+            	inner += "<label id=하반기매출 class=labelST onclick=labelEvent('하반기매출','18')>하반기매출</label>";
+            	inner += "<label id=착수 class=labelST onclick=labelEvent('착수','19')>착수</label>";
+            	inner += "<label id=종료 class=labelST onclick=labelEvent('종료','20')>종료</label>";
+            	inner += "<label id=고객담당자 class=labelST onclick=labelEvent('고객담당자','21')>고객담당자</label>";
+            	inner += "<label id=근무지 class=labelST onclick=labelEvent('근무지','22')>근무지</label>";
+            	inner += "<label id=업무 class=labelST onclick=labelEvent('업무','23')>업무</label>";
+            	inner += "<label id=PM class=labelST onclick=labelEvent('PM','24')>PM</label>";
+            	inner += "<label id=투입명단 class=labelST onclick=labelEvent('투입명단','25')>투입명단</label>";
+            	inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','26')>평가유형</label>";
+            	inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','27')>채용수요</label>";
+            	inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','28')>외주수요</label>";
+            	inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','29')>주간보고서사용</label>";
+            	inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','30')>실적보고</label>";
+            	$('#list').append(inner);
+            	AttrList = "1 2 3 4 5 7";
+            	saveAttrTap();
+            	console.log(AttrList);
+         	}    
         });
     }
+    
+    // 탭 비동기식 저장
+    function saveAttrTap(){
+    	$.ajax({
+  			url : 'saveAttrList.jsp',
+  			type : 'post',
+  			dataType: "json",
+  			data : {
+  				attrList : AttrList
+  			}
+  		});
+    }
+    
+    
     
     function stateColor(){
     	var str;
@@ -386,23 +539,6 @@
     		}
     	}
     }
-
-    function check_box(){
-    	   $(".check_div").click(function(e){
-           	if($(".check_table").css('display')=='none'){
-            $(".check_table").show();
-           	}
-           	else  
-            $(".check_table").hide();
-           });
-           
-           $("body").click( function(e){
-               if(e.target.className !== "check_div" && e.target.className !== "cb"){
-                 $(".check_table").hide();    
-                 $(".check_div").show();
-               }
-             });
-    }
     
     function updateData(projectNo, projectName, attr){
     	var tdID = projectNo+attr;
@@ -421,8 +557,6 @@
 	  			}
 	  		});
     	}
-    	
-    	
     }
     
     function updatefocus(str, focus){
@@ -458,14 +592,11 @@
         //최상단 체크박스 클릭
         cbLoad();
         cbAll();
-        cbSlow();
-        cbCloseAllClose();
         stateColor();
-        check_box();
+        $('.sortBTN').off("click",hideAttr);
         $('.loading').hide();
         $( window ).resize(function() {
         	var windowWidth = $( window ).height();
-        	console.log(windowWidth);
         });
     });
     
@@ -757,108 +888,73 @@
               %>
               </div>
 					<div class="card-body" style="margin-bottom: 40px;">
-						<div>
-							<input type="button" value="체크박스" class="check_div">
-							<!--  <label><input type="checkbox" id="check_team"> 팀</label>
-      			 <label><input type="checkbox" id="check_projectcode"> 프로젝트 코드</label>
-      			 <label><input type="checkbox" id="check_projectname"> 프로젝트 명</label> -->
-							<table class="check_table">
-								<tr>
-									<td><label><input type="checkbox" id="checkall"
-											class="cb"> 모두보기</label></td>
-								</tr>
-								<tr>
-									<td><label><input type="checkbox" id="cb1"
-											name="cb" class="cb"> 개요(실, 고객부서, M/M, 프로젝트 계약 금액,
-											고객담당자, 근무지, 업무)</label></td>
-								</tr>
-								<tr>
-									<td><label><input type="checkbox" id="cb2"
-											name="cb" class="cb"> 상반기 실적(상반기 예상수주, 상반기 수주, 상반기
-											예상매출, 하반기 매출)</label></td>
-								</tr>
-								<tr>
-									<td><label><input type="checkbox" id="cb3"
-											name="cb" class="cb"> 하반기 실적(하반기 예상수주, 하반기 수주, 하반기
-											예상매출, 하반기 매출)</label></td>
-								</tr>
-								<tr>
-									<td><label><input type="checkbox" id="cb4"
-											name="cb" class="cb"> 일정(착수, 종료)</label></td>
-								</tr>
-								<tr>
-									<td><label><input type="checkbox" id="cb5"
-											name="cb" class="cb"> 인원 (PM, 투입명단, 채용수요, 외주수요)</label></td>
-								</tr>
-								<tr>
-									<td><label><input type="checkbox" id="cb6"
-											name="cb" class="cb"> 평가 (상반기 평가유형, 하반기 평가유형)</label></td>
-								</tr>
-							</table>
+						<div id="list">
+							<label style="font-size: x-large"><input type="checkbox" id="checkall"class="cb"> All</label>
 						</div>
+						
+						
 						<div class="table-responsive">
 							<table class="table TABLE" id="dataTable"
 								style="white-space: nowrap; font-size: small;">
-								<thead>
+								<thead>	
 									<tr class="m-0 text-primary">
-										<th>팀(수주)
+										<th onclick="hideAttr(1)">팀(수주)
 											<button class="sortBTN" onclick="sortTD (0)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (0)">▼</button>
 										</th>
-										<th>팀(매출)
+										<th onclick="hideAttr(2)">팀(매출)
 											<button class="sortBTN" onclick="sortTD (1)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (1)">▼</button>
 										</th>
-										<th>프로젝트 코드</th>
-										<th>프로젝트 명</th>
-										<th>상태
+										<th onclick="hideAttr(3)">프로젝트 코드</th>
+										<th onclick="hideAttr(4)">프로젝트 명</th>
+										<th onclick="hideAttr(5)">상태
 											<button class="sortBTN" onclick="sortTD (4)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (4)">▼</button>
 										</th>
-										<th class="th">실</th>
-										<th>고객사
+										<th class="th" onclick="hideAttr(6)">실</th>
+										<th onclick="hideAttr(7)">고객사
 											<button class="sortBTN" onclick="sortTD (6)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (6)">▼</button>
 										</th>
-										<th class="th">고객부서</th>
-										<th class="th">M/M</th>
-										<th class="th">프로젝트계약금액</th>
-										<th class="th">상반기예상수주</th>
-										<th class="th">상반기수주</th>
-										<th class="th">상반기예상매출</th>
-										<th class="th">상반기매출</th>
-										<th class="th">하반기예상수주</th>
-										<th class="th">하반기수주</th>
-										<th class="th">하반기예상매출</th>
-										<th class="th">하반기매출</th>
-										<th class="th">착수
+										<th class="th" onclick="hideAttr(8)">고객부서</th>
+										<th class="th" onclick="hideAttr(9)">M/M</th>
+										<th class="th" onclick="hideAttr(10)">프로젝트계약금액</th>
+										<th class="th" onclick="hideAttr(11)">상반기예상수주</th>
+										<th class="th" onclick="hideAttr(12)">상반기수주</th>
+										<th class="th" onclick="hideAttr(13)">상반기예상매출</th>
+										<th class="th" onclick="hideAttr(14)">상반기매출</th>
+										<th class="th" onclick="hideAttr(15)">하반기예상수주</th>
+										<th class="th" onclick="hideAttr(16)">하반기수주</th>
+										<th class="th" onclick="hideAttr(17)">하반기예상매출</th>
+										<th class="th" onclick="hideAttr(18)">하반기매출</th>
+										<th class="th" onclick="hideAttr(19)">착수
 											<button class="sortBTN" onclick="sortTD (18)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (18)">▼</button>
 										</th>
-										<th class="th">종료
+										<th class="th" onclick="hideAttr(20)">종료
 											<button class="sortBTN" onclick="sortTD (19)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (19)">▼</button>
 										</th>
-										<th class="th">고객담당자</th>
-										<th class="th">근무지</th>
-										<th class="th">업무</th>
-										<th class="th">PM</th>
-										<th class="th">투입 명단</th>
-										<th class="th">2020(상)평가유형</th>
-										<th class="th">채용수요</th>
-										<th class="th">외주수요</th>
-										<th class="th">주간보고서사용</th>
-										<th class="th">실적보고</th>
+										<th class="th" onclick="hideAttr(21)">고객담당자</th>
+										<th class="th" onclick="hideAttr(22)">근무지</th>
+										<th class="th" onclick="hideAttr(23)">업무</th>
+										<th class="th" onclick="hideAttr(24)">PM</th>
+										<th class="th" onclick="hideAttr(25)">투입 명단</th>
+										<th class="th" onclick="hideAttr(26)">평가유형</th>
+										<th class="th" onclick="hideAttr(27)">채용수요</th>
+										<th class="th" onclick="hideAttr(28)">외주수요</th>
+										<th class="th" onclick="hideAttr(29)">주간보고서사용</th>
+										<th class="th" onclick="hideAttr(30)">실적보고</th>
 									</tr>
 								</thead>
 								<tbody>
                   			<%for(int i=0; i<projectList.size(); i++){%>
 									<tr>
-										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_ORDER()%>', '수주')"><%=projectList.get(i).getTEAM_ORDER()%></td>
-										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_SALES()%>', '매출')"><%=projectList.get(i).getTEAM_SALES()%></td>			
-
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
 										<%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
+										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_ORDER()%>', '수주')"><%=projectList.get(i).getTEAM_ORDER()%></td>
+										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_SALES()%>', '매출')"><%=projectList.get(i).getTEAM_SALES()%></td>
 										<td id="<%=projectList.get(i).getNO()%>프로젝트코드"onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트코드')"><%=projectList.get(i).getPROJECT_CODE()%></td>
 										<td>
 										<a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
@@ -917,9 +1013,13 @@
 										<%}
 										
 										else{%>
+										<td class="td"><%=projectList.get(i).getTEAM_ORDER()%></td>
+										<td class="td"><%=projectList.get(i).getTEAM_SALES()%></td>
+										<td class="td"><%=projectList.get(i).getPROJECT_CODE()%></td>
 										<td><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></td>
+										<td class="td"><%=projectList.get(i).getSTATE()%></td>
 										<td class="td"><%=projectList.get(i).getPART()%></td>
-										<td><%=projectList.get(i).getCLIENT()%></td>
+										<td class="td"><%=projectList.get(i).getCLIENT()%></td>
 										<td class="td"><%=projectList.get(i).getClIENT_PART()%></td>
 										<td class="td"><%=projectList.get(i).getMAN_MONTH()%></td>
 										<td class="td"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>

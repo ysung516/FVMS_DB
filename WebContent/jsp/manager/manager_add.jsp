@@ -63,11 +63,9 @@
 	// 정보등록 확인 버튼 클릭 시 
 	function button_onclick2(){
 		if(count != 1){
-			
 			alert("ID중복체크를 해주세요");	
 		}
 		else if(count == 1){
-			console.log(count);
 			document.addPro.submit();
 		}
 	}
@@ -414,7 +412,7 @@ textarea {
 										<tr align="center">
 											<td colspan="4"><input id="COMPLETE" type="button"
 												name="COMPLETE" value="완료" class="btn btn-primary"
-												onclick=button_onclick2()> <a href="manager.jsp"
+												onclick="button_onclick2()"> <a href="manager.jsp"
 												class="btn btn-primary">취소</a></td>
 										</tr>
 									</table>

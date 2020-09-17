@@ -404,7 +404,7 @@ button:focus {
 									<tr>
 										<th>프로젝트</th>
 										<th>고객사</th>
-										<th>P/M</th>
+										<th>PM</th>
 										<th>최종수정시간</th>
 									</tr>
 								</thead>

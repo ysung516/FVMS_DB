@@ -105,6 +105,7 @@ public class sheetMethod {
         // 시트 초기화
         for(int z=list.size() -1; z >= 0; z--) {
         	list.get(z).delete();
+        	//list.clear();
         }
        
         // 데이터 삽입
@@ -132,6 +133,7 @@ public class sheetMethod {
 			li.getCustomElements().setValueLocal("프로젝트코드", pjList.get(i).getPROJECT_CODE());
 			li.getCustomElements().setValueLocal("프로젝트명계약명기준", pjList.get(i).getPROJECT_NAME());
 			li.getCustomElements().setValueLocal("상태", pjList.get(i).getSTATE());
+			li.getCustomElements().setValueLocal("실", pjList.get(i).getPART());
 			li.getCustomElements().setValueLocal("고객사", pjList.get(i).getCLIENT());
 			li.getCustomElements().setValueLocal("고객부서", pjList.get(i).getClIENT_PART());
 			li.getCustomElements().setValueLocal("MM", String.valueOf(pjList.get(i).getMAN_MONTH()));
@@ -151,7 +153,7 @@ public class sheetMethod {
 			li.getCustomElements().setValueLocal("업무", pjList.get(i).getWORK());
 			li.getCustomElements().setValueLocal("PM", PMList.get(i));
 			li.getCustomElements().setValueLocal("투입명단", name.toString());
-			li.getCustomElements().setValueLocal("2020상평가유형", pjList.get(i).getASSESSMENT_TYPE());
+			li.getCustomElements().setValueLocal("상평가유형", pjList.get(i).getASSESSMENT_TYPE());
 			li.getCustomElements().setValueLocal("채용수요", String.valueOf(pjList.get(i).getEMPLOY_DEMAND()));
 			li.getCustomElements().setValueLocal("외주수요", String.valueOf(pjList.get(i).getOUTSOURCE_DEMAND()));
 	        listFeed.insert(li);
