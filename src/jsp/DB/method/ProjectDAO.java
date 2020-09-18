@@ -611,10 +611,7 @@ public class ProjectDAO {
 	}
 	
 	// 프로젝트 dropped으로 상태 변경 시 값 초기화
-	public int projectDropped(
-		int NO) 
-	
-	{
+	public int projectDropped(int NO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rs = 0;

@@ -321,6 +321,10 @@
          
           function drawChart() {
         	   	<%
+        	   	String nowYear = sf.format(nowTime).split("-")[0];
+        	   	int preYear = Integer.parseInt(nowYear) - 1;
+        	   	int nextYear = Integer.parseInt(nowYear) + 1;
+				
         		for(int i=0; i<memberList.size(); i++){
         			for(int j=0; j<projectList.size(); j++){
         				schBean PMsch = new schBean();
@@ -364,7 +368,7 @@
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
             		[ '\0', 'Now','','',new Date(), new Date()],
-            		['\0','','', 'opacity:0', new Date('2019-02-11'), new Date('2021-09-30')]
+            		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
               		<%
 	            		for(int b=0; b<schList.size(); b++){%>
 	            			,['<%=schList.get(b).getName()%>', '<%=schList.get(b).getProjectName()%>'
@@ -406,7 +410,7 @@
               dataTable.addColumn({ type: 'date', id: 'End' });
               dataTable.addRows([
 	          		[ '\0', 'Now','','',new Date(), new Date()],
-	          		['\0','','', 'opacity:0', new Date('2019-02-11'), new Date('2021-09-30')]
+	          		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
           		]);
               <%
 	      	  	  for(int i=0; i<schList.size(); i++){%>
