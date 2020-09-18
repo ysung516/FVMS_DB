@@ -231,7 +231,8 @@
 	for(var a=0; a<AttrList.split(" ").length; a++){
 		 outAttr[a] = AttrList.split(" ")[a];
 	}
-
+	
+	// table load
     function cbLoad(){
     	for(var a=1;a<31;a++){
     		$('td:nth-child('+a+')').hide();
@@ -434,7 +435,8 @@
     		$("input:checkbox[id='checkall']").prop("checked", true);
     	}
     }
-
+	
+	// 탭 숨기기
     function hideAttr(num){
     	$("input:checkbox[id='checkall']").prop("checked", false);
     	$('td:nth-child('+num+')').hide();
@@ -452,6 +454,7 @@
     	console.log(AttrList);
     }
     
+	// 탭 만들기
     function labelEvent(labelName, num){
     	document.getElementById(labelName).remove();
     	$('td:nth-child('+num+')').show();
@@ -914,23 +917,23 @@
 								<thead>	
 									<tr class="m-0 text-primary">
 										<th onclick="hideAttr(1)">팀(수주)
-											<button class="sortBTN" onclick="sortTD (0)">▲</button>
-											<button class="sortBTN" onclick="reverseTD (0)">▼</button>
+											<button class="sortBTN" onclick="sortTD (0); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (0); event.cancelBubble=true;">▼</button>
 										</th>
 										<th onclick="hideAttr(2)">팀(매출)
-											<button class="sortBTN" onclick="sortTD (1)">▲</button>
-											<button class="sortBTN" onclick="reverseTD (1)">▼</button>
+											<button class="sortBTN" onclick="sortTD (1); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (1); event.cancelBubble=true;">▼</button>
 										</th>
 										<th onclick="hideAttr(3)">프로젝트 코드</th>
 										<th onclick="hideAttr(4)">프로젝트 명</th>
 										<th onclick="hideAttr(5)">상태
-											<button class="sortBTN" onclick="sortTD (4)">▲</button>
-											<button class="sortBTN" onclick="reverseTD (4)">▼</button>
+											<button class="sortBTN" onclick="sortTD (4); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (4); event.cancelBubble=true;">▼</button>
 										</th>
 										<th class="th" onclick="hideAttr(6)">실</th>
 										<th onclick="hideAttr(7)">고객사
-											<button class="sortBTN" onclick="sortTD (6)">▲</button>
-											<button class="sortBTN" onclick="reverseTD (6)">▼</button>
+											<button class="sortBTN" onclick="sortTD (6); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (6); event.cancelBubble=true;">▼</button>
 										</th>
 										<th class="th" onclick="hideAttr(8)">고객부서</th>
 										<th class="th" onclick="hideAttr(9)">M/M</th>
@@ -944,12 +947,12 @@
 										<th class="th" onclick="hideAttr(17)">하반기예상매출</th>
 										<th class="th" onclick="hideAttr(18)">하반기매출</th>
 										<th class="th" onclick="hideAttr(19)">착수
-											<button class="sortBTN" onclick="sortTD (18)">▲</button>
-											<button class="sortBTN" onclick="reverseTD (18)">▼</button>
+											<button class="sortBTN" onclick="sortTD (18); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (18); event.cancelBubble=true;">▼</button>
 										</th>
 										<th class="th" onclick="hideAttr(20)">종료
-											<button class="sortBTN" onclick="sortTD (19)">▲</button>
-											<button class="sortBTN" onclick="reverseTD (19)">▼</button>
+											<button class="sortBTN" onclick="sortTD (19); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (19); event.cancelBubble=true;">▼</button>
 										</th>
 										<th class="th" onclick="hideAttr(21)">고객담당자</th>
 										<th class="th" onclick="hideAttr(22)">근무지</th>
