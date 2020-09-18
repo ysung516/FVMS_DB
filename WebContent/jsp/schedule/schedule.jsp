@@ -300,6 +300,22 @@
           google.charts.load("current", {packages:["timeline"]});
           google.charts.setOnLoadCallback(drawChart);
           
+         function nowLine(div){
+
+       	//get the height of the timeline div
+       		var height;
+       	  $('#' + div + ' rect').each(function(index){
+       	  	var x = parseFloat($(this).attr('x'));
+       	    var y = parseFloat($(this).attr('y'));
+       	    
+       	    if(x == 0 && y == 0) {height = parseFloat($(this).attr('height'))}
+       	  })
+
+       		var nowWord = $('#' + div + ' text:contains("Now")');
+       	  
+       	  nowWord.prev().first().attr('height', height + 'px').attr('width', '1px').attr('y', '0');
+       	}
+         
           function drawChart() {
         	   	<%
         		for(int i=0; i<memberList.size(); i++){
@@ -338,18 +354,37 @@
             var dataTable = new google.visualization.DataTable();
       
             dataTable.addColumn({ type: 'string', id: 'Position' });
-            dataTable.addColumn({ type: 'string', id: 'Name' });
+            dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+            dataTable.addColumn({ type: 'string', role: 'tooltip' });
+            dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
-              		['<%=schList.get(0).getName()%>', '<%=schList.get(0).getProjectName()%>', new Date('<%=schList.get(0).getStart()%>'), new Date('<%=schList.get(0).getEnd()%>')]
+            		[ '\0', 'Now','','',new Date(), new Date()],
+            		['\0','','', 'opacity:0', new Date('2019-02-11'), new Date('2021-09-30')]
               		<%
-	            		for(int b=1; b<schList.size(); b++){%>
-	            			,['<%=schList.get(b).getName()%>', '<%=schList.get(b).getProjectName()%>', new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
+	            		for(int b=0; b<schList.size(); b++){%>
+	            			,['<%=schList.get(b).getName()%>', '<%=schList.get(b).getProjectName()%>'
+	            				,'<h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(b).getName()%></b></p>' + '<b>착수일</b> ' +'<%=schList.get(b).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(b).getEnd()%>'
+	            				,''
+	            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
 	            		<%}
             	%>
             ]);
             chart.draw(dataTable);
+           	nowLine('timelineChart');
+           	  
+           	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
+           		if(obj.row == 0){
+           			$('.google-visualization-tooltip').css('display', 'none');
+           		}
+           	    nowLine('timelineChart');
+           	  })
+           	  
+           	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
+           	  	nowLine('timelineChart');
+           	  })
+
             var st = container.getElementsByTagName("div")[0];
 			st.style.position = 'inherit';
           }
@@ -361,36 +396,55 @@
               var dataTable = new google.visualization.DataTable();
         
               dataTable.addColumn({ type: 'string', id: 'Position' });
-              dataTable.addColumn({ type: 'string', id: 'Name' });
+              dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+              dataTable.addColumn({ type: 'string', role: 'tooltip' });
+              dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
               dataTable.addColumn({ type: 'date', id: 'Start' });
               dataTable.addColumn({ type: 'date', id: 'End' });
-        	  	<%
-		      	  	  for(int i=0; i<schList.size(); i++){%>
-		      	  	  	if(rank=='total'){
-			      	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-			    	  			 dataTable.addRows([
-			    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>', new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-			    	  		} else if(team == 'total'){
-			    	  			dataTable.addRows([
-		    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>', new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-			    	  		}
-		      	  	  	}
-		      	  	  	else{
-			      	  	  	if(team == '<%=schList.get(i).getTeam()%>' && rank == '<%=schList.get(i).getRank()%>'){
-			    	  			dataTable.addRows([
-			    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>', new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-			    	  		}else if(team == 'total' && rank == '<%=schList.get(i).getRank()%>'){
-			    	  			dataTable.addRows([
-		    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>', new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-			    	  		}
-		      	  	  	}
-    
-      	  	  <%}%>    	 
+              dataTable.addRows([
+	          		[ '\0', 'Now','','',new Date(), new Date()],
+	          		['\0','','', 'opacity:0', new Date('2019-02-11'), new Date('2021-09-30')]
+          		]);
+              <%
+	      	  	  for(int i=0; i<schList.size(); i++){%>
+	      	  	  	if(rank=='total'){
+		      	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
+		    	  			 dataTable.addRows([
+		    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' ,  '<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		} else if(team == 'total'){
+		    	  			dataTable.addRows([
+	    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' , '<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' + '<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		}
+	
+	      	  	  	}
+	      	  	  	else{
+		      	  	  	if(team == '<%=schList.get(i).getTeam()%>' && rank == '<%=schList.get(i).getRank()%>'){
+		    	  			dataTable.addRows([
+		    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' , '<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' + '<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		}else if(team == 'total' && rank == '<%=schList.get(i).getRank()%>'){
+		    	  			dataTable.addRows([
+	    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' ,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' + '<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		}
+	      	  	  	}			      	  	
+      	  	  	
+	  	  <%}%> 
       	  	chart.draw(dataTable);
+         	nowLine('timelineChart');
+           	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
+           		if(obj.row == 0){
+           			$('.google-visualization-tooltip').css('display', 'none');
+           		}
+           	    nowLine('timelineChart');
+           	  })
+           	  
+           	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
+           	  	nowLine('timelineChart');
+           	  })
+           	  
       	  	memberInfoTable(team, rank);
        }	//end
          
