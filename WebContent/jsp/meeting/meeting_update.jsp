@@ -108,6 +108,7 @@ function deleteNP(){
 }
 </script>
 <style>
+
 .sidebar{
 		position:fixed;
 		z-index:9999;
