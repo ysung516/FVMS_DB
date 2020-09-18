@@ -299,23 +299,18 @@
 		
 	}
 %>	
-		
           google.charts.load("current", {packages:["timeline"]});
           google.charts.setOnLoadCallback(drawChart);
           
          function nowLine(div){
-
        	//get the height of the timeline div
        		var height;
        	  $('#' + div + ' rect').each(function(index){
        	  	var x = parseFloat($(this).attr('x'));
        	    var y = parseFloat($(this).attr('y'));
-       	    
        	    if(x == 0 && y == 0) {height = parseFloat($(this).attr('height'))}
        	  })
-
        		var nowWord = $('#' + div + ' text:contains("Now")');
-       	  
        	  nowWord.prev().first().attr('height', height + 'px').attr('width', '1px').attr('y', '0');
        	}
          
@@ -334,6 +329,12 @@
     						PMsch.setTeam(memberList.get(i).getTEAM());
     						PMsch.setRank(memberList.get(i).getRANK());
     						PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
+    						PMsch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+    						String Wstr = "";
+    						for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
+    							Wstr += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[z]).getNAME() + " ";
+    						}
+    						PMsch.setWorkList(Wstr);
     						PMsch.setStart(projectList.get(j).getPROJECT_START());
     						PMsch.setEnd(projectList.get(j).getPROJECT_END());
     						schList.add(PMsch);
@@ -347,6 +348,12 @@
         						sch.setTeam(memberList.get(i).getTEAM());
         						sch.setRank(memberList.get(i).getRANK());
         						sch.setProjectName(projectList.get(j).getPROJECT_NAME());
+        						sch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+        						String Wstr2 = "";
+        						for(int x=0; x<projectList.get(j).getWORKER_LIST().split(" ").length; x++){
+        							Wstr2 += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[x]).getNAME() + " ";
+        						}
+        						sch.setWorkList(Wstr2);
         						sch.setStart(projectList.get(j).getPROJECT_START());
         						sch.setEnd(projectList.get(j).getPROJECT_END());
         						schList.add(sch);
@@ -371,8 +378,12 @@
             		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
               		<%
 	            		for(int b=0; b<schList.size(); b++){%>
-	            			,['<%=schList.get(b).getName()%>', '<%=schList.get(b).getProjectName()%>'
-	            				,'<h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(b).getName()%></b></p>' + '<b>착수일</b> ' +'<%=schList.get(b).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(b).getEnd()%>'
+	            			,[	'<%=schList.get(b).getName()%>'
+	            				,'<%=schList.get(b).getProjectName()%>'
+	            				
+	            				,'<h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(b).getPm()%></b></p>' 
+	            				+ '<p><b>투입명단 - <%=schList.get(b).getWorkList().trim()%></b></p>' 
+	            				+ '<b>착수일</b> ' +'<%=schList.get(b).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(b).getEnd()%>'
 	            				,''
 	            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
 	            		<%}
@@ -417,11 +428,25 @@
 	      	  	  	if(rank=='total'){
 		      	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
 		    	  			 dataTable.addRows([
-		    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' ,  '<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
+		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
+		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
 		    	  		} else if(team == 'total'){
 		    	  			dataTable.addRows([
-	    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' , '<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' + '<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
+		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
+		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
 		    	  		}
 	
@@ -429,11 +454,25 @@
 	      	  	  	else{
 		      	  	  	if(team == '<%=schList.get(i).getTeam()%>' && rank == '<%=schList.get(i).getRank()%>'){
 		    	  			dataTable.addRows([
-		    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' , '<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' + '<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
+		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
+		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
 		    	  		}else if(team == 'total' && rank == '<%=schList.get(i).getRank()%>'){
 		    	  			dataTable.addRows([
-	    	              		['<%=schList.get(i).getName()%>', '<%=schList.get(i).getProjectName()%>' ,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b> - <%=schList.get(i).getName()%></b></p>' + '<b>착수일</b> ' + '<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>', , new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
+		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
+		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
 		    	  		}
 	      	  	  	}			      	  	
