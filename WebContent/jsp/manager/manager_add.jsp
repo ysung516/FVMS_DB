@@ -127,6 +127,10 @@
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
 #insert {
 	width: 100%;
 	font-size: small;
@@ -185,6 +189,14 @@ textarea {
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 	.container-fluid {
 		padding: 0;
 	}

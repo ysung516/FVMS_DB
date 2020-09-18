@@ -87,6 +87,9 @@
 
 </head>
 <style>
+#content{
+	margin-left:90px;
+}
 .sidebar{
 		position:fixed;
 		z-index:9999;

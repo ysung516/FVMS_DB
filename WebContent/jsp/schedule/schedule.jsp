@@ -56,7 +56,9 @@
 
 </head>
 <style>	
-
+#content{
+	margin-left:110px;
+}
 .sidebar{
 		position:fixed;
 		z-index:9999;
@@ -1527,7 +1529,7 @@
 		<div id="content-wrapper" class="flex-column" style="display: inline">
 
 			<!-- Main Content -->
-			
+			<div id="content">
 
 				<!-- Topbar -->
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -1565,6 +1567,8 @@
 					</ul>
 
 				</nav>
+				
+				<div class="container-fluid">
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
 			
 				<div class="card-body tableST">
@@ -1671,8 +1675,9 @@
 
 
 			</div>			
-						<!-- /.container-fluid -->
-				
+					</div>	<!-- /.container-fluid -->
+				</div>
+	
 					<!-- End of Main Content -->
 			
 				<!-- End of Content Wrapper -->
@@ -1726,6 +1731,7 @@
 			<script src="../../js/demo/chart-area-demo.js"></script>
 			<script src="../../js/demo/chart-pie-demo.js"></script>
 			<script src="../../js/demo/chart-bar-demo.js"></script>
+		
 </body>
 
 </html>

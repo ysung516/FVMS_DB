@@ -73,6 +73,10 @@
 
 </script>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
 .btn_group {
 	right: 0;
 	margin-right: 24px;
@@ -111,6 +115,14 @@
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 	.container-fluid {
 		padding: 0;
 	}
