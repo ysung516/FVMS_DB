@@ -776,7 +776,7 @@ function y_sales() {
       var y_sales_chart = new google.visualization.ColumnChart(document.getElementById('y_sales_chart'));
 
       y_sales_chart.draw(dataTable, y_sales_option);
-    }
+    } 
     
 /*도넛 차트*/
 google.charts.load("current", {packages:["corechart"]});
