@@ -116,6 +116,12 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+.tooltip-padding{
+	text-align: left;
+	padding: 5%;
+}
+
 </style>
 
 
@@ -381,9 +387,8 @@
 	            			,[	'<%=schList.get(b).getName()%>'
 	            				,'<%=schList.get(b).getProjectName()%>'
 	            				
-	            				,'<h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(b).getPm()%></b></p>' 
-	            				+ '<p><b>투입명단 - <%=schList.get(b).getWorkList().trim()%></b></p>' 
-	            				+ '<b>착수일</b> ' +'<%=schList.get(b).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(b).getEnd()%>'
+	            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<hr width = "100%" color = "black">' + '<p><b>PM : </b><%=schList.get(b).getPm()%><br><b>투입명단 : </b><%=schList.get(b).getWorkList().trim()%></p>' 
+	            				+ '<b>착수일 : </b><%=schList.get(b).getStart()%><br><b>종료일 : </b><%=schList.get(b).getEnd()%></div>'
 	            				,''
 	            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
 	            		<%}
@@ -431,9 +436,8 @@
 		    	  				[	'<%=schList.get(i).getName()%>'
 		            				,'<%=schList.get(i).getProjectName()%>'
 		            				
-		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
-		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
-		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr width = "100%" color = "black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
 		            				,''
 		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
@@ -442,9 +446,8 @@
 		    	  				[	'<%=schList.get(i).getName()%>'
 		            				,'<%=schList.get(i).getProjectName()%>'
 		            				
-		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
-		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
-		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr width = "100%" color = "black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
 		            				,''
 		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
@@ -457,9 +460,8 @@
 		    	  				[	'<%=schList.get(i).getName()%>'
 		            				,'<%=schList.get(i).getProjectName()%>'
 		            				
-		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
-		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
-		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr width = "100%" color = "black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
 		            				,''
 		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
@@ -468,9 +470,8 @@
 		    	  				[	'<%=schList.get(i).getName()%>'
 		            				,'<%=schList.get(i).getProjectName()%>'
 		            				
-		            				,'<h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<p><b>PM - <%=schList.get(i).getPm()%></b></p>' 
-		            				+ '<p><b>투입명단 - <%=schList.get(i).getWorkList().trim()%></b></p>' 
-		            				+ '<b>착수일</b> ' +'<%=schList.get(i).getStart()%>' + '<br><b>종료일</b> ' + '<%=schList.get(i).getEnd()%>'
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr width = "100%" color = "black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
 		            				,''
 		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            ]);
