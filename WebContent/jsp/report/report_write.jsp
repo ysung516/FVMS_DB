@@ -28,6 +28,7 @@
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport();
 	ProjectBean pjBean = new ProjectBean();
+	String no = request.getParameter("no");
 	
 	String str = "";
 	
@@ -47,23 +48,68 @@ function loadData(){
 	if (title == "<%=reportList.get(j).getProjectNo()%>"){
 		<%for(int a=0; a<reportList.get(j).getP_weekPlan().length; a++){
 			str = reportList.get(j).getP_weekPlan()[a].replaceAll("\\s+$","");
-			%>document.getElementById('PreWeekPlan').value += '<%=str%>\n';
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('PreWeekPlan').value += str_ch + '\n';
 		<%}
 		for(int b=0; b<reportList.get(j).getP_weekPro().length; b++){
 			str = reportList.get(j).getP_weekPro()[b].replaceAll("\\s+$","");
-			%>document.getElementById('PreWeekPro').value += '<%=str%>\n';
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('PreWeekPro').value += str_ch + '\n';
 		<%}		
 		for(int c=0; c<reportList.get(j).getP_nextPlan().length; c++){
 			str = reportList.get(j).getP_nextPlan()[c].replaceAll("\\s+$","");
-			%>document.getElementById('PreNextPlan').value += '<%=str%>\n';
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('PreNextPlan').value += str_ch + '\n';
 		<%}
 		for(int d=0; d<reportList.get(j).getP_specialty().length; d++){
 			str = reportList.get(j).getP_specialty()[d].replaceAll("\\s+$","");
-			%>document.getElementById('Prespecialty').value += '<%=str%>\n';
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('Prespecialty').value += str_ch + '\n';
 		<%}
 		for(int e=0; e<reportList.get(j).getP_note().length; e++){
 			str = reportList.get(j).getP_note()[e].replaceAll("\\s+$","");
-			%>document.getElementById('Prenote').value += '<%=str%>\n';
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('Prenote').value += str_ch + '\n';
 		<%}%>
 	}
 <%}%>
@@ -72,6 +118,7 @@ function loadData(){
 
 $(document).ready(function () {
 	$('.loading').hide();
+	$("#title").val("<%=no%>").attr("selected", "selected");
 	loadData();	// 주간보고서 작성시 백업테이블에서 데이터 가져오기
 
     $(window).on('beforeunload', function(){

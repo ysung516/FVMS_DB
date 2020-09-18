@@ -56,7 +56,9 @@
 
 </head>
 <style>	
-
+.topbar {
+    height: 3.375rem;
+}
 
 @media(max-width:800px){
 	.tableST{
@@ -85,6 +87,7 @@
 }
 .tableST{
 	width : 40%;
+	height: 90%;
 	float:right;
 }
 #timelineChart{
@@ -1487,7 +1490,7 @@
 	</div>
 	<!--  로딩화면  끝  -->
 	<!-- Page Wrapper -->
-	<div id="wrapper" style="overflow-y: hidden">
+	<div id="wrapper">
 
 		<!-- Sidebar -->
 		<ul
@@ -1689,7 +1692,7 @@
                 </table>
                 </div>
 				
-				<div class="table-responsive">
+				<div class="table-responsive"style="height: 664px;">
 				<table class="table table-bordered">
 	                <thead>
 	                    <tr  style="text-align:center;background-color:#15a3da52;">

@@ -609,4 +609,45 @@ public class ProjectDAO {
 		
 		return result;
 	}
+	
+	// 프로젝트 dropped으로 상태 변경 시 값 초기화
+	public int projectDropped(
+		int NO) 
+	
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("UPDATE project SET ManMonth=?,프로젝트계약금액_백만=?,상반기예상수주=?,상반기수주=?,상반기예상매출=?,상반기매출=?,"
+	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE no=?;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setFloat(1, 0);
+	    	pstmt.setFloat(2, 0);
+	    	pstmt.setFloat(3, 0);
+	    	pstmt.setFloat(4, 0);
+	    	pstmt.setFloat(5, 0);
+	    	pstmt.setFloat(6, 0);
+	    	pstmt.setFloat(7, 0);
+	    	pstmt.setFloat(8, 0);
+	    	pstmt.setFloat(9, 0);
+	    	pstmt.setFloat(10, 0);
+	    	pstmt.setFloat(11, 0);
+	    	pstmt.setFloat(12, 0);
+	    	pstmt.setInt(13, 0);
+	    	pstmt.setInt(14, NO);
+	    	rs = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return rs;
+	}
 }	// end 
