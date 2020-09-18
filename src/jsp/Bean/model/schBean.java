@@ -8,7 +8,14 @@ public class schBean {
 	private String name;
 	private String team;
 	private String rank;
-	
+	private String pm;
+	public String getPm() {
+		return pm;
+	}
+	public void setPm(String pm) {
+		this.pm = pm;
+	}
+	private String workList;
 	public String getProjectName() {
 		return projectName;
 	}
@@ -20,6 +27,12 @@ public class schBean {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getWorkList() {
+		return workList;
+	}
+	public void setWorkList(String workList) {
+		this.workList = workList;
 	}
 	public String getStart() {
 		return start;
