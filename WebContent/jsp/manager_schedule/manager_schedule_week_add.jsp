@@ -62,6 +62,10 @@
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
 #allTable {
 	margin: auto;
 	text-align: center;
@@ -143,6 +147,14 @@ summary {
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 	.container-fluid {
 		padding: 0;
 	}

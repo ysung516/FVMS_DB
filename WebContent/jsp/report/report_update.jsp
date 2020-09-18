@@ -97,7 +97,7 @@
 <style>
 .sidebar{
 		position:fixed;
-		z-index:1;
+		z-index:9999;
 	}
 	#content{
 		margin-left:90px;
@@ -137,6 +137,14 @@
 		transform:translate(-50%, -50%);
 	}
 	@media(max-width:800px){
+		.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 	#content{
 		margin-left:0px;
 	}

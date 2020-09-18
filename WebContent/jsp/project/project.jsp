@@ -87,7 +87,22 @@
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
+	
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:3.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
+		
+		
 	body {
 		font-size: small;
 	}

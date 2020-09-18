@@ -56,6 +56,10 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
 textarea {
 	width: 100%;
 }
@@ -90,8 +94,17 @@ textarea {
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:3.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
+		
 	.container-fluid {
-		padding: 0;
+		padding: 0 !important;
 	}
 	.card-header:first-child {
 		padding: 0;

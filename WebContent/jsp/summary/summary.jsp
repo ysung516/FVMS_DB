@@ -308,6 +308,11 @@
 
 </head>
 <style>
+	.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
+	
 	.pie{
 		height:350px;
 		width:500px;
@@ -372,6 +377,14 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:800px){
+		.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 		.card-body{
 			padding:0px;
 		}

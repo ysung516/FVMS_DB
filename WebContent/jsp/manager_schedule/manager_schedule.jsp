@@ -306,9 +306,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	rel="stylesheet">
 
 <style>
+
 	.sidebar{
 		position:fixed;
-		z-index:1;
+		z-index:9999;
 	}
 	#content{
 		margin-left:90px;
@@ -433,6 +434,15 @@ button:focus {
 }
 
 @media ( max-width :320px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		
+	}
 	body {
 		font-size: small;
 	}
@@ -469,7 +479,15 @@ button:focus {
 }
 
 @media ( max-width :360px) and (min-width:321px) {
-	
+		.card-header {
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -503,6 +521,15 @@ button:focus {
 }
 
 @media ( max-width :380px) and (min-width:361px) {
+	.card-header py-3{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -536,6 +563,15 @@ button:focus {
 }
 
 @media ( max-width :800px) {
+	.card-header {
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -564,6 +600,15 @@ button:focus {
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		
+	}
 #content{
 		margin-left:0px;
 	}

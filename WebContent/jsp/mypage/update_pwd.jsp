@@ -94,6 +94,11 @@ function input_check_func() {
 
 </head>
 <style>
+
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
 #dataTable td:nth-child(odd) {
 	text-align: center;
 	vertical-align: middle;
@@ -124,6 +129,15 @@ function input_check_func() {
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
+		
 	.container-fluid {
 		padding: 0;
 	}

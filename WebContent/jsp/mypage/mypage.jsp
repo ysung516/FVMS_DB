@@ -59,6 +59,11 @@
 	});
 </script>
 <style>
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
+	
 textarea {
 	width: 100%;
 }
@@ -102,6 +107,14 @@ textarea {
 }
 
 @media ( max-width :800px) {
+	.card-header{
+		margin-top:4.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 	.container-fluid {
 		padding: 0;
 	}

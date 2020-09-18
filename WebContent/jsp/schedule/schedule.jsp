@@ -56,17 +56,28 @@
 
 </head>
 <style>	
-body{
-overflow-y:hidden;
-}
+
+.sidebar{
+		position:fixed;
+		z-index:9999;
+	}
+	
 @media(max-width:800px){
+.card-body{
+		padding:0px;
+		margin-top:3.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
 	.tableST{
 	width : 100% !important;
 	height: 40%;
 	
 }
 #timelineChart{
-	height: 90%;
 	width:  100% !important;
 
 }
@@ -74,7 +85,7 @@ overflow-y:hidden;
 
 .memberTable{
 	width : 100%;
-	height: 40%;
+	white-space:nowrap;
 	text-align:center;
 }
 #dataTable td:hover{
@@ -87,7 +98,6 @@ overflow-y:hidden;
 }
 .tableST{
 	width : 40%;
-	height: 100%;
 	float:right;
 }
 #timelineChart{
@@ -1556,7 +1566,9 @@ overflow-y:hidden;
 
 				</nav>
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
-				<div class="tableST">
+			
+				<div class="card-body tableST">
+				<div class="table-responsive">
 				<table class="memberTable" id="dataTable">
 				<thead>
 	                  <tr style="background-color:#15a3da52;">
@@ -1635,7 +1647,9 @@ overflow-y:hidden;
 	                   </tr>
                    </tbody>
                 </table>
-
+                </div>
+				
+				<div class="table-responsive">
 				<table class="table table-bordered">
 	                <thead>
 	                    <tr  style="text-align:center;background-color:#15a3da52;">
@@ -1650,7 +1664,8 @@ overflow-y:hidden;
                     </thead>
                     <tbody id="memberINFO"></tbody>
                 </table>
-                
+                </div>
+        
                 </div>
                 <div id="timelineChart"></div>
 
