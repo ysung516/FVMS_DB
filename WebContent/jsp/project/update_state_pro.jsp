@@ -22,8 +22,10 @@
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	int result = 0;
+	int setzero = 0;
 	result = projectDao.updateState(no, state);
-	if(result == 1){
+	setzero = projectDao.projectDropped(no);
+	if(result == 1 && setzero == 1){
 		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
 	}else{
 		script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
