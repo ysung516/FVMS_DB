@@ -131,6 +131,9 @@ function input_check_func() {
 }
 
 @media ( max-width :800px) {
+#content{
+	margin-left:0;
+}
 	.card-header{
 		margin-top:4.75rem;
 	}

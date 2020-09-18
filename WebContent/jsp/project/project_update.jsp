@@ -92,6 +92,9 @@
 }
 
 @media ( max-width :800px) {
+#content{
+	margin-left:0;
+}
 	.card-header{
 		margin-top:3.75rem;
 	}
