@@ -56,27 +56,9 @@
 
 </head>
 <style>	
-#content{
-	margin-left:110px;
-}
-.sidebar{
-		position:fixed;
-		z-index:9999;
-	}
-	
+
+
 @media(max-width:800px){
-#content{
-	margin-left:0;
-}
-.card-body{
-		padding:0px;
-		margin-top:3.75rem;
-	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
 	.tableST{
 	width : 100% !important;
 	height: 40%;
@@ -1532,7 +1514,7 @@
 		<div id="content-wrapper" class="flex-column" style="display: inline">
 
 			<!-- Main Content -->
-			<div id="content">
+			
 
 				<!-- Topbar -->
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -1570,11 +1552,8 @@
 					</ul>
 
 				</nav>
-				
-				<div class="container-fluid">
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
-			
-				<div class="card-body tableST">
+				<div class="tableST">
 				<div class="table-responsive">
 				<table class="memberTable" id="dataTable">
 				<thead>
@@ -1678,9 +1657,8 @@
 
 
 			</div>			
-					</div>	<!-- /.container-fluid -->
-				</div>
-	
+						<!-- /.container-fluid -->
+				
 					<!-- End of Main Content -->
 			
 				<!-- End of Content Wrapper -->
@@ -1734,7 +1712,6 @@
 			<script src="../../js/demo/chart-area-demo.js"></script>
 			<script src="../../js/demo/chart-pie-demo.js"></script>
 			<script src="../../js/demo/chart-bar-demo.js"></script>
-		
 </body>
 
 </html>
