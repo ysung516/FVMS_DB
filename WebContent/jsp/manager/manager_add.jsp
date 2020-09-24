@@ -36,38 +36,8 @@
 			%>idList[<%=i%>] = '<%=memberList.get(i).getID()%>';<%
 		}%>
 	
-	
-	var count = 0;
-	//ID 중복확인 버튼클릭 시
-	function button_onclick(){
-		for(var a=0; a<idList.length; a++){
-			if($('#id').val().length < 3){
-				count = -1;
-				break;
-			}
-			if($('#id').val() == idList[a]){
-				count = 0;
-				break;
-			} else{
-				count = 1;
-			}
-		}
-		if(count == 0){
-			alert("이 아이디는 사용하실 수 없습니다.")
-		} else if (count == 1){
-			alert("사용가능한 아이디 입니다.")
-		} else if(count == -1){
-			alert("아이디 최소길이가 3글자 이상이여야 합니다.")
-		}
-	}
-	// 정보등록 확인 버튼 클릭 시 
 	function button_onclick2(){
-		if(count != 1){
-			alert("ID중복체크를 해주세요");	
-		}
-		else if(count == 1){
-			document.addPro.submit();
-		}
+		document.addPro.submit();
 	}
 	
 	function btn_insert(){
@@ -146,7 +116,7 @@
 }
 
 .add_input {
-	width: 100%;
+	width: 25%;
 }
 
 input {
@@ -187,6 +157,11 @@ textarea {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.container-fluid{
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
 
 @media ( max-width :800px) {
 	.card-header{
@@ -205,6 +180,9 @@ textarea {
 	}
 	body {
 		font-size: small;
+	}
+	.add_input {
+		width: 80%;
 	}
 }
 </style>
@@ -258,7 +236,11 @@ textarea {
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
-
+					
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
+							
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -275,7 +257,7 @@ textarea {
 					class="fas fa-fw fa-clipboard-list"></i> <span>회의록</span></a></li>
 			<!-- Nav Item - manager page -->
 			<%if(permission == 0){ %>
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item active"><a class="nav-link"
 				href="../manager/manager.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
@@ -365,10 +347,8 @@ textarea {
 
 										<tr>
 											<td class="m-0 text-primary" align="center">ID *</td>
-											<td colspan="3" style="white-space: nowrap;"><input
-												id="id" name="id" style="width: 80%;"> <input
-												type="button" class="btn btn-info btn-icon-split btn-sm"
-												value=" 확인 " onclick=button_onclick()></td>
+											<td colspan="3" style="white-space: nowrap;"><input class="add_input"
+												id="id" name="id"></td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center">PW *</td>

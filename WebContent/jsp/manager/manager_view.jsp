@@ -178,7 +178,11 @@
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
-
+			
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
+					
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -195,7 +199,7 @@
 					class="fas fa-fw fa-clipboard-list"></i> <span>회의록</span></a></li>
 			<!-- Nav Item - manager page -->
 			<%if(permission == 0){ %>
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item active"><a class="nav-link"
 				href="../manager/manager.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>

@@ -62,9 +62,11 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script>
+//팀별 명단
 function teamMember(team, member){
 	var team1 = $(team).val();
 	var memberName;
+	var memberPart;
 	var memberID;
 	var dfselect = $("<option selected disabled hidden>선택</option>");
 	$(member).empty();
@@ -73,9 +75,10 @@ function teamMember(team, member){
 	<%
 		for(int j=0; j<memberList.size(); j++){
 			%>if(team1 == '<%=memberList.get(j).getTEAM()%>'){
+				memberPart = '<%=memberList.get(j).getPART()%>';
 				memberName = '<%=memberList.get(j).getNAME()%>';
 				memberID = '<%=memberList.get(j).getID()%>';
-				var option = $("<option value="+memberID+">"+ memberName +"</option>");
+				var option = $("<option value="+memberID+">"+ memberPart +" - "+ memberName +"</option>");
 				$(member).append(option);
 				if($("#PM-team").val() == team1 && ('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>')){
 					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");

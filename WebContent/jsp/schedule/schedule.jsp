@@ -1576,6 +1576,10 @@
 			<li class="nav-item active"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
+					
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
 
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"

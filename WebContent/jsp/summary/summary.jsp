@@ -188,63 +188,76 @@
 		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
 			FH_chassis_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
 			FH_chassis_RPJ += pjList.get(i).getFH_ORDER();
-			FH_chassis_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_chassis_RSALES += pjList.get(i).getFH_SALES();
 			SH_chassis_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
 			SH_chassis_RPJ += pjList.get(i).getSH_ORDER();
-			SH_chassis_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_chassis_RSALES += pjList.get(i).getSH_SALES();
-			
 		} else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
 			FH_body_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
 			FH_body_RPJ += pjList.get(i).getFH_ORDER();
-			FH_body_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_body_RSALES += pjList.get(i).getFH_SALES();
 			SH_body_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
 			SH_body_RPJ += pjList.get(i).getSH_ORDER();
-			SH_body_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_body_RSALES += pjList.get(i).getSH_SALES();
 			
 		} else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
 			FH_control_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
 			FH_control_RPJ += pjList.get(i).getFH_ORDER();
-			FH_control_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_control_RSALES += pjList.get(i).getFH_SALES();
 			SH_control_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
 			SH_control_RPJ += pjList.get(i).getSH_ORDER();
-			SH_control_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_control_RSALES += pjList.get(i).getSH_SALES();
 			
 		} else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
 			FH_safe_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
 			FH_safe_RPJ += pjList.get(i).getFH_ORDER();
-			FH_safe_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_safe_RSALES += pjList.get(i).getFH_SALES();
 			SH_safe_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_safe_RPJ += pjList.get(i).getSH_ORDER();
-			SH_safe_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_safe_RSALES += pjList.get(i).getSH_SALES();		
+			SH_safe_RPJ += pjList.get(i).getSH_ORDER();	
 		} else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
 			FH_auto_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
 			FH_auto_RPJ += pjList.get(i).getFH_ORDER();
-			FH_auto_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_auto_RSALES += pjList.get(i).getFH_SALES();
 			SH_auto_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
 			SH_auto_RPJ += pjList.get(i).getSH_ORDER();
+			
+		} else if(pjList.get(i).getTEAM_SALES().equals("미래차검증전략실")){
+			FH_vt_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
+			FH_vt_RPJ += pjList.get(i).getFH_ORDER();
+			SH_vt_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
+			SH_vt_RPJ += pjList.get(i).getSH_ORDER();
+		}
+	}
+	for(int i=0; i<pjList.size(); i++){
+		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
+			FH_chassis_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_chassis_RSALES += pjList.get(i).getFH_SALES();
+			SH_chassis_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_chassis_RSALES += pjList.get(i).getSH_SALES();
+			
+		} else if(pjList.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
+			FH_body_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_body_RSALES += pjList.get(i).getFH_SALES();
+			SH_body_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_body_RSALES += pjList.get(i).getSH_SALES();
+		} else if(pjList.get(i).getTEAM_SALES().equals("제어로직검증팀")){
+			FH_control_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_control_RSALES += pjList.get(i).getFH_SALES();
+			SH_control_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_control_RSALES += pjList.get(i).getSH_SALES();
+			
+		} else if(pjList.get(i).getTEAM_SALES().equals("기능안전검증팀")){
+			FH_safe_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_safe_RSALES += pjList.get(i).getFH_SALES();
+			SH_safe_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
+			SH_safe_RSALES += pjList.get(i).getSH_SALES();
+		} else if(pjList.get(i).getTEAM_SALES().equals("자율주행검증팀")){
+			FH_auto_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
+			FH_auto_RSALES += pjList.get(i).getFH_SALES();
 			SH_auto_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
 			SH_auto_RSALES += pjList.get(i).getSH_SALES();
 			
-		} else if(pjList.get(i).getTEAM_ORDER().equals("미래차검증전략실")){
-			FH_vt_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_vt_RPJ += pjList.get(i).getFH_ORDER();
+		} else if(pjList.get(i).getTEAM_SALES().equals("미래차검증전략실")){
 			FH_vt_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
 			FH_vt_RSALES += pjList.get(i).getFH_SALES();
-			SH_vt_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_vt_RPJ += pjList.get(i).getSH_ORDER();
 			SH_vt_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
 			SH_vt_RSALES += pjList.get(i).getSH_SALES();
 		}
 	}
+	
+
 	FH_total_ORDER = FH_chassis_ORDER + FH_body_ORDER + FH_control_ORDER + FH_safe_ORDER + FH_auto_ORDER + FH_vt_ORDER;
 	SH_total_ORDER = SH_chassis_ORDER + SH_body_ORDER + SH_control_ORDER + SH_safe_ORDER + SH_auto_ORDER + SH_vt_ORDER;
 	FH_total_RPJ = FH_chassis_RPJ + FH_body_RPJ + FH_control_RPJ + FH_safe_RPJ + FH_auto_RPJ + FH_vt_RPJ;
@@ -446,6 +459,11 @@ ul.tabs li.current{
 	  outline:0;
 	  cursor:pointer;
 	}
+	.tootipTable td {
+		padding: 20px;
+		font-size: 15px;
+		text-align: left;
+	} 
 	
 </style>
 
@@ -465,45 +483,111 @@ ul.tabs li.current{
       google.charts.setOnLoadCallback(y_order);
       google.charts.setOnLoadCallback(y_sales);
       
+    
       function fh_order() {
-		  // 목표수주 총합
-		  var total_PJ = 'total : '+'<%=FH_total_PJ%>'+'\n'+'실 : '+'<%=FH_vt_PJ%>'+'\n'+'샤시힐스 : '+'<%=FH_chassis_PJ%>'+'\n'+'바디힐스 : '+'<%=FH_body_PJ%>'
-		  						+'\n'+'제어로직 : '+'<%=FH_control_PJ%>'+'\n'+'기능안전 : '+'<%=FH_safe_PJ%>'+'\n'+'자율주행 : '+'<%=FH_auto_PJ%>'+'\n';
-		  						
-		  // 예상수주 총합
-		  var total_ORDER = 'total : '+'<%=FH_total_ORDER%>'+'\n'+'실 : '+'<%=FH_vt_ORDER%>'+'\n'+'샤시힐스 : '+'<%=FH_chassis_ORDER%>'+'\n'+'바디힐스 : '+'<%=FH_body_ORDER%>'
-			+'\n'+'제어로직 : '+'<%=FH_control_ORDER%>'+'\n'+'기능안전 : '+'<%=FH_safe_ORDER%>'+'\n'+'자율주행 : '+'<%=FH_auto_ORDER%>'+'\n';
-			
-		  // 수주달성 총합
-		  var total_RPJ = 'total : '+'<%=FH_total_RPJ%>'+'\n'+'실 : '+'<%=FH_vt_RPJ%>'+'\n'+'샤시힐스 : '+'<%=FH_chassis_RPJ%>'+'\n'+'바디힐스 : '+'<%=FH_body_RPJ%>'
-			+'\n'+'제어로직 : '+'<%=FH_control_RPJ%>'+'\n'+'기능안전 : '+'<%=FH_safe_RPJ%>'+'\n'+'자율주행 : '+'<%=FH_auto_RPJ%>'+'\n';
-			
+    	  <%
+	    	  StringBuffer FH_chassis_project_pj = new StringBuffer();
+			  StringBuffer FH_body_project_pj = new StringBuffer();
+			  StringBuffer FH_control_project_pj = new StringBuffer();
+			  StringBuffer FH_safe_project_pj = new StringBuffer();
+			  StringBuffer FH_auto_project_pj = new StringBuffer();
+			  
+			  FH_chassis_project_pj.append("<table class=tootipTable>");
+			  FH_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+			  
+			  FH_body_project_pj.append("<table class=tootipTable>");
+			  FH_body_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+			  
+			  FH_control_project_pj.append("<table class=tootipTable>");
+			  FH_control_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+			  
+			  FH_safe_project_pj.append("<table class=tootipTable>");
+			  FH_safe_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+			  
+			  FH_auto_project_pj.append("<table class=tootipTable>");
+			  FH_auto_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+			  
+			  for(int i=0; i<pjList.size(); i++){
+			  		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
+			  			FH_chassis_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+			  			FH_body_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+			  			FH_control_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+			  			FH_safe_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+			  			FH_auto_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
+			  		}
+			  	}
+			  
+			  FH_chassis_project_pj.append("<tr><td>total</td><td>"+FH_chassis_ORDER+"</td><td>"+FH_chassis_RPJ+"</td></tr>");
+			  FH_chassis_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_chassis_PJ+" (백만)</td></tr>");
+			  FH_chassis_project_pj.append("</table>");
+			  
+			  FH_body_project_pj.append("<tr><td>total</td><td>"+FH_body_ORDER+"</td><td>"+FH_body_RPJ+"</td></tr>");
+			  FH_body_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_body_PJ+" (백만)</td></tr>");
+			  FH_body_project_pj.append("</table>");
+			  
+			  FH_control_project_pj.append("<tr><td>total</td><td>"+FH_control_ORDER+"</td><td>"+FH_control_RPJ+"</td></tr>");
+			  FH_control_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_control_PJ+" (백만)</td></tr>");
+			  FH_control_project_pj.append("</table>");
+			  
+			  FH_safe_project_pj.append("<tr><td>total</td><td>"+FH_safe_ORDER+"</td><td>"+FH_safe_RPJ+"</td></tr>");
+			  FH_safe_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_safe_PJ+" (백만)</td></tr>");
+			  FH_safe_project_pj.append("</table>");
+			  
+			  FH_auto_project_pj.append("<tr><td>total</td><td>"+FH_auto_ORDER+"</td><td>"+FH_auto_RPJ+"</td></tr>");
+			  FH_auto_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_auto_PJ+" (백만)</td></tr>");
+			  FH_auto_project_pj.append("</table>");
+	 	 %>
+  
+		  // 목표
+		  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>';
+		  		total_str += '<tr><td>샤시힐스</td><td>'+<%=FH_chassis_PJ%>+'</td><td>'+<%=FH_chassis_ORDER%>+'</td><td>'+<%=FH_chassis_RPJ%>+'</td></tr>';
+		  		total_str += '<tr><td>바디힐스</td><td>'+<%=FH_body_PJ%>+'</td><td>'+<%=FH_body_ORDER%>+'</td><td>'+<%=FH_body_RPJ%>+'</td></tr>';
+		  		total_str += '<tr><td>제어로직</td><td>'+<%=FH_control_PJ%>+'</td><td>'+<%=FH_control_ORDER%>+'</td><td>'+<%=FH_control_RPJ%>+'</td></tr>';
+		  		total_str += '<tr><td>기능안전</td><td>'+<%=FH_safe_PJ%>+'</td><td>'+<%=FH_safe_ORDER%>+'</td><td>'+<%=FH_safe_RPJ%>+'</td></tr>';
+		  		total_str += '<tr><td>자율주행</td><td>'+<%=FH_auto_PJ%>+'</td><td>'+<%=FH_auto_ORDER%>+'</td><td>'+<%=FH_auto_RPJ%>+'</td></tr>';
+		  		total_str += '<tr><td>total</td><td>'+<%=FH_total_PJ%>+'</td><td>'+<%=FH_total_ORDER%>+'</td><td>'+<%=FH_total_RPJ%>+'</td></tr></table>';
+		  		
           var dataTable = new google.visualization.DataTable();
           dataTable.addColumn('string', 'Team');
           dataTable.addColumn('number', '목표수주');
-          // A column for custom tooltip content
-          dataTable.addColumn({type: 'string', role: 'tooltip'});
+          dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
           dataTable.addColumn('number', '예상수주');
-          // A column for custom tooltip content
-          dataTable.addColumn({type: 'string', role: 'tooltip'});
+          dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
           dataTable.addColumn('number', '수주달성');
-          // A column for custom tooltip content
-          dataTable.addColumn({type: 'string', role: 'tooltip'});
+          dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
           dataTable.addRows([
-        	  ['Total', <%=FH_total_PJ%>, total_PJ, <%=FH_total_ORDER%>, total_ORDER, <%=FH_total_RPJ%>, total_RPJ],
-              ['샤시힐스', <%=FH_chassis_PJ%>, 'aa', <%=FH_chassis_ORDER%>, 'aa', <%=FH_chassis_RPJ%>, 'aa'],
-              ['바디힐스', <%=FH_body_PJ%>, 'aa', <%=FH_body_ORDER%>, 'aa', <%=FH_body_RPJ%>, 'aa'],
-              ['제어로직', <%=FH_control_PJ%>, 'aa', <%=FH_control_ORDER%>, 'aa', <%=FH_control_RPJ%>, 'aa'],
-              ['기능안전', <%=FH_safe_PJ%>, 'aa', <%=FH_safe_ORDER%>, 'aa', <%=FH_safe_RPJ%>, 'aa'],
-              ['자율주행', <%=FH_auto_PJ%>, 'aa', <%=FH_auto_ORDER%>, 'aa', <%=FH_auto_RPJ%>, 'aa'],
-              ['실', <%=FH_vt_PJ%>, 'aa', <%=FH_vt_ORDER%>, 'aa', <%=FH_vt_RPJ%>, 'aa']
+        	  ['Total', <%=FH_total_PJ%>, total_str, <%=FH_total_ORDER%>, total_str, <%=FH_total_RPJ%>, total_str],
+              ['샤시힐스', <%=FH_chassis_PJ%>,'<%=FH_chassis_project_pj%>',<%=FH_chassis_ORDER%>,'<%=FH_chassis_project_pj%>', <%=FH_chassis_RPJ%>, '<%=FH_chassis_project_pj%>'],
+              ['바디힐스', <%=FH_body_PJ%>,'<%=FH_body_project_pj%>',<%=FH_body_ORDER%>,'<%=FH_body_project_pj%>', <%=FH_body_RPJ%>, '<%=FH_body_project_pj%>'],
+              ['제어로직', <%=FH_control_PJ%>,'<%=FH_control_project_pj%>',<%=FH_control_ORDER%>,'<%=FH_control_project_pj%>', <%=FH_control_RPJ%>, '<%=FH_control_project_pj%>'],
+              ['기능안전', <%=FH_safe_PJ%>,'<%=FH_safe_project_pj%>',<%=FH_safe_ORDER%>,'<%=FH_safe_project_pj%>', <%=FH_safe_RPJ%>, '<%=FH_safe_project_pj%>'],
+              ['자율주행', <%=FH_auto_PJ%>,'<%=FH_auto_project_pj%>',<%=FH_auto_ORDER%>,'<%=FH_auto_project_pj%>', <%=FH_auto_RPJ%>, '<%=FH_auto_project_pj%>']
           ]);
-
+          
           var fh_order_option = { 
           		title: '상반기 수주', 
           		width: '100%',
-                'height': 300,
-                'legend': {'position': 'bottom'},
+                height: 500,
+                legend: {
+                	position: 'left',
+                	alignment: 'start' 
+                	},
+                tooltip:{
+                	isHtml: true},
+
                 series: {
                     0: { color: '#d4fc79' },
                     1: { color: '#84fab0' },
@@ -515,47 +599,112 @@ ul.tabs li.current{
 
           fh_order_chart.draw(dataTable, fh_order_option);
       }
-      
+ 	
  function fh_sales() {
-		  // 목표매출 총합
-		  var total_SALES = 'total : '+'<%=FH_total_SALES%>'+'\n'+'실 : '+'<%=FH_vt_SALES%>'+'\n'+'샤시힐스 : '+'<%=FH_chassis_SALES%>'+'\n'+'바디힐스 : '+'<%=FH_body_SALES%>'
-		  						+'\n'+'제어로직 : '+'<%=FH_control_SALES%>'+'\n'+'기능안전 : '+'<%=FH_safe_SALES%>'+'\n'+'자율주행 : '+'<%=FH_auto_SALES%>'+'\n';
-		  						
-		  // 예상매출 총합
-		  var total_PJSALES = 'total : '+'<%=FH_total_PJSALES%>'+'\n'+'실 : '+'<%=FH_vt_PJSALES%>'+'\n'+'샤시힐스 : '+'<%=FH_chassis_PJSALES%>'+'\n'+'바디힐스 : '+'<%=FH_body_PJSALES%>'
-			+'\n'+'제어로직 : '+'<%=FH_control_PJSALES%>'+'\n'+'기능안전 : '+'<%=FH_safe_PJSALES%>'+'\n'+'자율주행 : '+'<%=FH_auto_PJSALES%>'+'\n';
-			
-		  // 매출달성 총합
-		  var total_RSALES = 'total : '+'<%=FH_total_RSALES%>'+'\n'+'실 : '+'<%=FH_vt_RSALES%>'+'\n'+'샤시힐스 : '+'<%=FH_chassis_RSALES%>'+'\n'+'바디힐스 : '+'<%=FH_body_RSALES%>'
-			+'\n'+'제어로직 : '+'<%=FH_control_RSALES%>'+'\n'+'기능안전 : '+'<%=FH_safe_RSALES%>'+'\n'+'자율주행 : '+'<%=FH_auto_RSALES%>'+'\n';
-		
+
+	      <%
+		  	StringBuffer FH_chassis_project_Sales = new StringBuffer();
+		  	StringBuffer FH_body_project_Sales = new StringBuffer();
+		  	StringBuffer FH_control_project_Sales = new StringBuffer();
+		  	StringBuffer FH_safe_project_Sales = new StringBuffer();
+		  	StringBuffer FH_auto_project_Sales = new StringBuffer();
+		  	
+		  	FH_chassis_project_Sales.append("<table class=tootipTable>");
+		  	FH_chassis_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+			  
+		  	FH_body_project_Sales.append("<table class=tootipTable>");
+		  	FH_body_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+			  
+		  	FH_control_project_Sales.append("<table class=tootipTable>");
+		  	FH_control_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+			  
+		  	FH_safe_project_Sales.append("<table class=tootipTable>");
+		  	FH_safe_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+			  
+		  	FH_auto_project_Sales.append("<table class=tootipTable>");
+		  	FH_auto_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+			  
+			  	
+			  	for(int i=0; i<pjList.size(); i++){
+			  		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
+			  			FH_chassis_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+			  			FH_body_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+			  			FH_control_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+			  			FH_safe_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
+			  		}
+			  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+			  			FH_auto_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+				  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
+			  		}
+			  	}
+			  	
+			  	FH_chassis_project_Sales.append("<tr><td>total</td><td>"+FH_chassis_PJSALES+"</td><td>"+FH_chassis_RSALES+"</td></tr>");
+			  	FH_chassis_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_chassis_SALES+" (백만)</td></tr>");
+			  	FH_chassis_project_Sales.append("</table>");
+				  
+			  	FH_body_project_Sales.append("<tr><td>total</td><td>"+FH_body_PJSALES+"</td><td>"+FH_body_RSALES+"</td></tr>");
+			  	FH_body_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_body_SALES+" (백만)</td></tr>");
+			  	FH_body_project_Sales.append("</table>");
+				  
+			  	FH_control_project_Sales.append("<tr><td>total</td><td>"+FH_control_PJSALES+"</td><td>"+FH_control_RSALES+"</td></tr>");
+			  	FH_control_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_control_SALES+" (백만)</td></tr>");
+			  	FH_control_project_Sales.append("</table>");
+				  
+			  	FH_safe_project_Sales.append("<tr><td>total</td><td>"+FH_safe_PJSALES+"</td><td>"+FH_safe_RSALES+"</td></tr>");
+			  	FH_safe_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_safe_SALES+" (백만)</td></tr>");
+			  	FH_safe_project_Sales.append("</table>");
+				  
+			  	FH_auto_project_Sales.append("<tr><td>total</td><td>"+FH_auto_PJSALES+"</td><td>"+FH_auto_RSALES+"</td></tr>");
+			  	FH_auto_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_auto_SALES+" (백만)</td></tr>");
+			  	FH_auto_project_Sales.append("</table>");
+		  %>
+		  
+		  // 목표
+		  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>';
+	  		total_str += '<tr><td>샤시힐스</td><td>'+<%=FH_chassis_SALES%>+'</td><td>'+<%=FH_chassis_PJSALES%>+'</td><td>'+<%=FH_chassis_RSALES%>+'</td></tr>';
+	  		total_str += '<tr><td>바디힐스</td><td>'+<%=FH_body_SALES%>+'</td><td>'+<%=FH_body_PJSALES%>+'</td><td>'+<%=FH_body_RSALES%>+'</td></tr>';
+	  		total_str += '<tr><td>제어로직</td><td>'+<%=FH_control_SALES%>+'</td><td>'+<%=FH_control_PJSALES%>+'</td><td>'+<%=FH_control_RSALES%>+'</td></tr>';
+	  		total_str += '<tr><td>기능안전</td><td>'+<%=FH_safe_SALES%>+'</td><td>'+<%=FH_safe_PJSALES%>+'</td><td>'+<%=FH_safe_RSALES%>+'</td></tr>';
+	  		total_str += '<tr><td>자율주행</td><td>'+<%=FH_auto_SALES%>+'</td><td>'+<%=FH_auto_PJSALES%>+'</td><td>'+<%=FH_auto_RSALES%>+'</td></tr>';
+	  		total_str += '<tr><td>total</td><td>'+<%=FH_total_SALES%>+'</td><td>'+<%=FH_total_PJSALES%>+'</td><td>'+<%=FH_total_RSALES%>+'</td></tr></table>';
+    
           var dataTable = new google.visualization.DataTable();
           dataTable.addColumn('string', 'Team');
           dataTable.addColumn('number', '목표매출');
           // A column for custom tooltip content
-          dataTable.addColumn({type: 'string', role: 'tooltip'});
+          dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
           dataTable.addColumn('number', '예상매출');
           // A column for custom tooltip content
-          dataTable.addColumn({type: 'string', role: 'tooltip'});
+          dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
           dataTable.addColumn('number', '매출달성');
           // A column for custom tooltip content
-          dataTable.addColumn({type: 'string', role: 'tooltip'});
+          dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
           dataTable.addRows([
-        	  ['Total', <%=FH_total_SALES%>, total_SALES, <%=FH_total_PJSALES%>, total_PJSALES, <%=FH_total_RSALES%>, total_RSALES],
-              ['샤시힐스', <%=FH_chassis_SALES%>, 'AA', <%=FH_chassis_PJSALES%>, 'AA', <%=FH_chassis_RSALES%>, 'AA'],
-              ['바디힐스', <%=FH_body_SALES%>, 'AA', <%=FH_body_PJSALES%>, 'AA', <%=FH_body_RSALES%>, 'AA'],
-              ['제어로직', <%=FH_control_SALES%>, 'AA', <%=FH_control_PJSALES%>, 'AA', <%=FH_control_RSALES%>, 'AA'],
-              ['기능안전', <%=FH_safe_SALES%>, 'AA', <%=FH_safe_PJSALES%>, 'AA', <%=FH_safe_RSALES%>, 'AA'],
-              ['자율주행', <%=FH_auto_SALES%>, 'AA', <%=FH_auto_PJSALES%>, 'AA', <%=FH_auto_RSALES%>, 'AA'],
-              ['실', <%=FH_vt_SALES%>, 'AA', <%=FH_vt_PJSALES%>, 'AA', <%=FH_vt_RSALES%>, 'AA']
+        	  ['Total', <%=FH_total_SALES%>, total_str, <%=FH_total_PJSALES%>, total_str, <%=FH_total_RSALES%>, total_str],
+              ['샤시힐스', <%=FH_chassis_SALES%>, '<%=FH_chassis_project_Sales%>', <%=FH_chassis_PJSALES%>, '<%=FH_chassis_project_Sales%>', <%=FH_chassis_RSALES%>, '<%=FH_chassis_project_Sales%>'],
+              ['바디힐스', <%=FH_body_SALES%>, '<%=FH_body_project_Sales%>', <%=FH_body_PJSALES%>, '<%=FH_body_project_Sales%>', <%=FH_body_RSALES%>, '<%=FH_body_project_Sales%>'],
+              ['제어로직', <%=FH_control_SALES%>, '<%=FH_control_project_Sales%>', <%=FH_control_PJSALES%>, '<%=FH_control_project_Sales%>', <%=FH_control_RSALES%>, '<%=FH_control_project_Sales%>'],
+              ['기능안전', <%=FH_safe_SALES%>, '<%=FH_safe_project_Sales%>', <%=FH_safe_PJSALES%>, '<%=FH_safe_project_Sales%>', <%=FH_safe_RSALES%>, '<%=FH_safe_project_Sales%>'],
+              ['자율주행', <%=FH_auto_SALES%>, '<%=FH_auto_project_Sales%>', <%=FH_auto_PJSALES%>, '<%=FH_auto_project_Sales%>', <%=FH_auto_RSALES%>, '<%=FH_auto_project_Sales%>']
           ]);
 
           var fh_sales_option = {
            
               title: '상반기 매출',
               width: '100%',
-              'height': 300,
+              'height': 500,
               'legend': {'position': 'bottom'},
+              tooltip:{isHtml: true},
               series: {
                   0: { color: '#ffd1ff' },
                   1: { color: '#fbc2eb' },
@@ -568,45 +717,110 @@ ul.tabs li.current{
           fh_sales_chart.draw(dataTable, fh_sales_option);
         }
  
- function sh_order() {
-	  // 목표수주 총합
-	  var total_PJ = 'total : '+'<%=SH_total_PJ%>'+'\n'+'실 : '+'<%=SH_vt_PJ%>'+'\n'+'샤시힐스 : '+'<%=SH_chassis_PJ%>'+'\n'+'바디힐스 : '+'<%=SH_body_PJ%>'
-	  						+'\n'+'제어로직 : '+'<%=SH_control_PJ%>'+'\n'+'기능안전 : '+'<%=SH_safe_PJ%>'+'\n'+'자율주행 : '+'<%=SH_auto_PJ%>'+'\n';
-	  						
-	  // 예상수주 총합
-	  var total_ORDER = 'total : '+'<%=SH_total_ORDER%>'+'\n'+'실 : '+'<%=SH_vt_ORDER%>'+'\n'+'샤시힐스 : '+'<%=SH_chassis_ORDER%>'+'\n'+'바디힐스 : '+'<%=SH_body_ORDER%>'
-		+'\n'+'제어로직 : '+'<%=SH_control_ORDER%>'+'\n'+'기능안전 : '+'<%=SH_safe_ORDER%>'+'\n'+'자율주행 : '+'<%=SH_auto_ORDER%>'+'\n';
-		
-	  // 수주달성 총합
-	  var total_RPJ = 'total : '+'<%=SH_total_RPJ%>'+'\n'+'실 : '+'<%=SH_vt_RPJ%>'+'\n'+'샤시힐스 : '+'<%=SH_chassis_RPJ%>'+'\n'+'바디힐스 : '+'<%=SH_body_RPJ%>'
-		+'\n'+'제어로직 : '+'<%=SH_control_RPJ%>'+'\n'+'기능안전 : '+'<%=SH_safe_RPJ%>'+'\n'+'자율주행 : '+'<%=SH_auto_RPJ%>'+'\n';
-		
+ function sh_order() {	
+	  // 목표
+	  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>';
+	  		total_str += '<tr><td>샤시힐스</td><td>'+<%=SH_chassis_PJ%>+'</td><td>'+<%=SH_chassis_ORDER%>+'</td><td>'+<%=SH_chassis_RPJ%>+'</td></tr>';
+	  		total_str += '<tr><td>바디힐스</td><td>'+<%=SH_body_PJ%>+'</td><td>'+<%=SH_body_ORDER%>+'</td><td>'+<%=SH_body_RPJ%>+'</td></tr>';
+	  		total_str += '<tr><td>제어로직</td><td>'+<%=SH_control_PJ%>+'</td><td>'+<%=SH_control_ORDER%>+'</td><td>'+<%=SH_control_RPJ%>+'</td></tr>';
+	  		total_str += '<tr><td>기능안전</td><td>'+<%=SH_safe_PJ%>+'</td><td>'+<%=SH_safe_ORDER%>+'</td><td>'+<%=SH_safe_RPJ%>+'</td></tr>';
+	  		total_str += '<tr><td>자율주행</td><td>'+<%=SH_auto_PJ%>+'</td><td>'+<%=SH_auto_ORDER%>+'</td><td>'+<%=SH_auto_RPJ%>+'</td></tr>';
+	  		total_str += '<tr><td>total</td><td>'+<%=SH_total_PJ%>+'</td><td>'+<%=SH_total_ORDER%>+'</td><td>'+<%=SH_total_RPJ%>+'</td></tr></table>';
+	  		
+
+	<%
+	  StringBuffer SH_chassis_project_pj = new StringBuffer();
+	  StringBuffer SH_body_project_pj = new StringBuffer();
+	  StringBuffer SH_control_project_pj = new StringBuffer();
+	  StringBuffer SH_safe_project_pj = new StringBuffer();
+	  StringBuffer SH_auto_project_pj = new StringBuffer();
+	  
+	  SH_chassis_project_pj.append("<table class=tootipTable>");
+	  SH_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+	  
+	  SH_body_project_pj.append("<table class=tootipTable>");
+	  SH_body_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+	  
+	  SH_control_project_pj.append("<table class=tootipTable>");
+	  SH_control_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+	  
+	  SH_safe_project_pj.append("<table class=tootipTable>");
+	  SH_safe_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+	  
+	  SH_auto_project_pj.append("<table class=tootipTable>");
+	  SH_auto_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+	  
+	  for(int i=0; i<pjList.size(); i++){
+	  		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
+	  			SH_chassis_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+	  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+	  		}
+	  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+	  			SH_body_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+		  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+	  		}
+	  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+	  			SH_control_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+		  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+	  		}
+	  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+	  			SH_safe_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+		  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+	  		}
+	  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+	  			SH_auto_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+		  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+	  		}
+	  	}
+	  
+	  SH_chassis_project_pj.append("<tr><td>total</td><td>"+SH_chassis_ORDER+"</td><td>"+SH_chassis_RPJ+"</td></tr>");
+	  SH_chassis_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_chassis_PJ+" (백만)</td></tr>");
+	  SH_chassis_project_pj.append("</table>");
+	  
+	  SH_body_project_pj.append("<tr><td>total</td><td>"+SH_body_ORDER+"</td><td>"+SH_body_RPJ+"</td></tr>");
+	  SH_body_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_body_PJ+" (백만)</td></tr>");
+	  SH_body_project_pj.append("</table>");
+	  
+	  SH_control_project_pj.append("<tr><td>total</td><td>"+SH_control_ORDER+"</td><td>"+SH_control_RPJ+"</td></tr>");
+	  SH_control_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_control_PJ+" (백만)</td></tr>");
+	  SH_control_project_pj.append("</table>");
+	  
+	  SH_safe_project_pj.append("<tr><td>total</td><td>"+SH_safe_ORDER+"</td><td>"+SH_safe_RPJ+"</td></tr>");
+	  SH_safe_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_safe_PJ+" (백만)</td></tr>");
+	  SH_safe_project_pj.append("</table>");
+	  
+	  SH_auto_project_pj.append("<tr><td>total</td><td>"+SH_auto_ORDER+"</td><td>"+SH_auto_RPJ+"</td></tr>");
+	  SH_auto_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_auto_PJ+" (백만)</td></tr>");
+	  SH_auto_project_pj.append("</table>");
+	  
+	%>
+	    
      var dataTable = new google.visualization.DataTable();
      dataTable.addColumn('string', 'Team');
      dataTable.addColumn('number', '목표수주');
      // A column for custom tooltip content
-     dataTable.addColumn({type: 'string', role: 'tooltip'});
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
      dataTable.addColumn('number', '예상수주');
      // A column for custom tooltip content
-     dataTable.addColumn({type: 'string', role: 'tooltip'});
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
      dataTable.addColumn('number', '수주달성');
      // A column for custom tooltip content
-     dataTable.addColumn({type: 'string', role: 'tooltip'});
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});	
      dataTable.addRows([
-    	 ['Total', <%=SH_total_PJ%>, total_PJ, <%=SH_total_ORDER%>, total_ORDER, <%=SH_total_RPJ%>, total_RPJ],
-         ['샤시힐스', <%=SH_chassis_PJ%>, 'aa', <%=SH_chassis_ORDER%>, 'aa', <%=SH_chassis_RPJ%>, 'aa'],
-         ['바디힐스', <%=SH_body_PJ%>, 'aa', <%=SH_body_ORDER%>, 'aa', <%=SH_body_RPJ%>, 'aa'],
-         ['제어로직', <%=SH_control_PJ%>, 'aa', <%=SH_control_ORDER%>, 'aa', <%=SH_control_RPJ%>, 'aa'],
-         ['기능안전', <%=SH_safe_PJ%>, 'aa', <%=SH_safe_ORDER%>, 'aa', <%=SH_safe_RPJ%>, 'aa'],
-         ['자율주행', <%=SH_auto_PJ%>, 'aa', <%=SH_auto_ORDER%>, 'aa', <%=SH_auto_RPJ%>, 'aa'],
-         ['실', <%=SH_vt_PJ%>, 'aa', <%=SH_vt_ORDER%>, 'aa', <%=SH_vt_RPJ%>, 'aa']
+    	 ['Total', <%=SH_total_PJ%>, total_str, <%=SH_total_ORDER%>, total_str, <%=SH_total_RPJ%>, total_str],
+         ['샤시힐스', <%=SH_chassis_PJ%>,'<%=SH_chassis_project_pj%>',<%=SH_chassis_ORDER%>,'<%=SH_chassis_project_pj%>', <%=SH_chassis_RPJ%>, '<%=SH_chassis_project_pj%>'],
+         ['바디힐스', <%=SH_body_PJ%>,'<%=SH_body_project_pj%>',<%=SH_body_ORDER%>,'<%=SH_body_project_pj%>', <%=SH_body_RPJ%>, '<%=SH_body_project_pj%>'],
+         ['제어로직', <%=SH_control_PJ%>,'<%=SH_control_project_pj%>',<%=SH_control_ORDER%>,'<%=SH_control_project_pj%>', <%=SH_control_RPJ%>, '<%=SH_control_project_pj%>'],
+         ['기능안전', <%=SH_safe_PJ%>,'<%=SH_safe_project_pj%>',<%=SH_safe_ORDER%>,'<%=SH_safe_project_pj%>', <%=SH_safe_RPJ%>, '<%=SH_safe_project_pj%>'],
+         ['자율주행', <%=SH_auto_PJ%>,'<%=SH_auto_project_pj%>',<%=SH_auto_ORDER%>,'<%=SH_auto_project_pj%>', <%=SH_auto_RPJ%>, '<%=SH_auto_project_pj%>']
      ]);
 
      var sh_order_option = { 
      		title: '하반기 수주',
      		width: '100%',
-            'height': 300,
+            'height': 500,
             'legend': {'position': 'bottom'},
+            tooltip:{isHtml: true},
             series: {
             	 0: { color: '#d4fc79' },
                  1: { color: '#84fab0' },
@@ -620,45 +834,111 @@ ul.tabs li.current{
    }
    
 function sh_sales() {
-	  // 목표매출 총합
-	  var total_SALES = 'total : '+'<%=SH_total_SALES%>'+'\n'+'실 : '+'<%=SH_vt_SALES%>'+'\n'+'샤시힐스 : '+'<%=SH_chassis_SALES%>'+'\n'+'바디힐스 : '+'<%=SH_body_SALES%>'
-	  						+'\n'+'제어로직 : '+'<%=SH_control_SALES%>'+'\n'+'기능안전 : '+'<%=SH_safe_SALES%>'+'\n'+'자율주행 : '+'<%=SH_auto_SALES%>'+'\n';
-	  						
-	  // 예상매출 총합
-	  var total_PJSALES = 'total : '+'<%=SH_total_PJSALES%>'+'\n'+'실 : '+'<%=SH_vt_PJSALES%>'+'\n'+'샤시힐스 : '+'<%=SH_chassis_PJSALES%>'+'\n'+'바디힐스 : '+'<%=SH_body_PJSALES%>'
-		+'\n'+'제어로직 : '+'<%=SH_control_PJSALES%>'+'\n'+'기능안전 : '+'<%=SH_safe_PJSALES%>'+'\n'+'자율주행 : '+'<%=SH_auto_PJSALES%>'+'\n';
-		
-	  // 매출달성 총합
-	  var total_RSALES = 'total : '+'<%=SH_total_RSALES%>'+'\n'+'실 : '+'<%=SH_vt_RSALES%>'+'\n'+'샤시힐스 : '+'<%=SH_chassis_RSALES%>'+'\n'+'바디힐스 : '+'<%=SH_body_RSALES%>'
-		+'\n'+'제어로직 : '+'<%=SH_control_RSALES%>'+'\n'+'기능안전 : '+'<%=SH_safe_RSALES%>'+'\n'+'자율주행 : '+'<%=SH_auto_RSALES%>'+'\n';
-		
+
+      <%
+	  	StringBuffer SH_chassis_project_Sales = new StringBuffer();
+	  	StringBuffer SH_body_project_Sales = new StringBuffer();
+	  	StringBuffer SH_control_project_Sales = new StringBuffer();
+	  	StringBuffer SH_safe_project_Sales = new StringBuffer();
+	  	StringBuffer SH_auto_project_Sales = new StringBuffer();
+	  	
+	  	SH_chassis_project_Sales.append("<table class=tootipTable>");
+	  	SH_chassis_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	SH_body_project_Sales.append("<table class=tootipTable>");
+	  	SH_body_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	SH_control_project_Sales.append("<table class=tootipTable>");
+	  	SH_control_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	SH_safe_project_Sales.append("<table class=tootipTable>");
+	  	SH_safe_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	SH_auto_project_Sales.append("<table class=tootipTable>");
+	  	SH_auto_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+		  	
+		  	for(int i=0; i<pjList.size(); i++){
+		  		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
+		  			SH_chassis_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+		  			SH_body_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+		  			SH_control_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+		  			SH_safe_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+		  			SH_auto_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  	}
+		  	
+		  	SH_chassis_project_Sales.append("<tr><td>total</td><td>"+SH_chassis_PJSALES+"</td><td>"+SH_chassis_RSALES+"</td></tr>");
+		  	SH_chassis_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_chassis_SALES+" (백만)</td></tr>");
+		  	SH_chassis_project_Sales.append("</table>");
+			  
+		  	SH_body_project_Sales.append("<tr><td>total</td><td>"+SH_body_PJSALES+"</td><td>"+SH_body_RSALES+"</td></tr>");
+		  	SH_body_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_body_SALES+" (백만)</td></tr>");
+		  	SH_body_project_Sales.append("</table>");
+			  
+		  	SH_control_project_Sales.append("<tr><td>total</td><td>"+SH_control_PJSALES+"</td><td>"+SH_control_RSALES+"</td></tr>");
+		  	SH_control_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_control_SALES+" (백만)</td></tr>");
+		  	SH_control_project_Sales.append("</table>");
+			  
+		  	SH_safe_project_Sales.append("<tr><td>total</td><td>"+SH_safe_PJSALES+"</td><td>"+SH_safe_RSALES+"</td></tr>");
+		  	SH_safe_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_safe_SALES+" (백만)</td></tr>");
+		  	SH_safe_project_Sales.append("</table>");
+			  
+		  	SH_auto_project_Sales.append("<tr><td>total</td><td>"+SH_auto_PJSALES+"</td><td>"+SH_auto_RSALES+"</td></tr>");
+		  	SH_auto_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_auto_SALES+" (백만)</td></tr>");
+		  	SH_auto_project_Sales.append("</table>");
+
+	  %>
+	  // 목표
+	  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>';
+  		total_str += '<tr><td>샤시힐스</td><td>'+<%=SH_chassis_SALES%>+'</td><td>'+<%=SH_chassis_PJSALES%>+'</td><td>'+<%=SH_chassis_RSALES%>+'</td></tr>';
+  		total_str += '<tr><td>바디힐스</td><td>'+<%=SH_body_SALES%>+'</td><td>'+<%=SH_body_PJSALES%>+'</td><td>'+<%=SH_body_RSALES%>+'</td></tr>';
+  		total_str += '<tr><td>제어로직</td><td>'+<%=SH_control_SALES%>+'</td><td>'+<%=SH_control_PJSALES%>+'</td><td>'+<%=SH_control_RSALES%>+'</td></tr>';
+  		total_str += '<tr><td>기능안전</td><td>'+<%=SH_safe_SALES%>+'</td><td>'+<%=SH_safe_PJSALES%>+'</td><td>'+<%=SH_safe_RSALES%>+'</td></tr>';
+  		total_str += '<tr><td>자율주행</td><td>'+<%=SH_auto_SALES%>+'</td><td>'+<%=SH_auto_PJSALES%>+'</td><td>'+<%=SH_auto_RSALES%>+'</td></tr>';
+  		total_str += '<tr><td>total</td><td>'+<%=SH_total_SALES%>+'</td><td>'+<%=SH_total_PJSALES%>+'</td><td>'+<%=SH_total_RSALES%>+'</td></tr></table>';
+
+  
        var dataTable = new google.visualization.DataTable();
        dataTable.addColumn('string', 'Team');
        dataTable.addColumn('number', '목표매출');
        // A column for custom tooltip content
-       dataTable.addColumn({type: 'string', role: 'tooltip'});
+		dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
        dataTable.addColumn('number', '예상매출');
        // A column for custom tooltip content
-       dataTable.addColumn({type: 'string', role: 'tooltip'});
+		dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
        dataTable.addColumn('number', '매출달성');
        // A column for custom tooltip content
-       dataTable.addColumn({type: 'string', role: 'tooltip'});
+		dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
        dataTable.addRows([
-     	   ['Total', <%=SH_total_SALES%>, total_SALES, <%=SH_total_PJSALES%>, total_PJSALES, <%=SH_total_RSALES%>, total_RSALES],
-           ['샤시힐스', <%=SH_chassis_SALES%>, 'aa', <%=SH_chassis_PJSALES%>, 'aa', <%=SH_chassis_RSALES%>, 'aa'],
-           ['바디힐스', <%=SH_body_SALES%>, 'aa', <%=SH_body_PJSALES%>, 'aa', <%=SH_body_RSALES%>, 'aa'],
-           ['제어로직', <%=SH_control_SALES%>, 'aa', <%=SH_control_PJSALES%>, 'aa', <%=SH_control_RSALES%>, 'aa'],
-           ['기능안전', <%=SH_safe_SALES%>, 'aa', <%=SH_safe_PJSALES%>, 'aa', <%=SH_safe_RSALES%>, 'aa'],
-           ['자율주행', <%=SH_auto_SALES%>, 'aa', <%=SH_auto_PJSALES%>, 'aa', <%=SH_auto_RSALES%>, 'aa'],
-           ['실', <%=SH_vt_SALES%>, 'aa', <%=SH_vt_PJSALES%>, 'aa', <%=SH_vt_RSALES%>, 'aa']
+     	  ['Total', <%=SH_total_SALES%>, total_str, <%=SH_total_PJSALES%>, total_str, <%=SH_total_RSALES%>, total_str],
+          ['샤시힐스', <%=SH_chassis_SALES%>, '<%=SH_chassis_project_Sales%>', <%=SH_chassis_PJSALES%>, '<%=SH_chassis_project_Sales%>', <%=SH_chassis_RSALES%>, '<%=SH_chassis_project_Sales%>'],
+          ['바디힐스', <%=SH_body_SALES%>, '<%=SH_body_project_Sales%>', <%=SH_body_PJSALES%>, '<%=SH_body_project_Sales%>', <%=SH_body_RSALES%>, '<%=SH_body_project_Sales%>'],
+          ['제어로직', <%=SH_control_SALES%>, '<%=SH_control_project_Sales%>', <%=SH_control_PJSALES%>, '<%=SH_control_project_Sales%>', <%=SH_control_RSALES%>, '<%=SH_control_project_Sales%>'],
+          ['기능안전', <%=SH_safe_SALES%>, '<%=SH_safe_project_Sales%>', <%=SH_safe_PJSALES%>, '<%=SH_safe_project_Sales%>', <%=SH_safe_RSALES%>, '<%=SH_safe_project_Sales%>'],
+          ['자율주행', <%=SH_auto_SALES%>, '<%=SH_auto_project_Sales%>', <%=SH_auto_PJSALES%>, '<%=SH_auto_project_Sales%>', <%=SH_auto_RSALES%>, '<%=SH_auto_project_Sales%>']
        ]);
 
        var sh_sales_option = {
       
            title: '하반기 매출',
            width: '100%',
-           'height': 300,
+           'height': 500,
            'legend': {'position': 'bottom'},
+           tooltip:{isHtml: true},
            series: {
                0: { color: '#ffd1ff' },
                1: { color: '#fbc2eb' },
@@ -673,45 +953,110 @@ function sh_sales() {
      }
      
 function y_order() {
-	  // 목표수주 총합
-	  var total_PJ = 'total : '+'<%=Y_total_pj%>'+'\n'+'실 : '+'<%=Y_vt_PJ%>'+'\n'+'샤시힐스 : '+'<%=Y_chassis_PJ%>'+'\n'+'바디힐스 : '+'<%=Y_body_PJ%>'
-	  						+'\n'+'제어로직 : '+'<%=Y_control_PJ%>'+'\n'+'기능안전 : '+'<%=Y_safe_PJ%>'+'\n'+'자율주행 : '+'<%=Y_auto_PJ%>'+'\n';
-	  						
-	  // 예상수주 총합
-	  var total_ORDER = 'total : '+'<%=Y_total_ORDER%>'+'\n'+'실 : '+'<%=Y_vt_ORDER%>'+'\n'+'샤시힐스 : '+'<%=Y_chassis_ORDER%>'+'\n'+'바디힐스 : '+'<%=Y_body_ORDER%>'
-		+'\n'+'제어로직 : '+'<%=Y_control_ORDER%>'+'\n'+'기능안전 : '+'<%=Y_safe_ORDER%>'+'\n'+'자율주행 : '+'<%=Y_auto_ORDER%>'+'\n';
-		
-	  // 수주달성 총합
-	  var total_RPJ = 'total : '+'<%=Y_total_RPJ%>'+'\n'+'실 : '+'<%=Y_vt_RPJ%>'+'\n'+'샤시힐스 : '+'<%=Y_chassis_RPJ%>'+'\n'+'바디힐스 : '+'<%=Y_body_RPJ%>'
-		+'\n'+'제어로직 : '+'<%=Y_control_RPJ%>'+'\n'+'기능안전 : '+'<%=Y_safe_RPJ%>'+'\n'+'자율주행 : '+'<%=Y_auto_RPJ%>'+'\n';
-		
+
+	 <%
+	  	StringBuffer Y_chassis_project_pj = new StringBuffer();
+	  	StringBuffer Y_body_project_pj = new StringBuffer();
+	  	StringBuffer Y_control_project_pj = new StringBuffer();
+	  	StringBuffer Y_safe_project_pj = new StringBuffer();
+	  	StringBuffer Y_auto_project_pj = new StringBuffer();
+	  	
+	  	Y_chassis_project_pj.append("<table class=tootipTable>");
+	  	Y_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_body_project_pj.append("<table class=tootipTable>");
+	  	Y_body_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_control_project_pj.append("<table class=tootipTable>");
+	  	Y_control_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_safe_project_pj.append("<table class=tootipTable>");
+	  	Y_safe_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_auto_project_pj.append("<table class=tootipTable>");
+	  	Y_auto_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+		  	
+		  	for(int i=0; i<pjList.size(); i++){
+		  		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
+		  			Y_chassis_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+		  			Y_body_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+		  			Y_control_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+		  			Y_safe_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+		  			Y_auto_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER()+"</td></tr>");
+		  		}
+		  	}
+		  	
+		  	Y_chassis_project_pj.append("<tr><td>total</td><td>"+Y_chassis_ORDER+"</td><td>"+Y_chassis_RPJ+"</td></tr>");
+		  	Y_chassis_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_chassis_ORDER+" (백만)</td></tr>");
+		  	Y_chassis_project_pj.append("</table>");
+			  
+		  	Y_body_project_pj.append("<tr><td>total</td><td>"+Y_body_ORDER+"</td><td>"+Y_body_RPJ+"</td></tr>");
+		  	Y_body_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_body_ORDER+" (백만)</td></tr>");
+		  	Y_body_project_pj.append("</table>");
+			  
+		  	Y_control_project_pj.append("<tr><td>total</td><td>"+Y_control_ORDER+"</td><td>"+Y_control_RPJ+"</td></tr>");
+		  	Y_control_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_control_ORDER+" (백만)</td></tr>");
+		  	Y_control_project_pj.append("</table>");
+			  
+		  	Y_safe_project_pj.append("<tr><td>total</td><td>"+Y_safe_ORDER+"</td><td>"+Y_safe_RPJ+"</td></tr>");
+		  	Y_safe_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_safe_ORDER+" (백만)</td></tr>");
+		  	Y_safe_project_pj.append("</table>");
+			  
+		  	Y_auto_project_pj.append("<tr><td>total</td><td>"+Y_auto_ORDER+"</td><td>"+Y_auto_RPJ+"</td></tr>");
+		  	Y_auto_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_auto_ORDER+" (백만)</td></tr>");
+		  	Y_auto_project_pj.append("</table>");
+	%>
+	
+	  // 목표
+	  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>';
+		total_str += '<tr><td>샤시힐스</td><td>'+<%=Y_chassis_PJ%>+'</td><td>'+<%=Y_chassis_ORDER%>+'</td><td>'+<%=Y_chassis_RPJ%>+'</td></tr>';
+		total_str += '<tr><td>바디힐스</td><td>'+<%=Y_body_PJ%>+'</td><td>'+<%=Y_body_ORDER%>+'</td><td>'+<%=Y_body_RPJ%>+'</td></tr>';
+		total_str += '<tr><td>제어로직</td><td>'+<%=Y_control_PJ%>+'</td><td>'+<%=Y_control_ORDER%>+'</td><td>'+<%=Y_control_RPJ%>+'</td></tr>';
+		total_str += '<tr><td>기능안전</td><td>'+<%=Y_safe_PJ%>+'</td><td>'+<%=Y_safe_ORDER%>+'</td><td>'+<%=Y_safe_RPJ%>+'</td></tr>';
+		total_str += '<tr><td>자율주행</td><td>'+<%=Y_auto_PJ%>+'</td><td>'+<%=Y_auto_ORDER%>+'</td><td>'+<%=Y_auto_RPJ%>+'</td></tr>';
+		total_str += '<tr><td>total</td><td>'+<%=Y_total_pj%>+'</td><td>'+<%=Y_total_ORDER%>+'</td><td>'+<%=Y_total_RPJ%>+'</td></tr></table>';
+
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn('string', 'Team');
     dataTable.addColumn('number', '목표수주');
     // A column for custom tooltip content
-    dataTable.addColumn({type: 'string', role: 'tooltip'});
+    dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addColumn('number', '예상수주');
     // A column for custom tooltip content
-    dataTable.addColumn({type: 'string', role: 'tooltip'});
+    dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addColumn('number', '수주달성');
     // A column for custom tooltip content
-    dataTable.addColumn({type: 'string', role: 'tooltip'});
+    dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addRows([
-   		['Total', <%=Y_total_pj%>, total_PJ, <%=Y_total_ORDER%>, total_ORDER, <%=Y_total_RPJ%>, total_RPJ],
-        ['샤시힐스', <%=Y_chassis_PJ%>, 'aa', <%=Y_chassis_ORDER%>, 'aa', <%=Y_chassis_RPJ%>, 'aa'],
-        ['바디힐스', <%=Y_body_PJ%>, 'aa', <%=Y_body_ORDER%>, 'aa', <%=Y_body_RPJ%>, 'aa'],
-        ['제어로직', <%=Y_control_PJ%>, 'aa', <%=Y_control_ORDER%>, 'aa', <%=Y_control_RPJ%>, 'aa'],
-        ['기능안전', <%=Y_safe_PJ%>, 'aa', <%=Y_safe_ORDER%>, 'aa', <%=Y_safe_RPJ%>, 'aa'],
-        ['자율주행', <%=Y_auto_PJ%>, 'aa', <%=Y_auto_ORDER%>, 'aa', <%=Y_auto_RPJ%>, 'aa'],
-        ['실', <%=Y_vt_PJ%>, 'aa', <%=Y_vt_ORDER%>, 'aa', <%=Y_vt_RPJ%>, 'aa']
+    	['Total', <%=Y_total_pj%>, total_str, <%=Y_total_ORDER%>, total_str, <%=Y_total_RPJ%>, total_str],
+        ['샤시힐스', <%=Y_chassis_PJ%>, '<%=Y_chassis_project_pj%>', <%=Y_chassis_ORDER%>, '<%=Y_chassis_project_pj%>', <%=Y_chassis_RPJ%>, '<%=Y_chassis_project_pj%>'],
+        ['바디힐스', <%=Y_body_PJ%>, '<%=Y_body_project_pj%>', <%=Y_body_ORDER%>, '<%=Y_body_project_pj%>', <%=Y_body_RPJ%>, '<%=Y_body_project_pj%>'],
+        ['제어로직', <%=Y_control_PJ%>, '<%=Y_control_project_pj%>', <%=Y_control_ORDER%>, '<%=Y_control_project_pj%>', <%=Y_control_RPJ%>, '<%=Y_control_project_pj%>'],
+        ['기능안전', <%=Y_safe_PJ%>, '<%=Y_auto_project_pj%>', <%=Y_safe_ORDER%>, '<%=Y_auto_project_pj%>', <%=Y_auto_RPJ%>, '<%=Y_auto_project_pj%>'],
+        ['자율주행', <%=Y_auto_PJ%>, '<%=Y_auto_project_pj%>', <%=Y_auto_ORDER%>, '<%=Y_auto_project_pj%>', <%=Y_auto_RPJ%>, '<%=Y_auto_project_pj%>']
     ]);
 
     var y_order_option = {
   
         title: '연간 수주',
         width: '100%',
-        'height': 300,
+        'height': 500,
         'legend': {'position': 'bottom'},
+        tooltip:{isHtml: true},
         series: {
         	 0: { color: '#d4fc79' },
              1: { color: '#84fab0' },
@@ -726,45 +1071,108 @@ function y_order() {
   }
   
 function y_sales() {
-	  // 목표매출 총합
-	  var total_SALES = 'total : '+'<%=Y_total_SALES%>'+'\n'+'실 : '+'<%=Y_vt_SALES%>'+'\n'+'샤시힐스 : '+'<%=Y_chassis_SALES%>'+'\n'+'바디힐스 : '+'<%=Y_body_SALES%>'
-	  						+'\n'+'제어로직 : '+'<%=Y_control_SALES%>'+'\n'+'기능안전 : '+'<%=Y_safe_SALES%>'+'\n'+'자율주행 : '+'<%=Y_auto_SALES%>'+'\n';
-	  						
-	  // 예상매출 총합
-	  var total_PJSALES = 'total : '+'<%=Y_total_SALES%>'+'\n'+'실 : '+'<%=Y_vt_PJSALES%>'+'\n'+'샤시힐스 : '+'<%=Y_chassis_PJSALES%>'+'\n'+'바디힐스 : '+'<%=Y_body_PJSALES%>'
-		+'\n'+'제어로직 : '+'<%=Y_control_PJSALES%>'+'\n'+'기능안전 : '+'<%=Y_safe_PJSALES%>'+'\n'+'자율주행 : '+'<%=Y_auto_PJSALES%>'+'\n';
-		
-	  // 매출달성 총합
-	  var total_RSALES = 'total : '+'<%=Y_total_RSALES%>'+'\n'+'실 : '+'<%=Y_vt_RSALES%>'+'\n'+'샤시힐스 : '+'<%=Y_chassis_RSALES%>'+'\n'+'바디힐스 : '+'<%=Y_body_RSALES%>'
-		+'\n'+'제어로직 : '+'<%=Y_control_RSALES%>'+'\n'+'기능안전 : '+'<%=Y_safe_RSALES%>'+'\n'+'자율주행 : '+'<%=Y_auto_RSALES%>'+'\n';
-		
+    <%
+	  	StringBuffer Y_chassis_project_Sales = new StringBuffer();
+	  	StringBuffer Y_body_project_Sales = new StringBuffer();
+	  	StringBuffer Y_control_project_Sales = new StringBuffer();
+	  	StringBuffer Y_safe_project_Sales = new StringBuffer();
+	  	StringBuffer Y_auto_project_Sales = new StringBuffer();
+	  	
+	  	Y_chassis_project_Sales.append("<table class=tootipTable>");
+	  	Y_chassis_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_body_project_Sales.append("<table class=tootipTable>");
+	  	Y_body_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_control_project_Sales.append("<table class=tootipTable>");
+	  	Y_control_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_safe_project_Sales.append("<table class=tootipTable>");
+	  	Y_safe_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+	  	Y_auto_project_Sales.append("<table class=tootipTable>");
+	  	Y_auto_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+		  
+		  	
+		  	for(int i=0; i<pjList.size(); i++){
+		  		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
+		  			Y_chassis_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
+		  			Y_body_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
+		  			Y_control_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
+		  			Y_safe_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
+		  			Y_auto_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES()+"</td></tr>");
+		  		}
+		  	}
+		  	
+		  	Y_chassis_project_Sales.append("<tr><td>total</td><td>"+Y_chassis_PJSALES+"</td><td>"+Y_chassis_RSALES+"</td></tr>");
+		  	Y_chassis_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_chassis_SALES+" (백만)</td></tr>");
+		  	Y_chassis_project_Sales.append("</table>");
+			  
+		  	Y_body_project_Sales.append("<tr><td>total</td><td>"+Y_body_PJSALES+"</td><td>"+Y_body_RSALES+"</td></tr>");
+		  	Y_body_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_body_SALES+" (백만)</td></tr>");
+		  	Y_body_project_Sales.append("</table>");
+			  
+		  	Y_control_project_Sales.append("<tr><td>total</td><td>"+Y_control_PJSALES+"</td><td>"+Y_control_RSALES+"</td></tr>");
+		  	Y_control_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_control_SALES+" (백만)</td></tr>");
+		  	Y_control_project_Sales.append("</table>");
+			  
+		  	Y_safe_project_Sales.append("<tr><td>total</td><td>"+Y_safe_PJSALES+"</td><td>"+Y_safe_RSALES+"</td></tr>");
+		  	Y_safe_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_safe_SALES+" (백만)</td></tr>");
+		  	Y_safe_project_Sales.append("</table>");
+			  
+		  	Y_auto_project_Sales.append("<tr><td>total</td><td>"+Y_auto_PJSALES+"</td><td>"+Y_auto_RSALES+"</td></tr>");
+		  	Y_auto_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_auto_SALES+" (백만)</td></tr>");
+		  	Y_auto_project_Sales.append("</table>");
+  %>
+	  // 목표
+	  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>';
+		total_str += '<tr><td>샤시힐스</td><td>'+<%=Y_chassis_SALES%>+'</td><td>'+<%=Y_chassis_PJSALES%>+'</td><td>'+<%=Y_chassis_RSALES%>+'</td></tr>';
+		total_str += '<tr><td>바디힐스</td><td>'+<%=Y_body_SALES%>+'</td><td>'+<%=Y_body_PJSALES%>+'</td><td>'+<%=Y_body_RSALES%>+'</td></tr>';
+		total_str += '<tr><td>제어로직</td><td>'+<%=Y_control_SALES%>+'</td><td>'+<%=Y_control_PJSALES%>+'</td><td>'+<%=Y_control_RSALES%>+'</td></tr>';
+		total_str += '<tr><td>기능안전</td><td>'+<%=Y_safe_SALES%>+'</td><td>'+<%=Y_safe_PJSALES%>+'</td><td>'+<%=Y_safe_RSALES%>+'</td></tr>';
+		total_str += '<tr><td>자율주행</td><td>'+<%=Y_auto_SALES%>+'</td><td>'+<%=Y_auto_PJSALES%>+'</td><td>'+<%=Y_auto_RSALES%>+'</td></tr>';
+		total_str += '<tr><td>total</td><td>'+<%=Y_total_SALES%>+'</td><td>'+<%=Y_total_PJSALES%>+'</td><td>'+<%=Y_total_RSALES%>+'</td></tr></table>';
+
       var dataTable = new google.visualization.DataTable();
       dataTable.addColumn('string', 'Team');
       dataTable.addColumn('number', '목표매출');
       // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});
+      dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
       dataTable.addColumn('number', '예상매출');
       // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});
+      dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
       dataTable.addColumn('number', '매출달성');
       // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});
+      dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
       dataTable.addRows([
-    	  ['Total', <%=Y_total_SALES%>, total_SALES, <%=Y_total_PJSALES%>, total_PJSALES, <%=Y_total_RSALES%>, total_RSALES],
-          ['샤시힐스', <%=Y_chassis_SALES%>, 'aa', <%=Y_chassis_PJSALES%>, 'aa', <%=Y_chassis_RSALES%>, 'aa'],
-          ['바디힐스', <%=Y_body_SALES%>, 'aa', <%=Y_body_PJSALES%>, 'aa', <%=Y_body_RSALES%>, 'aa'],
-          ['제어로직', <%=Y_control_SALES%>, 'aa', <%=Y_control_PJSALES%>, 'aa', <%=Y_control_RSALES%>, 'aa'],
-          ['기능안전', <%=Y_safe_SALES%>, 'aa', <%=Y_safe_PJSALES%>, 'aa', <%=Y_safe_RSALES%>, 'aa'],
-          ['자율주행', <%=Y_auto_SALES%>, 'aa', <%=Y_auto_PJSALES%>, 'aa', <%=Y_auto_RSALES%>, 'aa'],
-          ['실', <%=Y_vt_SALES%>, 'aa', <%=Y_vt_PJSALES%>, 'aa', <%=Y_vt_RSALES%>, 'aa']
+    	  ['Total', <%=Y_total_SALES%>, total_str, <%=Y_total_PJSALES%>, total_str, <%=Y_total_RSALES%>, total_str],
+          ['샤시힐스', <%=Y_chassis_SALES%>, '<%=Y_chassis_project_Sales%>', <%=Y_chassis_PJSALES%>, '<%=Y_chassis_project_Sales%>', <%=Y_chassis_RSALES%>, '<%=Y_chassis_project_Sales%>'],
+          ['바디힐스', <%=Y_body_SALES%>, '<%=Y_body_project_Sales%>', <%=Y_body_PJSALES%>, '<%=Y_body_project_Sales%>', <%=Y_body_RSALES%>, '<%=Y_body_project_Sales%>'],
+          ['제어로직', <%=Y_control_SALES%>, '<%=Y_control_project_Sales%>', <%=Y_control_PJSALES%>, '<%=Y_control_project_Sales%>', <%=Y_control_RSALES%>, '<%=Y_control_project_Sales%>'],
+          ['기능안전', <%=Y_safe_SALES%>, '<%=Y_safe_project_Sales%>', <%=Y_safe_PJSALES%>, '<%=Y_safe_project_Sales%>', <%=Y_safe_RSALES%>, '<%=Y_safe_project_Sales%>'],
+          ['자율주행', <%=Y_auto_SALES%>, '<%=Y_auto_project_Sales%>', <%=Y_auto_PJSALES%>, '<%=Y_auto_project_Sales%>', <%=Y_auto_RSALES%>, '<%=Y_auto_project_Sales%>']
       ]);
       
       var y_sales_option = {
        
           title: '연간 매출', 
           width: '100%',
-          'height': 300,
+          'height': 500,
           'legend': {'position': 'bottom'},
+          tooltip:{isHtml: true},
           series: {
               0: { color: '#ffd1ff' },
               1: { color: '#fbc2eb' },
@@ -800,6 +1208,7 @@ function fh_rpj() {
 
 	  var fh_rpj_options = {
 	    title: '상반기 수주 달성',
+	    tooltip:{isHtml: true},
 	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
@@ -821,6 +1230,7 @@ function sh_rpj() {
 
 	  var sh_rpj_options = {
 	    title: '하반기 수주 달성',
+	    tooltip:{isHtml: true},
 	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
@@ -842,6 +1252,7 @@ function y_rpj() {
 
 	  var y_rpj_options = {
 	    title: '연간 수주 달성',
+	    tooltip:{isHtml: true},
 	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#E4E8C6', '#C2D68B', '#80C2B3', '#9DDCCE', '#B7E6D6','#30B08F']
 	  };
@@ -863,6 +1274,7 @@ function fh_rsales() {
 
 	  var fh_rsales_options = {
 	    title: '상반기 매출 달성',
+	    tooltip:{isHtml: true},
 	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
@@ -884,6 +1296,7 @@ function sh_rsales() {
 
 	  var sh_rsales_options = {
 	    title: '하반기 매출 달성',
+	    tooltip:{isHtml: true},
 	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
@@ -905,6 +1318,7 @@ function y_rsales() {
 
 	  var y_rsales_options = {
 	    title: '연간 매출 달성',
+	    tooltip:{isHtml: true},
 	    pieHole: 0.4, width: '100%', height:'100%',
 	    colors: ['#D2ACD1', '#FACDBD', '#F4B8C6', '#C587AE', '#8C749F','#7D6394']
 	  };
@@ -915,248 +1329,7 @@ function y_rsales() {
 </script>
 
 <script type="text/javascript">
-	function ProjectTable(){
-		<%for(int i=0; i<saleTeamList.size(); i++) {
-          	ST = saleTeamList.get(i);%>
-          	
-          	 <%if(ST.getState().contains("1")){
- 	          	if(ST.getTeam().contains("샤시힐스")){%>
- 	          	$("#projectNow tr:eq(2) td:eq(3)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY2 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("바디힐스")){%>
- 	          	$("#projectNow tr:eq(2) td:eq(4)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY3 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("제어로직")){%>
- 	          	$("#projectNow tr:eq(2) td:eq(5)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY4 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("기능안전")){%>
- 	          	$("#projectNow tr:eq(2) td:eq(6)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY5 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("자율주행")){%>
- 	          	$("#projectNow tr:eq(2) td:eq(7)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY6 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("미래차검증")){%>
- 	          	$("#projectNow tr:eq(2) td:eq(8)").html('<%=ST.getCnt()%>');
-           		<%	totalY7 += ST.getCnt();}
- 	          	}%>
- 	          	
-          	<%if(ST.getState().contains("2")){
- 	          	if(ST.getTeam().contains("샤시힐스")){%>
- 	          	$("#projectNow tr:eq(3) td:eq(2)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY2 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("바디힐스")){%>
- 	          	$("#projectNow tr:eq(3) td:eq(3)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY3 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("제어로직")){%>
- 	          	$("#projectNow tr:eq(3) td:eq(4)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY4 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("기능안전")){%>
- 	          	$("#projectNow tr:eq(3) td:eq(5)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY5 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("자율주행")){%>
- 	          	$("#projectNow tr:eq(3) td:eq(6)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY6 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("미래차검증")){%>
- 	          	$("#projectNow tr:eq(3) td:eq(7)").html('<%=ST.getCnt()%>');
-           		<%totalY7 += ST.getCnt();}
- 	          	}%>
-           	
-          	<%if(ST.getState().contains("3")){
- 	          	if(ST.getTeam().contains("샤시힐스")){%>
- 	          	$("#projectNow tr:eq(4) td:eq(2)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY2 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("바디힐스")){%>
- 	          	$("#projectNow tr:eq(4) td:eq(3)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY3 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("제어로직")){%>
- 	          	$("#projectNow tr:eq(4) td:eq(4)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY4 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("기능안전")){%>
- 	          	$("#projectNow tr:eq(4) td:eq(5)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY5 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("자율주행")){%>
- 	          	$("#projectNow tr:eq(4) td:eq(6)").html('<%=ST.getCnt()%>');
- 	          	<%	totalY6 += ST.getCnt();}
- 	          	
- 	          	else if(ST.getTeam().contains("미래차검증")){%>
- 	          	$("#projectNow tr:eq(4) td:eq(7)").html('<%=ST.getCnt()%>');
-           		<%	totalY7 += ST.getCnt();}}}%>
-	}
-	
-	function ProjectTable2(){
-        <%for(int i=0; i<orderTeamList.size(); i++) {
-          	ST2 = orderTeamList.get(i);%>          	
-	        <%if(ST2.getState().contains("4")){
-	          	if(ST2.getTeam().contains("샤시힐스")){%>
-	          	$("#projectNow tr:eq(5) td:eq(3)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY2 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("바디힐스")){%>
-	          	$("#projectNow tr:eq(5) td:eq(4)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY3 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("제어로직")){%>
-	          	$("#projectNow tr:eq(5) td:eq(5)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY4 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("기능안전")){%>
-	          	$("#projectNow tr:eq(5) td:eq(6)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY5 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("자율주행")){%>
-	          	$("#projectNow tr:eq(5) td:eq(7)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY6 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("미래차검증")){%>
-	          	$("#projectNow tr:eq(5) td:eq(8)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY7 += ST2.getCnt();}}%>
-	          	
-         	<%if(ST2.getState().contains("5")){
-	          	if(ST2.getTeam().contains("샤시힐스")){%>
-	          	$("#projectNow tr:eq(6) td:eq(2)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY2 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("바디힐스")){%>
-	          	$("#projectNow tr:eq(6) td:eq(3)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY3 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("제어로직")){%>
-	          	$("#projectNow tr:eq(6) td:eq(4)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY4 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("기능안전")){%>
-	          	$("#projectNow tr:eq(6) td:eq(5)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY5 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("자율주행")){%>
-	          	$("#projectNow tr:eq(6) td:eq(6)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY6 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("미래차검증")){%>
-	          	$("#projectNow tr:eq(6) td:eq(7)").html('<%=ST2.getCnt()%>');
-          		<%totalY7 += ST2.getCnt();}}%>
-          	
-         	<%if(ST2.getState().contains("6")){
-	          	if(ST2.getTeam().contains("샤시힐스")){%>
-	          	$("#projectNow tr:eq(7) td:eq(3)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY2 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("바디힐스")){%>
-	          	$("#projectNow tr:eq(7) td:eq(4)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY3 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("제어로직")){%>
-	          	$("#projectNow tr:eq(7) td:eq(5)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY4 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("기능안전")){%>
-	          	$("#projectNow tr:eq(7) td:eq(6)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY5 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("자율주행")){%>
-	          	$("#projectNow tr:eq(7) td:eq(7)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY6 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("미래차검증")){%>
-	          	$("#projectNow tr:eq(7) td:eq(8)").html('<%=ST2.getCnt()%>');
-          		<%	totalY7 += ST2.getCnt();}}%>
-          	
-         	<%if(ST2.getState().contains("7")){
-	          	if(ST2.getTeam().contains("샤시힐스")){%>
-	          	$("#projectNow tr:eq(8) td:eq(3)").html('<%=ST2.getCnt()%>');
-	          	<% totalY2 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("바디힐스")){%>
-	          	$("#projectNow tr:eq(8) td:eq(4)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY3 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("제어로직")){%>
-	          	$("#projectNow tr:eq(8) td:eq(5)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY4 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("기능안전")){%>
-	          	$("#projectNow tr:eq(8) td:eq(6)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY5 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("자율주행")){%>
-	          	$("#projectNow tr:eq(8) td:eq(7)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY6 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("미래차검증")){%>
-	          	$("#projectNow tr:eq(8) td:eq(8)").html('<%=ST2.getCnt()%>');
-          		<%	totalY7 += ST2.getCnt();}}%>
-          	
-         	<%if(ST2.getState().contains("8")){
-	          	if(ST2.getTeam().contains("샤시힐스")){%>
-	          	$("#projectNow tr:eq(9) td:eq(2)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY2 += ST2.getCnt();} 
-	          	
-	          	else if(ST2.getTeam().contains("바디힐스")){%>
-	          	$("#projectNow tr:eq(9) td:eq(3)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY3 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("제어로직")){%>
-	          	$("#projectNow tr:eq(9) td:eq(4)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY4 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("기능안전")){%>
-	          	$("#projectNow tr:eq(9) td:eq(5)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY5 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("자율주행")){%>
-	          	$("#projectNow tr:eq(9) td:eq(6)").html('<%=ST2.getCnt()%>');
-	          	<%	totalY6 += ST2.getCnt();}
-	          	
-	          	else if(ST2.getTeam().contains("미래차검증")){%>
-	          	$("#projectNow tr:eq(9) td:eq(7)").html('<%=ST2.getCnt()%>');
-          		<%	totalY7 += ST2.getCnt();}}}%>
-	}
-	
-	function stateTotal(){
-		<%
-			int total1 = summaryDao.State_ProjectCount("1.예산확보");
-			int total2 = summaryDao.State_ProjectCount("2.고객의사");
-			int total3 = summaryDao.State_ProjectCount("3.제안단계");
-			int total4 = summaryDao.State_ProjectCount("4.업체선정");
-			int total5 = summaryDao.State_ProjectCount("5.진행예정");
-			int total6 = summaryDao.State_ProjectCount("6.진행중");
-			int total7 = summaryDao.State_ProjectCount("7.종료");
-			int total8 = summaryDao.State_ProjectCount("8.Dropped");
-			
-			int totalY1 = total1 + total2 + total3 + total4 + total5 + total6 + total7 + total8;
 
-		%>
-		$("#projectNow tr:eq(2) td:eq(2)").html('<%=total1%>');
-		$("#projectNow tr:eq(3) td:eq(1)").html('<%=total2%>');
-		$("#projectNow tr:eq(4) td:eq(1)").html('<%=total3%>');
-		$("#projectNow tr:eq(5) td:eq(2)").html('<%=total4%>');
-		$("#projectNow tr:eq(6) td:eq(1)").html('<%=total5%>');
-		$("#projectNow tr:eq(7) td:eq(2)").html('<%=total6%>');
-		$("#projectNow tr:eq(8) td:eq(2)").html('<%=total7%>');
-		$("#projectNow tr:eq(9) td:eq(1)").html('<%=total8%>');
-		
-		$("#projectNow tr:eq(10) td:eq(2)").html('<%=totalY1%>');
-		$("#projectNow tr:eq(10) td:eq(3)").html('<%=totalY2%>');
-		$("#projectNow tr:eq(10) td:eq(4)").html('<%=totalY3%>');
-		$("#projectNow tr:eq(10) td:eq(5)").html('<%=totalY4%>');
-		$("#projectNow tr:eq(10) td:eq(6)").html('<%=totalY5%>');
-		$("#projectNow tr:eq(10) td:eq(7)").html('<%=totalY6%>');
-		$("#projectNow tr:eq(10) td:eq(8)").html('<%=totalY7%>');
-	}
 	
 	//달성률에 따른 색 변화
 	 function stateColor(){
@@ -1167,7 +1340,6 @@ function y_rsales() {
 		 for(var i=0; i<12; i++){
 			 for(var a=1; a<8; a++){
 				 data =  $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').text().split(".")[0];
-				 console.log(data)
 				 z = (data/100)+0.1;
 				 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('background', 'rgb(130,130,250, '+z+')')
 				 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('color','white');
@@ -1175,12 +1347,83 @@ function y_rsales() {
 		 }
 	}
 	
-	 	
+	<%
+		ArrayList<ProjectBean> total_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> total_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> total_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> total_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> total_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> total_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> f_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> f_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> f_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> f_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> f_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> f_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> s_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> s_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> s_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> s_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> s_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> s_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> t_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> t_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> t_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> t_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> t_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> t_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> fo_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fo_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fo_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fo_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fo_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fo_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> fi_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fi_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fi_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fi_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fi_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> fi_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> si_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> si_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> si_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> si_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> si_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> si_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> se_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> se_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> se_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> se_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> se_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> se_vt = new ArrayList<ProjectBean>();
+		
+		ArrayList<ProjectBean> e_chassis = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> e_body= new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> e_control = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> e_safe = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> e_auto = new ArrayList<ProjectBean>();
+		ArrayList<ProjectBean> e_vt = new ArrayList<ProjectBean>();
+		
+		for(int i=0; i<pjList.size(); i++){
+			if(pjList.get(i).getSTATE().equals("1.예산확보") || pjList.get(i).getSTATE().equals("2.고객의사") || pjList.get(i).getSTATE().equals("3.제안단계")){
+				
+			}
+		}
+	%>
+	
+	
+	
+	
+	
 	$(document).ready(function(){
 		$('.loading').hide();
-		ProjectTable();
-		ProjectTable2();
-		stateTotal();
 		stateColor();
 	
 		
@@ -1255,6 +1498,10 @@ function y_rsales() {
 		         <span>스케줄</span></a>
 		       </li>
 		       
+		       <li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
+					
 		        <!-- Nav Item - manager schedule -->
 			      <li class="nav-item">
 			        <a class="nav-link" href="../manager_schedule/manager_schedule.jsp">
@@ -1534,13 +1781,13 @@ function y_rsales() {
                     </tr>
                      <tr class="fh_tr">
                     	<td>예상 수주(%)</td>
-                    	<td><%=FH_total_ORDER/FH_total_PJ *100%>(%)</td>
-                    	<td><%=FH_chassis_ORDER/FH_chassis_PJ *100%>(%)</td>
-                    	<td><%=FH_body_ORDER/FH_body_PJ *100%>(%)</td>
-                    	<td><%=FH_control_ORDER/FH_control_PJ *100%>(%)</td>
-                    	<td><%=FH_safe_ORDER/FH_safe_PJ *100%>(%)</td>
-                    	<td><%=FH_auto_ORDER/FH_auto_PJ *100%>(%)</td>
-                    	<td><%=FH_vt_ORDER/FH_vt_PJ *100%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_total_ORDER/FH_total_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_chassis_ORDER/FH_chassis_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_body_ORDER/FH_body_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_control_ORDER/FH_control_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_safe_ORDER/FH_safe_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_auto_ORDER/FH_auto_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_vt_ORDER/FH_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="fh_tr">
                     	<td>달성</td> 	
@@ -1555,13 +1802,13 @@ function y_rsales() {
                     </tr>
                      <tr class="fh_tr">
                     	<td>수주 달성률</td>
-                   		<td class="pertd"><%=FH_total_RPJ/FH_total_PJ *100%>(%)</td>
-                    	<td class="pertd"><%=FH_chassis_RPJ/FH_chassis_PJ *100%>(%)</td>
-                    	<td class="pertd"><%=FH_body_RPJ/FH_body_PJ*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_control_RPJ/FH_control_PJ *100%>(%)</td>
-                    	<td class="pertd"><%=FH_safe_RPJ/FH_safe_PJ *100%>(%)</td>
-                    	<td class="pertd"><%=FH_auto_RPJ/FH_auto_PJ*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_vt_RPJ/FH_vt_PJ*100 %>(%)</td>
+                    	<td><%=String.format("%.1f", FH_total_RPJ/FH_total_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_chassis_RPJ/FH_chassis_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_body_RPJ/FH_body_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_control_RPJ/FH_control_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_safe_RPJ/FH_safe_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_auto_RPJ/FH_auto_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_vt_RPJ/FH_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="fh_tr">
                     	<td>목표 매출</td>
@@ -1585,13 +1832,14 @@ function y_rsales() {
                     </tr>
                      <tr class="fh_tr">
                     	<td>예상 매출(%)</td>
-                        <td><%=FH_total_PJSALES/FH_total_SALES*100 %>(%)</td>
-                    	<td><%=FH_chassis_PJSALES/FH_chassis_SALES *100%>(%)</td>
-                    	<td><%=FH_body_PJSALES/FH_body_SALES *100%>(%)</td>
-                    	<td><%=FH_control_PJSALES/FH_control_SALES *100%>(%)</td>
-                    	<td><%=FH_safe_PJSALES/FH_safe_SALES *100%>(%)</td>
-                    	<td><%=FH_auto_PJSALES/FH_auto_SALES *100%>(%)</td>
-                    	<td><%=FH_vt_PJSALES/FH_vt_SALES *100%>(%)</td>
+                    	
+                    	<td><%=String.format("%.1f", FH_total_PJSALES/FH_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_chassis_PJSALES/FH_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_body_PJSALES/FH_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_control_PJSALES/FH_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_safe_PJSALES/FH_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_auto_PJSALES/FH_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_vt_PJSALES/FH_vt_SALES *100)%>(%)</td>
                     </tr>
                      <tr class="fh_tr">
                     	<td>달성</td>
@@ -1606,13 +1854,14 @@ function y_rsales() {
                     </tr>
                      <tr class="fh_tr">
                     	<td>매출 달성률</td>
-                   		<td class="pertd"><%=FH_total_RSALES/FH_total_SALES*100 %>(%)</td>
-                   		<td class="pertd"><%=FH_chassis_RSALES/FH_chassis_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_body_RSALES/FH_body_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_control_RSALES/FH_control_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_safe_RSALES/FH_safe_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_auto_RSALES/FH_auto_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=FH_vt_RSALES/FH_vt_SALES *100%>(%)</td>
+                    	
+                    	<td><%=String.format("%.1f", FH_total_RSALES/FH_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_chassis_RSALES/FH_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_body_RSALES/FH_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_control_RSALES/FH_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_safe_RSALES/FH_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_auto_RSALES/FH_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_vt_RSALES/FH_vt_SALES *100)%>(%)</td>
                     </tr>
                     
                      <tr class="sh_tr">
@@ -1638,13 +1887,13 @@ function y_rsales() {
                     </tr>
                      <tr class="sh_tr">
                     	<td>예상 수주(%)</td>
-                    	<td><%=SH_total_ORDER/SH_total_PJ*100 %>(%)</td>
-                    	<td><%=SH_chassis_ORDER/SH_chassis_PJ*100 %>(%)</td>
-                    	<td><%=SH_body_ORDER/SH_body_PJ*100 %>(%)</td>
-                    	<td><%=SH_control_ORDER/SH_control_PJ*100 %>(%)</td>
-                    	<td><%=SH_safe_ORDER/SH_safe_PJ*100 %>(%)</td>
-                    	<td><%=SH_auto_ORDER/SH_auto_PJ*100 %>(%)</td>
-                    	<td><%=SH_vt_ORDER/SH_vt_PJ*100 %>(%)</td>
+						<td><%=String.format("%.1f", SH_total_ORDER/SH_total_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_chassis_ORDER/SH_chassis_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_body_ORDER/SH_body_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_control_ORDER/SH_control_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_safe_ORDER/SH_safe_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_auto_ORDER/SH_auto_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_vt_ORDER/SH_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="sh_tr">
                     	<td>달성</td>
@@ -1659,13 +1908,13 @@ function y_rsales() {
                     </tr>
                      <tr class="sh_tr">
                     	<td>수주 달성률</td>
-                   		<td class="pertd"><%=SH_total_RPJ/SH_total_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=SH_chassis_RPJ/SH_chassis_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=SH_body_RPJ/SH_body_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=SH_control_RPJ/SH_control_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=SH_safe_RPJ/SH_safe_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=SH_auto_RPJ/SH_auto_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=SH_vt_RPJ/SH_vt_PJ*100%>(%)</td>
+						<td><%=String.format("%.1f", SH_total_RPJ/SH_total_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_chassis_RPJ/SH_chassis_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_body_RPJ/SH_body_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_control_RPJ/SH_control_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_safe_RPJ/SH_safe_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_auto_RPJ/SH_auto_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_vt_RPJ/SH_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="sh_tr">
                     	<td>목표 매출</td>
@@ -1689,13 +1938,13 @@ function y_rsales() {
                     </tr>
                      <tr class="sh_tr">
                     	<td>예상 매출(%)</td>
-                        <td><%=SH_total_PJSALES/SH_total_SALES*100 %>(%)</td>
-                    	<td><%=SH_chassis_PJSALES/SH_chassis_SALES*100 %>(%)</td>
-                    	<td><%=SH_body_PJSALES/SH_body_SALES*100 %>(%)</td>
-                    	<td><%=SH_control_PJSALES/SH_control_SALES*100 %>(%)</td>
-                    	<td><%=SH_safe_PJSALES/SH_safe_SALES*100 %>(%)</td>
-                    	<td><%=SH_auto_PJSALES/SH_auto_SALES*100 %>(%)</td>
-                    	<td><%=SH_vt_PJSALES/SH_vt_SALES*100 %>(%)</td>
+                    	<td><%=String.format("%.1f", SH_total_PJSALES/SH_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_chassis_PJSALES/SH_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_body_PJSALES/SH_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_control_PJSALES/SH_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_safe_PJSALES/SH_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_auto_PJSALES/SH_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_vt_PJSALES/SH_vt_SALES *100)%>(%)</td>
                     </tr>
                      <tr class="sh_tr">
                     	<td>달성</td>
@@ -1710,13 +1959,13 @@ function y_rsales() {
                     </tr>
                      <tr class="sh_tr">
                     	<td>매출 달성률</td>
-                   		<td class="pertd"><%=SH_total_RSALES/SH_total_SALES*100 %>(%)</td>
-                   		<td class="pertd"><%=SH_chassis_RSALES/SH_chassis_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=SH_body_RSALES/SH_body_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=SH_control_RSALES/SH_control_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=SH_safe_RSALES/SH_safe_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=SH_auto_RSALES/SH_auto_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=SH_vt_RSALES/SH_vt_SALES*100 %>(%)</td>
+                    	<td><%=String.format("%.1f", SH_total_RSALES/SH_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_chassis_RSALES/SH_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_body_RSALES/SH_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_control_RSALES/SH_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_safe_RSALES/SH_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_auto_RSALES/SH_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_vt_RSALES/SH_vt_SALES *100)%>(%)</td>
                     </tr>
                     
                     <tr class="y_tr">
@@ -1742,13 +1991,13 @@ function y_rsales() {
                     </tr>
                      <tr class="y_tr">
                     	<td>예상 수주(%)</td>
-                    	<td><%=Y_total_ORDER/Y_total_pj*100 %>(%)</td>
-                    	<td><%=Y_chassis_ORDER/Y_chassis_PJ*100 %>(%)</td>
-                    	<td><%=Y_body_ORDER/Y_body_PJ*100 %>(%)</td>
-                    	<td><%=Y_control_ORDER/Y_control_PJ*100 %>(%)</td>
-                    	<td><%=Y_safe_ORDER/Y_safe_PJ*100 %>(%)</td>
-                    	<td><%=Y_auto_ORDER/Y_auto_PJ*100 %>(%)</td>
-                    	<td><%=Y_vt_ORDER/Y_vt_PJ*100 %>(%)</td>
+                    	<td><%=String.format("%.1f", Y_total_ORDER/Y_total_pj *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_chassis_ORDER/Y_chassis_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_body_ORDER/Y_body_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_control_ORDER/Y_control_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_safe_ORDER/Y_safe_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_auto_ORDER/Y_auto_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_vt_ORDER/Y_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="y_tr">
                     	<td>달성</td>
@@ -1762,13 +2011,13 @@ function y_rsales() {
                     </tr>
                      <tr class="y_tr">
                     	<td>수주 달성률</td>
-                   		<td class="pertd"><%=Y_total_RPJ/Y_total_pj*100%>(%)</td>
-                    	<td class="pertd"><%=Y_chassis_RPJ/Y_chassis_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=Y_body_RPJ/Y_body_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=Y_control_RPJ/Y_control_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=Y_safe_RPJ/Y_safe_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=Y_auto_RPJ/Y_auto_PJ*100%>(%)</td>
-                    	<td class="pertd"><%=Y_vt_RPJ/Y_vt_PJ*100%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_total_RPJ/Y_total_pj *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_chassis_RPJ/Y_chassis_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_body_RPJ/Y_body_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_control_RPJ/Y_control_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_safe_RPJ/Y_safe_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_auto_RPJ/Y_auto_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_vt_RPJ/Y_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="y_tr">
                     	<td>목표 매출</td>
@@ -1792,13 +2041,13 @@ function y_rsales() {
                     </tr>
                      <tr class="y_tr">
                     	<td>예상 매출(%)</td>
-                        <td><%=Y_total_PJSALES/Y_total_SALES*100 %>(%)</td>
-                    	<td><%=Y_chassis_PJSALES/Y_chassis_SALES*100 %>(%)</td>
-                    	<td><%=Y_body_PJSALES/Y_body_SALES*100 %>(%)</td>
-                    	<td><%=Y_control_PJSALES/Y_control_SALES*100 %>(%)</td>
-                    	<td><%=Y_safe_PJSALES/Y_safe_SALES*100 %>(%)</td>
-                    	<td><%=Y_auto_PJSALES/Y_auto_SALES*100 %>(%)</td>
-                    	<td><%=Y_vt_PJSALES/Y_vt_SALES*100 %>(%)</td>
+                    	<td><%=String.format("%.1f", Y_total_PJSALES/Y_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_chassis_PJSALES/Y_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_body_PJSALES/Y_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_control_PJSALES/Y_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_safe_PJSALES/Y_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_auto_PJSALES/Y_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_vt_PJSALES/Y_vt_SALES *100)%>(%)</td>
                     </tr>
                      <tr class="y_tr">
                     	<td>달성</td>
@@ -1812,13 +2061,13 @@ function y_rsales() {
                     </tr>
                      <tr class="y_tr">
                     	<td>매출 달성률</td>
-                   		<td class="pertd"><%=Y_total_RSALES/Y_total_SALES*100 %>(%)</td>
-                   		<td class="pertd"><%=Y_chassis_RSALES/Y_chassis_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=Y_body_RSALES/Y_body_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=Y_control_RSALES/Y_control_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=Y_safe_RSALES/Y_safe_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=Y_auto_RSALES/Y_auto_SALES*100 %>(%)</td>
-                    	<td class="pertd"><%=Y_vt_RSALES/Y_vt_SALES*100 %>(%)</td>
+                    	<td><%=String.format("%.1f", Y_total_RSALES/Y_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_chassis_RSALES/Y_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_body_RSALES/Y_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_control_RSALES/Y_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_safe_RSALES/Y_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_auto_RSALES/Y_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_vt_RSALES/Y_vt_SALES *100)%>(%)</td>
                     </tr>
                   	  </tbody>                            
                		 </table>

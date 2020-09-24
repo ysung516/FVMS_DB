@@ -30,6 +30,8 @@ public class SummaryDAO {
 	    	while(rs.next()) {
 	    		ProjectBean project = new ProjectBean();
 	    		project.setTEAM_ORDER(rs.getString("팀_수주"));
+	    		project.setTEAM_SALES(rs.getString("팀_매출"));
+	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
 	    		project.setMAN_MONTH(rs.getFloat("ManMonth"));
 	    		project.setFH_ORDER_PROJECTIONS(rs.getFloat("상반기예상수주"));
 	    		project.setFH_ORDER(rs.getFloat("상반기수주"));

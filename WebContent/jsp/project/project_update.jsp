@@ -163,11 +163,13 @@ function getSelectValue(){
 	//팀, 이름 저장
 	var team = $("#teamlist option:selected").val();
 	var id = $("#WORKER_LIST option:selected").val();
-	var name = $("#WORKER_LIST option:selected").text();
+	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
+	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
 	var inner = "";
 	inner += "<tr>";
 	inner += "<td style='display:none;'>"+id+"</td>";
 	inner += "<td>"+team+"</td>";
+	inner += "<td>"+part+"</td>";
 	inner += "<td>"+name+"</td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
@@ -196,6 +198,7 @@ function workDelete(){
 function teamMember(team, member){
 	var team1 = $(team).val();
 	var memberName;
+	var memberPart;
 	var memberID;
 	var dfselect = $("<option selected disabled hidden>선택</option>");
 	$(member).empty();
@@ -204,9 +207,10 @@ function teamMember(team, member){
 	<%
 		for(int j=0; j<memberList.size(); j++){
 			%>if(team1 == '<%=memberList.get(j).getTEAM()%>'){
+				memberPart = '<%=memberList.get(j).getPART()%>';
 				memberName = '<%=memberList.get(j).getNAME()%>';
 				memberID = '<%=memberList.get(j).getID()%>';
-				var option = $("<option value="+memberID+">"+ memberName +"</option>");
+				var option = $("<option value="+memberID+">"+ memberPart +" - "+ memberName +"</option>");
 				$(member).append(option);
 				if($("#PM-team").val() == team1 && ('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>')){
 					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");
@@ -283,6 +287,10 @@ function btn_copy(){
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
 
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
+					
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -557,7 +565,8 @@ function btn_copy(){
 
 										<tr>
 											<th>투입 명단</th>
-											<td id="WorkerList"><select id="teamlist"
+											<td id="WorkerList">
+											<select id="teamlist"
 												name="teamlist"
 												onchange="teamMember('#teamlist','#WORKER_LIST')">
 													<%
@@ -566,15 +575,18 @@ function btn_copy(){
 													<%
 		                      		}
 		                      	%>
-											</select> <select id="WORKER_LIST" name="WORKER_LIST"
-												onChange="getSelectValue();"></select> <textarea
-													id="textValue2" name="WORKER_LIST2" style="display: none;">
+											</select> 
+											
+											<select id="WORKER_LIST" name="WORKER_LIST"
+												onChange="getSelectValue();"></select>
+												<textarea id="textValue2" name="WORKER_LIST2" style="display: none;">
 													<%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
 												<table id="workerList" style="margin-top: 5px;">
 													<thead>
 														<tr>
 															<th style="display: none;">id</th>
 															<th>팀</th>
+															<th>소속</th>
 															<th>이름</th>
 															<th></th>
 														</tr>
@@ -588,6 +600,7 @@ function btn_copy(){
 														<tr>
 															<td style='display: none;'><%=workerID[c]%></td>
 															<td><%=member.getTEAM()%></td>
+															<td><%=member.getPART()%></td>
 															<td><%=member.getNAME()%></td>
 															<td><input type='button' class='workDel' value='삭제' /></td>
 														</tr>

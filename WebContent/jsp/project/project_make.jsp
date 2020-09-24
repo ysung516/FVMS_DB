@@ -156,11 +156,13 @@ function getSelectValue(){
 	//팀, 이름 저장
 	var team = $("#teamlist option:selected").val();
 	var id = $("#WORKER_LIST option:selected").val();
-	var name = $("#WORKER_LIST option:selected").text();
+	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
+	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
 	var inner = "";
 	inner += "<tr>";
 	inner += "<td style='display:none;'>"+id+"</td>";
 	inner += "<td>"+team+"</td>";
+	inner += "<td>"+part+"</td>";
 	inner += "<td>"+name+"</td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
@@ -185,10 +187,11 @@ function workDelete(){
 	});
 }
 
-// 팀별 명단
+//팀별 명단
 function teamMember(team, member){
 	var team1 = $(team).val();
 	var memberName;
+	var memberPart;
 	var memberID;
 	var dfselect = $("<option selected disabled hidden>선택</option>");
 	$(member).empty();
@@ -197,9 +200,10 @@ function teamMember(team, member){
 	<%
 		for(int j=0; j<memberList.size(); j++){
 			%>if(team1 == '<%=memberList.get(j).getTEAM()%>'){
+				memberPart = '<%=memberList.get(j).getPART()%>';
 				memberName = '<%=memberList.get(j).getNAME()%>';
 				memberID = '<%=memberList.get(j).getID()%>';
-				var option = $("<option value="+memberID+">"+ memberName +"</option>");
+				var option = $("<option value="+memberID+">"+ memberPart +" - "+ memberName +"</option>");
 				$(member).append(option);
 				if($("#PM-team").val() == team1 && ('팀장' == '<%=memberList.get(j).getPosition()%>' || '실장' == '<%=memberList.get(j).getPosition()%>')){
 					$("#PROJECT_MANAGER").val(memberID).attr("selected", "selected");
@@ -255,8 +259,8 @@ function btn_insert(){
 			
 			%>
 				no[<%=z%>] = '<%=projectList.get(z).getNO()%>';
-				team_sales[<%=z%>] = '<%=projectList.get(z).getTEAM_SALES()%>';
 				team_order[<%=z%>] = '<%=projectList.get(z).getTEAM_ORDER()%>';
+				team_sales[<%=z%>] = '<%=projectList.get(z).getTEAM_SALES()%>';
 				state[<%=z%>] = '<%=projectList.get(z).getSTATE()%>';
 				client[<%=z%>] = '<%=projectList.get(z).getCLIENT()%>';
 				client_part[<%=z%>] = '<%=projectList.get(z).getClIENT_PART()%>';
@@ -289,11 +293,9 @@ function btn_insert(){
 	}
 	
 	if(cnt != -1){
-		
-		var parseSTATE = state[cnt].split('.');		
-		
-		$('#team').val(team[cnt]);
-		$('#STATE').val(parseSTATE[1]);
+		$('#team_order').val(team_order[cnt]);
+		$('#team_sales').val(team_sales[cnt]);	
+		$('#STATE').val(state[cnt]);
 		$('#CLIENT').val(client[cnt]);
 		$('#CLIENT_PART').val(client_part[cnt]);
 		$('#MAN_MONTH').val(man_month[cnt]);
@@ -388,6 +390,10 @@ function btn_insert(){
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
+					
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
 
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
@@ -665,6 +671,7 @@ function btn_insert(){
 													<thead>
 														<th style="display: none;">id</th>
 														<th>팀</th>
+														<th>소속</th>
 														<th>이름</th>
 														<th></th>
 													</thead>

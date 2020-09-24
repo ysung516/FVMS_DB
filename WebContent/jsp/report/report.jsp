@@ -112,7 +112,7 @@
 .details_body {
 	margin-right: 5%;
 	right: 0;
-	position: absolute;
+	float: right;
 	top: 14px;
 	background: #fff;
 }
@@ -312,6 +312,10 @@ button:focus {
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
 
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
+					
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -394,11 +398,8 @@ button:focus {
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">주간보고목록</h6>
-
-						</div>
+							<h6 class="m-0 font-weight-bold text-primary" style="display: inline">주간보고목록</h6>
 						<div class="details_body">
-
 							<div class="summary">
 								미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span>
 							</div>
@@ -412,6 +413,8 @@ button:focus {
 							<% }}%>
 
 						</div>
+						</div>
+
 
 						<div class="table-responsive">
 							<table id="reportTable">

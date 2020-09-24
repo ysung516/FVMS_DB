@@ -94,47 +94,6 @@
 		position:fixed;
 		z-index:9999;
 	}
-	
-@media ( max-width :800px) {
-#content{
-	margin-left:0;
-}
-	.card-header{
-		margin-top:3.75rem;
-	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
-		
-		
-	body {
-		font-size: small;
-	}
-	.container-fluid {
-		padding: 0;
-	}
-	.card-header:first-child {
-		padding: 0;
-	}
-	body {
-		font-size: small;
-	}
-	.table td, .table th {
-		padding: 0.4rem;
-	}
-	.card-body {
-		padding: 0;
-	}
-	.py-3 {
-		margin-bottom: 6px;
-	}
-	.m-0 {
-		margin-left: 14px !important;
-	}
-}
-
 .cb {
 	height: 18px;
 	width: 18px;
@@ -208,12 +167,14 @@
 .table-responsive { width:100% ;height:70vh; overflow: auto; }
 
 .textover{
-	width:10vw;
+	width:18vw;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
-
+#dataTable{
+	width: 40%;
+}
 #dataTable td:hover{
 	background-color: black;
 }
@@ -226,12 +187,61 @@
 }
 .labelST:hover{
 	color: red;
+}	
+	
+	
+@media ( max-width :800px) {
+	.textover{
+		width:46vw;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+
+	#content{
+		margin-left:0;
+	}
+	.card-header{
+		margin-top:3.75rem;
+	}
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+		}
+		
+		
+	body {
+		font-size: small;
+	}
+	.container-fluid {
+		padding: 0;
+	}
+	.card-header:first-child {
+		padding: 0;
+	}
+	body {
+		font-size: small;
+	}
+	.table td, .table th {
+		padding: 0.4rem;
+	}
+	.card-body {
+		padding: 0;
+	}
+	.py-3 {
+		margin-bottom: 6px;
+	}
+	.m-0 {
+		margin-left: 14px !important;
+	}
 }
+
+
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script>
-
 	var AttrList = '<%=myInfo.getSaveAttr()%>';
 	var outAttr = new Array();
 	for(var a=0; a<AttrList.split(" ").length; a++){
@@ -240,14 +250,14 @@
 	
 	// table load
     function cbLoad(){
-    	for(var a=1;a<31;a++){
+    	for(var a=1;a<33;a++){
     		$('td:nth-child('+a+')').hide();
-			$('th:nth-child('+a+')').hide()
+			$('th:nth-child('+a+')').hide();
     	}
        	var inner = "";
        	var labelList = new Array();
        	labelList = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21'
-       		,'22','23','24','25','26','27','28','29','30'];
+       		,'22','23','24','25','26','27','28','29','30','31','32'];
        	
        	for(var c=0; c<outAttr.length; c++){
        		if(outAttr[c] == '1'){
@@ -370,7 +380,16 @@
        			$('td:nth-child(30)').show();
        			$('th:nth-child(30)').show();
        			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '31'){
+       			$('td:nth-child(31)').show();
+       			$('th:nth-child(31)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}else if (outAttr[c] == '32'){
+       			$('td:nth-child(32)').show();
+       			$('th:nth-child(32)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
        		}
+       		
        	}
        	for(var d=0; d<labelList.length; d++){
        		if(labelList[d] == '1'){
@@ -380,7 +399,7 @@
        		}else if (labelList[d] == '3'){
        			inner += "<label id=프로젝트코드 class=labelST onclick=labelEvent('프로젝트코드','3')>프로젝트코드</label>";
        		}else if (labelList[d] == '4'){
-       			inner += "<label id=프로제트명 class=labelST onclick=labelEvent('프로제트명','4')>프로제트명</label>";
+       			inner += "<label id=프로젝트명 class=labelST onclick=labelEvent('프로젝트명','4')>프로젝트명</label>";
        		}else if (labelList[d] == '5'){
        			inner += "<label id=상태 class=labelST onclick=labelEvent('상태','5')>상태</label>";
        		}else if (labelList[d] == '6'){
@@ -409,30 +428,36 @@
        			inner += "<label id=하반기예상매출 class=labelST onclick=labelEvent('하반기예상매출','17')>하반기예상매출</label>";
        		}else if (labelList[d] == '18'){
        			inner += "<label id=하반기매출 class=labelST onclick=labelEvent('하반기매출','18')>하반기매출</label>";
-       		}else if (labelList[d] == '19'){
-       			inner += "<label id=착수 class=labelST onclick=labelEvent('착수','19')>착수</label>";
+       		}
+       		else if (labelList[d] == '19'){
+       			inner += "<label id=연간수주 class=labelST onclick=labelEvent('연간수주','19')>연간수주</label>";
        		}else if (labelList[d] == '20'){
-       			inner += "<label id=종료 class=labelST onclick=labelEvent('종료','20')>종료</label>";
-       		}else if (labelList[d] == '21'){
-       			inner += "<label id=고객담당자 class=labelST onclick=labelEvent('고객담당자','21')>고객담당자</label>";
+       			inner += "<label id=연간매출 class=labelST onclick=labelEvent('연간매출','20')>연간매출</label>";
+       		}
+       		else if (labelList[d] == '21'){
+       			inner += "<label id=착수 class=labelST onclick=labelEvent('착수','21')>착수</label>";
        		}else if (labelList[d] == '22'){
-       			inner += "<label id=근무지 class=labelST onclick=labelEvent('근무지','22')>근무지</label>";
+       			inner += "<label id=종료 class=labelST onclick=labelEvent('종료','22')>종료</label>";
        		}else if (labelList[d] == '23'){
-       			inner += "<label id=업무 class=labelST onclick=labelEvent('업무','23')>업무</label>";
+      			inner += "<label id=고객담당자 class=labelST onclick=labelEvent('고객담당자','23')>고객담당자</label>";
        		}else if (labelList[d] == '24'){
-       			inner += "<label id=PM class=labelST onclick=labelEvent('PM','24')>PM</label>";
+       			inner += "<label id=근무지 class=labelST onclick=labelEvent('근무지','24')>근무지</label>";
        		}else if (labelList[d] == '25'){
-       			inner += "<label id=투입명단 class=labelST onclick=labelEvent('투입명단','25')>투입명단</label>";
+       			inner += "<label id=업무 class=labelST onclick=labelEvent('업무','25')>업무</label>";
        		}else if (labelList[d] == '26'){
-       			inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','26')>평가유형</label>";
+       			inner += "<label id=PM class=labelST onclick=labelEvent('PM','26')>PM</label>";
        		}else if (labelList[d] == '27'){
-       			inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','27')>채용수요</label>";
+       			inner += "<label id=투입명단 class=labelST onclick=labelEvent('투입명단','27')>투입명단</label>";
        		}else if (labelList[d] == '28'){
-       			inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','28')>외주수요</label>";
+       			inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','28')>평가유형</label>";
        		}else if (labelList[d] == '29'){
-       			inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','29')>주간보고서사용</label>";
+       			inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','29')>채용수요</label>";
        		}else if (labelList[d] == '30'){
-       			inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','30')>실적보고</label>";
+       			inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','30')>외주수요</label>";
+       		}else if (labelList[d] == '31'){
+       			inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','31')>주간보고서사용</label>";
+       		}else if (labelList[d] == '32'){
+       			inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','32')>실적보고</label>";
        		}
        	}
     	$('#list').append(inner);
@@ -441,6 +466,7 @@
     		$("input:checkbox[id='checkall']").prop("checked", true);
     	}
     }
+	
 	
 	// 탭 숨기기
     function hideAttr(num){
@@ -457,7 +483,6 @@
     	$('#list').append(inner);
     	AttrList = AttrList.replace(num, "");
     	saveAttrTap();
-    	console.log(AttrList);
     }
     
 	// 탭 만들기
@@ -472,7 +497,6 @@
 
     	AttrList += " "+num;
     	saveAttrTap();
-    	console.log(AttrList);
     }
     
     function cbAll(){
@@ -483,16 +507,20 @@
            		$( "th" ).show();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
                 $(".labelST").remove();
-                AttrList = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30";
+                AttrList = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32";
                 saveAttrTap();
-                console.log(AttrList);
             //클릭이 안되있으면
             }else{
             	$( ".td" ).hide();
             	$( ".th" ).hide();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
                	var inner = "";
+               	inner += "<label id=팀(수주) class=labelST onclick=labelEvent('팀(수주)','1')>팀(수주)</label>";
+               	inner += "<label id=팀(매출) class=labelST onclick=labelEvent('팀(매출)','2')>팀(매출)</label>";
+       			inner += "<label id=프로젝트코드 class=labelST onclick=labelEvent('프로젝트코드','3')>프로젝트코드</label>";
+       			inner += "<label id=상태 class=labelST onclick=labelEvent('상태','5')>상태</label>";
             	inner += "<label id=실 class=labelST onclick=labelEvent('실','6')>실</label>";
+       			inner += "<label id=고객사 class=labelST onclick=labelEvent('고객사','7')>고객사</label>";
              	inner += "<label id=고객부서 class=labelST onclick=labelEvent('고객부서','8')>고객부서</label>";
             	inner += "<label id=M/M class=labelST onclick=labelEvent('M/M','9')>M/M</label>";
             	inner += "<label id=프로젝트계약금액 class=labelST onclick=labelEvent('프로젝트계약금액','10')>프로젝트계약금액</label>";
@@ -504,22 +532,20 @@
             	inner += "<label id=하반기수주 class=labelST onclick=labelEvent('하반기수주','16')>하반기수주</label>";
             	inner += "<label id=하반기예상매출 class=labelST onclick=labelEvent('하반기예상매출','17')>하반기예상매출</label>";
             	inner += "<label id=하반기매출 class=labelST onclick=labelEvent('하반기매출','18')>하반기매출</label>";
-            	inner += "<label id=착수 class=labelST onclick=labelEvent('착수','19')>착수</label>";
-            	inner += "<label id=종료 class=labelST onclick=labelEvent('종료','20')>종료</label>";
-            	inner += "<label id=고객담당자 class=labelST onclick=labelEvent('고객담당자','21')>고객담당자</label>";
-            	inner += "<label id=근무지 class=labelST onclick=labelEvent('근무지','22')>근무지</label>";
-            	inner += "<label id=업무 class=labelST onclick=labelEvent('업무','23')>업무</label>";
-            	inner += "<label id=PM class=labelST onclick=labelEvent('PM','24')>PM</label>";
-            	inner += "<label id=투입명단 class=labelST onclick=labelEvent('투입명단','25')>투입명단</label>";
-            	inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','26')>평가유형</label>";
-            	inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','27')>채용수요</label>";
-            	inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','28')>외주수요</label>";
-            	inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','29')>주간보고서사용</label>";
-            	inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','30')>실적보고</label>";
+            	inner += "<label id=착수 class=labelST onclick=labelEvent('착수','21')>착수</label>";
+            	inner += "<label id=종료 class=labelST onclick=labelEvent('종료','22')>종료</label>";
+            	inner += "<label id=고객담당자 class=labelST onclick=labelEvent('고객담당자','23')>고객담당자</label>";
+            	inner += "<label id=근무지 class=labelST onclick=labelEvent('근무지','24')>근무지</label>";
+            	inner += "<label id=업무 class=labelST onclick=labelEvent('업무','25')>업무</label>";
+            	inner += "<label id=투입명단 class=labelST onclick=labelEvent('투입명단','27')>투입명단</label>";
+            	inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','28')>평가유형</label>";
+            	inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','29')>채용수요</label>";
+            	inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','30')>외주수요</label>";
+            	inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','31')>주간보고서사용</label>";
+            	inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','32')>실적보고</label>";
             	$('#list').append(inner);
-            	AttrList = "1 2 3 4 5 7";
+            	AttrList = "4 19 20 26";
             	saveAttrTap();
-            	console.log(AttrList);
          	}    
         });
     }
@@ -816,6 +842,10 @@
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
+					
+			<li class="nav-item"><a class="nav-link"
+				href="../project_schedule/project_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
 
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
@@ -917,27 +947,27 @@
 						</div>
 						
 						
-						<div class="table-responsive">
+						<div class="table-responsive" id="tableParent">
 							<table class="table TABLE" id="dataTable"
 								style="white-space: nowrap; font-size: small;">
 								<thead>	
 									<tr class="m-0 text-primary">
-										<th onclick="hideAttr(1)">팀(수주)
+										<th class="th" onclick="hideAttr(1)">팀(수주)
 											<button class="sortBTN" onclick="sortTD (0); event.cancelBubble=true;">▲</button>
 											<button class="sortBTN" onclick="reverseTD (0); event.cancelBubble=true;">▼</button>
 										</th>
-										<th onclick="hideAttr(2)">팀(매출)
+										<th class="th" onclick="hideAttr(2)">팀(매출)
 											<button class="sortBTN" onclick="sortTD (1); event.cancelBubble=true;">▲</button>
 											<button class="sortBTN" onclick="reverseTD (1); event.cancelBubble=true;">▼</button>
 										</th>
-										<th onclick="hideAttr(3)">프로젝트 코드</th>
+										<th class="th" onclick="hideAttr(3)">프로젝트 코드</th>
 										<th onclick="hideAttr(4)">프로젝트 명</th>
-										<th onclick="hideAttr(5)">상태
+										<th class="th" onclick="hideAttr(5)">상태
 											<button class="sortBTN" onclick="sortTD (4); event.cancelBubble=true;">▲</button>
 											<button class="sortBTN" onclick="reverseTD (4); event.cancelBubble=true;">▼</button>
 										</th>
 										<th class="th" onclick="hideAttr(6)">실</th>
-										<th onclick="hideAttr(7)">고객사
+										<th class="th" onclick="hideAttr(7)">고객사
 											<button class="sortBTN" onclick="sortTD (6); event.cancelBubble=true;">▲</button>
 											<button class="sortBTN" onclick="reverseTD (6); event.cancelBubble=true;">▼</button>
 										</th>
@@ -952,24 +982,28 @@
 										<th class="th" onclick="hideAttr(16)">하반기수주</th>
 										<th class="th" onclick="hideAttr(17)">하반기예상매출</th>
 										<th class="th" onclick="hideAttr(18)">하반기매출</th>
-										<th class="th" onclick="hideAttr(19)">착수
-											<button class="sortBTN" onclick="sortTD (18); event.cancelBubble=true;">▲</button>
-											<button class="sortBTN" onclick="reverseTD (18); event.cancelBubble=true;">▼</button>
+										
+										<th onclick="hideAttr(19)">연간수주</th>
+										<th onclick="hideAttr(20)">연간매출</th>
+										
+										<th class="th" onclick="hideAttr(21)">착수
+											<button class="sortBTN" onclick="sortTD (20); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (20); event.cancelBubble=true;">▼</button>
 										</th>
-										<th class="th" onclick="hideAttr(20)">종료
-											<button class="sortBTN" onclick="sortTD (19); event.cancelBubble=true;">▲</button>
-											<button class="sortBTN" onclick="reverseTD (19); event.cancelBubble=true;">▼</button>
+										<th class="th" onclick="hideAttr(22)">종료
+											<button class="sortBTN" onclick="sortTD (21); event.cancelBubble=true;">▲</button>
+											<button class="sortBTN" onclick="reverseTD (21); event.cancelBubble=true;">▼</button>
 										</th>
-										<th class="th" onclick="hideAttr(21)">고객담당자</th>
-										<th class="th" onclick="hideAttr(22)">근무지</th>
-										<th class="th" onclick="hideAttr(23)">업무</th>
-										<th class="th" onclick="hideAttr(24)">PM</th>
-										<th class="th" onclick="hideAttr(25)">투입 명단</th>
-										<th class="th" onclick="hideAttr(26)">평가유형</th>
-										<th class="th" onclick="hideAttr(27)">채용수요</th>
-										<th class="th" onclick="hideAttr(28)">외주수요</th>
-										<th class="th" onclick="hideAttr(29)">주간보고서사용</th>
-										<th class="th" onclick="hideAttr(30)">실적보고</th>
+										<th class="th" onclick="hideAttr(23)">고객담당자</th>
+										<th class="th" onclick="hideAttr(24)">근무지</th>
+										<th class="th" onclick="hideAttr(25)">업무</th>
+										<th onclick="hideAttr(26)">PM</th>
+										<th class="th" onclick="hideAttr(27)">투입 명단</th>
+										<th class="th" onclick="hideAttr(28)">평가유형</th>
+										<th class="th" onclick="hideAttr(29)">채용수요</th>
+										<th class="th" onclick="hideAttr(30)">외주수요</th>
+										<th class="th" onclick="hideAttr(31)">주간보고서사용</th>
+										<th class="th" onclick="hideAttr(32)">실적보고</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -977,15 +1011,15 @@
 									<tr>
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
 										<%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
-										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_ORDER()%>', '수주')"><%=projectList.get(i).getTEAM_ORDER()%></td>
-										<td onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_SALES()%>', '매출')"><%=projectList.get(i).getTEAM_SALES()%></td>
-										<td id="<%=projectList.get(i).getNO()%>프로젝트코드"onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트코드')"><%=projectList.get(i).getPROJECT_CODE()%></td>
+										<td class="td" onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_ORDER()%>', '수주')"><%=projectList.get(i).getTEAM_ORDER()%></td>
+										<td class="td" onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_SALES()%>', '매출')"><%=projectList.get(i).getTEAM_SALES()%></td>
+										<td class="td" id="<%=projectList.get(i).getNO()%>프로젝트코드"onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트코드')"><%=projectList.get(i).getPROJECT_CODE()%></td>
 										<td>
 										<a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
 										
-										<td id="state<%=projectList.get(i).getNO()%>" onclick="updateState('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getSTATE()%>')"><%=projectList.get(i).getSTATE()%></td>
+										<td class="td" id="state<%=projectList.get(i).getNO()%>" onclick="updateState('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getSTATE()%>')"><%=projectList.get(i).getSTATE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>실" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','실')"><%=projectList.get(i).getPART()%></td>
-										<td id="<%=projectList.get(i).getNO()%>고객사" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객사')"><%=projectList.get(i).getCLIENT()%></td>
+										<td class="td" id="<%=projectList.get(i).getNO()%>고객사" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객사')"><%=projectList.get(i).getCLIENT()%></td>
 										<td id="<%=projectList.get(i).getNO()%>고객부서" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객부서')"><%=projectList.get(i).getClIENT_PART()%></td>
 										<td id="<%=projectList.get(i).getNO()%>ManMonth" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','ManMonth')"><%=projectList.get(i).getMAN_MONTH()%></td>
 										<td id="<%=projectList.get(i).getNO()%>프로젝트계약금액_백만" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트계약금액_백만')"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
@@ -997,12 +1031,17 @@
 										<td id="<%=projectList.get(i).getNO()%>하반기수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기수주')"><%=projectList.get(i).getSH_ORDER()%></td>
 										<td id="<%=projectList.get(i).getNO()%>하반기예상매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기예상매출')"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
 										<td id="<%=projectList.get(i).getNO()%>하반기매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기매출')"><%=projectList.get(i).getSH_SALES()%></td>
+										
+										<td id="<%=projectList.get(i).getNO()%>연간수주"><%=projectList.get(i).getSH_ORDER()+projectList.get(i).getFH_ORDER()%></td>
+										<td id="<%=projectList.get(i).getNO()%>연간매출"><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
+										
+										
 										<td id="<%=projectList.get(i).getNO()%>착수" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','착수')"><%=projectList.get(i).getPROJECT_START()%></td>
 										<td id="<%=projectList.get(i).getNO()%>종료" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','종료')"><%=projectList.get(i).getPROJECT_END()%></td>
 										<td id="<%=projectList.get(i).getNO()%>고객담당자" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객담당자')"><%=projectList.get(i).getCLIENT_PTB()%></td>
 										<td id="<%=projectList.get(i).getNO()%>근무지" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','근무지')"><%=projectList.get(i).getWORK_PLACE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>업무" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','업무')"><%=projectList.get(i).getWORK()%></td>	
-										<td class="td" onclick="updatePM('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>')">
+										<td onclick="updatePM('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>')">
 											<%
 						                      	if(i<PMnameList.size()){
 						                      		out.print(PMnameList.get(i));
@@ -1055,6 +1094,10 @@
 										<td class="td"><%=projectList.get(i).getSH_ORDER()%></td>
 										<td class="td"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
 										<td class="td"><%=projectList.get(i).getSH_SALES()%></td>
+										
+										<td class="td"><%=projectList.get(i).getSH_ORDER()+projectList.get(i).getFH_ORDER()%></td>
+										<td class="td"><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
+										
 										<td class="td"><%=projectList.get(i).getPROJECT_START()%></td>
 										<td class="td"><%=projectList.get(i).getPROJECT_END()%></td>
 										<td class="td"><%=projectList.get(i).getCLIENT_PTB()%></td>
