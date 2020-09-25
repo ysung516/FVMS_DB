@@ -321,6 +321,10 @@
 
 </head>
 <style>
+.google-visualization-tooltip{
+		
+		
+	} 
 #content{
 	margin-left:90px;
 }
@@ -396,8 +400,6 @@ ul.tabs li.current{
 	#content{
 	margin-left:0;
 	}
-
-	
 	
 	.topbar{
 		z-index:999;
@@ -460,8 +462,7 @@ ul.tabs li.current{
 	  cursor:pointer;
 	}
 	.tootipTable td {
-		padding: 20px;
-		font-size: 15px;
+		padding: 7px;
 		text-align: left;
 	} 
 	
@@ -1329,7 +1330,6 @@ function y_rsales() {
 </script>
 
 <script type="text/javascript">
-
 	
 	//달성률에 따른 색 변화
 	 function stateColor(){
@@ -1346,82 +1346,7 @@ function y_rsales() {
 			 }
 		 }
 	}
-	
-	<%
-		ArrayList<ProjectBean> total_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> total_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> total_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> total_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> total_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> total_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> f_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> f_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> f_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> f_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> f_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> f_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> s_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> s_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> s_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> s_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> s_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> s_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> t_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> t_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> t_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> t_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> t_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> t_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> fo_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fo_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fo_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fo_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fo_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fo_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> fi_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fi_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fi_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fi_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fi_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> fi_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> si_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> si_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> si_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> si_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> si_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> si_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> se_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> se_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> se_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> se_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> se_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> se_vt = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> e_chassis = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> e_body= new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> e_control = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> e_safe = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> e_auto = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> e_vt = new ArrayList<ProjectBean>();
-		
-		for(int i=0; i<pjList.size(); i++){
-			if(pjList.get(i).getSTATE().equals("1.예산확보") || pjList.get(i).getSTATE().equals("2.고객의사") || pjList.get(i).getSTATE().equals("3.제안단계")){
-				
-			}
-		}
-	%>
-	
-	
-	
-	
-	
+
 	$(document).ready(function(){
 		$('.loading').hide();
 		stateColor();
@@ -1455,93 +1380,72 @@ function y_rsales() {
  <div id="wrapper">
 
   <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+			id="accordionSidebar">
 
-   <!-- Sidebar - Brand -->
-   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="summary.jsp">
-    <div class="sidebar-brand-icon rotate-n-15">
-     <i class="fas fa-laugh-wink"></i>
-    </div>
-    <div class="sidebar-brand-text mx-3">Sure FVMS</div>
-   </a>
-
-   <!-- Divider -->
-   <hr class="sidebar-divider my-0">
+			<!-- Sidebar - Brand -->
+			
+			<button id="sidebarToggle" class="rounded-circle border-0" style="margin-left:30px; margin-top:10px">
+						
+					</button>
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
 
 
-	
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
+
 			<!-- Nav Item - summary -->
-		    <li class="nav-item">
-	          <a class="nav-link" href="../mypage/mypage.jsp">
-	          <i class="fas fa-fw fa-table"></i>
-	          <span>마이페이지</span></a>
-	     	</li>
-	     	
-		   <!-- Nav Item - summary -->
-		      <li class="nav-item active">
-		           <a class="nav-link" href="../summary/summary.jsp">
-		           <i class="fas fa-fw fa-table"></i>
-		           <span>요약정보</span></a>
-		       </li>
-		      
-		         <!-- Nav Item - project -->
-		        <li class="nav-item">
-		           <a class="nav-link" href="../project/project.jsp">
-		             <i class="fas fa-fw fa-clipboard-list"></i>
-		             <span>프로젝트</span></a>
-		          </li>
-		
-		       <!-- Nav Item - schedule -->
-		       <li class="nav-item">
-		         <a class="nav-link" href="../schedule/schedule.jsp">
-		         <i class="fas fa-fw fa-calendar"></i>
-		         <span>스케줄</span></a>
-		       </li>
-		       
-		       <li class="nav-item"><a class="nav-link"
+			<li class="nav-item"><a class="nav-link"
+				href="../mypage/mypage.jsp"> <i class="fas fa-fw fa-table"></i>
+					<span>마이페이지</span></a></li>
+
+			<!-- Nav Item - summary -->
+			<li class="nav-item active"><a class="nav-link"
+				href="../summary/summary.jsp"> <i class="fas fa-fw fa-table"></i>
+					<span>요약정보</span></a></li>
+
+			<!-- Nav Item - project -->
+			<li class="nav-item"><a class="nav-link"
+				href="../project/project.jsp"> <i
+					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트</span></a></li>
+
+			<!-- Nav Item - schedule -->
+			<li class="nav-item"><a class="nav-link"
+				href="../schedule/schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
+
+			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
 					
-		        <!-- Nav Item - manager schedule -->
-			      <li class="nav-item">
-			        <a class="nav-link" href="../manager_schedule/manager_schedule.jsp">
-			        <i class="fas fa-fw fa-calendar"></i>
-			        <span>관리자 스케줄</span></a>
-			      </li>
-		  
-			    <!-- Nav Item - report -->
-			   <li class="nav-item">
-			     <a class="nav-link" href="../report/report.jsp">
-			     <i class="fas fa-fw fa-clipboard-list"></i> 
-			     <span>주간보고서</span></a>
-			   </li>
-			
-				<!-- Nav Item - meeting -->
-				    <li class="nav-item">
-			          <a class="nav-link" href="../meeting/meeting.jsp">
-			          <i class="fas fa-fw fa-clipboard-list"></i>
-			          <span>회의록</span></a>
-			     </li>
-					
-				<!-- Nav Item - manager page -->
-     	<%if(permission == 0){ %>
-			<li class="nav-item">
-			  <a class="nav-link" href="../manager/manager.jsp">
-			  <i class="fas fa-fw fa-clipboard-list"></i> 
-			  <span>관리자 페이지</span></a>
-			</li>
+			<!-- Nav Item - manager schedule -->
+			<li class="nav-item"><a class="nav-link"
+				href="../manager_schedule/manager_schedule.jsp"> <i
+					class="fas fa-fw fa-calendar"></i> <span>관리자 스케줄</span></a></li>
+
+			<!-- Nav Item - report -->
+			<li class="nav-item"><a class="nav-link"
+				href="../report/report.jsp"> <i
+					class="fas fa-fw fa-clipboard-list"></i> <span>주간보고서</span></a></li>
+
+			<!-- Nav Item - meeting -->
+			<li class="nav-item"><a class="nav-link"
+				href="../meeting/meeting.jsp"> <i
+					class="fas fa-fw fa-clipboard-list"></i> <span>회의록</span></a></li>
+
+			<!-- Nav Item - manager page -->
+			<%if(permission == 0){ %>
+			<li class="nav-item"><a class="nav-link"
+				href="../manager/manager.jsp"> <i
+					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
-   
-   <!-- Divider -->
-   <hr class="sidebar-divider d-none d-md-block">
 
-   <!-- Sidebar Toggler (Sidebar) -->
-   <div class="text-center d-none d-md-inline">
-    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-   </div>
+			
 
-  </ul>
-  <!-- End of Sidebar -->
+		</ul>
+		<!-- End of Sidebar -->
 
   <!-- Content Wrapper -->
   <div id="content-wrapper" class="d-flex flex-column">
@@ -1582,136 +1486,6 @@ function y_rsales() {
 
   <!-- Begin Page Content -->
     <div class="container-fluid">
-     
-      <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3" style="margin-top:4.75rem;">
-         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">프로젝트 현황</h6>
-        </div>
-            <div class="card-body"> 
-              <div class="table-responsive" >
-                <table class="table table-bordered" id="projectNow">
-                  <thead>
-                   <tr>
-                    	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="6" style="text-align:center;background-color:#15a3da52;">상세내역</td>
-                    </tr>  
-                    <tr style="text-align:center;background-color:#15a3da52;">
-	                    <th>구분</th>
-	                    <th>상태</th>
-	                    <th>Total</th>
-	                   
-	                    <th>샤시힐스</th>
-	                    <th>바디힐스</th>
-	                    <th>제어로직</th>
-	                    <th>기능안전</th>
-	                    <th>자율주행</th>
-	                    <th>실</th>
-                    </tr>
-                  </thead>  
-                  
-                  <tbody>
-                    <tr>
-                    	<td rowspan="3" style="text-align:center; vertical-align: middle;">불확실</td>
-                    	<td style="text-align:center;">1. 예산확보</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr style="text-align:center;">
-                    	<td>2. 고객의사</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>3. 제안단계</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td rowspan="2" style=" vertical-align: middle;">유력</td>
-                    	<td>4. 업체선정</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                     <tr style="text-align:center;">
-                    	<td>5. 진행예정</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr style="text-align:center;">
-                    	<td>진행</td>
-                    	<td>6. 진행중</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr style="text-align:center;">
-                    	<td rowspan="2" style=" vertical-align: middle;">종료</td>
-                    	<td>7. 종료</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr style="text-align:center;">
-                    	<td>8. Dropped</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>
-                    <tr>
-                    	
-                    	<td style="border:0px; bgcolor:#fff;"></td>
-                    	<td bgcolor="yellow">Total</td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    </tr>  
-                    </tbody>                           
-                </table>
-                </div>          	    
-             </div>     
-        </div>
     
       <!-- DataTales Example -->
           <div class="card shadow mb-4">

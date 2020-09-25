@@ -50,17 +50,18 @@
 
 </head>
 <style>
+.container-fluid{
+	width:60%;
+	margin-left:0;
+}
 .sidebar{
 		position:fixed;
-		z-index:9999;
+		z-index:9999999;
 	}
 #wrapper #content-wrapper{
 	overflow-x: initial;
 }
-.sidebar{
-		position:fixed;
-		z-index:1;
-	}
+
 	#content{
 		margin-left:90px;
 	}
@@ -112,7 +113,7 @@
 .details_body {
 	margin-right: 5%;
 	right: 0;
-	float: right;
+	position: absolute;
 	top: 14px;
 	background: #fff;
 }
@@ -173,6 +174,17 @@ tr:last-child {
 }
 
 @media ( max-width :800px) {
+.container-fluid{
+	width:100%;
+	margin:0;
+}
+.details_body {
+	margin-right: 5%;
+	right: 0;
+	position: absolute;
+	top: 9%;
+	background: #fff;
+}
 .card-header{
 		margin-top:4.75rem;
 	}
@@ -276,15 +288,10 @@ button:focus {
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="../summary/summary.jsp">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">Sure FVMS</div>
-			</a>
-
+			
+			<button id="sidebarToggle" class="rounded-circle border-0" style="margin-left:30px; margin-top:10px">
+						
+					</button>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
@@ -338,13 +345,7 @@ button:focus {
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+			
 
 		</ul>
 		<!-- End of Sidebar -->
@@ -398,8 +399,11 @@ button:focus {
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" style="display: inline">주간보고목록</h6>
+							<h6 class="m-0 font-weight-bold text-primary">주간보고목록</h6>
+
+						</div>
 						<div class="details_body">
+
 							<div class="summary">
 								미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span>
 							</div>
@@ -413,8 +417,6 @@ button:focus {
 							<% }}%>
 
 						</div>
-						</div>
-
 
 						<div class="table-responsive">
 							<table id="reportTable">
@@ -434,7 +436,7 @@ button:focus {
 				for(int i=0; i < list.size(); i++){
 					String pmID = projectDao.getProjectBean_no(list.get(i).getProjectNo()).getPROJECT_MANAGER();
 					%>
-									<tr>
+									<tr style="text-align: left;">
 										<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
 										<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getCLIENT()%></td>
 										<td><%=memberDao.returnMember(pmID).getNAME()%></td>

@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.mysql.cj.protocol.Resultset;
 
 import jsp.Bean.model.MemberBean;
 import jsp.Bean.model.ProjectBean;
+import jsp.Bean.model.Project_sch_Bean;
 
 public class ProjectDAO {
 	public ProjectDAO() {}
@@ -423,6 +425,105 @@ public class ProjectDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+		return projectList;
+	}
+	
+	//팀 정렬로 프로젝트 가져오기
+	public HashMap<String, ArrayList<Project_sch_Bean>> getProjectList_team(){
+		HashMap<String, ArrayList<Project_sch_Bean>> projectList = new HashMap<>();
+		ArrayList<Project_sch_Bean> chasis = new ArrayList<Project_sch_Bean>();
+		ArrayList<Project_sch_Bean> body = new ArrayList<Project_sch_Bean>();
+		ArrayList<Project_sch_Bean> control = new ArrayList<Project_sch_Bean>();
+		ArrayList<Project_sch_Bean> save = new ArrayList<Project_sch_Bean>();
+		ArrayList<Project_sch_Bean> auto = new ArrayList<Project_sch_Bean>();
+		ArrayList<Project_sch_Bean> vh = new ArrayList<Project_sch_Bean>();
+		
+		MemberDAO memberDao = new MemberDAO();
+		ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from project");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		Project_sch_Bean project = new Project_sch_Bean();
+	    		String team = "";
+	    		String[] workerIdArray = {};
+	    		String pmInfo="";
+	    		
+	    		if(rs.getString("상태").contains("1") || rs.getString("상태").contains("2") || rs.getString("상태").contains("3")) {
+	    			project.setTEAM(rs.getString("팀_수주"));
+	    			team = rs.getString("팀_수주");
+	    		}else {
+	    			project.setTEAM(rs.getString("팀_매출"));
+	    			team = rs.getString("팀_매출");
+	    		}
+	    		project.setTEAM_ORDER(rs.getString("팀_수주"));
+	    		project.setTEAM_SALES(rs.getString("팀_매출"));
+	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
+	    		project.setSTATE(rs.getString("상태"));
+	    		project.setCLIENT(rs.getString("고객사"));
+	    		project.setPROJECT_START(rs.getString("착수"));
+	    		project.setPROJECT_END(rs.getString("종료"));
+	    		if(rs.getString("PM") != null){
+					pmInfo =  rs.getString("PM");
+					for(int c=0; c<memberList.size(); c++){
+						if(pmInfo.equals(memberList.get(c).getID())){
+							pmInfo = memberList.get(c).getNAME();
+						}
+					}
+					project.setPROJECT_MANAGER(pmInfo);
+				}
+	    		if(rs.getString("투입명단") != null){
+	    			workerIdArray =  rs.getString("투입명단").split(" ");
+	    			String workerString = "";
+	    			for(int a=0; a<workerIdArray.length; a++){
+	    				for(int b=0; b<memberList.size(); b++){
+	    					if(workerIdArray[a].equals(memberList.get(b).getID())){
+	    						workerString += memberList.get(b).getNAME();
+	    					}
+	    				}
+	    				workerString += " ";
+	    			}
+	    			project.setWORKER_LIST(workerString);
+	    		}
+	    		project.setNO(rs.getInt("no"));
+	    		if (team.equals("샤시힐스검증팀")) {
+	    			chasis.add(project);
+	    		}else if(team.equals("바디힐스검증팀")) {
+	    			body.add(project);
+	    		}else if(team.equals("기능안전검증팀")) {
+	    			save.add(project);
+	    		}else if(team.equals("제어로직검증팀")) {
+	    			control.add(project);
+	    		}else if(team.equals("자율주행검증팀")) {
+	    			auto.add(project);
+	    		}else{
+	    			vh.add(project);
+	    		}
+	    	}
+
+	    	projectList.put("미래차검증전략실", vh);
+	    	projectList.put("샤시힐스검증팀", chasis);
+	    	projectList.put("바디힐스검증팀", body);
+	    	projectList.put("제어로직검증팀", control);
+	    	projectList.put("기능안전검증팀", save);
+	    	projectList.put("자율주행검증팀", auto);
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		} 
 		return projectList;
 	}
 	

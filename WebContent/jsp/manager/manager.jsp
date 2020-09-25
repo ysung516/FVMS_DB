@@ -51,6 +51,9 @@
 </script>
 
 <style>
+	.sortBTN{
+	font-size:5px;
+	}
 	.sidebar{
 		position:fixed;
 		z-index:9999;
@@ -61,7 +64,7 @@
 	
 .table-responsive {
 	width: 70%;
-	margin: 0 auto;
+	margin-left:5%;
 }
 
 #manager_List {
@@ -178,6 +181,7 @@ tr:last-child {
 	}
 	.table-responsive {
 		width: 100%;
+		margin-left:0;
 	}
 	body {
 		font-size: small;
@@ -343,18 +347,16 @@ function getTextByClone( tag ){
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="../summary/summary.jsp">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">Sure FVMS</div>
-			</a>
-
+			
+			<button id="sidebarToggle" class="rounded-circle border-0" style="margin-left:30px; margin-top:10px">
+						
+					</button>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
@@ -367,10 +369,9 @@ function getTextByClone( tag ){
 					<span>요약정보</span></a></li>
 
 			<!-- Nav Item - project -->
-			<li class="nav-item "><a class="nav-link"
+			<li class="nav-item"><a class="nav-link"
 				href="../project/project.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트</span></a></li>
-
 
 			<!-- Nav Item - schedule -->
 			<li class="nav-item"><a class="nav-link"
@@ -403,14 +404,7 @@ function getTextByClone( tag ){
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 
-
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+			
 
 		</ul>
 		<!-- End of Sidebar -->
@@ -497,7 +491,7 @@ function getTextByClone( tag ){
 								<tbody id="manager_List">
 									<%
 		  	for(int i=0; i<memberList.size(); i++){
-		  		%><tr>
+		  		%><tr style="text-align: left;">
 										<td><%=memberList.get(i).getTEAM()%></td>
 
 										<td><%=memberList.get(i).getPART()%></td>

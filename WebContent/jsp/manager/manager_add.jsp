@@ -101,6 +101,10 @@
 		position:fixed;
 		z-index:9999;
 	}
+.container-fluid{
+	margin-right:0;
+	width:94%;
+}
 #insert {
 	width: 100%;
 	font-size: small;
@@ -133,7 +137,7 @@ textarea {
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
-	width: 20%;
+	width: 10%;
 }
 
 .loading {
@@ -157,13 +161,11 @@ textarea {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-.container-fluid{
-	padding-left: 5%;
-	padding-right: 5%;
-}
+
 
 
 @media ( max-width :800px) {
+
 	.card-header{
 		margin-top:4.75rem;
 	}
@@ -203,18 +205,16 @@ textarea {
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="../summary/summary.jsp">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">Sure FVMS</div>
-			</a>
-
+			
+			<button id="sidebarToggle" class="rounded-circle border-0" style="margin-left:30px; margin-top:10px">
+						
+					</button>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
@@ -231,16 +231,15 @@ textarea {
 				href="../project/project.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트</span></a></li>
 
-
 			<!-- Nav Item - schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
-					
+
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
-							
+					
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -255,6 +254,7 @@ textarea {
 			<li class="nav-item"><a class="nav-link"
 				href="../meeting/meeting.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>회의록</span></a></li>
+
 			<!-- Nav Item - manager page -->
 			<%if(permission == 0){ %>
 			<li class="nav-item active"><a class="nav-link"
@@ -262,17 +262,10 @@ textarea {
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+			
 
 		</ul>
 		<!-- End of Sidebar -->
-
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 
@@ -323,7 +316,7 @@ textarea {
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
+			
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
@@ -333,7 +326,7 @@ textarea {
 									class="btn btn-primary" onclick="btn_insert()">
 							</div>
 						</div>
-						<div class="card-body">
+						
 
 							<div class="table-responsive">
 								<form id="addPro" name="addPro" method="post"
@@ -412,10 +405,9 @@ textarea {
 							</div>
 							<!-- /.container-fluid -->
 
-						</div>
+						
 						<!-- End of Main Content -->
 					</div>
-
 				</div>
 				<!-- End of Content Wrapper -->
 
