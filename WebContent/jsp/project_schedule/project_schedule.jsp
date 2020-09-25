@@ -35,33 +35,6 @@
 	ArrayList<String> PMnameList = new ArrayList<String>();
 	String[] workerIdArray = {};
 	String pmInfo="";
-	// 투입명단 id >> 이름으로 변경
-	for(int i=0; i<all_project.size();i++){
-		if(all_project.get(i).getWORKER_LIST() != null){
-			workerIdArray =  all_project.get(i).getWORKER_LIST().split(" ");
-			for(int a=0; a<workerIdArray.length; a++){
-				for(int b=0; b<memberList.size(); b++){
-					if(workerIdArray[a].equals(memberList.get(b).getID())){
-						workerIdArray[a] = memberList.get(b).getNAME();
-					}
-				}
-			}
-			workerIdList.add(workerIdArray);
-		}
-	}
-	
-	// PM ID >> 이름 변경
-	for(int i=0; i<projectList.size();i++){
-		if(projectList.get(i).getWORKER_LIST() != null){
-			pmInfo =  projectList.get(i).getPROJECT_MANAGER();
-			for(int b=0; b<memberList.size(); b++){
-				if(pmInfo.equals(memberList.get(b).getID())){
-					pmInfo = memberList.get(b).getNAME();
-				}
-			}
-			PMnameList.add(pmInfo);
-		}
-	}
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
