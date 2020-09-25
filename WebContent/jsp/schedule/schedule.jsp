@@ -55,46 +55,73 @@
 
 
 </head>
-<style>	
+<style>
 .topbar {
-    height: 3.375rem;
+	height: 3.375rem;
 }
 
-@media(max-width:800px){
-	.tableST{
-	width : 100% !important;
-	height: 40%;
-	
-}
-#timelineChart{
-	width:  100% !important;
-
-}
+@media ( max-width :800px) {
+	.tableST {
+		width: 100% !important;
+		height: 40%;
+		
+	}
+.table-responsive2 {
+	height: 40vh !important;
 }
 
-.memberTable{
-	width : 100%;
-	white-space:nowrap;
-	text-align:center;
+	#timelineChart {
+		width: 100% !important;
+	}
 }
-#dataTable td:hover{
+
+
+#fixedd {
+ table-layout:fixed; 
+ width:100%;
+ }
+
+
+.table { border:1px solid; border-collapse: collapse; table-layout:fixed;}
+.table td, .test-table th { border: 1px solid;  word-break:break-all;}
+.table thead th { position:sticky; top: 0; background-color: #15a3da52; border:1px solid;  word-break:break-all; }
+
+.table-responsive2 {
+	display: block;
+	width: 100%;
+	height: 65vh;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.memberTable {
+	width: 100%;
+	white-space: nowrap;
+	text-align: center;
+}
+
+#dataTable td:hover {
 	background-color: black;
 }
-.memberTable2{
-	width : 100%;
+
+.memberTable2 {
+	width: 100%;
 	height: 60%;
-	text-align:center;
+	text-align: center;
 }
-.tableST{
-	width : 40%;
+
+.tableST {
+	width: 45%;
+	height: auto;
+	float: right;
+}
+
+#timelineChart {
 	height: 90%;
-	float:right;
+	width: 55%;
+	float: right;
 }
-#timelineChart{
-	height: 90%;
-	width:  60%;
-	float : right;
-}
+
 .loading {
 	position: fixed;
 	text-align: center;
@@ -117,11 +144,10 @@
 	transform: translate(-50%, -50%);
 }
 
-.tooltip-padding{
+.tooltip-padding {
 	text-align: left;
 	padding: 5%;
 }
-
 </style>
 
 
@@ -534,8 +560,8 @@
         	  					inner += "<td>"+'<%=List11.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List11.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List11.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List11.get(a).getCareer().split("\n").length; b++){
         	  							str += List11.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -558,8 +584,8 @@
         	  					inner += "<td>"+'<%=List12.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List12.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List12.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List12.get(a).getCareer().split("\n").length; b++){
         	  							str += List12.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -582,8 +608,8 @@
         	  					inner += "<td>"+'<%=List13.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List13.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List13.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List13.get(a).getCareer().split("\n").length; b++){
         	  							str += List13.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -606,8 +632,8 @@
         	  					inner += "<td>"+'<%=List14.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List14.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List14.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List14.get(a).getCareer().split("\n").length; b++){
         	  							str += List14.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -630,8 +656,8 @@
         	  					inner += "<td>"+'<%=List15.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List15.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List15.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List15.get(a).getCareer().split("\n").length; b++){
         	  							str += List15.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -681,8 +707,8 @@
         	  					inner += "<td>"+'<%=List21.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List21.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List21.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List21.get(a).getCareer().split("\n").length; b++){
         	  							str += List21.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -705,8 +731,8 @@
         	  					inner += "<td>"+'<%=List22.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List22.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List22.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List22.get(a).getCareer().split("\n").length; b++){
         	  							str += List22.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -728,8 +754,8 @@
         	  					inner += "<td>"+'<%=List23.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List23.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List23.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List23.get(a).getCareer().split("\n").length; b++){
         	  							str += List23.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -751,8 +777,8 @@
         	  					inner += "<td>"+'<%=List24.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List24.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List24.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List24.get(a).getCareer().split("\n").length; b++){
         	  							str += List24.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -774,8 +800,8 @@
         	  					inner += "<td>"+'<%=List25.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List25.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List25.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List25.get(a).getCareer().split("\n").length; b++){
         	  							str += List25.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -825,8 +851,8 @@
         	  					inner += "<td>"+'<%=List31.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List31.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List31.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List31.get(a).getCareer().split("\n").length; b++){
         	  							str += List31.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -849,8 +875,8 @@
         	  					inner += "<td>"+'<%=List32.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List32.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List32.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List32.get(a).getCareer().split("\n").length; b++){
         	  							str += List32.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -872,8 +898,8 @@
         	  					inner += "<td>"+'<%=List33.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List33.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List33.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List33.get(a).getCareer().split("\n").length; b++){
         	  							str += List33.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -895,8 +921,8 @@
         	  					inner += "<td>"+'<%=List34.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List34.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List34.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List34.get(a).getCareer().split("\n").length; b++){
         	  							str += List34.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -918,8 +944,8 @@
         	  					inner += "<td>"+'<%=List35.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List35.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List35.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List35.get(a).getCareer().split("\n").length; b++){
         	  							str += List35.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -969,8 +995,8 @@
         	  					inner += "<td>"+'<%=List41.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List41.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List41.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List41.get(a).getCareer().split("\n").length; b++){
         	  							str += List41.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -993,8 +1019,8 @@
         	  					inner += "<td>"+'<%=List42.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List42.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List42.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List42.get(a).getCareer().split("\n").length; b++){
         	  							str += List42.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1016,8 +1042,8 @@
         	  					inner += "<td>"+'<%=List43.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List43.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List43.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List43.get(a).getCareer().split("\n").length; b++){
         	  							str += List43.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1039,8 +1065,8 @@
         	  					inner += "<td>"+'<%=List44.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List44.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List44.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List44.get(a).getCareer().split("\n").length; b++){
         	  							str += List44.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1062,8 +1088,8 @@
         	  					inner += "<td>"+'<%=List45.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List45.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List45.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List45.get(a).getCareer().split("\n").length; b++){
         	  							str += List45.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1114,8 +1140,8 @@
         	  					inner += "<td>"+'<%=List51.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List51.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List51.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List51.get(a).getCareer().split("\n").length; b++){
         	  							str += List51.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1138,8 +1164,8 @@
         	  					inner += "<td>"+'<%=List52.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List52.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List52.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List52.get(a).getCareer().split("\n").length; b++){
         	  							str += List52.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1161,8 +1187,8 @@
         	  					inner += "<td>"+'<%=List53.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List53.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List53.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List53.get(a).getCareer().split("\n").length; b++){
         	  							str += List53.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1184,8 +1210,8 @@
         	  					inner += "<td>"+'<%=List54.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List54.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List54.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List54.get(a).getCareer().split("\n").length; b++){
         	  							str += List54.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1207,8 +1233,8 @@
         	  					inner += "<td>"+'<%=List55.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List55.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List55.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List55.get(a).getCareer().split("\n").length; b++){
         	  							str += List55.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1258,8 +1284,8 @@
         	  					inner += "<td>"+'<%=List61.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List61.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List61.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List61.get(a).getCareer().split("\n").length; b++){
         	  							str += List61.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1282,8 +1308,8 @@
         	  					inner += "<td>"+'<%=List62.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List62.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List62.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List62.get(a).getCareer().split("\n").length; b++){
         	  							str += List62.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1305,8 +1331,8 @@
         	  					inner += "<td>"+'<%=List63.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List63.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List63.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List63.get(a).getCareer().split("\n").length; b++){
         	  							str += List63.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1328,8 +1354,8 @@
         	  					inner += "<td>"+'<%=List64.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List64.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List64.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List64.get(a).getCareer().split("\n").length; b++){
         	  							str += List64.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1351,8 +1377,8 @@
         	  					inner += "<td>"+'<%=List65.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=List65.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=List65.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<List65.get(a).getCareer().split("\n").length; b++){
         	  							str += List65.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1402,8 +1428,8 @@
         	  					inner += "<td>"+'<%=ListT1.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=ListT1.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=ListT1.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<ListT1.get(a).getCareer().split("\n").length; b++){
         	  							str += ListT1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1426,8 +1452,8 @@
         	  					inner += "<td>"+'<%=ListT2.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=ListT2.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=ListT2.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<ListT2.get(a).getCareer().split("\n").length; b++){
         	  							str += ListT2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1449,8 +1475,8 @@
         	  					inner += "<td>"+'<%=ListT3.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=ListT3.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=ListT3.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<ListT3.get(a).getCareer().split("\n").length; b++){
         	  							str += ListT3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1472,8 +1498,8 @@
         	  					inner += "<td>"+'<%=ListT4.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=ListT4.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=ListT4.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<ListT4.get(a).getCareer().split("\n").length; b++){
         	  							str += ListT4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1495,8 +1521,8 @@
         	  					inner += "<td>"+'<%=ListT5.get(a).getTEAM()%>'+"</td>";
           	  					inner += "<td>"+'<%=ListT5.get(a).getNAME()%>'+"</td>";
          						inner += "<td>"+'<%=ListT5.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
          						<%
         	  						for(int b=0; b<ListT5.get(a).getCareer().split("\n").length; b++){
         	  							str += ListT5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
@@ -1525,7 +1551,7 @@
 		
 	</script>
 
-<body id="page-top">
+<body id="page-top" style="font-size: small;">
 	<!--  로딩화면  시작  -->
 	<div class="loading">
 		<div id="load">
@@ -1657,9 +1683,11 @@
 					</ul>
 
 				</nav>
-				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
+				<!-- <h6 class="m-0 font-weight-bold text-primary">Schedule</h6> -->
+
 				<div class="tableST">
 				<div class="table-responsive">
+				<h6 class="m-0 font-weight-bold text-primary">부서 / 직급 별 프로젝트 현황</h6>
 				<table class="memberTable" id="dataTable">
 				<thead>
 	                  <tr style="background-color:#15a3da52;">
@@ -1740,17 +1768,18 @@
                 </table>
                 </div>
 				
-				<div class="table-responsive"style="height: 664px;">
-				<table class="table table-bordered">
+				<div class="table-responsive2">
+				<table class="table table-bordered" id="fixedd">
 	                <thead>
 	                    <tr  style="text-align:center;background-color:#15a3da52;">
-		                    <th>소속</th>
-		                    <th>팀</th>
+		                    <th  style="width:15%">소속</th>
+		                    <th  style="width:15%">팀</th>
 		                    <th>이름</th>
 		                    <th>직급</th>
-		                    <th>Mobile</th>
-		                    <th>주소</th>
-							<th>프로젝트 수행이력</th>	                   	         
+							<th>Mobile</th>
+							<th>주소</th>
+							<th style="width:25%">프로젝트 수행이력</th>	    
+							               	         
 	                    </tr>
                     </thead>
                     <tbody id="memberINFO"></tbody>
@@ -1758,8 +1787,9 @@
                 </div>
         
                 </div>
+				
+				<h6 class="m-0 font-weight-bold text-primary">프로젝트 타임라인</h6>
                 <div id="timelineChart"></div>
-
 
 			</div>			
 						<!-- /.container-fluid -->
