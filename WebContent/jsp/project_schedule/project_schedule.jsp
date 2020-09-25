@@ -4,93 +4,1350 @@
 	import="java.util.ArrayList" import="java.util.Date"
 	import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html lang="en">
 
-	<%
+<head>
+<%
+
+	PrintWriter script =  response.getWriter();
+	if (session.getAttribute("sessionID") == null){
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+	}
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	if(permission > 2){
+		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+	}
 	
-		PrintWriter script =  response.getWriter();
-		if (session.getAttribute("sessionID") == null){
-			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
-		}
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		if(permission > 2){
-			script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
-		}
-		
-		String sessionID = session.getAttribute("sessionID").toString();
-		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(60*60);
-		
-		MemberDAO memberDao = new MemberDAO();
-		ProjectDAO projectDao = new ProjectDAO();
-		SchDAO schDao = new SchDAO();
-		ArrayList<MemberBean> memberList = memberDao.getMemberData();
-		ArrayList<ProjectBean> projectList = schDao.getProjectList_sch();
-		ArrayList<schBean> schList = new ArrayList<schBean>();
-		Date nowTime = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		String date = sf.format(nowTime);
-		
-		String str = "";
-		
-		
-		ArrayList<ProjectBean> List1 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List11 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List12 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List13 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List14 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List15 = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> List2 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List21 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List22 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List23 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List24 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List25 = new ArrayList<ProjectBean>();
-		
-		
-		ArrayList<ProjectBean> List3 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List31 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List32 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List33 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List34 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List35 = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> List4 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List41 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List42 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List43 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List44 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List45 = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> List5 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List51 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List52 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List53 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List54 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List55 = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> List6 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List61 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List62 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List63 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List64 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> List65 = new ArrayList<ProjectBean>();
-		
-		ArrayList<ProjectBean> ListT = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> ListT1 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> ListT2 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> ListT3 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> ListT4 = new ArrayList<ProjectBean>();
-		ArrayList<ProjectBean> ListT5 = new ArrayList<ProjectBean>();
+	String sessionID = session.getAttribute("sessionID").toString();
+	String sessionName = session.getAttribute("sessionName").toString();
+	session.setMaxInactiveInterval(60*60);
 	
-	%>
-<body>
-<!--  로딩화면  시작  -->
+	ProjectDAO projectDao = new ProjectDAO();
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	String date = sf.format(nowTime);
+	
+	ArrayList<ProjectBean> all_project = projectDao.getProjectList();
+	
+	String str = "";
+
+%>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Sure FVMS - Schedule</title>
+
+<!-- Custom fonts for this template-->
+<link href="../../vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+
+
+</head>
+<style>	
+.topbar {
+    height: 3.375rem;
+}
+
+@media(max-width:800px){
+	.tableST{
+	width : 100% !important;
+	height: 40%;
+	
+}
+#timelineChart{
+	width:  100% !important;
+
+}
+}
+
+.memberTable{
+	width : 100%;
+	white-space:nowrap;
+	text-align:center;
+}
+#dataTable td:hover{
+	background-color: black;
+}
+.memberTable2{
+	width : 100%;
+	height: 60%;
+	text-align:center;
+}
+.tableST{
+	width : 40%;
+	height: 90%;
+	float:right;
+}
+#timelineChart{
+	height: 90%;
+	width:  60%;
+	float : right;
+}
+.loading {
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	font-size: 8px;
+	background-color: #4e73df6b;
+	background-image: linear-gradient(181deg, #3d5482 16%, #6023b654 106%);
+	background-size: cover;
+	z-index: 1000;
+	color: #ffffffc4;
+}
+
+.loading #load {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.tooltip-padding{
+	text-align: left;
+	padding: 5%;
+}
+
+</style>
+
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+          google.charts.load("current", {packages:["timeline"]});
+          google.charts.setOnLoadCallback(drawChart);
+          
+         function nowLine(div){
+       	//get the height of the timeline div
+       		var height;
+       	  $('#' + div + ' rect').each(function(index){
+       	  	var x = parseFloat($(this).attr('x'));
+       	    var y = parseFloat($(this).attr('y'));
+       	    if(x == 0 && y == 0) {height = parseFloat($(this).attr('height'))}
+       	  })
+       		var nowWord = $('#' + div + ' text:contains("Now")');
+       	  nowWord.prev().first().attr('height', height + 'px').attr('width', '1px').attr('y', '0');
+       	}
+         
+          function drawChart() {
+        	   	<%
+        	   	String nowYear = sf.format(nowTime).split("-")[0];
+        	   	int preYear = Integer.parseInt(nowYear) - 1;
+        	   	int nextYear = Integer.parseInt(nowYear) + 1;
+				
+        		for(int i=0; i<memberList.size(); i++){
+        			for(int j=0; j<projectList.size(); j++){
+        				schBean PMsch = new schBean();
+    					if(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())){
+    						PMsch.setName(memberList.get(i).getID());
+    						PMsch.setName(memberList.get(i).getNAME());
+    						PMsch.setTeam(memberList.get(i).getTEAM());
+    						PMsch.setRank(memberList.get(i).getRANK());
+    						PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
+    						PMsch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+    						String Wstr = "";
+    						for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
+    							Wstr += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[z]).getNAME() + " ";
+    						}
+    						PMsch.setWorkList(Wstr);
+    						PMsch.setStart(projectList.get(j).getPROJECT_START());
+    						PMsch.setEnd(projectList.get(j).getPROJECT_END());
+    						schList.add(PMsch);
+    					}
+        				for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
+        					if(!(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())) && memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
+        						//프로젝트 명, 착수, 종료, (이름, 소속팀, 직급)
+        						schBean sch = new schBean();
+        						sch.setId(memberList.get(i).getID());
+        						sch.setName(memberList.get(i).getNAME());
+        						sch.setTeam(memberList.get(i).getTEAM());
+        						sch.setRank(memberList.get(i).getRANK());
+        						sch.setProjectName(projectList.get(j).getPROJECT_NAME());
+        						sch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+        						String Wstr2 = "";
+        						for(int x=0; x<projectList.get(j).getWORKER_LIST().split(" ").length; x++){
+        							Wstr2 += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[x]).getNAME() + " ";
+        						}
+        						sch.setWorkList(Wstr2);
+        						sch.setStart(projectList.get(j).getPROJECT_START());
+        						sch.setEnd(projectList.get(j).getPROJECT_END());
+        						schList.add(sch);
+        					}	
+        				}
+        			}
+        		}
+        	%>
+
+            var container = document.getElementById('timelineChart');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+      
+            dataTable.addColumn({ type: 'string', id: 'Position' });
+            dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+            dataTable.addColumn({ type: 'string', role: 'tooltip' });
+            dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addRows([
+            		[ '\0', 'Now','','',new Date(), new Date()],
+            		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
+              		<%
+	            		for(int b=0; b<schList.size(); b++){%>
+	            			,[	'<%=schList.get(b).getName()%>'
+	            				,'<%=schList.get(b).getProjectName()%>'
+	            				
+	            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(b).getPm()%><br><b>투입명단 : </b><%=schList.get(b).getWorkList().trim()%></p>' 
+	            				+ '<b>착수일 : </b><%=schList.get(b).getStart()%><br><b>종료일 : </b><%=schList.get(b).getEnd()%></div>'
+	            				,''
+	            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
+	            		<%}
+            	%>
+            ]);
+            chart.draw(dataTable);
+           	nowLine('timelineChart');
+           	  
+           	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
+           		if(obj.row == 0){
+           			$('.google-visualization-tooltip').css('display', 'none');
+           		}
+           	    nowLine('timelineChart');
+           	  })
+           	  
+           	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
+           	  	nowLine('timelineChart');
+           	  })
+
+            var st = container.getElementsByTagName("div")[0];
+			st.style.position = 'inherit';
+          }
+          
+          
+          function drawChartOp(team, rank){
+              var container = document.getElementById('timelineChart');
+              var chart = new google.visualization.Timeline(container);
+              var dataTable = new google.visualization.DataTable();
+        
+              dataTable.addColumn({ type: 'string', id: 'Position' });
+              dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+              dataTable.addColumn({ type: 'string', role: 'tooltip' });
+              dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+              dataTable.addColumn({ type: 'date', id: 'Start' });
+              dataTable.addColumn({ type: 'date', id: 'End' });
+              dataTable.addRows([
+	          		[ '\0', 'Now','','',new Date(), new Date()],
+	          		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
+          		]);
+              <%
+	      	  	  for(int i=0; i<schList.size(); i++){%>
+	      	  	  	if(rank=='total'){
+		      	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
+		    	  			 dataTable.addRows([
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		} else if(team == 'total'){
+		    	  			dataTable.addRows([
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		}
+	
+	      	  	  	}
+	      	  	  	else{
+		      	  	  	if(team == '<%=schList.get(i).getTeam()%>' && rank == '<%=schList.get(i).getRank()%>'){
+		    	  			dataTable.addRows([
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		}else if(team == 'total' && rank == '<%=schList.get(i).getRank()%>'){
+		    	  			dataTable.addRows([
+		    	  				[	'<%=schList.get(i).getName()%>'
+		            				,'<%=schList.get(i).getProjectName()%>'
+		            				
+		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
+		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
+		            				,''
+		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
+		    	            ]);
+		    	  		}
+	      	  	  	}			      	  	
+      	  	  	
+	  	  <%}%> 
+      	  	chart.draw(dataTable);
+         	nowLine('timelineChart');
+           	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
+           		if(obj.row == 0){
+           			$('.google-visualization-tooltip').css('display', 'none');
+           		}
+           	    nowLine('timelineChart');
+           	  })
+           	  
+           	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
+           	  	nowLine('timelineChart');
+           	  })
+           	  
+      	  	memberInfoTable(team, rank);
+       }	//end
+         
+          function memberInfoTable(team, rank){
+        	  	var inner="";   	  	
+          	  	if(team == '미래차검증전략실'){
+          	  		if(rank == 'total'){
+          	  			inner="";
+          	  			<%
+          	  				
+          	  				for(int a=0; a<List1.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=List1.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=List1.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=List1.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List1.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List1.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List1.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<List1.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += List1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          				inner="";
+           	  			<%
+        	  				for(int a=0; a<List11.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List11.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List11.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List11.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List11.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List11.get(a).getCareer().split("\n").length; b++){
+        	  							str += List11.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          				inner="";
+           	  			<%
+        	  				for(int a=0; a<List12.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List12.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List12.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List12.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List12.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List12.get(a).getCareer().split("\n").length; b++){
+        	  							str += List12.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+          				inner="";
+           	  			<%
+        	  				for(int a=0; a<List13.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List13.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List13.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List13.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List13.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List13.get(a).getCareer().split("\n").length; b++){
+        	  							str += List13.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+          				inner="";
+           	  			<%
+        	  				for(int a=0; a<List14.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List14.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List14.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List14.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List14.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List14.get(a).getCareer().split("\n").length; b++){
+        	  							str += List14.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+          				inner="";
+           	  			<%
+        	  				for(int a=0; a<List15.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List15.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List15.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List15.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List15.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List15.get(a).getCareer().split("\n").length; b++){
+        	  							str += List15.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}	  		
+          	  		}
+          	  	
+          	  	else if(team == '샤시힐스검증팀'){
+          	  		if(rank == 'total'){
+          	  		inner="";
+          	  			<%
+          	  				for(int a=0; a<List2.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=List2.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=List2.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=List2.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List2.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List2.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List2.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<List2.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += List2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List21.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List21.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List21.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List21.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List21.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List21.get(a).getCareer().split("\n").length; b++){
+        	  							str += List21.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List22.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List22.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List22.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List22.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List22.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List22.get(a).getCareer().split("\n").length; b++){
+        	  							str += List22.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+           	  			<%
+        	  				for(int a=0; a<List23.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List23.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List23.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List23.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List23.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List23.get(a).getCareer().split("\n").length; b++){
+        	  							str += List23.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+           	  			<%
+        	  				for(int a=0; a<List24.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List24.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List24.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List24.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List24.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List24.get(a).getCareer().split("\n").length; b++){
+        	  							str += List24.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+           	  			<%
+        	  				for(int a=0; a<List25.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List25.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List25.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List25.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List25.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List25.get(a).getCareer().split("\n").length; b++){
+        	  							str += List25.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}	
+          	  		}
+          	  	
+          	  	else if(team == '바디힐스검증팀'){
+          	  		if(rank == 'total'){
+          	  		inner="";
+          	  			<%
+          	  				for(int a=0; a<List3.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=List3.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=List3.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=List3.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List3.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List3.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List3.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<List3.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += List3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List31.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List31.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List31.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List31.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List31.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List31.get(a).getCareer().split("\n").length; b++){
+        	  							str += List31.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List32.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List32.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List32.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List32.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List32.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List32.get(a).getCareer().split("\n").length; b++){
+        	  							str += List32.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+           	  			<%
+        	  				for(int a=0; a<List33.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List33.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List33.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List33.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List33.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List33.get(a).getCareer().split("\n").length; b++){
+        	  							str += List33.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+           	  			<%
+        	  				for(int a=0; a<List34.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List34.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List34.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List34.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List34.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List34.get(a).getCareer().split("\n").length; b++){
+        	  							str += List34.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+           	  			<%
+        	  				for(int a=0; a<List35.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List35.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List35.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List35.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List35.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List35.get(a).getCareer().split("\n").length; b++){
+        	  							str += List35.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          	  		}
+          	  	
+          	  	else if(team == '제어로직검증팀'){
+          	  		if(rank == 'total'){
+          	  		inner="";
+          	  			<%
+          	  				for(int a=0; a<List4.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=List4.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=List4.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=List4.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List4.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List4.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List4.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<List4.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += List4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List41.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List41.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List41.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List41.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List41.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List41.get(a).getCareer().split("\n").length; b++){
+        	  							str += List41.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List42.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List42.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List42.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List42.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List42.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List42.get(a).getCareer().split("\n").length; b++){
+        	  							str += List42.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+           	  			<%
+        	  				for(int a=0; a<List43.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List43.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List43.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List43.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List43.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List43.get(a).getCareer().split("\n").length; b++){
+        	  							str += List43.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+           	  			<%
+        	  				for(int a=0; a<List44.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List44.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List44.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List44.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List44.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List44.get(a).getCareer().split("\n").length; b++){
+        	  							str += List44.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+           	  			<%
+        	  				for(int a=0; a<List45.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List45.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List45.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List45.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List45.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List45.get(a).getCareer().split("\n").length; b++){
+        	  							str += List45.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          	  		
+          	  		}
+          	  	
+          	  	else if(team == '기능안전검증팀'){
+          	  		if(rank == 'total'){
+          	  		inner="";
+          	  			<%
+          	  				for(int a=0; a<List5.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=List5.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=List5.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=List5.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List5.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List5.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List5.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<List5.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += List5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List51.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List51.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List51.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List51.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List51.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List51.get(a).getCareer().split("\n").length; b++){
+        	  							str += List51.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List52.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List52.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List52.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List52.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List52.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List52.get(a).getCareer().split("\n").length; b++){
+        	  							str += List52.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+           	  			<%
+        	  				for(int a=0; a<List53.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List53.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List53.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List53.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List53.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List53.get(a).getCareer().split("\n").length; b++){
+        	  							str += List53.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+           	  			<%
+        	  				for(int a=0; a<List54.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List54.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List54.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List54.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List54.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List54.get(a).getCareer().split("\n").length; b++){
+        	  							str += List54.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+           	  			<%
+        	  				for(int a=0; a<List55.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List55.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List55.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List55.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List55.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List55.get(a).getCareer().split("\n").length; b++){
+        	  							str += List55.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          	  		}
+          	  	
+          	  	else if(team == '자율주행검증팀'){
+          	  		if(rank == 'total'){
+          	  		inner="";
+          	  			<%
+          	  				for(int a=0; a<List6.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=List6.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=List6.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=List6.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List6.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List6.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=List6.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<List6.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += List6.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List61.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List61.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List61.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List61.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List61.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List61.get(a).getCareer().split("\n").length; b++){
+        	  							str += List61.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<List62.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List62.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List62.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List62.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List62.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List62.get(a).getCareer().split("\n").length; b++){
+        	  							str += List62.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+           	  			<%
+        	  				for(int a=0; a<List63.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List63.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List63.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List63.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List63.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List63.get(a).getCareer().split("\n").length; b++){
+        	  							str += List63.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+           	  			<%
+        	  				for(int a=0; a<List64.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List64.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List64.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List64.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List64.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List64.get(a).getCareer().split("\n").length; b++){
+        	  							str += List64.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+           	  			<%
+        	  				for(int a=0; a<List65.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=List65.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=List65.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=List65.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=List65.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<List65.get(a).getCareer().split("\n").length; b++){
+        	  							str += List65.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          	  		}
+          	  	
+          	  	else if(team == 'total'){
+          	  		if(rank == 'total'){
+          	  		inner="";
+          	  			<%
+          	  				for(int a=0; a<ListT.size(); a++){
+          	  					str = "";
+          	  				%>
+       	  						inner += "<tr>";
+       	  						inner += "<td>"+'<%=ListT.get(a).getPART()%>'+"</td>";
+       		  					inner += "<td>"+'<%=ListT.get(a).getTEAM()%>'+"</td>";
+    	      	  				inner += "<td>"+'<%=ListT.get(a).getNAME()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT.get(a).getRANK()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT.get(a).getMOBILE()%>'+"</td>";
+       	  						inner += "<td>"+'<%=ListT.get(a).getADDRESS()%>'+"</td>";
+       	  						<%
+    	   	  						for(int b=0; b<ListT.get(a).getCareer().split("\n").length; b++){
+    	   	  							str += ListT.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+    	   	  						}
+       	  						%>
+       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						inner += "</tr>";
+       	  					<%}%>
+       	  					$('#memberINFO').empty();
+       	  					$('#memberINFO').append(inner);
+          	  			}
+          			else if(rank == '수석'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<ListT1.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=ListT1.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=ListT1.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=ListT1.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT1.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<ListT1.get(a).getCareer().split("\n").length; b++){
+        	  							str += ListT1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '책임'){
+          			inner="";
+           	  			<%
+        	  				for(int a=0; a<ListT2.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=ListT2.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=ListT2.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=ListT2.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT2.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<ListT2.get(a).getCareer().split("\n").length; b++){
+        	  							str += ListT2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '선임'){
+           	  			<%
+        	  				for(int a=0; a<ListT3.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=ListT3.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=ListT3.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=ListT3.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT3.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<ListT3.get(a).getCareer().split("\n").length; b++){
+        	  							str += ListT3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '전임'){
+           	  			<%
+        	  				for(int a=0; a<ListT4.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=ListT4.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=ListT4.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=ListT4.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT4.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<ListT4.get(a).getCareer().split("\n").length; b++){
+        	  							str += ListT4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          			else if(rank == '인턴'){
+           	  			<%
+        	  				for(int a=0; a<ListT5.size(); a++){
+        	  					str = "";
+        	  				%>
+         						inner += "<tr>";
+         						inner += "<td>"+'<%=ListT5.get(a).getPART()%>'+"</td>";
+        	  					inner += "<td>"+'<%=ListT5.get(a).getTEAM()%>'+"</td>";
+          	  					inner += "<td>"+'<%=ListT5.get(a).getNAME()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT5.get(a).getRANK()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
+         						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
+         						<%
+        	  						for(int b=0; b<ListT5.get(a).getCareer().split("\n").length; b++){
+        	  							str += ListT5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
+        	  						}
+         						%>
+         						inner += "<td>"+'<%=str%>'+"</td>";
+         						inner += "</tr>";
+         					<%}%>
+         					$('#memberINFO').empty();
+         					$('#memberINFO').append(inner);
+           	  			}
+          	  		}
+       }
+          	
+		<!-- 로딩화면 -->
+		
+		window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
+		$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
+		    $('.loading').hide();
+		});
+		
+		// 페이지 시작시 호출 함수
+		$(function(){
+			drawChart();
+		});
+		
+	</script>
+
+<body id="page-top">
+	<!--  로딩화면  시작  -->
 	<div class="loading">
 		<div id="load">
 			<i class="fas fa-spinner fa-10x fa-spin"></i>
@@ -137,14 +1394,14 @@
 					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트</span></a></li>
 
 			<!-- Nav Item - schedule -->
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item active"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
 					
-			<li class="nav-item active"><a class="nav-link"
+			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
-					
+
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -381,6 +1638,6 @@
 			<script src="../../js/demo/chart-area-demo.js"></script>
 			<script src="../../js/demo/chart-pie-demo.js"></script>
 			<script src="../../js/demo/chart-bar-demo.js"></script>
-
 </body>
+
 </html>
