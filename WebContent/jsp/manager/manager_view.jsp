@@ -48,7 +48,6 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-
 	function btn_copy(){
 		sessionStorage.removeItem("copyID");
 		sessionStorage.setItem("copyID","<%=id%>");
