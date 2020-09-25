@@ -344,10 +344,12 @@ h6 {
 										<tr>
 										<td colspan="1" style="text-align: left;">
 											<%
-										      	line = reportBackUp.getP_weekPlan();
-										      	for(String li : line){
+											if(reportBackUp.getWeekPlan() != null){
+												line = reportBackUp.getP_weekPlan();
+												for(String li : line){
 										      		%><p style="white-space: break-spaces;"><%=li%></p> <%
 										      	}
+											}							
 					     	 				%>
 										</td>
 										
@@ -368,10 +370,12 @@ h6 {
 										<tr>
 											<td colspan="1" style="text-align: left;">
 												<%
-													line = reportBackUp.getP_weekPro();
-													for (String li : line) {
-													%><p style="white-space: break-spaces;"><%=li%></p> <%
-												 	}
+													if(reportBackUp.getWeekPro() != null){
+														line = reportBackUp.getP_weekPro();
+														for (String li : line) {
+														%><p style="white-space: break-spaces;"><%=li%></p> <%
+													 	}
+													}	
 												 %>
 											</td>
 											<td colspan="1" style="text-align: left;">
@@ -390,10 +394,12 @@ h6 {
 										<tr>
 											<td style="text-align: left;">
 												<%
-					      							line = reportBackUp.getP_nextPlan();
-					      							for(String li : line){
-					      							%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      							}
+													if(reportBackUp.getNextPlan() != null){
+														line = reportBackUp.getP_nextPlan();
+						      							for(String li : line){
+						      							%><p style="white-space: break-spaces;"><%=li%></p> <%
+						      							}
+													}
 					      						%>
 											</td>
 											<td colspan="1" style="text-align: left;">
@@ -412,10 +418,12 @@ h6 {
 										<tr>
 											<td style="text-align: left;">
 												<%
-					      							line = reportBackUp.getP_specialty();
-					      							for(String li : line){
-					      							%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      							}
+													if(reportBackUp.getSpecialty() != null){
+						      							line = reportBackUp.getP_specialty();
+						      							for(String li : line){
+						      							%><p style="white-space: break-spaces;"><%=li%></p> <%
+						      							}
+													}
 					      						%>
 											</td>
 											<td style="text-align: left;">
@@ -434,10 +442,12 @@ h6 {
 										<tr>
 											<td style="text-align: left;">
 												<%
-											      	line = reportBackUp.getP_note();
-											      	for(String li : line){
-											      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-											      	}
+													if(reportBackUp.getNote() != null){
+												      	line = reportBackUp.getP_note();
+												      	for(String li : line){
+												      		%><p style="white-space: break-spaces;"><%=li%></p> <%
+												      	}
+													}
 											     %>
 											
 											</td>
