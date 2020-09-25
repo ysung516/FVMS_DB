@@ -174,6 +174,10 @@ tr:last-child {
 }
 
 @media ( max-width :800px) {
+.container-fluid{
+	width:100%;
+	margin:0;
+}
 .details_body {
 	margin-right: 5%;
 	right: 0;
