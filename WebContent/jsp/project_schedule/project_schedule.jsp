@@ -146,48 +146,6 @@
         	   	String nowYear = sf.format(nowTime).split("-")[0];
         	   	int preYear = Integer.parseInt(nowYear) - 1;
         	   	int nextYear = Integer.parseInt(nowYear) + 1;
-				
-        		for(int i=0; i<memberList.size(); i++){
-        			for(int j=0; j<projectList.size(); j++){
-        				schBean PMsch = new schBean();
-    					if(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())){
-    						PMsch.setName(memberList.get(i).getID());
-    						PMsch.setName(memberList.get(i).getNAME());
-    						PMsch.setTeam(memberList.get(i).getTEAM());
-    						PMsch.setRank(memberList.get(i).getRANK());
-    						PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
-    						PMsch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
-    						String Wstr = "";
-    						for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
-    							Wstr += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[z]).getNAME() + " ";
-    						}
-    						PMsch.setWorkList(Wstr);
-    						PMsch.setStart(projectList.get(j).getPROJECT_START());
-    						PMsch.setEnd(projectList.get(j).getPROJECT_END());
-    						schList.add(PMsch);
-    					}
-        				for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
-        					if(!(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())) && memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
-        						//프로젝트 명, 착수, 종료, (이름, 소속팀, 직급)
-        						schBean sch = new schBean();
-        						sch.setId(memberList.get(i).getID());
-        						sch.setName(memberList.get(i).getNAME());
-        						sch.setTeam(memberList.get(i).getTEAM());
-        						sch.setRank(memberList.get(i).getRANK());
-        						sch.setProjectName(projectList.get(j).getPROJECT_NAME());
-        						sch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
-        						String Wstr2 = "";
-        						for(int x=0; x<projectList.get(j).getWORKER_LIST().split(" ").length; x++){
-        							Wstr2 += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[x]).getNAME() + " ";
-        						}
-        						sch.setWorkList(Wstr2);
-        						sch.setStart(projectList.get(j).getPROJECT_START());
-        						sch.setEnd(projectList.get(j).getPROJECT_END());
-        						schList.add(sch);
-        					}	
-        				}
-        			}
-        		}
         	%>
 
             var container = document.getElementById('timelineChart');
@@ -204,14 +162,13 @@
             		[ '\0', 'Now','','',new Date(), new Date()],
             		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
               		<%
-	            		for(int b=0; b<schList.size(); b++){%>
-	            			,[	'<%=schList.get(b).getName()%>'
-	            				,'<%=schList.get(b).getProjectName()%>'
-	            				
-	            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(b).getPm()%><br><b>투입명단 : </b><%=schList.get(b).getWorkList().trim()%></p>' 
-	            				+ '<b>착수일 : </b><%=schList.get(b).getStart()%><br><b>종료일 : </b><%=schList.get(b).getEnd()%></div>'
+	            		for(int b=0; b<all_project.size(); b++){%>
+	            			,[	'<%=all_project.get(b).getPROJECT_NAME()%>'
 	            				,''
-	            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
+	            				,'<div class = "tooltip-padding"> <h7><strong><%=all_project.get(b).getPROJECT_NAME()%></strong></h7>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=all_project.get(b).getPROJECT_MANAGER()%><br><b>투입명단 : </b><%=all_project.get(b).getWORKER_LIST()%></p>' 
+	            				+ '<b>착수일 : </b><%=all_project.get(b).getPROJECT_START()%><br><b>종료일 : </b><%=all_project.get(b).getPROJECT_END()%></div>'
+	            				,''
+	            				, new Date('<%=all_project.get(b).getPROJECT_START()%>'), new Date('<%=all_project.get(b).getPROJECT_END()%>')]
 	            		<%}
             	%>
             ]);
@@ -232,1105 +189,6 @@
             var st = container.getElementsByTagName("div")[0];
 			st.style.position = 'inherit';
           }
-          
-          
-          function drawChartOp(team, rank){
-              var container = document.getElementById('timelineChart');
-              var chart = new google.visualization.Timeline(container);
-              var dataTable = new google.visualization.DataTable();
-        
-              dataTable.addColumn({ type: 'string', id: 'Position' });
-              dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-              dataTable.addColumn({ type: 'string', role: 'tooltip' });
-              dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-              dataTable.addColumn({ type: 'date', id: 'Start' });
-              dataTable.addColumn({ type: 'date', id: 'End' });
-              dataTable.addRows([
-	          		[ '\0', 'Now','','',new Date(), new Date()],
-	          		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-          		]);
-              <%
-	      	  	  for(int i=0; i<schList.size(); i++){%>
-	      	  	  	if(rank=='total'){
-		      	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-		    	  			 dataTable.addRows([
-		    	  				[	'<%=schList.get(i).getName()%>'
-		            				,'<%=schList.get(i).getProjectName()%>'
-		            				
-		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-		            				,''
-		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-		    	            ]);
-		    	  		} else if(team == 'total'){
-		    	  			dataTable.addRows([
-		    	  				[	'<%=schList.get(i).getName()%>'
-		            				,'<%=schList.get(i).getProjectName()%>'
-		            				
-		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-		            				,''
-		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-		    	            ]);
-		    	  		}
-	
-	      	  	  	}
-	      	  	  	else{
-		      	  	  	if(team == '<%=schList.get(i).getTeam()%>' && rank == '<%=schList.get(i).getRank()%>'){
-		    	  			dataTable.addRows([
-		    	  				[	'<%=schList.get(i).getName()%>'
-		            				,'<%=schList.get(i).getProjectName()%>'
-		            				
-		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-		            				,''
-		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-		    	            ]);
-		    	  		}else if(team == 'total' && rank == '<%=schList.get(i).getRank()%>'){
-		    	  			dataTable.addRows([
-		    	  				[	'<%=schList.get(i).getName()%>'
-		            				,'<%=schList.get(i).getProjectName()%>'
-		            				
-		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-		            				,''
-		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-		    	            ]);
-		    	  		}
-	      	  	  	}			      	  	
-      	  	  	
-	  	  <%}%> 
-      	  	chart.draw(dataTable);
-         	nowLine('timelineChart');
-           	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-           		if(obj.row == 0){
-           			$('.google-visualization-tooltip').css('display', 'none');
-           		}
-           	    nowLine('timelineChart');
-           	  })
-           	  
-           	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-           	  	nowLine('timelineChart');
-           	  })
-           	  
-      	  	memberInfoTable(team, rank);
-       }	//end
-         
-          function memberInfoTable(team, rank){
-        	  	var inner="";   	  	
-          	  	if(team == '미래차검증전략실'){
-          	  		if(rank == 'total'){
-          	  			inner="";
-          	  			<%
-          	  				
-          	  				for(int a=0; a<List1.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List1.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List1.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List1.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List1.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List1.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List1.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List1.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List11.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List11.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List11.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List11.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List11.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List11.get(a).getCareer().split("\n").length; b++){
-        	  							str += List11.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List12.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List12.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List12.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List12.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List12.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List12.get(a).getCareer().split("\n").length; b++){
-        	  							str += List12.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List13.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List13.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List13.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List13.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List13.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List13.get(a).getCareer().split("\n").length; b++){
-        	  							str += List13.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List14.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List14.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List14.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List14.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List14.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List14.get(a).getCareer().split("\n").length; b++){
-        	  							str += List14.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List15.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List15.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List15.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List15.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List15.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List15.get(a).getCareer().split("\n").length; b++){
-        	  							str += List15.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}	  		
-          	  		}
-          	  	
-          	  	else if(team == '샤시힐스검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List2.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List2.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List2.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List2.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List2.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List2.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List2.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List2.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List21.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List21.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List21.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List21.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List21.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List21.get(a).getCareer().split("\n").length; b++){
-        	  							str += List21.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List22.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List22.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List22.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List22.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List22.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List22.get(a).getCareer().split("\n").length; b++){
-        	  							str += List22.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List23.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List23.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List23.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List23.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List23.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List23.get(a).getCareer().split("\n").length; b++){
-        	  							str += List23.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List24.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List24.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List24.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List24.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List24.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List24.get(a).getCareer().split("\n").length; b++){
-        	  							str += List24.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List25.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List25.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List25.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List25.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List25.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List25.get(a).getCareer().split("\n").length; b++){
-        	  							str += List25.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}	
-          	  		}
-          	  	
-          	  	else if(team == '바디힐스검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List3.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List3.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List3.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List3.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List3.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List3.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List3.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List3.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List31.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List31.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List31.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List31.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List31.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List31.get(a).getCareer().split("\n").length; b++){
-        	  							str += List31.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List32.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List32.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List32.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List32.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List32.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List32.get(a).getCareer().split("\n").length; b++){
-        	  							str += List32.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List33.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List33.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List33.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List33.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List33.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List33.get(a).getCareer().split("\n").length; b++){
-        	  							str += List33.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List34.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List34.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List34.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List34.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List34.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List34.get(a).getCareer().split("\n").length; b++){
-        	  							str += List34.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List35.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List35.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List35.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List35.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List35.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List35.get(a).getCareer().split("\n").length; b++){
-        	  							str += List35.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-          	  	
-          	  	else if(team == '제어로직검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List4.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List4.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List4.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List4.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List4.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List4.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List4.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List4.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List41.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List41.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List41.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List41.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List41.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List41.get(a).getCareer().split("\n").length; b++){
-        	  							str += List41.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List42.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List42.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List42.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List42.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List42.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List42.get(a).getCareer().split("\n").length; b++){
-        	  							str += List42.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List43.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List43.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List43.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List43.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List43.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List43.get(a).getCareer().split("\n").length; b++){
-        	  							str += List43.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List44.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List44.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List44.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List44.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List44.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List44.get(a).getCareer().split("\n").length; b++){
-        	  							str += List44.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List45.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List45.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List45.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List45.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List45.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List45.get(a).getCareer().split("\n").length; b++){
-        	  							str += List45.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		
-          	  		}
-          	  	
-          	  	else if(team == '기능안전검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List5.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List5.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List5.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List5.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List5.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List5.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List5.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List5.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List51.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List51.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List51.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List51.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List51.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List51.get(a).getCareer().split("\n").length; b++){
-        	  							str += List51.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List52.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List52.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List52.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List52.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List52.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List52.get(a).getCareer().split("\n").length; b++){
-        	  							str += List52.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List53.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List53.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List53.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List53.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List53.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List53.get(a).getCareer().split("\n").length; b++){
-        	  							str += List53.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List54.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List54.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List54.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List54.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List54.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List54.get(a).getCareer().split("\n").length; b++){
-        	  							str += List54.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List55.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List55.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List55.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List55.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List55.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List55.get(a).getCareer().split("\n").length; b++){
-        	  							str += List55.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-          	  	
-          	  	else if(team == '자율주행검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List6.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List6.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List6.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List6.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List6.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List6.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List6.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List6.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List6.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List61.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List61.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List61.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List61.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List61.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List61.get(a).getCareer().split("\n").length; b++){
-        	  							str += List61.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List62.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List62.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List62.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List62.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List62.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List62.get(a).getCareer().split("\n").length; b++){
-        	  							str += List62.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List63.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List63.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List63.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List63.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List63.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List63.get(a).getCareer().split("\n").length; b++){
-        	  							str += List63.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List64.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List64.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List64.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List64.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List64.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List64.get(a).getCareer().split("\n").length; b++){
-        	  							str += List64.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List65.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List65.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List65.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List65.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=List65.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List65.get(a).getCareer().split("\n").length; b++){
-        	  							str += List65.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-          	  	
-          	  	else if(team == 'total'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<ListT.size(); a++){
-          	  					str = "";
-          	  				%>
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=ListT.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=ListT.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=ListT.get(a).getNAME()%>'+"</td>";
-       	  						inner += "<td>"+'<%=ListT.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=ListT.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=ListT.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<ListT.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += ListT.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<ListT1.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=ListT1.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=ListT1.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT1.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT1.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT1.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<ListT2.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=ListT2.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=ListT2.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT2.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT2.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT2.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<ListT3.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=ListT3.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=ListT3.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT3.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT3.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT3.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<ListT4.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=ListT4.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=ListT4.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT4.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT4.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT4.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<ListT5.size(); a++){
-        	  					str = "";
-        	  				%>
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=ListT5.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=ListT5.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT5.get(a).getNAME()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT5.get(a).getRANK()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
-         						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT5.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-       }
           	
 		<!-- 로딩화면 -->
 		
@@ -1481,100 +339,119 @@
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
 				<div class="tableST">
 				<div class="table-responsive">
-				<table class="memberTable" id="dataTable">
+				<table class="memberTable" id="dataTable" style="font-size:14px;">
 				<thead>
 	                  <tr style="background-color:#15a3da52;">
-		                    <th></th>
-		                    <th>total</th>
-		                    <th>수석</th>
-		                    <th>책임</th>
-		                    <th>선임</th>
-		                    <th>전임</th>
-		                    <th>인턴</th>
+		                    <th>상태</th>
+		                    <th>Total</th>
+		                    <th>샤시힐스</th>
+		                    <th>바디힐스</th>
+		                    <th>제어로직</th>
+		                    <th>기능안전</th>
+		                    <th>자율주행</th>
+		                    <th>실</th>
 	                    </tr>
                     </thead>
                     <tbody>
 	                    <tr>
-		                    <th>미래차검증전략실</th>
-		                    <td onclick="drawChartOp('미래차검증전략실','total')"><%=List1.size()%></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','수석')"><%=List11.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','책임')"><%=List12.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','선임')"><%=List13.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','전임')"><%=List14.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','인턴')"><%=List15.size() %></td>
+		                    <th style="text-align:left">1.예산확보</th>
+		                    <td onclick="clickfun()"></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                    </tr>
 	                   <tr>
-	          		 		<th>샤시힐스검증팀</th>
-	                 		<td onclick="drawChartOp('샤시힐스검증팀','total')"><%=List2.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','수석')"><%=List21.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','책임')"><%=List22.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','선임')"><%=List23.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','전임')"><%=List24.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','인턴')"><%=List25.size()%></td>
+		                    <th style="text-align:left">2.고객의사</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                   </tr> 
 	                   <tr>
-	          		 		<th>바디힐스검증팀</th>
-	                   		<td onclick="drawChartOp('바디힐스검증팀','total')"><%=List3.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','수석')"><%=List31.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','책임')"><%=List32.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','선임')"><%=List33.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','전임')"><%=List34.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','인턴')"><%=List35.size()%></td>
+		                    <th style="text-align:left">3.제안단계</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                   </tr> 
 	                   <tr>
-	          		 		<th>제어로직검증팀</th>
-	                   		<td onclick="drawChartOp('제어로직검증팀','total')"><%=List4.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','수석')"><%=List41.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','책임')"><%=List42.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','선임')"><%=List43.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','전임')"><%=List44.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','인턴')"><%=List45.size()%></td>
+		                    <th style="text-align:left">4.업체선정</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                   </tr> 
 	                   <tr>
-	          		 		<th>기능안전검증팀</th>
-	                   		<td onclick="drawChartOp('기능안전검증팀','total')"><%=List5.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','수석')"><%=List51.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','책임')"><%=List52.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','선임')"><%=List53.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','전임')"><%=List54.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','인턴')"><%=List55.size()%></td>
+		                    <th style="text-align:left">5.진행예정</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                   </tr> 
 	                   <tr>
-	          		 		<th>자율주행검증팀</th>
-	                   		<td onclick="drawChartOp('자율주행검증팀','total')"><%=List6.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','수석')"><%=List61.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','책임')"><%=List62.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','선임')"><%=List63.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','전임')"><%=List64.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','인턴')"><%=List65.size()%></td>
+		                    <th style="text-align:left">6.진행중</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                   </tr>
 						<tr>
-	          		 		<th>total</th>
-	                        <td onclick="drawChartOp('total','total')"><%=ListT.size()%></td>
-		                    <td onclick="drawChartOp('total','수석')"><%=ListT1.size()%></td>
-		                    <td onclick="drawChartOp('total','책임')"><%=ListT2.size()%></td>
-		                    <td onclick="drawChartOp('total','선임')"><%=ListT3.size()%></td>
-		                    <td onclick="drawChartOp('total','전임')"><%=ListT4.size()%></td>
-		                    <td onclick="drawChartOp('total','인턴')"><%=ListT5.size()%></td>
+		                    <th style="text-align:left">8.Dropped</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+	                   </tr>
+					   <tr>
+		                    <th style="text-align:left">Total</th>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
+		                    <td onclick=""></td>
 	                   </tr>
                    </tbody>
                 </table>
                 </div>
 				
 				<div class="table-responsive"style="height: 664px;">
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="font-size:14px;">
 	                <thead>
-	                    <tr  style="text-align:center;background-color:#15a3da52;">
-		                    <th>소속</th>
-		                    <th>팀</th>
-		                    <th>이름</th>
-		                    <th>직급</th>
-		                    <th>Mobile</th>
-		                    <th>주소</th>
-							<th>프로젝트 수행이력</th>	                   	         
+	                    <tr style="text-align:center;background-color:#15a3da52;">
+		                    <th>팀(수주)</th>
+		                    <th>팀(매출)</th>
+		                    <th>프로젝트명</th>
+		                    <th>고객사</th>
+		                    <th>착수</th>
+		                    <th>종료</th>
+		                    <th>PM</th>
+		                    <th>투입명단</th>	                   	         
 	                    </tr>
                     </thead>
-                    <tbody id="memberINFO"></tbody>
+                    <tbody id="projectINFO"></tbody>
                 </table>
                 </div>
         
