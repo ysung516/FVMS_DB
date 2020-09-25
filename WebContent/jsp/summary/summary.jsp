@@ -321,6 +321,10 @@
 
 </head>
 <style>
+.google-visualization-tooltip{
+		
+		
+	} 
 #content{
 	margin-left:90px;
 }
@@ -396,8 +400,6 @@ ul.tabs li.current{
 	#content{
 	margin-left:0;
 	}
-
-	
 	
 	.topbar{
 		z-index:999;
@@ -460,8 +462,7 @@ ul.tabs li.current{
 	  cursor:pointer;
 	}
 	.tootipTable td {
-		padding: 20px;
-		font-size: 15px;
+		padding: 7px;
 		text-align: left;
 	} 
 	

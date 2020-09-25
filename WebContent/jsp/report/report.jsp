@@ -109,7 +109,7 @@
 .details_body {
 	margin-right: 5%;
 	right: 0;
-	float: right;
+	position: absolute;
 	top: 14px;
 	background: #fff;
 }
@@ -170,6 +170,13 @@ tr:last-child {
 }
 
 @media ( max-width :800px) {
+.details_body {
+	margin-right: 5%;
+	right: 0;
+	position: absolute;
+	top: 9%;
+	background: #fff;
+}
 .card-header{
 		margin-top:4.75rem;
 	}
@@ -243,7 +250,6 @@ button:focus {
 	
 	 $(document).ready(function(){
 		 yet_project();
-		 yet_project()2;
 	 });
 </script>
 <script type="text/javascript">
@@ -385,8 +391,11 @@ button:focus {
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" style="display: inline">주간보고목록</h6>
+							<h6 class="m-0 font-weight-bold text-primary">주간보고목록</h6>
+
+						</div>
 						<div class="details_body">
+
 							<div class="summary">
 								미등록 프로젝트 <span id="span1"><%=unWrite.size()%></span>/<span><%=projectNum%></span>
 							</div>
@@ -400,8 +409,6 @@ button:focus {
 							<% }}%>
 
 						</div>
-						</div>
-
 
 						<div class="table-responsive">
 							<table id="reportTable">
