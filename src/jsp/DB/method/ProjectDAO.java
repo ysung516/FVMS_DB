@@ -10,6 +10,7 @@ import com.mysql.cj.protocol.Resultset;
 
 import jsp.Bean.model.MemberBean;
 import jsp.Bean.model.ProjectBean;
+import jsp.Bean.model.Project_sch_Bean;
 
 public class ProjectDAO {
 	public ProjectDAO() {}
@@ -412,6 +413,50 @@ public class ProjectDAO {
 	    		project.setOUTSOURCE_DEMAND(rs.getFloat("외주수요"));
 	    		project.setREPORTCHECK(rs.getInt("주간보고서사용"));
 	    		project.setRESULT_REPORT(rs.getInt("실적보고"));
+	    		project.setNO(rs.getInt("no"));
+	    		projectList.add(project);
+	    	}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return projectList;
+	}
+	
+	//팀 정렬로 프로젝트 가져오기
+	public ArrayList<Project_sch_Bean> getProjectList_team(){
+		ArrayList<Project_sch_Bean> projectList = new ArrayList<Project_sch_Bean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from project");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		Project_sch_Bean project = new Project_sch_Bean();
+	    		if(rs.getString("상태").contains("1") || rs.getString("상태").contains("2") || rs.getString("상태").contains("3")) {
+	    			project.setTEAM(rs.getString("팀_수주"));
+	    		}else {
+	    			project.setTEAM(rs.getString("팀_매출"));
+	    		}
+	    		project.setTEAM_ORDER(rs.getString("팀_수주"));
+	    		project.setTEAM_SALES(rs.getString("팀_매출"));
+	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
+	    		project.setSTATE(rs.getString("상태"));
+	    		project.setCLIENT(rs.getString("고객사"));
+	    		project.setPROJECT_START(rs.getString("착수"));
+	    		project.setPROJECT_END(rs.getString("종료"));
+	    		project.setPROJECT_MANAGER(rs.getString("PM"));
+	    		project.setWORKER_LIST(rs.getString("투입명단"));
 	    		project.setNO(rs.getInt("no"));
 	    		projectList.add(project);
 	    	}

@@ -27,10 +27,41 @@
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
 	
-	ArrayList<ProjectBean> all_project = projectDao.getProjectList();
+	ArrayList<Project_sch_Bean> all_project = projectDao.getProjectList_team();
 	
 	String str = "";
-
+	
+	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
+	ArrayList<String> PMnameList = new ArrayList<String>();
+	String[] workerIdArray = {};
+	String pmInfo="";
+	// 투입명단 id >> 이름으로 변경
+	for(int i=0; i<all_project.size();i++){
+		if(all_project.get(i).getWORKER_LIST() != null){
+			workerIdArray =  all_project.get(i).getWORKER_LIST().split(" ");
+			for(int a=0; a<workerIdArray.length; a++){
+				for(int b=0; b<memberList.size(); b++){
+					if(workerIdArray[a].equals(memberList.get(b).getID())){
+						workerIdArray[a] = memberList.get(b).getNAME();
+					}
+				}
+			}
+			workerIdList.add(workerIdArray);
+		}
+	}
+	
+	// PM ID >> 이름 변경
+	for(int i=0; i<projectList.size();i++){
+		if(projectList.get(i).getWORKER_LIST() != null){
+			pmInfo =  projectList.get(i).getPROJECT_MANAGER();
+			for(int b=0; b<memberList.size(); b++){
+				if(pmInfo.equals(memberList.get(b).getID())){
+					pmInfo = memberList.get(b).getNAME();
+				}
+			}
+			PMnameList.add(pmInfo);
+		}
+	}
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -119,9 +150,6 @@
 	padding: 5%;
 }
 
-#timelineChart {
-	text-align: left !important;
-}
 
 </style>
 
@@ -163,20 +191,24 @@
             dataTable.addColumn({ type: 'date', id: 'Start' });
             dataTable.addColumn({ type: 'date', id: 'End' });
             dataTable.addRows([
-            		[ '\0', 'Now','','',new Date(), new Date()],
+            		['\0', 'Now','','',new Date(), new Date()],
             		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
               		<%
 	            		for(int b=0; b<all_project.size(); b++){%>
-	            			,[	'<%=all_project.get(b).getPROJECT_NAME()%>'
-	            				,''
+	            			,[	'<%=all_project.get(b).getTEAM_ORDER()%>'
+	            				,'<%=all_project.get(b).getPROJECT_NAME()%>'
 	            				,'<div class = "tooltip-padding"> <h7><strong><%=all_project.get(b).getPROJECT_NAME()%></strong></h7>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=all_project.get(b).getPROJECT_MANAGER()%><br><b>투입명단 : </b><%=all_project.get(b).getWORKER_LIST()%></p>' 
 	            				+ '<b>착수일 : </b><%=all_project.get(b).getPROJECT_START()%><br><b>종료일 : </b><%=all_project.get(b).getPROJECT_END()%></div>'
 	            				,'text-align:left'
 	            				, new Date('<%=all_project.get(b).getPROJECT_START()%>'), new Date('<%=all_project.get(b).getPROJECT_END()%>')]
-	            		<%}
-            	%>
+	            		<%}%>
             ]);
-            chart.draw(dataTable);
+        
+            var options = {
+            	timeline: { colorByRowLabel: false, groupByRowLabel: true }
+            };
+            
+            chart.draw(dataTable, options);
            	nowLine('timelineChart');
            	  
            	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
