@@ -50,6 +50,10 @@
 
 </head>
 <style>
+.container-fluid{
+	width:60%;
+	margin-left:0;
+}
 .sidebar{
 		position:fixed;
 		z-index:9999999;
