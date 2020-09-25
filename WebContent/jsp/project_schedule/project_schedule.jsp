@@ -368,7 +368,7 @@
 		defaultTotal();
 		drawChart();
 	});
-		
+	
 </script>
 
 <body id="page-top">
