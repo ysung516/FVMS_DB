@@ -52,15 +52,12 @@
 <style>
 .sidebar{
 		position:fixed;
-		z-index:9999;
+		z-index:9999999;
 	}
 #wrapper #content-wrapper{
 	overflow-x: initial;
 }
-.sidebar{
-		position:fixed;
-		z-index:1;
-	}
+
 	#content{
 		margin-left:90px;
 	}
@@ -246,6 +243,7 @@ button:focus {
 	
 	 $(document).ready(function(){
 		 yet_project();
+		 yet_project()2;
 	 });
 </script>
 <script type="text/javascript">
@@ -276,15 +274,10 @@ button:focus {
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="../summary/summary.jsp">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">Sure FVMS</div>
-			</a>
-
+			
+			<button id="sidebarToggle" class="rounded-circle border-0" style="margin-left:30px; margin-top:10px">
+						
+					</button>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
@@ -338,13 +331,7 @@ button:focus {
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+			
 
 		</ul>
 		<!-- End of Sidebar -->
@@ -434,7 +421,7 @@ button:focus {
 				for(int i=0; i < list.size(); i++){
 					String pmID = projectDao.getProjectBean_no(list.get(i).getProjectNo()).getPROJECT_MANAGER();
 					%>
-									<tr>
+									<tr style="text-align: left;">
 										<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
 										<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getCLIENT()%></td>
 										<td><%=memberDao.returnMember(pmID).getNAME()%></td>
