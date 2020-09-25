@@ -297,7 +297,13 @@ h6 {
 									<table class="table table-bordered" id="dataTable">
 										<tr>
 											<td class="m-0 text-primary" id="move1">프로젝트</td>
-											<td><%=report.getTitle()%></td>
+											<%
+												if(permission == 0  || (permission == 1 && (project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID)))){
+													%><td><a href="../project/project_update.jsp?no=<%=report.getProjectNo()%>"> <%=report.getTitle()%></a></td><%
+												} else {
+													%><td><%=report.getTitle()%></td><%
+												}
+											%>		
 										</tr>
 										<tr>
 											<td class="m-0 text-primary">작성자</td>
@@ -309,7 +315,7 @@ h6 {
 													(<%=reportDao.validDate(report.getDate())%>)
 											</td>
 										</tr>
-										<tr>
+										<tr> 
 											<td class="m-0 text-primary">PM</td>
 											<td><%=memberDao.returnMember(project.getPROJECT_MANAGER()).getNAME()%></td>
 										</tr>
