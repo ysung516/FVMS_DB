@@ -17,7 +17,7 @@
 		
 		PrintWriter script =  response.getWriter();
 		if (session.getAttribute("sessionID") == null){
-			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
 		ProjectDAO projectDao = new ProjectDAO();
 		String AttrText = request.getParameter("attrList");

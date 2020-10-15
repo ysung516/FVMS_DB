@@ -18,17 +18,16 @@
 	String sessionID = (String)session.getAttribute("sessionID");
 	
 	int no = Integer.parseInt(request.getParameter("no"));
-	String state = request.getParameter("state");
+	String startDate = request.getParameter("startDate");
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	
-	if(projectDao.updateState(no, state) == 1){
-		if(state.equals("8.Dropped")){
-			projectDao.projectDropped(no);
-		}
-		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
+	
+	
+	if(projectDao.updateData(no, startDate, "착수") == 1){
+		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#"+no+"착수'</script>");
 	}else{
-		script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
+		script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#"+no+"착수'</script>");
 	}
 %>
 </body>

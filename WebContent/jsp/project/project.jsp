@@ -11,7 +11,7 @@
 
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
@@ -638,6 +638,16 @@
     	window.open('update_worker.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
     }
     
+    function updateStart(projectNo, projectName, startDate){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_start.jsp?no=' + projectNo + '&name=' + projectName + '&startDate=' + startDate, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
+    }
+    function updateEnd(projectNo, projectName, endDate){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_end.jsp?no=' + projectNo + '&name=' + projectName + '&endDate=' + endDate, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
+    }
+    
+    
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbLoad();
@@ -1013,7 +1023,7 @@
 										<td id="<%=projectList.get(i).getNO()%>ManMonth" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','ManMonth')"><%=projectList.get(i).getMAN_MONTH()%></td>
 										<td id="<%=projectList.get(i).getNO()%>프로젝트계약금액_백만" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트계약금액_백만')"><%=projectList.get(i).getPROJECT_DESOPIT()%></td>
 										<td id="<%=projectList.get(i).getNO()%>상반기예상수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기예상수주')"><%=projectList.get(i).getFH_ORDER_PROJECTIONS()%></td>
-										<td id="<%=projectList.get(i).getNO()%>상반가수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반가수주')"><%=projectList.get(i).getFH_ORDER()%></td>
+										<td id="<%=projectList.get(i).getNO()%>상반기수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기수주')"><%=projectList.get(i).getFH_ORDER()%></td>
 										<td id="<%=projectList.get(i).getNO()%>상반기예상매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기예상매출')"><%=projectList.get(i).getFH_SALES_PROJECTIONS()%></td>
 										<td id="<%=projectList.get(i).getNO()%>상반기매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','상반기매출','<%=projectList.get(i).getFH_SALES()%>')"><%=projectList.get(i).getFH_SALES()%></td>
 										<td id="<%=projectList.get(i).getNO()%>하반기예상수주" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기예상수주')"><%=projectList.get(i).getSH_ORDER_PROJECTIONS()%></td>
@@ -1025,8 +1035,8 @@
 										<td id="<%=projectList.get(i).getNO()%>연간매출"><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
 										
 										
-										<td id="<%=projectList.get(i).getNO()%>착수" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','착수')"><%=projectList.get(i).getPROJECT_START()%></td>
-										<td id="<%=projectList.get(i).getNO()%>종료" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','종료')"><%=projectList.get(i).getPROJECT_END()%></td>
+										<td id="<%=projectList.get(i).getNO()%>착수" class="td" onclick="updateStart('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','<%=projectList.get(i).getPROJECT_START()%>')"><%=projectList.get(i).getPROJECT_START()%></td>
+										<td id="<%=projectList.get(i).getNO()%>종료" class="td" onclick="updateEnd('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','<%=projectList.get(i).getPROJECT_END()%>')"><%=projectList.get(i).getPROJECT_END()%></td>
 										<td id="<%=projectList.get(i).getNO()%>고객담당자" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객담당자')"><%=projectList.get(i).getCLIENT_PTB()%></td>
 										<td id="<%=projectList.get(i).getNO()%>근무지" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','근무지')"><%=projectList.get(i).getWORK_PLACE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>업무" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','업무')"><%=projectList.get(i).getWORK()%></td>	

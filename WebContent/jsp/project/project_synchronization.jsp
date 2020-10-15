@@ -13,7 +13,7 @@
 	PrintWriter script =  response.getWriter();
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	} else{
 		if (permission != 0){
 			script.print("<script> alert('관리자가 아닙니다.'); history.back(); </script>");

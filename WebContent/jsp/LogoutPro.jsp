@@ -13,7 +13,7 @@
 
 	<%
  	session.invalidate();
-	response.sendRedirect("../html/login.html");
+	response.sendRedirect("login.jsp");
  %>
 
 </body>

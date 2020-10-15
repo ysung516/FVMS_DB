@@ -6,7 +6,8 @@
     import = "jsp.Bean.model.*"
     import = "java.util.ArrayList"
     import = "java.awt.Color" 
-    
+    import="java.util.Date"
+    import="java.text.SimpleDateFormat"
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,7 @@
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if(permission > 2){
@@ -314,7 +315,7 @@
 
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"type="text/css">
-<link href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -963,19 +964,19 @@ function y_order() {
 	  	StringBuffer Y_auto_project_pj = new StringBuffer();
 	  	
 	  	Y_chassis_project_pj.append("<table class=tootipTable>");
-	  	Y_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+	  	Y_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
 		  
 	  	Y_body_project_pj.append("<table class=tootipTable>");
-	  	Y_body_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+	  	Y_body_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
 		  
 	  	Y_control_project_pj.append("<table class=tootipTable>");
-	  	Y_control_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+	  	Y_control_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
 		  
 	  	Y_safe_project_pj.append("<table class=tootipTable>");
-	  	Y_safe_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+	  	Y_safe_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
 		  
 	  	Y_auto_project_pj.append("<table class=tootipTable>");
-	  	Y_auto_project_pj.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+	  	Y_auto_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
 		  
 		  	
 		  	for(int i=0; i<pjList.size(); i++){
@@ -1346,11 +1347,24 @@ function y_rsales() {
 			 }
 		 }
 	}
+	
+	function orderByDate(){
+		<%
+			Date nowTime = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("MM");
+		%>
+		var month = <%=Integer.parseInt(sf.format(nowTime))%>;
+		if(month > 6){
+			$('#tab-4').after($('#tab-3'));
+			$('#tab-3').after($('#tab-2'));
+		}
+	}
+	
 
 	$(document).ready(function(){
 		$('.loading').hide();
 		stateColor();
-	
+		orderByDate();
 		
 	$('ul.tabs li').click(function() {
 			var tab_id = $(this).attr('data-tab');
@@ -1859,23 +1873,23 @@ function y_rsales() {
              	 	</table>
              </div>
              	 
-             	  <div id="tab-3" class="tab-content current">
-               		<table class="table-responsive">
+           	  <div id="tab-3" class="tab-content current">
+             		<table class="table-responsive">
 					 <tr><td><div id="sh_order_chart" class="chart bar" ></div></td></tr>
 					 <tr><td><div id="sh_sales_chart" class="chart bar"></div></td></tr>
 					 <tr><td><div id="sh_rpj_chart" class="chart pie"></div></td></tr>
 					 <tr><td><div id="sh_rsales_chart" class="chart pie"></div></td></tr>
-             	 </table>
-             	 </div>
+           	 		</table>
+           	 </div>
              	 
-             	  <div id="tab-4" class="tab-content current">
-               		<table class="table-responsive">
+           	  <div id="tab-4" class="tab-content current">
+             		<table class="table-responsive">
 					 <tr><td><div id="y_order_chart" class="chart bar"></div></td></tr>
 					 <tr><td><div id="y_sales_chart" class="chart "></div></td></tr>
-					 	<tr><td><div id="y_rpj_chart" class="chart pie"></div></td></tr>
-						 	<tr><td><div id="y_rsales_chart" class="chart pie"></div></td></tr>
-             	 </table>
-             	 </div>
+				 	 <tr><td><div id="y_rpj_chart" class="chart pie"></div></td></tr>
+				 	 <tr><td><div id="y_rsales_chart" class="chart pie"></div></td></tr>
+           	 		</table>
+           	 </div>
              
     </div>
     </div>

@@ -96,7 +96,7 @@ public class sheetMethod {
 	  String PMID = "";
 	  
 	  // 시트연결 
-	     findSheet("동기화시트");
+	     //findSheet("동기화시트");
 	     URL listFeedUrl = findSheet("동기화시트").getListFeedUrl();
 	     ListFeed listFeed = connect().getFeed(listFeedUrl, ListFeed.class);
 	        List<ListEntry> li = listFeed.getEntries(); //전체 데이터 리스트로 저장

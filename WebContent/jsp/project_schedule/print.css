@@ -1,0 +1,9 @@
+body{
+	width: 2000px !important;
+	height: 1200px !important;
+}
+
+#timelineChart{
+	width: 90% !important;
+	height: 90% !important;
+}

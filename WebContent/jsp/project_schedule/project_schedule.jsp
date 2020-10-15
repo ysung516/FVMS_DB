@@ -12,7 +12,7 @@
 
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if(permission > 2){
@@ -31,6 +31,7 @@
 	String date = sf.format(nowTime);
 	
 	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();
+	System.out.print(projectList.size());
 	ArrayList<Project_sch_Bean> vh_project = projectList.get("미래차검증전략실");
 	ArrayList<Project_sch_Bean> chasis_project = projectList.get("샤시힐스검증팀");
 	ArrayList<Project_sch_Bean> body_project = projectList.get("바디힐스검증팀");
@@ -129,6 +130,9 @@
 	width:  100% !important;
 
 }
+.table-responsive{
+	overflow: auto !important;
+}
 }
 
 .memberTable{
@@ -148,6 +152,7 @@
 	width : 50%;
 	float:right;
 }
+
 #timelineChart{
 	height: 90%;
 	width:  50%;
@@ -196,6 +201,8 @@
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
+
+
 </style>
 
 
@@ -203,6 +210,13 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+
+  	<%
+	  	String nowYear = sf.format(nowTime).split("-")[0];
+	  	int preYear = Integer.parseInt(nowYear) - 1;
+	  	int nextYear = Integer.parseInt(nowYear) + 1;
+	%>
+
      google.charts.load("current", {packages:["timeline"]});
      google.charts.setOnLoadCallback(drawChart);
      
@@ -219,12 +233,7 @@
   	}
     
      function drawChart() {
-   	   	<%
-   	   	String nowYear = sf.format(nowTime).split("-")[0];
-   	   	int preYear = Integer.parseInt(nowYear) - 1;
-   	   	int nextYear = Integer.parseInt(nowYear) + 1;
-   	%>
-
+    	 
        var container = document.getElementById('timelineChart');
        var chart = new google.visualization.Timeline(container);
        var dataTable = new google.visualization.DataTable();
@@ -252,7 +261,8 @@
           ]);
          
           var options = {
-          	timeline: { colorByRowLabel: false, groupByRowLabel: true }
+          	timeline: { colorByRowLabel: false, groupByRowLabel: true, avoidOverlappingGridLines : false}
+          	
           };
           
 	          chart.draw(dataTable, options);
@@ -271,8 +281,75 @@
 
           	var st = container.getElementsByTagName("div")[0];
 			st.style.position = 'inherit';
+	
         }
-    
+     
+     
+     
+     function drawChartOp(projectName) {
+		
+			console.log(1);
+
+
+	    	var str = 'stroke-width: 3;stroke-color: red';
+
+	        var container = document.getElementById('timelineChart');
+	        var chart = new google.visualization.Timeline(container);
+	        var dataTable = new google.visualization.DataTable();
+	  
+	        dataTable.addColumn({ type: 'string', id: 'Position' });
+	        dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+	        dataTable.addColumn({ type: 'string', role: 'tooltip' });
+	        dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+	        dataTable.addColumn({ type: 'date', id: 'Start' });
+	        dataTable.addColumn({ type: 'date', id: 'End' });
+	        dataTable.addRows([
+	        		['\0', 'Now','','',new Date(), new Date()],
+	        		['\0','','', '', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
+	          		<%for(String key : projectList.keySet()){
+	         		for(int b=0; b<projectList.get(key).size(); b++){%>
+	         			,[	'<%=projectList.get(key).get(b).getTEAM_ORDER()%>'
+	         				,'<%=projectList.get(key).get(b).getPROJECT_NAME()%>'
+	         				,'<div class = "tooltip-padding"> <h7><strong><%=projectList.get(key).get(b).getPROJECT_NAME()%></strong></h7>' + '<hr style ="border:solid 1px;color:black">'
+	         				+'<p><b>PM : </b><%=projectList.get(key).get(b).getPROJECT_MANAGER()%><br>'
+	         				+'<b>투입명단 : </b><%=projectList.get(key).get(b).getWORKER_LIST()%></p>' 
+	         				+'<b>착수일 : </b><%=projectList.get(key).get(b).getPROJECT_START()%><br><b>종료일 : </b><%=projectList.get(key).get(b).getPROJECT_END()%></div>'
+	         				, ''
+	         				, new Date('<%=projectList.get(key).get(b).getPROJECT_START()%>'), new Date('<%=projectList.get(key).get(b).getPROJECT_END()%>')]
+	         		<%}}%>
+	           ]);
+	          
+	           var options = {
+	           	timeline: { colorByRowLabel: false, groupByRowLabel: true, avoidOverlappingGridLines : false}
+	           	
+	           };
+	           
+	 	          chart.draw(dataTable, options);
+	 	         	nowLine('timelineChart');
+	          	  
+	          	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
+	          		if(obj.row == 0){
+	          			$('.google-visualization-tooltip').css('display', 'none');
+	          		}
+	          	    nowLine('timelineChart');
+	          	  })
+	          	  
+	          	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
+	          	  	nowLine('timelineChart');
+	          	  })
+
+	           	var st = container.getElementsByTagName("div")[0];
+	 			st.style.position = 'inherit';
+			
+			
+			
+			
+ 	
+         }
+     function highlight(){
+		console.log(1);
+      }
+ 
     function defaultTotal(){
     	for(var j=0;j<9;j++){
         	var total_step = 0;
@@ -295,7 +372,9 @@
 			if(team == '<%=key%>'){
 				<%for(Project_sch_Bean i : projectList.get(key)){%>
 					if(state == '<%=i.getSTATE()%>'){
-						inner += "<tr>";
+						var str = '<%=i.getPROJECT_NAME()%>';
+ 						console.log(str);
+						inner += "<tr onclick= drawChartOp('"+str+"')>";
 						inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
 	 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
 	 					if(<%=permission%> == 0){
@@ -363,10 +442,17 @@
 		$('#projectINFO').append(inner);
 	}
 	
+	function goPrint(){
+		var popupX = (document.body.offsetWidth/2)-(600/2);
+		window.open('project_schedule_print.jsp', '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=1250, height=850');
+	}
+	
+
+	
 	// 페이지 시작시 호출 함수
 	$(document).ready(function (){
 		defaultTotal();
-		drawChart();
+		//drawChart('timelineChart');
 	});
 	
 </script>
@@ -490,10 +576,11 @@
 							</div></li>
 
 					</ul>
-
+					<button onclick="goPrint()">인쇄</button>
+					<button onclick="highlight('123')">test</button>
 				</nav>
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
-				<div class="tableST">
+				<div class="tableST" id="infoDiv">
 				<div class="table-responsive">
 				<table class="memberTable" id="infoTable" style="font-size:14px;">
 					<thead>
@@ -603,7 +690,7 @@
                 </table>
                 </div>
 				
-				<div class="table-responsive" style="height:65vh; overflow:auto;">
+				<div class="table-responsive" style="height:65vh; overflow:visible;">
 				<table class="table table-bordered" id="select_info" style="font-size:12px;">
 	                <thead>
 	                    <tr style="text-align:center;background-color:#15a3da52;">
@@ -621,9 +708,8 @@
                 </div>
         
                 </div>
-                <div id="timelineChart"></div>
-
-
+                
+	            <div id="timelineChart"></div>
 			</div>			
 						<!-- /.container-fluid -->
 				

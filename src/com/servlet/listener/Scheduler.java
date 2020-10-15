@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.googleDrive.method.DriveMethod;
 
+import jsp.DB.method.ProjectDAO;
 import jsp.DB.method.ReportDAO;
 import jsp.sheet.method.sheetMethod;
 import jsp.smtp.method.ExcelExporter;
@@ -21,7 +22,11 @@ import jsp.smtp.method.PostMan;
 
 public class Scheduler {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    
+  	PostMan post = new PostMan();
+	ExcelExporter excel = new ExcelExporter();
+	ReportDAO reportDao = new ReportDAO();
+	ProjectDAO projectDao = new ProjectDAO();
+	
     public void startScheduleTask() {
     final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
         new Runnable() {
@@ -32,7 +37,10 @@ public class Scheduler {
             		String day = cal.getTime().toString().split(" ")[0];
             		String time = cal.getTime().toString().split(" |:")[3];
             		if(day.equals("Wed") && time.equals("18")) {
-            			reportBackUp();
+            			if(reportDao.reportCount() != 0 && (reportDao.reportCount() > (projectDao.useReportProject()/2))){
+            				reportBackUp();
+            				System.out.println("보고서 백업");
+            			}
             		}
                     
                 }catch(Exception ex) {
@@ -51,6 +59,7 @@ public class Scheduler {
             		String time = cal.getTime().toString().split(" |:")[3];
             		if(time.equals("05")) {
             			sheetMethod.synchronization();
+            			System.out.println("시트 동기화");
             		}
                     
                 }catch(Exception ex) {
@@ -61,16 +70,11 @@ public class Scheduler {
     }
     
     public void reportBackUp() throws GeneralSecurityException, IOException, Exception {
-    	
-    	PostMan post = new PostMan();
-		ExcelExporter excel = new ExcelExporter();
-		ReportDAO reportDao = new ReportDAO();
-
-		reportDao.deleteAllbackUp();
-		reportDao.backUp();
-		excel.export();
-		DriveMethod.upload();
-		reportDao.deleteAllreport();
+			reportDao.deleteAllbackUp();
+			reportDao.backUp();
+			excel.export();
+			DriveMethod.upload();
+			reportDao.deleteAllreport();
 		}
 
 }

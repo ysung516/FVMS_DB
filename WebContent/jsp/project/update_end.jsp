@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>주간보고서 사용 여부 수정</title>
+<title>종료 수정</title>
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -35,8 +35,7 @@
 	
 	int projectNo = Integer.parseInt(request.getParameter("no"));
 	String projectName = request.getParameter("name");
-	int check = Integer.parseInt(request.getParameter("check"));
-	String attr = request.getParameter("attr");
+	String endDate = request.getParameter("endDate");
 	
 	ProjectDAO projectDao = new ProjectDAO();	
 %>
@@ -54,29 +53,17 @@
 	}
 </style>
 
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script>
-function check_ori(){
-	var check = <%=check%>;
-	$("input:radio[name='chk_info']:radio[value='"+check+"']").attr('checked', true);
-}
 
-$(document).ready(function(){
-	check_ori();	
-});
-</script>
 
 <body>
 	<br>
 	<p id="name"><%=projectName %></p>
-	<p><%=attr %> 사용 여부 수정</p>
-	<form method="post" action="update_reportcheck_pro.jsp" target="project.jsp">
-	<input type="hidden" name="no" value="<%=projectNo %>">
-	<input type="hidden" name="attr" value="<%=attr %>">
-	<label><input type="radio" name="chk_info" value="1">ON</label>
-	<label><input type="radio" name="chk_info" value="0">OFF</label>
-	<br>
-	<input type="submit" onclick="window.close()" name="submit" id="submit" value="수정">
+	<p>종료 수정</p>
+	<form method="post" action="update_endPro.jsp" target="project.jsp">
+		<input type="hidden" name="no" value="<%=projectNo %>">
+		<input type="date" name="endDate" value="<%=endDate%>">
+		<br>
+		<input type="submit" onclick="window.close()" name="submit" id="submit" value="수정">
 	</form>
 </body>
 </html>

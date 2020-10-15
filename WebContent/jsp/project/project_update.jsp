@@ -11,7 +11,7 @@
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if (permission > 1){
@@ -504,13 +504,13 @@ function btn_copy(){
 
 										<tr>
 											<th>착수</th>
-											<td><input id="PROJECT_START" name="PROJECT_START"
+											<td><input type="date" id="PROJECT_START" name="PROJECT_START"
 												value="<%=project.getPROJECT_START()%>"></input></td>
 										</tr>
 
 										<tr>
 											<th>종료</th>
-											<td><input id="PROJECT_END" name="PROJECT_END"
+											<td><input type="date" id="PROJECT_END" name="PROJECT_END"
 												value="<%=project.getPROJECT_END()%>"></input></td>
 										</tr>
 

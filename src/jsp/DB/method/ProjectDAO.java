@@ -159,8 +159,7 @@ public class ProjectDAO {
 			if(rs != null) try {rs.close();} catch(SQLException ex) {}
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-		
+		}		
 		return num;
 	}
 	
@@ -447,7 +446,7 @@ public class ProjectDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from project");
+	    	query.append("select * from project where 상태 != '8.Dropped'");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

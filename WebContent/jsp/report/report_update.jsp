@@ -13,7 +13,7 @@
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if(permission > 2){
@@ -49,42 +49,72 @@
 		$('#PreNextPlan').val('');
 		$('#Prespecialty').val('');
 		$('#Prenote').val('');
-			
-			<%
-			if(backupReport.getWeekPlan() != null){
-				for(int a=0; a<backupReport.getP_weekPlan().length; a++){
-					str = backupReport.getP_weekPlan()[a].replaceAll("\\s+$","");
-					%>document.getElementById('PreWeekPlan').value += '<%=str%>\n';
-			<%}
+
+		<%for(int a=0; a<backupReport.getP_weekPlan().length; a++){
+			str = backupReport.getP_weekPlan()[a].replaceAll("\\s+$","");
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
 			}
-			if(backupReport.getWeekPro() != null){
-				for(int b=0; b<backupReport.getP_weekPro().length; b++){
-					str = backupReport.getP_weekPro()[b].replaceAll("\\s+$","");
-					%>document.getElementById('PreWeekPro').value += '<%=str%>\n';
-			<%}
-			}		
-			
-			if(backupReport.getNextPlan() != null){
-				for(int c=0; c<backupReport.getP_nextPlan().length; c++){
-					str = backupReport.getP_nextPlan()[c].replaceAll("\\s+$","");
-					%>document.getElementById('PreNextPlan').value += '<%=str%>\n';
-			<%}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('PreWeekPlan').value += str_ch + '\n';
+		<%}
+		for(int b=0; b<backupReport.getP_weekPro().length; b++){
+			str = backupReport.getP_weekPro()[b].replaceAll("\\s+$","");
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
 			}
-			
-			if(backupReport.getSpecialty() != null){
-				for(int d=0; d<backupReport.getP_specialty().length; d++){
-					str = backupReport.getP_specialty()[d].replaceAll("\\s+$","");
-					%>document.getElementById('Prespecialty').value += '<%=str%>\n';
-				<%}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('PreWeekPro').value += str_ch + '\n';
+		<%}		
+		for(int c=0; c<backupReport.getP_nextPlan().length; c++){
+			str = backupReport.getP_nextPlan()[c].replaceAll("\\s+$","");
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
 			}
-			
-			if(backupReport.getNote() != null){
-				for(int e=0; e<backupReport.getP_note().length; e++){
-					str = backupReport.getP_note()[e].replaceAll("\\s+$","");
-					%>document.getElementById('Prenote').value += '<%=str%>\n';
-				<%}
-			}%>
-			
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('PreNextPlan').value += str_ch + '\n';
+		<%}
+		for(int d=0; d<backupReport.getP_specialty().length; d++){
+			str = backupReport.getP_specialty()[d].replaceAll("\\s+$","");
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('Prespecialty').value += str_ch + '\n';
+		<%}
+		for(int e=0; e<backupReport.getP_note().length; e++){
+			str = backupReport.getP_note()[e].replaceAll("\\s+$","");
+			if(str.contains("\"")){
+				str = str.replaceAll("\"", "\'");
+			}
+			if (str.contains("\'")){%>
+				var str = "<%=str%>";
+				var str_ch = str.replace("'", "\'");
+			<%}else{%>
+				var str_ch = "<%=str%>";
+			<%}%>
+			document.getElementById('Prenote').value += str_ch + '\n';
+		<%}%>
 		}
 	
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것

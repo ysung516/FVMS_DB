@@ -11,7 +11,7 @@
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if(permission > 3){
@@ -42,7 +42,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -182,7 +182,7 @@ tr:last-child {
 	margin-right: 5%;
 	right: 0;
 	position: absolute;
-	top: 9%;
+	top: 61%;
 	background: #fff;
 }
 .card-header{

@@ -13,7 +13,7 @@
 		
 		PrintWriter script =  response.getWriter();
 		if (session.getAttribute("sessionID") == null){
-			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
 		String sessionID = (String)session.getAttribute("sessionID");
 		
@@ -22,7 +22,7 @@
 				request.getParameter("FH_SALES_PROJECTIONS") == "" || request.getParameter("FH_SALES") == "" || 
 				request.getParameter("SH_ORDER") == ""|| request.getParameter("SH_SALES_PROJECTIONS") == "" || 
 				request.getParameter("SH_SALES") == "" || request.getParameter("EMPLOY_DEMAND") == "" || request.getParameter("OUTSOURCE_DEMAND") == ""){
-			script.print("<script> alert('등록 실패!!'); history.back();</script>");
+			script.print("<script> alert('수정 실패!!'); history.back();</script>");
 		}
 		
 		  ProjectDAO projectDao = new ProjectDAO();
@@ -66,6 +66,10 @@
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS,FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
 					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO) == 1){
+				
+				if(STATE.equals("8.Dropped")){
+					projectDao.projectDropped(NO);
+				}
 				script.print("<script> alert('프로젝트가 수정되었습니다.'); location.href = 'project.jsp'</script>");
 			}
 				else script.print("<script> alert('수정 실패!!'); history.back();</script>");

@@ -11,7 +11,7 @@
 
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if(permission > 2){
@@ -32,6 +32,14 @@
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
 	
+	ArrayList<String> userID = new ArrayList<String>();
+	ArrayList<String> userName = new ArrayList<String>();
+	
+	for(int i=0; i<memberList.size(); i++){
+		userID.add(memberList.get(i).getID());
+		userName.add(memberList.get(i).getNAME());
+	}
+	
 	String str = "";
 
 %>
@@ -47,8 +55,7 @@
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
 
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -351,26 +358,34 @@
         	   	String nowYear = sf.format(nowTime).split("-")[0];
         	   	int preYear = Integer.parseInt(nowYear) - 1;
         	   	int nextYear = Integer.parseInt(nowYear) + 1;
-				
+        		
         		for(int i=0; i<memberList.size(); i++){
         			for(int j=0; j<projectList.size(); j++){
         				schBean PMsch = new schBean();
-    					if(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())){
-    						PMsch.setName(memberList.get(i).getID());
-    						PMsch.setName(memberList.get(i).getNAME());
-    						PMsch.setTeam(memberList.get(i).getTEAM());
-    						PMsch.setRank(memberList.get(i).getRANK());
-    						PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
-    						PMsch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
-    						String Wstr = "";
-    						for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
-    							Wstr += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[z]).getNAME() + " ";
-    						}
-    						PMsch.setWorkList(Wstr);
-    						PMsch.setStart(projectList.get(j).getPROJECT_START());
-    						PMsch.setEnd(projectList.get(j).getPROJECT_END());
-    						schList.add(PMsch);
-    					}
+        				if(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())){
+        					PMsch.setName(memberList.get(i).getID());
+        					PMsch.setName(memberList.get(i).getNAME());
+        					PMsch.setTeam(memberList.get(i).getTEAM());
+        					PMsch.setRank(memberList.get(i).getRANK());
+        					PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
+        					//PMsch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+        					PMsch.setPm(userName.get(userID.indexOf(projectList.get(j).getPROJECT_MANAGER())));
+        					
+        					String Wstr = "";
+        					for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
+        						//Wstr += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[z]).getNAME() + " ";
+        						if(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[z]) == -1){
+        							Wstr += "";
+        							
+        						} else{
+        							Wstr += userName.get(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[z])) + " ";
+        						}
+        					}
+        					PMsch.setWorkList(Wstr);
+        					PMsch.setStart(projectList.get(j).getPROJECT_START());
+        					PMsch.setEnd(projectList.get(j).getPROJECT_END());
+        					schList.add(PMsch);
+        				}
         				for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
         					if(!(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())) && memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
         						//프로젝트 명, 착수, 종료, (이름, 소속팀, 직급)
@@ -380,10 +395,17 @@
         						sch.setTeam(memberList.get(i).getTEAM());
         						sch.setRank(memberList.get(i).getRANK());
         						sch.setProjectName(projectList.get(j).getPROJECT_NAME());
-        						sch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+        						//sch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
+        						sch.setPm(userName.get(userID.indexOf(projectList.get(j).getPROJECT_MANAGER())));
         						String Wstr2 = "";
         						for(int x=0; x<projectList.get(j).getWORKER_LIST().split(" ").length; x++){
-        							Wstr2 += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[x]).getNAME() + " ";
+        							//Wstr2 += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[x]).getNAME() + " ";
+        							if(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[x]) == -1){
+        								Wstr2 += "";
+        								
+        							} else{
+        								Wstr2 += userName.get(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[x])) + " ";
+        							}
         						}
         						sch.setWorkList(Wstr2);
         						sch.setStart(projectList.get(j).getPROJECT_START());
@@ -1536,18 +1558,23 @@
            	  			}
           	  		}
        }
-          	
-		<!-- 로딩화면 -->
-		
-		window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-		$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-		    $('.loading').hide();
-		});
-		
-		// 페이지 시작시 호출 함수
-		$(function(){
-			drawChart();
-		});
+       
+   	function goPrint(){
+ 		var popupX = (document.body.offsetWidth/2)-(600/2);
+ 		window.open('schedule_print.jsp', '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=1300, height=900');
+   	}
+      
+	<!-- 로딩화면 -->
+	
+	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
+	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
+	    $('.loading').hide();
+	});
+	
+	// 페이지 시작시 호출 함수
+	$(function(){
+		//drawChart();
+	});
 		
 	</script>
 
@@ -1670,7 +1697,7 @@
 							</div></li>
 
 					</ul>
-
+					<button onclick="goPrint()">인쇄</button>
 				</nav>
 				<!-- <h6 class="m-0 font-weight-bold text-primary">Schedule</h6> -->
 
@@ -1695,7 +1722,7 @@
 		                    <td onclick="drawChartOp('미래차검증전략실','total')"><%=List1.size()%></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','수석')"><%=List11.size() %></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','책임')"><%=List12.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','선임')"><%=List13.size() %></td>
+		    	                <td onclick="drawChartOp('미래차검증전략실','선임')"><%=List13.size() %></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','전임')"><%=List14.size() %></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','인턴')"><%=List15.size() %></td>
 	                    </tr>

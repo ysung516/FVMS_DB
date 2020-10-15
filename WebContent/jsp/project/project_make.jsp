@@ -13,7 +13,7 @@
 
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
-		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
+		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	if (permission > 1){
@@ -597,14 +597,12 @@ function btn_insert(){
 
 										<tr>
 											<th>착수</th>
-											<td><input id="PROJECT_START" name="PROJECT_START"
-												placeholder="ex)0000-00-00"></input></td>
+											<td><input type="date" id="PROJECT_START" name="PROJECT_START"></input></td>
 										</tr>
 
 										<tr>
 											<th>종료</th>
-											<td><input id="PROJECT_END" name="PROJECT_END"
-												placeholder="ex)0000-00-00"></input></td>
+											<td><input type="date" id="PROJECT_END" name="PROJECT_END"></input></td>
 										</tr>
 
 										<tr>
