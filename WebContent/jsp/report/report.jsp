@@ -182,7 +182,7 @@ tr:last-child {
 	margin-right: 5%;
 	right: 0;
 	position: absolute;
-	top: 9%;
+	top: 92px;
 	background: #fff;
 }
 .card-header{
