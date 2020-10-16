@@ -117,7 +117,7 @@
 	transform: translate(-50%, -50%);
 }
 
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 	.card-header{
 		margin-top:4.75rem;
 	}

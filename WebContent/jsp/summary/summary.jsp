@@ -401,7 +401,7 @@ ul.tabs li.current{
 	 white-space: nowrap;
 	}
 	
-	@media(max-width:800px){
+	@media(max-width:765px){
 	.container-fluid{
 	margin-top`
 	}

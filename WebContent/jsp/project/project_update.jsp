@@ -91,7 +91,7 @@
 	top: 9px;
 }
 
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 #content{
 	margin-left:0;
 }

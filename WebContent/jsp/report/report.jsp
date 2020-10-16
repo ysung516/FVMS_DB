@@ -173,7 +173,7 @@ tr:last-child {
 	transform: translate(-50%, -50%);
 }
 
-@media ( max-width :800px) {
+@media ( max-width :750px) {
 .container-fluid{
 	width:100%;
 	margin:0;
@@ -182,7 +182,7 @@ tr:last-child {
 	margin-right: 5%;
 	right: 0;
 	position: absolute;
-	top: 9%;
+	top: 92px;
 	background: #fff;
 }
 .card-header{

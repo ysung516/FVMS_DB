@@ -190,7 +190,7 @@
 }	
 	
 	
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 	.textover{
 		width:46vw;
 		overflow:hidden;
