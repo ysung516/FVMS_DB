@@ -24,7 +24,7 @@
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	
-	String sessionID = session.getAttribute("sessionID").toString(); 
+	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
 	
@@ -322,11 +322,13 @@
 
 </head>
 <style>
+.chart{
+     float:right;
+}
 .google-visualization-tooltip{
 		
 		
 	} 
-
 .chart{
 	width:50% !important;
 }
@@ -403,7 +405,7 @@ ul.tabs li.current{
 	
 	@media(max-width:765px){
 	.container-fluid{
-	margin-top`
+	margin-top: 80px;
 	}
 	.chart{
 	width:100% !important;
@@ -1466,7 +1468,8 @@ function y_rsales() {
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 
-		
+			
+
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -1871,33 +1874,33 @@ function y_rsales() {
                		 </div>
                		 </form> 
                		 </div>
-               		 
+               		
               
                <div id="tab-2" class="tab-content current">
-               		<table class="table-responsive">
-	            	 <tr><td style="width:50%;"><div id="fh_order_chart" class="chart bar"></div></td></tr>
-	             	 <tr><td><div id="fh_sales_chart" class="chart bar"></div></td></tr>
-	             	 <tr><td><div id="fh_rpj_chart" class="chart pie"></div></td></tr>
-	             	 <tr><td><div id="fh_rsales_chart" class="chart pie"></div></td></tr>
-             	 	</table>
+               		
+	            	 <div id="fh_order_chart" class="chart bar"></div>
+	             	 <div id="fh_sales_chart" class="chart bar"></div>
+	             	 <div id="fh_rpj_chart" class="chart pie"></div>
+	             	 <div id="fh_rsales_chart" class="chart pie"></div>
+             	 	
              </div>
              	 
            	  <div id="tab-3" class="tab-content current">
-             		<table class="table-responsive">
-					 <tr><td><div id="sh_order_chart" class="chart bar" ></div></td></tr>
-					 <tr><td><div id="sh_sales_chart" class="chart bar"></div></td></tr>
-					 <tr><td><div id="sh_rpj_chart" class="chart pie"></div></td></tr>
-					 <tr><td><div id="sh_rsales_chart" class="chart pie"></div></td></tr>
-           	 		</table>
+             	
+					 <div id="sh_order_chart" class="chart bar"></div>
+					 <div id="sh_sales_chart" class="chart bar"></div>
+					<div id="sh_rpj_chart" class="chart pie"></div>
+					 <div id="sh_rsales_chart" class="chart pie"></div>
+           	 		
            	 </div>
              	 
            	  <div id="tab-4" class="tab-content current">
-             		<table class="table-responsive">
-					 <tr><td><div id="y_order_chart" class="chart bar"></div></td></tr>
-					 <tr><td><div id="y_sales_chart" class="chart "></div></td></tr>
-				 	 <tr><td><div id="y_rpj_chart" class="chart pie"></div></td></tr>
-				 	 <tr><td><div id="y_rsales_chart" class="chart pie"></div></td></tr>
-           	 		</table>
+             		
+					<div id="y_order_chart" class="chart bar"></div>
+					<div id="y_sales_chart" class="chart "></div>
+				 	<div id="y_rpj_chart" class="chart pie"></div>
+				 	<div id="y_rsales_chart" class="chart pie"></div>
+           	 		
            	 </div>
              
     </div>
