@@ -1466,7 +1466,7 @@ function y_rsales() {
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 
-			
+		
 		</ul>
 		<!-- End of Sidebar -->
 
