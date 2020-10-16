@@ -115,6 +115,77 @@ function loadData(){
 <%}%>
 }
 
+function checkText(){
+	$('.DOC_TEXT_1').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter1').html("("+content.length+" / 최대 3000자)");    //글자수 실시간 카운팅
+
+	    if (content.length > 3000){
+	        alert("최대 3000자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 3000));
+	        $('#counter1').html("("+content.length+" / 최대 3000자)");
+	        $('#counter1').css('color', 'red');
+	    }else{
+	        $('#counter1').css('color', 'black');
+	    }
+	});
+
+	$('.DOC_TEXT_2').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter2').html("("+content.length+" / 최대 7000자)");    //글자수 실시간 카운팅
+
+	    if (content.length > 7000){
+	        alert("최대 7000자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 7000));
+	        $('#counter2').html("("+content.length+" / 최대 7000자)");
+	        $('#counter2').css('color', 'red');
+	    }else{
+	        $('#counter2').css('color', 'black');
+	    }
+	});
+
+	$('.DOC_TEXT_3').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter3').html("("+content.length+" / 최대 3000자)");    //글자수 실시간 카운팅
+
+	    if (content.length > 3000){
+	        alert("최대 3000자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 3000));
+	        $('#counter3').html("("+content.length+" / 최대 3000자)");
+	        $('#counter3').css('color', 'red');
+	    }else{
+	        $('#counter3').css('color', 'black');
+	    }
+	});
+	
+	$('.DOC_TEXT_4').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter4').html("("+content.length+" / 최대 3000자)");    //글자수 실시간 카운팅
+
+	    if (content.length > 3000){
+	        alert("최대 3000자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 3000));
+	        $('#counter4').html("("+content.length+" / 최대 3000자)");
+	        $('#counter4').css('color', 'red');
+	    }else{
+	        $('#counter4').css('color', 'black');
+	    }
+	});
+	
+	$('.DOC_TEXT_5').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter5').html("("+content.length+" / 최대 2000자)");    //글자수 실시간 카운팅
+
+	    if (content.length > 2000){
+	        alert("최대 2000자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 2000));
+	        $('#counter5').html("("+content.length+" / 최대 2000자)");
+	        $('#counter5').css('color', 'red');
+	    }else{
+	        $('#counter5').css('color', 'black');
+	    }
+	});
+}
 
 $(document).ready(function () {
 	$('.loading').hide();
@@ -128,6 +199,8 @@ $(document).ready(function () {
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
     });
+    
+    checkText();
     
 })
 
@@ -402,32 +475,33 @@ legend {
 										<tr>
 											<td colspan="1" class="m-0 text-primary"><h6>(전)금주계획</h6> <textarea
 													id="PreWeekPlan" rows="10" readonly></textarea></td>
-											<td colspan="1" class="m-0 text-primary"><h6>금주계획</h6> <textarea
-													id="WeekPlan" name="WeekPlan" rows="10"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>금주계획<span style="color:black; font-size:12px;" id="counter1">(0 / 최대 1500자)</span></h6> <textarea
+													id="WeekPlan" class="DOC_TEXT_1" name="WeekPlan" rows="10"></textarea>
+											</td>
 										</tr>
 										<tr>
 											<td colspan="1" class="m-0 text-primary"><h6>(전)금주진행</h6> <textarea
 													id="PreWeekPro" rows="25" readonly></textarea></td>
-											<td colspan="1" class="m-0 text-primary"><h6>금주진행</h6> <textarea
-													id="WeekPro" name="WeekPro" rows="25"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>금주진행<span style="color:black; font-size:12px;" id="counter2">(0 / 최대 3500자)</span></h6> <textarea
+													id="WeekPro" class="DOC_TEXT_2" name="WeekPro" rows="25"></textarea></td>
 										</tr>
 										<tr>
 											<td colspan="1" class="m-0 text-primary"><h6>(전)차주계획</h6> <textarea
 													id="PreNextPlan" rows="10" readonly></textarea></td>
-											<td colspan="1" class="m-0 text-primary"><h6>차주계획</h6> <textarea
-													id="NextPlan" name="NextPlan" rows="10"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>차주계획<span style="color:black; font-size:12px;" id="counter3">(0 / 최대 1500자)</span></h6> <textarea
+													id="NextPlan" class="DOC_TEXT_3" name="NextPlan" rows="10"></textarea></td>
 										</tr>
 										<tr>
 											<td colspan="1" class="m-0 text-primary"><h6>(전)특이사항</h6> <textarea
 													id="Prespecialty" rows="10" readonly></textarea></td>
-											<td colspan="1" class="m-0 text-primary"><h6>특이사항</h6> <textarea
-													id="specialty" name="specialty" rows="10"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>특이사항<span style="color:black; font-size:12px;" id="counter4">(0 / 최대 1500자)</span></h6> <textarea
+													id="specialty" class="DOC_TEXT_4" name="specialty" rows="10"></textarea></td>
 										</tr>
 										<tr>
 											<td colspan="1" class="m-0 text-primary"><h6>(전)비고</h6> <textarea
 													id="Prenote" rows="5" readonly></textarea></td>
-											<td colspan="1" class="m-0 text-primary"><h6>비고</h6> <textarea
-													id="note" name="note" rows="5"></textarea></td>
+											<td colspan="1" class="m-0 text-primary"><h6>비고<span style="color:black; font-size:12px;" id="counter5">(0 / 최대 1000자)</span></h6> <textarea
+													id="note" class="DOC_TEXT_5" name="note" rows="5"></textarea></td>
 										</tr>
 
 										<tr align="center">
