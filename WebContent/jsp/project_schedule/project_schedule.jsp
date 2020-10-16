@@ -312,10 +312,7 @@
 			if(team == '<%=key%>'){
 				<%for(Project_sch_Bean i : projectList.get(key)){%>
 					if(state == '<%=i.getSTATE()%>'){
-						var str = '<%=i.getPROJECT_NAME()%>';
- 						console.log(str);
 						inner += '<tr>';
-						//inner += "<tr onclick='drawChartOp()'>";
 						inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
 	 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
 	 					if(<%=permission%> == 0){
