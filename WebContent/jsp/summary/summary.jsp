@@ -326,6 +326,10 @@
 		
 		
 	} 
+
+.chart{
+	width:50% !important;
+}
 #content{
 	margin-left:90px;
 }
@@ -398,6 +402,9 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:800px){
+	.chart{
+	width:100% !important;
+}
 	#content{
 	margin-left:0;
 	}
@@ -581,7 +588,7 @@ ul.tabs li.current{
           
           var fh_order_option = { 
           		title: '상반기 수주', 
-          		width: '100%',
+          		width: '80%',
                 height: 500,
                 legend: {
                 	position: 'left',
