@@ -402,6 +402,9 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:800px){
+	.container-fluid{
+	margin-top`
+	}
 	.chart{
 	width:100% !important;
 }
@@ -1873,7 +1876,7 @@ function y_rsales() {
               
                <div id="tab-2" class="tab-content current">
                		<table class="table-responsive">
-	            	 <tr><td><div id="fh_order_chart" class="chart bar"></div></td></tr>
+	            	 <tr><td style="width:50%;"><div id="fh_order_chart" class="chart bar"></div></td></tr>
 	             	 <tr><td><div id="fh_sales_chart" class="chart bar"></div></td></tr>
 	             	 <tr><td><div id="fh_rpj_chart" class="chart pie"></div></td></tr>
 	             	 <tr><td><div id="fh_rsales_chart" class="chart pie"></div></td></tr>
