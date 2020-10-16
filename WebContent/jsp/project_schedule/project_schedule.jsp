@@ -390,7 +390,7 @@
 	
 	function match(a, b){
 		if (a==b){
-			return 'stroke-width: 3;stroke-color: red';
+			return 'stroke-width: 3;stroke-color: red;';
 		}else{
 			return '';
 		}
