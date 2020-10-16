@@ -249,7 +249,7 @@
        		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
          		<%for(String key : projectList.keySet()){
         		for(int b=0; b<projectList.get(key).size(); b++){%>
-        			,[	'<%=projectList.get(key).get(b).getTEAM_ORDER()%>'
+        			,[	'<%=projectList.get(key).get(b).getTEAM()%>'
         				,'<%=projectList.get(key).get(b).getPROJECT_NAME()%>'
         				,'<div class = "tooltip-padding"> <h7><strong><%=projectList.get(key).get(b).getPROJECT_NAME()%></strong></h7>' + '<hr style ="border:solid 1px;color:black">'
         				+'<p><b>PM : </b><%=projectList.get(key).get(b).getPROJECT_MANAGER()%><br>'
@@ -286,66 +286,6 @@
      
      
      
-     function drawChartOp(projectName) {
-		
-			console.log(1);
-
-
-	    	var str = 'stroke-width: 3;stroke-color: red';
-
-	        var container = document.getElementById('timelineChart');
-	        var chart = new google.visualization.Timeline(container);
-	        var dataTable = new google.visualization.DataTable();
-	  
-	        dataTable.addColumn({ type: 'string', id: 'Position' });
-	        dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-	        dataTable.addColumn({ type: 'string', role: 'tooltip' });
-	        dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-	        dataTable.addColumn({ type: 'date', id: 'Start' });
-	        dataTable.addColumn({ type: 'date', id: 'End' });
-	        dataTable.addRows([
-	        		['\0', 'Now','','',new Date(), new Date()],
-	        		['\0','','', '', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-	          		<%for(String key : projectList.keySet()){
-	         		for(int b=0; b<projectList.get(key).size(); b++){%>
-	         			,[	'<%=projectList.get(key).get(b).getTEAM_ORDER()%>'
-	         				,'<%=projectList.get(key).get(b).getPROJECT_NAME()%>'
-	         				,'<div class = "tooltip-padding"> <h7><strong><%=projectList.get(key).get(b).getPROJECT_NAME()%></strong></h7>' + '<hr style ="border:solid 1px;color:black">'
-	         				+'<p><b>PM : </b><%=projectList.get(key).get(b).getPROJECT_MANAGER()%><br>'
-	         				+'<b>투입명단 : </b><%=projectList.get(key).get(b).getWORKER_LIST()%></p>' 
-	         				+'<b>착수일 : </b><%=projectList.get(key).get(b).getPROJECT_START()%><br><b>종료일 : </b><%=projectList.get(key).get(b).getPROJECT_END()%></div>'
-	         				, ''
-	         				, new Date('<%=projectList.get(key).get(b).getPROJECT_START()%>'), new Date('<%=projectList.get(key).get(b).getPROJECT_END()%>')]
-	         		<%}}%>
-	           ]);
-	          
-	           var options = {
-	           	timeline: { colorByRowLabel: false, groupByRowLabel: true, avoidOverlappingGridLines : false}
-	           	
-	           };
-	           
-	 	          chart.draw(dataTable, options);
-	 	         	nowLine('timelineChart');
-	          	  
-	          	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-	          		if(obj.row == 0){
-	          			$('.google-visualization-tooltip').css('display', 'none');
-	          		}
-	          	    nowLine('timelineChart');
-	          	  })
-	          	  
-	          	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	          	  	nowLine('timelineChart');
-	          	  })
-
-	           	var st = container.getElementsByTagName("div")[0];
-	 			st.style.position = 'inherit';
-			
-			
-			
-			
- 	
-         }
      function highlight(){
 		console.log(1);
       }
@@ -374,7 +314,8 @@
 					if(state == '<%=i.getSTATE()%>'){
 						var str = '<%=i.getPROJECT_NAME()%>';
  						console.log(str);
-						inner += "<tr onclick= drawChartOp('"+str+"')>";
+						inner += '<tr>';
+						//inner += "<tr onclick='drawChartOp()'>";
 						inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
 	 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
 	 					if(<%=permission%> == 0){
@@ -447,13 +388,79 @@
 		window.open('project_schedule_print.jsp', '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=1250, height=850');
 	}
 	
+	function match(a, b){
+		if (a==b){
+			return 'stroke-width: 3;stroke-color: red';
+		}else{
+			return '';
+		}
+	}
 
+	function clickData(){
+		$(document.body).delegate('#select_info tr', 'click', function(){
+				var projectName = '';
+	 			var tr = $(this);
+	 			var td = tr.children();
+	 			projectName = td.eq(2).text();
+	 			console.log(projectName);
+	 	    	
+	 	        var container = document.getElementById('timelineChart');
+	 	        var chart = new google.visualization.Timeline(container);
+	 	        var dataTable = new google.visualization.DataTable();
+	 	  
+	 	        dataTable.addColumn({ type: 'string', id: 'Position' });
+	 	        dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+	 	        dataTable.addColumn({ type: 'string', role: 'tooltip' });
+	 	        dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+	 	        dataTable.addColumn({ type: 'date', id: 'Start' });
+	 	        dataTable.addColumn({ type: 'date', id: 'End' });
+	 	        dataTable.addRows([
+	        		['\0', 'Now','','',new Date(), new Date()],
+	        		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
+	          		<%for(String key : projectList.keySet()){
+	         		for(int b=0; b<projectList.get(key).size(); b++){%>
+	         			,[	'<%=projectList.get(key).get(b).getTEAM()%>'
+	         				,'<%=projectList.get(key).get(b).getPROJECT_NAME()%>'
+	         				,'<div class = "tooltip-padding"> <h7><strong><%=projectList.get(key).get(b).getPROJECT_NAME()%></strong></h7>' + '<hr style ="border:solid 1px;color:black">'
+	         				+'<p><b>PM : </b><%=projectList.get(key).get(b).getPROJECT_MANAGER()%><br>'
+	         				+'<b>투입명단 : </b><%=projectList.get(key).get(b).getWORKER_LIST()%></p>' 
+	         				+'<b>착수일 : </b><%=projectList.get(key).get(b).getPROJECT_START()%><br><b>종료일 : </b><%=projectList.get(key).get(b).getPROJECT_END()%></div>'
+	         				,match(projectName, '<%=projectList.get(key).get(b).getPROJECT_NAME()%>')
+	         				,new Date('<%=projectList.get(key).get(b).getPROJECT_START()%>'), new Date('<%=projectList.get(key).get(b).getPROJECT_END()%>')]
+	         		<%}}%>
+	            ]);
+	 	          
+	 	           var options = {
+	 	           	timeline: { colorByRowLabel: false, groupByRowLabel: true, avoidOverlappingGridLines : false}
+	 	           	
+	 	           };
+	 	           
+	 	 	          chart.draw(dataTable, options);
+	 	 	         	nowLine('timelineChart');
+	 	          	  
+	 	          	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
+	 	          		if(obj.row == 0){
+	 	          			$('.google-visualization-tooltip').css('display', 'none');
+	 	          		}
+	 	          	    nowLine('timelineChart');
+	 	          	  })
+	 	          	  
+	 	          	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
+	 	          	  	nowLine('timelineChart');
+	 	          	  })
+
+	 	           	var st = container.getElementsByTagName("div")[0];
+	 	 			st.style.position = 'inherit';
+	     });
+	}
 	
 	// 페이지 시작시 호출 함수
 	$(document).ready(function (){
 		defaultTotal();
 		//drawChart('timelineChart');
+		clickData();
 	});
+	
 	
 </script>
 
