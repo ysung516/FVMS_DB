@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.DB.method.*" import="jsp.Bean.model.*"
 	import="java.util.ArrayList" import="java.util.List"
-	import="java.util.Calendar"%>
+	import="java.util.Calendar"
+	import="java.util.Date"
+	import="java.text.SimpleDateFormat"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +29,10 @@
 	ArrayList<ReportBean> list = reportDao.getReportList();
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport();
 	int projectNum = projectDao.useReportProject();
+	
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	int year = Integer.parseInt(sf.format(nowTime));
 %>
 
 <meta charset="utf-8">
@@ -235,6 +241,11 @@ button:focus {
 .projectList {
 	margin: 0;
 }
+
+.select_box{
+	color: black;
+	font-size:12px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script>
@@ -399,8 +410,44 @@ button:focus {
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">주간보고목록</h6>
-
+							<h6 class="m-0 font-weight-bold text-primary">주간보고 목록 
+								<br><span class="select_box">날짜 : 
+									<select id="report_data_year" name="report_data_year" style="width:70px;">
+										<option value="all">전체</option>
+										<option value='<%=year%>'><%=year%></option>
+										<option value='<%=year-1%>'><%=year-1%></option>
+									</select>년
+									<select id="report_data_month" name="report_data_month" style="width:70px;">
+										<option value="all">전체</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>월
+									<select id="report_data_day" name="report_data_day" style="width:70px;">
+										<option value="all">전체</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+									</select>주차</span>
+								<br><span class="select_box">프로젝트 : 
+									<select id="report_data_project" name="report_data_project" style="width:230px;">
+										<option value="all">전체</option>
+										<option></option>
+									</select></span>
+								<span class="select_box"><input type="button" style="width:60px;" value="검색"></span>
+							</h6>
 						</div>
 						<div class="details_body">
 
