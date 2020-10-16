@@ -173,7 +173,7 @@ tr:last-child {
 	transform: translate(-50%, -50%);
 }
 
-@media ( max-width :750px) {
+@media ( max-width :760px) {
 .container-fluid{
 	width:100%;
 	margin:0;

@@ -24,7 +24,7 @@
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	
-	String sessionID = session.getAttribute("sessionID").toString();
+	String sessionID = session.getAttribute("sessionID").toString(); 
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
 	
@@ -1438,7 +1438,7 @@ function y_rsales() {
 			<!-- Nav Item - schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
-					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
+					class="fas fa-fw fa-calendar"></i> <span>엔지니어 스케줄</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
