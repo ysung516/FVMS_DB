@@ -396,7 +396,7 @@
 		}
 	}
 
-	function clickData(){
+	function clickData(){ 
 		$(document.body).delegate('#select_info tr', 'click', function(){
 				var projectName = '';
 	 			var tr = $(this);
