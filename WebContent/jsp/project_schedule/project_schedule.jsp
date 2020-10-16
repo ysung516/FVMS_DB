@@ -31,7 +31,6 @@
 	String date = sf.format(nowTime);
 	
 	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();
-	System.out.print(projectList.size());
 	ArrayList<Project_sch_Bean> vh_project = projectList.get("미래차검증전략실");
 	ArrayList<Project_sch_Bean> chasis_project = projectList.get("샤시힐스검증팀");
 	ArrayList<Project_sch_Bean> body_project = projectList.get("바디힐스검증팀");
