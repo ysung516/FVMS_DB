@@ -401,7 +401,7 @@ ul.tabs li.current{
 	 white-space: nowrap;
 	}
 	
-	@media(max-width:800px){
+	@media(max-width:765px){
 	.container-fluid{
 	margin-top`
 	}
@@ -1438,7 +1438,7 @@ function y_rsales() {
 			<!-- Nav Item - schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
-					class="fas fa-fw fa-calendar"></i> <span>엔지니어 스케줄</span></a></li>
+					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i

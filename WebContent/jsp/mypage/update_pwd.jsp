@@ -130,7 +130,7 @@ function input_check_func() {
 	transform: translate(-50%, -50%);
 }
 
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 #content{
 	margin-left:0;
 }

@@ -164,7 +164,7 @@ textarea {
 
 
 
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 
 	.card-header{
 		margin-top:4.75rem;

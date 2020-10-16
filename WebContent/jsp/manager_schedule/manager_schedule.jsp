@@ -562,7 +562,7 @@ button:focus {
 	}
 }
 
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 	.card-header {
 		margin-top:4.75rem;
 	}
@@ -599,7 +599,7 @@ button:focus {
 	top: 400px;
 }
 
-@media ( max-width :800px) {
+@media ( max-width :765px) {
 	.card-header{
 		margin-top:4.75rem;
 	}
