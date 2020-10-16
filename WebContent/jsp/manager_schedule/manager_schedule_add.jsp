@@ -43,6 +43,10 @@
 
 </head>
 <style>
+#content{
+	margin-left:90px;
+}
+
 .sidebar{
 		position:fixed;
 		z-index:9999;
@@ -113,6 +117,11 @@ summary {
 }
 
 @media ( max-width :800px) {
+
+	#content{
+	margin-left:0px;
+}
+	
 	.card-header{
 		margin-top:4.75rem;
 	}
@@ -220,7 +229,7 @@ summary {
 			<!-- Nav Item - schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
-					class="fas fa-fw fa-calendar"></i> <span>스케줄</span></a></li>
+					class="fas fa-fw fa-calendar"></i> <span>엔지니어 스케줄</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i

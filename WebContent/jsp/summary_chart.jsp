@@ -302,7 +302,7 @@ function count_auto() {
 
 </head>
 <body>
-	<div id="fh_order_chart" style="width: 800px; height: 500px;"></div>
+	<div id="fh_order_chart" style="width: 400px; height: 500px;"></div>
 	<div id="fh_sales_chart" style="width: 800px; height: 500px;"></div>
 	<div id="sh_order_chart" style="width: 800px; height: 500px;"></div>
 	<div id="sh_sales_chart" style="width: 800px; height: 500px;"></div>
