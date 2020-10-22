@@ -24,15 +24,17 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	
 	ReportDAO reportDao = new ReportDAO();
-	ArrayList<ReportBean> reportList = reportDao.loadData();
 	ProjectDAO projectDao = new ProjectDAO();
 	int no = Integer.parseInt(request.getParameter("no"));
 	int projectNo = Integer.parseInt(request.getParameter("projectNo"));
 	ReportBean report = reportDao.getReportBean(no);
+	String weekly = report.getWeekly();
+			
 	ProjectBean project = projectDao.getProjectBean_no(projectNo);
 	String str = "";
 	
-	ReportBean backupReport = reportDao.getReportBackUp(projectNo);
+	ReportBean backupReport = reportDao.getReportBackUp(projectNo,weekly); 
+	
 	
 	if(!(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID))){
 		script.print("<script> alert('해당 프로젝트 관계자가 아닙니다.'); history.back(); </script>");
@@ -50,72 +52,74 @@
 		$('#Prespecialty').val('');
 		$('#Prenote').val('');
 
-		<%for(int a=0; a<backupReport.getP_weekPlan().length; a++){
-			str = backupReport.getP_weekPlan()[a].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('PreWeekPlan').value += str_ch + '\n';
-		<%}
-		for(int b=0; b<backupReport.getP_weekPro().length; b++){
-			str = backupReport.getP_weekPro()[b].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('PreWeekPro').value += str_ch + '\n';
-		<%}		
-		for(int c=0; c<backupReport.getP_nextPlan().length; c++){
-			str = backupReport.getP_nextPlan()[c].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('PreNextPlan').value += str_ch + '\n';
-		<%}
-		for(int d=0; d<backupReport.getP_specialty().length; d++){
-			str = backupReport.getP_specialty()[d].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('Prespecialty').value += str_ch + '\n';
-		<%}
-		for(int e=0; e<backupReport.getP_note().length; e++){
-			str = backupReport.getP_note()[e].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('Prenote').value += str_ch + '\n';
-		<%}%>
-		}
+		<%if(backupReport.getWeekPlan() != null){
+			for(int a=0; a<backupReport.getP_weekPlan().length; a++){
+				str = backupReport.getP_weekPlan()[a].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('PreWeekPlan').value += str_ch + '\n';
+			<%}
+			for(int b=0; b<backupReport.getP_weekPro().length; b++){
+				str = backupReport.getP_weekPro()[b].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('PreWeekPro').value += str_ch + '\n';
+			<%}		
+			for(int c=0; c<backupReport.getP_nextPlan().length; c++){
+				str = backupReport.getP_nextPlan()[c].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('PreNextPlan').value += str_ch + '\n';
+			<%}
+			for(int d=0; d<backupReport.getP_specialty().length; d++){
+				str = backupReport.getP_specialty()[d].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('Prespecialty').value += str_ch + '\n';
+			<%}
+			for(int e=0; e<backupReport.getP_note().length; e++){
+				str = backupReport.getP_note()[e].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('Prenote').value += str_ch + '\n';
+			<%}
+		}%>
+	}
 	
 	function checkText(){
 		$('.DOC_TEXT_1').keyup(function (e){

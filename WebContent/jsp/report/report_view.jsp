@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.DB.method.*" import="jsp.Bean.model.*"
-	import="java.util.ArrayList" import="java.util.List"%>
+	import="java.util.ArrayList" import="java.util.List"
+	import="java.util.Calendar"
+	import="java.util.Date"
+	import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,11 +27,16 @@
 		MemberDAO memberDao = new MemberDAO();
 		
 		ReportBean report = reportDao.getReportBean(NO);
+		String weekly = report.getWeekly();
+		int projectNo = report.getProjectNo();
 		
-		ReportBean reportBackUp = reportDao.getReportBackUp(report.getProjectNo());
-		ProjectBean project = projectDao.getProjectBean_no(report.getProjectNo());
+		ReportBean reportBackUp = reportDao.getReportBackUp(projectNo, weekly);
+		ProjectBean project = projectDao.getProjectBean_no(projectNo);
 		
-		 
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+		String nowWeek = sf.format(nowTime);
+		
 		// 출력
 		String [] line;
 		
@@ -458,7 +466,8 @@ h6 {
 										</tr>
 										<tr>
 											<td colspan="2">
-												<%if(project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID)){ %>
+												<%if((project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID)) 
+														&& weekly.equals(reportDao.getWeekly(nowWeek))){ %>
 												<input id="update" type="submit" name="update" value="수정"
 												class="btn btn-primary"> <% }%> <a href="report.jsp"
 												class="btn btn-primary">목록</a>

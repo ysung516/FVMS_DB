@@ -281,13 +281,7 @@
           	var st = container.getElementsByTagName("div")[0];
 			st.style.position = 'inherit';
 	
-        }
-     
-     
-     
-     function highlight(){
-		console.log(1);
-      }
+        }     
  
     function defaultTotal(){
     	for(var j=0;j<9;j++){
@@ -580,7 +574,6 @@
 
 					</ul>
 					<button onclick="goPrint()">인쇄</button>
-					<button onclick="highlight('123')">test</button>
 				</nav>
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
 				<div class="tableST" id="infoDiv">

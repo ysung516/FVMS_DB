@@ -19,20 +19,35 @@
 	if(permission > 3){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
+	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
 	ReportDAO reportDao = new ReportDAO();
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
-	
-	ArrayList<ReportBean> list = reportDao.getReportList();
-	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport();
-	int projectNum = projectDao.useReportProject();
-	
 	Date nowTime = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	int year = Integer.parseInt(sf.format(nowTime));
+	SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+	String nowDate = sf2.format(nowTime);
+	String weekly = "";
+	ArrayList<ReportBean> list = new ArrayList<ReportBean>(); 
+	
+	if(request.getParameter("weekly") != null){
+		weekly = request.getParameter("weekly");
+		list = reportDao.getReportList(weekly);
+	} else{
+		weekly = reportDao.getWeekly(nowDate);
+		list = reportDao.getReportList(weekly); 
+	}
+	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
+	System.out.println(reportDao.getWeekly(nowDate));
+	int projectNum = projectDao.useReportProject();	
+	int year = Integer.parseInt(weekly.split("/")[0]);
+	int month = Integer.parseInt(weekly.split("/")[1]);
+	int week = Integer.parseInt(weekly.split("/")[2]);
+	int minYear = Integer.parseInt(reportDao.minYear());
+	int nowYear = Integer.parseInt(nowDate.split("-")[0]);
+	int yearSize = nowYear - minYear + 1;
 %>
 
 <meta charset="utf-8">
@@ -248,8 +263,18 @@ button:focus {
 }
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script>
-
+<script type="text/javascript">
+	function listLoad(){
+		$("#search").click(function(e){
+			var year = $('#report_data_year').val();
+			var month = $('#report_data_month').val();
+			var week = $('#report_data_week').val();
+			var weekly = year+"/"+month+"/"+week;
+			
+			location.href ="report.jsp?weekly="+weekly;
+		});
+	}
+	
 	function yet_project(){
 		 $(".summary").click(function(e){
 			 if($(".summary_p").css('display')=='none'){
@@ -269,9 +294,14 @@ button:focus {
 	
 	 $(document).ready(function(){
 		 yet_project();
+		 listLoad();
+		 
+		 $('#report_data_year').val(<%=year%>).prop("selected",true);
+		 $('#report_data_month').val(<%=month%>).prop("selected",true);
+		 $('#report_data_week').val(<%=week%>).prop("selected",true);
 	 });
-</script>
-<script type="text/javascript">
+
+
 <!-- 로딩화면 -->
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
@@ -410,15 +440,18 @@ button:focus {
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">주간보고 목록 
+							<h6 class="m-0 font-weight-bold text-primary">주간보고 목록 </h6>
 								<br><span class="select_box">날짜 : 
-									<select id="report_data_year" name="report_data_year" style="width:70px;">
-										<option value="all">전체</option>
-										<option value='<%=year%>'><%=year%></option>
-										<option value='<%=year-1%>'><%=year-1%></option>
+									<select id="report_data_year" name="report_data_year" style="width:70px;" >
+										<%
+											for(int i=0; i<yearSize; i++){%>								
+											<option value='<%=nowYear-i%>'><%=nowYear-i%></option>												
+										<%}%>
+										
+										
+										
 									</select>년
-									<select id="report_data_month" name="report_data_month" style="width:70px;">
-										<option value="all">전체</option>
+									<select id="report_data_month" name="report_data_month" style="width:70px;" >
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -432,22 +465,15 @@ button:focus {
 										<option value="11">11</option>
 										<option value="12">12</option>
 									</select>월
-									<select id="report_data_day" name="report_data_day" style="width:70px;">
-										<option value="all">전체</option>
+									<select id="report_data_week" name="report_data_week" style="width:70px;">
 										<option value="1">1</option>
 										<option value="2">2</option>
-										<option value="3">3</option>
+										<option value="3">3</option>	
 										<option value="4">4</option>
 										<option value="5">5</option>
 										<option value="6">6</option>
 									</select>주차</span>
-								<br><span class="select_box">프로젝트 : 
-									<select id="report_data_project" name="report_data_project" style="width:230px;">
-										<option value="all">전체</option>
-										<option></option>
-									</select></span>
-								<span class="select_box"><input type="button" style="width:60px;" value="검색"></span>
-							</h6>
+								<button id="search" style="width:60px;">검색</button>			
 						</div>
 						<div class="details_body">
 
@@ -457,7 +483,7 @@ button:focus {
 							<%for(int i=0; i<unWrite.size(); i++){
         				if(unWrite.get(i).getPROJECT_MANAGER().equals(sessionID) || unWrite.get(i).getWORKER_LIST().contains(sessionID)){
         					%><p class="summary_p">
-								<a href="report_write.jsp?no=<%=unWrite.get(i).getNO()%>"><%=unWrite.get(i).getPROJECT_NAME()%></a>
+								<a href="report_write.jsp?projectNo=<%=unWrite.get(i).getNO()%>"><%=unWrite.get(i).getPROJECT_NAME()%></a>
 							</p>
 							<%}else{%>
 							<p class="summary_p"><%=unWrite.get(i).getPROJECT_NAME()%></p>
@@ -510,7 +536,7 @@ button:focus {
 
 					</div>
 					<div id="report_btn">
-						<a href="report_write.jsp" class="btn btn-primary">주간보고서 작성</a>
+						<a href="report_write.jsp?projectNo=0" class="btn btn-primary">주간보고서 작성</a>
 					</div>
 					<!-- End of Main Content -->
 

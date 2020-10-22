@@ -21,12 +21,25 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
+	String no = request.getParameter("no");
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
+	
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	String no = request.getParameter("no");
+	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
+	ArrayList<CareerBean> careerList_PM = projectDao.getCarrerPM(no);
+	String textPM = "";
+	String textWorker = "";
+	for(int i=0; i<careerList_PM.size(); i++){
+		textPM += careerList_PM.get(i).getId()+" ";
+	}
+	for(int i=0; i<careerList.size(); i++){
+		textWorker += careerList.get(i).getId()+" ";
+	}
+	
+	
 	ProjectBean project = projectDao.getProjectBean_no(Integer.parseInt(no));
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
 	
@@ -123,8 +136,9 @@ $(document).ready(function () {
 	$('.loading').hide();
 	sortSelect('WORKER_LIST');
 	workDelete();
+	PMDelete();
+	PM_highlight();
 	teamMember('#teamlist','#WORKER_LIST');
-	
 	$('#PM-team').val('<%=PMdata.getTEAM()%>').prop('selected', true);
 	teamMember('#PM-team','#PROJECT_MANAGER');
 	$("#team_sales").val("<%=project.getTEAM_SALES()%>").prop("selected", true);
@@ -157,25 +171,92 @@ function sortSelect(selId) {
 		}); 
 		sel.html(optionList); 
 	}
+	
+function PM_highlight(){
+	var nowPM = '<%=project.getPROJECT_MANAGER()%>';
+	var trPM = $('#workerListAdd_PM td:eq(0)');
+	if(nowPM == trPM.text()){
+		trPM.parent().css("background-color","yellow");
+	}
+}
 
-//명단선택
+//PM선택
+function getSelectPM(){
+	//팀, 이름 저장
+	var team = $("#PM-team option:selected").val();
+	var id = $("#PROJECT_MANAGER option:selected").val();
+	var name = ($("#PROJECT_MANAGER option:selected").text()).split("-")[1].trim();
+	var part = ($("#PROJECT_MANAGER option:selected").text()).split("-")[0].trim();
+	var start = $("#PROJECT_START").val();
+	var end = $("#PROJECT_END").val();
+	var inner = "";
+	inner += "<tr style='background-color: greenyellow'>";
+	inner += "<td style='display:none;'>"+id+"</td>";
+	inner += "<td>"+team+"</td>";
+	inner += "<td>"+part+"</td>";
+	inner += "<td>"+name+"</td>";
+	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
+	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
+	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
+	inner += "</tr>";
+	var cnt =0;
+	
+	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
+		if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+			cnt = 1;
+		}
+	}
+	
+	if (cnt == 0){
+		$('#workerListAdd_PM').prepend(inner);
+		var trPM = $('#workerListAdd_PM td:eq(0)');
+		if(id == trPM.text()){
+			$('#workerListAdd_PM tr').css("background-color","white");
+			trPM.parent().css("background-color","yellow");
+		}
+		//id 저장
+		$("#textValuePM").append(id+" ");
+	} else{
+		alert('이미 등록되어있는 PM입니다');
+	}
+	
+}
+
+//투입명단선택
 function getSelectValue(){
 	//팀, 이름 저장
 	var team = $("#teamlist option:selected").val();
 	var id = $("#WORKER_LIST option:selected").val();
 	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
 	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
+	var start = $("#PROJECT_START").val();
+	var end = $("#PROJECT_END").val();
+
+	
 	var inner = "";
-	inner += "<tr>";
+	inner += "<tr style='background-color: greenyellow'>";
 	inner += "<td style='display:none;'>"+id+"</td>";
 	inner += "<td>"+team+"</td>";
 	inner += "<td>"+part+"</td>";
 	inner += "<td>"+name+"</td>";
+	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
+	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
-	$('#workerList > tbody:last').append(inner);
-	//id 저장
-	$("#textValue2").append(id+" ");
+	var cnt =0;
+	
+	for(var a=0; a<$('#workerListAdd tr').length; a++){
+		if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
+			cnt = 1;
+		}
+	}
+	
+	if (cnt == 0){
+		$('#workerListAdd').prepend(inner);
+		$("#textValue2").append(id+" ");
+	} else{
+		alert('이미 등록되어있는 명단 입니다');
+	}
 }
 
 //명단삭제
@@ -190,6 +271,23 @@ function workDelete(){
 		var text = $("#textValue2").text();
 		var te = text.replace(delID+" ", "");
 		$("#textValue2").text(te);
+		tr.remove();
+	});
+}
+
+//PM명단삭제
+function PMDelete(){
+	$(document).on("click",".PMDel",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		console.log(delID);
+		var text = $("#textValuePM").text();
+		var te = text.replace(delID+" ", "");
+		$("#textValuePM").text(te);
 		tr.remove();
 	});
 }
@@ -541,8 +639,39 @@ function btn_copy(){
 		                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option>
 													<%
 		                      		}
-		                      	%>
-											</select> <select id="PROJECT_MANAGER" name="PROJECT_MANAGER"></select>
+		                      	%></select> 
+		                      			<select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
+											<textarea id="textValuePM" name="WORKER_LIST_PM" style="display: none"><%=textPM%></textarea>
+												<table id="workerList_PM" style="margin-top: 5px;">
+													<thead>
+														<tr>
+															<th style="display: none;">id</th>
+															<th>팀</th>
+															<th>소속</th>
+															<th>이름</th>
+															<th>시작</th>
+															<th>종료</th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody id="workerListAdd_PM">
+									<%
+                      				for(int c=0; c<careerList_PM.size(); c++){
+                      					CareerBean careerPM = careerList_PM.get(c);
+										MemberBean member = memberDao.returnMember(careerPM.getId()); 
+										%>
+											<tr>
+												<td style='display: none;'><%=careerPM.getId()%></td>
+												<td><%=member.getTEAM()%></td>
+												<td><%=member.getPART()%></td>
+												<td><%=member.getNAME()%></td>
+												<td><input name="<%=careerPM.getId()+"/start"%>" type=date value="<%=careerPM.getStart()%>"></td>
+												<td><input name="<%=careerPM.getId()+"/end"%>" type=date value="<%=careerPM.getEnd()%>"></td>
+												<td><input type='button' class='PMDel' value='삭제' /></td>
+											</tr>
+											<%}%>
+													</tbody>
+												</table>
 											</td>
 										</tr>
 
@@ -559,11 +688,10 @@ function btn_copy(){
 		                      		}
 		                      	%>
 											</select> 
-											
 											<select id="WORKER_LIST" name="WORKER_LIST"
 												onChange="getSelectValue();"></select>
-												<textarea id="textValue2" name="WORKER_LIST2" style="display: none;">
-													<%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
+												<textarea id="textValue2" name="WORKER_LIST2" >
+													<%=textWorker%></textarea>
 												<table id="workerList" style="margin-top: 5px;">
 													<thead>
 														<tr>
@@ -571,23 +699,27 @@ function btn_copy(){
 															<th>팀</th>
 															<th>소속</th>
 															<th>이름</th>
+															<th>시작</th>
+															<th>종료</th>
 															<th></th>
 														</tr>
 													</thead>
 													<tbody id="workerListAdd">
-														<%
-                      				if(project.getWORKER_LIST().length() != 0) {
-                      				workerID = project.getWORKER_LIST().split(" ");
-                      				for(int c=0; c<workerID.length;c++){
-										MemberBean member = memberDao.returnMember(workerID[c]); %>
-														<tr>
-															<td style='display: none;'><%=workerID[c]%></td>
-															<td><%=member.getTEAM()%></td>
-															<td><%=member.getPART()%></td>
-															<td><%=member.getNAME()%></td>
-															<td><input type='button' class='workDel' value='삭제' /></td>
-														</tr>
-														<%}} %>
+									<%
+                      				for(int c=0; c<careerList.size(); c++){
+                      					CareerBean career = careerList.get(c);
+										MemberBean member = memberDao.returnMember(career.getId()); 
+										%>
+											<tr>
+												<td style='display: none;'><%=career.getId()%></td>
+												<td><%=member.getTEAM()%></td>
+												<td><%=member.getPART()%></td>
+												<td><%=member.getNAME()%></td>
+												<td><input name="<%=career.getId()+"/start"%>" type=date value="<%=career.getStart()%>"></td>
+												<td><input name="<%=career.getId()+"/end"%>" type=date value="<%=career.getEnd()%>"></td>
+												<td><input type='button' class='workDel' value='삭제' /></td>
+											</tr>
+											<%}%>
 													</tbody>
 												</table></td>
 										</tr>

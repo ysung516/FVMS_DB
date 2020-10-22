@@ -30,9 +30,10 @@
 		
 		ReportDAO reportDao = new ReportDAO();
 		ReportBean report = reportDao.getReportBean(no);
+		String weekly = reportDao.getWeekly(date);
 		
 		
-		if(reportDao.updateReport(no, WeekPlan, WeekPro, NextPlan,  specialty, note, date) == 1){
+		if(reportDao.updateReport(no, WeekPlan, WeekPro, NextPlan,  specialty, note, date,weekly) == 1){
 			script.print("<script> alert('보고서가 수정되었습니다.'); location.href = 'report.jsp'; </script>");
 		}
 		else{

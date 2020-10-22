@@ -40,7 +40,9 @@
 				String specialty = request.getParameter("specialty");
 				String name = member.getNAME(); 
 				String user_id = member.getID();
-				if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo) == 1){
+				String weekly = reportDao.getWeekly(writeDate);
+				
+				if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo,weekly) == 1){
 					script.print("<script> alert('보고서 작성이 완료되었습니다.'); location.href = 'report.jsp'</script>");
 					
 				} else script.print("<script> alert('보고서작성 실패!!'); history.back(); </script>");

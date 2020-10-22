@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="java.util.ArrayList" 
 	import="jsp.DB.method.*"
-	import="jsp.Bean.model.*"%>
+	import="jsp.Bean.model.*"
+	import="java.util.Calendar"
+	import="java.util.Date"
+	import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,11 +27,19 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	ReportDAO reportDao = new ReportDAO();
 	ReportBean report = new ReportBean();
-	ArrayList<ReportBean> reportList = reportDao.loadData();
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+	String nowDate = sf.format(nowTime);
+	String weekly = reportDao.getWeekly(nowDate);
+	System.out.println(weekly);
+	int projectNo = Integer.parseInt(request.getParameter("projectNo"));
+	
+	ReportBean PreReport = reportDao.getReportBackUp(projectNo,weekly);
 	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
-	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport();
+	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
 	ProjectBean pjBean = new ProjectBean();
-	String no = request.getParameter("no");
+	ProjectBean f_pjBean = projectDao.getProjectBean_no(unWrite.get(0).getNO());
+	//String no = request.getParameter("no");
 	
 	String str = "";
 	
@@ -36,84 +47,88 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript">
 
+function loactionPage(){
+	var projectNo = $('#title').val();
+	location.href ="report_write.jsp?projectNo="+projectNo;
+}
+
 function loadData(){
+	$('#title').val(<%=projectNo%>).prop("selected",true);
+	
 	$('#PreWeekPlan').val('');
 	$('#PreWeekPro').val('');
 	$('#PreNextPlan').val('');
 	$('#Prespecialty').val('');
 	$('#Prenote').val('');
-	var title = $('#title option:selected').val();
 	
-	<%for(int j=0; j < reportList.size(); j++){%>
-	if (title == "<%=reportList.get(j).getProjectNo()%>"){
-		<%for(int a=0; a<reportList.get(j).getP_weekPlan().length; a++){
-			str = reportList.get(j).getP_weekPlan()[a].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('PreWeekPlan').value += str_ch + '\n';
-		<%}
-		for(int b=0; b<reportList.get(j).getP_weekPro().length; b++){
-			str = reportList.get(j).getP_weekPro()[b].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('PreWeekPro').value += str_ch + '\n';
-		<%}		
-		for(int c=0; c<reportList.get(j).getP_nextPlan().length; c++){
-			str = reportList.get(j).getP_nextPlan()[c].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('PreNextPlan').value += str_ch + '\n';
-		<%}
-		for(int d=0; d<reportList.get(j).getP_specialty().length; d++){
-			str = reportList.get(j).getP_specialty()[d].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('Prespecialty').value += str_ch + '\n';
-		<%}
-		for(int e=0; e<reportList.get(j).getP_note().length; e++){
-			str = reportList.get(j).getP_note()[e].replaceAll("\\s+$","");
-			if(str.contains("\"")){
-				str = str.replaceAll("\"", "\'");
-			}
-			if (str.contains("\'")){%>
-				var str = "<%=str%>";
-				var str_ch = str.replace("'", "\'");
-			<%}else{%>
-				var str_ch = "<%=str%>";
-			<%}%>
-			document.getElementById('Prenote').value += str_ch + '\n';
-		<%}%>
+		<%if(PreReport.getWeekPlan() != null){
+			for(int a=0; a<PreReport.getP_weekPlan().length; a++){
+				str = PreReport.getP_weekPlan()[a].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('PreWeekPlan').value += str_ch + '\n';
+			<%}
+			for(int b=0; b<PreReport.getP_weekPro().length; b++){
+				str = PreReport.getP_weekPro()[b].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('PreWeekPro').value += str_ch + '\n';
+			<%}		
+			for(int c=0; c<PreReport.getP_nextPlan().length; c++){
+				str = PreReport.getP_nextPlan()[c].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('PreNextPlan').value += str_ch + '\n';
+			<%}
+			for(int d=0; d<PreReport.getP_specialty().length; d++){
+				str = PreReport.getP_specialty()[d].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('Prespecialty').value += str_ch + '\n';
+			<%}
+			for(int e=0; e<PreReport.getP_note().length; e++){
+				str = PreReport.getP_note()[e].replaceAll("\\s+$","");
+				if(str.contains("\"")){
+					str = str.replaceAll("\"", "\'");
+				}
+				if (str.contains("\'")){%>
+					var str = "<%=str%>";
+					var str_ch = str.replace("'", "\'");
+				<%}else{%>
+					var str_ch = "<%=str%>";
+				<%}%>
+				document.getElementById('Prenote').value += str_ch + '\n';
+			<%}
+		}%>
 	}
-<%}%>
-}
 
 function checkText(){
 	$('.DOC_TEXT_1').keyup(function (e){
@@ -188,18 +203,16 @@ function checkText(){
 }
 
 $(document).ready(function () {
-	$('.loading').hide();
-	$("#title").val("<%=no%>").attr("selected", "selected");
-	loadData();	// 주간보고서 작성시 백업테이블에서 데이터 가져오기
 
+	loadData();	// 주간보고서 작성시 백업테이블에서 데이터 가져오기
+	$('.loading').hide();
     $(window).on('beforeunload', function(){
         return "Any changes will be lost";
     });
     
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
-    });
-    
+    });  
     checkText();
     
 })
@@ -453,12 +466,12 @@ legend {
 										<tr>
 											<td class="m-0 text-primary" align="center"
 												style="word-break: keep-all;">프로젝트</td>
-											<td><select id="title" name="TITLE"
-												onchange="loadData()">
-													<%for(int i=0; i<unWrite.size(); i++){
+											<td><select id="title" name="TITLE" onchange="loactionPage()">
+											<option value="0" >선택</option>
+										<%for(int i=0; i<unWrite.size(); i++){
 		      		pjBean = projectDao.getProjectBean_no(unWrite.get(i).getNO());
 		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionID)){
-		      		%><option value="<%=unWrite.get(i).getNO()%>"><%=pjBean.getPROJECT_NAME()%></option>
+		      		%><option  value="<%=unWrite.get(i).getNO()%>"><%=pjBean.getPROJECT_NAME()%></option>
 													<%}
 		      	}
 		      	%>

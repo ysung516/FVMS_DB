@@ -57,6 +57,30 @@
 		  int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
 		  int RESULT_REPORT = Integer.parseInt(request.getParameter("sheetCheck"));
 		  int NO = Integer.parseInt(request.getParameter("NO"));
+		  
+		  String PM_LIST = request.getParameter("WORKER_LIST_PM").trim()+" ";
+		  int pm_cnt = PM_LIST.split(" ").length;
+		  int worker_cnt = WORKER_LIST.split(" ").length;
+		  
+		  String [] workerList = new String[worker_cnt];
+		  String []start = new String[worker_cnt];
+		  String []end = new String[worker_cnt];
+		  for(int i=0; i<worker_cnt; i++){
+			  workerList[i] = WORKER_LIST.split(" ")[i];
+			  start[i] = request.getParameter(workerList[i]+"/start");
+			  end[i] = request.getParameter(workerList[i]+"/end");
+		  }
+		  
+		  System.out.println("-------------------------------------");
+		  String [] workerListPM = new String[pm_cnt];
+		  String []startPM = new String[pm_cnt];
+		  String []endPM = new String[pm_cnt];
+		  for(int i=0; i<pm_cnt; i++){
+			  workerListPM[i] = PM_LIST.split(" ")[i];
+			  startPM[i] = request.getParameter(workerListPM[i]+"/start");
+			  endPM[i] = request.getParameter(workerListPM[i]+"/end");
+		  }
+		  
 		
 		if(PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
@@ -66,6 +90,10 @@
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS,FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
 					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO) == 1){
+				projectDao.deleteCareer(NO,"1");
+				projectDao.setCareer(workerListPM, NO, startPM, endPM, "1");
+				projectDao.deleteCareer(NO,"0");
+				projectDao.setCareer(workerList, NO, start, end, "0");
 				
 				if(STATE.equals("8.Dropped")){
 					projectDao.projectDropped(NO);

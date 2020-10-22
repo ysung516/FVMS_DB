@@ -11,10 +11,17 @@ public class ReportBean {
 	private String nextPlan;
 	private String specialty;	// 특이사항
 	private String note;	// 비고
-	
 	private int no;
 	private int projectNo;
+	private String weekly;	 //주차
+	
 	private String [] P_weekPlan;
+	public String getWeekly() {
+		return weekly;
+	}
+	public void setWeekly(String weekly) {
+		this.weekly = weekly;
+	}
 	private String [] P_weekPro;
 	private String [] P_nextPlan;
 	private String [] P_specialty;

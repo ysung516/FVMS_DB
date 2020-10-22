@@ -26,6 +26,9 @@ public class Scheduler {
 	ExcelExporter excel = new ExcelExporter();
 	ReportDAO reportDao = new ReportDAO();
 	ProjectDAO projectDao = new ProjectDAO();
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+	String nowWeek = sf.format(nowTime);
 	
     public void startScheduleTask() {
     final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
@@ -37,10 +40,8 @@ public class Scheduler {
             		String day = cal.getTime().toString().split(" ")[0];
             		String time = cal.getTime().toString().split(" |:")[3];
             		if(day.equals("Wed") && time.equals("18")) {
-            			if(reportDao.reportCount() != 0 && (reportDao.reportCount() > (projectDao.useReportProject()/2))){
-            				reportBackUp();
-            				System.out.println("보고서 백업");
-            			}
+        				reportBackUp();
+        				System.out.println("보고서 드라이브 업로드");
             		}
                     
                 }catch(Exception ex) {
@@ -70,13 +71,9 @@ public class Scheduler {
     }
     
     public void reportBackUp() throws GeneralSecurityException, IOException, Exception {
-			reportDao.deleteAllbackUp();
-			reportDao.backUp();
-			excel.export();
+			excel.export(nowWeek);
 			DriveMethod.upload();
-			reportDao.deleteAllreport();
 		}
-
 }
 
 

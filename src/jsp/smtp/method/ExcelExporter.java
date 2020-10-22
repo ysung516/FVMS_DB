@@ -14,13 +14,13 @@ import jsp.DB.method.MeetingDAO;
 public class ExcelExporter {
 
 	// 레포트 백업 파일 엑셀로 내보내기
-	public void export() {
+	public void export(String weekly) {
 
 		String excelFilePath = "Report-export.xlsx";
 		//String excelFilePath = "C:\\Users\\User\\git\\FVMS_DB\\Report-export.xlsx";
 
 		try (Connection connection = DBconnection.getConnection()) {
-			String sql = "SELECT * FROM reportBackUp";
+			String sql = "SELECT * FROM weekly_Report where 주차 =" + weekly;
 
 			Statement statement = connection.createStatement();
 
@@ -115,7 +115,6 @@ public class ExcelExporter {
 
 			cell = row.createCell(columnCount);
 			cell.setCellValue(bg);
-
 		}
 	}
 	// 회의록 엑셀로 내보내기

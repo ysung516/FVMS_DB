@@ -523,7 +523,7 @@ function drawChartOp4(){
 	  		}  	
 	<%}%>
 		if(cnt3 > 0){
-			$('#timelineChart4').height(cnt3*50);
+			$('#timelineChart4').height(cnt3*47);
 		}
 	  	chart.draw(dataTable);
 		nowLine('timelineChart4');
@@ -667,7 +667,6 @@ $(document).ready(function (){
  
     <p><b>기능안전검증팀</b></p>
     <div id="timelineChart5"></div>
- 
     <div class="endline"></div><br style="height:0; line-height:0">
     
     <p><b>자율주행검증팀</b></p>

@@ -9,9 +9,7 @@ import java.util.HashMap;
 
 import com.mysql.cj.protocol.Resultset;
 
-import jsp.Bean.model.MemberBean;
-import jsp.Bean.model.ProjectBean;
-import jsp.Bean.model.Project_sch_Bean;
+import jsp.Bean.model.*;
 
 public class ProjectDAO {
 	public ProjectDAO() {}
@@ -747,4 +745,126 @@ public class ProjectDAO {
 		
 		return rs;
 	}
+	
+	
+	// career 투입인력 테이블 조회
+	public ArrayList<CareerBean> getCarrer(String projectNo){
+		ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from career where projectNo = ? and pm = 0 order by end DESC");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, projectNo);
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		CareerBean career = new CareerBean();
+	    		career.setId(rs.getString("id"));
+	    		career.setProjectNo(rs.getInt("projectNo"));
+	    		career.setStart(rs.getString("start"));
+	    		career.setEnd(rs.getString("end"));
+	    		career.setPm(rs.getString("pm"));
+	    		careerList.add(career);
+	    	}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return careerList;
+	}
+	
+	// career 투입인력 테이블 조회
+	public ArrayList<CareerBean> getCarrerPM(String projectNo){
+		ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from career where projectNo = ? and pm = 1 order by end DESC");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, projectNo);
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		CareerBean career = new CareerBean();
+	    		career.setId(rs.getString("id"));
+	    		career.setProjectNo(rs.getInt("projectNo"));
+	    		career.setStart(rs.getString("start"));
+	    		career.setEnd(rs.getString("end"));
+	    		career.setPm(rs.getString("pm"));
+	    		careerList.add(career);
+	    	}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return careerList;
+	}
+	
+	
+	// career 삭제
+	public int deleteCareer(int no, String pm) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+	
+		try {
+			conn = DBconnection.getConnection();			
+			pstmt = conn.prepareStatement("delete from career where projectNo=? and pm=?");
+			pstmt.setInt(1, no);
+			pstmt.setString(2, pm);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return result;
+	}
+	// career 작성
+		public int setCareer(String[] id, int projectNo,String[] start,String[] end,String pm) 
+		
+		{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			int rs = 0;
+			
+			try {
+		    	conn = DBconnection.getConnection();
+		    	for(int i=0; i<id.length; i++) {
+		    		pstmt = conn.prepareStatement("insert into career(id,projectNo,start,end,pm) values(?,?,?,?,?)");
+			    	pstmt.setString(1, id[i]);
+			    	pstmt.setInt(2, projectNo);
+			    	pstmt.setString(3, start[i]);
+			    	pstmt.setString(4, end[i]);
+			    	pstmt.setString(5, pm);
+			    	rs = pstmt.executeUpdate();
+		    	}
+		    	
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			
+			return rs;
+		}
+	
 }	// end 
