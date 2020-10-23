@@ -203,11 +203,7 @@
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
-
-
 </style>
-
-
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
