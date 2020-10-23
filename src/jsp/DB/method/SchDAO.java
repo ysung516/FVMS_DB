@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import jsp.Bean.model.CareerBean;
 import jsp.Bean.model.ProjectBean;
 
 public class SchDAO {
@@ -68,6 +69,41 @@ public class SchDAO {
 				if(conn != null) try {conn.close();} catch(SQLException ex) {}
 			}
 			return projectList;
+		}
+		
+		// 7,8 단계인 프로젝트를 제외하고 가져오기
+		public ArrayList<CareerBean> getProject_except78(){
+			ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				StringBuffer query = new StringBuffer();
+		    	query.append("select career.* from career, project where career.projectNo = project.no "
+		    			+ "and project.상태 != '7.종료' and project.상태 != '8.Dropped'");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	
+				while(rs.next()) {
+					CareerBean career = new CareerBean();
+					career.setId(rs.getString("id"));
+					career.setProjectNo(rs.getInt("projectNo"));
+					career.setStart(rs.getString("start"));
+					career.setEnd(rs.getString("end"));
+					career.setPm(rs.getString("pm"));
+					careerList.add(career);
+				}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			return careerList;
 		}
 
 }

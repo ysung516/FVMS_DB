@@ -4,6 +4,9 @@ public class CareerBean {
 	private String id;
 	private int projectNo;
 	private String start;
+	private String end;
+	private String pm;
+	
 	public String getId() {
 		return id;
 	}
@@ -34,7 +37,4 @@ public class CareerBean {
 	public void setPm(String pm) {
 		this.pm = pm;
 	}
-	private String end;
-	private String pm;
-	
 }

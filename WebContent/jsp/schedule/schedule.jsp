@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="jsp.DB.method.*"
@@ -9,7 +8,7 @@
 
 <head>
 <%
-
+	
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
@@ -42,7 +41,9 @@
 	}
 	
 	String str = "";
-
+	
+	ArrayList<CareerBean> careerList = schDao.getProject_except78();
+	
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -177,7 +178,6 @@
 	ArrayList<MemberBean> List23 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List24 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List25 = new ArrayList<MemberBean>();
-	
 	
 	ArrayList<MemberBean> List3 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List31 = new ArrayList<MemberBean>();
