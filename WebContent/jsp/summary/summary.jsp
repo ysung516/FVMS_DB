@@ -1527,7 +1527,6 @@ function y_rsales() {
 		<li class="tab-link" data-tab="tab-4">연간</li>
 	</ul>
 			
-
  				<div id="tab-1" class="tab-content current">
  				<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">

@@ -48,6 +48,9 @@
 
 </head>
 <style>
+.table-responsive{
+	width:60%;
+}
 .sidebar{
 		position:fixed;
 		z-index:9999;
@@ -123,6 +126,10 @@ tr:last-child {
 }
 
 @media ( max-width :765px) {
+	.table-responsive{
+	width:100%;
+	}
+
 	.card-header{
 		margin-top:4.75rem;
 	}

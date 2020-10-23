@@ -102,7 +102,7 @@ tr:last-child {
 
 #managerTable tr {
 	border-bottom: 1px solid #d1d3e2;
-	text-align: center;
+	
 }
 
 #managerTable {
@@ -132,7 +132,7 @@ tr:last-child {
 }
 
 #dataTable td:nth-child(odd) {
-	text-align: center;
+	
 	vertical-align: middle;
 	word-break: keep-all;
 	width: 10%;
@@ -161,6 +161,9 @@ tr:last-child {
 }
 
 @media ( max-width :765px) {
+	.extra{
+		display:none;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}
@@ -485,6 +488,11 @@ function getTextByClone( tag ){
 											<button class="sortBTN" onclick="sortTD (4)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (4)">▼</button>
 										</th>
+										<th class="extra">거주지</th>
+										<th class="extra">mobile</th>
+										<th class="extra">연차</th>
+										<th class="extra">프로젝트 수행 이력</th>
+										
 
 									</tr>
 								</thead>
@@ -502,6 +510,12 @@ function getTextByClone( tag ){
 										<td><%=memberList.get(i).getRANK()%></td>
 
 										<td><%=memberList.get(i).getPermission() %></td>
+										<td class="extra"><%=memberList.get(i).getADDRESS() %></td>
+										<td class="extra"><%=memberList.get(i).getMOBILE() %></td>
+										<td class="extra"><%=memberList.get(i).getWyear() %></td>
+										<td class="extra">수행프로젝트이력 채우기</td>
+										
+										
 									</tr>
 									<%	
 		  	}
@@ -526,6 +540,10 @@ function getTextByClone( tag ){
 				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getWyear() %>'+'</td>';
+				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
 				   		$("#manager_List").empty();
@@ -542,6 +560,10 @@ function getTextByClone( tag ){
 				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getWyear() %>'+'</td>';
+				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
 				   		$("#manager_List").empty();
@@ -558,6 +580,10 @@ function getTextByClone( tag ){
 				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=memberList.get(i).getWyear() %>'+'</td>';
+				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
 				   		$("#manager_List").empty();

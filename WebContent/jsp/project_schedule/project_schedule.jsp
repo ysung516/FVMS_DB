@@ -135,7 +135,8 @@
 }
 
 .memberTable{
-	width : 100%;
+	float:right;
+	width : 98%;
 	white-space:nowrap;
 	text-align:center;
 }
@@ -188,12 +189,14 @@
 .table td, .test-table th { border: 1px solid;}
 .table thead th { position:sticky; top: 0; background-color:#15a3da52; border:1px solid; }
 
+/*
 .textover {
 	width:10vw;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
+*/
 .teamover {
 	width:4vw;
 	overflow:hidden;
