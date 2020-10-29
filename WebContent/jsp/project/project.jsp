@@ -630,12 +630,12 @@
     
     function updatePM(projectNo, projectName){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_pm.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    	window.open('update_pm.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=900, height=500');
     }
     
     function updateWorker(projectNo, projectName){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_worker.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
+    	window.open('update_worker.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=900, height=700');
     }
     
     function updateStart(projectNo, projectName, startDate){

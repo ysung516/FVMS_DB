@@ -25,7 +25,6 @@
 		String RPOJECT_CODE = request.getParameter("PROJECT_CODE");
 		String PROJECT_NAME = request.getParameter("PROJECT_NAME");
 		String STATE = request.getParameter("STATE");
-		System.out.print(STATE);
 		String PART = request.getParameter("PART");
 		String CLIENT = request.getParameter("CLIENT");
 		String CLIENT_PART = request.getParameter("CLIENT_PART");
@@ -52,14 +51,41 @@
 		int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
 		int RESULT_REPORT = Integer.parseInt(request.getParameter("sheetCheck"));
 		
+		  String PM_LIST = request.getParameter("WORKER_LIST_PM").trim()+" ";
+		  int pm_cnt = PM_LIST.split(" ").length;
+		  int worker_cnt = WORKER_LIST.split(" ").length;
+		  
+		  String [] workerList = new String[worker_cnt];
+		  String []start = new String[worker_cnt];
+		  String []end = new String[worker_cnt];
+		  for(int i=0; i<worker_cnt; i++){
+			  workerList[i] = WORKER_LIST.split(" ")[i];
+			  start[i] = request.getParameter(workerList[i]+"/start");
+			  end[i] = request.getParameter(workerList[i]+"/end");
+		  }
+		  
+		  String [] workerListPM = new String[pm_cnt];
+		  String []startPM = new String[pm_cnt];
+		  String []endPM = new String[pm_cnt];
+		  for(int i=0; i<pm_cnt; i++){
+			  workerListPM[i] = PM_LIST.split(" ")[i];
+			  startPM[i] = request.getParameter(workerListPM[i]+"/start");
+			  endPM[i] = request.getParameter(workerListPM[i]+"/end");
+		  }
+		
+		
 		if( PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
 			
-			if(projectDao.setProject(TEAM_SALES, TEAM_ORDER, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
+			int no =0;
+			no = projectDao.setProject(TEAM_SALES, TEAM_ORDER, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS, FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT) == 1){
+					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT);
+			if(no != 0){
+				projectDao.setCareer(workerListPM, no, startPM, endPM, "1");
+				projectDao.setCareer(workerList, no, start, end, "0");
 				script.print("<script> alert('프로젝트가 등록되었습니다.'); location.href = 'project.jsp'</script>");
 			}
 				else script.print("<script> alert('등록 실패!!'); history.back();</script>");

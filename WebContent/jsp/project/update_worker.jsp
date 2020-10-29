@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>주간보고서 사용 여부 수정</title>
+<title>투입명단 수정</title>
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -34,7 +34,8 @@
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	
-	int projectNo = Integer.parseInt(request.getParameter("no"));
+	String no = request.getParameter("no");
+	int projectNo = Integer.parseInt(no);
 	String projectName = request.getParameter("name");
 	
 	ProjectDAO projectDao = new ProjectDAO();
@@ -44,6 +45,12 @@
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	
 	ProjectBean project = projectDao.getProjectBean_no(projectNo);
+	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
+	String textWorker = "";
+	for(int i=0; i<careerList.size(); i++){
+		textWorker += careerList.get(i).getId()+" ";
+	}
+	
 	
 	String[] workerID = {};	//투입명단 id 저장용
 %>
@@ -96,17 +103,34 @@ function getSelectValue(){
 	var id = $("#WORKER_LIST option:selected").val();
 	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
 	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
+	var start = "<%=project.getPROJECT_START()%>";
+	var end = "<%=project.getPROJECT_END()%>";
+
+	
 	var inner = "";
-	inner += "<tr>";
+	inner += "<tr style='background-color: greenyellow'>";
 	inner += "<td style='display:none;'>"+id+"</td>";
 	inner += "<td>"+team+"</td>";
 	inner += "<td>"+part+"</td>";
 	inner += "<td>"+name+"</td>";
+	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
+	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
-	$('#workerList > tbody:last').append(inner);
-	//id 저장
-	$("#textValue2").append(id+" ");
+	var cnt =0;
+	
+	for(var a=0; a<$('#workerListAdd tr').length; a++){
+		if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
+			cnt = 1;
+		}
+	}
+	
+	if (cnt == 0){
+		$('#workerListAdd').prepend(inner);
+		$("#textValue2").append(id+" ");
+	} else{
+		alert('이미 등록되어있는 명단 입니다');
+	}
 }
 
 //명단삭제
@@ -174,9 +198,8 @@ $(document).ready(function(){
               		}
               	%>
 	</select> <select id="WORKER_LIST" name="WORKER_LIST"
-		onChange="getSelectValue();"></select> <textarea
-			id="textValue2" name="WORKER_LIST2" style="display: none;">
-			<%if(project.getWORKER_LIST()!=null)%><%=project.getWORKER_LIST()%></textarea>
+		onChange="getSelectValue();"></select> 
+		<textarea id="textValue2" name="WORKER_LIST2" style="display: none;" ><%=textWorker%></textarea>
 		<table id="workerList">
 			<thead>
 				<tr>
@@ -184,22 +207,25 @@ $(document).ready(function(){
 					<th>팀</th>
 					<th>소속</th>
 					<th>이름</th>
+					<th>시작</th>
+					<th>종료</th>
 				</tr>
 			</thead>
 			<tbody id="workerListAdd">
 				<%
-       				if(project.getWORKER_LIST().length() != 0) {
-       				workerID = project.getWORKER_LIST().split(" ");
-       				for(int c=0; c<workerID.length;c++){
-					MemberBean member = memberDao.returnMember(workerID[c]); %>
+				for(int c=0; c<careerList.size(); c++){
+  					CareerBean career = careerList.get(c);
+					MemberBean member = memberDao.returnMember(career.getId());  %>
 				<tr>
-					<td style='display: none;'><%=workerID[c]%></td>
+					<td style='display: none;'><input name="<%=career.getId()+"/id"%>" value="<%=career.getId()%>"><%=career.getId()%></td>
 					<td><%=member.getTEAM()%></td>
 					<td><%=member.getPART()%></td>
 					<td><%=member.getNAME()%></td>
+					<td><input name="<%=career.getId()+"/start"%>" type=date value="<%=career.getStart()%>"></td>
+					<td><input name="<%=career.getId()+"/end"%>" type=date value="<%=career.getEnd()%>"></td>
 					<td><input type='button' class='workDel' value='삭제' /></td>
 				</tr>
-				<%}} %>
+				<%}%>
 			</tbody>
 		</table>
 	<br>

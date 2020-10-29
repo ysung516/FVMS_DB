@@ -123,8 +123,10 @@
 		$("#team_sales").val('<%=teamList.get(0)%>').attr("selected", "selected");
 		sortSelect('WORKER_LIST'); 
 		workDelete();
+		PMDelete();
 		teamMember('#PM-team','#PROJECT_MANAGER');
 		teamMember('#teamlist','#WORKER_LIST');
+		defaultTeam();
 	    // Warning
 	    $(window).on('beforeunload', function(){
 	        return "Any changes will be lost";
@@ -151,24 +153,82 @@ function sortSelect(selId) {
 		sel.html(optionList); 
 }
 
-//명단선택
+//투입명단선택
 function getSelectValue(){
 	//팀, 이름 저장
 	var team = $("#teamlist option:selected").val();
 	var id = $("#WORKER_LIST option:selected").val();
 	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
 	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
+	var start = $("#PROJECT_START").val();
+	var end = $("#PROJECT_END").val();
+
+	
 	var inner = "";
-	inner += "<tr>";
+	inner += "<tr style='background-color: greenyellow'>";
 	inner += "<td style='display:none;'>"+id+"</td>";
 	inner += "<td>"+team+"</td>";
 	inner += "<td>"+part+"</td>";
 	inner += "<td>"+name+"</td>";
+	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
+	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
-	$('#workerList > tbody:last').append(inner);
-	//id 저장
-	$("#textValue2").append(id+" ");
+	var cnt =0;
+	
+	for(var a=0; a<$('#workerListAdd tr').length; a++){
+		if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
+			cnt = 1;
+		}
+	}
+	
+	if (cnt == 0){
+		$('#workerListAdd').prepend(inner);
+		$("#textValue2").append(id+" ");
+	} else{
+		alert('이미 등록되어있는 명단 입니다');
+	}
+}
+
+//PM선택
+function getSelectPM(){
+	//팀, 이름 저장
+	var team = $("#PM-team option:selected").val();
+	var id = $("#PROJECT_MANAGER option:selected").val();
+	var name = ($("#PROJECT_MANAGER option:selected").text()).split("-")[1].trim();
+	var part = ($("#PROJECT_MANAGER option:selected").text()).split("-")[0].trim();
+	var start = $("#PROJECT_START").val();
+	var end = $("#PROJECT_END").val();
+	var inner = "";
+	inner += "<tr style='background-color: greenyellow'>";
+	inner += "<td style='display:none;'>"+id+"</td>";
+	inner += "<td>"+team+"</td>";
+	inner += "<td>"+part+"</td>";
+	inner += "<td>"+name+"</td>";
+	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
+	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
+	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
+	inner += "</tr>";
+	var cnt =0;
+	
+	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
+		if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+			cnt = 1;
+		}
+	}
+	
+	if (cnt == 0){
+		$('#workerListAdd_PM').prepend(inner);
+		var trPM = $('#workerListAdd_PM td:eq(0)');
+		if(id == trPM.text()){
+			$('#workerListAdd_PM tr').css("background-color","white");
+			trPM.parent().css("background-color","yellow");
+		}
+		//id 저장
+		$("#textValuePM").append(id+" ");
+	} else{
+		alert('이미 등록되어있는 PM입니다');
+	}
 }
 
 //명단삭제
@@ -183,6 +243,24 @@ function workDelete(){
 		var text = $("#textValue2").text();
 		var te = text.replace(delID+" ", "");
 		$("#textValue2").text(te);
+		tr.remove();
+	});
+}
+
+
+//PM명단삭제
+function PMDelete(){
+	$(document).on("click",".PMDel",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		console.log(delID);
+		var text = $("#textValuePM").text();
+		var te = text.replace(delID+" ", "");
+		$("#textValuePM").text(te);
 		tr.remove();
 	});
 }
@@ -219,6 +297,9 @@ function defaultTeam(){
 	$("#PM-team").val(team).attr("selected", "selected");
 	$("#teamlist").val(team).attr("selected", "selected");
 	teamMember('#PM-team','#PROJECT_MANAGER');
+	$('#workerListAdd_PM').empty();
+	$("#textValuePM").empty();
+	getSelectPM();
 	$("#teamlist").val(team).attr("selected", "selected");
 	teamMember('#teamlist','#WORKER_LIST');
 }
@@ -620,17 +701,32 @@ function btn_insert(){
 											<td><input id="WORK" name="WORK"></input></td>
 										</tr>
 
-										<tr>
+									<tr>
 											<th><span style="color: red;">*</span>PM</th>
-											<td><select id="PM-team" name="PM-team"
+											<td id="PMTD"><select id="PM-team" name="PM-team"
 												onchange="teamMember('#PM-team','#PROJECT_MANAGER')">
 													<%
 		                      		for(int i=0; i<teamList.size(); i++){
 		                      			%><option value="<%=teamList.get(i)%>"><%=teamList.get(i)%></option>
 													<%
 		                      		}
-		                      	%>
-											</select> <select id="PROJECT_MANAGER" name="PROJECT_MANAGER"></select>
+		                      	%></select> 
+		                      			<select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
+											<textarea id="textValuePM" name="WORKER_LIST_PM"></textarea>
+												<table id="workerList_PM" style="margin-top: 5px;">
+													<thead>
+														<tr>
+															<th style="display: none;">id</th>
+															<th>팀</th>
+															<th>소속</th>
+															<th>이름</th>
+															<th>시작</th>
+															<th>종료</th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody id="workerListAdd_PM"></tbody>
+												</table>
 											</td>
 										</tr>
 
@@ -650,11 +746,15 @@ function btn_insert(){
 													id="textValue2" name="WORKER_LIST2" style="display: none;"></textarea>
 												<table id="workerList" style="margin-top: 5px;">
 													<thead>
-														<th style="display: none;">id</th>
-														<th>팀</th>
-														<th>소속</th>
-														<th>이름</th>
-														<th></th>
+														<tr>
+															<th style="display: none;">id</th>
+															<th>팀</th>
+															<th>소속</th>
+															<th>이름</th>
+															<th>시작</th>
+															<th>종료</th>
+															<th></th>
+														</tr>
 													</thead>
 													<tbody id="workerListAdd">
 													</tbody>

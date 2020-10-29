@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>주간보고서 사용 여부 수정</title>
+<title>PM 수정</title>
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -45,6 +45,13 @@
 	
 	ProjectBean project = projectDao.getProjectBean_no(projectNo);
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
+	
+
+	ArrayList<CareerBean> careerList_PM = projectDao.getCarrerPM(Integer.toString(projectNo));
+	String textPM = "";
+	for(int i=0; i<careerList_PM.size(); i++){
+		textPM += careerList_PM.get(i).getId()+" ";
+	}
 %>
 
 <style>
@@ -57,6 +64,16 @@
 	#name{
 		font-size:18px;
 		word-break:break-all;
+	}
+	table{
+		margin-left: auto;
+		margin-right: auto;
+		margin-top:20px;
+		border : 1px solid;
+	}
+	th, td{
+		padding:10px;
+		border : 1px solid;
 	}
 </style>
 
@@ -88,10 +105,86 @@ function teamMember(team, member){
 	<%}%>
 }
 
+function PM_highlight(){
+	var nowPM = '<%=project.getPROJECT_MANAGER()%>';	
+	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
+		if(nowPM == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+			$('#workerListAdd_PM tr').css("background-color","white");
+			$('#workerListAdd_PM tr:eq('+a+')').css("background-color","yellow");
+		}
+	}
+}
+//PM선택
+function getSelectPM(){
+	//팀, 이름 저장
+	var team = $("#PM-team option:selected").val();
+	var id = $("#PROJECT_MANAGER option:selected").val();
+	var name = ($("#PROJECT_MANAGER option:selected").text()).split("-")[1].trim();
+	var part = ($("#PROJECT_MANAGER option:selected").text()).split("-")[0].trim();
+	var start = "<%=project.getPROJECT_START()%>";
+	var end = "<%=project.getPROJECT_END()%>";
+	var inner = "";
+	inner += "<tr>";
+	inner += "<td style='display:none;'>"+id+"</td>";
+	inner += "<td>"+team+"</td>";
+	inner += "<td>"+part+"</td>";
+	inner += "<td>"+name+"</td>";
+	inner += "<td><input name="+id+"/startPM type=date value="+start+"></td>";
+	inner += "<td><input name="+id+"/endPM type=date value="+end+"></td>";
+	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
+	inner += "</tr>";
+	var cnt =0;
+	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
+		if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+			cnt = 1;
+		}
+	}
+	
+	if (cnt == 0){
+		$('#workerListAdd_PM').prepend(inner);
+		var trPM = $('#workerListAdd_PM td:eq(0)');
+		if(id == trPM.text()){
+			$('#workerListAdd_PM tr').css("background-color","white");
+			trPM.parent().css("background-color","yellow");
+		}
+		//id 저장
+		$("#textValuePM").append(id+" ");
+	} else{
+		for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
+			if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+				$('#workerListAdd_PM tr').css("background-color","white");
+				$('#workerListAdd_PM tr:eq('+a+')').css("background-color","yellow");
+			}
+		}
+		alert('이미 등록되어있는 PM입니다');
+	}
+	
+}
+
+//PM명단삭제
+function PMDelete(){
+	$(document).on("click",".PMDel",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		console.log(delID);
+		var text = $("#textValuePM").text();
+		var te = text.replace(delID+" ", "");
+		$("#textValuePM").text(te);
+		tr.remove();
+	});
+}
+
 $(document).ready(function(){
 	$('#PM-team').val('<%=PMdata.getTEAM()%>').prop('selected', true);
 	teamMember('#PM-team','#PROJECT_MANAGER');
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
+
+	PMDelete();
+	PM_highlight();
 });
 </script>
 
@@ -109,7 +202,37 @@ $(document).ready(function(){
 			<%
               		}
               	%>
-	</select> <select id="PROJECT_MANAGER" name="PROJECT_MANAGER"></select>
+	</select> <select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
+	<textarea id="textValuePM" name="WORKER_LIST_PM" style="display: none"><%=textPM%></textarea>
+	<table id="workerList_PM" style="margin-top: 5px;">
+		<thead>
+			<tr>
+				<th style="display: none;">id</th>
+				<th>팀</th>
+				<th>소속</th>
+				<th>이름</th>
+				<th>시작</th>
+				<th>종료</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="workerListAdd_PM">
+			<%for(int c=0; c<careerList_PM.size(); c++){
+			    CareerBean careerPM = careerList_PM.get(c);
+				MemberBean member = memberDao.returnMember(careerPM.getId()); 
+			%>
+			<tr>
+				<td style='display: none;'><%=careerPM.getId()%></td>
+				<td><%=member.getTEAM()%></td>
+				<td><%=member.getPART()%></td>
+				<td><%=member.getNAME()%></td>
+				<td><input name="<%=careerPM.getId()+"/startPM"%>" type=date value="<%=careerPM.getStart()%>"></td>
+				<td><input name="<%=careerPM.getId()+"/endPM"%>" type=date value="<%=careerPM.getEnd()%>"></td>
+				<td><input type='button' class='PMDel' value='삭제' /></td>
+			</tr>
+			<%}%>
+		</tbody>
+	</table>
 	<br>
 	<input type="submit" onclick="window.close()" name="submit" id="submit" value="수정">
 	</form>

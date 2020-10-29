@@ -20,6 +20,8 @@
 		int no = Integer.parseInt(request.getParameter("no"));
 		ProjectDAO projectDao = new ProjectDAO();
 		if(projectDao.deleteProject(no)==1){
+			projectDao.deleteCareer(no,"1");
+			projectDao.deleteCareer(no,"0");
 			script.print("<script> alert('프로젝트가 삭제되었습니다.'); location.href = 'project.jsp'; </script>");
 		}else{
 			script.print("<script> alert('삭제 실패했습니다.'); history.back(); </script>");

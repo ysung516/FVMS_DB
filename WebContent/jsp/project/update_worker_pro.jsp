@@ -25,7 +25,19 @@
 	int result = 0;
 	result = projectDao.updateWorker(no, WORKER_LIST);
 	
+	int worker_cnt = WORKER_LIST.split(" ").length;
+	String [] workerList = new String[worker_cnt];
+	  String []start = new String[worker_cnt];
+	  String []end = new String[worker_cnt];
+	  for(int i=0; i<worker_cnt; i++){
+		  workerList[i] = WORKER_LIST.split(" ")[i];
+		  start[i] = request.getParameter(workerList[i]+"/start");
+		  end[i] = request.getParameter(workerList[i]+"/end");
+	  }
+	
 	if(result == 1){
+		projectDao.deleteCareer(no,"0");
+		projectDao.setCareer(workerList, no, start, end, "0");
 		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
 	}else{
 		script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"' </script>");

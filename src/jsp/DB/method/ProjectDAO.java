@@ -225,7 +225,8 @@ public class ProjectDAO {
 	{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		int rs = 0;
+		ResultSet rs = null;
+		int no = 0;
 		
 		try {
 			StringBuffer query = new StringBuffer();
@@ -264,16 +265,22 @@ public class ProjectDAO {
 	    	pstmt.setFloat(28, OUTSOURCE_DEMAND);
 	    	pstmt.setInt(29, REPORT_CHECK);
 	    	pstmt.setInt(30, RESULT_REPORT);
-	    	rs = pstmt.executeUpdate();
+	    	pstmt.executeUpdate();
+	    	// no 반환
+	    	rs = pstmt.executeQuery("select last_insert_id()");
+	    	if(rs.next()) {
+	    		no = rs.getInt(1);
+	    	}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
-		return rs;
+		return no;
 	}
 	
 	// 프로젝트 수정
@@ -747,7 +754,7 @@ public class ProjectDAO {
 	}
 	
 	
-	// career 투입인력 테이블 조회
+	// career테이블 투입인력 조회
 	public ArrayList<CareerBean> getCarrer(String projectNo){
 		ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
 		Connection conn = null;
@@ -755,7 +762,8 @@ public class ProjectDAO {
 		ResultSet rs = null;
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from career where projectNo = ? and pm = 0 order by end DESC");
+			query.append("select career.* from rank ,career, member where career.id = member.id and member.직급 = rank.rank and projectNo = ? and pm = 0 order by field(member.소속,'슈어소프트테크')desc, member.소속, rank.rank_id, member.이름");
+	    	//query.append("select * from career where projectNo = ? and pm = 0 order by end DESC");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, projectNo);
@@ -781,7 +789,7 @@ public class ProjectDAO {
 		return careerList;
 	}
 	
-	// career 투입인력 테이블 조회
+	// career 테이블 PM 조회
 	public ArrayList<CareerBean> getCarrerPM(String projectNo){
 		ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
 		Connection conn = null;
@@ -789,7 +797,7 @@ public class ProjectDAO {
 		ResultSet rs = null;
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from career where projectNo = ? and pm = 1 order by end DESC");
+	    	query.append("select career.* from rank ,career, member where career.id = member.id and member.직급 = rank.rank and projectNo = ? and pm = 1 order by field(member.소속,'슈어소프트테크')desc, member.소속, rank.rank_id, member.이름");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, projectNo);

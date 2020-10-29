@@ -71,17 +71,15 @@
 			  end[i] = request.getParameter(workerList[i]+"/end");
 		  }
 		  
-		  System.out.println("-------------------------------------");
 		  String [] workerListPM = new String[pm_cnt];
 		  String []startPM = new String[pm_cnt];
 		  String []endPM = new String[pm_cnt];
 		  for(int i=0; i<pm_cnt; i++){
 			  workerListPM[i] = PM_LIST.split(" ")[i];
-			  startPM[i] = request.getParameter(workerListPM[i]+"/start");
-			  endPM[i] = request.getParameter(workerListPM[i]+"/end");
+			  startPM[i] = request.getParameter(workerListPM[i]+"/startPM");
+			  endPM[i] = request.getParameter(workerListPM[i]+"/endPM");
 		  }
-		  
-		
+
 		if(PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
@@ -91,8 +89,8 @@
 					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
 					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO) == 1){
 				projectDao.deleteCareer(NO,"1");
-				projectDao.setCareer(workerListPM, NO, startPM, endPM, "1");
 				projectDao.deleteCareer(NO,"0");
+				projectDao.setCareer(workerListPM, NO, startPM, endPM, "1");
 				projectDao.setCareer(workerList, NO, start, end, "0");
 				
 				if(STATE.equals("8.Dropped")){
@@ -102,7 +100,6 @@
 			}
 				else script.print("<script> alert('수정 실패!!'); history.back();</script>");
 		}
-		
 	%>
 </body>
 </html>

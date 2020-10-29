@@ -2,6 +2,13 @@ package jsp.Bean.model;
 
 public class schBean {
 	private String id;
+	private int projectNo; 
+	public int getProjectNo() {
+		return projectNo;
+	}
+	public void setProjectNo(int projectNo) {
+		this.projectNo = projectNo;
+	}
 	private String projectName;
 	private String start;
 	private String end;
@@ -9,13 +16,15 @@ public class schBean {
 	private String team;
 	private String rank;
 	private String pm;
+	private String workList;
+	
 	public String getPm() {
 		return pm;
 	}
 	public void setPm(String pm) {
 		this.pm = pm;
 	}
-	private String workList;
+	
 	public String getProjectName() {
 		return projectName;
 	}

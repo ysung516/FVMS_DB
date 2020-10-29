@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import jsp.Bean.model.CareerBean;
 import jsp.Bean.model.ProjectBean;
+import jsp.Bean.model.schBean;
 
 public class SchDAO {
 	public SchDAO() {}
@@ -72,28 +73,45 @@ public class SchDAO {
 		}
 		
 		// 7,8 단계인 프로젝트를 제외하고 가져오기
-		public ArrayList<CareerBean> getProject_except78(){
-			ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
+		public ArrayList<schBean> getProject_except8(){
+			ArrayList<schBean> schList = new ArrayList<schBean>();
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			
+			ProjectDAO projectDao = new ProjectDAO();
+			MemberDAO memberDao = new MemberDAO();
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("select career.* from career, project where career.projectNo = project.no "
-		    			+ "and project.상태 != '7.종료' and project.상태 != '8.Dropped'");
+		    	query.append("SELECT career.*, career.projectNo, project.프로젝트명, member.이름, member.팀, member.직책, member.소속, member.직급 "
+		    			+ "FROM career, member, project, team "
+		    			+ "where career.id = member.id and career.projectNo = project.no and member.팀 = team.teamName "
+		    			+ "and project.상태 != '8.dropped'  "
+		    			+ "group by career.id, career.projectNo "
+		    			+ "order by team.teamNum, field(member.소속,'슈어소프트테크')desc,"
+		    			+ "member.소속,field(member.직책,'실장','팀장','-'), "
+		    			+ "field(member.직급,'수석','책임','선임','전임','인턴','-'), member.이름");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
 		    	rs = pstmt.executeQuery();
 		    	
 				while(rs.next()) {
-					CareerBean career = new CareerBean();
-					career.setId(rs.getString("id"));
-					career.setProjectNo(rs.getInt("projectNo"));
-					career.setStart(rs.getString("start"));
-					career.setEnd(rs.getString("end"));
-					career.setPm(rs.getString("pm"));
-					careerList.add(career);
+					schBean sch = new schBean();
+					sch.setId(rs.getString("id"));
+					sch.setProjectNo(rs.getInt("projectNo"));
+					
+					ProjectBean project = projectDao.getProjectBean_no(rs.getInt("projectNo"));
+					sch.setWorkList(project.getWORKER_LIST());
+					sch.setPm(project.getPROJECT_MANAGER());
+					//sch.setPm(memberDao.returnMember(project.getPROJECT_MANAGER()).getNAME());
+					
+					sch.setProjectName(rs.getString("프로젝트명"));
+					sch.setStart(rs.getString("start"));
+					sch.setEnd(rs.getString("end"));
+					sch.setName(rs.getString("이름"));
+					sch.setTeam(rs.getString("팀"));
+					sch.setRank(rs.getString("직급"));
+					//sch.setPm(rs.getString("pm"));
+					schList.add(sch);
 				}
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -103,7 +121,7 @@ public class SchDAO {
 				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 				if(conn != null) try {conn.close();} catch(SQLException ex) {}
 			}
-			return careerList;
+			return schList;
 		}
 
 }
