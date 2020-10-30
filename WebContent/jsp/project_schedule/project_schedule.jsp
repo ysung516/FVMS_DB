@@ -145,8 +145,7 @@
 
 .memberTable{
 	float:right;
-	width : 98%;
-	white-space:nowrap;
+	width : 100%;
 	text-align:center;
 }
 #infoTable td:hover{

@@ -198,6 +198,9 @@ tr:last-child {
 }
 
 @media ( max-width :760px) {
+#search{
+	width:45px !important;
+}
 #sidebarToggle{
 		display:block;
 	}
