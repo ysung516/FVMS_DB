@@ -136,4 +136,40 @@ public class SchDAO {
 			return schList;
 		}
 
+		
+		// 7,8 단계인 프로젝트를 제외하고 가져오기
+		public ArrayList<CareerBean> getCareer_id(String id){
+			ArrayList<CareerBean> careerList = new ArrayList<CareerBean>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				StringBuffer query = new StringBuffer();
+		    	query.append("select career.*, project.프로젝트명,project.상태 from career,project where career.projectNo=project.no and career.id = ? and project.상태 != '8.Dropped'");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, id);
+		    	rs = pstmt.executeQuery();
+				while(rs.next()) {
+					CareerBean career = new CareerBean();
+					career.setId(rs.getString("id"));
+					career.setProjectNo(rs.getInt("projectNo"));
+					career.setProjectName(rs.getString("프로젝트명"));
+					career.setProjectState(rs.getString("상태"));
+					career.setStart(rs.getString("start"));
+					career.setEnd(rs.getString("end"));
+					career.setPm(rs.getString("pm"));
+					careerList.add(career);
+				}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			return careerList;
+		}
 }

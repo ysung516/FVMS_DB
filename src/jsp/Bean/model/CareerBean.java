@@ -3,10 +3,24 @@ package jsp.Bean.model;
 public class CareerBean {
 	private String id;
 	private int projectNo;
+	private String projectName;
+	private String projectState;
 	private String start;
 	private String end;
 	private String pm;
 	
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getProjectState() {
+		return projectState;
+	}
+	public void setProjectState(String projectState) {
+		this.projectState = projectState;
+	}
 	public String getId() {
 		return id;
 	}
