@@ -482,7 +482,7 @@ button:focus {
 										<option value="5">5</option>
 										<option value="6">6</option>
 									</select>주차</span>
-								<button id="search" style="width:60px;">검색</button>			
+								<button id="search"class="btn btn-info btn-icon-split btn-sm"style="width:60px;">검색</button>			
 						</div>
 						<div class="details_body">
 
