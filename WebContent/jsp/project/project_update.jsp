@@ -241,6 +241,7 @@ function getSelectPM(){
 	
 }
 
+//PM 변경 ==> 표 클릭
 function changePM(td){
 	var tr = $(td).parent();
 	var td = tr.children();
