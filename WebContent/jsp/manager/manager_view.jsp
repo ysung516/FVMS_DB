@@ -72,6 +72,9 @@
 
 </script>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .container-fluid{
 	margin-right:0;
 	width:94%;
@@ -118,6 +121,9 @@
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}
@@ -126,8 +132,10 @@
 		position:fixed;
 		width:100%;
 		}
-	.container-fluid {
+		.container-fluid {
 		padding: 0;
+		margin-right:0;
+		width:100%;
 	}
 	.card-header:first-child {
 		padding: 0;

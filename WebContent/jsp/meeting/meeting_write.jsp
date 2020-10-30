@@ -108,6 +108,9 @@ int permission = Integer.parseInt(session.getAttribute("permission").toString())
 	}
 </script>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .sidebar {
 	position: fixed;
 	z-index: 9999;
@@ -158,6 +161,9 @@ input {
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}

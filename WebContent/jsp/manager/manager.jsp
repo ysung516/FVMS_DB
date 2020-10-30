@@ -51,6 +51,9 @@
 </script>
 
 <style>
+	#sidebarToggle{
+		display:none;
+	}
 	.sortBTN{
 	font-size:5px;
 	}
@@ -161,6 +164,10 @@ tr:last-child {
 }
 
 @media ( max-width :765px) {
+
+	#sidebarToggle{
+		display:block;
+	}
 	.extra{
 		display:none;
 	}

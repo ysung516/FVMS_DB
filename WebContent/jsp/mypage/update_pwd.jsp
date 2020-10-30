@@ -94,6 +94,9 @@ function input_check_func() {
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 #content{
 	margin-left:90px;
 }
@@ -131,6 +134,9 @@ function input_check_func() {
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 #content{
 	margin-left:0;
 }

@@ -87,6 +87,9 @@
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 #content{
 	margin-left:90px;
 }
@@ -191,6 +194,9 @@
 	
 	
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 	.textover{
 		width:46vw;
 		overflow:hidden;

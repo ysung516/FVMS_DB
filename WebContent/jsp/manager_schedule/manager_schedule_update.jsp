@@ -43,6 +43,9 @@
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .sidebar{
 		position:fixed;
 		z-index:9999;
@@ -129,6 +132,9 @@ summary {
 }
 
 @media ( max-width :800px) {
+	#sidebarToggle{
+		display:block;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}
