@@ -120,8 +120,10 @@ summary {
 }
 
 @media ( max-width :800px) {
+	body{
+		font-size:small;}
 #sidebarToggle{
-		display:block;
+		display:inline;
 	}
 	#content{
 	margin-left:0px;

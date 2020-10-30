@@ -408,7 +408,7 @@ ul.tabs li.current{
 	
 	@media(max-width:765px){
 	#sidebarToggle{
-		display:block;
+		display:inline;
 	}
 	.container-fluid{
 	margin-top: 80px;

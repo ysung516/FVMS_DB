@@ -123,6 +123,9 @@
 }
 
 @media(max-width:800px){
+	body{
+		font-size:small;
+		}
 #sidebarToggle{
 		display:block;
 	}

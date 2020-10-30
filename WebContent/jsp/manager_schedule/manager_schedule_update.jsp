@@ -132,8 +132,10 @@ summary {
 }
 
 @media ( max-width :800px) {
+	body{
+		font-size:small;}
 	#sidebarToggle{
-		display:block;
+		display:inline;
 	}
 	.card-header{
 		margin-top:4.75rem;

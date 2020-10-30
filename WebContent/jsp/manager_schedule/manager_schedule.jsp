@@ -574,8 +574,10 @@ button:focus {
 }
 
 @media ( max-width :765px) {
+	body{
+		font-size:small;}
 #sidebarToggle{
-		display:block;
+		display:inline;
 	}
 	.card-header {
 		margin-top:4.75rem;

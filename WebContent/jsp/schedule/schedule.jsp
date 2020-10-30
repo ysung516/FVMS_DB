@@ -68,8 +68,13 @@
 .topbar {
 	height: 3.375rem;
 }
-
+#sidebarToggle{
+		display:none;
+	}
 @media ( max-width :800px) {
+#sidebarToggle{
+		display:block;
+	}
 	.tableST {
 		width: 100% !important;
 		height: 40%;
