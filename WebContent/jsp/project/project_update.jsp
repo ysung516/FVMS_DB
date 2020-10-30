@@ -320,6 +320,12 @@ function PMDelete(){
 		$("#textValuePM").text(te);
 		tr.remove();
 		
+		if(delID == $("#PROJECT_MANAGER option:selected").val()){
+			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
+			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
+			$('#PROJECT_MANAGER').val(id).prop("selected", true);
+		}
+		
 		if($('#workerListAdd_PM tr').length == 1){
 			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
 			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
