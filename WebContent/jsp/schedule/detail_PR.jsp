@@ -52,10 +52,10 @@
 	<table id="dataTable">
 		<thead id="Theader">
 			<tr>
-				<th style="width:50%;">프로젝트명</th>
-				<th style="width:20%;">시작날짜</th>
-				<th style="width:20%;">종료날짜</th>
-				<th style="width:10%;">PM</th>
+				<th style="width:65%;">프로젝트명</th>
+				<th style="width:15%;">시작날짜</th>
+				<th style="width:15%;">종료날짜</th>
+				<th style="width:5%;">PM</th>
 			</tr>
 		</thead>
 		<tbody id="Tcontent">
