@@ -450,10 +450,10 @@
 		     
 		    <tr>
 		    <td colspan="1" class="m-0 text-primary"><h6>(전)금주계획</h6> 
-		    <textarea id="PreWeekPlan" rows="10" readonly></textarea></td>
+		    <textarea id="PreWeekPlan" rows="15" readonly></textarea></td>
 		    
 		      <td colspan="2" class="m-0 text-primary"><h6>금주계획<span style="color:black; font-size:12px;" id="counter1">(0 / 최대 1500자)</span></h6>
-		      <textarea class="DOC_TEXT_1" name="WeekPlan" rows="10"><%
+		      <textarea class="DOC_TEXT_1" name="WeekPlan" rows="15"><%
 		      	 line = report.getP_weekPlan();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -472,10 +472,10 @@
 		     </tr>
 		      <tr>
 		      <td colspan="1" class="m-0 text-primary"><h6>(전)차주계획</h6> 
-		      <textarea id="PreNextPlan" rows="10" readonly></textarea></td>
+		      <textarea id="PreNextPlan" rows="15" readonly></textarea></td>
 		      
 		      <td colspan="2" class="m-0 text-primary"><h6>차주계획<span style="color:black; font-size:12px;" id="counter3">(0 / 최대 1500자)</span></h6>
-		      <textarea class="DOC_TEXT_3" name="NextPlan" rows="10" wrap="hard"><%
+		      <textarea class="DOC_TEXT_3" name="NextPlan" rows="15" wrap="hard"><%
 		      	 line = report.getP_nextPlan();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -483,10 +483,10 @@
 		     </tr>
 		      <tr>
 		      <td colspan="1" class="m-0 text-primary"><h6>(전)특이사항</h6> 
-		      <textarea id="Prespecialty" rows="10" readonly></textarea></td>
+		      <textarea id="Prespecialty" rows="15" readonly></textarea></td>
 		      
 		      <td colspan="2" class="m-0 text-primary"><h6>특이사항<span style="color:black; font-size:12px;" id="counter4">(0 / 최대 1500자)</span></h6>
-		      <textarea class="DOC_TEXT_4" name="specialty" rows="10"><%
+		      <textarea class="DOC_TEXT_4" name="specialty" rows="15"><%
 		      	 line = report.getP_specialty();
 		      	 for(String li : line){
 						%><%=li%><%
@@ -494,10 +494,10 @@
 		     </tr>
 		      <tr>
 		      <td colspan="1" class="m-0 text-primary"><h6>(전)비고</h6> 
-		      <textarea id="Prenote" rows="5" readonly></textarea></td>
+		      <textarea id="Prenote" rows="10" readonly></textarea></td>
 		      
 		      <td colspan="2" class="m-0 text-primary"><h6>비고<span style="color:black; font-size:12px;" id="counter5">(0 / 최대 1000자)</span></h6>
-		      <textarea class="DOC_TEXT_5" name="note" rows="5"><%
+		      <textarea class="DOC_TEXT_5" name="note" rows="10"><%
 		      	 line = report.getP_note();
 		      	 for(String li : line){
 						%><%=li%><%
