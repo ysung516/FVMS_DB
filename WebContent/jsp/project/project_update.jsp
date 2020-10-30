@@ -67,6 +67,12 @@
 
 </head>
 <style>
+#PROJECT_NAME{
+	width:60%;
+}
+#WORK{
+	width:60%;
+}
 #sidebarToggle{
 		display:none;
 	}
