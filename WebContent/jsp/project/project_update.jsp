@@ -205,11 +205,11 @@ function getSelectPM(){
 	var inner = "";
 	inner += "<tr style='background-color: greenyellow'>";
 	inner += "<td style='display:none;'>"+id+"</td>";
-	inner += "<td>"+team+"</td>";
-	inner += "<td>"+part+"</td>";
-	inner += "<td>"+name+"</td>";
-	inner += "<td><input name="+id+"/startPM type=date value="+start+"></td>";
-	inner += "<td><input name="+id+"/endPM type=date value="+end+"></td>";
+	inner += "<td onclick='changePM(this)'>"+team+"</td>";
+	inner += "<td onclick='changePM(this)'>"+part+"</td>";
+	inner += "<td onclick='changePM(this)'>"+name+"</td>";
+	inner += "<td onclick='changePM(this)'><input name="+id+"/startPM type=date value="+start+"></td>";
+	inner += "<td onclick='changePM(this)'><input name="+id+"/endPM type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
 	inner += "</tr>";
 	var cnt =0;
@@ -239,6 +239,16 @@ function getSelectPM(){
 		alert('이미 등록되어있는 PM입니다');
 	}
 	
+}
+
+function changePM(td){
+	var tr = $(td).parent();
+	var td = tr.children();
+	
+	$('#workerListAdd_PM tr').css("background-color","white");
+	$(tr).css("background-color","yellow");
+	
+	$('#PROJECT_MANAGER').val(td.eq(0).text()).prop("selected", true);
 }
 
 //투입명단선택
@@ -308,6 +318,12 @@ function PMDelete(){
 		var te = text.replace(delID+" ", "");
 		$("#textValuePM").text(te);
 		tr.remove();
+		
+		if($('#workerListAdd_PM tr').length == 1){
+			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
+			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
+			$('#PROJECT_MANAGER').val(id).prop("selected", true);
+		}
 	});
 }
 
@@ -650,7 +666,7 @@ function btn_copy(){
 										</tr>
 
 										<tr>
-											<th><span style="color: red;">*</span>PM</th>
+											<th><span style="color: red;">*</span>PM<br><span style="color: red; font-size:10px; background-color:yellow;">칠해진 칸이<br>변경되는 PM</span></th>
 											<td id="PMTD"><select id="PM-team" name="PM-team"
 												onchange="teamMember('#PM-team','#PROJECT_MANAGER')">
 													<%
@@ -660,7 +676,7 @@ function btn_copy(){
 		                      		}
 		                      	%></select> 
 		                      			<select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
-											<textarea id="textValuePM" name="WORKER_LIST_PM" ><%=textPM%></textarea>
+											<textarea id="textValuePM" name="WORKER_LIST_PM" style="display:none;"><%=textPM%></textarea>
 												<table id="workerList_PM" style="margin-top: 5px;">
 													<thead>
 														<tr>
@@ -681,12 +697,12 @@ function btn_copy(){
 										%>
 											<tr>
 												<td style='display: none;'><%=careerPM.getId()%></td>
-												<td><%=member.getTEAM()%></td>
-												<td><%=member.getPART()%></td>
-												<td><%=member.getNAME()%></td>
-												<td><input name="<%=careerPM.getId()+"/startPM"%>" type=date value="<%=careerPM.getStart()%>"></td>
-												<td><input name="<%=careerPM.getId()+"/endPM"%>" type=date value="<%=careerPM.getEnd()%>"></td>
-												<td><input type='button' class='PMDel' value='삭제' /></td>
+												<td onclick="changePM(this)"><%=member.getTEAM()%></td>
+												<td onclick="changePM(this)"><%=member.getPART()%></td>
+												<td onclick="changePM(this)"><%=member.getNAME()%></td>
+												<td onclick="changePM(this)"><input name="<%=careerPM.getId()+"/startPM"%>" type=date value="<%=careerPM.getStart()%>"></td>
+												<td onclick="changePM(this)"><input name="<%=careerPM.getId()+"/endPM"%>" type=date value="<%=careerPM.getEnd()%>"></td>
+												<td><input type='button' class='PMDel' value='삭제'/></td>
 											</tr>
 											<%}%>
 													</tbody>
@@ -709,7 +725,7 @@ function btn_copy(){
 											</select> 
 											<select id="WORKER_LIST" name="WORKER_LIST"
 												onChange="getSelectValue();"></select>
-												<textarea id="textValue2" name="WORKER_LIST2" >
+												<textarea id="textValue2" name="WORKER_LIST2" style="display:none;">
 													<%=textWorker%></textarea>
 												<table id="workerList" style="margin-top: 5px;">
 													<thead>
