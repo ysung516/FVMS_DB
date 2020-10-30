@@ -1353,7 +1353,6 @@
     function viewDetail(id){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
     	window.open('detail_PR.jsp?id=' + id, '', 'toolbar=no, menubar=no, left='+popupX+', top=10, scrollbars=no, width=600, height=700');
-    	console.log("Dd");
     }
        
    	function goPrint(){

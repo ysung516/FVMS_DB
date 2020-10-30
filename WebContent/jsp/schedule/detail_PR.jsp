@@ -16,7 +16,6 @@
 		width: 100%;
 		border: 1px solid;
     	border-collapse: collapse;
-    	
 	}
 	th, td{
 		border: 1px solid;
