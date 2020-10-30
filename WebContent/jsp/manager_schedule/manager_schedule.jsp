@@ -306,7 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	rel="stylesheet">
 
 <style>
-
+	#sidebarToggle{
+		display:none;
+	}
 	.sidebar{
 		position:fixed;
 		z-index:9999;
@@ -434,6 +436,9 @@ button:focus {
 }
 
 @media ( max-width :320px) {
+	#sidebarToggle{
+		display:block;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}
@@ -479,6 +484,9 @@ button:focus {
 }
 
 @media ( max-width :360px) and (min-width:321px) {
+#sidebarToggle{
+		display:block;
+	}
 		.card-header {
 		margin-top:4.75rem;
 	}
@@ -521,6 +529,9 @@ button:focus {
 }
 
 @media ( max-width :380px) and (min-width:361px) {
+#sidebarToggle{
+		display:block;
+	}
 	.card-header py-3{
 		margin-top:4.75rem;
 	}
@@ -563,6 +574,9 @@ button:focus {
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 	.card-header {
 		margin-top:4.75rem;
 	}
@@ -600,6 +614,9 @@ button:focus {
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}

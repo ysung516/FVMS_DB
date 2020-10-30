@@ -239,6 +239,9 @@ $(document).ready(function () {
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .sidebar{
 		position:fixed;
 		z-index:9999;
@@ -286,6 +289,9 @@ textarea {
 }
 
 @media ( max-width :765px) {
+	#sidebarToggle{
+		display:block;
+	}
 	.card-header{
 		margin-top:4.75rem;
 	}

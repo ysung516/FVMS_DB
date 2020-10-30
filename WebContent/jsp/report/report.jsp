@@ -71,6 +71,9 @@
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .container-fluid{
 	width:60%;
 	margin-left:0;
@@ -195,6 +198,9 @@ tr:last-child {
 }
 
 @media ( max-width :760px) {
+#sidebarToggle{
+		display:block;
+	}
 .container-fluid{
 	width:100%;
 	margin:0;

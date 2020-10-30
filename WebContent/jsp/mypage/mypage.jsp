@@ -59,6 +59,9 @@
 	});
 </script>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 #content{
 	margin-left:90px;
 }
@@ -110,6 +113,9 @@ textarea {
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 #content{
 	margin-left:0;
 }

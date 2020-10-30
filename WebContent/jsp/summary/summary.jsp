@@ -322,6 +322,9 @@
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .chart{
      float:right;
 }
@@ -404,6 +407,9 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:765px){
+	#sidebarToggle{
+		display:block;
+	}
 	.container-fluid{
 	margin-top: 80px;
 	}

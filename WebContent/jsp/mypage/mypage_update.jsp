@@ -56,6 +56,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 #content{
 	margin-left:90px;
 }
@@ -97,6 +100,9 @@ textarea {
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 #content{
 	margin-left:0;
 }

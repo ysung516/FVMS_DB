@@ -67,6 +67,9 @@
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 #content{
 	margin-left:90px;
 }
@@ -105,6 +108,9 @@
 }
 
 @media ( max-width :765px) {
+#sidebarToggle{
+		display:block;
+	}
 #content{
 	margin-left:0;
 }

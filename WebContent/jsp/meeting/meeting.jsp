@@ -48,6 +48,9 @@
 
 </head>
 <style>
+#sidebarToggle{
+		display:none;
+	}
 .table-responsive{
 	width:60%;
 }
@@ -126,6 +129,9 @@ tr:last-child {
 }
 
 @media ( max-width :765px) {
+	#sidebarToggle{
+		display:block;
+	}
 	.table-responsive{
 	width:100%;
 	}
