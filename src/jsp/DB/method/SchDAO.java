@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jsp.Bean.model.CareerBean;
+import jsp.Bean.model.MemberBean;
 import jsp.Bean.model.ProjectBean;
 import jsp.Bean.model.schBean;
 
@@ -80,12 +81,14 @@ public class SchDAO {
 			ResultSet rs = null;
 			ProjectDAO projectDao = new ProjectDAO();
 			MemberDAO memberDao = new MemberDAO();
+			
+			ArrayList<MemberBean> memberList = memberDao.getMemberData();
 			try {
 				StringBuffer query = new StringBuffer();
 		    	query.append("SELECT career.*, career.projectNo, project.프로젝트명, member.이름, member.팀, member.직책, member.소속, member.직급 "
 		    			+ "FROM career, member, project, team "
 		    			+ "where career.id = member.id and career.projectNo = project.no and member.팀 = team.teamName "
-		    			+ "and project.상태 != '8.dropped'  "
+		    			+ "and project.상태 != '8.dropped' and project.상태 != '7.종료' "
 		    			+ "group by career.id, career.projectNo "
 		    			+ "order by team.teamNum, field(member.소속,'슈어소프트테크')desc,"
 		    			+ "member.소속,field(member.직책,'실장','팀장','-'), "
@@ -100,17 +103,30 @@ public class SchDAO {
 					sch.setProjectNo(rs.getInt("projectNo"));
 					
 					ProjectBean project = projectDao.getProjectBean_no(rs.getInt("projectNo"));
-					sch.setWorkList(project.getWORKER_LIST());
-					sch.setPm(project.getPROJECT_MANAGER());
-					//sch.setPm(memberDao.returnMember(project.getPROJECT_MANAGER()).getNAME());
+					String [] workerList_ID = project.getWORKER_LIST().split(" ");
+					String workerList_NAME = "";
 					
+					for(int i=0; i<memberList.size(); i++) {
+						if(memberList.get(i).getID().equals(project.getPROJECT_MANAGER())) {
+							sch.setPm(memberList.get(i).getNAME());
+							break;
+						}
+					}
+					for(int j =0; j< workerList_ID.length; j++) {
+						for(int k=0; k<memberList.size(); k++) {
+							if(workerList_ID[j].equals(memberList.get(k).getID())) {
+								workerList_NAME += memberList.get(k).getNAME() + " ";
+								break;
+							} 
+						}
+					}
+					sch.setWorkList(workerList_NAME);
 					sch.setProjectName(rs.getString("프로젝트명"));
 					sch.setStart(rs.getString("start"));
 					sch.setEnd(rs.getString("end"));
 					sch.setName(rs.getString("이름"));
 					sch.setTeam(rs.getString("팀"));
 					sch.setRank(rs.getString("직급"));
-					//sch.setPm(rs.getString("pm"));
 					schList.add(sch);
 				}
 			}catch (SQLException e) {
