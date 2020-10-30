@@ -79,13 +79,12 @@ public class SchDAO {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			ProjectDAO projectDao = new ProjectDAO();
 			MemberDAO memberDao = new MemberDAO();
 			
 			ArrayList<MemberBean> memberList = memberDao.getMemberData();
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("SELECT career.*,project.PM, project.투입명단, project.프로젝트명, member.이름, member.팀, member.직책, member.소속, member.직급 "
+		    	query.append("SELECT career.*,project.PM as PPM, project.투입명단, project.프로젝트명, member.이름, member.팀, member.직책, member.소속, member.직급 "
 		    			+ "FROM career, member, project, team "
 		    			+ "where career.id = member.id and career.projectNo = project.no and member.팀 = team.teamName "
 		    			+ "and project.상태 != '8.dropped' and project.상태 != '7.종료' "
@@ -103,9 +102,8 @@ public class SchDAO {
 					sch.setProjectNo(rs.getInt("projectNo"));
 					String [] workerList_ID = rs.getString("투입명단").split(" ");
 					String workerList_NAME = "";
-					
 					for(int i=0; i<memberList.size(); i++) {
-						if(memberList.get(i).getID().equals(rs.getString("PM"))) {
+						if(memberList.get(i).getID().equals(rs.getString("PPM"))) {
 							sch.setPm(memberList.get(i).getNAME());
 							break;
 						}
