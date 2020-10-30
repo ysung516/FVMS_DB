@@ -519,12 +519,8 @@
        	  						inner += "<td>"+'<%=List1.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List1.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List1.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List1.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = "<%=List1.get(a).getID()%>";
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -543,12 +539,8 @@
          						inner += "<td>"+'<%=List11.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List11.get(a).getCareer().split("\n").length; b++){
-        	  							str += List11.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List11.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -567,12 +559,8 @@
          						inner += "<td>"+'<%=List12.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List12.get(a).getCareer().split("\n").length; b++){
-        	  							str += List12.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List12.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -591,12 +579,8 @@
          						inner += "<td>"+'<%=List13.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List13.get(a).getCareer().split("\n").length; b++){
-        	  							str += List13.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List13.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -615,12 +599,8 @@
          						inner += "<td>"+'<%=List14.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List14.get(a).getCareer().split("\n").length; b++){
-        	  							str += List14.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List14.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -639,12 +619,8 @@
          						inner += "<td>"+'<%=List15.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List15.get(a).getCareer().split("\n").length; b++){
-        	  							str += List15.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List15.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -666,12 +642,8 @@
        	  						inner += "<td>"+'<%=List2.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List2.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List2.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List2.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List2.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -690,12 +662,8 @@
          						inner += "<td>"+'<%=List21.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List21.get(a).getCareer().split("\n").length; b++){
-        	  							str += List21.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List21.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -714,12 +682,8 @@
          						inner += "<td>"+'<%=List22.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List22.get(a).getCareer().split("\n").length; b++){
-        	  							str += List22.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List22.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -737,12 +701,8 @@
          						inner += "<td>"+'<%=List23.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List23.get(a).getCareer().split("\n").length; b++){
-        	  							str += List23.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List23.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -760,12 +720,8 @@
          						inner += "<td>"+'<%=List24.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List24.get(a).getCareer().split("\n").length; b++){
-        	  							str += List24.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List24.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -783,12 +739,8 @@
          						inner += "<td>"+'<%=List25.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List25.get(a).getCareer().split("\n").length; b++){
-        	  							str += List25.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List25.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -810,12 +762,8 @@
        	  						inner += "<td>"+'<%=List3.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List3.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List3.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List3.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List3.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -834,12 +782,8 @@
          						inner += "<td>"+'<%=List31.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List31.get(a).getCareer().split("\n").length; b++){
-        	  							str += List31.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List31.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -858,12 +802,8 @@
          						inner += "<td>"+'<%=List32.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List32.get(a).getCareer().split("\n").length; b++){
-        	  							str += List32.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List32.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -881,12 +821,8 @@
          						inner += "<td>"+'<%=List33.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List33.get(a).getCareer().split("\n").length; b++){
-        	  							str += List33.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List33.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -904,12 +840,8 @@
          						inner += "<td>"+'<%=List34.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List34.get(a).getCareer().split("\n").length; b++){
-        	  							str += List34.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List34.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -927,12 +859,8 @@
          						inner += "<td>"+'<%=List35.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List35.get(a).getCareer().split("\n").length; b++){
-        	  							str += List35.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List35.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -954,12 +882,8 @@
        	  						inner += "<td>"+'<%=List4.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List4.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List4.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List4.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List4.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -978,12 +902,8 @@
          						inner += "<td>"+'<%=List41.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List41.get(a).getCareer().split("\n").length; b++){
-        	  							str += List41.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List41.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1002,12 +922,8 @@
          						inner += "<td>"+'<%=List42.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List42.get(a).getCareer().split("\n").length; b++){
-        	  							str += List42.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List42.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1025,12 +941,8 @@
          						inner += "<td>"+'<%=List43.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List43.get(a).getCareer().split("\n").length; b++){
-        	  							str += List43.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List43.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1048,12 +960,8 @@
          						inner += "<td>"+'<%=List44.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List44.get(a).getCareer().split("\n").length; b++){
-        	  							str += List44.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List44.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1071,12 +979,8 @@
          						inner += "<td>"+'<%=List45.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List45.get(a).getCareer().split("\n").length; b++){
-        	  							str += List45.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List45.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1099,12 +1003,8 @@
        	  						inner += "<td>"+'<%=List5.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List5.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List5.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List5.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List5.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -1123,12 +1023,8 @@
          						inner += "<td>"+'<%=List51.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List51.get(a).getCareer().split("\n").length; b++){
-        	  							str += List51.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List51.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1147,12 +1043,8 @@
          						inner += "<td>"+'<%=List52.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List52.get(a).getCareer().split("\n").length; b++){
-        	  							str += List52.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List52.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1170,12 +1062,8 @@
          						inner += "<td>"+'<%=List53.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List53.get(a).getCareer().split("\n").length; b++){
-        	  							str += List53.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List53.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1193,12 +1081,8 @@
          						inner += "<td>"+'<%=List54.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List54.get(a).getCareer().split("\n").length; b++){
-        	  							str += List54.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List54.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1216,12 +1100,8 @@
          						inner += "<td>"+'<%=List55.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List55.get(a).getCareer().split("\n").length; b++){
-        	  							str += List55.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List55.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1243,12 +1123,8 @@
        	  						inner += "<td>"+'<%=List6.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List6.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List6.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<List6.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += List6.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List6.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -1267,12 +1143,8 @@
          						inner += "<td>"+'<%=List61.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List61.get(a).getCareer().split("\n").length; b++){
-        	  							str += List61.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List61.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1291,12 +1163,8 @@
          						inner += "<td>"+'<%=List62.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List62.get(a).getCareer().split("\n").length; b++){
-        	  							str += List62.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List62.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1314,12 +1182,8 @@
          						inner += "<td>"+'<%=List63.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List63.get(a).getCareer().split("\n").length; b++){
-        	  							str += List63.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List63.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1337,12 +1201,8 @@
          						inner += "<td>"+'<%=List64.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List64.get(a).getCareer().split("\n").length; b++){
-        	  							str += List64.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List64.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1360,12 +1220,8 @@
          						inner += "<td>"+'<%=List65.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<List65.get(a).getCareer().split("\n").length; b++){
-        	  							str += List65.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=List65.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1387,12 +1243,8 @@
        	  						inner += "<td>"+'<%=ListT.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT.get(a).getADDRESS()%>'+"</td>";
-       	  						<%
-    	   	  						for(int b=0; b<ListT.get(a).getCareer().split("\n").length; b++){
-    	   	  							str += ListT.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-    	   	  						}
-       	  						%>
-       	  						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=ListT.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -1411,12 +1263,8 @@
          						inner += "<td>"+'<%=ListT1.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT1.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT1.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=ListT1.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1435,12 +1283,8 @@
          						inner += "<td>"+'<%=ListT2.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT2.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT2.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=ListT2.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1458,12 +1302,8 @@
          						inner += "<td>"+'<%=ListT3.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT3.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT3.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=ListT3.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1481,12 +1321,8 @@
          						inner += "<td>"+'<%=ListT4.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT4.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT4.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=ListT4.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1504,12 +1340,8 @@
          						inner += "<td>"+'<%=ListT5.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
-         						<%
-        	  						for(int b=0; b<ListT5.get(a).getCareer().split("\n").length; b++){
-        	  							str += ListT5.get(a).getCareer().split("\n")[b].replaceAll("\\s+$", "")+"<br>";
-        	  						}
-         						%>
-         						inner += "<td>"+'<%=str%>'+"</td>";
+       	  						str = 'location.href="detail_PR.jsp?id='+'<%=ListT5.get(a).getID()%>'+'"';
+       	  						inner += "<td>"+"<input type='button' value='상세보기' onclick='"+str+"; event.cancelBubble=true;'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1517,6 +1349,12 @@
            	  			}
           	  		}
        }
+
+    function viewDetail(id){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('detail_PR.jsp?id=' + id, '', 'toolbar=no, menubar=no, left='+popupX+', top=10, scrollbars=no, width=600, height=700');
+    	console.log("Dd");
+    }
        
    	function goPrint(){
  		var popupX = (document.body.offsetWidth/2)-(600/2);
@@ -1632,6 +1470,7 @@
 		//drawChart();
 		clickData();
 	});
+	
 		
 	</script>
 
@@ -1851,7 +1690,7 @@
 		                    <th>직급</th>
 							<th>Mobile</th>
 							<th>주소</th>
-							<th style="width:25%">프로젝트 수행이력</th>	    
+							<th style="width:15%">프로젝트<br>수행이력</th>	    
 							               	         
 	                    </tr>
                     </thead>
