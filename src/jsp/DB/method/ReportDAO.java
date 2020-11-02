@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import jsp.Bean.model.ProjectBean;
@@ -17,7 +19,12 @@ public class ReportDAO {
 	
 	
 	// 주차 계산
-	public String getWeekly(String writeDate) {
+	public String getWeekly(String writeDate) throws ParseException {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+		Date t1 = sf2.parse(writeDate);
+				
 		
 		String[] dates = writeDate.split("-");
 		int year = Integer.parseInt(dates[0]);
@@ -48,6 +55,17 @@ public class ReportDAO {
 		} else if(dayOfWeek > 4){
 			weekly = calendar.get(Calendar.WEEK_OF_MONTH);
 		}
+		
+		if(weekly == 0) {
+			cal.setTime(t1);
+			cal.add(Calendar.MONTH, -1);
+			int endWeek = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
+
+			year = cal.get(Calendar.YEAR);
+			month = month - 1;
+			weekly = endWeek;
+		}
+		
 		String ymw = year+"/"+month+"/"+weekly;
 		
 		return ymw;

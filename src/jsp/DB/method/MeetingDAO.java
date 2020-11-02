@@ -96,7 +96,7 @@ public class MeetingDAO {
 	}
 
 	// 회의록  향후일정 리스트 가져오기
-	public ArrayList<nextPlanBean> getNextPlan(String tableName){
+	public ArrayList<nextPlanBean> getNextPlan(String writeTime){
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -104,17 +104,18 @@ public class MeetingDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from "+tableName+"");
+	    	query.append("select * from meeting_nextplan where writeTime = ?");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, writeTime);
 	    	rs = pstmt.executeQuery();
 	    	
 	    	while(rs.next()) {
 	    		nextPlanBean nextPlan = new nextPlanBean();
 	    		nextPlan.setNo(rs.getInt("no"));
-	    		nextPlan.setItem(rs.getString("항목"));
-	    		nextPlan.setDeadline(rs.getString("기한"));
-	    		nextPlan.setPM(rs.getString("담당"));
+	    		nextPlan.setItem(rs.getString("item"));
+	    		nextPlan.setDeadline(rs.getString("deadline"));
+	    		nextPlan.setPM(rs.getString("pm"));
 	    		nextPlanList.add(nextPlan);
 	    	}
 		} catch (SQLException e) {
@@ -214,18 +215,12 @@ public class MeetingDAO {
 	}
 	
 	// 향후일정 테이블 생성
-	public int createNextPlanTable(String name) {
+	public int createNextPlanTable(String writeTime) {
 		Connection conn = null;
 	    Statement stmt = null;
 	    int rs = 0;
 	    try {
-	    	String query = "create table "+name+""
-	    		       + "("
-	    		       + "no INT NOT NULL AUTO_INCREMENT,"
-	    		       + "항목 VARCHAR(100) NULL DEFAULT '-',"
-	    		       + "기한 VARCHAR(100) NULL DEFAULT '-',"
-	    		       + "담당 VARCHAR(100) NULL DEFAULT '-',"
-	    		       + "PRIMARY KEY (no));";
+	    	String query = "insert into meeting_nextplan(writeTime,no,item,deadline,pm) values(?)";
 	    	conn = DBconnection.getConnection();
 	    	stmt =  conn.createStatement();
 	    	rs = stmt.executeUpdate(query);
@@ -240,27 +235,33 @@ public class MeetingDAO {
 	}
 	
 	// 향후일정 테이블에 데이터 넣기
-	public int insertNextPlanData(String tableName, String [] item, String [] deadline, String [] pm, int count) {
+	public int insertNextPlanData(String writeTime, String [] item, String [] deadline, String [] pm, int count) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    int rs = 0;
 	    try {
-	    	String query = "insert into "+tableName+" (항목,기한,담당) values(?,?,?)";
+	    	String query = "insert into meeting_nextplan(writeTime,no,item,deadline,pm) values(?,?,?,?,?)";
 	    	if(count > 1) {
 	    		for(int i=0; i<count-1; i++) {
-		    		query += ",(?,?,?)";
+		    		query += ",(?,?,?,?,?)";
 		    	}
 	    		query += ";";
 	    	}
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, item[0]);
-	    	pstmt.setString(2, deadline[0]);
-	    	pstmt.setString(3, pm[0]);
+	    	pstmt.setString(1, writeTime);
+	    	pstmt.setInt(2, 1);
+	    	pstmt.setString(3, item[0]);
+	    	pstmt.setString(4, deadline[0]);
+	    	pstmt.setString(5, pm[0]);
 	    	
 	    	if(count > 1) {
-	    		int cnt = 4;
+	    		int cnt = 6;
 	    		for(int j=0; j<count-1; j++) {
+	    			pstmt.setString(cnt, writeTime);
+		    		cnt++;
+	    			pstmt.setInt(cnt, j+2);
+		    		cnt++;
 		    		pstmt.setString(cnt, item[j+1]);
 		    		cnt++;
 			    	pstmt.setString(cnt, deadline[j+1]);
@@ -283,19 +284,19 @@ public class MeetingDAO {
 	// 향후테이블 삭제
 	public int dropNextPlanTable(String name) {
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 	    int rs = 0;
-	    	    
 	    try {
-	    	String query ="DROP TABLE "+name+"";
+	    	String query = "delete from meeting_nextplan where writeTime=?";
 	    	conn = DBconnection.getConnection();
-	    	stmt =  conn.createStatement();
-	    	rs = stmt.executeUpdate(query);
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, name);
+	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			if(stmt != null) try {stmt.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 	    return rs;

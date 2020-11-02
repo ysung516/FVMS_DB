@@ -20,12 +20,17 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	if(permission != 0) {
+		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+	}
+	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
-	String id = request.getParameter("id");
+	String id = request.getParameter("id");	
 	MemberDAO memberDao = new MemberDAO();
-	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	
 	ProjectDAO projectDao = new ProjectDAO();
 	ArrayList<String> teamList = projectDao.getTeamData();
 	MemberBean member = memberDao.returnMember(id);

@@ -41,7 +41,8 @@
 	}
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
 	System.out.println(reportDao.getWeekly(nowDate));
-	int projectNum = projectDao.useReportProject();	
+	int projectNum = projectDao.useReportProject();
+	System.out.println(projectNum);
 	int year = Integer.parseInt(weekly.split("/")[0]);
 	int month = Integer.parseInt(weekly.split("/")[1]);
 	int week = Integer.parseInt(weekly.split("/")[2]);

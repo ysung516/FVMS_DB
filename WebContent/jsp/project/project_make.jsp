@@ -724,7 +724,7 @@ function btn_insert(){
 		                      		}
 		                      	%></select> 
 		                      			<select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
-											<textarea id="textValuePM" name="WORKER_LIST_PM"></textarea>
+											<textarea id="textValuePM" name="WORKER_LIST_PM" style="display: none;"></textarea>
 												<table id="workerList_PM" style="margin-top: 5px;">
 													<thead>
 														<tr>

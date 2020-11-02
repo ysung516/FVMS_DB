@@ -512,10 +512,11 @@
           	  				for(int a=0; a<List1.size(); a++){
           	  					str = "";
           	  				%>
+          	  					var id = '<%=List1.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=List1.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=List1.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List1.get(a).getNAME()%>'+"</td>";
+    	      	  				inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List1.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=List1.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List1.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List1.get(a).getADDRESS()%>'+"</td>";
@@ -532,10 +533,11 @@
         	  				for(int a=0; a<List11.size(); a++){
         	  					str = "";
         	  				%>
+        	  					var id = '<%=List11.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List11.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List11.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List11.get(a).getNAME()%>'+"</td>";
+          	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List11.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List11.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
@@ -552,10 +554,11 @@
         	  				for(int a=0; a<List12.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List12.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List12.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List12.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List12.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List12.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List12.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
@@ -572,10 +575,11 @@
         	  				for(int a=0; a<List13.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List13.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List13.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List13.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List13.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List13.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List13.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
@@ -592,10 +596,11 @@
         	  				for(int a=0; a<List14.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List14.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List14.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List14.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List14.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List14.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List14.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
@@ -612,10 +617,11 @@
         	  				for(int a=0; a<List15.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List15.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List15.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List15.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List15.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List15.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List15.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
@@ -635,10 +641,11 @@
           	  				for(int a=0; a<List2.size(); a++){
           	  					str = "";
           	  				%>
+          	  				var id = '<%=List2.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=List2.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=List2.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List2.get(a).getNAME()%>'+"</td>";
+       		  				inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List2.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=List2.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List2.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List2.get(a).getADDRESS()%>'+"</td>";
@@ -655,10 +662,11 @@
         	  				for(int a=0; a<List21.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List21.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List21.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List21.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List21.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List21.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List21.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
@@ -675,10 +683,11 @@
         	  				for(int a=0; a<List22.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List22.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List22.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List22.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List22.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List22.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List22.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
@@ -694,10 +703,11 @@
         	  				for(int a=0; a<List23.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List23.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List23.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List23.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List23.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List23.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List23.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
@@ -713,10 +723,11 @@
         	  				for(int a=0; a<List24.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List24.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List24.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List24.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List24.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List24.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List24.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
@@ -732,10 +743,11 @@
         	  				for(int a=0; a<List25.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List25.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List25.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List25.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List25.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List25.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List25.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
@@ -755,10 +767,11 @@
           	  				for(int a=0; a<List3.size(); a++){
           	  					str = "";
           	  				%>
+          	  				var id = '<%=List3.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=List3.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=List3.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List3.get(a).getNAME()%>'+"</td>";
+       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List3.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=List3.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List3.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List3.get(a).getADDRESS()%>'+"</td>";
@@ -775,10 +788,11 @@
         	  				for(int a=0; a<List31.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List31.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List31.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List31.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List31.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List31.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List31.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
@@ -795,10 +809,11 @@
         	  				for(int a=0; a<List32.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List32.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List32.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List32.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List32.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List32.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List32.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
@@ -814,10 +829,11 @@
         	  				for(int a=0; a<List33.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List33.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List33.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List33.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List33.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List33.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List33.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
@@ -833,10 +849,11 @@
         	  				for(int a=0; a<List34.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List34.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List34.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List34.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List34.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List34.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List34.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
@@ -852,10 +869,11 @@
         	  				for(int a=0; a<List35.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List35.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List35.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List35.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List35.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List35.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List35.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
@@ -875,10 +893,11 @@
           	  				for(int a=0; a<List4.size(); a++){
           	  					str = "";
           	  				%>
+          	  				var id = '<%=List4.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=List4.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=List4.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List4.get(a).getNAME()%>'+"</td>";
+       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List4.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=List4.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List4.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List4.get(a).getADDRESS()%>'+"</td>";
@@ -895,10 +914,11 @@
         	  				for(int a=0; a<List41.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List41.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List41.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List41.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List41.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List41.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List41.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
@@ -915,10 +935,11 @@
         	  				for(int a=0; a<List42.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List42.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List42.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List42.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List42.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List42.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List42.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
@@ -934,10 +955,11 @@
         	  				for(int a=0; a<List43.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List43.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List43.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List43.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List43.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List43.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List43.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
@@ -953,10 +975,11 @@
         	  				for(int a=0; a<List44.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List44.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List44.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List44.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List44.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List44.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List44.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
@@ -972,10 +995,11 @@
         	  				for(int a=0; a<List45.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List45.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List45.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List45.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List45.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List45.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List45.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
@@ -996,10 +1020,11 @@
           	  				for(int a=0; a<List5.size(); a++){
           	  					str = "";
           	  				%>
+          	  				var id = '<%=List5.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=List5.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=List5.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List5.get(a).getNAME()%>'+"</td>";
+       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List5.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=List5.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List5.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List5.get(a).getADDRESS()%>'+"</td>";
@@ -1016,10 +1041,11 @@
         	  				for(int a=0; a<List51.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List51.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List51.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List51.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List51.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List51.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List51.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
@@ -1036,10 +1062,11 @@
         	  				for(int a=0; a<List52.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List52.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List52.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List52.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List52.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List52.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List52.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
@@ -1055,10 +1082,11 @@
         	  				for(int a=0; a<List53.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List53.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List53.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List53.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List53.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List53.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List53.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
@@ -1074,10 +1102,11 @@
         	  				for(int a=0; a<List54.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List54.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List54.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List54.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List54.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List54.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List54.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
@@ -1093,10 +1122,11 @@
         	  				for(int a=0; a<List55.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List55.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List55.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List55.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List55.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List55.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List55.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
@@ -1116,10 +1146,11 @@
           	  				for(int a=0; a<List6.size(); a++){
           	  					str = "";
           	  				%>
+          	  				var id = '<%=List6.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=List6.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=List6.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=List6.get(a).getNAME()%>'+"</td>";
+       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List6.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=List6.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List6.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List6.get(a).getADDRESS()%>'+"</td>";
@@ -1136,10 +1167,11 @@
         	  				for(int a=0; a<List61.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List61.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List61.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List61.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List61.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List61.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List61.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
@@ -1156,10 +1188,11 @@
         	  				for(int a=0; a<List62.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List62.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List62.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List62.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List62.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List62.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List62.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
@@ -1175,10 +1208,11 @@
         	  				for(int a=0; a<List63.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List63.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List63.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List63.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List63.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List63.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List63.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
@@ -1194,10 +1228,11 @@
         	  				for(int a=0; a<List64.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List64.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List64.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List64.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List64.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List64.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List64.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
@@ -1213,10 +1248,11 @@
         	  				for(int a=0; a<List65.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=List65.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=List65.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=List65.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=List65.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List65.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=List65.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
@@ -1236,10 +1272,11 @@
           	  				for(int a=0; a<ListT.size(); a++){
           	  					str = "";
           	  				%>
+          	  			var id = '<%=ListT.get(a).getID()%>';
        	  						inner += "<tr>";
        	  						inner += "<td>"+'<%=ListT.get(a).getPART()%>'+"</td>";
        		  					inner += "<td>"+'<%=ListT.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td>"+'<%=ListT.get(a).getNAME()%>'+"</td>";
+       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=ListT.get(a).getNAME()%>'+"</a></td>";
        	  						inner += "<td>"+'<%=ListT.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT.get(a).getADDRESS()%>'+"</td>";
@@ -1256,10 +1293,11 @@
         	  				for(int a=0; a<ListT1.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=ListT1.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=ListT1.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=ListT1.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT1.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=ListT1.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=ListT1.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
@@ -1276,10 +1314,11 @@
         	  				for(int a=0; a<ListT2.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=ListT2.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=ListT2.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=ListT2.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT2.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=ListT2.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=ListT2.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
@@ -1295,10 +1334,11 @@
         	  				for(int a=0; a<ListT3.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=ListT3.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=ListT3.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=ListT3.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT3.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=ListT3.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=ListT3.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
@@ -1314,10 +1354,11 @@
         	  				for(int a=0; a<ListT4.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=ListT4.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=ListT4.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=ListT4.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT4.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=ListT4.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=ListT4.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
@@ -1333,10 +1374,11 @@
         	  				for(int a=0; a<ListT5.size(); a++){
         	  					str = "";
         	  				%>
+        	  				var id = '<%=ListT5.get(a).getID()%>';
          						inner += "<tr>";
          						inner += "<td>"+'<%=ListT5.get(a).getPART()%>'+"</td>";
         	  					inner += "<td>"+'<%=ListT5.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td>"+'<%=ListT5.get(a).getNAME()%>'+"</td>";
+        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=ListT5.get(a).getNAME()%>'+"</a></td>";
          						inner += "<td>"+'<%=ListT5.get(a).getRANK()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
@@ -1352,7 +1394,7 @@
 
     function viewDetail(id){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('detail_PR.jsp?id=' + id, '', 'toolbar=no, menubar=no, left='+popupX+', top=10, width=760, height=700');
+    	window.open('detail_PR.jsp?id=' + id, 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
     }
        
    	function goPrint(){
