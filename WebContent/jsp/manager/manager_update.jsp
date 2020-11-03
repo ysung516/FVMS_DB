@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="java.util.ArrayList" import="jsp.Bean.model.*"
-	import="jsp.DB.method.*"%>
+	import="jsp.DB.method.*"
+	import="java.text.SimpleDateFormat" import="java.util.Date"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +36,18 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	ArrayList<String> teamList = projectDao.getTeamData();
 	MemberBean member = memberDao.returnMember(id);
 	
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	int nowYear = Integer.parseInt(sf.format(nowDate));
+	int wyear = 0;
+	
+	if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){
+		int comYear = Integer.parseInt(member.getComDate().split("-")[0]);
+		wyear = nowYear -  comYear + 1;
+	}else{
+		wyear = 0;
+	}
+	
 %>
 
 <script>
@@ -42,6 +55,23 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		$("#team").val("<%=member.getTEAM()%>").prop("selected", true);		
 		$("#permission").val("<%=member.getPermission()%>").prop("selected", true);
 	});
+	
+	function changeCome(obj){
+		var nowDate = new Date();
+		year = nowDate.getFullYear();
+		
+		var inputDate = obj.value;
+		inputYear = inputDate.split("-")[0];
+		
+		if(year >= inputYear){
+			wyear = year - inputYear + 1;
+		}else{
+			wyear = 0;
+		}
+		
+		document.getElementById('wyear').innerText = wyear;
+		console.log(wyear);
+	}
 	
 </script>
 <meta charset="utf-8">
@@ -339,14 +369,15 @@ textarea {
 										<tr>
 											<td class="m-0 text-primary" align="center"
 												style="word-break: keep-all;">입사일</td>
-											<td colspan="3"><input name="comDate"
-												value="<%=member.getComDate()%>" class="update_input"></td>
+											<td colspan="3"><input type="date" name="comDate" id="comDate" 
+												style="width:100%;" value="<%=member.getComDate()%>" max="9999-12-31" 
+												onchange="changeCome(this)">
+											</td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center"
 												style="word-break: keep-all;">연차</td>
-											<td colspan="3"><input name="wyear"
-												value="<%=member.getWyear()%>" class="update_input"></td>
+											<td colspan="3" id="wyear"><%=wyear %></td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center"

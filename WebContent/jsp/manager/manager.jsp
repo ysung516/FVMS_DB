@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.DB.method.*" import="jsp.Bean.model.*"
-	import="java.util.ArrayList" import="java.util.List"%>
+	import="java.util.ArrayList" import="java.util.List"
+	import="java.text.SimpleDateFormat" import="java.util.Date"%>
+	
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +20,12 @@
 		MemberDAO memberDao = new MemberDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		ArrayList<MemberBean> memberList = memberDao.getMemberData();
+		
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int nowYear = Integer.parseInt(sf.format(nowDate));
+		int wyear = 0;
+		int comYear = nowYear;
 	%>
 
 <meta charset="utf-8">
@@ -506,6 +514,12 @@ function getTextByClone( tag ){
 								<tbody id="manager_List">
 									<%
 		  	for(int i=0; i<memberList.size(); i++){
+		  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+		  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+		  			wyear = nowYear -  comYear + 1;
+		  		}else{
+		  			wyear = 0;
+		  		}
 		  		%><tr style="text-align: left;">
 										<td><%=memberList.get(i).getTEAM()%></td>
 
@@ -519,7 +533,7 @@ function getTextByClone( tag ){
 										<td><%=memberList.get(i).getPermission() %></td>
 										<td class="extra"><%=memberList.get(i).getADDRESS() %></td>
 										<td class="extra"><%=memberList.get(i).getMOBILE() %></td>
-										<td class="extra"><%=memberList.get(i).getWyear() %></td>
+										<td class="extra"><%=wyear %></td>
 										<td class="extra">수행프로젝트이력 채우기</td>
 										
 										
@@ -538,6 +552,12 @@ function getTextByClone( tag ){
 			       
 
 				   	function sort_team(){
+				  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+				  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+				  			wyear = nowYear -  comYear + 1;
+				  		}else{
+				  			wyear = 0;
+				  		}
 				   		var html = '';
 				   		<%memberList = memberDao.getMemberData();
 				   		for (int i=0; i<memberList.size() ; i++){%>
@@ -549,7 +569,7 @@ function getTextByClone( tag ){
 				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getWyear() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
 				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
@@ -558,6 +578,12 @@ function getTextByClone( tag ){
 				   	}
 				   	
 				   	function sort_part(){
+				  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+				  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+				  			wyear = nowYear -  comYear + 1;
+				  		}else{
+				  			wyear = 0;
+				  		}
 				   		var html = '';
 				   		<%memberList = memberDao.getMemberData_part();
 				   		for (int i=0; i<memberList.size() ; i++){%>
@@ -569,7 +595,7 @@ function getTextByClone( tag ){
 				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getWyear() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
 				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
@@ -578,6 +604,12 @@ function getTextByClone( tag ){
 				   	}
 				   	
 				   	function sort_rank(){
+				  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+				  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+				  			wyear = nowYear -  comYear + 1;
+				  		}else{
+				  			wyear = 0;
+				  		}
 				   		var html = '';
 				   		<%memberList = memberDao.getMemberData_rank();
 				   		for (int i=0; i<memberList.size() ; i++){%>
@@ -589,7 +621,7 @@ function getTextByClone( tag ){
 				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getWyear() %>'+'</td>';
+				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
 				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
 				   		html += '</tr>';
 				   		<%}%>

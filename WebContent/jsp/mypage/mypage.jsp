@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="java.util.ArrayList"
 	import="java.util.List" import="jsp.DB.method.*"
-	import="jsp.Bean.model.*"%>
+	import="jsp.Bean.model.*"
+	import="java.text.SimpleDateFormat" import="java.util.Date"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +23,18 @@
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
 		String [] line;
+		
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int nowYear = Integer.parseInt(sf.format(nowDate));
+		String wyear = "";
+		
+		if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){
+  			int comYear = Integer.parseInt(member.getComDate().split("-")[0]);
+  			wyear = Integer.toString(nowYear -  comYear + 1);
+  		}else{
+  			wyear = "입사일을 올바르게 입력하세요.";
+  		}
 	%>
 
 <meta charset="utf-8">
@@ -337,7 +350,7 @@ legend {
 									</tr>
 									<tr>
 										<td>연차</td>
-										<td><%=member.getWyear() %></td>
+										<td><%=wyear %></td>
 									</tr>
 									<tr>
 										<td>Mobile</td>

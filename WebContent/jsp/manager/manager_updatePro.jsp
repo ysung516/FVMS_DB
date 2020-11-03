@@ -28,12 +28,11 @@
 		String gmail = request.getParameter("gmail");
 		String address = request.getParameter("address");
 		String comDate = request.getParameter("comDate");
-		String wyear = request.getParameter("wyear");
 		String career = request.getParameter("career");
 		
 		MemberDAO memberDao = new MemberDAO();
 		
-		if(memberDao.managerUpdate(id, address, comDate, wyear, mobile, gmail, career, part, team, permission, rank, position) == 1){
+		if(memberDao.managerUpdate(id, address, comDate, mobile, gmail, career, part, team, permission, rank, position) == 1){
 			script.print("<script> alert('회원 정보 수정 되었습니다..'); location.href = 'manager.jsp'; </script>");
 		}
 		else{

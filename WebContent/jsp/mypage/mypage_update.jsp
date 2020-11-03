@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
-	import="jsp.Bean.model.*" import="jsp.DB.method.*"%>
+	import="jsp.Bean.model.*" import="jsp.DB.method.*"
+	import="java.text.SimpleDateFormat" import="java.util.Date"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script type="text/javascript">
-
-
-$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-    $('.loading').hide();
-});
-	
-</script>
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
@@ -33,6 +26,17 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 			
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	int nowYear = Integer.parseInt(sf.format(nowDate));
+	int wyear = 0;
+	
+	if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){
+		int comYear = Integer.parseInt(member.getComDate().split("-")[0]);
+		wyear = nowYear -  comYear + 1;
+	}else{
+		wyear = 0;
+	}
 %>
 
 <meta charset="utf-8">
@@ -53,6 +57,33 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+
+
+$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
+    $('.loading').hide();
+});
+
+
+function changeCome(obj){
+	var nowDate = new Date();
+	year = nowDate.getFullYear();
+	
+	var inputDate = obj.value;
+	inputYear = inputDate.split("-")[0];
+	
+	if(year >= inputYear){
+		wyear = year - inputYear + 1;
+	}else{
+		wyear = 0;
+	}
+	
+	document.getElementById('wyear').innerText = wyear;
+	console.log(wyear);
+}
+	
+</script>
 
 </head>
 <style>
@@ -302,14 +333,14 @@ legend {
 
 										<tr>
 											<td class="m-0 text-primary" align="center">입사일</td>
-											<td colspan="3"><input name="comeDate" id="comeDate"
-												value="<%=member.getComDate()%>" style="width: 100%;"></td>
+											<td colspan="3"><input type="date" name="comDate" id="comDate" 
+												style="width:100%;" value="<%=member.getComDate()%>" max="9999-12-31" 
+												onchange="changeCome(this)"></td>
 										</tr>
 
 										<tr>
 											<td class="m-0 text-primary" align="center">연차</td>
-											<td colspan="3"><input name="wyear" id="wyear"
-												value="<%=member.getWyear()%>" style="width: 100%;"></td>
+											<td colspan="3" id="wyear"><%=wyear%></td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center">mobile</td>

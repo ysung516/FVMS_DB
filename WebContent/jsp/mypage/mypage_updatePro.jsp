@@ -24,15 +24,14 @@
 
 	
 	 String address = request.getParameter("address");
-	 String comeDate = request.getParameter("comeDate");
-	 String wyear = request.getParameter("wyear");
+	 String comeDate = request.getParameter("comDate");
 	 String career = request.getParameter("career");
 	 String mobile = request.getParameter("mobile");
 	 String gmail = request.getParameter("gmail");
 	 
 	 MemberDAO memberDao = new MemberDAO();
 	  
-    if (memberDao.mypageUpdate(sessionID ,address, comeDate, wyear, mobile, gmail, career) == 1){
+    if (memberDao.mypageUpdate(sessionID ,address, comeDate, mobile, gmail, career) == 1){
     	script.print("<script> alert('정보가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
       } else {
     	  script.print("<script> alert('정보가 변경되지 않았습니다.');  history.back(); </script>");
