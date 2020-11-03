@@ -214,26 +214,6 @@ public class MeetingDAO {
 	    return rs;
 	}
 	
-	// 향후일정 테이블 생성
-	public int createNextPlanTable(String writeTime) {
-		Connection conn = null;
-	    Statement stmt = null;
-	    int rs = 0;
-	    try {
-	    	String query = "insert into meeting_nextplan(writeTime,no,item,deadline,pm) values(?)";
-	    	conn = DBconnection.getConnection();
-	    	stmt =  conn.createStatement();
-	    	rs = stmt.executeUpdate(query);
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(stmt != null) try {stmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return rs;
-	}
-	
 	// 향후일정 테이블에 데이터 넣기
 	public int insertNextPlanData(String writeTime, String [] item, String [] deadline, String [] pm, int count) {
 		Connection conn = null;
