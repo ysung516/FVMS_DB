@@ -55,12 +55,21 @@
 		
 		
 		
-		if(!(meetDao.getMeetList(no).getP_nextplan().equals("-"))){
-			nextPlanTableName = nextplan;
-			meetDao.dropNextPlanTable(nextplan);	
-			meetDao.updateNextPlan(no, "-");
-		} else{
-			nextPlanTableName = sf2.format(nowTime);
+		if(!(nextplan.equals("-"))){
+			if(count > 0){
+				nextPlanTableName = nextplan;
+				meetDao.dropNextPlanTable(nextPlanTableName);
+			}else{
+				nextPlanTableName = "-";
+				meetDao.dropNextPlanTable(nextplan);
+			}
+			
+		} else {
+			if(count > 0){
+				nextPlanTableName = sf2.format(nowTime);				
+			}else{
+				nextPlanTableName = "-";
+			}
 		}
 		
 		if(MeetName == null || MeetName == ""){
@@ -68,14 +77,13 @@
 		} else{
 			
 			if(meetDao.updateMeet(no, MeetName, MeetDate, MeetPlace, attendees, attendees_ex, meetNote, issue)== 1){
+				meetDao.updateNextPlan(no, nextPlanTableName);
 				if(count > 0){
-					meetDao.updateNextPlan(no, nextPlanTableName);
 					for(int i=0; i<count; i++){
 						item[i] = request.getParameter("item"+(i+1));
 						deadline[i] = request.getParameter("deadline"+(i+1));
 						pm[i] = request.getParameter("pm"+(i+1));
 					}	
-					meetDao.createNextPlanTable(nextPlanTableName);
 					meetDao.insertNextPlanData(nextPlanTableName, item, deadline, pm, count);
 				}
 				

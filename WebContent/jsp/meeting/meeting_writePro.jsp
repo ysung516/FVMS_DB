@@ -80,7 +80,7 @@
 					
 				}
 				script.print("<script> alert('회의록 작성이 되었습니다.'); location.href = 'meeting.jsp'</script>");
-				//post.textPost(content, MeetName, sessionID);
+				post.textPost(content, MeetName, sessionID);
 			}
 				else script.print("<script> alert('작성 실패!!'); history.back();</script>");
 		}
