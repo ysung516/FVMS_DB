@@ -552,15 +552,15 @@ function getTextByClone( tag ){
 			       
 
 				   	function sort_team(){
-				  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-				  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-				  			wyear = nowYear -  comYear + 1;
-				  		}else{
-				  			wyear = 0;
-				  		}
 				   		var html = '';
 				   		<%memberList = memberDao.getMemberData();
-				   		for (int i=0; i<memberList.size() ; i++){%>
+				   		for (int i=0; i<memberList.size() ; i++){
+					  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+					  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+					  			wyear = nowYear -  comYear + 1;
+					  		}else{
+					  			wyear = 0;
+					  		}%>
 				   		html += '<tr>';
 				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
@@ -578,15 +578,15 @@ function getTextByClone( tag ){
 				   	}
 				   	
 				   	function sort_part(){
-				  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-				  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-				  			wyear = nowYear -  comYear + 1;
-				  		}else{
-				  			wyear = 0;
-				  		}
 				   		var html = '';
 				   		<%memberList = memberDao.getMemberData_part();
-				   		for (int i=0; i<memberList.size() ; i++){%>
+				   		for (int i=0; i<memberList.size() ; i++){
+					  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+					  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+					  			wyear = nowYear -  comYear + 1;
+					  		}else{
+					  			wyear = 0;
+					  		}%>
 				   		html += '<tr>';
 				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
@@ -604,15 +604,15 @@ function getTextByClone( tag ){
 				   	}
 				   	
 				   	function sort_rank(){
-				  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-				  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-				  			wyear = nowYear -  comYear + 1;
-				  		}else{
-				  			wyear = 0;
-				  		}
 				   		var html = '';
 				   		<%memberList = memberDao.getMemberData_rank();
-				   		for (int i=0; i<memberList.size() ; i++){%>
+				   		for (int i=0; i<memberList.size() ; i++){
+					  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+					  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+					  			wyear = nowYear -  comYear + 1;
+					  		}else{
+					  			wyear = 0;
+							}%>
 				   		html += '<tr>';
 				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
