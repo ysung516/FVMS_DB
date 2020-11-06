@@ -990,17 +990,4 @@ public class ProjectDAO {
 		    return year;
 		}
 
-			/*
-			public static void main(String[] args) {
-				 //TODO Auto-generated method stub
-				ProjectDAO projectDao = new ProjectDAO();
-				projectDao.copy_preYearData();
-				projectDao.update_preYearData();
-			}
-			*/
-
-		
-		
-		
-		
 }	// end 
