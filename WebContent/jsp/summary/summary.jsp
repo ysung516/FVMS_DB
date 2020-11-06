@@ -1872,54 +1872,54 @@ function y_rsales() {
  				 <tbody>
  				 	<tr>
  				 		<td></td>
- 				 		<td colspan="5" class="firstTD">수주</td>
- 				 		<td colspan="5" class="firstTD">매출</td>
- 				 		<td colspan="5" class="lastTD">수주</td>
- 				 		<td colspan="5" class="lastTD">매출</td>
- 				 		<td colspan="5" class="yearTD">수주</td>
- 				 		<td colspan="5" class="yearTD">매출</td>
+ 				 		<td colspan="5" class="firstTD orderTD">수주</td>
+ 				 		<td colspan="5" class="firstTD saleTD">매출</td>
+ 				 		<td colspan="5" class="lastTD orderTD">수주</td>
+ 				 		<td colspan="5" class="lastTD saleTD">매출</td>
+ 				 		<td colspan="5" class="yearTD orderTD">수주</td>
+ 				 		<td colspan="5" class="yearTD saleTD">매출</td>
  				 	</tr>
  				 	
  				 	<tr>
  				 		<td></td>
- 				 		<td class="firstTD orderTD">목표수주</td>
- 				 		<td class="firstTD orderTD">예상수주</td>
- 				 		<td class="firstTD orderTD">예상수주(%)</td>
- 				 		<td class="firstTD orderTD">달성</td>
- 				 		<td class="firstTD orderTD">수주달성률</td>
+ 				 		<td class="firstTD orderTD dataTD">목표수주</td>
+ 				 		<td class="firstTD orderTD dataTD">예상수주</td>
+ 				 		<td class="firstTD orderTD rateTD">예상수주(%)</td>
+ 				 		<td class="firstTD orderTD dataTD">달성</td>
+ 				 		<td class="firstTD orderTD rateTD">수주달성률</td>
  				 		
- 				 		<td class="firstTD saleTD">목표매출</td>
- 				 		<td class="firstTD saleTD">예상매출</td>
- 				 		<td class="firstTD saleTD">예상매출(%)</td>
- 				 		<td class="firstTD saleTD">달성</td>
- 				 		<td class="firstTD saleTD">매출달성률</td>
+ 				 		<td class="firstTD saleTD dataTD">목표매출</td>
+ 				 		<td class="firstTD saleTD dataTD">예상매출</td>
+ 				 		<td class="firstTD saleTD rateTD">예상매출(%)</td>
+ 				 		<td class="firstTD saleTD dataTD">달성</td>
+ 				 		<td class="firstTD saleTD rateTD">매출달성률</td>
  				 		
- 				 		<td class="lastTD orderTD">목표수주</td>
- 				 		<td class="lastTD orderTD">예상수주</td>
- 				 		<td class="lastTD orderTD">예상수주(%)</td>
- 				 		<td class="lastTD orderTD">달성</td>
- 				 		<td class="lastTD orderTD">수주달성률</td>
+ 				 		<td class="lastTD orderTD dataTD">목표수주</td>
+ 				 		<td class="lastTD orderTD dataTD">예상수주</td>
+ 				 		<td class="lastTD orderTD rateTD">예상수주(%)</td>
+ 				 		<td class="lastTD orderTD dataTD">달성</td>
+ 				 		<td class="lastTD orderTD rateTD">수주달성률</td>
  				 		
- 				 		<td class="lastTD saleTD" >목표매출</td>
- 				 		<td class="lastTD saleTD">예상매출</td>
- 				 		<td class="lastTD saleTD">예상매출(%)</td>
- 				 		<td class="lastTD saleTD">달성</td>
- 				 		<td class="lastTD saleTD">매출달성률</td>
+ 				 		<td class="lastTD saleTD dataTD" >목표매출</td>
+ 				 		<td class="lastTD saleTD dataTD">예상매출</td>
+ 				 		<td class="lastTD saleTD rateTD">예상매출(%)</td>
+ 				 		<td class="lastTD saleTD dataTD">달성</td>
+ 				 		<td class="lastTD saleTD rateTD">매출달성률</td>
  				 		
- 				 		<td class="yearTD orderTD">목표수주</td>
- 				 		<td class="yearTD orderTD">예상수주</td>
- 				 		<td class="yearTD orderTD">예상수주(%)</td>
- 				 		<td class="yearTD orderTD">달성</td>
- 				 		<td class="yearTD orderTD">수주달성률</td>
+ 				 		<td class="yearTD orderTD dataTD">목표수주</td>
+ 				 		<td class="yearTD orderTD dataTD">예상수주</td>
+ 				 		<td class="yearTD orderTD rateTD">예상수주(%)</td>
+ 				 		<td class="yearTD orderTD dataTD">달성</td>
+ 				 		<td class="yearTD orderTD rateTD">수주달성률</td>
  				 		
- 				 		<td class="yearTD saleTD">목표매출</td>
- 				 		<td class="yearTD saleTD">예상매출</td>
- 				 		<td class="yearTD saleTD">예상매출(%)</td>
- 				 		<td class="yearTD saleTD">달성</td>
- 				 		<td class="yearTD saleTD">매출달성률</td>
+ 				 		<td class="yearTD saleTD dataTD">목표매출</td>
+ 				 		<td class="yearTD saleTD dataTD">예상매출</td>
+ 				 		<td class="yearTD saleTD rateTD">예상매출(%)</td>
+ 				 		<td class="yearTD saleTD dataTD">달성</td>
+ 				 		<td class="yearTD saleTD rateTD">매출달성률</td>
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="chasisOs">
  				 		<td class="chasisOs">샤시힐스검증팀</td>
  				 		<td class="chasisOs firstTD orderTD dataTD"></td>
  				 		<td class="chasisOs firstTD orderTD dataTD"></td>
@@ -1958,7 +1958,7 @@ function y_rsales() {
  				 		<td class="chasisOs yearTD saleTD rateTD"></td>
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="bodyOs">
  				 		<td class="bodyOs">바디힐스검증팀</td>
  				 		<td class="bodyOs firstTD orderTD dataTD"></td>
  				 		<td class="bodyOs firstTD orderTD dataTD"></td>
@@ -1997,7 +1997,7 @@ function y_rsales() {
  				 		<td class="bodyOs yearTD saleTD rateTD"></td>
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="controlOs">
  				 		<td class="controlOs">제어로직검증팀</td>
  				 		<td class="controlOs firstTD orderTD dataTD"></td>
  				 		<td class="controlOs firstTD orderTD dataTD"></td>
@@ -2036,7 +2036,7 @@ function y_rsales() {
  				 		<td class="controlOs yearTD saleTD rateTD"></td>
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="safeOs">
  				 		<td class="safeOs">기능안전검증팀</td>
  				 		<td class="safeOs firstTD orderTD dataTD"></td>
  				 		<td class="safeOs firstTD orderTD dataTD"></td>
@@ -2075,7 +2075,7 @@ function y_rsales() {
  				 		<td class="safeOs yearTD saleTD rateTD"></td>
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="autoOs">
  				 		<td class="autoOs">자율주행검증팀</td>
  				 		<td class="autoOs firstTD orderTD dataTD"></td>
  				 		<td class="autoOs firstTD orderTD dataTD"></td>
@@ -2114,7 +2114,7 @@ function y_rsales() {
  				 		<td class="autoOs yearTD saleTD rateTD"></td>	
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="vtOs">
  				 		<td class="vtOs">미래차검증전략실</td>
  				 		<td class="vtOs firstTD orderTD dataTD"></td>
  				 		<td class="vtOs firstTD orderTD dataTD"></td>
@@ -2153,7 +2153,7 @@ function y_rsales() {
  				 		<td class="vtOs yearTD saleTD rateTD"></td>	
  				 	</tr>
  				 	
- 				 	<tr>
+ 				 	<tr class="totalOs">
  				 		<td class="totalOs">total</td>
  				 		<td class="totalOs firstTD orderTD dataTD"></td>
  				 		<td class="totalOs firstTD orderTD dataTD"></td>
