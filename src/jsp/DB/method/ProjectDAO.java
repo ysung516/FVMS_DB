@@ -402,7 +402,7 @@ public class ProjectDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from project where year=? order by 상태, 착수");
+	    	query.append("select * from project where year=? order by 상태, 착수 DESC, 종료 DESC");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setInt(1, year);
