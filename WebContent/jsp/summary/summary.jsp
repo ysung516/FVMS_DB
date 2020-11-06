@@ -2194,25 +2194,7 @@ function y_rsales() {
  				 </tbody> 				 
 				 </table>
 			
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
- 				 
+			
  				<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable">
