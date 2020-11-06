@@ -69,7 +69,6 @@
 	});
 	
 	
-	
 </script>
 <body style="background-color: #4e73df;">
 	<!--  로딩화면  시작  -->
