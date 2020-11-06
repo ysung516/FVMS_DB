@@ -35,6 +35,7 @@
 	}
 	
 	int projectNo = Integer.parseInt(request.getParameter("no"));
+	int year = Integer.parseInt(request.getParameter("year"));
 	String projectName = request.getParameter("name");
 	
 	ProjectDAO projectDao = new ProjectDAO();
@@ -43,7 +44,7 @@
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	
-	ProjectBean project = projectDao.getProjectBean_no(projectNo);
+	ProjectBean project = projectDao.getProjectBean_no(projectNo,year);
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
 	
 
@@ -114,6 +115,17 @@ function PM_highlight(){
 		}
 	}
 }
+//PM 변경 ==> 표 클릭
+function changePM(td){
+	var tr = $(td).parent();
+	var td = tr.children();
+	
+	$('#workerListAdd_PM tr').css("background-color","white");
+	$(tr).css("background-color","yellow");
+	
+	$('#PROJECT_MANAGER').val(td.eq(0).text()).prop("selected", true);
+}
+
 //PM선택
 function getSelectPM(){
 	//팀, 이름 저장
@@ -121,19 +133,20 @@ function getSelectPM(){
 	var id = $("#PROJECT_MANAGER option:selected").val();
 	var name = ($("#PROJECT_MANAGER option:selected").text()).split("-")[1].trim();
 	var part = ($("#PROJECT_MANAGER option:selected").text()).split("-")[0].trim();
-	var start = "<%=project.getPROJECT_START()%>";
+	var start =  "<%=project.getPROJECT_START()%>";
 	var end = "<%=project.getPROJECT_END()%>";
 	var inner = "";
-	inner += "<tr>";
+	inner += "<tr style='background-color: greenyellow'>";
 	inner += "<td style='display:none;'>"+id+"</td>";
-	inner += "<td>"+team+"</td>";
-	inner += "<td>"+part+"</td>";
-	inner += "<td>"+name+"</td>";
-	inner += "<td><input name="+id+"/startPM type=date value="+start+"></td>";
-	inner += "<td><input name="+id+"/endPM type=date value="+end+"></td>";
+	inner += "<td onclick='changePM(this)'>"+team+"</td>";
+	inner += "<td onclick='changePM(this)'>"+part+"</td>";
+	inner += "<td onclick='changePM(this)'>"+name+"</td>";
+	inner += "<td onclick='changePM(this)'><input name="+id+"/startPM type=date value="+start+"></td>";
+	inner += "<td onclick='changePM(this)'><input name="+id+"/endPM type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
 	inner += "</tr>";
 	var cnt =0;
+	
 	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
 		if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
 			cnt = 1;
@@ -175,6 +188,12 @@ function PMDelete(){
 		var te = text.replace(delID+" ", "");
 		$("#textValuePM").text(te);
 		tr.remove();
+		
+		if(delID == $("#PROJECT_MANAGER option:selected").val()){
+			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
+			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
+			$('#PROJECT_MANAGER').val(id).prop("selected", true);
+		}
 	});
 }
 
@@ -223,12 +242,12 @@ $(document).ready(function(){
 			%>
 			<tr>
 				<td style='display: none;'><%=careerPM.getId()%></td>
-				<td><%=member.getTEAM()%></td>
-				<td><%=member.getPART()%></td>
-				<td><%=member.getNAME()%></td>
-				<td><input name="<%=careerPM.getId()+"/startPM"%>" type=date value="<%=careerPM.getStart()%>"></td>
-				<td><input name="<%=careerPM.getId()+"/endPM"%>" type=date value="<%=careerPM.getEnd()%>"></td>
-				<td><input type='button' class='PMDel' value='삭제' /></td>
+				<td onclick="changePM(this)"><%=member.getTEAM()%></td>
+				<td onclick="changePM(this)"><%=member.getPART()%></td>
+				<td onclick="changePM(this)"><%=member.getNAME()%></td>
+				<td onclick="changePM(this)"><input name="<%=careerPM.getId()+"/startPM"%>" type=date value="<%=careerPM.getStart()%>"></td>
+				<td onclick="changePM(this)"><input name="<%=careerPM.getId()+"/endPM"%>" type=date value="<%=careerPM.getEnd()%>"></td>
+				<td><input type='button' class='PMDel' value='삭제'/></td>
 			</tr>
 			<%}%>
 		</tbody>

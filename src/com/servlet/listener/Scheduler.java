@@ -26,9 +26,7 @@ public class Scheduler {
 	ExcelExporter excel = new ExcelExporter();
 	ReportDAO reportDao = new ReportDAO();
 	ProjectDAO projectDao = new ProjectDAO();
-	Date nowTime = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
-	String nowWeek = sf.format(nowTime);
+	
 	
     public void startScheduleTask() {
     final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
@@ -55,12 +53,14 @@ public class Scheduler {
         new Runnable() {
             public void run() {
                 try {
-                	
+                	Date nowTime = new Date();
+                	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+                	String nowDate = sf.format(nowTime);
                 	Calendar cal = Calendar.getInstance();
             		String time = cal.getTime().toString().split(" |:")[3];
             		if(time.equals("05")) {
             			sheetMethod.synchronization();
-            			System.out.println("시트 동기화");
+            			System.out.println(nowDate+" --- 시트 동기화");
             		}
                     
                 }catch(Exception ex) {
@@ -69,12 +69,39 @@ public class Scheduler {
             }
         }, 0, 60, TimeUnit.MINUTES);
     }
+      
+    public void PreYear_project_copy() {
+        final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
+            new Runnable() {
+                public void run() {
+                    try {
+                       	Date nowTime = new Date();
+                    	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+                    	String nowDate = sf.format(nowTime);
+                    	String month = nowDate.split("-")[1];
+                    	String day = nowDate.split("-")[2];
+                    	if(month.equals("01")) {
+                    		if(day.equals("01")) {
+                    			projectDao.copy_preYearData();
+                    		}
+                    	}
+                        
+                    }catch(Exception ex) {
+                        ex.printStackTrace(); //or loggger would be better
+                    }
+                }
+            }, 0, 1, TimeUnit.DAYS);
+        }
     
     public void reportBackUp() throws GeneralSecurityException, IOException, Exception {
-			excel.export(nowWeek);
+	       	Date nowTime = new Date();
+	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+	    	String nowDate = sf.format(nowTime);
+			excel.export(nowDate);
 			DriveMethod.upload();
 		}
 }
+
 
 
 

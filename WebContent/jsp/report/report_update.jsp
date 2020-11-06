@@ -4,6 +4,8 @@
     import = "java.util.ArrayList"
     import = "jsp.DB.method.*"
     import = "jsp.Bean.model.*"
+    import="java.text.SimpleDateFormat"
+    import="java.util.Date"
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,12 +27,18 @@
 	
 	ReportDAO reportDao = new ReportDAO();
 	ProjectDAO projectDao = new ProjectDAO();
+	
+
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	int nowYear = Integer.parseInt(sf.format(nowTime));
+	
 	int no = Integer.parseInt(request.getParameter("no"));
 	int projectNo = Integer.parseInt(request.getParameter("projectNo"));
 	ReportBean report = reportDao.getReportBean(no);
 	String weekly = report.getWeekly();
 			
-	ProjectBean project = projectDao.getProjectBean_no(projectNo);
+	ProjectBean project = projectDao.getProjectBean_no(projectNo,nowYear);
 	String str = "";
 	
 	ReportBean backupReport = reportDao.getReportBackUp(projectNo,weekly); 

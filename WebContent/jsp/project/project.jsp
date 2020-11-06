@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="jsp.DB.method.*"
-	import="java.util.ArrayList"%>
+	import="java.util.ArrayList"
+	import="java.text.SimpleDateFormat"
+	import="java.util.Date"
+	%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,14 +21,27 @@
 	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
+	ProjectDAO projectDao = new ProjectDAO();
+	MemberDAO memberDao = new MemberDAO();
+	
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	int year = Integer.parseInt(sf.format(nowDate));
+	int nowYear = Integer.parseInt(sf.format(nowDate));
+	int yearCount = nowYear - projectDao.minYear() + 1;
+	
+	if(request.getParameter("selectYear") != null){
+		year = Integer.parseInt(request.getParameter("selectYear"));
+	}
+	
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
 	
-	ProjectDAO projectDao = new ProjectDAO();
-	MemberDAO memberDao = new MemberDAO();
-	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
+	
+	
+	ArrayList<ProjectBean> projectList = projectDao.getProjectList(year);
 	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
 	MemberBean myInfo = memberDao.returnMember(sessionID);
 	
@@ -248,6 +264,12 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script>
+	function listLoad(){
+		var year = $('#project_year').val();
+		location.href ="project.jsp?selectYear="+year;
+	}
+
+
 	var AttrList = '<%=myInfo.getSaveAttr()%>';
 	var outAttr = new Array();
 	for(var a=0; a<AttrList.split(" ").length; a++){
@@ -610,47 +632,44 @@
 	  				no : projectNo,
 	  				data2 : text,
 	  				attribute : attr,
+	  				year : <%=year%>
 	  			}
 	  		});
     	}
     }
     
-    function updatefocus(str, focus){
-    	location.href = "project_update.jsp?no="+str;
-    }
-    
     function updateCheck(projectNo, projectName, check, attr){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_reportcheck.jsp?no=' + projectNo + '&name=' + projectName + '&check=' + check + '&attr=' + attr, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    	window.open('update_reportcheck.jsp?no=' + projectNo + '&name=' + projectName + '&check=' + check + '&attr=' + attr +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
     }
     
     function updateState(projectNo, projectName, state){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_state.jsp?no=' + projectNo + '&name=' + projectName + '&state=' + state, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250'); 
+    	window.open('update_state.jsp?no=' + projectNo + '&name=' + projectName + '&state=' + state +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250'); 
     }
     
     function updateTeam(projectNo, projectName, team, what){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_team.jsp?no=' + projectNo + '&name=' + projectName + '&team=' + team + '&what=' + what, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    	window.open('update_team.jsp?no=' + projectNo + '&name=' + projectName + '&team=' + team + '&what=' + what +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
     }
     
     function updatePM(projectNo, projectName){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_pm.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=900, height=500');
+    	window.open('update_pm.jsp?no=' + projectNo + '&name=' + projectName +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=900, height=500');
     }
     
     function updateWorker(projectNo, projectName){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_worker.jsp?no=' + projectNo + '&name=' + projectName, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=900, height=700');
+    	window.open('update_worker.jsp?no=' + projectNo + '&name=' + projectName +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=900, height=700');
     }
     
     function updateStart(projectNo, projectName, startDate){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_start.jsp?no=' + projectNo + '&name=' + projectName + '&startDate=' + startDate, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
+    	window.open('update_start.jsp?no=' + projectNo + '&name=' + projectName + '&startDate=' + startDate +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
     }
     function updateEnd(projectNo, projectName, endDate){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('update_end.jsp?no=' + projectNo + '&name=' + projectName + '&endDate=' + endDate, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
+    	window.open('update_end.jsp?no=' + projectNo + '&name=' + projectName + '&endDate=' + endDate +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
     }
     
     
@@ -659,6 +678,8 @@
         cbLoad();
         cbAll();
         stateColor();
+        $('#project_year').val(<%=year%>).prop("selected",true);
+        
         $('.sortBTN').off("click",hideAttr);
         $('.loading').hide();
         $( window ).resize(function() {
@@ -936,6 +957,14 @@
 					<div class="card-header py-3">
 						<h6 class="m-0 font-weight-bold text-primary"
 							style="display: inline-block;">프로젝트 목록</h6>
+							
+						<select id="project_year" name="project_year" onchange="listLoad()">
+							<%
+								for(int i=0; i<yearCount; i++){%>
+									<option value='<%=nowYear-i%>'><%=nowYear-i%></option>
+							<%}%>
+							
+						</select>
 						<%
               	if(permission == 0){
               		%><form action="project_synchronization.jsp"
@@ -1020,7 +1049,7 @@
 										<td class="td" onclick="updateTeam('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getTEAM_SALES()%>', '매출')"><%=projectList.get(i).getTEAM_SALES()%></td>
 										<td class="td" id="<%=projectList.get(i).getNO()%>프로젝트코드"onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','프로젝트코드')"><%=projectList.get(i).getPROJECT_CODE()%></td>
 										<td>
-										<a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
+										<a href="project_update.jsp?no=<%=projectList.get(i).getNO()%>&year=<%=year%>"><div class="textover"><%=projectList.get(i).getPROJECT_NAME()%></div></a></td>
 										
 										<td class="td" id="state<%=projectList.get(i).getNO()%>" onclick="updateState('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getSTATE()%>')"><%=projectList.get(i).getSTATE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>실" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','실')"><%=projectList.get(i).getPART()%></td>

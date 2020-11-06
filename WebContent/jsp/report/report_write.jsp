@@ -31,14 +31,14 @@
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
 	String nowDate = sf.format(nowTime);
 	String weekly = reportDao.getWeekly(nowDate);
-	System.out.println(weekly);
 	int projectNo = Integer.parseInt(request.getParameter("projectNo"));
+	int nowYear = Integer.parseInt(nowDate.split("-")[0]);
 	
 	ReportBean PreReport = reportDao.getReportBackUp(projectNo,weekly);
-	ArrayList<ProjectBean> pjList = projectDao.getProjectList();
+	ArrayList<ProjectBean> pjList = projectDao.getProjectList(nowYear);
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
 	ProjectBean pjBean = new ProjectBean();
-	ProjectBean f_pjBean = projectDao.getProjectBean_no(unWrite.get(0).getNO());
+	ProjectBean f_pjBean = projectDao.getProjectBean_no(unWrite.get(0).getNO(),nowYear);
 	//String no = request.getParameter("no");
 	
 	String str = "";
@@ -475,7 +475,7 @@ legend {
 											<td><select id="title" name="TITLE" onchange="loactionPage()">
 											<option value="0" >선택</option>
 										<%for(int i=0; i<unWrite.size(); i++){
-		      		pjBean = projectDao.getProjectBean_no(unWrite.get(i).getNO());
+		      		pjBean = projectDao.getProjectBean_no(unWrite.get(i).getNO(),nowYear);
 		      		if(pjBean.getWORKER_LIST().contains(sessionID) || pjBean.getPROJECT_MANAGER().equals(sessionID)){
 		      		%><option  value="<%=unWrite.get(i).getNO()%>"><%=pjBean.getPROJECT_NAME()%></option>
 													<%}

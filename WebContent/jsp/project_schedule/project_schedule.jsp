@@ -29,6 +29,7 @@
 	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
+	int year = Integer.parseInt(date.split("-")[0]);
 	
 	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();
 	ArrayList<Project_sch_Bean> vh_project = projectList.get("미래차검증전략실");
@@ -316,7 +317,7 @@
 						inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
 	 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
 	 					if(<%=permission%> == 0){
-		  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+		  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
 		  				}else{
 		  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
 		  				}
@@ -330,7 +331,7 @@
 						inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
 	 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
 	 					if(<%=permission%> == 0){
-		  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+		  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
 		  				}else{
 		  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
 		  				}
@@ -348,7 +349,7 @@
 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
  					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
  					if(<%=permission%> == 0){
-	  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+	  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
 	  				}else{
 	  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
 	  				}
@@ -362,7 +363,7 @@
 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
  					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
  					if(<%=permission%> == 0){
-	  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+	  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
 	  				}else{
 	  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
 	  				}

@@ -25,17 +25,19 @@
 		ReportDAO reportDao = new ReportDAO();
 		ProjectDAO projectDao = new ProjectDAO();
 		MemberDAO memberDao = new MemberDAO();
+	
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+		String nowWeek = sf.format(nowTime);
+		int nowYear = Integer.parseInt(nowWeek.split("-")[0]);
 		
 		ReportBean report = reportDao.getReportBean(NO);
 		String weekly = report.getWeekly();
 		int projectNo = report.getProjectNo();
 		
 		ReportBean reportBackUp = reportDao.getReportBackUp(projectNo, weekly);
-		ProjectBean project = projectDao.getProjectBean_no(projectNo);
+		ProjectBean project = projectDao.getProjectBean_no(projectNo, nowYear);
 		
-		Date nowTime = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
-		String nowWeek = sf.format(nowTime);
 		
 		// 출력
 		String [] line;

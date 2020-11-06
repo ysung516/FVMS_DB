@@ -517,11 +517,11 @@ button:focus {
 			if(list != null){
 				
 				for(int i=0; i < list.size(); i++){
-					String pmID = projectDao.getProjectBean_no(list.get(i).getProjectNo()).getPROJECT_MANAGER();
+					String pmID = projectDao.getProjectBean_no(list.get(i).getProjectNo(), nowYear).getPROJECT_MANAGER();
 					%>
 									<tr style="text-align: left;">
 										<td><a href="report_view.jsp?no=<%=list.get(i).getNo()%>"><%=list.get(i).getTitle()%></a></td>
-										<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo()).getCLIENT()%></td>
+										<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo(), nowYear).getCLIENT()%></td>
 										<td><%=memberDao.returnMember(pmID).getNAME()%></td>
 										<td><%=list.get(i).getDate()%></td>
 									</tr>

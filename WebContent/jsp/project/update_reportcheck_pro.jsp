@@ -18,12 +18,13 @@
 	String sessionID = (String)session.getAttribute("sessionID");
 	
 	int no = Integer.parseInt(request.getParameter("no"));
+	int year = Integer.parseInt(request.getParameter("year"));
 	int check = Integer.parseInt(request.getParameter("chk_info"));
 	String attr = request.getParameter("attr");
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	int result = 0;
-	result = projectDao.updateCheck(no, check, attr);
+	result = projectDao.updateCheck(no, check, attr,year);
 	if(result == 1){
 		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
 	}else{

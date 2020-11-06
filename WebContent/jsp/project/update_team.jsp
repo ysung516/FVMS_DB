@@ -35,6 +35,7 @@
 	}
 	
 	int projectNo = Integer.parseInt(request.getParameter("no"));
+	int year = Integer.parseInt(request.getParameter("year"));
 	String projectName = request.getParameter("name");
 	String team = request.getParameter("team");
 	String what = request.getParameter("what");
@@ -73,6 +74,7 @@ $(document).ready(function(){
 	<p><%=what %>팀 수정</p>
 	<form method="post" action="update_team_pro.jsp" target="project.jsp">
 	<input type="hidden" name="no" value="<%=projectNo %>">
+	<input type="hidden" name="year" value="<%=year%>">
 	<input type="hidden" name="what" value="<%=what %>">
 	<select id="team" name="team">
 		<%for(int i=0; i<teamList.size(); i++){%>

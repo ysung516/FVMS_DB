@@ -36,6 +36,7 @@
 	
 	String no = request.getParameter("no");
 	int projectNo = Integer.parseInt(no);
+	int year = Integer.parseInt(request.getParameter("year"));
 	String projectName = request.getParameter("name");
 	
 	ProjectDAO projectDao = new ProjectDAO();
@@ -44,7 +45,7 @@
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	
-	ProjectBean project = projectDao.getProjectBean_no(projectNo);
+	ProjectBean project = projectDao.getProjectBean_no(projectNo, year);
 	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
 	String textWorker = "";
 	for(int i=0; i<careerList.size(); i++){

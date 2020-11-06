@@ -25,8 +25,8 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	SchDAO schDao = new SchDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	ArrayList<ProjectBean> projectList = schDao.getProjectList_sch();
-	ArrayList<schBean> schList = new ArrayList<schBean>();
+	ArrayList<schBean> schList = schDao.getProject_except8();
+	//ArrayList<schBean> schList = new ArrayList<schBean>();
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
@@ -42,7 +42,6 @@
 	
 	String str = "";
 
-	
 	ArrayList<MemberBean> List1 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List11 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List12 = new ArrayList<MemberBean>();
@@ -56,7 +55,6 @@
 	ArrayList<MemberBean> List23 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List24 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List25 = new ArrayList<MemberBean>();
-	
 	
 	ArrayList<MemberBean> List3 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> List31 = new ArrayList<MemberBean>();
@@ -213,71 +211,13 @@
 				List65.add(memberList.get(i));
 				ListT5.add(memberList.get(i));
 			}
-		}
-		
-		
+		}	
 	}
+
 	
    	String nowYear = sf.format(nowTime).split("-")[0];
    	int preYear = Integer.parseInt(nowYear) - 1;
    	int nextYear = Integer.parseInt(nowYear) + 1;
-	
-	for(int i=0; i<memberList.size(); i++){
-		for(int j=0; j<projectList.size(); j++){
-			schBean PMsch = new schBean();
-			if(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())){
-				PMsch.setName(memberList.get(i).getID());
-				PMsch.setName(memberList.get(i).getNAME());
-				PMsch.setTeam(memberList.get(i).getTEAM());
-				PMsch.setRank(memberList.get(i).getRANK());
-				PMsch.setProjectName(projectList.get(j).getPROJECT_NAME());
-				//PMsch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
-				PMsch.setPm(userName.get(userID.indexOf(projectList.get(j).getPROJECT_MANAGER())));
-				
-				String Wstr = "";
-				for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
-					//Wstr += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[z]).getNAME() + " ";
-					if(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[z]) == -1){
-						Wstr += "";
-						
-					} else{
-						Wstr += userName.get(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[z])) + " ";
-					}
-				}
-				PMsch.setWorkList(Wstr);
-				PMsch.setStart(projectList.get(j).getPROJECT_START());
-				PMsch.setEnd(projectList.get(j).getPROJECT_END());
-				schList.add(PMsch);
-			}
-			for(int z=0; z<projectList.get(j).getWORKER_LIST().split(" ").length; z++){
-				if(!(memberList.get(i).getID().equals(projectList.get(j).getPROJECT_MANAGER())) && memberList.get(i).getID().equals(projectList.get(j).getWORKER_LIST().split(" ")[z])){
-					//프로젝트 명, 착수, 종료, (이름, 소속팀, 직급)
-					schBean sch = new schBean();
-					sch.setId(memberList.get(i).getID());
-					sch.setName(memberList.get(i).getNAME());
-					sch.setTeam(memberList.get(i).getTEAM());
-					sch.setRank(memberList.get(i).getRANK());
-					sch.setProjectName(projectList.get(j).getPROJECT_NAME());
-					//sch.setPm(memberDao.returnMember(projectList.get(j).getPROJECT_MANAGER()).getNAME());
-					sch.setPm(userName.get(userID.indexOf(projectList.get(j).getPROJECT_MANAGER())));
-					String Wstr2 = "";
-					for(int x=0; x<projectList.get(j).getWORKER_LIST().split(" ").length; x++){
-						//Wstr2 += memberDao.returnMember(projectList.get(j).getWORKER_LIST().split(" ")[x]).getNAME() + " ";
-						if(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[x]) == -1){
-							Wstr2 += "";
-							
-						} else{
-							Wstr2 += userName.get(userID.indexOf(projectList.get(j).getWORKER_LIST().split(" ")[x])) + " ";
-						}
-					}
-					sch.setWorkList(Wstr2);
-					sch.setStart(projectList.get(j).getPROJECT_START());
-					sch.setEnd(projectList.get(j).getPROJECT_END());
-					schList.add(sch);
-				}	
-			}
-		}
-	}
 %>
 
 <style>
@@ -574,7 +514,7 @@ function drawChartOp5(){
 	  		}  	
 	<%}%>
 		if(cnt4 > 0){
-			$('#timelineChart5').height(cnt4*50);
+			$('#timelineChart5').height(cnt4*53);
 		}
 	  	chart.draw(dataTable);
 		nowLine('timelineChart5');

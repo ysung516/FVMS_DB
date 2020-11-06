@@ -23,14 +23,13 @@
 	session.setMaxInactiveInterval(60*60);
 	
 	MemberDAO memberDao = new MemberDAO();
-	ProjectDAO projectDao = new ProjectDAO();
 	SchDAO schDao = new SchDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	ArrayList<ProjectBean> projectList = schDao.getProjectList_sch();
 	ArrayList<schBean> schList = schDao.getProject_except8();
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
+	int year = Integer.parseInt(date.split("-")[0]);
 	
 	ArrayList<String> userID = new ArrayList<String>();
 	ArrayList<String> userName = new ArrayList<String>();
@@ -42,7 +41,6 @@
 	
 	String str = "";
 	
-	//ArrayList<schBean> schList = schDao.getProject_except8();
 	
 %>
 <meta charset="utf-8">
@@ -1302,7 +1300,7 @@
        	  						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT1.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1323,7 +1321,7 @@
        	  						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT2.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -1394,7 +1392,7 @@
 
     function viewDetail(id){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('detail_PR.jsp?id=' + id, 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
+    	window.open('detail_PR.jsp?id='+id+'&year='+<%=year%> , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
     }
        
    	function goPrint(){

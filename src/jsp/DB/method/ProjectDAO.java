@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.mysql.cj.protocol.Resultset;
@@ -12,9 +14,12 @@ import com.mysql.cj.protocol.Resultset;
 import jsp.Bean.model.*;
 
 public class ProjectDAO {
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	
 	public ProjectDAO() {}
-	// 프로젝트명으로 해당 데이터 가져오기
-	public ProjectBean getProjectBean_no(int no) {
+	// 프로젝트번호로 해당 데이터 가져오기
+	
+	public ProjectBean getProjectBean_no(int no, int year) {
 		ProjectBean project = new ProjectBean();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -22,44 +27,46 @@ public class ProjectDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from project where no=?");
+	    	query.append("select * from project where no=? and year=?");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setInt(1, no);
+	    	pstmt.setInt(2, year);
 	    	rs = pstmt.executeQuery();
 	    	
 	    	if(rs.next()) {
-	    		project.setTEAM_ORDER(rs.getString(1));
-	    		project.setTEAM_SALES(rs.getString(2));
-	    		project.setPROJECT_CODE(rs.getString(3));
-	    		project.setPROJECT_NAME(rs.getString(4));
-	    		project.setSTATE(rs.getString(5));
-	    		project.setPART(rs.getString(6));
-	    		project.setCLIENT(rs.getString(7));
-	    		project.setClIENT_PART(rs.getString(8));
-	    		project.setMAN_MONTH(rs.getFloat(9));
-	    		project.setPROJECT_DESOPIT(rs.getFloat(10));
-	    		project.setFH_ORDER_PROJECTIONS(rs.getFloat(11));
-	    		project.setFH_ORDER(rs.getFloat(12));
-	    		project.setFH_SALES_PROJECTIONS(rs.getFloat(13));
-	    		project.setFH_SALES(rs.getFloat(14));
-	    		project.setSH_ORDER_PROJECTIONS(rs.getFloat(15));
-	    		project.setSH_ORDER(rs.getFloat(16));
-	    		project.setSH_SALES_PROJECTIONS(rs.getFloat(17));
-	    		project.setSH_SALES(rs.getFloat(18));
-	    		project.setPROJECT_START(rs.getString(19));
-	    		project.setPROJECT_END(rs.getString(20));
-	    		project.setCLIENT_PTB(rs.getString(21));
-	    		project.setWORK_PLACE(rs.getString(22));
-	    		project.setWORK(rs.getString(23));
-	    		project.setPROJECT_MANAGER(rs.getString(24));
-	    		project.setWORKER_LIST(rs.getString(25));
-	    		project.setASSESSMENT_TYPE(rs.getString(26));
-	    		project.setEMPLOY_DEMAND(rs.getFloat(27));
-	    		project.setOUTSOURCE_DEMAND(rs.getFloat(28));
-	    		project.setREPORTCHECK(rs.getInt(29));
-	    		project.setRESULT_REPORT(rs.getInt(30));
-	    		project.setNO(rs.getInt(31));
+	    		project.setTEAM_ORDER(rs.getString("팀_수주"));
+	    		project.setTEAM_SALES(rs.getString("팀_매출"));
+	    		project.setPROJECT_CODE(rs.getString("프로젝트코드"));
+	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
+	    		project.setSTATE(rs.getString("상태"));
+	    		project.setPART(rs.getString("실"));
+	    		project.setCLIENT(rs.getString("고객사"));
+	    		project.setClIENT_PART(rs.getString("고객부서"));
+	    		project.setMAN_MONTH(rs.getFloat("ManMonth"));
+	    		project.setPROJECT_DESOPIT(rs.getFloat("프로젝트계약금액_백만"));
+	    		project.setFH_ORDER_PROJECTIONS(rs.getFloat("상반기예상수주"));
+	    		project.setFH_ORDER(rs.getFloat("상반기수주"));
+	    		project.setFH_SALES_PROJECTIONS(rs.getFloat("상반기예상매출"));
+	    		project.setFH_SALES(rs.getFloat("상반기매출"));
+	    		project.setSH_ORDER_PROJECTIONS(rs.getFloat("하반기예상수주"));
+	    		project.setSH_ORDER(rs.getFloat("하반기수주"));
+	    		project.setSH_SALES_PROJECTIONS(rs.getFloat("하반기예상매출"));
+	    		project.setSH_SALES(rs.getFloat("하반기매출"));
+	    		project.setPROJECT_START(rs.getString("착수"));
+	    		project.setPROJECT_END(rs.getString("종료"));
+	    		project.setCLIENT_PTB(rs.getString("고객담당자"));
+	    		project.setWORK_PLACE(rs.getString("근무지"));
+	    		project.setWORK(rs.getString("업무"));
+	    		project.setPROJECT_MANAGER(rs.getString("PM"));
+	    		project.setWORKER_LIST(rs.getString("투입명단"));
+	    		project.setASSESSMENT_TYPE(rs.getString("평가유형"));
+	    		project.setEMPLOY_DEMAND(rs.getFloat("채용수요"));
+	    		project.setOUTSOURCE_DEMAND(rs.getFloat("외주수요"));
+	    		project.setREPORTCHECK(rs.getInt("주간보고서사용"));
+	    		project.setRESULT_REPORT(rs.getInt("실적보고"));
+	    		project.setNO(rs.getInt("no"));
+	    		project.setYear(rs.getInt("year"));
 	    	}
 	    	
 	    	
@@ -80,45 +87,49 @@ public class ProjectDAO {
 			ResultSet rs = null;
 			ArrayList<ProjectBean> pjList = new ArrayList<ProjectBean>();
 			try {
+				Date nowDate = new Date();
+				int nowYear = Integer.parseInt(sf.format(nowDate));
 				StringBuffer query = new StringBuffer();
-		    	query.append("select * from project where 실적보고 = 1 order by 상태");
+		    	query.append("select * from project where year="+nowYear+" and 실적보고 = 1 and year=? order by 상태");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setInt(1, nowYear);
 		    	rs = pstmt.executeQuery();
 		    	
 		    	while(rs.next()) {
 		    		ProjectBean project = new ProjectBean();
-		    		project.setTEAM_ORDER(rs.getString(1));
-		    		project.setTEAM_SALES(rs.getString(2));
-		    		project.setPROJECT_CODE(rs.getString(3));
-		    		project.setPROJECT_NAME(rs.getString(4));
-		    		project.setSTATE(rs.getString(5));
-		    		project.setPART(rs.getString(6));
-		    		project.setCLIENT(rs.getString(7));
-		    		project.setClIENT_PART(rs.getString(8));
-		    		project.setMAN_MONTH(rs.getFloat(9));
-		    		project.setPROJECT_DESOPIT(rs.getFloat(10));
-		    		project.setFH_ORDER_PROJECTIONS(rs.getFloat(11));
-		    		project.setFH_ORDER(rs.getFloat(12));
-		    		project.setFH_SALES_PROJECTIONS(rs.getFloat(13));
-		    		project.setFH_SALES(rs.getFloat(14));
-		    		project.setSH_ORDER_PROJECTIONS(rs.getFloat(15));
-		    		project.setSH_ORDER(rs.getFloat(16));
-		    		project.setSH_SALES_PROJECTIONS(rs.getFloat(17));
-		    		project.setSH_SALES(rs.getFloat(18));
-		    		project.setPROJECT_START(rs.getString(19));
-		    		project.setPROJECT_END(rs.getString(20));
-		    		project.setCLIENT_PTB(rs.getString(21));
-		    		project.setWORK_PLACE(rs.getString(22));
-		    		project.setWORK(rs.getString(23));
-		    		project.setPROJECT_MANAGER(rs.getString(24));
-		    		project.setWORKER_LIST(rs.getString(25));
-		    		project.setASSESSMENT_TYPE(rs.getString(26));
-		    		project.setEMPLOY_DEMAND(rs.getFloat(27));
-		    		project.setOUTSOURCE_DEMAND(rs.getFloat(28));
-		    		project.setREPORTCHECK(rs.getInt(29));
-		    		project.setRESULT_REPORT(rs.getInt(30));
-		    		project.setNO(rs.getInt(31));
+		    		project.setTEAM_ORDER(rs.getString("팀_수주"));
+		    		project.setTEAM_SALES(rs.getString("팀_매출"));
+		    		project.setPROJECT_CODE(rs.getString("프로젝트코드"));
+		    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
+		    		project.setSTATE(rs.getString("상태"));
+		    		project.setPART(rs.getString("실"));
+		    		project.setCLIENT(rs.getString("고객사"));
+		    		project.setClIENT_PART(rs.getString("고객부서"));
+		    		project.setMAN_MONTH(rs.getFloat("ManMonth"));
+		    		project.setPROJECT_DESOPIT(rs.getFloat("프로젝트계약금액_백만"));
+		    		project.setFH_ORDER_PROJECTIONS(rs.getFloat("상반기예상수주"));
+		    		project.setFH_ORDER(rs.getFloat("상반기수주"));
+		    		project.setFH_SALES_PROJECTIONS(rs.getFloat("상반기예상매출"));
+		    		project.setFH_SALES(rs.getFloat("상반기매출"));
+		    		project.setSH_ORDER_PROJECTIONS(rs.getFloat("하반기예상수주"));
+		    		project.setSH_ORDER(rs.getFloat("하반기수주"));
+		    		project.setSH_SALES_PROJECTIONS(rs.getFloat("하반기예상매출"));
+		    		project.setSH_SALES(rs.getFloat("하반기매출"));
+		    		project.setPROJECT_START(rs.getString("착수"));
+		    		project.setPROJECT_END(rs.getString("종료"));
+		    		project.setCLIENT_PTB(rs.getString("고객담당자"));
+		    		project.setWORK_PLACE(rs.getString("근무지"));
+		    		project.setWORK(rs.getString("업무"));
+		    		project.setPROJECT_MANAGER(rs.getString("PM"));
+		    		project.setWORKER_LIST(rs.getString("투입명단"));
+		    		project.setASSESSMENT_TYPE(rs.getString("평가유형"));
+		    		project.setEMPLOY_DEMAND(rs.getFloat("채용수요"));
+		    		project.setOUTSOURCE_DEMAND(rs.getFloat("외주수요"));
+		    		project.setREPORTCHECK(rs.getInt("주간보고서사용"));
+		    		project.setRESULT_REPORT(rs.getInt("실적보고"));
+		    		project.setNO(rs.getInt("no"));
+		    		project.setYear(rs.getInt("year"));
 		    		pjList.add(project);
 		    	}
 		    	
@@ -143,10 +154,13 @@ public class ProjectDAO {
 		ResultSet rs = null;
 		
 		try {
+			Date nowDate = new Date();
+			int nowYear = Integer.parseInt(sf.format(nowDate));
 			StringBuffer query = new StringBuffer();
-	    	query.append("select count(*) from project where 주간보고서사용=1");
+	    	query.append("select count(*) from project where 주간보고서사용=1 and year =?");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setInt(1, nowYear);
 	    	rs = pstmt.executeQuery();
 	    	if(rs.next())
 	    		num = rs.getInt(1);
@@ -220,7 +234,8 @@ public class ProjectDAO {
 		float EMPLOY_DEMAND,
 		float OUTSOURCE_DEMAND,
 		int REPORT_CHECK,
-		int RESULT_REPORT) 
+		int RESULT_REPORT
+		) 
 	
 	{
 		Connection conn = null;
@@ -229,10 +244,12 @@ public class ProjectDAO {
 		int no = 0;
 		
 		try {
+			Date nowDate = new Date();
+			int nowYear = Integer.parseInt(sf.format(nowDate));
 			StringBuffer query = new StringBuffer();
 	    	query.append("insert into project(팀_수주,팀_매출,프로젝트코드,프로젝트명,상태,실,고객사,고객부서,ManMonth,프로젝트계약금액_백만,"
 	    			+ "상반기예상수주,상반기수주,상반기예상매출,상반기매출,하반기예상수주,하반기수주,하반기예상매출,하반기매출,착수,종료,고객담당자,근무지,"
-	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요,주간보고서사용,실적보고) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요,주간보고서사용,실적보고,year) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM_ORDER);
@@ -265,6 +282,7 @@ public class ProjectDAO {
 	    	pstmt.setFloat(28, OUTSOURCE_DEMAND);
 	    	pstmt.setInt(29, REPORT_CHECK);
 	    	pstmt.setInt(30, RESULT_REPORT);
+	    	pstmt.setInt(31, nowYear);
 	    	pstmt.executeUpdate();
 	    	// no 반환
 	    	rs = pstmt.executeQuery("select last_insert_id()");
@@ -315,7 +333,9 @@ public class ProjectDAO {
 		float OUTSOURCE_DEMAND,
 		int REPORT_CHECK,
 		int RESULT_REPORT,
-		int NO) 
+		int NO,
+		int year
+		) 
 	
 	{
 		Connection conn = null;
@@ -326,7 +346,7 @@ public class ProjectDAO {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET 팀_수주=?,팀_매출=?,프로젝트코드=?,프로젝트명=?,상태=?,실=?,고객사=?,고객부서=?,ManMonth=?,프로젝트계약금액_백만=?,"
 	    			+ "상반기예상수주=?,상반기수주=?,상반기예상매출=?,상반기매출=?,하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,착수=?,종료=?,고객담당자=?,근무지=?,"
-	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=?,실적보고=? WHERE no=?;");
+	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=?,실적보고=? WHERE no=? and year=?;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM_ORDER);
@@ -360,6 +380,7 @@ public class ProjectDAO {
 	    	pstmt.setInt(29, REPORT_CHECK);
 	    	pstmt.setInt(30, RESULT_REPORT);
 	    	pstmt.setInt(31, NO);
+	    	pstmt.setInt(32, year);
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -373,7 +394,7 @@ public class ProjectDAO {
 	}
 	
 	// 프로젝트 리스트 가져오기
-	public ArrayList<ProjectBean> getProjectList(){
+	public ArrayList<ProjectBean> getProjectList(int year){
 		ArrayList<ProjectBean> projectList = new ArrayList<ProjectBean>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -381,9 +402,10 @@ public class ProjectDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from project order by 상태, 착수");
+	    	query.append("select * from project where year=? order by 상태, 착수");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setInt(1, year);
 	    	rs = pstmt.executeQuery();
 	    	
 	    	while(rs.next()) {
@@ -450,10 +472,13 @@ public class ProjectDAO {
 		ResultSet rs = null;
 		
 		try {
+			Date nowDate = new Date();
+			int nowYear = Integer.parseInt(sf.format(nowDate));
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from project where 상태 != '8.Dropped'");
+	    	query.append("select * from project where 상태 != '8.Dropped' and year=?");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setInt(1, nowYear);
 	    	rs = pstmt.executeQuery();
 	    	
 	    	while(rs.next()) {
@@ -553,16 +578,17 @@ public class ProjectDAO {
 	}
 	
 	// 프로젝트 조회에서 업데이트
-	public int updateData(int no, String data, String attr) {
+	public int updateData(int no, String data, String attr, int year) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			conn = DBconnection.getConnection();
-			pstmt = conn.prepareStatement("update project set "+attr+"=? where no=?");
+			pstmt = conn.prepareStatement("update project set "+attr+"=? where no=? and year=?");
 			pstmt.setString(1, data);
 			pstmt.setInt(2, no);
+			pstmt.setInt(3, year);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -599,17 +625,17 @@ public class ProjectDAO {
 	
 	
 	
-	public int updateCheck(int no, int check, String attr) {
+	public int updateCheck(int no, int check, String attr, int year) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			conn = DBconnection.getConnection();
-			pstmt = conn.prepareStatement("update project set " + attr + "=? where no=?");
+			pstmt = conn.prepareStatement("update project set " + attr + "=? where no=? and year=?");
 			pstmt.setInt(1, check);
 			pstmt.setInt(2, no);
-			
+			pstmt.setInt(3, year);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -622,17 +648,17 @@ public class ProjectDAO {
 		return result;
 	}
 	
-	public int updateState(int no, String state) {
+	public int updateState(int no, String state, int year) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			conn = DBconnection.getConnection();
-			pstmt = conn.prepareStatement("update project set 상태=? where no=?");
+			pstmt = conn.prepareStatement("update project set 상태=? where no=? and year=?");
 			pstmt.setString(1, state);
 			pstmt.setInt(2, no);
-			
+			pstmt.setInt(3, year);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -645,7 +671,7 @@ public class ProjectDAO {
 		return result;
 	}
 	
-	public int updateTeam(int no, String team, String what) {
+	public int updateTeam(int no, String team, String what, int year) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -653,10 +679,10 @@ public class ProjectDAO {
 		
 		try {
 			conn = DBconnection.getConnection();
-			pstmt = conn.prepareStatement("update project set "+sel+"=? where no=?");
+			pstmt = conn.prepareStatement("update project set "+sel+"=? where no=? and year=?");
 			pstmt.setString(1, team);
 			pstmt.setInt(2, no);
-			
+			pstmt.setInt(3, year);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -669,7 +695,7 @@ public class ProjectDAO {
 		return result;
 	}
 	
-	public int updatePM(int no, String pm) {
+	public int updatePM(int no, String pm ) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -679,7 +705,6 @@ public class ProjectDAO {
 			pstmt = conn.prepareStatement("update project set PM=? where no=?");
 			pstmt.setString(1, pm);
 			pstmt.setInt(2, no);
-			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -702,7 +727,6 @@ public class ProjectDAO {
 			pstmt = conn.prepareStatement("update project set 투입명단=? where no=?");
 			pstmt.setString(1, worker);
 			pstmt.setInt(2, no);
-			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -724,7 +748,7 @@ public class ProjectDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET ManMonth=?,프로젝트계약금액_백만=?,상반기예상수주=?,상반기수주=?,상반기예상매출=?,상반기매출=?,"
-	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE no=?;");
+	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=?,누적매출=? WHERE no=?;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setFloat(1, 0);
@@ -740,7 +764,9 @@ public class ProjectDAO {
 	    	pstmt.setFloat(11, 0);
 	    	pstmt.setFloat(12, 0);
 	    	pstmt.setInt(13, 0);
-	    	pstmt.setInt(14, NO);
+	    	pstmt.setFloat(14, 0);
+	    	pstmt.setInt(15, NO);
+	    	
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -762,8 +788,7 @@ public class ProjectDAO {
 		ResultSet rs = null;
 		try {
 			StringBuffer query = new StringBuffer();
-			query.append("select career.* from rank ,career, member where career.id = member.id and member.직급 = rank.rank and projectNo = ? and pm = 0 order by field(member.소속,'슈어소프트테크')desc, member.소속, rank.rank_id, member.이름");
-	    	//query.append("select * from career where projectNo = ? and pm = 0 order by end DESC");
+			query.append("select career.* from rank ,career, member where career.id = member.id and member.직급 = rank.rank and projectNo = ? and pm = 0 order by field(member.소속,'슈어소프트테크')desc, member.소속, rank.rank_id, member.이름");	    	
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, projectNo);
@@ -875,4 +900,107 @@ public class ProjectDAO {
 			return rs;
 		}
 	
+		// 프로젝트 전년도 데이터 복사
+		
+		
+		
+		// 전년도 프로젝트 복사(상태 : DROP, 종료 제외)
+		public int copy_preYearData() 
+		
+		{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int no = 0;
+			
+			
+			try {
+				Date nowDate = new Date();
+				int nowYear = Integer.parseInt(sf.format(nowDate));
+				StringBuffer query = new StringBuffer();
+		    	query.append("insert into project (select 팀_수주, 팀_매출, 프로젝트코드, 프로젝트명, 상태, 실, 고객사, 고객부서, ManMonth, 프로젝트계약금액_백만, 상반기예상수주, 상반기수주, 상반기예상매출, 상반기매출, 하반기예상수주,"
+		    			+ "하반기수주, 하반기예상매출, 하반기매출, 착수, 종료, 고객담당자, 근무지, 업무, PM, 투입명단, 평가유형, 채용수요, 외주수요, 주간보고서사용, 실적보고,no, (year+1) as year"
+		    			+ " from project where year = "+ (nowYear-1) +" and 상태 != '8.Dropped')");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.executeUpdate();
+	
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			
+			return no;
+		}
+		// 전년도 프로젝트 복사
+		public int update_preYearData() 
+		{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int no = 0;
+			
+			try {
+				Date nowDate = new Date();
+				int nowYear = Integer.parseInt(sf.format(nowDate));
+				StringBuffer query = new StringBuffer();
+		    	query.append("update project set 실적보고=0 where year="+(nowYear)+" and 상태 = '7.종료'");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.executeUpdate();
+	
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			
+			return no;
+		}
+		public int minYear() {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    int year = 0;
+		    
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("select min(year) from project");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	if(rs.next()) {
+		    		year = rs.getInt("min(year)");
+		    	}
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return year;
+		}
+
+			/*
+			public static void main(String[] args) {
+				 //TODO Auto-generated method stub
+				ProjectDAO projectDao = new ProjectDAO();
+				projectDao.copy_preYearData();
+				projectDao.update_preYearData();
+			}
+			*/
+
+		
+		
+		
+		
 }	// end 

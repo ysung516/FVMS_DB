@@ -20,7 +20,7 @@
 	session.setMaxInactiveInterval(60*60);
 	
 	String id = request.getParameter("id");
-	
+	int year = Integer.parseInt(request.getParameter("year"));
 	MemberDAO memberDao = new MemberDAO();
 	MemberBean memInfo = memberDao.returnMember(id);
 	String Name = memInfo.getNAME();
@@ -67,14 +67,14 @@
 				
 				if(careerList.get(i).getProjectState().equals("6.진행중")){%>
 					<tr style="background-color:greenyellow;">
-						<td><a href="../project/project_update.jsp?no=<%=careerList.get(i).getProjectNo()%>"><%=careerList.get(i).getProjectName() %></a></td>
+						<td><a href="../project/project_update.jsp?no=<%=careerList.get(i).getProjectNo()%>&year=<%=year%>"><%=careerList.get(i).getProjectName() %></a></td>
 						<td style="text-align:center;"><%=careerList.get(i).getStart() %></td>
 						<td style="text-align:center;"><%=careerList.get(i).getEnd() %></td>
 						<td style="text-align:center;"><%=pmCheck %></td>
 					</tr>
 				<%}else{%>
 					<tr>
-						<td><a href="../project/project_update.jsp?no=<%=careerList.get(i).getProjectNo()%>"><%=careerList.get(i).getProjectName() %></a></td>
+						<td><a href="../project/project_update.jsp?no='<%=careerList.get(i).getProjectNo()%>&year=<%=year%>"><%=careerList.get(i).getProjectName() %></a></td>
 						<td style="text-align:center;"><%=careerList.get(i).getStart() %></td>
 						<td style="text-align:center;"><%=careerList.get(i).getEnd() %></td>
 						<td style="text-align:center;"><%=pmCheck %></td>

@@ -34,6 +34,8 @@
 	}
 	
 	int projectNo = Integer.parseInt(request.getParameter("no"));
+	int year = Integer.parseInt(request.getParameter("year"));
+	
 	String projectName = request.getParameter("name");
 	String endDate = request.getParameter("endDate");
 	
@@ -61,6 +63,7 @@
 	<p>종료 수정</p>
 	<form method="post" action="update_endPro.jsp" target="project.jsp">
 		<input type="hidden" name="no" value="<%=projectNo %>">
+		<input type="hidden" name="year" value="<%=year%>">
 		<input type="date" name="endDate" value="<%=endDate%>">
 		<br>
 		<input type="submit" onclick="window.close()" name="submit" id="submit" value="수정">

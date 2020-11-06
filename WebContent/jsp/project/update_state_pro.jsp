@@ -18,11 +18,12 @@
 	String sessionID = (String)session.getAttribute("sessionID");
 	
 	int no = Integer.parseInt(request.getParameter("no"));
+	int year = Integer.parseInt(request.getParameter("year"));
 	String state = request.getParameter("state");
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	
-	if(projectDao.updateState(no, state) == 1){
+	if(projectDao.updateState(no, state,year) == 1){
 		if(state.equals("8.Dropped")){
 			projectDao.projectDropped(no);
 		}

@@ -35,6 +35,8 @@
 	int projectNo = Integer.parseInt(request.getParameter("no"));
 	String projectName = request.getParameter("name");
 	int check = Integer.parseInt(request.getParameter("check"));
+	int year = Integer.parseInt(request.getParameter("year"));
+	
 	String attr = request.getParameter("attr");
 	
 	ProjectDAO projectDao = new ProjectDAO();	
@@ -72,6 +74,7 @@ $(document).ready(function(){
 	<form method="post" action="update_reportcheck_pro.jsp" target="project.jsp">
 	<input type="hidden" name="no" value="<%=projectNo %>">
 	<input type="hidden" name="attr" value="<%=attr %>">
+	<input type="hidden" name="year" value="<%=year %>">
 	<label><input type="radio" name="chk_info" value="1">ON</label>
 	<label><input type="radio" name="chk_info" value="0">OFF</label>
 	<br>

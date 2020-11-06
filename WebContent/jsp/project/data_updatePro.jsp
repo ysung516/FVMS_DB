@@ -20,12 +20,13 @@
 		}
 		
 		int projectNo = Integer.parseInt(request.getParameter("no"));
+		int year = Integer.parseInt(request.getParameter("year"));
 		String data = request.getParameter("data2");
 		String attr = request.getParameter("attribute");
 		
 		ProjectDAO projectDao = new ProjectDAO();
 		
-		projectDao.updateData(projectNo, data, attr); 
+		projectDao.updateData(projectNo, data, attr,year); 
 	%>
 </body>
 </html>

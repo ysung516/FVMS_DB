@@ -32,7 +32,15 @@ public class ProjectBean {
 	private int REPORTCHECK; //주간보고서여부
 	private int RESULT_REPORT; //실적보고
 	private int NO;
+	private int year;	// 년도
 	
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+
 	public String getTEAM_SALES() {
 		return TEAM_SALES;
 	}

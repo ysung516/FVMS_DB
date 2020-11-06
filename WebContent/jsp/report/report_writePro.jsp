@@ -22,16 +22,19 @@
 		ReportDAO reportDao = new ReportDAO();
 		MemberDAO memberDao = new MemberDAO();
 		ProjectDAO projectDao = new ProjectDAO();
+		
 		String sessionID = (String)session.getAttribute("sessionID");
 		MemberBean member = memberDao.returnMember(sessionID);
 		
 		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+		int nowYear = Integer.parseInt(sf.format(nowTime).split("-")[0]); 
 		if(request.getParameter("TITLE") == null){
 			script.print("<script> alert('보고서 제목이 입력되지 않았습니다.'); history.back(); </script>");
 		}	else {
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+				
 				int projectNo = Integer.parseInt(request.getParameter("TITLE"));
-				String title = projectDao.getProjectBean_no(projectNo).getPROJECT_NAME();
+				String title = projectDao.getProjectBean_no(projectNo,nowYear).getPROJECT_NAME();
 				String writeDate = sf.format(nowTime);
 				String weekPlan = request.getParameter("WeekPlan");
 				String weekPro = request.getParameter("WeekPro");

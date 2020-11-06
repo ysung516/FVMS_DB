@@ -26,6 +26,8 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
 	
+	int year = Integer.parseInt(request.getParameter("year"));
+	
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
@@ -40,7 +42,7 @@
 	}
 	
 	
-	ProjectBean project = projectDao.getProjectBean_no(Integer.parseInt(no));
+	ProjectBean project = projectDao.getProjectBean_no(Integer.parseInt(no), year);
 	MemberBean PMdata = memberDao.returnMember(project.getPROJECT_MANAGER());
 	
 	String[] workerID = {};	//투입명단 id 저장용
@@ -797,6 +799,9 @@ function btn_copy(){
 										</tr>
 										<tr align="center">
 											<td colspan="2">
+											
+											<input type="hidden" name="year" value="<%=year%>">
+											
 											<input id="COMPLETE" type="submit"
 												name="COMPLETE" value="수정" class="btn btn-primary">
 												<a href="project.jsp" class="btn btn-primary">취소</a></td>

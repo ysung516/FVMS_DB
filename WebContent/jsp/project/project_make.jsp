@@ -24,9 +24,13 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
 	
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	int nowYear = Integer.parseInt(sf.format(nowDate));
+	
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<ProjectBean> projectList = projectDao.getProjectList();
+	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 %>
@@ -165,41 +169,52 @@ function sortSelect(selId) {
 		sel.html(optionList); 
 }
 
-//투입명단선택
-function getSelectValue(){
-	//팀, 이름 저장
-	var team = $("#teamlist option:selected").val();
-	var id = $("#WORKER_LIST option:selected").val();
-	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
-	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
-	var start = $("#PROJECT_START").val();
-	var end = $("#PROJECT_END").val();
+	//투입명단선택
+	function getSelectValue(){
+		//팀, 이름 저장
+		var team = $("#teamlist option:selected").val();
+		var id = $("#WORKER_LIST option:selected").val();
+		var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
+		var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
+		var start = $("#PROJECT_START").val();
+		var end = $("#PROJECT_END").val();
 
-	
-	var inner = "";
-	inner += "<tr style='background-color: greenyellow'>";
-	inner += "<td style='display:none;'>"+id+"</td>";
-	inner += "<td>"+team+"</td>";
-	inner += "<td>"+part+"</td>";
-	inner += "<td>"+name+"</td>";
-	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
-	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
-	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
-	inner += "</tr>";
-	var cnt =0;
-	
-	for(var a=0; a<$('#workerListAdd tr').length; a++){
-		if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
-			cnt = 1;
+		
+		var inner = "";
+		inner += "<tr style='background-color: greenyellow'>";
+		inner += "<td style='display:none;'>"+id+"</td>";
+		inner += "<td>"+team+"</td>";
+		inner += "<td>"+part+"</td>";
+		inner += "<td>"+name+"</td>";
+		inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
+		inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
+		inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
+		inner += "</tr>";
+		var cnt =0;
+		
+		for(var a=0; a<$('#workerListAdd tr').length; a++){
+			if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
+				cnt = 1;
+			}
+		}
+		
+		if (cnt == 0){
+			$('#workerListAdd').prepend(inner);
+			$("#textValue2").append(id+" ");
+		} else{
+			alert('이미 등록되어있는 명단 입니다');
 		}
 	}
 	
-	if (cnt == 0){
-		$('#workerListAdd').prepend(inner);
-		$("#textValue2").append(id+" ");
-	} else{
-		alert('이미 등록되어있는 명단 입니다');
-	}
+//PM 변경 ==> 표 클릭
+function changePM(td){
+	var tr = $(td).parent();
+	var td = tr.children();
+	
+	$('#workerListAdd_PM tr').css("background-color","white");
+	$(tr).css("background-color","yellow");
+	
+	$('#PROJECT_MANAGER').val(td.eq(0).text()).prop("selected", true);
 }
 
 //PM선택
@@ -214,11 +229,11 @@ function getSelectPM(){
 	var inner = "";
 	inner += "<tr style='background-color: greenyellow'>";
 	inner += "<td style='display:none;'>"+id+"</td>";
-	inner += "<td>"+team+"</td>";
-	inner += "<td>"+part+"</td>";
-	inner += "<td>"+name+"</td>";
-	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
-	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
+	inner += "<td onclick='changePM(this)'>"+team+"</td>";
+	inner += "<td onclick='changePM(this)'>"+part+"</td>";
+	inner += "<td onclick='changePM(this)'>"+name+"</td>";
+	inner += "<td onclick='changePM(this)'><input name="+id+"/startPM type=date value="+start+"></td>";
+	inner += "<td onclick='changePM(this)'><input name="+id+"/endPM type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
 	inner += "</tr>";
 	var cnt =0;
@@ -239,8 +254,15 @@ function getSelectPM(){
 		//id 저장
 		$("#textValuePM").append(id+" ");
 	} else{
+		for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
+			if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+				$('#workerListAdd_PM tr').css("background-color","white");
+				$('#workerListAdd_PM tr:eq('+a+')').css("background-color","yellow");
+			}
+		}
 		alert('이미 등록되어있는 PM입니다');
 	}
+	
 }
 
 //명단삭제
@@ -259,7 +281,6 @@ function workDelete(){
 	});
 }
 
-
 //PM명단삭제
 function PMDelete(){
 	$(document).on("click",".PMDel",function(){
@@ -274,6 +295,12 @@ function PMDelete(){
 		var te = text.replace(delID+" ", "");
 		$("#textValuePM").text(te);
 		tr.remove();
+		
+		if(delID == $("#PROJECT_MANAGER option:selected").val()){
+			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
+			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
+			$('#PROJECT_MANAGER').val(id).prop("selected", true);
+		}
 	});
 }
 
@@ -348,8 +375,7 @@ function btn_insert(){
 	
 	var cnt = -1;
 	<%
-		for(int z=0; z<projectList.size(); z++){
-			
+		for(int z=0; z<projectList.size(); z++){		
 			%>
 				no[<%=z%>] = '<%=projectList.get(z).getNO()%>';
 				team_order[<%=z%>] = '<%=projectList.get(z).getTEAM_ORDER()%>';

@@ -57,6 +57,7 @@
 		  int REPORT_CHECK = Integer.parseInt(request.getParameter("reportCheck"));
 		  int RESULT_REPORT = Integer.parseInt(request.getParameter("sheetCheck"));
 		  int NO = Integer.parseInt(request.getParameter("NO"));
+		  int year = Integer.parseInt(request.getParameter("year"));
 		  
 		  String PM_LIST = request.getParameter("WORKER_LIST_PM").trim()+" ";
 		  int pm_cnt = PM_LIST.split(" ").length;
@@ -87,7 +88,7 @@
 			if(projectDao.updateProject(TEAM_ORDER, TEAM_SALES, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS,FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO) == 1){
+					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO, year) == 1){
 				projectDao.deleteCareer(NO,"1");
 				projectDao.deleteCareer(NO,"0");
 				projectDao.setCareer(workerListPM, NO, startPM, endPM, "1");

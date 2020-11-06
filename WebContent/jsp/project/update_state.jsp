@@ -34,6 +34,7 @@
 	}
 	
 	int projectNo = Integer.parseInt(request.getParameter("no"));
+	int year = Integer.parseInt(request.getParameter("year"));
 	String projectName = request.getParameter("name");
 	String status = request.getParameter("state");
 	
@@ -70,6 +71,7 @@ $(document).ready(function(){
 	<p>상태 수정</p>
 	<form method="post" action="update_state_pro.jsp" target="project.jsp">
 	<input type="hidden" name="no" value="<%=projectNo %>">
+	<input type="hidden" name="year" value="<%=year%>">
 	<select id="state" name="state">
 		<option value="상태">상태</option>
 		<option value="1.예산확보">1.예산확보</option>
