@@ -1723,6 +1723,71 @@ function y_rsales() {
 		});
 	}
 	
+	function summaryOSchart(){
+		//checkFIRST
+		$('#checkFIRST').change(function(){
+			if(!($('#checkFIRST').is(":checked"))){
+				$('.firstTD').css('visibility', 'collapse');
+			}else{
+				$('.firstTD').css('visibility', 'visible');
+			}
+		});
+		
+		//checkLAST
+		$('#checkLAST').change(function(){
+			if(!($('#checkLAST').is(":checked"))){
+				$('.lastTD').css('visibility', 'collapse');
+			}else{
+				$('.lastTD').css('visibility', 'visible');
+			}
+		});
+		
+		//checkYEAR
+		$('#checkYEAR').change(function(){
+			if(!($('#checkYEAR').is(":checked"))){
+				$('.yearTD').css('visibility', 'collapse');
+			}else{
+				$('.yearTD').css('visibility', 'visible');
+			}
+		});
+		
+		//checkORDER
+		$('#checkORDER').change(function(){
+			if(!($('#checkORDER').is(":checked"))){
+				$('.orderTD').css('visibility', 'collapse');
+			}else{
+				$('.orderTD').css('visibility', 'visible');
+			}
+		});
+		
+		//checkSALE
+		$('#checkSALE').change(function(){
+			if(!($('#checkSALE').is(":checked"))){
+				$('.saleTD').css('visibility', 'collapse');
+			}else{
+				$('.saleTD').css('visibility', 'visible');
+			}
+		});
+		
+		//checkRATE
+		$('#checkRATE').change(function(){
+			if(!($('#checkRATE').is(":checked"))){
+				$('.rateTD').css('visibility', 'collapse');
+			}else{
+				$('.rateTD').css('visibility', 'visible');
+			}
+		});
+		
+		//checkDATA
+		$('#checkDATA').change(function(){
+			if(!($('#checkDATA').is(":checked"))){
+				$('.dataTD').css('visibility', 'collapse');
+			}else{
+				$('.dataTD').css('visibility', 'visible');
+			}
+		});
+	}
+	
 	$(document).ready(function(){
 		$('.loading').hide();
 		stateColor();
@@ -1740,6 +1805,7 @@ function y_rsales() {
 		
 		memchartInsert();
 		cooperView();
+		summaryOSchart();
 
 	});
 	
@@ -1884,13 +1950,13 @@ function y_rsales() {
 	</ul>
 			
  				<div id="tab-1" class="tab-content current">
- 				<label style="margin-right:7px;"><input type="checkbox">상반기</label>
- 				<label style="margin-right:7px;"><input type="checkbox">하반기</label>
- 				<label style="margin-right:7px;"><input type="checkbox">연간</label>
- 				<label style="margin-right:7px;"><input type="checkbox">수주</label>
- 				<label style="margin-right:7px;"><input type="checkbox">매출</label>
- 				<label style="margin-right:7px;"><input type="checkbox">비율</label>
- 				<label style="margin-right:7px;"><input type="checkbox">값</label>
+ 				<label style="margin-right:7px;"><input id="checkFIRST" type="checkbox" checked>상반기</label>
+ 				<label style="margin-right:7px;"><input id="checkLAST" type="checkbox" checked>하반기</label>
+ 				<label style="margin-right:7px;"><input id="checkYEAR" type="checkbox" checked>연간</label>
+ 				<label style="margin-right:7px;"><input id="checkORDER" type="checkbox" checked>수주</label>
+ 				<label style="margin-right:7px;"><input id="checkSALE" type="checkbox" checked>매출</label>
+ 				<label style="margin-right:7px;"><input id="checkRATE" type="checkbox" checked>비율</label>
+ 				<label style="margin-right:7px;"><input id="checkDATA" type="checkbox" checked>값</label>
  				
 			<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">
@@ -2028,7 +2094,7 @@ function y_rsales() {
                     </tr>
                     
                      <tr class="lastTD orderTD dataTD">
-                    	<td rowspan="10" style=" vertical-align: middle;" class="lastTD">하반기</td>
+                    	<td rowspan="10" style="text-align:center; vertical-align: middle;" class="lastTD">하반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=SH_total_PJ%></td>
                     	<td><input class="sale" name="SH_chassis_PJ" value='<%=SH_chassis_PJ %>'></td>
@@ -2132,8 +2198,8 @@ function y_rsales() {
                     </tr>
                     
                     <tr class="yearTD orderTD dataTD">
-                    	<td rowspan="10" style=" vertical-align:middle;" class="yearTD">연간</td>
-                    <td style="text-align:center;">목표 수주</td>
+                    	<td rowspan="10" style="text-align:center; vertical-align:middle;" class="yearTD">연간</td>
+                    	<td style="text-align:center;">목표 수주</td>
                     	<td><%=Y_total_pj %></td>
                     	<td><%=Y_chassis_PJ %></td>
                     	<td><%=Y_body_PJ %></td>
@@ -2182,7 +2248,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", Y_auto_RPJ/Y_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_vt_RPJ/Y_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="yearTD saleTD dateTD">
+                     <tr class="yearTD saleTD dataTD">
                     	<td>목표 매출</td>
                         <td><%=Y_total_SALES %></td>
                     	<td><%=Y_chassis_SALES %></td>
@@ -2192,7 +2258,7 @@ function y_rsales() {
                     	<td><%=Y_auto_SALES %></td>
                     	<td><%=Y_vt_SALES %></td>
                     </tr>
-                     <tr class="yearTD saleTD dateTD">
+                     <tr class="yearTD saleTD dataTD">
                     	<td>예상 매츨</td>
                     	<td><%=Y_total_PJSALES %></td>
                     	<td><%=Y_chassis_PJSALES %></td>
@@ -2212,7 +2278,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", Y_auto_PJSALES/Y_auto_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_vt_PJSALES/Y_vt_SALES *100)%>(%)</td>
                     </tr>
-                     <tr class="yearTD saleTD dateTD">
+                     <tr class="yearTD saleTD dataTD">
                     	<td>달성</td>
                     	<td><%=Y_total_RSALES %></td>
                     	<td><%=Y_chassis_RSALES %></td>
