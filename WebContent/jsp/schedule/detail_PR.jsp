@@ -74,7 +74,7 @@
 					</tr>
 				<%}else{%>
 					<tr>
-						<td><a href="../project/project_update.jsp?no='<%=careerList.get(i).getProjectNo()%>&year=<%=year%>"><%=careerList.get(i).getProjectName() %></a></td>
+						<td><a href="../project/project_update.jsp?no=<%=careerList.get(i).getProjectNo()%>&year=<%=year%>"><%=careerList.get(i).getProjectName() %></a></td>
 						<td style="text-align:center;"><%=careerList.get(i).getStart() %></td>
 						<td style="text-align:center;"><%=careerList.get(i).getEnd() %></td>
 						<td style="text-align:center;"><%=pmCheck %></td>
