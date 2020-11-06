@@ -329,6 +329,9 @@
 
 </head>
 <style>
+.sidebar .nav-item{
+	 	word-break: keep-all;
+}
 #sidebarToggle{
 		display:none;
 	}
