@@ -1511,9 +1511,7 @@
 	$(function(){
 		//drawChart();
 		clickData();
-	});
-	
-		
+	});	
 	</script>
 
 <body id="page-top">
