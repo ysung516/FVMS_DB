@@ -329,6 +329,10 @@
 
 </head>
 <style>
+
+#dataTable{
+	font-size:small;
+}
 .firstTD.orderTD{
 	background: #a3c7e494;
 }
@@ -498,7 +502,7 @@ ul.tabs li.current{
 		text-align : center;
 	}
 	.sale{
-		width : 65px;
+		width : 75px;
 	}
 
 	.chart{		
