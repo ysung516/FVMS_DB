@@ -330,20 +330,20 @@
 </head>
 <style>
 .firstTD.orderTD{
-	background: #88b7de94;
+	background: #a3c7e494;
 }
 
 .firstTD.saleTD{
 	background:#6cabe094;
 }
 .firstTD{
-	background:#3983c18a;
+	background:#64b5f98f;
 }
 .lastTD{
 	background:#efa465ab;
 }
 .lastTD.orderTD{
-	background:#efa46569;
+	background:#deb38f7a;
 }
 .lastTD.saleTD{
 	background:#e48b4069;
@@ -352,7 +352,7 @@
 	background:#b0d2a2;
 }
 .yearTD.orderTD{
-	background:#b8d8aaa6;
+	background:#b8d8aa78;
 }
 .yearTD.saleTD{
 	background:#9dc78aa6;
@@ -392,17 +392,7 @@
 		padding:0.2rem;
 		font-weight:bold !important;
 	}
-	.fh_tr{
-		background-color:#f2f3bbb0;
-	}
-	.sh_tr{
-	text-align:center;
-	background-color:#e4c4266b;
-	}
-	.y_tr{
-	text-align:center;
-	background-color:#eaa55085;
-	}
+	
 	ul.tabs{
 	margin: 0px;
 	padding: 0px;
@@ -1599,6 +1589,7 @@ function y_rsales() {
 	function cooperView(){	
 		$('#cooper').change(function(){
 			if($('#cooper').is(":checked")){
+				$('#vt6 > td').css('border-bottom','0px');
 				$('#coopTR > .chasis > .coop').empty();
 				$('#coopTR > .body > .coop').empty();
 				$('#coopTR > .control > .coop').empty();
@@ -1617,7 +1608,7 @@ function y_rsales() {
 				var safenum = 0;
 				var autonum = 0;
 				
-				var coopTR = '<td class = "vt vtadd"><div class="coop vtadd"></div></td>';
+				var coopTR = '<td class = "vt vtadd" style="border:0.1px #393A60 solid;border-top:0px;"><div class="coop vtadd"></div></td>';
 				$('#coopTR').append(coopTR);
 				
 				<%for(MemberBean mem : cooperationList){
@@ -1658,9 +1649,9 @@ function y_rsales() {
 				$('#vt8').append(vt18);
 				var vt2 = '<th class="chartHeader vtadd">미래차검증전략실</th>';
 				$('#vt2').append(vt2);
-				var vt3 = '<td class = "vt vtadd"><div class="teamM vtadd"></div></td>';
+				var vt3 = '<td class = "vt vtadd" style="border:0.1px #393A60 solid; border-bottom: 0px;"><div class="teamM vtadd"></div></td>';
 				$('#vt3').append(vt3);
-				var vt4 = '<td rowspan = "3" class = "vt vtadd"><div class="lv2 vtadd" style="color:black;">'
+				var vt4 = '<td rowspan = "3" class = "vt vtadd" style="border:1px #393A60 solid; border-bottom: 0px; border-top:0px;"><div class="lv2 vtadd" style="color:black;">'
 						+'<p style="color:red;"><b>Total : '+total+'명</b></p>'
 						+'<p style="color:red;"><b>Total<a style="font-size:10px; color:red;">(협력제외)</a> : '+total_vt+'명</b></p><br>'
 						+'<b>협력업체 총 인원</b><br>' + str + '</div></td>';
@@ -1684,6 +1675,7 @@ function y_rsales() {
 				
 
 			}else{
+				$('#vt6 > td').css('border-bottom','0.1px solid #393A60');
 				var chasisnum = 0;
 				var bodynum = 0;
 				var controlnum = 0;
@@ -1888,348 +1880,21 @@ function y_rsales() {
 	</ul>
 			
  				<div id="tab-1" class="tab-content current">
- 				 <table class="table table-bordered" id="os_chart">
- 				 <thead>
- 				 	<tr>
- 				 		<td></td>
- 				 		<td colspan="10" class="firstTD">상반기</td>
- 				 		<td colspan="10" class="lastTD">하반기</td>
- 						 <td colspan="10" class="yearTD">연간</td>
- 				 	</tr>
- 				 </thead>
- 				 <tbody>
- 				 	<tr>
- 				 		<td></td>
- 				 		<td colspan="5" class="firstTD orderTD">수주</td>
- 				 		<td colspan="5" class="firstTD saleTD">매출</td>
- 				 		<td colspan="5" class="lastTD orderTD">수주</td>
- 				 		<td colspan="5" class="lastTD saleTD">매출</td>
- 				 		<td colspan="5" class="yearTD orderTD">수주</td>
- 				 		<td colspan="5" class="yearTD saleTD">매출</td>
- 				 	</tr>
- 				 	
- 				 	<tr>
- 				 		<td></td>
- 				 		<td class="firstTD orderTD dataTD">목표수주</td>
- 				 		<td class="firstTD orderTD dataTD">예상수주</td>
- 				 		<td class="firstTD orderTD rateTD">예상수주(%)</td>
- 				 		<td class="firstTD orderTD dataTD">달성</td>
- 				 		<td class="firstTD orderTD rateTD">수주달성률</td>
- 				 		
- 				 		<td class="firstTD saleTD dataTD">목표매출</td>
- 				 		<td class="firstTD saleTD dataTD">예상매출</td>
- 				 		<td class="firstTD saleTD rateTD">예상매출(%)</td>
- 				 		<td class="firstTD saleTD dataTD">달성</td>
- 				 		<td class="firstTD saleTD rateTD">매출달성률</td>
- 				 		
- 				 		<td class="lastTD orderTD dataTD">목표수주</td>
- 				 		<td class="lastTD orderTD dataTD">예상수주</td>
- 				 		<td class="lastTD orderTD rateTD">예상수주(%)</td>
- 				 		<td class="lastTD orderTD dataTD">달성</td>
- 				 		<td class="lastTD orderTD rateTD">수주달성률</td>
- 				 		
- 				 		<td class="lastTD saleTD dataTD" >목표매출</td>
- 				 		<td class="lastTD saleTD dataTD">예상매출</td>
- 				 		<td class="lastTD saleTD rateTD">예상매출(%)</td>
- 				 		<td class="lastTD saleTD dataTD">달성</td>
- 				 		<td class="lastTD saleTD rateTD">매출달성률</td>
- 				 		
- 				 		<td class="yearTD orderTD dataTD">목표수주</td>
- 				 		<td class="yearTD orderTD dataTD">예상수주</td>
- 				 		<td class="yearTD orderTD rateTD">예상수주(%)</td>
- 				 		<td class="yearTD orderTD dataTD">달성</td>
- 				 		<td class="yearTD orderTD rateTD">수주달성률</td>
- 				 		
- 				 		<td class="yearTD saleTD dataTD">목표매출</td>
- 				 		<td class="yearTD saleTD dataTD">예상매출</td>
- 				 		<td class="yearTD saleTD rateTD">예상매출(%)</td>
- 				 		<td class="yearTD saleTD dataTD">달성</td>
- 				 		<td class="yearTD saleTD rateTD">매출달성률</td>
- 				 	</tr>
- 				 	
- 				 	<tr class="chasisOs">
- 				 		<td class="chasisOs">샤시힐스</td>
- 				 		<td class="chasisOs firstTD orderTD dataTD"></td>
- 				 		<td class="chasisOs firstTD orderTD dataTD"></td>
- 				 		<td class="chasisOs firstTD orderTD rateTD"></td>
- 				 		<td class="chasisOs firstTD orderTD dataTD"></td>
- 				 		<td class="chasisOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="chasisOs firstTD saleTD dataTD"></td>
- 				 		<td class="chasisOs firstTD saleTD dataTD"></td>
- 				 		<td class="chasisOs firstTD saleTD rateTD"></td>
- 				 		<td class="chasisOs firstTD saleTD dataTD"></td>
- 				 		<td class="chasisOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="chasisOs lastTD orderTD dataTD"></td>
- 				 		<td class="chasisOs lastTD orderTD dataTD"></td>
- 				 		<td class="chasisOs lastTD orderTD rateTD"></td>
- 				 		<td class="chasisOs lastTD orderTD dataTD"></td>
- 				 		<td class="chasisOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="chasisOs lastTD saleTD dataTD"></td>
- 				 		<td class="chasisOs lastTD saleTD dataTD"></td>
- 				 		<td class="chasisOs lastTD saleTD rateTD"></td>
- 				 		<td class="chasisOs lastTD saleTD dataTD"></td>
- 				 		<td class="chasisOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="chasisOs yearTD orderTD dataTD"></td>
- 				 		<td class="chasisOs yearTD orderTD dataTD"></td>
- 				 		<td class="chasisOs yearTD orderTD rateTD"></td>
- 				 		<td class="chasisOs yearTD orderTD dataTD"></td>
- 				 		<td class="chasisOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="chasisOs yearTD saleTD dataTD"></td>
- 				 		<td class="chasisOs yearTD saleTD dataTD"></td>
- 				 		<td class="chasisOs yearTD saleTD rateTD"></td>
- 				 		<td class="chasisOs yearTD saleTD dataTD"></td>
- 				 		<td class="chasisOs yearTD saleTD rateTD"></td>
- 				 	</tr>
- 				 	
- 				 	<tr class="bodyOs">
- 				 		<td class="bodyOs">바디힐스</td>
- 				 		<td class="bodyOs firstTD orderTD dataTD"></td>
- 				 		<td class="bodyOs firstTD orderTD dataTD"></td>
- 				 		<td class="bodyOs firstTD orderTD rateTD"></td>
- 				 		<td class="bodyOs firstTD orderTD dataTD"></td>
- 				 		<td class="bodyOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="bodyOs firstTD saleTD dataTD"></td>
- 				 		<td class="bodyOs firstTD saleTD dataTD"></td>
- 				 		<td class="bodyOs firstTD saleTD rateTD"></td>
- 				 		<td class="bodyOs firstTD saleTD dataTD"></td>
- 				 		<td class="bodyOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="bodyOs lastTD orderTD dataTD"></td>
- 				 		<td class="bodyOs lastTD orderTD dataTD"></td>
- 				 		<td class="bodyOs lastTD orderTD rateTD"></td>
- 				 		<td class="bodyOs lastTD orderTD dataTD"></td>
- 				 		<td class="bodyOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="bodyOs lastTD saleTD dataTD"></td>
- 				 		<td class="bodyOs lastTD saleTD dataTD"></td>
- 				 		<td class="bodyOs lastTD saleTD rateTD"></td>
- 				 		<td class="bodyOs lastTD saleTD dataTD"></td>
- 				 		<td class="bodyOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="bodyOs yearTD orderTD dataTD"></td>
- 				 		<td class="bodyOs yearTD orderTD dataTD"></td>
- 				 		<td class="bodyOs yearTD orderTD rateTD"></td>
- 				 		<td class="bodyOs yearTD orderTD dataTD"></td>
- 				 		<td class="bodyOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="bodyOs yearTD saleTD dataTD"></td>
- 				 		<td class="bodyOs yearTD saleTD dataTD"></td>
- 				 		<td class="bodyOs yearTD saleTD rateTD"></td>
- 				 		<td class="bodyOs yearTD saleTD dataTD"></td>
- 				 		<td class="bodyOs yearTD saleTD rateTD"></td>
- 				 	</tr>
- 				 	
- 				 	<tr class="controlOs">
- 				 		<td class="controlOs">제어로직</td>
- 				 		<td class="controlOs firstTD orderTD dataTD"></td>
- 				 		<td class="controlOs firstTD orderTD dataTD"></td>
- 				 		<td class="controlOs firstTD orderTD rateTD"></td>
- 				 		<td class="controlOs firstTD orderTD dataTD"></td>
- 				 		<td class="controlOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="controlOs firstTD saleTD dataTD"></td>
- 				 		<td class="controlOs firstTD saleTD dataTD"></td>
- 				 		<td class="controlOs firstTD saleTD rateTD"></td>
- 				 		<td class="controlOs firstTD saleTD dataTD"></td>
- 				 		<td class="controlOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="controlOs lastTD orderTD dataTD"></td>
- 				 		<td class="controlOs lastTD orderTD dataTD"></td>
- 				 		<td class="controlOs lastTD orderTD rateTD"></td>
- 				 		<td class="controlOs lastTD orderTD dataTD"></td>
- 				 		<td class="controlOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="controlOs lastTD saleTD dataTD"></td>
- 				 		<td class="controlOs lastTD saleTD dataTD"></td>
- 				 		<td class="controlOs lastTD saleTD rateTD"></td>
- 				 		<td class="controlOs lastTD saleTD dataTD"></td>
- 				 		<td class="controlOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="controlOs yearTD orderTD dataTD"></td>
- 				 		<td class="controlOs yearTD orderTD dataTD"></td>
- 				 		<td class="controlOs yearTD orderTD rateTD"></td>
- 				 		<td class="controlOs yearTD orderTD dataTD"></td>
- 				 		<td class="controlOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="controlOs yearTD saleTD dataTD"></td>
- 				 		<td class="controlOs yearTD saleTD dataTD"></td>
- 				 		<td class="controlOs yearTD saleTD rateTD"></td>
- 				 		<td class="controlOs yearTD saleTD dataTD"></td>
- 				 		<td class="controlOs yearTD saleTD rateTD"></td>
- 				 	</tr>
- 				 	
- 				 	<tr class="safeOs">
- 				 		<td class="safeOs">기능안전</td>
- 				 		<td class="safeOs firstTD orderTD dataTD"></td>
- 				 		<td class="safeOs firstTD orderTD dataTD"></td>
- 				 		<td class="safeOs firstTD orderTD rateTD"></td>
- 				 		<td class="safeOs firstTD orderTD dataTD"></td>
- 				 		<td class="safeOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="safeOs firstTD saleTD dataTD"></td>
- 				 		<td class="safeOs firstTD saleTD dataTD"></td>
- 				 		<td class="safeOs firstTD saleTD rateTD"></td>
- 				 		<td class="safeOs firstTD saleTD dataTD"></td>
- 				 		<td class="safeOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="safeOs lastTD orderTD dataTD"></td>
- 				 		<td class="safeOs lastTD orderTD dataTD"></td>
- 				 		<td class="safeOs lastTD orderTD rateTD"></td>
- 				 		<td class="safeOs lastTD orderTD dataTD"></td>
- 				 		<td class="safeOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="safeOs lastTD saleTD dataTD"></td>
- 				 		<td class="safeOs lastTD saleTD dataTD"></td>
- 				 		<td class="safeOs lastTD saleTD rateTD"></td>
- 				 		<td class="safeOs lastTD saleTD dataTD"></td>
- 				 		<td class="safeOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="safeOs yearTD orderTD dataTD"></td>
- 				 		<td class="safeOs yearTD orderTD dataTD"></td>
- 				 		<td class="safeOs yearTD orderTD rateTD"></td>
- 				 		<td class="safeOs yearTD orderTD dataTD"></td>
- 				 		<td class="safeOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="safeOs yearTD saleTD dataTD"></td>
- 				 		<td class="safeOs yearTD saleTD dataTD"></td>
- 				 		<td class="safeOs yearTD saleTD rateTD"></td>
- 				 		<td class="safeOs yearTD saleTD dataTD"></td>
- 				 		<td class="safeOs yearTD saleTD rateTD"></td>
- 				 	</tr>
- 				 	
- 				 	<tr class="autoOs">
- 				 		<td class="autoOs">자율주행</td>
- 				 		<td class="autoOs firstTD orderTD dataTD"></td>
- 				 		<td class="autoOs firstTD orderTD dataTD"></td>
- 				 		<td class="autoOs firstTD orderTD rateTD"></td>
- 				 		<td class="autoOs firstTD orderTD dataTD"></td>
- 				 		<td class="autoOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="autoOs firstTD saleTD dataTD"></td>
- 				 		<td class="autoOs firstTD saleTD dataTD"></td>
- 				 		<td class="autoOs firstTD saleTD rateTD"></td>
- 				 		<td class="autoOs firstTD saleTD dataTD"></td>
- 				 		<td class="autoOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="autoOs lastTD orderTD dataTD"></td>
- 				 		<td class="autoOs lastTD orderTD dataTD"></td>
- 				 		<td class="autoOs lastTD orderTD rateTD"></td>
- 				 		<td class="autoOs lastTD orderTD dataTD"></td>
- 				 		<td class="autoOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="autoOs lastTD saleTD dataTD"></td>
- 				 		<td class="autoOs lastTD saleTD dataTD"></td>
- 				 		<td class="autoOs lastTD saleTD rateTD"></td>
- 				 		<td class="autoOs lastTD saleTD dataTD"></td>
- 				 		<td class="autoOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="autoOs yearTD orderTD dataTD"></td>
- 				 		<td class="autoOs yearTD orderTD dataTD"></td>
- 				 		<td class="autoOs yearTD orderTD rateTD"></td>
- 				 		<td class="autoOs yearTD orderTD dataTD"></td>
- 				 		<td class="autoOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="autoOs yearTD saleTD dataTD"></td>
- 				 		<td class="autoOs yearTD saleTD dataTD"></td>
- 				 		<td class="autoOs yearTD saleTD rateTD"></td>
- 				 		<td class="autoOs yearTD saleTD dataTD"></td>
- 				 		<td class="autoOs yearTD saleTD rateTD"></td>	
- 				 	</tr>
- 				 	
- 				 	<tr class="vtOs">
- 				 		<td class="vtOs">VT</td>
- 				 		<td class="vtOs firstTD orderTD dataTD"></td>
- 				 		<td class="vtOs firstTD orderTD dataTD"></td>
- 				 		<td class="vtOs firstTD orderTD rateTD"></td>
- 				 		<td class="vtOs firstTD orderTD dataTD"></td>
- 				 		<td class="vtOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="vtOs firstTD saleTD dataTD"></td>
- 				 		<td class="vtOs firstTD saleTD dataTD"></td>
- 				 		<td class="vtOs firstTD saleTD rateTD"></td>
- 				 		<td class="vtOs firstTD saleTD dataTD"></td>
- 				 		<td class="vtOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="vtOs lastTD orderTD dataTD"></td>
- 				 		<td class="vtOs lastTD orderTD dataTD"></td>
- 				 		<td class="vtOs lastTD orderTD rateTD"></td>
- 				 		<td class="vtOs lastTD orderTD dataTD"></td>
- 				 		<td class="vtOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="vtOs lastTD saleTD dataTD"></td>
- 				 		<td class="vtOs lastTD saleTD dataTD"></td>
- 				 		<td class="vtOs lastTD saleTD rateTD"></td>
- 				 		<td class="vtOs lastTD saleTD dataTD"></td>
- 				 		<td class="vtOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="vtOs yearTD orderTD dataTD"></td>
- 				 		<td class="vtOs yearTD orderTD dataTD"></td>
- 				 		<td class="vtOs yearTD orderTD rateTD"></td>
- 				 		<td class="vtOs yearTD orderTD dataTD"></td>
- 				 		<td class="vtOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="vtOs yearTD saleTD dataTD"></td>
- 				 		<td class="vtOs yearTD saleTD dataTD"></td>
- 				 		<td class="vtOs yearTD saleTD rateTD"></td>
- 				 		<td class="vtOs yearTD saleTD dataTD"></td>
- 				 		<td class="vtOs yearTD saleTD rateTD"></td>	
- 				 	</tr>
- 				 	
- 				 	<tr class="totalOs">
- 				 		<td class="totalOs">total</td>
- 				 		<td class="totalOs firstTD orderTD dataTD"></td>
- 				 		<td class="totalOs firstTD orderTD dataTD"></td>
- 				 		<td class="totalOs firstTD orderTD rateTD"></td>
- 				 		<td class="totalOs firstTD orderTD dataTD"></td>
- 				 		<td class="totalOs firstTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="totalOs firstTD saleTD dataTD"></td>
- 				 		<td class="totalOs firstTD saleTD dataTD"></td>
- 				 		<td class="totalOs firstTD saleTD rateTD"></td>
- 				 		<td class="totalOs firstTD saleTD dataTD"></td>
- 				 		<td class="totalOs firstTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="totalOs lastTD orderTD dataTD"></td>
- 				 		<td class="totalOs lastTD orderTD dataTD"></td>
- 				 		<td class="totalOs lastTD orderTD rateTD"></td>
- 				 		<td class="totalOs lastTD orderTD dataTD"></td>
- 				 		<td class="totalOs lastTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="totalOs lastTD saleTD dataTD"></td>
- 				 		<td class="totalOs lastTD saleTD dataTD"></td>
- 				 		<td class="totalOs lastTD saleTD rateTD"></td>
- 				 		<td class="totalOs lastTD saleTD dataTD"></td>
- 				 		<td class="totalOs lastTD saleTD rateTD"></td>
- 				 		
- 				 		<td class="totalOs yearTD orderTD dataTD"></td>
- 				 		<td class="totalOs yearTD orderTD dataTD"></td>
- 				 		<td class="totalOs yearTD orderTD rateTD"></td>
- 				 		<td class="totalOs yearTD orderTD dataTD"></td>
- 				 		<td class="totalOs yearTD orderTD rateTD"></td>
- 				 		
- 				 		<td class="totalOs yearTD saleTD dataTD"></td>
- 				 		<td class="totalOs yearTD saleTD dataTD"></td>
- 				 		<td class="totalOs yearTD saleTD rateTD"></td>
- 				 		<td class="totalOs yearTD saleTD dataTD"></td>
- 				 		<td class="totalOs yearTD saleTD rateTD"></td>
- 				 	</tr>
- 				 </tbody> 				 
-				 </table>
-			
-			
- 				<form method="post" action="Save_targetData.jsp">
+ 				<label style="margin-right:7px;"><input type="checkbox">상반기</label>
+ 				<label style="margin-right:7px;"><input type="checkbox">하반기</label>
+ 				<label style="margin-right:7px;"><input type="checkbox">연간</label>
+ 				<label style="margin-right:7px;"><input type="checkbox">수주</label>
+ 				<label style="margin-right:7px;"><input type="checkbox">매출</label>
+ 				<label style="margin-right:7px;"><input type="checkbox">비율</label>
+ 				<label style="margin-right:7px;"><input type="checkbox">값</label>
+ 				
+			<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable">
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="5"style="text-align:center;background-color:#15a3da52;">상세내역(단위: 백만)</td>
+                    	<td colspan="5"style="text-align:center;background-color:#5a6f7730;">상세내역(단위: 백만)</td>
                     	<td>
                     	<%
                     		if(permission == 0){
@@ -2238,7 +1903,7 @@ function y_rsales() {
                     	%>
                     	</td>
                     </tr>  
-                    <tr style="text-align:center;background-color:#15a3da52;">
+                    <tr style="text-align:center;background-color:#5a6f7730;">
 	                    <th>구분</th>
 	                    <th>항목</th>
 	                    <th>Total</th>
@@ -2252,8 +1917,8 @@ function y_rsales() {
                   </thead>  
                   
                   <tbody>
-                    <tr class="fh_tr">
-                    	<td rowspan="10" style="text-align:center; vertical-align: middle;">상반기</td>
+                    <tr class="firstTD orderTD dataTD">
+                    	<td rowspan="10" style="text-align:center; vertical-align: middle;" class="firstTD">상반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=FH_total_PJ%></td>
                     	<td><input class="sale" name="FH_chassis_PJ" value='<%=FH_chassis_PJ%>'></td>
@@ -2263,7 +1928,7 @@ function y_rsales() {
                     	<td><input class="sale" name="FH_auto_PJ" value='<%=FH_auto_PJ%>'></td>
                     	<td><input class="sale" name="FH_vt_PJ" value='<%=FH_vt_PJ%>'></td>
                     </tr>
-                    <tr class="fh_tr">
+                    <tr class="firstTD orderTD dataTD">
                     	<td>예상 수주</td>
                     	<td><%=FH_total_ORDER%></td>
                     	<td><%=FH_chassis_ORDER%></td>
@@ -2273,7 +1938,7 @@ function y_rsales() {
                     	<td><%=FH_auto_ORDER%></td>
                     	<td><%=FH_vt_ORDER%></td>
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD orderTD rateTD">
                     	<td>예상 수주(%)</td>
                     	<td><%=String.format("%.1f", FH_total_ORDER/FH_total_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_chassis_ORDER/FH_chassis_PJ *100)%>(%)</td>
@@ -2283,7 +1948,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", FH_auto_ORDER/FH_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_vt_ORDER/FH_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD orderTD dataTD">
                     	<td>달성</td> 	
                     	<td><%=FH_total_RPJ%></td>
                     	<td><%=FH_chassis_RPJ%></td>
@@ -2294,7 +1959,7 @@ function y_rsales() {
                     	<td><%=FH_vt_RPJ%></td>
                     	
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD orderTD rateTD">
                     	<td>수주 달성률</td>
                     	<td><%=String.format("%.1f", FH_total_RPJ/FH_total_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_chassis_RPJ/FH_chassis_PJ *100)%>(%)</td>
@@ -2304,7 +1969,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", FH_auto_RPJ/FH_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_vt_RPJ/FH_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD saleTD dataTD">
                     	<td>목표 매출</td>
                         <td><%=FH_total_SALES%></td>
                     	<td><input class="sale" name="FH_chassis_SALES" value='<%=FH_chassis_SALES %>'></td>
@@ -2314,7 +1979,7 @@ function y_rsales() {
                     	<td><input class="sale" name="FH_auto_SALES" value='<%=FH_auto_SALES %>'></td>
                     	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_vt_SALES %>'></td>
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD saleTD dataTD">
                     	<td>예상 매츨</td>
                     	<td><%=FH_total_PJSALES %></td>
                     	<td><%=FH_chassis_PJSALES %></td>
@@ -2324,7 +1989,7 @@ function y_rsales() {
                     	<td><%=FH_auto_PJSALES %></td>
                     	<td><%=FH_vt_PJSALES %></td>
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD saleTD rateTD">
                     	<td>예상 매출(%)</td>
                     	
                     	<td><%=String.format("%.1f", FH_total_PJSALES/FH_total_SALES *100)%>(%)</td>
@@ -2335,7 +2000,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", FH_auto_PJSALES/FH_auto_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_vt_PJSALES/FH_vt_SALES *100)%>(%)</td>
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD saleTD dataTD">
                     	<td>달성</td>
                     	<td><%=FH_total_RSALES %></td>
                    		<td><%=FH_chassis_RSALES %></td>
@@ -2346,7 +2011,7 @@ function y_rsales() {
                     	<td><%=FH_vt_RSALES %></td>
                     	
                     </tr>
-                     <tr class="fh_tr">
+                     <tr class="firstTD saleTD rateTD">
                     	<td>매출 달성률</td>
                     	
                     	<td><%=String.format("%.1f", FH_total_RSALES/FH_total_SALES *100)%>(%)</td>
@@ -2358,8 +2023,8 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", FH_vt_RSALES/FH_vt_SALES *100)%>(%)</td>
                     </tr>
                     
-                     <tr class="sh_tr">
-                    	<td rowspan="10" style=" vertical-align: middle;">하반기</td>
+                     <tr class="lastTD orderTD dataTD">
+                    	<td rowspan="10" style=" vertical-align: middle;" class="lastTD">하반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=SH_total_PJ%></td>
                     	<td><input class="sale" name="SH_chassis_PJ" value='<%=SH_chassis_PJ %>'></td>
@@ -2369,7 +2034,7 @@ function y_rsales() {
                     	<td><input class="sale" name="SH_auto_PJ" value='<%=SH_auto_PJ %>'></td>
                     	<td><input class="sale" name="SH_vt_PJ" value='<%=SH_vt_PJ %>'></td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD orderTD dataTD">
                     	<td>예상 수주</td>
                     	<td><%=SH_total_ORDER%></td>
                     	<td><%=SH_chassis_ORDER%></td>
@@ -2379,7 +2044,7 @@ function y_rsales() {
                     	<td><%=SH_auto_ORDER%></td>
                     	<td><%=SH_vt_ORDER%></td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD orderTD rateTD">
                     	<td>예상 수주(%)</td>
 						<td><%=String.format("%.1f", SH_total_ORDER/SH_total_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_chassis_ORDER/SH_chassis_PJ *100)%>(%)</td>
@@ -2389,7 +2054,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", SH_auto_ORDER/SH_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_vt_ORDER/SH_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD orderTD dataTD">
                     	<td>달성</td>
                     	<td><%=SH_total_RPJ%></td>
                     	<td><%=SH_chassis_RPJ%></td>
@@ -2400,7 +2065,7 @@ function y_rsales() {
                     	<td><%=SH_vt_RPJ%></td>
                     	
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD orderTD rateTD">
                     	<td>수주 달성률</td>
 						<td><%=String.format("%.1f", SH_total_RPJ/SH_total_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_chassis_RPJ/SH_chassis_PJ *100)%>(%)</td>
@@ -2410,7 +2075,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", SH_auto_RPJ/SH_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_vt_RPJ/SH_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD saleTD dataTD">
                     	<td>목표 매출</td>
                         <td><%=SH_total_SALES%></td>
                     	<td><input class="sale" name="SH_chassis_SALES" value='<%=SH_chassis_SALES %>'></td>
@@ -2420,7 +2085,7 @@ function y_rsales() {
                     	<td><input class="sale" name="SH_auto_SALES" value='<%=SH_auto_SALES %>'></td>
                     	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_vt_SALES %>'></td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD saleTD dataTD">
                     	<td>예상 매츨</td>
                     	<td><%=SH_total_PJSALES %></td>
                     	<td><%=SH_chassis_PJSALES %></td>
@@ -2430,7 +2095,7 @@ function y_rsales() {
                     	<td><%=SH_auto_PJSALES %></td>
                     	<td><%=SH_vt_PJSALES %></td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD saleTD rateTD">
                     	<td>예상 매출(%)</td>
                     	<td><%=String.format("%.1f", SH_total_PJSALES/SH_total_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_chassis_PJSALES/SH_chassis_SALES *100)%>(%)</td>
@@ -2440,7 +2105,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", SH_auto_PJSALES/SH_auto_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_vt_PJSALES/SH_vt_SALES *100)%>(%)</td>
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD saleTD dataTD">
                     	<td>달성</td>
                     	<td><%=SH_total_RSALES %></td>
                    		<td><%=SH_chassis_RSALES %></td>
@@ -2451,7 +2116,7 @@ function y_rsales() {
                     	<td><%=SH_vt_RSALES %></td>
                     	
                     </tr>
-                     <tr class="sh_tr">
+                     <tr class="lastTD saleTD rateTD">
                     	<td>매출 달성률</td>
                     	<td><%=String.format("%.1f", SH_total_RSALES/SH_total_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", SH_chassis_RSALES/SH_chassis_SALES *100)%>(%)</td>
@@ -2462,8 +2127,8 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", SH_vt_RSALES/SH_vt_SALES *100)%>(%)</td>
                     </tr>
                     
-                    <tr class="y_tr">
-                    	<td rowspan="10" style=" vertical-align:middle;">연간</td>
+                    <tr class="yearTD orderTD dataTD">
+                    	<td rowspan="10" style=" vertical-align:middle;" class="yearTD">연간</td>
                     <td style="text-align:center;">목표 수주</td>
                     	<td><%=Y_total_pj %></td>
                     	<td><%=Y_chassis_PJ %></td>
@@ -2473,7 +2138,7 @@ function y_rsales() {
                     	<td><%=Y_auto_PJ %></td>
                     	<td><%=Y_vt_PJ %></td>
                     </tr>
-                    <tr class="y_tr">
+                    <tr class="yearTD orderTD dataTD">
                     	<td>예상 수주</td>
                     	<td><%=Y_total_ORDER %></td>
                     	<td><%=Y_chassis_ORDER %></td>
@@ -2483,7 +2148,7 @@ function y_rsales() {
                     	<td><%=Y_auto_ORDER %></td>
                     	<td><%=Y_vt_ORDER %></td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD orderTD rateTD">
                     	<td>예상 수주(%)</td>
                     	<td><%=String.format("%.1f", Y_total_ORDER/Y_total_pj *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_chassis_ORDER/Y_chassis_PJ *100)%>(%)</td>
@@ -2493,7 +2158,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", Y_auto_ORDER/Y_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_vt_ORDER/Y_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD orderTD dataTD">
                     	<td>달성</td>
                     	<td><%=Y_total_RPJ %></td>
                     	<td><%=Y_chassis_RPJ %></td>
@@ -2503,7 +2168,7 @@ function y_rsales() {
                     	<td><%=Y_auto_RPJ %></td>
                     	<td><%=Y_vt_RPJ %></td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD orderTD rateTD">
                     	<td>수주 달성률</td>
                     	<td><%=String.format("%.1f", Y_total_RPJ/Y_total_pj *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_chassis_RPJ/Y_chassis_PJ *100)%>(%)</td>
@@ -2513,7 +2178,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", Y_auto_RPJ/Y_auto_PJ *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_vt_RPJ/Y_vt_PJ *100)%>(%)</td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD saleTD dateTD">
                     	<td>목표 매출</td>
                         <td><%=Y_total_SALES %></td>
                     	<td><%=Y_chassis_SALES %></td>
@@ -2523,7 +2188,7 @@ function y_rsales() {
                     	<td><%=Y_auto_SALES %></td>
                     	<td><%=Y_vt_SALES %></td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD saleTD dateTD">
                     	<td>예상 매츨</td>
                     	<td><%=Y_total_PJSALES %></td>
                     	<td><%=Y_chassis_PJSALES %></td>
@@ -2533,7 +2198,7 @@ function y_rsales() {
                     	<td><%=Y_auto_PJSALES %></td>
                     	<td><%=Y_vt_PJSALES %></td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD saleTD rateTD">
                     	<td>예상 매출(%)</td>
                     	<td><%=String.format("%.1f", Y_total_PJSALES/Y_total_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_chassis_PJSALES/Y_chassis_SALES *100)%>(%)</td>
@@ -2543,7 +2208,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", Y_auto_PJSALES/Y_auto_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_vt_PJSALES/Y_vt_SALES *100)%>(%)</td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD saleTD dateTD">
                     	<td>달성</td>
                     	<td><%=Y_total_RSALES %></td>
                     	<td><%=Y_chassis_RSALES %></td>
@@ -2553,7 +2218,7 @@ function y_rsales() {
                     	<td><%=Y_auto_RSALES %></td>
                     	<td><%=Y_vt_RSALES %></td>
                     </tr>
-                     <tr class="y_tr">
+                     <tr class="yearTD saleTD rateTD">
                     	<td>매출 달성률</td>
                     	<td><%=String.format("%.1f", Y_total_RSALES/Y_total_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", Y_chassis_RSALES/Y_chassis_SALES *100)%>(%)</td>
@@ -2668,87 +2333,87 @@ function y_rsales() {
 							</thead>
 							<tbody style="background-color:#F2F2F2;">
 								<tr id = "vt3">
-									<td class = "chasis">
+									<td class = "chasis" style="border:0.1px #393A60 solid; border-bottom: 0px;">
 										<div class="teamM"></div>
 									</td>
-									<td class = "body">
+									<td class = "body" style="border:0.1px #393A60 solid; border-bottom: 0px;">
 										<div class="teamM"></div>
 									</td>
-									<td class = "control">
+									<td class = "control" style="border:0.1px #393A60 solid; border-bottom: 0px;">
 										<div class="teamM"></div>
 									</td>
-									<td class = "safe">
+									<td class = "safe" style="border:0.1px #393A60 solid; border-bottom: 0px;">
 										<div class="teamM"></div>
 									</td>
-									<td class = "auto">
+									<td class = "auto" style="border:0.1px #393A60 solid; border-bottom: 0px;">
 										<div class="teamM"></div>
 									</td>
 								</tr>
 								<tr id = "vt4">
-									<td class = "chasis">
+									<td class = "chasis" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv2"></div>
 									</td>
-									<td class = "body">
+									<td class = "body" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv2"></div>
 									</td>
-									<td class = "control">
+									<td class = "control" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv2"></div>
 									</td>
-									<td class = "safe">
+									<td class = "safe" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv2"></div>
 									</td>
-									<td class = "auto">
+									<td class = "auto" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv2"></div>
 									</td>
 								</tr>
 								<tr id = "vt5">
-									<td class = "chasis">
+									<td class = "chasis" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv3"></div>
 									</td>
-									<td class = "body">
+									<td class = "body" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv3"></div>
 									</td>
-									<td class = "control">
+									<td class = "control" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv3"></div>
 									</td>
-									<td class = "safe">
+									<td class = "safe" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv3"></div>
 									</td>
-									<td class = "auto">
+									<td class = "auto" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
 										<div class = "lv3"></div>
 									</td>
 								</tr>
 								<tr id = "vt6">
-									<td class = "chasis">
+									<td class = "chasis" style="border:0.1px #393A60 solid;border-top:0px;">
 										<div class = "lv4"></div>
 									</td>
-									<td class = "body">
+									<td class = "body" style="border:0.1px #393A60 solid;border-top:0px;">
 										<div class = "lv4"></div>
 									</td>
-									<td class = "control">
+									<td class = "control" style="border:0.1px #393A60 solid; border-top:0px;">
 										<div class = "lv4"></div>
 									</td>
-									<td class = "safe">
+									<td class = "safe" style="border:0.1px #393A60 solid;  border-top:0px;">
 										<div class = "lv4"></div>
 									</td>
-									<td class = "auto">
+									<td class = "auto" style="border:0.1px #393A60 solid; border-top:0px;">
 										<div class = "lv4"></div>
 									</td>
 								</tr>
 								<tr id="coopTR" style="visibility : collapse;">
-									<td class = "chasis">
+									<td class = "chasis" style="border:0.1px #393A60 solid; border-top:0px;">
 										<div class = "coop"></div>
 									</td>
-									<td class = "body">
+									<td class = "body" style="border:0.1px #393A60 solid;border-top:0px;">
+										<div class = "coop" ></div>
+									</td>
+									<td class = "control" style="border:0.1px #393A60 solid; border-top:0px;">
 										<div class = "coop"></div>
 									</td>
-									<td class = "control">
+									<td class = "safe" style="border:0.1px #393A60 solid;border-top:0px;">
 										<div class = "coop"></div>
 									</td>
-									<td class = "safe">
-										<div class = "coop"></div>
-									</td>
-									<td class = "auto">
+									<td class = "auto" style="border:0.1px #393A60 solid; border-top:0px;">
 										<div class = "coop"></div>
 									</td>
 								</tr>
