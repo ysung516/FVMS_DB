@@ -329,6 +329,34 @@
 
 </head>
 <style>
+.firstTD.orderTD{
+	background: #88b7de94;
+}
+
+.firstTD.saleTD{
+	background:#6cabe094;
+}
+.firstTD{
+	background:#3983c18a;
+}
+.lastTD{
+	background:#efa465ab;
+}
+.lastTD.orderTD{
+	background:#efa46569;
+}
+.lastTD.saleTD{
+	background:#e48b4069;
+}
+.yearTD{
+	background:#b0d2a2;
+}
+.yearTD.orderTD{
+	background:#b8d8aaa6;
+}
+.yearTD.saleTD{
+	background:#9dc78aa6;
+}
 #os_chart{
 	display:block;
 }
