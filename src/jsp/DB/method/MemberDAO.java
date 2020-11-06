@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import jsp.Bean.model.MemberBean;
 
@@ -23,7 +24,7 @@ public class MemberDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id");
+	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -449,6 +450,73 @@ public class MemberDAO {
 		}
 	      return rs;
 	 }
+	 
+	// 협력업체 회원정보 가져오기
+	public ArrayList<MemberBean> getMember_cooperation() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select career.id, member.소속, project.팀_매출 as 팀, member.이름, member.직급, member.직책, member.거주지, member.입사일, member.mobile, member.gmail, member.프로젝트수행이력, member.level, member.permission as 팀 from career, member, project, rank where member.직급 = rank.rank and career.projectNo = project.no and career.id = member.id and career.start < now() and career.end > now() and member.소속 != '슈어소프트테크' and member.직급 != '인턴' and project.상태 != '8.Dropped' and project.상태 != '7.종료' group by career.id order by member.소속, rank.rank_id;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		MemberBean member = new MemberBean();
+	    		member.setID(rs.getString("id"));
+	    		member.setPART(rs.getString("소속"));
+	    		member.setTEAM(rs.getString("팀"));
+	    		member.setNAME(rs.getString("이름"));
+	    		member.setRANK(rs.getString("직급"));
+	    		member.setPosition(rs.getString("직책"));
+	    		member.setADDRESS(rs.getString("거주지"));
+	    		member.setComDate(rs.getString("입사일"));
+	    		member.setMOBILE(rs.getString("mobile"));
+	    		member.setGMAIL(rs.getString("gmail"));	
+	    		member.setCareer(rs.getString("프로젝트수행이력"));
+	    		member.setLevel(rs.getInt("level"));
+	    		list.add(member);
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
 	
-		 
+	public HashMap<String, Integer> getNum_cooperation() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null; 
+	    HashMap<String, Integer> coopNum = new HashMap<String, Integer>();
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select count(distinct career.id) as 인원수, member.소속 from career, member, project where career.projectNo = project.no and career.id = member.id and career.id in (select distinct id from career) and career.start < now() and career.end > now() and member.소속 != '슈어소프트테크' and member.직급 != '인턴' and project.상태 != '8.Dropped' and project.상태 != '7.종료' group by member.소속;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		coopNum.put(rs.getString("소속"), rs.getInt("인원수"));
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return coopNum;
+	}
+	
 }	//end 
