@@ -329,6 +329,9 @@
 
 </head>
 <style>
+#os_chart{
+	display:block;
+}
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
@@ -411,7 +414,7 @@ ul.tabs li.current{
 	
 	table:not(.memchart):not(#intern){ 
 	white-space: nowrap;
-	display:table-cell;
+	/*display:table-cell;*/
 	overflow:auto;
 	white-space: nowrap;
 	}
@@ -1840,7 +1843,8 @@ function y_rsales() {
 
   <!-- Begin Page Content -->
     <div class="container-fluid">
-    
+ 
+   
       <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -1856,6 +1860,359 @@ function y_rsales() {
 	</ul>
 			
  				<div id="tab-1" class="tab-content current">
+ 				 <table class="table table-bordered" id="os_chart">
+ 				 <thead>
+ 				 	<tr>
+ 				 		<td></td>
+ 				 		<td colspan="10" class="firstTD">상반기</td>
+ 				 		<td colspan="10" class="lastTD">하반기</td>
+ 						 <td colspan="10" class="yearTD">연간</td>
+ 				 	</tr>
+ 				 </thead>
+ 				 <tbody>
+ 				 	<tr>
+ 				 		<td></td>
+ 				 		<td colspan="5" class="firstTD">수주</td>
+ 				 		<td colspan="5" class="firstTD">매출</td>
+ 				 		<td colspan="5" class="lastTD">수주</td>
+ 				 		<td colspan="5" class="lastTD">매출</td>
+ 				 		<td colspan="5" class="yearTD">수주</td>
+ 				 		<td colspan="5" class="yearTD">매출</td>
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td></td>
+ 				 		<td class="firstTD orderTD">목표수주</td>
+ 				 		<td class="firstTD orderTD">예상수주</td>
+ 				 		<td class="firstTD orderTD">예상수주(%)</td>
+ 				 		<td class="firstTD orderTD">달성</td>
+ 				 		<td class="firstTD orderTD">수주달성률</td>
+ 				 		
+ 				 		<td class="firstTD saleTD">목표매출</td>
+ 				 		<td class="firstTD saleTD">예상매출</td>
+ 				 		<td class="firstTD saleTD">예상매출(%)</td>
+ 				 		<td class="firstTD saleTD">달성</td>
+ 				 		<td class="firstTD saleTD">매출달성률</td>
+ 				 		
+ 				 		<td class="lastTD orderTD">목표수주</td>
+ 				 		<td class="lastTD orderTD">예상수주</td>
+ 				 		<td class="lastTD orderTD">예상수주(%)</td>
+ 				 		<td class="lastTD orderTD">달성</td>
+ 				 		<td class="lastTD orderTD">수주달성률</td>
+ 				 		
+ 				 		<td class="lastTD saleTD" >목표매출</td>
+ 				 		<td class="lastTD saleTD">예상매출</td>
+ 				 		<td class="lastTD saleTD">예상매출(%)</td>
+ 				 		<td class="lastTD saleTD">달성</td>
+ 				 		<td class="lastTD saleTD">매출달성률</td>
+ 				 		
+ 				 		<td class="yearTD orderTD">목표수주</td>
+ 				 		<td class="yearTD orderTD">예상수주</td>
+ 				 		<td class="yearTD orderTD">예상수주(%)</td>
+ 				 		<td class="yearTD orderTD">달성</td>
+ 				 		<td class="yearTD orderTD">수주달성률</td>
+ 				 		
+ 				 		<td class="yearTD saleTD">목표매출</td>
+ 				 		<td class="yearTD saleTD">예상매출</td>
+ 				 		<td class="yearTD saleTD">예상매출(%)</td>
+ 				 		<td class="yearTD saleTD">달성</td>
+ 				 		<td class="yearTD saleTD">매출달성률</td>
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="chasisOs">샤시힐스검증팀</td>
+ 				 		<td class="chasisOs firstTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs firstTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs firstTD orderTD rateTD"></td>
+ 				 		<td class="chasisOs firstTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="chasisOs firstTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs firstTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs firstTD saleTD rateTD"></td>
+ 				 		<td class="chasisOs firstTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="chasisOs lastTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs lastTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs lastTD orderTD rateTD"></td>
+ 				 		<td class="chasisOs lastTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="chasisOs lastTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs lastTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs lastTD saleTD rateTD"></td>
+ 				 		<td class="chasisOs lastTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="chasisOs yearTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs yearTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs yearTD orderTD rateTD"></td>
+ 				 		<td class="chasisOs yearTD orderTD dataTD"></td>
+ 				 		<td class="chasisOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="chasisOs yearTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs yearTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs yearTD saleTD rateTD"></td>
+ 				 		<td class="chasisOs yearTD saleTD dataTD"></td>
+ 				 		<td class="chasisOs yearTD saleTD rateTD"></td>
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="bodyOs">바디힐스검증팀</td>
+ 				 		<td class="bodyOs firstTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs firstTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs firstTD orderTD rateTD"></td>
+ 				 		<td class="bodyOs firstTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="bodyOs firstTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs firstTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs firstTD saleTD rateTD"></td>
+ 				 		<td class="bodyOs firstTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="bodyOs lastTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs lastTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs lastTD orderTD rateTD"></td>
+ 				 		<td class="bodyOs lastTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="bodyOs lastTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs lastTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs lastTD saleTD rateTD"></td>
+ 				 		<td class="bodyOs lastTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="bodyOs yearTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs yearTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs yearTD orderTD rateTD"></td>
+ 				 		<td class="bodyOs yearTD orderTD dataTD"></td>
+ 				 		<td class="bodyOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="bodyOs yearTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs yearTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs yearTD saleTD rateTD"></td>
+ 				 		<td class="bodyOs yearTD saleTD dataTD"></td>
+ 				 		<td class="bodyOs yearTD saleTD rateTD"></td>
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="controlOs">제어로직검증팀</td>
+ 				 		<td class="controlOs firstTD orderTD dataTD"></td>
+ 				 		<td class="controlOs firstTD orderTD dataTD"></td>
+ 				 		<td class="controlOs firstTD orderTD rateTD"></td>
+ 				 		<td class="controlOs firstTD orderTD dataTD"></td>
+ 				 		<td class="controlOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="controlOs firstTD saleTD dataTD"></td>
+ 				 		<td class="controlOs firstTD saleTD dataTD"></td>
+ 				 		<td class="controlOs firstTD saleTD rateTD"></td>
+ 				 		<td class="controlOs firstTD saleTD dataTD"></td>
+ 				 		<td class="controlOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="controlOs lastTD orderTD dataTD"></td>
+ 				 		<td class="controlOs lastTD orderTD dataTD"></td>
+ 				 		<td class="controlOs lastTD orderTD rateTD"></td>
+ 				 		<td class="controlOs lastTD orderTD dataTD"></td>
+ 				 		<td class="controlOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="controlOs lastTD saleTD dataTD"></td>
+ 				 		<td class="controlOs lastTD saleTD dataTD"></td>
+ 				 		<td class="controlOs lastTD saleTD rateTD"></td>
+ 				 		<td class="controlOs lastTD saleTD dataTD"></td>
+ 				 		<td class="controlOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="controlOs yearTD orderTD dataTD"></td>
+ 				 		<td class="controlOs yearTD orderTD dataTD"></td>
+ 				 		<td class="controlOs yearTD orderTD rateTD"></td>
+ 				 		<td class="controlOs yearTD orderTD dataTD"></td>
+ 				 		<td class="controlOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="controlOs yearTD saleTD dataTD"></td>
+ 				 		<td class="controlOs yearTD saleTD dataTD"></td>
+ 				 		<td class="controlOs yearTD saleTD rateTD"></td>
+ 				 		<td class="controlOs yearTD saleTD dataTD"></td>
+ 				 		<td class="controlOs yearTD saleTD rateTD"></td>
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="safeOs">기능안전검증팀</td>
+ 				 		<td class="safeOs firstTD orderTD dataTD"></td>
+ 				 		<td class="safeOs firstTD orderTD dataTD"></td>
+ 				 		<td class="safeOs firstTD orderTD rateTD"></td>
+ 				 		<td class="safeOs firstTD orderTD dataTD"></td>
+ 				 		<td class="safeOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="safeOs firstTD saleTD dataTD"></td>
+ 				 		<td class="safeOs firstTD saleTD dataTD"></td>
+ 				 		<td class="safeOs firstTD saleTD rateTD"></td>
+ 				 		<td class="safeOs firstTD saleTD dataTD"></td>
+ 				 		<td class="safeOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="safeOs lastTD orderTD dataTD"></td>
+ 				 		<td class="safeOs lastTD orderTD dataTD"></td>
+ 				 		<td class="safeOs lastTD orderTD rateTD"></td>
+ 				 		<td class="safeOs lastTD orderTD dataTD"></td>
+ 				 		<td class="safeOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="safeOs lastTD saleTD dataTD"></td>
+ 				 		<td class="safeOs lastTD saleTD dataTD"></td>
+ 				 		<td class="safeOs lastTD saleTD rateTD"></td>
+ 				 		<td class="safeOs lastTD saleTD dataTD"></td>
+ 				 		<td class="safeOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="safeOs yearTD orderTD dataTD"></td>
+ 				 		<td class="safeOs yearTD orderTD dataTD"></td>
+ 				 		<td class="safeOs yearTD orderTD rateTD"></td>
+ 				 		<td class="safeOs yearTD orderTD dataTD"></td>
+ 				 		<td class="safeOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="safeOs yearTD saleTD dataTD"></td>
+ 				 		<td class="safeOs yearTD saleTD dataTD"></td>
+ 				 		<td class="safeOs yearTD saleTD rateTD"></td>
+ 				 		<td class="safeOs yearTD saleTD dataTD"></td>
+ 				 		<td class="safeOs yearTD saleTD rateTD"></td>
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="autoOs">자율주행검증팀</td>
+ 				 		<td class="autoOs firstTD orderTD dataTD"></td>
+ 				 		<td class="autoOs firstTD orderTD dataTD"></td>
+ 				 		<td class="autoOs firstTD orderTD rateTD"></td>
+ 				 		<td class="autoOs firstTD orderTD dataTD"></td>
+ 				 		<td class="autoOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="autoOs firstTD saleTD dataTD"></td>
+ 				 		<td class="autoOs firstTD saleTD dataTD"></td>
+ 				 		<td class="autoOs firstTD saleTD rateTD"></td>
+ 				 		<td class="autoOs firstTD saleTD dataTD"></td>
+ 				 		<td class="autoOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="autoOs lastTD orderTD dataTD"></td>
+ 				 		<td class="autoOs lastTD orderTD dataTD"></td>
+ 				 		<td class="autoOs lastTD orderTD rateTD"></td>
+ 				 		<td class="autoOs lastTD orderTD dataTD"></td>
+ 				 		<td class="autoOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="autoOs lastTD saleTD dataTD"></td>
+ 				 		<td class="autoOs lastTD saleTD dataTD"></td>
+ 				 		<td class="autoOs lastTD saleTD rateTD"></td>
+ 				 		<td class="autoOs lastTD saleTD dataTD"></td>
+ 				 		<td class="autoOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="autoOs yearTD orderTD dataTD"></td>
+ 				 		<td class="autoOs yearTD orderTD dataTD"></td>
+ 				 		<td class="autoOs yearTD orderTD rateTD"></td>
+ 				 		<td class="autoOs yearTD orderTD dataTD"></td>
+ 				 		<td class="autoOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="autoOs yearTD saleTD dataTD"></td>
+ 				 		<td class="autoOs yearTD saleTD dataTD"></td>
+ 				 		<td class="autoOs yearTD saleTD rateTD"></td>
+ 				 		<td class="autoOs yearTD saleTD dataTD"></td>
+ 				 		<td class="autoOs yearTD saleTD rateTD"></td>	
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="vtOs">미래차검증전략실</td>
+ 				 		<td class="vtOs firstTD orderTD dataTD"></td>
+ 				 		<td class="vtOs firstTD orderTD dataTD"></td>
+ 				 		<td class="vtOs firstTD orderTD rateTD"></td>
+ 				 		<td class="vtOs firstTD orderTD dataTD"></td>
+ 				 		<td class="vtOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="vtOs firstTD saleTD dataTD"></td>
+ 				 		<td class="vtOs firstTD saleTD dataTD"></td>
+ 				 		<td class="vtOs firstTD saleTD rateTD"></td>
+ 				 		<td class="vtOs firstTD saleTD dataTD"></td>
+ 				 		<td class="vtOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="vtOs lastTD orderTD dataTD"></td>
+ 				 		<td class="vtOs lastTD orderTD dataTD"></td>
+ 				 		<td class="vtOs lastTD orderTD rateTD"></td>
+ 				 		<td class="vtOs lastTD orderTD dataTD"></td>
+ 				 		<td class="vtOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="vtOs lastTD saleTD dataTD"></td>
+ 				 		<td class="vtOs lastTD saleTD dataTD"></td>
+ 				 		<td class="vtOs lastTD saleTD rateTD"></td>
+ 				 		<td class="vtOs lastTD saleTD dataTD"></td>
+ 				 		<td class="vtOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="vtOs yearTD orderTD dataTD"></td>
+ 				 		<td class="vtOs yearTD orderTD dataTD"></td>
+ 				 		<td class="vtOs yearTD orderTD rateTD"></td>
+ 				 		<td class="vtOs yearTD orderTD dataTD"></td>
+ 				 		<td class="vtOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="vtOs yearTD saleTD dataTD"></td>
+ 				 		<td class="vtOs yearTD saleTD dataTD"></td>
+ 				 		<td class="vtOs yearTD saleTD rateTD"></td>
+ 				 		<td class="vtOs yearTD saleTD dataTD"></td>
+ 				 		<td class="vtOs yearTD saleTD rateTD"></td>	
+ 				 	</tr>
+ 				 	
+ 				 	<tr>
+ 				 		<td class="totalOs">total</td>
+ 				 		<td class="totalOs firstTD orderTD dataTD"></td>
+ 				 		<td class="totalOs firstTD orderTD dataTD"></td>
+ 				 		<td class="totalOs firstTD orderTD rateTD"></td>
+ 				 		<td class="totalOs firstTD orderTD dataTD"></td>
+ 				 		<td class="totalOs firstTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="totalOs firstTD saleTD dataTD"></td>
+ 				 		<td class="totalOs firstTD saleTD dataTD"></td>
+ 				 		<td class="totalOs firstTD saleTD rateTD"></td>
+ 				 		<td class="totalOs firstTD saleTD dataTD"></td>
+ 				 		<td class="totalOs firstTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="totalOs lastTD orderTD dataTD"></td>
+ 				 		<td class="totalOs lastTD orderTD dataTD"></td>
+ 				 		<td class="totalOs lastTD orderTD rateTD"></td>
+ 				 		<td class="totalOs lastTD orderTD dataTD"></td>
+ 				 		<td class="totalOs lastTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="totalOs lastTD saleTD dataTD"></td>
+ 				 		<td class="totalOs lastTD saleTD dataTD"></td>
+ 				 		<td class="totalOs lastTD saleTD rateTD"></td>
+ 				 		<td class="totalOs lastTD saleTD dataTD"></td>
+ 				 		<td class="totalOs lastTD saleTD rateTD"></td>
+ 				 		
+ 				 		<td class="totalOs yearTD orderTD dataTD"></td>
+ 				 		<td class="totalOs yearTD orderTD dataTD"></td>
+ 				 		<td class="totalOs yearTD orderTD rateTD"></td>
+ 				 		<td class="totalOs yearTD orderTD dataTD"></td>
+ 				 		<td class="totalOs yearTD orderTD rateTD"></td>
+ 				 		
+ 				 		<td class="totalOs yearTD saleTD dataTD"></td>
+ 				 		<td class="totalOs yearTD saleTD dataTD"></td>
+ 				 		<td class="totalOs yearTD saleTD rateTD"></td>
+ 				 		<td class="totalOs yearTD saleTD dataTD"></td>
+ 				 		<td class="totalOs yearTD saleTD rateTD"></td>
+ 				 	</tr>
+ 				 </tbody> 				 
+				 </table>
+			
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
+ 				 
  				<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable">
