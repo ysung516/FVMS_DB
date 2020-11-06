@@ -94,6 +94,9 @@ function input_check_func() {
 
 </head>
 <style>
+.sidebar .nav-item{
+	 	word-break: keep-all;
+}
 #sidebarToggle{
 		display:none;
 	}

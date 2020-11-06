@@ -108,6 +108,9 @@ int permission = Integer.parseInt(session.getAttribute("permission").toString())
 	}
 </script>
 <style>
+.sidebar .nav-item{
+	 	word-break: keep-all;
+}
 #sidebarToggle{
 		display:none;
 	}

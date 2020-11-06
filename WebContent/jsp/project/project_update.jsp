@@ -69,6 +69,9 @@
 
 </head>
 <style>
+.sidebar .nav-item{
+	 	word-break: keep-all;
+}
 #PROJECT_NAME{
 	width:60%;
 }

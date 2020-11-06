@@ -63,6 +63,9 @@
 
 </head>
 <style>
+.sidebar .nav-item{
+	 	word-break: keep-all;
+}
 .topbar {
 	height: 3.375rem;
 }
@@ -1513,7 +1516,7 @@
 		
 	</script>
 
-<body id="page-top" style="font-size: small;">
+<body id="page-top">
 	<!--  로딩화면  시작  -->
 	<div class="loading">
 		<div id="load">

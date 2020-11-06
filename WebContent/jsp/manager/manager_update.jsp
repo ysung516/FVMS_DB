@@ -95,6 +95,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+.sidebar .nav-item{
+	 	word-break: keep-all;
+}
 #sidebarToggle{
 		display:none;
 	}
