@@ -989,41 +989,4 @@ public class ProjectDAO {
 			}
 		    return year;
 		}
-		
-		// summary 수주/매출 테이블용 career 데이터
-		public ArrayList<careerSummary_Bean> getCareerSummary(){
-			ArrayList<careerSummary_Bean> list = new ArrayList<careerSummary_Bean>();
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			try {
-				StringBuffer query = new StringBuffer();
-		    	query.append("SELECT career.id, member.이름, career.projectNo, member.팀, rank.compensation FROM career, member, rank "
-		    			+ "where member.직급 = rank.rank and career.id = member.id group by id, projectNo;");
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	rs = pstmt.executeQuery();
-		    	
-		    	while(rs.next()) {
-		    		careerSummary_Bean cs = new careerSummary_Bean();
-		    		cs.setId(rs.getString(1));
-		    		cs.setName(rs.getString(2));
-		    		cs.setNo(rs.getInt(3));
-		    		cs.setTeam(rs.getString(4));
-		    		cs.setCompensation(rs.getInt(5));
-		    		list.add(cs);
-		    	}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if(rs != null) try {rs.close();} catch(SQLException ex) {}
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-			
-			return list;
-		}
-
 }	// end 

@@ -19,10 +19,10 @@
 		int nowYear = Integer.parseInt(sdf.format(now));
 		
 		MemberDAO memberDao = new MemberDAO();
-		ProjectDAO projectDao = new ProjectDAO();
+		SummaryDAO summaryDao = new SummaryDAO();
 		
-		ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
-		ArrayList<careerSummary_Bean> careerSmList = projectDao.getCareerSummary();
+		ArrayList<ProjectBean> projectList = summaryDao.getProjectList();
+		ArrayList<careerSummary_Bean> careerSmList = summaryDao.getCareerSummary();
 	%>
 
 <meta charset="utf-8">

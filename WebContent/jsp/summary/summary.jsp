@@ -36,8 +36,8 @@
     HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();
 	
 	SummaryDAO summaryDao = new SummaryDAO();
-	ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
-	ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
+	//ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
+	//ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
 	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
@@ -1948,7 +1948,7 @@ function y_rsales() {
  				 	</tr>
  				 	
  				 	<tr class="chasisOs">
- 				 		<td class="chasisOs">샤시힐스검증팀</td>
+ 				 		<td class="chasisOs">샤시힐스</td>
  				 		<td class="chasisOs firstTD orderTD dataTD"></td>
  				 		<td class="chasisOs firstTD orderTD dataTD"></td>
  				 		<td class="chasisOs firstTD orderTD rateTD"></td>
@@ -1987,7 +1987,7 @@ function y_rsales() {
  				 	</tr>
  				 	
  				 	<tr class="bodyOs">
- 				 		<td class="bodyOs">바디힐스검증팀</td>
+ 				 		<td class="bodyOs">바디힐스</td>
  				 		<td class="bodyOs firstTD orderTD dataTD"></td>
  				 		<td class="bodyOs firstTD orderTD dataTD"></td>
  				 		<td class="bodyOs firstTD orderTD rateTD"></td>
@@ -2026,7 +2026,7 @@ function y_rsales() {
  				 	</tr>
  				 	
  				 	<tr class="controlOs">
- 				 		<td class="controlOs">제어로직검증팀</td>
+ 				 		<td class="controlOs">제어로직</td>
  				 		<td class="controlOs firstTD orderTD dataTD"></td>
  				 		<td class="controlOs firstTD orderTD dataTD"></td>
  				 		<td class="controlOs firstTD orderTD rateTD"></td>
@@ -2065,7 +2065,7 @@ function y_rsales() {
  				 	</tr>
  				 	
  				 	<tr class="safeOs">
- 				 		<td class="safeOs">기능안전검증팀</td>
+ 				 		<td class="safeOs">기능안전</td>
  				 		<td class="safeOs firstTD orderTD dataTD"></td>
  				 		<td class="safeOs firstTD orderTD dataTD"></td>
  				 		<td class="safeOs firstTD orderTD rateTD"></td>
@@ -2104,7 +2104,7 @@ function y_rsales() {
  				 	</tr>
  				 	
  				 	<tr class="autoOs">
- 				 		<td class="autoOs">자율주행검증팀</td>
+ 				 		<td class="autoOs">자율주행</td>
  				 		<td class="autoOs firstTD orderTD dataTD"></td>
  				 		<td class="autoOs firstTD orderTD dataTD"></td>
  				 		<td class="autoOs firstTD orderTD rateTD"></td>
@@ -2143,7 +2143,7 @@ function y_rsales() {
  				 	</tr>
  				 	
  				 	<tr class="vtOs">
- 				 		<td class="vtOs">미래차검증전략실</td>
+ 				 		<td class="vtOs">VT</td>
  				 		<td class="vtOs firstTD orderTD dataTD"></td>
  				 		<td class="vtOs firstTD orderTD dataTD"></td>
  				 		<td class="vtOs firstTD orderTD rateTD"></td>

@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import jsp.Bean.model.ProjectBean;
 import jsp.Bean.model.StateOfProBean;
 import jsp.Bean.model.TeamBean;
+import jsp.Bean.model.careerSummary_Bean;
 
 public class SummaryDAO {
 	public SummaryDAO() {}
@@ -21,8 +24,11 @@ public class SummaryDAO {
 	    ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 	    
 	    try {
+	    	Date now = new Date();
+	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	    	String year = sf.format(now);
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from project where 실적보고 = 1;");
+	    	query.append("SELECT * from project where 실적보고 = 1 and year ="+year+" ;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -55,7 +61,43 @@ public class SummaryDAO {
 	    return list;
 	}
 	
-	//단계가 1,2,3인 프로젝트의 팀정보
+	// summary 수주/매출 테이블용 career 데이터
+	public ArrayList<careerSummary_Bean> getCareerSummary(){
+		ArrayList<careerSummary_Bean> list = new ArrayList<careerSummary_Bean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("SELECT career.id, member.이름, career.projectNo, member.팀, rank.compensation FROM career, member, rank "
+	    			+ "where member.직급 = rank.rank and career.id = member.id group by id, projectNo;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		careerSummary_Bean cs = new careerSummary_Bean();
+	    		cs.setId(rs.getString(1));
+	    		cs.setName(rs.getString(2));
+	    		cs.setNo(rs.getInt(3));
+	    		cs.setTeam(rs.getString(4));
+	    		cs.setCompensation(rs.getInt(5));
+	    		list.add(cs);
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return list;
+	}
+	
+	//단계가 1,2,3인 프로젝트의 팀정보 - 사용안함
 	public ArrayList<StateOfProBean> StateProjectNum_sales() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -88,7 +130,7 @@ public class SummaryDAO {
 	    return list;
 	}
 	
-	//단계가 4,5,6,7,8인 프로젝트의 팀정보
+	//단계가 4,5,6,7,8인 프로젝트의 팀정보 - 사용안함
 	public ArrayList<StateOfProBean> StateProjectNum_order() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -121,7 +163,7 @@ public class SummaryDAO {
 	    return list;
 	}
 	
-	// 상태별 total
+	// 상태별 total - 사용안함
 	public int State_ProjectCount(String state) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
