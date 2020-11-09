@@ -112,10 +112,17 @@
 #content{
 	margin-left:90px;
 }
+
 .sidebar{
 		position: absolute;
-		z-index:9999;
-	}
+		z-index:9999999;
+		background-image : none !important;
+}
+.sidebar2{
+	position: absolute;
+	height: 100%;
+	z-index:9999999;
+}
 .cb {
 	height: 18px;
 	width: 18px;
@@ -844,6 +851,9 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled sidebar2"
+			id="accordionSidebar"></ul>
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
 			id="accordionSidebar">

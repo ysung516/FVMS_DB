@@ -96,6 +96,7 @@
 	width:94%;
 }
 .sidebar{
+		height:100%;
 		position: absolute;
 		z-index:9999;
 	}
