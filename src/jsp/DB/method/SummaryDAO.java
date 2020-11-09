@@ -69,9 +69,13 @@ public class SummaryDAO {
 		ResultSet rs = null;
 		
 		try {
+			Date now = new Date();
+	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	    	String year = sf.format(now);
 			StringBuffer query = new StringBuffer();
-	    	query.append("SELECT career.id, member.이름, career.projectNo, member.팀, rank.compensation FROM career, member, rank "
-	    			+ "where member.직급 = rank.rank and career.id = member.id group by id, projectNo;");
+	    	query.append("SELECT career.id, member.이름, career.projectNo, member.팀, rank.compensation FROM career, member, rank, project "
+	    			+ "where project.no = career.projectNo and project.year = 2020 and member.직급 = rank.rank and career.id = member.id "
+	    			+ "group by id, projectNo;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

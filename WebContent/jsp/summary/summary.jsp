@@ -39,6 +39,7 @@
 	//ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
 	//ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
 	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();
+	ArrayList<careerSummary_Bean> careerSummaryList = summaryDao.getCareerSummary();
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
 	ArrayList<TeamBean> teamList = summaryDao.getTagetData();
@@ -1723,13 +1724,52 @@ function y_rsales() {
 		});
 	}
 	
-	function summaryOSchart(){
+	function summaryOSchartAll(){
+		//checkALL
+		$('#checkALL').change(function(){
+			if(!($('#checkALL').is(":checked"))){
+				$('.firstTD').css('visibility', 'collapse');
+				$('.lastTD').css('visibility', 'collapse');
+				$('.yearTD').css('visibility', 'collapse');
+				$('#checkFIRST').prop('checked', false);
+				$('#checkLAST').prop('checked', false);
+				$('#checkYEAR').prop('checked', false);
+				$('#checkORDER').prop('checked', false);
+				$('#checkSALE').prop('checked', false);
+				$('#checkDATA').prop('checked', false);
+				$('#checkRATE').prop('checked', false);
+			}else{
+				$('.firstTD').css('visibility', 'visible');
+				$('.lastTD').css('visibility', 'visible');
+				$('.yearTD').css('visibility', 'visible');
+				$('#checkFIRST').prop('checked', true);
+				$('#checkLAST').prop('checked', true);
+				$('#checkYEAR').prop('checked', true);
+				$('#checkORDER').prop('checked', true);
+				$('#checkSALE').prop('checked', true);
+				$('#checkDATA').prop('checked', true);
+				$('#checkRATE').prop('checked', true);
+			}
+		});
+		
 		//checkFIRST
 		$('#checkFIRST').change(function(){
 			if(!($('#checkFIRST').is(":checked"))){
 				$('.firstTD').css('visibility', 'collapse');
 			}else{
 				$('.firstTD').css('visibility', 'visible');
+				if(!($('#checkORDER').is(":checked"))){
+					$('.orderTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkSALE').is(":checked"))){
+					$('.saleTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkRATE').is(":checked"))){
+					$('.rateTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkDATA').is(":checked"))){
+					$('.dataTD').css('visibility', 'collapse');
+				}
 			}
 		});
 		
@@ -1739,6 +1779,18 @@ function y_rsales() {
 				$('.lastTD').css('visibility', 'collapse');
 			}else{
 				$('.lastTD').css('visibility', 'visible');
+				if(!($('#checkORDER').is(":checked"))){
+					$('.orderTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkSALE').is(":checked"))){
+					$('.saleTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkRATE').is(":checked"))){
+					$('.rateTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkDATA').is(":checked"))){
+					$('.dataTD').css('visibility', 'collapse');
+				}
 			}
 		});
 		
@@ -1748,6 +1800,18 @@ function y_rsales() {
 				$('.yearTD').css('visibility', 'collapse');
 			}else{
 				$('.yearTD').css('visibility', 'visible');
+				if(!($('#checkORDER').is(":checked"))){
+					$('.orderTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkSALE').is(":checked"))){
+					$('.saleTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkRATE').is(":checked"))){
+					$('.rateTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkDATA').is(":checked"))){
+					$('.dataTD').css('visibility', 'collapse');
+				}
 			}
 		});
 		
@@ -1755,8 +1819,44 @@ function y_rsales() {
 		$('#checkORDER').change(function(){
 			if(!($('#checkORDER').is(":checked"))){
 				$('.orderTD').css('visibility', 'collapse');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
 			}else{
 				$('.orderTD').css('visibility', 'visible');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
+				if(!($('#checkRATE').is(":checked"))){
+					$('.rateTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkDATA').is(":checked"))){
+					$('.dataTD').css('visibility', 'collapse');
+				}
 			}
 		});
 		
@@ -1764,8 +1864,44 @@ function y_rsales() {
 		$('#checkSALE').change(function(){
 			if(!($('#checkSALE').is(":checked"))){
 				$('.saleTD').css('visibility', 'collapse');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
 			}else{
 				$('.saleTD').css('visibility', 'visible');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
+				if(!($('#checkRATE').is(":checked"))){
+					$('.rateTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkDATA').is(":checked"))){
+					$('.dataTD').css('visibility', 'collapse');
+				}
 			}
 		});
 		
@@ -1773,8 +1909,44 @@ function y_rsales() {
 		$('#checkRATE').change(function(){
 			if(!($('#checkRATE').is(":checked"))){
 				$('.rateTD').css('visibility', 'collapse');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
 			}else{
 				$('.rateTD').css('visibility', 'visible');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
+				if(!($('#checkORDER').is(":checked"))){
+					$('.orderTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkSALE').is(":checked"))){
+					$('.saleTD').css('visibility', 'collapse');
+				}
 			}
 		});
 		
@@ -1782,8 +1954,44 @@ function y_rsales() {
 		$('#checkDATA').change(function(){
 			if(!($('#checkDATA').is(":checked"))){
 				$('.dataTD').css('visibility', 'collapse');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
 			}else{
 				$('.dataTD').css('visibility', 'visible');
+				if(!($('#checkFIRST').is(":checked"))){
+					$('.firstTD').css('visibility', 'collapse');
+				}else{
+					$('.firstTag').css('visibility', 'visible');
+				}
+				if(!($('#checkLAST').is(":checked"))){
+					$('.lastTD').css('visibility', 'collapse');
+				}else{
+					$('.lastTag').css('visibility', 'visible');
+				}
+				if(!($('#checkYEAR').is(":checked"))){
+					$('.yearTD').css('visibility', 'collapse');
+				}else{
+					$('.yearTag').css('visibility', 'visible');
+				}
+				if(!($('#checkORDER').is(":checked"))){
+					$('.orderTD').css('visibility', 'collapse');
+				}
+				if(!($('#checkSALE').is(":checked"))){
+					$('.saleTD').css('visibility', 'collapse');
+				}
 			}
 		});
 	}
@@ -1805,7 +2013,7 @@ function y_rsales() {
 		
 		memchartInsert();
 		cooperView();
-		summaryOSchart();
+		summaryOSchartAll();
 
 	});
 	
@@ -1950,13 +2158,14 @@ function y_rsales() {
 	</ul>
 			
  				<div id="tab-1" class="tab-content current">
- 				<label style="margin-right:7px;"><input id="checkFIRST" type="checkbox" checked>상반기</label>
- 				<label style="margin-right:7px;"><input id="checkLAST" type="checkbox" checked>하반기</label>
- 				<label style="margin-right:7px;"><input id="checkYEAR" type="checkbox" checked>연간</label>
- 				<label style="margin-right:7px;"><input id="checkORDER" type="checkbox" checked>수주</label>
- 				<label style="margin-right:7px;"><input id="checkSALE" type="checkbox" checked>매출</label>
- 				<label style="margin-right:7px;"><input id="checkRATE" type="checkbox" checked>비율</label>
- 				<label style="margin-right:7px;"><input id="checkDATA" type="checkbox" checked>값</label>
+ 				<label style="margin-right:7px;"><input id="checkALL" class="OSchartClass" type="checkbox" checked>ALL</label>
+ 				<label style="margin-right:7px;"><input id="checkFIRST" class="OSchartClass" type="checkbox" checked>상반기</label>
+ 				<label style="margin-right:7px;"><input id="checkLAST" class="OSchartClass" type="checkbox" checked>하반기</label>
+ 				<label style="margin-right:7px;"><input id="checkYEAR" class="OSchartClass" type="checkbox" checked>연간</label>
+ 				<label style="margin-right:7px;"><input id="checkORDER" class="OSchartClass" type="checkbox" checked>수주</label>
+ 				<label style="margin-right:7px;"><input id="checkSALE" class="OSchartClass" type="checkbox" checked>매출</label>
+ 				<label style="margin-right:7px;"><input id="checkRATE" class="OSchartClass" type="checkbox" checked>비율</label>
+ 				<label style="margin-right:7px;"><input id="checkDATA" class="OSchartClass" type="checkbox" checked>값</label>
  				
 			<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">
@@ -1988,7 +2197,7 @@ function y_rsales() {
                   
                   <tbody>
                     <tr class="firstTD orderTD dataTD">
-                    	<td rowspan="10" style="text-align:center; vertical-align: middle;" class="firstTD">상반기</td>
+                    	<td rowspan="10" style="text-align:center; font-size: medium; padding-top: 10px" class="firstTD firstTag">상반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=FH_total_PJ%></td>
                     	<td><input class="sale" name="FH_chassis_PJ" value='<%=FH_chassis_PJ%>'></td>
@@ -2094,7 +2303,7 @@ function y_rsales() {
                     </tr>
                     
                      <tr class="lastTD orderTD dataTD">
-                    	<td rowspan="10" style="text-align:center; vertical-align: middle;" class="lastTD">하반기</td>
+                    	<td rowspan="10" style="text-align:center; font-size: medium; padding-top: 10px" class="lastTD lastTag">하반기</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=SH_total_PJ%></td>
                     	<td><input class="sale" name="SH_chassis_PJ" value='<%=SH_chassis_PJ %>'></td>
@@ -2198,7 +2407,7 @@ function y_rsales() {
                     </tr>
                     
                     <tr class="yearTD orderTD dataTD">
-                    	<td rowspan="10" style="text-align:center; vertical-align:middle;" class="yearTD">연간</td>
+                    	<td rowspan="10" style="text-align:center; font-size: medium; padding-top: 10px" class="yearTD yearTag">연간</td>
                     	<td style="text-align:center;">목표 수주</td>
                     	<td><%=Y_total_pj %></td>
                     	<td><%=Y_chassis_PJ %></td>
