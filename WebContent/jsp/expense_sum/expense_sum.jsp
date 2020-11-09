@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
-	import="jsp.DB.method.*" import="jsp.Bean.model.*"
-	import="java.util.ArrayList" import="java.util.List"%>
+	import="jsp.Bean.model.*" import="java.util.ArrayList"
+	import="java.util.List" import="jsp.DB.method.*"
+	import="jsp.Bean.model.*"
+	import="java.text.SimpleDateFormat" import="java.util.Date"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,25 +13,15 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(60*60);
-		int no = Integer.parseInt(request.getParameter("no"));
-		MeetingDAO meetDao = new MeetingDAO();
-		MeetBean mb = meetDao.getMeetList(no);
-		ArrayList<nextPlanBean> nextPlanList = new ArrayList<nextPlanBean>();
-		if(!(mb.getP_nextplan().equals("-"))){
-			nextPlanList = meetDao.getNextPlan(mb.getP_nextplan());			
-		}
 		
-		String id = mb.getId();
+		MemberDAO memberDao = new MemberDAO();
+		MemberBean member = memberDao.returnMember(sessionID);
+		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
-		//System.out.println(sessionID);
-		//System.out.println(id);
-		// 출력
-		String [] line;		
 	%>
 
 <meta charset="utf-8">
@@ -39,14 +31,13 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Sure FVMS - Meeting_view</title>
+<title>Sure FVMS - 지출 요약</title>
 
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -54,18 +45,14 @@
 </head>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-
-	function fnMove(seq){
-		var offset = $("#move" + seq).offset();
-        $('html, body').animate({scrollTop : offset.top}, 400);
-	}
 	
+<script>
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 	});
 </script>
+
 <style>
 .sidebar .nav-item{
 	 	word-break: keep-all;
@@ -73,47 +60,18 @@
 #sidebarToggle{
 		display:none;
 	}
+#content{
+	margin-left:90px;
+}
 .sidebar{
 		position:absolute;
-		height:100%;
 		z-index:9999;
 	}
-	#content{
-		margin-left:90px;
-	}
-p {
-	margin-bottom: 0;
-}
-
-#view_btn {
-	vertical-align: middle;
-	padding-left: 17px;
-	display: inline;
-}
-
-#Delete {
-	right: 0;
-	margin-right: 24px;
-	display: inline-block;
-	position: absolute;
-	top: 9px;
-}
-
-#dataTable td:first-child {
-	text-align: center;
-	vertical-align: middle;
-	word-break: keep-all;
-	width: 10%;
-}
-
-.meeting_table {
+	
+textarea {
 	width: 100%;
 }
 
-.meeting_table td {
-	border: 1px solid black;
-	white-space: nowrap;
-}
 
 .loading {
 	position: fixed;
@@ -138,9 +96,12 @@ p {
 }
 
 @media ( max-width :765px) {
-	#sidebarToggle{
+#sidebarToggle{
 		display:block;
 	}
+#content{
+	margin-left:0;
+}
 	.card-header{
 		margin-top:4.75rem;
 	}
@@ -149,9 +110,6 @@ p {
 		position:fixed;
 		width:100%;
 		}
-#content{
-		margin-left:0px;
-	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -192,14 +150,9 @@ legend {
 	<!--  로딩화면  끝  -->
 	<!-- Page Wrapper -->
 	<div id="wrapper">
-
 		<!-- Sidebar -->
-		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
-			id="accordionSidebar">
-
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 			<!-- Sidebar - Brand -->
-
 
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
@@ -217,7 +170,7 @@ legend {
 					<span>수입 요약</span></a></li>
 					
 			<!-- Nav Item - summary -->
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item active"><a class="nav-link"
 				href="../expense_sum/expense_sum.jsp"> <i class="fas fa-fw fa-table"></i>
 					<span>지출 요약</span></a></li>
 					
@@ -256,7 +209,7 @@ legend {
 					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트 주간보고</span></a></li>
 
 			<!-- Nav Item - meeting -->
-			<li class="nav-item active"><a class="nav-link"
+			<li class="nav-item"><a class="nav-link"
 				href="../meeting/meeting.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>고객미팅 회의록</span></a></li>
 					
@@ -271,9 +224,6 @@ legend {
 				href="../manager/manager.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
-
-			
-
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -284,40 +234,31 @@ legend {
 			<div id="content">
 
 				<!-- Topbar -->
-				<nav
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop"
-						class="btn btn-link d-md-none rounded-circle mr-3">
+					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
-
-
+					
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
-
-
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow"><a
-							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sessionName%></span>
+						<li class="nav-item dropdown no-arrow">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sessionName%></span>
 								<i class="fas fa-info-circle"></i>
-						</a> <!-- Dropdown - User Information -->
-							<div
-								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+							</a>
+							<!-- Dropdown - User Information -->
+							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
-							</div></li>
-
+							</div>
+						</li>
 					</ul>
 
 				</nav>
@@ -328,126 +269,29 @@ legend {
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">회의록
-								조회</h6>
-							<form method="post" action="meeting_deletePro.jsp">
-								<input type="hidden" name="no" value="<%=no%>">
-								<%
-	     		if(sessionID.equals(id)){
-	     			%><input id="Delete" type="submit" name="Delete" value="삭제"
-									class="btn btn-primary">
-								<%	
-	     		}
-	     	%>
-							</form>
+							<h6 class="m-0 font-weight-bold text-primary"
+								style="padding-left: 17px;">지출 요약</h6>
 						</div>
 
 						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable">
-									<tr>
-										<td class="m-0 text-primary">회의명</td>
-										<td colspan="3"><%=mb.getMeetName()%></td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">작성자</td>
-										<td colspan="3"><%=mb.getWriter()%></td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">회의일시</td>
-										<td colspan="3"><%=mb.getMeetDate()%></td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">회의 장소</td>
-										<td colspan="3"><%=mb.getMeetPlace()%></td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">참석자 슈어</td>
-										<td colspan="3"><%=mb.getAttendees()%></td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">참석자 고객사</td>
-										<td colspan="3"><%=mb.getAttendees_ex()%></td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">회의내용</td>
-										<td colspan="3">
-											<%
-							line = mb.getMeetNote();
-							for(String li : line){
-								%><p style="white-space: break-spaces;"><%=li%></p> <%
-							}
-							
-						%>
-										</td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">이슈사항</td>
-										<td colspan="3">
-											<%
-							line = mb.getP_issue();
-							for(String li : line){
-								%><p style="white-space: break-spaces;"><%=li%></p> <%
-							}
-							
-						%>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="4" class="m-0 text-primary">향후일정</td>
-									</tr>
-									<tr>
-										<td class="m-0 text-primary">NO</td>
-										<td class="m-0 text-primary">항목</td>
-										<td class="m-0 text-primary">기한</td>
-										<td class="m-0 text-primary" colspan="2">담당</td>
-									</tr>
-
-									<%
-					for(int i=0; i<nextPlanList.size(); i++){%>
-									<tr>
-										<td><%=nextPlanList.get(i).getNo()%></td>
-										<td><%=nextPlanList.get(i).getItem()%></td>
-										<td><%=nextPlanList.get(i).getDeadline()%></td>
-										<td><%=nextPlanList.get(i).getPM()%></td>
-									</tr>
-									<%}%>
-									<tr>
-										<td colspan="4">
-											<form method="post" action="meeting_update.jsp"
-												style="display: contents;">
-												<input type="hidden" name="no" value="<%=no%>">
-												<%
-								if(sessionID.equals(id)){
-									%><input id="update" type="submit" name="update" value="수정"
-													class="btn btn-primary">
-												<%
-								}
-							%>
-
-											</form> <a href="meeting.jsp" class="btn btn-primary">목록</a>
-										</td>
-									</tr>
-								</table>
-
-
-
-							</div>
-
-							<!-- /.container-fluid -->
-
 						</div>
-						<!-- End of Main Content -->
-
 					</div>
-					<!-- End of Content Wrapper -->
-
+					
 				</div>
-				<!-- End of Page Wrapper -->
+				<!-- container-fluid -->
+					
+			</div>
+			<!-- End of Main Content -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+		
+	</div>
+	<!-- End of Page Wrapper -->
 
 				<!-- Scroll to Top Button-->
-				<a class="scroll-to-top rounded" href="#page-top"> <i
-					class="fas fa-angle-up"></i>
+				<a class="scroll-to-top rounded" href="#page-top">
+					<i class="fas fa-angle-up"></i>
 				</a>
 
 				<!-- Logout Modal-->
@@ -457,15 +301,13 @@ legend {
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-								<button class="close" type="button" data-dismiss="modal"
-									aria-label="Close">
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
 							<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
 							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button"
-									data-dismiss="modal">취소</button>
+								<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
 								<form method="post" action="../LogoutPro.jsp">
 									<input type="submit" class="btn btn-primary" value="확인" />
 								</form>
@@ -473,6 +315,7 @@ legend {
 						</div>
 					</div>
 				</div>
+
 
 				<!-- Bootstrap core JavaScript-->
 				<script src="../../vendor/jquery/jquery.min.js"></script>

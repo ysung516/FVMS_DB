@@ -313,7 +313,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		display:none;
 	}
 	.sidebar{
-		position:fixed;
+		position: absolute;
+		height:100%;
 		z-index:9999;
 	}
 	#content{
@@ -663,16 +664,7 @@ button:focus {
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			
-			<button id="sidebarToggle" class="rounded-circle border-0" style="margin-left:30px; margin-top:10px">
-						
-					</button>
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
 
-
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
@@ -683,35 +675,60 @@ button:focus {
 			<li class="nav-item"><a class="nav-link"
 				href="../summary/summary.jsp"> <i class="fas fa-fw fa-table"></i>
 					<span>요약정보</span></a></li>
+					
+			<!-- Nav Item - summary -->
+			<li class="nav-item"><a class="nav-link"
+				href="../income_sum/income_sum.jsp"> <i class="fas fa-fw fa-table"></i>
+					<span>수입 요약</span></a></li>
+					
+			<!-- Nav Item - summary -->
+			<li class="nav-item"><a class="nav-link"
+				href="../expense_sum/expense_sum.jsp"> <i class="fas fa-fw fa-table"></i>
+					<span>지출 요약</span></a></li>
+					
+			<!-- Nav Item - summary -->
+			<li class="nav-item"><a class="nav-link"
+				href="../profit_analysis/profit_analysis.jsp"> <i class="fas fa-fw fa-table"></i>
+					<span>수익성 분석</span></a></li>
+					
+			<!-- Nav Item - summary -->
+			<li class="nav-item"><a class="nav-link"
+				href="../memchart/memchart.jsp"> <i class="fas fa-fw fa-table"></i>
+					<span>조직도</span></a></li>
 
 			<!-- Nav Item - project -->
 			<li class="nav-item"><a class="nav-link"
 				href="../project/project.jsp"> <i
-					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트</span></a></li>
+					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트 관리</span></a></li>
 
 			<!-- Nav Item - schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../schedule/schedule.jsp"> <i
-					class="fas fa-fw fa-calendar"></i> <span>엔지니어 스케줄</span></a></li>
+					class="fas fa-fw fa-calendar"></i> <span>스케줄 - 엔지니어</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
-					class="fas fa-fw fa-calendar"></i> <span>프로젝트 스케줄</span></a></li>
+					class="fas fa-fw fa-calendar"></i> <span>스케줄 - 프로젝트</span></a></li>
 					
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item active"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
-					class="fas fa-fw fa-calendar"></i> <span>관리자 스케줄</span></a></li>
+					class="fas fa-fw fa-calendar"></i> <span>스케줄 - 관리자</span></a></li>
 
 			<!-- Nav Item - report -->
 			<li class="nav-item"><a class="nav-link"
 				href="../report/report.jsp"> <i
-					class="fas fa-fw fa-clipboard-list"></i> <span>주간보고서</span></a></li>
+					class="fas fa-fw fa-clipboard-list"></i> <span>프로젝트 주간보고</span></a></li>
 
 			<!-- Nav Item - meeting -->
 			<li class="nav-item"><a class="nav-link"
 				href="../meeting/meeting.jsp"> <i
-					class="fas fa-fw fa-clipboard-list"></i> <span>회의록</span></a></li>
+					class="fas fa-fw fa-clipboard-list"></i> <span>고객미팅 회의록</span></a></li>
+					
+			<!-- Nav Item - meeting -->
+			<li class="nav-item"><a class="nav-link"
+				href="../assessment/assessment.jsp"> <i
+					class="fas fa-fw fa-clipboard-list"></i> <span>평가</span></a></li>
 
 			<!-- Nav Item - manager page -->
 			<%if(permission == 0){ %>
