@@ -1890,7 +1890,7 @@ function y_rsales() {
                   <tbody>
                     <tr class="firstTD orderTD dataTD">
                     	<td rowspan="10" style="text-align:center; font-size: medium; padding-top: 10px" class="firstTD firstTag">상반기</td>
-                    	<td style="text-align:center;">목표 수주</td>
+                    	<td style="text-align:center; vertical-align: middle;">목표 수주</td>
                     	<td><%=FH_total_PJ%></td>
                     	<td><input class="sale" name="FH_chassis_PJ" value='<%=FH_chassis_PJ%>'></td>
                     	<td><input class="sale" name="FH_body_PJ" value='<%=FH_body_PJ%>'></td>
@@ -1941,7 +1941,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", FH_vt_RPJ/FH_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="firstTD saleTD dataTD">
-                    	<td>목표 매출</td>
+                    	<td style="vertical-align: middle;">목표 매출</td>
                         <td><%=FH_total_SALES%></td>
                     	<td><input class="sale" name="FH_chassis_SALES" value='<%=FH_chassis_SALES %>'></td>
                     	<td><input class="sale" name="FH_body_SALES" value='<%=FH_body_SALES %>'></td>
@@ -1951,7 +1951,7 @@ function y_rsales() {
                     	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_vt_SALES %>'></td>
                     </tr>
                      <tr class="firstTD saleTD dataTD">
-                    	<td>예상 매츨</td>
+                    	<td>예상 매출</td>
                     	<td><%=FH_total_PJSALES %></td>
                     	<td><%=FH_chassis_PJSALES %></td>
                     	<td><%=FH_body_PJSALES %></td>
@@ -1996,7 +1996,7 @@ function y_rsales() {
                     
                      <tr class="lastTD orderTD dataTD">
                     	<td rowspan="10" style="text-align:center; font-size: medium; padding-top: 10px" class="lastTD lastTag">하반기</td>
-                    	<td style="text-align:center;">목표 수주</td>
+                    	<td style="text-align:center; vertical-align: middle;">목표 수주</td>
                     	<td><%=SH_total_PJ%></td>
                     	<td><input class="sale" name="SH_chassis_PJ" value='<%=SH_chassis_PJ %>'></td>
                     	<td><input class="sale" name="SH_body_PJ" value='<%=SH_body_PJ %>'></td>
@@ -2047,7 +2047,7 @@ function y_rsales() {
                     	<td><%=String.format("%.1f", SH_vt_RPJ/SH_vt_PJ *100)%>(%)</td>
                     </tr>
                      <tr class="lastTD saleTD dataTD">
-                    	<td>목표 매출</td>
+                    	<td style="vertical-align: middle;">목표 매출</td>
                         <td><%=SH_total_SALES%></td>
                     	<td><input class="sale" name="SH_chassis_SALES" value='<%=SH_chassis_SALES %>'></td>
                     	<td><input class="sale" name="SH_body_SALES" value='<%=SH_body_SALES %>'></td>
@@ -2057,7 +2057,7 @@ function y_rsales() {
                     	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_vt_SALES %>'></td>
                     </tr>
                      <tr class="lastTD saleTD dataTD">
-                    	<td>예상 매츨</td>
+                    	<td>예상 매출</td>
                     	<td><%=SH_total_PJSALES %></td>
                     	<td><%=SH_chassis_PJSALES %></td>
                     	<td><%=SH_body_PJSALES %></td>
@@ -2160,7 +2160,7 @@ function y_rsales() {
                     	<td><%=Y_vt_SALES %></td>
                     </tr>
                      <tr class="yearTD saleTD dataTD">
-                    	<td>예상 매츨</td>
+                    	<td>예상 매출</td>
                     	<td><%=Y_total_PJSALES %></td>
                     	<td><%=Y_chassis_PJSALES %></td>
                     	<td><%=Y_body_PJSALES %></td>
