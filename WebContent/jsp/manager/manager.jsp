@@ -350,6 +350,12 @@ function getTextByClone( tag ){
         return textContent; 
 }
 
+function viewDetail(id){
+	var nowDate = new Date();
+	var year = nowDate.getFullYear();
+	var popupX = (document.body.offsetWidth/2)-(600/2);
+	window.open('../schedule/detail_PR.jsp?id='+id+'&year='+year , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
+}
 </script>
 
 <body id="page-top">
@@ -547,7 +553,9 @@ function getTextByClone( tag ){
 										<td class="extra"><%=memberList.get(i).getADDRESS() %></td>
 										<td class="extra"><%=memberList.get(i).getMOBILE() %></td>
 										<td class="extra"><%=wyear %></td>
-										<td class="extra">수행프로젝트이력 채우기</td>
+										<td class="extra">
+											<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail("<%=memberList.get(i).getID()%>")'>
+										</td>
 										
 										
 									</tr>

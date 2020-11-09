@@ -25,13 +25,17 @@
 	MemberBean memInfo = memberDao.returnMember(id);
 	String Name = memInfo.getNAME();
 	String Team = memInfo.getTEAM();
+	String Part = "";
+	if(Team.equals("미래차검증전략실") && !(memInfo.getPART().equals("슈어소프트테크"))){
+		Part = "(" + memInfo.getPART() + ")";
+	}
 	SchDAO schDao = new SchDAO();
 	ArrayList<CareerBean> careerList = schDao.getCareer_id(id);
 	
 %>
 <head>
 <meta charset="UTF-8">
-<title><%=Team%> <%=Name %> 프로젝트 수행이력</title>
+<title><%=Team%> <%=Name%> <%=Part%> 프로젝트 수행이력</title>
 </head>
 
 <style>
@@ -47,7 +51,7 @@
 </style>
 
 <body>
-<h3 style="text-align: center;"><%=Team%> <%=Name %> 프로젝트 수행이력</h3>
+<h3 style="text-align: center;"><%=Team%> <%=Name%><%=Part%> 프로젝트 수행이력</h3>
 <div>
 	<table id="dataTable">
 		<thead id="Theader">
