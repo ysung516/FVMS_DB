@@ -55,114 +55,114 @@
 						fh_chasisSale += compe;
 						if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
 							fh_bodySale -= compe;
-							System.out.println("샤시<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("샤시<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
 							fh_controlSale -= compe;
-							System.out.println("샤시<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("샤시<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
 							fh_safeSale -= compe;
-							System.out.println("샤시<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("샤시<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
 							fh_autoSale -= compe;
-							System.out.println("샤시<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("샤시<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
 							fh_vtSale -= compe;
-							System.out.println("샤시<-실" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("샤시<-실" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}
 					}
 					if(cs.getTeam().equals("바디힐스검증팀")){
 						fh_bodySale += compe;
 						if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
 							fh_chasisSale -= compe;
-							System.out.println("바디<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("바디<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
 							fh_controlSale -= compe;
-							System.out.println("바디<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("바디<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
 							fh_safeSale -= compe;
-							System.out.println("바디<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("바디<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
 							fh_autoSale -= compe;
-							System.out.println("바디<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("바디<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
 							fh_vtSale -= compe;
-							System.out.println("바디<-실" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("바디<-실" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}
 					}
 					if(cs.getTeam().equals("제어로직검증팀")){
 						fh_controlSale += compe;
 						if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
 							fh_chasisSale -= compe;
-							System.out.println("제어<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("제어<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
 							fh_bodySale -= compe;
-							System.out.println("제어<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("제어<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
 							fh_safeSale -= compe;
-							System.out.println("제어<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("제어<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
 							fh_autoSale -= compe;
-							System.out.println("제어<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("제어<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
 							fh_vtSale -= compe;
-							System.out.println("제어<-실" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("제어<-실" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}
 					}
 					if(cs.getTeam().equals("기능안전검증팀")){
 						fh_safeSale += compe;
 						if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
 							fh_chasisSale -= compe;
-							System.out.println("기능<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("기능<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
 							fh_bodySale -= compe;
-							System.out.println("기능<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("기능<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
 							fh_controlSale -= compe;
-							System.out.println("기능<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("기능<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
 							fh_autoSale -= compe;
-							System.out.println("기능<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("기능<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
 							fh_vtSale -= compe;
-							System.out.println("기능<-실" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("기능<-실" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}
 					}
 					if(cs.getTeam().equals("자율주행검증팀")){
 						fh_autoSale += compe;
 						if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
 							fh_chasisSale -= compe;
-							System.out.println("자율<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("자율<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
 							fh_bodySale -= compe;
-							System.out.println("자율<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("자율<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
 							fh_controlSale -= compe;
-							System.out.println("자율<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("자율<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
 							fh_safeSale -= compe;
-							System.out.println("자율<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("자율<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
 							fh_vtSale -= compe;
-							System.out.println("자율<-실" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("자율<-실" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}
 					}
 					if(cs.getTeam().equals("미래차검증전략실")){
 						fh_vtSale += compe;
 						if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
 							fh_chasisSale -= compe;
-							System.out.println("실<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("실<-샤시" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
 							fh_bodySale -= compe;
-							System.out.println("실<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("실<-바디" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
 							fh_controlSale -= compe;
-							System.out.println("실<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("실<-제어" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
 							fh_safeSale -= compe;
-							System.out.println("실<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("실<-기능" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
 							fh_autoSale -= compe;
-							System.out.println("실<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe));
+							System.out.println("실<-자율" + " : " + cs.getName() + "-" + Integer.toString(compe) + "\t\t" + pro.getPROJECT_NAME());
 						}
 					}
 				}
