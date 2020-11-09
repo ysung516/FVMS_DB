@@ -197,11 +197,6 @@ textarea {
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
 				href="../summary/summary.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>요약정보</span></a></li>
-					
-			<!-- Nav Item - summary -->
-			<li class="nav-item"><a class="nav-link"
-				href="../income_sum/income_sum.jsp"> <i class="fas fa-fw fa-table"></i>
 					<span>수입 요약</span></a></li>
 					
 			<!-- Nav Item - summary -->
