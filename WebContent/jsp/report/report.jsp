@@ -82,9 +82,14 @@
 }
 .sidebar{
 		position: absolute;
-		height: 100%;
 		z-index:9999999;
-	}
+		background-image : none !important;
+}
+.sidebar2{
+	position: absolute;
+	height: 100%;
+	z-index:9999999;
+}
 #wrapper #content-wrapper{
 	overflow-x: initial;
 }
@@ -304,6 +309,10 @@ button:focus {
 	      });  
 	}
 	
+	function checkHeight(){
+		
+	}
+	
 	 $(document).ready(function(){
 		 yet_project();
 		 listLoad();
@@ -336,6 +345,10 @@ button:focus {
 	<div id="wrapper">
 
 		<!-- Sidebar -->
+		
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled sidebar2"
+			id="accordionSidebar"></ul>
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
 			id="accordionSidebar">
