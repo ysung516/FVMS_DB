@@ -590,9 +590,11 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
-								style="padding-left: 17px;">조직도</h6>
-							<label style="float:right; font-size:13px;display:inline-block;"><input type="checkbox" id="cooper" name="cooper" value="cooper">
-							<span style="vertical-align: text-bottom;margin-left: 2px;">협력업체 및 세부정보</span></label>
+								style="padding-left: 17px;">조직도
+								<label style="float:right; font-size:13px;display:inline-block;"><input type="checkbox" id="cooper" name="cooper" value="cooper">
+								<span style="vertical-align: text-top; margin-left: 2px; color: black; font-weight: 100;">협력업체 및 세부정보</span></label>
+							</h6>
+							
 						</div>
 
 						<div class="card-body">

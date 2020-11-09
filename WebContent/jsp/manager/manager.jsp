@@ -553,7 +553,7 @@ function viewDetail(id){
 										<td class="extra"><%=memberList.get(i).getADDRESS() %></td>
 										<td class="extra"><%=memberList.get(i).getMOBILE() %></td>
 										<td class="extra"><%=wyear %></td>
-										<td class="extra">
+										<td class="extra" style="text-align:center;">
 											<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail("<%=memberList.get(i).getID()%>")'>
 										</td>
 										
