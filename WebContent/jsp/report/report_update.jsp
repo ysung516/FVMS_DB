@@ -39,6 +39,8 @@
 	String weekly = report.getWeekly();
 			
 	ProjectBean project = projectDao.getProjectBean_no(projectNo,nowYear);
+	String PMID = project.getPROJECT_MANAGER();
+	
 	String str = "";
 	
 	ReportBean backupReport = reportDao.getReportBackUp(projectNo,weekly); 
@@ -200,6 +202,15 @@
 		    }
 		});
 	}
+	
+	function finalcheck_load(){
+		<%if(report.getFinal_Check().equals("1")){%>
+			$('#finalcheck').prop("checked",true);
+		<%}%>
+		if('<%=PMID%>' != '<%=sessionID%>'){
+			$('#finalcheck_box').css('visibility','hidden');
+		}
+	}
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 		loadData();
@@ -207,6 +218,7 @@
 	
 	$(document).ready(function(){
 		checkText();
+		finalcheck_load();
 	})
 		
 </script>
@@ -220,7 +232,7 @@
 
   <!-- Custom fonts for this template-->
   <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -447,6 +459,11 @@
            
                  <div class="table-responsive">
 		<form method = "post" action = "report_updatePro.jsp">
+		
+			<div id="finalcheck_box" style="position: fixed; color:red">
+				<label for="finalcheck">최종확인(PM)</label>
+				<input id="finalcheck" type="checkbox" name="final">
+			</div>
 		    <input type="hidden" name="no" value="<%=no%>">
 		   <table class="table table-bordered" id="dataTable">
 		     <tr>

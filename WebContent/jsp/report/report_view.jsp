@@ -57,7 +57,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -68,9 +68,16 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
+	function final_mark(){
+		if('<%=report.getFinal_Check()%>' == '1'){
+			$('#dataTable2').css('border','3px solid #03e895')
+		}
+	}
+
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
+	    final_mark();
 	});
 </script>
 
@@ -112,6 +119,12 @@ h6 {
 }
 
 #dataTable td:nth-child(odd) {
+	text-align: center;
+	vertical-align: middle;
+	word-break: keep-all;
+}
+
+#dataTable2 td:nth-child(odd) {
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
@@ -350,7 +363,7 @@ h6 {
 											<td><%=project.getPROJECT_END()%></td>
 										</tr>
 										</table>
-										<table class="table table-bordered" id="dataTable">
+										<table class="table table-bordered" id="dataTable2">
 										<tr>
 											<td colspan="1"><h6 class="m-0 text-primary">(전)금주계획</h6></td>
 											<td colspan="1"><h6 class="m-0 text-primary">금주계획</h6></td>

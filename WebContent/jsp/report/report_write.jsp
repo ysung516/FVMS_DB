@@ -35,7 +35,6 @@
 	int nowYear = Integer.parseInt(nowDate.split("-")[0]);
 	
 	ReportBean PreReport = reportDao.getReportBackUp(projectNo,weekly);
-	ArrayList<ProjectBean> pjList = projectDao.getProjectList(nowYear);
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
 	ProjectBean pjBean = new ProjectBean();
 	ProjectBean f_pjBean = projectDao.getProjectBean_no(unWrite.get(0).getNO(),nowYear);
@@ -201,6 +200,11 @@ function checkText(){
 	    }
 	});
 }
+function finalcheck_load(){
+	if('<%=projectDao.getProjectBean_no(projectNo, nowYear).getPROJECT_MANAGER()%>' != '<%=sessionID%>'){
+		$('#finalcheck_box').css('visibility','hidden');
+	}
+}
 
 $(document).ready(function () {
 
@@ -214,7 +218,7 @@ $(document).ready(function () {
         $(window).off('beforeunload');
     });  
     checkText();
-    
+    finalcheck_load();
 })
 
 </script>
@@ -470,6 +474,10 @@ legend {
 
 							<div class="table-responsive">
 								<form method="post" action="report_writePro.jsp">
+									<div id="finalcheck_box" style="position: fixed; color:red">
+										<label for="finalcheck">최종확인(PM)</label>
+										<input id="finalcheck" type="checkbox" name="final">
+									</div>
 									<table class="table table-bordered" id="dataTable">
 
 										<tr>

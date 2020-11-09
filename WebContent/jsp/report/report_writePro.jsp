@@ -25,6 +25,12 @@
 		
 		String sessionID = (String)session.getAttribute("sessionID");
 		MemberBean member = memberDao.returnMember(sessionID);
+		String final_check;
+		if(request.getParameter("final") == null){
+			final_check = "0";
+		}else{
+			final_check = "1";
+		}
 		
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
@@ -45,7 +51,7 @@
 				String user_id = member.getID();
 				String weekly = reportDao.getWeekly(writeDate);
 				
-				if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo,weekly) == 1){
+				if (reportDao.saveReport(title, writeDate, weekPlan, weekPro, nextPlan, user_id, name, specialty, note, projectNo,weekly,final_check) == 1){
 					script.print("<script> alert('보고서 작성이 완료되었습니다.'); location.href = 'report.jsp'</script>");
 					
 				} else script.print("<script> alert('보고서작성 실패!!'); history.back(); </script>");

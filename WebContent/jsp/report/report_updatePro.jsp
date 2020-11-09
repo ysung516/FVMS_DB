@@ -23,7 +23,13 @@
 		String NextPlan = request.getParameter("NextPlan");
 		String specialty = request.getParameter("specialty");
 		String note = request.getParameter("note");
+		String final_check;
 		
+		if(request.getParameter("final") == null){
+			final_check = "0";
+		}else{
+			final_check = "1";
+		}
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
 		String date = sf.format(nowTime);
@@ -33,7 +39,7 @@
 		String weekly = reportDao.getWeekly(date);
 		
 		
-		if(reportDao.updateReport(no, WeekPlan, WeekPro, NextPlan,  specialty, note, date,weekly) == 1){
+		if(reportDao.updateReport(no, WeekPlan, WeekPro, NextPlan,  specialty, note, date,weekly,final_check) == 1){
 			script.print("<script> alert('보고서가 수정되었습니다.'); location.href = 'report.jsp'; </script>");
 		}
 		else{

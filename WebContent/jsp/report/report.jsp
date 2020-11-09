@@ -40,9 +40,7 @@
 		list = reportDao.getReportList(weekly); 
 	}
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
-	System.out.println(reportDao.getWeekly(nowDate));
 	int projectNum = projectDao.useReportProject();
-	System.out.println(projectNum);
 	int year = Integer.parseInt(weekly.split("/")[0]);
 	int month = Integer.parseInt(weekly.split("/")[1]);
 	int week = Integer.parseInt(weekly.split("/")[2]);
@@ -512,6 +510,7 @@ button:focus {
 										<th>고객사</th>
 										<th>PM</th>
 										<th>최종수정시간</th>
+										<th>최종확인</th>
 									</tr>
 								</thead>
 
@@ -527,6 +526,14 @@ button:focus {
 										<td><%=projectDao.getProjectBean_no(list.get(i).getProjectNo(), nowYear).getCLIENT()%></td>
 										<td><%=memberDao.returnMember(pmID).getNAME()%></td>
 										<td><%=list.get(i).getDate()%></td>
+										<%
+											if(list.get(i).getFinal_Check().equals("0")){
+												%><td></td><%
+											} else if(list.get(i).getFinal_Check().equals("1")){
+												%><td style="background-color: #03e895"></td><%
+											}
+										%>
+										
 									</tr>
 									<%
 				}

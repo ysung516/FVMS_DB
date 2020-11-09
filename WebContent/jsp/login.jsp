@@ -120,7 +120,7 @@
 										</form>
 										<hr>
 										<div class="text-center">
-											<a class="small" href="/jsp/release.html">FVMS_5.7_2020-11-06:11:30</a>
+											<a class="small" href="/jsp/release.html">FVMS_5.8_2020-11-06:17:30</a>
 										</div>
 									</div>
 								</div>

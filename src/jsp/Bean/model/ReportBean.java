@@ -14,7 +14,8 @@ public class ReportBean {
 	private int no;
 	private int projectNo;
 	private String weekly;	 //주차
-	
+	private String final_Check;
+
 	private String [] P_weekPlan;
 	public String getWeekly() {
 		return weekly;
@@ -60,7 +61,13 @@ public class ReportBean {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
+	
+	public String getFinal_Check() {
+		return final_Check;
+	}
+	public void setFinal_Check(String final_Check) {
+		this.final_Check = final_Check;
+	}
 	
 	public int getNo() {
 		return no;

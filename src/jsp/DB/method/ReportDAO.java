@@ -109,7 +109,7 @@ public class ReportDAO {
 	// 보고서 작성
 	public int saveReport(String title, String writeDate,
 			 String weekPlan, String weekPro, String nextPlan, String user_id, 
-			 String name, String specialty, String note, int projectNo, String weekly) {
+			 String name, String specialty, String note, int projectNo, String weekly, String final_check) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -117,8 +117,8 @@ public class ReportDAO {
 		
 		try {
 			conn = DBconnection.getConnection();
-			pstmt = conn.prepareStatement("insert into weekly_Report (id, 이름, 프로젝트명, 작성일, 금주계획, 금주진행, 차주계획, 특이사항, 비고, 프로젝트no, 주차)"
-					+ "values(?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into weekly_Report (id, 이름, 프로젝트명, 작성일, 금주계획, 금주진행, 차주계획, 특이사항, 비고, 프로젝트no, 주차, final)"
+					+ "values(?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, user_id);
 			pstmt.setString(2, name);
 			pstmt.setString(3, title);
@@ -130,6 +130,7 @@ public class ReportDAO {
 			pstmt.setString(9, note);
 			pstmt.setInt(10, projectNo);
 			pstmt.setString(11, weekly);
+			pstmt.setString(12, final_check);
 			rs = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,6 +171,7 @@ public class ReportDAO {
 	    		report.setNote(rs.getString("비고"));
 	    		report.setProjectNo(rs.getInt("프로젝트no"));
 	    		report.setWeekly(rs.getString("주차"));
+	    		report.setFinal_Check(rs.getString("final"));
 	    		reportList.add(report);
 	    	}
 		} catch (SQLException e) {
@@ -210,6 +212,7 @@ public class ReportDAO {
 	    		report.setNote(rs.getString("비고"));
 	    		report.setProjectNo(rs.getInt("프로젝트no"));
 	    		report.setWeekly(rs.getString("주차"));
+	    		report.setFinal_Check(rs.getString("final"));
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -265,13 +268,13 @@ public class ReportDAO {
 
 	// 보고서 수정
 	public int updateReport(int no, String weekPlan, String weekPro,
-			String nextPlan, String specialty, String note, String date, String weekly) {
+			String nextPlan, String specialty, String note, String date, String weekly, String final_check) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    int rs = 0;
 	    
 	    try {
-	    	String query = "update weekly_Report set 금주계획=?, 작성일=?, 금주진행=?, 차주계획=?, 특이사항=?, 비고=?, 주차=? "
+	    	String query = "update weekly_Report set 금주계획=?, 작성일=?, 금주진행=?, 차주계획=?, 특이사항=?, 비고=?, 주차=?,final=? "
 	    			+ "where no =?";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
@@ -282,7 +285,8 @@ public class ReportDAO {
 	    	pstmt.setString(5, specialty);
 	    	pstmt.setString(6, note);
 	    	pstmt.setString(7, weekly);
-	    	pstmt.setInt(8, no);
+	    	pstmt.setString(8, final_check);
+	    	pstmt.setInt(9, no);
 	    	rs = pstmt.executeUpdate();
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -374,206 +378,5 @@ public class ReportDAO {
 		}
 	    return year;
 	}
-	
-	/*
-	// 작성되지 않은 보고서만 가져오기
-	public ArrayList<String[]> getUnwrittenReportarr(){
-		ArrayList<String[]> list = new ArrayList<String[]>();
-		//HashMap<Integer, String> mapData = new HashMap<Integer, String>();
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    
-	    try {
-	    	String query = "SELECT a.* FROM project a left outer join report b on a.no = b.프로젝트no "
-	    			+ "where b.프로젝트no is null AND a.주간보고서사용=1";
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	while(rs.next()) {
-	    		String[] data = new String[4];
-	    		data[0] = Integer.toString(rs.getInt("no"));
-	    		data[1] = rs.getString("프로젝트명");
-	    		data[2] = rs.getString("PM");
-	    		data[3] = rs.getString("투입명단");
-	    		list.add(data);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return list;
-	}
-
-	// 보고서 백업
-	public int backUp() {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    int rs = 0;
-	    
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("INSERT INTO reportBackUp SELECT * FROM report");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeUpdate();
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return rs;
-	}
-	
-	// 주간보고서 삭제
-	public int deleteAllreport() {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    int rs = 0;
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("truncate report;");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeUpdate();
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return rs;
-	}
-	
-	// 백업보고서 삭제
-	public int deleteAllbackUp() {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    int rs = 0;
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("truncate reportBackUp;");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeUpdate();
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return rs;
-	}
-	
-	// 보고서 작성시 저번주 데이터 가져오기
-	public ArrayList<ReportBean> loadData() {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    ArrayList<ReportBean> reportList = new ArrayList<ReportBean>();
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from reportBackUp");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	while(rs.next()) {
-	    		ReportBean report = new ReportBean();
-	    		report.setTitle(rs.getString("프로젝트명"));
-	    		report.setWeekPlan(rs.getString("금주계획"));
-	    		report.setWeekPro(rs.getString("금주진행"));
-	    		report.setNextPlan(rs.getString("차주계획"));
-	    		report.setSpecialty(rs.getString("특이사항"));
-	    		report.setNote(rs.getString("비고"));
-	    		report.setProjectNo(rs.getInt("프로젝트no"));
-	    		reportList.add(report);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return reportList;
-	}
-	
-	// 등록되 주간보고서 갯수
-	public int reportCount() {
-		int num =0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			StringBuffer query = new StringBuffer();
-	    	query.append("select count(*) from report");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	if(rs.next()) {
-	    		num = rs.getInt(1);
-	    	}	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}		
-		return num;
-	}
-	
-	
-// 키값으로 특정백업보고서 가져오기
-	public ReportBean getReportBackUp(int no) {
-		ReportBean report = new ReportBean();
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from reportBackUp where 프로젝트no=?");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setInt(1, no);
-	    	rs = pstmt.executeQuery();
-	    	
-	    	if(rs.next()) {
-	    		report.setId(rs.getString("id"));
-	    		report.setName(rs.getString("이름"));
-	    		report.setTitle(rs.getString("프로젝트명"));
-	    		report.setDate(rs.getString("작성일"));
-	    		report.setWeekPlan(rs.getString("금주계획"));
-	    		report.setWeekPro(rs.getString("금주진행"));
-	    		report.setNextPlan(rs.getString("차주계획"));
-	    		report.setSpecialty(rs.getString("특이사항"));
-	    		report.setNote(rs.getString("비고"));
-	    		report.setProjectNo(rs.getInt("프로젝트no"));
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    
-	    return report;
-	}
-*/
-	
 	
 }	// end DAO
