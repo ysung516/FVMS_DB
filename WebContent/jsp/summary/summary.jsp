@@ -1734,11 +1734,6 @@ function y_rsales() {
 			<!-- Nav Item - summary -->
 			<li class="nav-item active"><a class="nav-link"
 				href="../summary/summary.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>요약정보</span></a></li>
-					
-			<!-- Nav Item - summary -->
-			<li class="nav-item"><a class="nav-link"
-				href="../income_sum/income_sum.jsp"> <i class="fas fa-fw fa-table"></i>
 					<span>수입 요약</span></a></li>
 					
 			<!-- Nav Item - summary -->
@@ -2242,39 +2237,7 @@ function y_rsales() {
     </div>
               </div>
               
-        <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수익률</h6>
-        </div>
-            <div class="card-body"> 
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable">
-                  <thead>
-                   <tr>
-                    	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="6" style="text-align:center;background-color:#15a3da52;">상세내역</td>
-                    </tr>  
-                    <tr style="text-align:center;background-color:#15a3da52;">
-	                    <th>구분</th>
-	                    <th>상태</th>
-	                    <th>Total</th>
-	                    <th>샤시힐스</th>
-	                    <th>바디힐스</th>
-	                    <th>제어로직</th>
-	                    <th>기능안전</th>
-	                    <th>자율주행</th>
-	                    <th>실</th>
-                    </tr>
-                  </thead>  
-                  
-                  <tbody>
-                   
-                    </tbody>                           
-                </table>
-              </div>   
-              </div>     
-         </div>
+
    
     <!-- /.container-fluid -->
 </div>
