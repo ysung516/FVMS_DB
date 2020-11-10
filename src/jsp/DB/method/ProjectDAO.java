@@ -748,7 +748,7 @@ public class ProjectDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET ManMonth=?,프로젝트계약금액_백만=?,상반기예상수주=?,상반기수주=?,상반기예상매출=?,상반기매출=?,"
-	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=?,누적매출=? WHERE no=?;");
+	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE no=?;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setFloat(1, 0);
@@ -764,8 +764,7 @@ public class ProjectDAO {
 	    	pstmt.setFloat(11, 0);
 	    	pstmt.setFloat(12, 0);
 	    	pstmt.setInt(13, 0);
-	    	pstmt.setFloat(14, 0);
-	    	pstmt.setInt(15, NO);
+	    	pstmt.setInt(14, NO);
 	    	
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
