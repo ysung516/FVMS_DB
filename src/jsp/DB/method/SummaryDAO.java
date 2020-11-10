@@ -82,11 +82,16 @@ public class SummaryDAO {
 			startDate = nowYear+"-01-01";
 		} else if(Integer.parseInt(start.split("-")[0]) == nowYear) {
 			startDate = start;
+		} else {
+			startDate = start;
 		}
 		
 		if(Integer.parseInt(end.split("-")[0]) > nowYear) {
 			endDate = nowYear+"-12-31";
+	
 		} else if(Integer.parseInt(end.split("-")[0]) == nowYear) {
+			endDate = end;
+		} else {
 			endDate = end;
 		}
 		
@@ -112,20 +117,27 @@ public class SummaryDAO {
 		}
 		
 		
-		if(Integer.parseInt(start.split("-")[0]) > nowYear || Integer.parseInt(start.split("-")[1]) > 06) {
+		if(Integer.parseInt(start.split("-")[0]) > nowYear) {
+			fh_mm = 0;
+			sh_mm = 0;
+		} else if((Integer.parseInt(start.split("-")[0]) == nowYear && Integer.parseInt(start.split("-")[1]) > 06)) {
 			fh_mm = 0;
 		}
-		if(Integer.parseInt(end.split("-")[0]) < nowYear || Integer.parseInt(end.split("-")[1]) < 07) {
+		
+		if(Integer.parseInt(end.split("-")[0]) < nowYear ) {
+			fh_mm = 0;
+			sh_mm = 0;
+		} else if((Integer.parseInt(end.split("-")[0]) == nowYear && Integer.parseInt(end.split("-")[1]) < 07)) {
 			sh_mm = 0;
 		}
 		
-		result[0] = String.format("%.1f", (fh_mm/30.5));
+		result[0] = String.format("%.1f", (fh_mm/30.0));
 		result[1] = String.format("%.1f", (sh_mm/30.5));
 		
 		return result;
 	}
 	
-	public ArrayList<CMSBean> getCMSList(){
+	public ArrayList<CMSBean> getCMS_plusList(String projectTeam){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -139,10 +151,11 @@ public class SummaryDAO {
 	    	query.append("select project.no, project.프로젝트명, project.팀_매출, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
 	    			+ "from project, career, member, rank "
 	    			+ "where project.year = ? and project.상태 != '8.Dropped' and project.실적보고 = 1 and member.소속 = '슈어소프트테크' and project.no = career.projectNo and career.id = member.id and rank.rank = member.직급"
-	    			+ " and project.팀_매출 != member.팀");
-	    	conn = DBconnection.getConnection();
+	    			+ " and project.팀_매출 != member.팀 and project.팀_매출 = ?");
+	    	conn = DBconnection.getConnection(); 
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, year);
+	    	pstmt.setString(2, projectTeam);
 	    	rs = pstmt.executeQuery();
 	    	
 	    	while(rs.next()) {
@@ -155,11 +168,10 @@ public class SummaryDAO {
 	    		cms.setRank(rs.getString("직급"));
 	    		cms.setStart(rs.getString("start"));
 	    		cms.setEnd(rs.getString("end"));
-	    		
 	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[0]));
 	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[1]));
-	    		cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")));
-	    		cms.setSH_MM_CMS(cms.getSH_MM() * rs.getInt("compensation"));
+	    		cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")/100));
+	    		cms.setSH_MM_CMS((cms.getSH_MM() * rs.getInt("compensation")/100));
 	    		list.add(cms);
 	    	}
 		} catch (SQLException e) {
@@ -173,6 +185,56 @@ public class SummaryDAO {
 		
 		return list;
 	}
+	
+	public ArrayList<CMSBean> getCMS_minusList(String team){
+		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Date now = new Date();
+	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	    	String year = sf.format(now);
+			StringBuffer query = new StringBuffer();
+	    	query.append("select project.no, project.프로젝트명, project.팀_매출, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
+	    			+ "from project, career, member, rank "
+	    			+ "where project.year = ? and project.상태 != '8.Dropped' and project.실적보고 = 1 and member.소속 = '슈어소프트테크' and project.no = career.projectNo and career.id = member.id and rank.rank = member.직급"
+	    			+ " and project.팀_매출 != member.팀 and member.팀 = ?");
+	    	conn = DBconnection.getConnection(); 
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, year);
+	    	pstmt.setString(2, team);
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		CMSBean cms = new CMSBean();
+	    		cms.setNo(rs.getString("no"));	    		
+	    		cms.setProjectName(rs.getString("프로젝트명"));
+	    		cms.setSalesTeam(rs.getString("팀_매출"));
+	    		cms.setTeam(rs.getString("팀"));
+	    		cms.setName(rs.getString("이름"));
+	    		cms.setRank(rs.getString("직급"));
+	    		cms.setStart(rs.getString("start"));
+	    		cms.setEnd(rs.getString("end"));
+	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[0]));
+	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[1]));
+	    		cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")/100));
+	    		cms.setSH_MM_CMS((cms.getSH_MM() * rs.getInt("compensation")/100));
+	    		list.add(cms);
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return list;
+	}
+	
 	
 	
 	// summary 수주/매출 테이블용 career 데이터
@@ -322,10 +384,26 @@ public class SummaryDAO {
 	
 	public static void main(String[] args) {
 	 //TODO Auto-generated method stub
-		SummaryDAO te = new SummaryDAO();
-		ArrayList<CMSBean> list = te.getCMSList();
+		//SummaryDAO te = new SummaryDAO();
+		
+		//ArrayList<CMSBean> list = new ArrayList<CMSBean>();
+		//list = te.getCMSList();
 		//System.out.println(te.cal_manmoth("2020-04-06", "2020-03-31")[0]);
 		//System.out.println(te.cal_manmoth("2020-04-06", "2020-03-31")[1]);
+		/*
+		System.out.println(list.get(0).getNo());
+		System.out.println(list.get(0).getProjectName());
+		System.out.println(list.get(0).getSalesTeam());
+		System.out.println(list.get(0).getTeam());
+		System.out.println(list.get(0).getName());
+		System.out.println(list.get(0).getRank());
+		System.out.println(list.get(0).getStart());
+		System.out.println(list.get(0).getEnd());
+		System.out.println(list.get(0).getFH_MM());
+		System.out.println(list.get(0).getSH_MM());
+		System.out.println(list.get(0).getFH_MM_CMS());
+		System.out.println(list.get(0).getSH_MM_CMS());
+		
 		for(int i=0; i<list.size(); i++) {
 			System.out.println(list.get(i).getNo());
 			System.out.println(list.get(i).getProjectName());
@@ -342,6 +420,9 @@ public class SummaryDAO {
 			System.out.println("----------------------------------------");
 		}
 		
+		*/
+		//System.out.println(te.cal_manmoth("2019-09-02", "2019-12-20")[0]);
+		//System.out.println(te.cal_manmoth("2019-09-02", "2019-12-20")[1]);
 		
 }
 
