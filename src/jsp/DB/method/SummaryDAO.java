@@ -137,7 +137,7 @@ public class SummaryDAO {
 		return result;
 	}
 	
-	public ArrayList<CMSBean> getCMS_plusList(String projectTeam){
+	public ArrayList<CMSBean> getCMS_minusList(String projectTeam){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -186,7 +186,7 @@ public class SummaryDAO {
 		return list;
 	}
 	
-	public ArrayList<CMSBean> getCMS_minusList(String team){
+	public ArrayList<CMSBean> getCMS_plusList(String team){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
