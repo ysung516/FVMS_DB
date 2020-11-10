@@ -47,119 +47,119 @@
 	
 	
 	//팀별 매출
-			float fh_chasisSale = 0;
-			float fh_bodySale = 0;
-			float fh_controlSale = 0;
-			float fh_safeSale = 0;
-			float fh_autoSale = 0;
-			float fh_vtSale = 0;
-			
-			System.out.println("=================");
-			for(ProjectBean pro : projectList){
-				if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
-					fh_chasisSale += pro.getFH_SALES();
-				}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
-					fh_bodySale += pro.getFH_SALES();
-				}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
-					fh_controlSale += pro.getFH_SALES();
-				}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
-					fh_safeSale += pro.getFH_SALES();
-				}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
-					fh_autoSale += pro.getFH_SALES();
-				}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
-					fh_vtSale += pro.getFH_SALES();
+	float fh_chasisSale = 0;
+	float fh_bodySale = 0;
+	float fh_controlSale = 0;
+	float fh_safeSale = 0;
+	float fh_autoSale = 0;
+	float fh_vtSale = 0;
+	
+	System.out.println("=================");
+	for(ProjectBean pro : projectList){
+		if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
+			fh_chasisSale += pro.getFH_SALES();
+		}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
+			fh_bodySale += pro.getFH_SALES();
+		}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
+			fh_controlSale += pro.getFH_SALES();
+		}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
+			fh_safeSale += pro.getFH_SALES();
+		}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
+			fh_autoSale += pro.getFH_SALES();
+		}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
+			fh_vtSale += pro.getFH_SALES();
+		}
+		for(careerSummary_Bean cs : careerSmList){
+			// 같은 프로젝트일 때 팀이 다른 경우 - 매출보정이 필요한 경우
+			if(pro.getNO() == cs.getNo() && !(cs.getTeam().equals(pro.getTEAM_SALES()))){
+				int compe = cs.getCompensation() / 100;
+				if(cs.getTeam().equals("샤시힐스검증팀")){
+					fh_chasisSale += compe;
+					if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
+						fh_bodySale -= compe;
+					}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
+						fh_controlSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
+						fh_safeSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
+						fh_autoSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
+						fh_vtSale -= compe;
+					}
 				}
-				for(careerSummary_Bean cs : careerSmList){
-					// 같은 프로젝트일 때 팀이 다른 경우 - 매출보정이 필요한 경우
-					if(pro.getNO() == cs.getNo() && !(cs.getTeam().equals(pro.getTEAM_SALES()))){
-						int compe = cs.getCompensation() / 100;
-						if(cs.getTeam().equals("샤시힐스검증팀")){
-							fh_chasisSale += compe;
-							if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
-								fh_bodySale -= compe;
-							}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
-								fh_controlSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
-								fh_safeSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
-								fh_autoSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
-								fh_vtSale -= compe;
-							}
-						}
-						if(cs.getTeam().equals("바디힐스검증팀")){
-							fh_bodySale += compe;
-							if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
-								fh_chasisSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
-								fh_controlSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
-								fh_safeSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
-								fh_autoSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
-								fh_vtSale -= compe;
-							}
-						}
-						if(cs.getTeam().equals("제어로직검증팀")){
-							fh_controlSale += compe;
-							if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
-								fh_chasisSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
-								fh_bodySale -= compe;
-							}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
-								fh_safeSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
-								fh_autoSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
-								fh_vtSale -= compe;
-							}
-						}
-						if(cs.getTeam().equals("기능안전검증팀")){
-							fh_safeSale += compe;
-							if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
-								fh_chasisSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
-								fh_bodySale -= compe;
-							}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
-								fh_controlSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
-								fh_autoSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
-								fh_vtSale -= compe;
-							}
-						}
-						if(cs.getTeam().equals("자율주행검증팀")){
-							fh_autoSale += compe;
-							if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
-								fh_chasisSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
-								fh_bodySale -= compe;
-							}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
-								fh_controlSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
-								fh_safeSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
-								fh_vtSale -= compe;
-							}
-						}
-						if(cs.getTeam().equals("미래차검증전략실")){
-							fh_vtSale += compe;
-							if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
-								fh_chasisSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
-								fh_bodySale -= compe;
-							}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
-								fh_controlSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
-								fh_safeSale -= compe;
-							}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
-								fh_autoSale -= compe;
-							}
-						}
+				if(cs.getTeam().equals("바디힐스검증팀")){
+					fh_bodySale += compe;
+					if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
+						fh_chasisSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
+						fh_controlSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
+						fh_safeSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
+						fh_autoSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
+						fh_vtSale -= compe;
+					}
+				}
+				if(cs.getTeam().equals("제어로직검증팀")){
+					fh_controlSale += compe;
+					if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
+						fh_chasisSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
+						fh_bodySale -= compe;
+					}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
+						fh_safeSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
+						fh_autoSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
+						fh_vtSale -= compe;
+					}
+				}
+				if(cs.getTeam().equals("기능안전검증팀")){
+					fh_safeSale += compe;
+					if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
+						fh_chasisSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
+						fh_bodySale -= compe;
+					}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
+						fh_controlSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
+						fh_autoSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
+						fh_vtSale -= compe;
+					}
+				}
+				if(cs.getTeam().equals("자율주행검증팀")){
+					fh_autoSale += compe;
+					if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
+						fh_chasisSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
+						fh_bodySale -= compe;
+					}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
+						fh_controlSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
+						fh_safeSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("미래차검증전략실")){
+						fh_vtSale -= compe;
+					}
+				}
+				if(cs.getTeam().equals("미래차검증전략실")){
+					fh_vtSale += compe;
+					if(pro.getTEAM_SALES().equals("샤시힐스검증팀")){
+						fh_chasisSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("바디힐스검증팀")){
+						fh_bodySale -= compe;
+					}else if(pro.getTEAM_SALES().equals("제어로직검증팀")){
+						fh_controlSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("기능안전검증팀")){
+						fh_safeSale -= compe;
+					}else if(pro.getTEAM_SALES().equals("자율주행검증팀")){
+						fh_autoSale -= compe;
 					}
 				}
 			}
+		}
+	}
 			
 			
 	// 프로젝트 현황

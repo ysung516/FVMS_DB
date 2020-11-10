@@ -1538,7 +1538,12 @@ function y_rsales() {
 				 data =  $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').text().split(".")[0];
 				 z = (data/100)+0.1;
 				 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('background', 'rgb(130,130,250, '+z+')')
-				 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('color','white');
+				 if(i == 4 || i == 9 || i == 14){
+					 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('color','red');
+					 $('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('text-shadow','white 0px 0px 3px');
+				 }else{
+				 	$('#dataTable tr:eq('+arr[i]+') td:eq('+a+')').css('color','white');
+				 }
 			 }
 		 }
 	}

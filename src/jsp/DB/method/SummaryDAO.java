@@ -151,7 +151,7 @@ public class SummaryDAO {
 	    	query.append("select project.no, project.프로젝트명, project.팀_매출, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
 	    			+ "from project, career, member, rank "
 	    			+ "where project.year = ? and project.상태 != '8.Dropped' and project.실적보고 = 1 and member.소속 = '슈어소프트테크' and project.no = career.projectNo and career.id = member.id and rank.rank = member.직급"
-	    			+ " and project.팀_매출 != member.팀 and project.팀_매출 = ?");
+	    			+ " and project.팀_매출 != member.팀 and project.팀_매출 = ? and (project.상반기매출 != 0 or project.하반기매출 != 0)");
 	    	conn = DBconnection.getConnection(); 
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, year);
@@ -200,7 +200,7 @@ public class SummaryDAO {
 	    	query.append("select project.no, project.프로젝트명, project.팀_매출, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
 	    			+ "from project, career, member, rank "
 	    			+ "where project.year = ? and project.상태 != '8.Dropped' and project.실적보고 = 1 and member.소속 = '슈어소프트테크' and project.no = career.projectNo and career.id = member.id and rank.rank = member.직급"
-	    			+ " and project.팀_매출 != member.팀 and member.팀 = ?");
+	    			+ " and project.팀_매출 != member.팀 and member.팀 = ? and (project.상반기매출 != 0 or project.하반기매출 != 0)");
 	    	conn = DBconnection.getConnection(); 
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, year);
