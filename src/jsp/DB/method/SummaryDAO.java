@@ -384,26 +384,10 @@ public class SummaryDAO {
 	
 	public static void main(String[] args) {
 	 //TODO Auto-generated method stub
-		//SummaryDAO te = new SummaryDAO();
+		/*SummaryDAO te = new SummaryDAO();
 		
-		//ArrayList<CMSBean> list = new ArrayList<CMSBean>();
-		//list = te.getCMSList();
-		//System.out.println(te.cal_manmoth("2020-04-06", "2020-03-31")[0]);
-		//System.out.println(te.cal_manmoth("2020-04-06", "2020-03-31")[1]);
-		/*
-		System.out.println(list.get(0).getNo());
-		System.out.println(list.get(0).getProjectName());
-		System.out.println(list.get(0).getSalesTeam());
-		System.out.println(list.get(0).getTeam());
-		System.out.println(list.get(0).getName());
-		System.out.println(list.get(0).getRank());
-		System.out.println(list.get(0).getStart());
-		System.out.println(list.get(0).getEnd());
-		System.out.println(list.get(0).getFH_MM());
-		System.out.println(list.get(0).getSH_MM());
-		System.out.println(list.get(0).getFH_MM_CMS());
-		System.out.println(list.get(0).getSH_MM_CMS());
-		
+		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
+		list = te.getCMS_minusList("기능안전검증팀");
 		for(int i=0; i<list.size(); i++) {
 			System.out.println(list.get(i).getNo());
 			System.out.println(list.get(i).getProjectName());
@@ -419,8 +403,8 @@ public class SummaryDAO {
 			System.out.println(list.get(i).getSH_MM_CMS());
 			System.out.println("----------------------------------------");
 		}
-		
 		*/
+		
 		//System.out.println(te.cal_manmoth("2019-09-02", "2019-12-20")[0]);
 		//System.out.println(te.cal_manmoth("2019-09-02", "2019-12-20")[1]);
 		

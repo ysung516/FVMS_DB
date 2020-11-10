@@ -36,10 +36,7 @@
     HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();
 	
 	SummaryDAO summaryDao = new SummaryDAO();
-	//ArrayList<StateOfProBean> saleTeamList = summaryDao.StateProjectNum_sales();
-	//ArrayList<StateOfProBean> orderTeamList = summaryDao.StateProjectNum_order();
 	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();
-	ArrayList<careerSummary_Bean> careerSummaryList = summaryDao.getCareerSummary();
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
 	ArrayList<TeamBean> teamList = summaryDao.getTagetData();
@@ -311,6 +308,150 @@
 	float Y_auto_RSALES = FH_auto_RSALES + SH_auto_RSALES;
 	float Y_vt_RSALES = FH_vt_RSALES + SH_vt_RSALES;
 	float Y_total_RSALES = FH_total_RSALES + SH_total_RSALES;
+	
+	
+	// 팀별 보정
+	ArrayList<CMSBean> CMS_minus_chassis = summaryDao.getCMS_minusList("샤시힐스검증팀");
+	ArrayList<CMSBean> CMS_minus_body = summaryDao.getCMS_minusList("바디힐스검증팀");
+	ArrayList<CMSBean> CMS_minus_control = summaryDao.getCMS_minusList("제어로직검증팀");
+	ArrayList<CMSBean> CMS_minus_safe = summaryDao.getCMS_minusList("기능안전검증팀");
+	ArrayList<CMSBean> CMS_minus_auto = summaryDao.getCMS_minusList("자율주행검증팀");
+	ArrayList<CMSBean> CMS_minus_vt = summaryDao.getCMS_minusList("미래차검증전략실");
+
+	ArrayList<CMSBean> CMS_plus_chassis = summaryDao.getCMS_plusList("샤시힐스검증팀");
+	ArrayList<CMSBean> CMS_plus_body = summaryDao.getCMS_plusList("바디힐스검증팀");
+	ArrayList<CMSBean> CMS_plus_control = summaryDao.getCMS_plusList("제어로직검증팀");
+	ArrayList<CMSBean> CMS_plus_safe = summaryDao.getCMS_plusList("기능안전검증팀");
+	ArrayList<CMSBean> CMS_plus_auto = summaryDao.getCMS_plusList("자율주행검증팀");
+	ArrayList<CMSBean> CMS_plus_vt = summaryDao.getCMS_plusList("미래차검증전략실");
+	
+// 팀별 보정값 변수 및 for문
+	// 샤시힐스
+	float fh_cms_plus_chassis = 0;
+	float sh_cms_plus_chassis = 0;
+	for(CMSBean cms : CMS_plus_chassis){
+		fh_cms_plus_chassis += cms.getFH_MM_CMS();
+		sh_cms_plus_chassis += cms.getSH_MM_CMS();
+	}
+	float fh_cms_minus_chassis = 0;
+	float sh_cms_minus_chassis = 0;
+	for(CMSBean cms : CMS_minus_chassis){
+		fh_cms_minus_chassis += cms.getFH_MM_CMS();
+		sh_cms_minus_chassis += cms.getSH_MM_CMS();
+	}
+	
+	// 바디힐스
+	float fh_cms_plus_body = 0;
+	float sh_cms_plus_body = 0;
+	for(CMSBean cms : CMS_plus_body){
+		fh_cms_plus_body += cms.getFH_MM_CMS();
+		sh_cms_plus_body += cms.getSH_MM_CMS();
+	}
+	float fh_cms_minus_body = 0;
+	float sh_cms_minus_body = 0;
+	for(CMSBean cms : CMS_minus_body){
+		fh_cms_minus_body += cms.getFH_MM_CMS();
+		sh_cms_minus_body += cms.getSH_MM_CMS();
+	}
+	
+	// 제어로직
+	float fh_cms_plus_control = 0;
+	float sh_cms_plus_control = 0;
+	for(CMSBean cms : CMS_plus_control){
+		fh_cms_plus_control += cms.getFH_MM_CMS();
+		sh_cms_plus_control += cms.getSH_MM_CMS();
+	}
+	float fh_cms_minus_control = 0;
+	float sh_cms_minus_control = 0;
+	for(CMSBean cms : CMS_minus_control){
+		fh_cms_minus_control += cms.getFH_MM_CMS();
+		sh_cms_minus_control += cms.getSH_MM_CMS();
+	}
+	
+	// 기능안전
+	float fh_cms_plus_safe = 0;
+	float sh_cms_plus_safe = 0;
+	for(CMSBean cms : CMS_plus_safe){
+		fh_cms_plus_safe += cms.getFH_MM_CMS();
+		sh_cms_plus_safe += cms.getSH_MM_CMS();
+	}
+	float fh_cms_minus_safe = 0;
+	float sh_cms_minus_safe = 0;
+	for(CMSBean cms : CMS_minus_safe){
+		fh_cms_minus_safe += cms.getFH_MM_CMS();
+		sh_cms_minus_safe += cms.getSH_MM_CMS();
+	}
+	
+	// 자율주행
+	float fh_cms_plus_auto = 0;
+	float sh_cms_plus_auto = 0;
+	for(CMSBean cms : CMS_plus_auto){
+		fh_cms_plus_auto += cms.getFH_MM_CMS();
+		sh_cms_plus_auto += cms.getSH_MM_CMS();
+	}
+	float fh_cms_minus_auto = 0;
+	float sh_cms_minus_auto = 0;
+	for(CMSBean cms : CMS_minus_auto){
+		fh_cms_minus_auto += cms.getFH_MM_CMS();
+		sh_cms_minus_auto += cms.getSH_MM_CMS();
+	}
+	
+	// 실
+	float fh_cms_plus_vt = 0;
+	float sh_cms_plus_vt = 0;
+	for(CMSBean cms : CMS_plus_vt){
+		fh_cms_plus_vt += cms.getFH_MM_CMS();
+		sh_cms_plus_vt += cms.getSH_MM_CMS();
+	}
+	float fh_cms_minus_vt = 0;
+	float sh_cms_minus_vt = 0;
+	for(CMSBean cms : CMS_minus_vt){
+		fh_cms_minus_vt += cms.getFH_MM_CMS();
+		sh_cms_minus_vt += cms.getSH_MM_CMS();
+	}
+	
+	// 연간
+	float y_cms_plus_chassis = fh_cms_plus_chassis + sh_cms_plus_chassis;
+	float y_cms_plus_body = fh_cms_plus_body + sh_cms_plus_body;
+	float y_cms_plus_control = fh_cms_plus_control + sh_cms_plus_control;
+	float y_cms_plus_safe = fh_cms_plus_safe + sh_cms_plus_safe;
+	float y_cms_plus_auto = fh_cms_plus_auto + sh_cms_plus_auto;
+	float y_cms_plus_vt = fh_cms_plus_vt + sh_cms_plus_vt;
+	float y_cms_minus_chassis = fh_cms_minus_chassis + sh_cms_minus_chassis;
+	float y_cms_minus_body = fh_cms_minus_body + sh_cms_minus_body;
+	float y_cms_minus_control = fh_cms_minus_control + sh_cms_minus_control;
+	float y_cms_minus_safe = fh_cms_minus_safe + sh_cms_minus_safe;
+	float y_cms_minus_auto = fh_cms_minus_auto + sh_cms_minus_auto;
+	float y_cms_minus_vt = fh_cms_minus_vt + sh_cms_minus_vt;
+	
+	// 매출보정값
+	float fh_cms_chassis = FH_chassis_RSALES - fh_cms_minus_chassis + fh_cms_plus_chassis;
+	float sh_cms_chassis = SH_chassis_RSALES - sh_cms_minus_chassis + sh_cms_plus_chassis;
+	float y_cms_chassis = Y_chassis_RSALES - y_cms_minus_chassis + y_cms_plus_chassis;
+	
+	float fh_cms_body = FH_body_RSALES - fh_cms_minus_body + fh_cms_plus_body;
+	float sh_cms_body = SH_body_RSALES - sh_cms_minus_body + sh_cms_plus_body;
+	float y_cms_body = Y_body_RSALES - y_cms_minus_body + y_cms_plus_body;
+	
+	float fh_cms_control = FH_control_RSALES - fh_cms_minus_control + fh_cms_plus_control;
+	float sh_cms_control = SH_control_RSALES - sh_cms_minus_control + sh_cms_plus_control;
+	float y_cms_control = Y_control_RSALES - y_cms_minus_control + y_cms_plus_control;
+	
+	float fh_cms_safe = FH_safe_RSALES - fh_cms_minus_safe + fh_cms_plus_safe;
+	float sh_cms_safe = SH_safe_RSALES - sh_cms_minus_safe + sh_cms_plus_safe;
+	float y_cms_safe = Y_safe_RSALES - y_cms_minus_safe + y_cms_plus_safe;
+	
+	float fh_cms_auto = FH_auto_RSALES - fh_cms_minus_auto + fh_cms_plus_auto;
+	float sh_cms_auto = SH_auto_RSALES - sh_cms_minus_auto + sh_cms_plus_auto;
+	float y_cms_auto = Y_auto_RSALES - y_cms_minus_auto + y_cms_plus_auto;
+	
+	float fh_cms_vt = FH_vt_RSALES - fh_cms_minus_vt + fh_cms_plus_vt;
+	float sh_cms_vt = SH_vt_RSALES - sh_cms_minus_vt + sh_cms_plus_vt;
+	float y_cms_vt = Y_vt_RSALES - y_cms_minus_vt + y_cms_plus_vt;
+	
+	float fh_cms_total = fh_cms_chassis + fh_cms_body + fh_cms_control + fh_cms_safe + fh_cms_auto + fh_cms_vt;
+	float sh_cms_total = sh_cms_chassis + sh_cms_body + sh_cms_control + sh_cms_safe + sh_cms_auto + sh_cms_vt;
+	float y_cms_total = y_cms_chassis + y_cms_body + y_cms_control + y_cms_safe + y_cms_auto + y_cms_vt;
 %>
 
 <meta charset="utf-8">
@@ -1983,13 +2124,13 @@ function y_rsales() {
                     </tr>
                     <tr class="firstTD saleTD dataTD corrTD_fh" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td></td>
-                   		<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
+                    	<td><%=fh_cms_total %></td>
+                   		<td><%=fh_cms_chassis %></td>
+                    	<td><%=fh_cms_body %></td>
+                    	<td><%=fh_cms_control %></td>
+                    	<td><%=fh_cms_safe %></td>
+                    	<td><%=fh_cms_auto %></td>
+                    	<td><%=fh_cms_vt %></td>
                     </tr>
 
                      <tr class="firstTD saleTD rateTD">
@@ -2005,13 +2146,13 @@ function y_rsales() {
                     </tr>
                     <tr class="firstTD saleTD rateTD corrRate_fh" style="color:red;">
                     	<td>매출 보정 달성률</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_total/FH_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_chassis/FH_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_body/FH_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_control/FH_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_safe/FH_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_auto/FH_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", fh_cms_vt/FH_vt_SALES *100)%>(%)</td>
                     </tr>
                     
                      <tr class="lastTD orderTD dataTD">
@@ -2109,13 +2250,13 @@ function y_rsales() {
                     </tr>
                     <tr class="lastTD saleTD dataTD corrTD_sh" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td></td>
-                   		<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
+                    	<td><%=sh_cms_total %></td>
+                   		<td><%=sh_cms_chassis %></td>
+                    	<td><%=sh_cms_body %></td>
+                    	<td><%=sh_cms_control %></td>
+                    	<td><%=sh_cms_safe %></td>
+                    	<td><%=sh_cms_auto %></td>
+                    	<td><%=sh_cms_vt %></td>
                     </tr>
                      <tr class="lastTD saleTD rateTD">
                     	<td>매출 달성률</td>
@@ -2129,13 +2270,13 @@ function y_rsales() {
                     </tr>
                     <tr class="lastTD saleTD rateTD corrRate_sh" style="color:red;">
                     	<td>매출 보정 달성률</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_total/SH_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_chassis/SH_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_body/SH_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_control/SH_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_safe/SH_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_auto/SH_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", sh_cms_vt/SH_vt_SALES *100)%>(%)</td>
                     </tr>
                     
                     <tr class="yearTD orderTD dataTD">
@@ -2231,13 +2372,13 @@ function y_rsales() {
                     </tr>
                     <tr class="yearTD saleTD dataTD corrTD_y" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td></td>
-                   		<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
-                    	<td></td>
+                    	<td><%=y_cms_total %></td>
+                   		<td><%=y_cms_chassis %></td>
+                    	<td><%=y_cms_body %></td>
+                    	<td><%=y_cms_control %></td>
+                    	<td><%=y_cms_safe %></td>
+                    	<td><%=y_cms_auto %></td>
+                    	<td><%=y_cms_vt %></td>
                     </tr>
                      <tr class="yearTD saleTD rateTD">
                     	<td>매출 달성률</td>
@@ -2251,13 +2392,13 @@ function y_rsales() {
                     </tr>
                     <tr class="yearTD saleTD rateTD corrRate_y" style="color:red;">
                     	<td>매출 보정 달성률</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
-                    	<td>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_total/Y_total_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_chassis/Y_chassis_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_body/Y_body_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_control/Y_control_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_safe/Y_safe_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_auto/Y_auto_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", y_cms_vt/Y_vt_SALES *100)%>(%)</td>
                     </tr>
                   	  </tbody>                            
                		 </table>
