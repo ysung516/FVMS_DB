@@ -37,6 +37,7 @@
 	
 	SummaryDAO summaryDao = new SummaryDAO();
 	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();
+	HashMap<String, Integer> RankCompe = summaryDao.getRank();
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
 	ArrayList<TeamBean> teamList = summaryDao.getTagetData();
@@ -2004,6 +2005,17 @@ function y_rsales() {
  				<label style="margin-right:7px;"><input id="checkSALE" class="OSchartClass" type="checkbox" checked>매출</label>
  				<label style="margin-right:7px;"><input id="checkRATE" class="OSchartClass" type="checkbox" checked>비율</label>
  				<label style="margin-right:7px;"><input id="checkDATA" class="OSchartClass" type="checkbox" checked>값</label>
+ 				<%if(permission == 0){ %>
+ 				<div id="setRankCompe" style="margin-bottom:10px; font-size:small;">
+ 					<form name="changeCompe" method="post" action="./summary_changeComp.jsp">
+	 					수석 : <input name="1step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("수석")%>"/>
+	 					책임 : <input name="2step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("책임")%>"/>
+	 					선임 : <input name="3step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("선임")%>"/>
+	 					전임 : <input name="4step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("전임")%>"/>
+	 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" style="font-size: xx-small; vertical-align: bottom;"/>
+	 				</form>
+ 				</div>
+ 				<%} %>
  				
 			<form method="post" action="Save_targetData.jsp">
  				 <div class="table-responsive">

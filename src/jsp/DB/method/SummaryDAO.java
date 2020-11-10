@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import jsp.Bean.model.*;
 
@@ -381,6 +382,75 @@ public class SummaryDAO {
 	    return rs;	    
 	}
 	
+	public HashMap<String, Integer> getRank(){
+		HashMap<String, Integer> rank = new HashMap<String, Integer>();
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("SELECT * from rank");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		rank.put(rs.getString("rank"), rs.getInt("compensation"));
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+		return rank;
+	}
+	
+	public int[] changeRankCompensation(int step1, int step2, int step3, int step4) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs[] = new int[4];
+   
+		try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("update rank set compensation=? where rank_id=?;");
+	    	conn = DBconnection.getConnection();
+	    	conn.setAutoCommit(false);
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	
+	    	pstmt.setInt(1, step1);
+	    	pstmt.setInt(2, 0);
+	    	pstmt.addBatch();
+	    	
+	    	pstmt.setInt(1, step2);
+	    	pstmt.setInt(2, 1);
+	       	pstmt.addBatch();
+	    	
+	    	pstmt.setInt(1, step3);
+	    	pstmt.setInt(2, 2);
+	       	pstmt.addBatch();
+	       	
+	    	pstmt.setInt(1, step4);
+	    	pstmt.setInt(2, 3);
+	       	pstmt.addBatch();
+	       	
+	    	rs =pstmt.executeBatch();
+	    	conn.commit();
+	    	
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+		return rs;
+	}
 	
 	public static void main(String[] args) {
 	 //TODO Auto-generated method stub
