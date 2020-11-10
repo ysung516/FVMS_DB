@@ -4,14 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import jsp.Bean.model.ProjectBean;
-import jsp.Bean.model.StateOfProBean;
-import jsp.Bean.model.TeamBean;
-import jsp.Bean.model.careerSummary_Bean;
+import jsp.Bean.model.*;
 
 public class SummaryDAO {
 	public SummaryDAO() {}
@@ -61,6 +59,122 @@ public class SummaryDAO {
 	    return list;
 	}
 	
+	// 상반기, 하반기 manmonth 계산
+	public String [] cal_manmoth(String start, String end) {
+		String [] result = new String[2];
+		long fh_mm = 0;
+		long sh_mm = 0;
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		String Date = sf.format(nowDate);
+		int nowYear = Integer.parseInt(Date.split("-")[0]);
+		String startDate = "";
+		String endDate = "";
+		Date sDate;
+		Date eDate;
+
+		//상반기
+		String fh_date = nowYear+"-06-30";
+		//하반기
+		String sh_date = nowYear+"-07-01";
+		
+		if(Integer.parseInt(start.split("-")[0]) < nowYear) {
+			startDate = nowYear+"-01-01";
+		} else if(Integer.parseInt(start.split("-")[0]) == nowYear) {
+			startDate = start;
+		}
+		
+		if(Integer.parseInt(end.split("-")[0]) > nowYear) {
+			endDate = nowYear+"-12-31";
+		} else if(Integer.parseInt(end.split("-")[0]) == nowYear) {
+			endDate = end;
+		}
+		
+		
+		if(Integer.parseInt(endDate.split("-")[1]) < 07) {
+			fh_date = endDate;
+		}
+		
+		if(Integer.parseInt(startDate.split("-")[1]) > 06) {
+			sh_date = startDate;
+		}
+		
+		
+		try {
+			sDate = sf.parse(startDate);
+			eDate = sf.parse(endDate);
+			fh_mm = (long) ((sf.parse(fh_date).getTime() - sDate.getTime()) / (24*60*60*1000));
+			sh_mm = (long) ((eDate.getTime() - sf.parse(sh_date).getTime()) / (24*60*60*1000));
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		if(Integer.parseInt(start.split("-")[0]) > nowYear || Integer.parseInt(start.split("-")[1]) > 06) {
+			fh_mm = 0;
+		}
+		if(Integer.parseInt(end.split("-")[0]) < nowYear || Integer.parseInt(end.split("-")[1]) < 07) {
+			sh_mm = 0;
+		}
+		
+		result[0] = String.format("%.1f", (fh_mm/30.5));
+		result[1] = String.format("%.1f", (sh_mm/30.5));
+		
+		return result;
+	}
+	
+	public ArrayList<CMSBean> getCMSList(){
+		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Date now = new Date();
+	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	    	String year = sf.format(now);
+			StringBuffer query = new StringBuffer();
+	    	query.append("select project.no, project.프로젝트명, project.팀_매출, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
+	    			+ "from project, career, member, rank "
+	    			+ "where project.year = ? and project.상태 != '8.Dropped' and project.실적보고 = 1 and member.소속 = '슈어소프트테크' and project.no = career.projectNo and career.id = member.id and rank.rank = member.직급"
+	    			+ " and project.팀_매출 != member.팀");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, year);
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		CMSBean cms = new CMSBean();
+	    		cms.setNo(rs.getString("no"));	    		
+	    		cms.setProjectName(rs.getString("프로젝트명"));
+	    		cms.setSalesTeam(rs.getString("팀_매출"));
+	    		cms.setTeam(rs.getString("팀"));
+	    		cms.setName(rs.getString("이름"));
+	    		cms.setRank(rs.getString("직급"));
+	    		cms.setStart(rs.getString("start"));
+	    		cms.setEnd(rs.getString("end"));
+	    		
+	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[0]));
+	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[1]));
+	    		cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")));
+	    		cms.setSH_MM_CMS(cms.getSH_MM() * rs.getInt("compensation"));
+	    		list.add(cms);
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return list;
+	}
+	
+	
 	// summary 수주/매출 테이블용 career 데이터
 	public ArrayList<careerSummary_Bean> getCareerSummary(){
 		ArrayList<careerSummary_Bean> list = new ArrayList<careerSummary_Bean>();
@@ -98,134 +212,6 @@ public class SummaryDAO {
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		
-		return list;
-	}
-	
-	//단계가 1,2,3인 프로젝트의 팀정보 - 사용안함
-	public ArrayList<StateOfProBean> StateProjectNum_sales() {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    ArrayList<StateOfProBean> list = new ArrayList<StateOfProBean>();
-	    
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT 팀_수주, 상태, count(*) from project where (상태 like '1%' OR 상태 like '2%' OR 상태 like '3%') and 실적보고 = 1 group by 팀_수주, 상태;");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	
-	    	while(rs.next()) {
-	    		StateOfProBean stateBean = new StateOfProBean();
-	    		stateBean.setTeam(rs.getString(1));
-	    		stateBean.setState(rs.getString(2));
-	    		stateBean.setCnt(rs.getInt(3));
-	    		list.add(stateBean);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    
-	    return list;
-	}
-	
-	//단계가 4,5,6,7,8인 프로젝트의 팀정보 - 사용안함
-	public ArrayList<StateOfProBean> StateProjectNum_order() {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    ArrayList<StateOfProBean> list = new ArrayList<StateOfProBean>();
-	    
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT 팀_매출, 상태, count(*) from project where (상태 like '4%' OR 상태 like '5%' OR 상태 like '6%' OR 상태 like '7%' OR 상태 like '8%') and 실적보고 = 1 group by 팀_매출, 상태;");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	
-	    	while(rs.next()) {
-	    		StateOfProBean stateBean = new StateOfProBean();
-	    		stateBean.setTeam(rs.getString(1));
-	    		stateBean.setState(rs.getString(2));
-	    		stateBean.setCnt(rs.getInt(3));
-	    		list.add(stateBean);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    
-	    return list;
-	}
-	
-	// 상태별 total - 사용안함
-	public int State_ProjectCount(String state) {
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    int cnt = 0;
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	conn = DBconnection.getConnection();
-	    	query.append("SELECT count(*) from project where 상태 = ? and 실적보고 = 1;");
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, state);
-	    	
-	    	rs = pstmt.executeQuery();
-	    	if(rs.next()) {
-	    		cnt = rs.getInt(1);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    return cnt;
-	}
-	
-	//프로젝트 단계별 합
-	public ArrayList<int[]> stateNum() {
-		ArrayList<int[]> list = new ArrayList<int[]>();
-		
-		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    
-	    try {
-	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT 상태, count(*) from project where 실적보고 = 1 group by 상태;");
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	
-	    	while(rs.next()) {
-	    		int[] stateNum = {0,0};
-	    		//String[] str = rs.getString(1).split("");
-	    		//stateNum[0] = Integer.parseInt(str.split(".")[0]);
-	    		stateNum[1] = rs.getInt(2);
-	    		list.add(stateNum);
-	    	}
-	    }catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-	    
 		return list;
 	}
 	
@@ -334,8 +320,30 @@ public class SummaryDAO {
 	}
 	
 	
-	
-	
-	
+	public static void main(String[] args) {
+	 //TODO Auto-generated method stub
+		SummaryDAO te = new SummaryDAO();
+		ArrayList<CMSBean> list = te.getCMSList();
+		//System.out.println(te.cal_manmoth("2020-04-06", "2020-03-31")[0]);
+		//System.out.println(te.cal_manmoth("2020-04-06", "2020-03-31")[1]);
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getNo());
+			System.out.println(list.get(i).getProjectName());
+			System.out.println(list.get(i).getSalesTeam());
+			System.out.println(list.get(i).getTeam());
+			System.out.println(list.get(i).getName());
+			System.out.println(list.get(i).getRank());
+			System.out.println(list.get(i).getStart());
+			System.out.println(list.get(i).getEnd());
+			System.out.println(list.get(i).getFH_MM());
+			System.out.println(list.get(i).getSH_MM());
+			System.out.println(list.get(i).getFH_MM_CMS());
+			System.out.println(list.get(i).getSH_MM_CMS());
+			System.out.println("----------------------------------------");
+		}
+		
+		
+}
+
 	
 }
