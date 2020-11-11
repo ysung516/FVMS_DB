@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="jsp.DB.method.*"
-	import="java.util.ArrayList"%>
+	import="java.util.ArrayList" import="java.util.HashMap"%>
 <!DOCTYPE html>
 <html>
 <%	
@@ -40,6 +40,9 @@
 	ArrayList<CMSBean> plus_auto = new ArrayList<CMSBean>();
 	ArrayList<CMSBean> plus_vt = new ArrayList<CMSBean>();
 	
+	//Rank 기준
+	HashMap<String, Integer> rank = summaryDao.getRank();
+	
 	if(!(team.equals("Total"))){
 		plus = summaryDao.getCMS_plusList(team);
 		minus = summaryDao.getCMS_minusList(team);
@@ -67,10 +70,10 @@
 </head>
 
 <style>
-	#plusTable, #minusTable, #plusTableT, #minusTableT{
+	#plusTable, #minusTable, #plusTableT, #minusTableT, #allData{
 		width: 100%;
     	border-collapse: collapse;
-    	margin-bottom: 20px;
+    	margin-bottom: 10px;
 		table-layout:fixed;
 	}
 	th, td{
@@ -113,12 +116,12 @@
 		if($('#minusTableT td').length == 0 && $('#minusTable td').length == 0){
 			$('#minusTableT').css('display', 'none');
 			$('#minusTable').css('display', 'none');
-			$('#minusP').css('visibility', 'unset');
+			$('#minusP').css('display', 'block');
 		}
 		if($('#plusTableT td').length == 0 && $('#plusTable td').length == 0){
 			$('#plusTableT').css('display', 'none');
 			$('#plusTable').css('display', 'none');
-			$('#plusP').css('visibility', 'unset');
+			$('#plusP').css('display', 'block');
 		}
 	}
 	
@@ -128,7 +131,7 @@
 </script>
 
 <body>
-	<h3 id="h3" style="text-align: center;"><%=team %> 매출 보정 상세 내역</h3>
+	<h3 id="h3" style="text-align: center; margin-bottom: 30px;"><%=team %> 매출 보정 상세 내역</h3>
 	<div>
 		<%if(!(team.equals("Total")) && plus.size() != 0){ %>
 		<div>
@@ -355,7 +358,7 @@
 			</table>
 		</div>
 		<%}%>
-		<p class="none" id="plusP" style="visibility:collapse;">*****추가된 매출 없음*****</p>
+		<p class="none" id="plusP" style="display:none">*****추가된 매출 없음*****</p>
 		<%
 		if(!(team.equals("Total")) && minus.size() != 0){%>
 		<div>
@@ -582,7 +585,7 @@
 			</table>
 		</div>
 		<%}%>
-		<p class="none" id="minusP" style="visibility:collapse;">*****삭제된 매출 없음*****</p>
+		<p class="none" id="minusP" style="display:none;">*****삭제된 매출 없음*****</p>
 	</div>
 </body>
 </html>
