@@ -130,21 +130,46 @@
 	body{
 		font-size:small;
 		}
-#sidebarToggle{
+	#sidebarToggle{
 		display:block;
 	}
 	.tableST{
-	width : 100% !important;
-	height: 40%;
-	
-}
-#timelineChart{
-	width:  100% !important;
+		width : 100% !important;
+		height: 40%;
+		
+	}
 
+	.table-responsive2 {
+		visibility: collapse;
+		height: 5vh;
+		overflow: auto !important;
+	}
+	#timelineChart{
+		width:  100% !important;
+	
+	}
+	.table-responsive{
+		overflow: auto !important;
+	}
 }
-.table-responsive{
-	overflow: auto !important;
+
+@media(min-width:800px){
+	.table-responsive2{
+		height: 65vh;
+	}
 }
+
+#select_info {
+ table-layout:fixed; 
+ width:100%;
+ }
+
+.table-responsive2 {
+	display: block;
+	width: 100%;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom:20px;
 }
 
 .memberTable{
@@ -163,6 +188,7 @@
 .tableST{
 	width : 50%;
 	float:right;
+	height:auto;
 }
 
 #timelineChart{
@@ -382,6 +408,14 @@
 
 		$('#projectINFO').empty();
 		$('#projectINFO').append(inner);
+		
+		// if mobile
+         	var windowWidth = $(window).width();
+         	console.log(windowWidth);
+         	if(windowWidth <= 800){
+         		$('.table-responsive2').css('height', '40vh');
+         		$('.table-responsive2').css('visibility', 'unset');
+         	}
 	}
 	
 	function goPrint(){
@@ -708,17 +742,17 @@
                 </table>
                 </div>
 				
-				<div class="table-responsive" style="height:65vh; overflow:visible;">
+				<div class="table-responsive2">
 				<table class="table table-bordered" id="select_info" style="font-size:12px;">
 	                <thead>
 	                    <tr style="text-align:center;background-color:#15a3da52;">
-		                    <th style="width:12vw;">팀(수주)</th>
-		                    <th style="width:12vw;">팀(매출)</th>
-		                    <th style="width:38vw;">프로젝트명</th>
-		                    <th style="width:10vw;">고객사</th>
-		                    <th style="width:13vw;">착수</th>
-		                    <th style="width:13vw;">종료</th>
-		                    <th style="width:8vw;">PM</th>                 	         
+		                    <th style="width:12%;">팀(수주)</th>
+		                    <th style="width:12%;">팀(매출)</th>
+		                    <th style="width:29%;">프로젝트명</th>
+		                    <th style="width:13%;">고객사</th>
+		                    <th style="width:13%;">착수</th>
+		                    <th style="width:13%;">종료</th>
+		                    <th style="width:8%;">PM</th>                 	         
 	                    </tr>
                     </thead>
                     <tbody id="projectINFO"></tbody>

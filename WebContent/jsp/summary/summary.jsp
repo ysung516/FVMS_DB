@@ -1850,6 +1850,11 @@ function y_rsales() {
 		});
 	}
 	
+    function viewDetail(team, time){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('summary_PopUp.jsp?team='+team + '&time=' + time , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=1000, height=700');
+    }
+	
 	$(document).ready(function(){
 		$('.loading').hide();
 		stateColor();
@@ -2025,12 +2030,15 @@ function y_rsales() {
  				<%if(permission == 0){ %>
  				<div id="setRankCompe" style="margin-bottom:10px; font-size:small; width:">
  					<form name="changeCompe" method="post" action="./summary_changeComp.jsp">
-	 					수석 : <input name="1step" class="changeCompeData" value="<%=RankCompe.get("수석")%>"/>
-	 					책임 : <input name="2step" class="changeCompeData" value="<%=RankCompe.get("책임")%>"/>
-	 					선임 : <input name="3step" class="changeCompeData" value="<%=RankCompe.get("선임")%>"/>
-	 					전임 : <input name="4step" class="changeCompeData" value="<%=RankCompe.get("전임")%>"/>
-	 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" 
-	 						style="font-size: xx-small; vertical-align: bottom; margin-left:10px;"/>
+ 						<p style="color:black; margin-bottom:0px; display: list-item; margin-left: 16px;"><b>매출 보정 기준값 변경(단위:만)</b></p>
+	 					<p style="margin-left:15px;">
+		 					수석 : <input name="1step" class="changeCompeData" value="<%=RankCompe.get("수석")%>"/>
+		 					책임 : <input name="2step" class="changeCompeData" value="<%=RankCompe.get("책임")%>"/>
+		 					선임 : <input name="3step" class="changeCompeData" value="<%=RankCompe.get("선임")%>"/>
+		 					전임 : <input name="4step" class="changeCompeData" value="<%=RankCompe.get("전임")%>"/>
+		 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" 
+		 						style="font-size: xx-small; vertical-align: bottom; margin-left:10px;"/>
+	 					</p>
 	 				</form>
  				</div>
  				<%} %>
@@ -2159,18 +2167,17 @@ function y_rsales() {
                     </tr>
                     <tr class="firstTD saleTD dataTD corrTD_fh" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td><%=fh_cms_total %></td>
-                   		<td><%=fh_cms_chassis %></td>
-                    	<td><%=fh_cms_body %></td>
-                    	<td><%=fh_cms_control %></td>
-                    	<td><%=fh_cms_safe %></td>
-                    	<td><%=fh_cms_auto %></td>
-                    	<td><%=fh_cms_vt %></td>
+                    	<td onclick="viewDetail('Total', '상반기')"><%=fh_cms_total %></td>
+                   		<td onclick="viewDetail('샤시힐스검증팀', '상반기')"><%=fh_cms_chassis %></td>
+                    	<td onclick="viewDetail('바디힐스검증팀', '상반기')"><%=fh_cms_body %></td>
+                    	<td onclick="viewDetail('제어로직검증팀', '상반기')"><%=fh_cms_control %></td>
+                    	<td onclick="viewDetail('기능안전검증팀', '상반기')"><%=fh_cms_safe %></td>
+                    	<td onclick="viewDetail('자율주행검증팀', '상반기')"><%=fh_cms_auto %></td>
+                    	<td onclick="viewDetail('미래차검증전략실', '상반기')"><%=fh_cms_vt %></td>
                     </tr>
 
                      <tr class="firstTD saleTD rateTD">
                     	<td>매출 달성률</td>
-                    	
                     	<td><%=String.format("%.1f", FH_total_RSALES/FH_total_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_chassis_RSALES/FH_chassis_SALES *100)%>(%)</td>
                     	<td><%=String.format("%.1f", FH_body_RSALES/FH_body_SALES *100)%>(%)</td>
@@ -2285,13 +2292,13 @@ function y_rsales() {
                     </tr>
                     <tr class="lastTD saleTD dataTD corrTD_sh" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td><%=sh_cms_total %></td>
-                   		<td><%=sh_cms_chassis %></td>
-                    	<td><%=sh_cms_body %></td>
-                    	<td><%=sh_cms_control %></td>
-                    	<td><%=sh_cms_safe %></td>
-                    	<td><%=sh_cms_auto %></td>
-                    	<td><%=sh_cms_vt %></td>
+                    	<td onclick="viewDetail('Total', '하반기')"><%=sh_cms_total %></td>
+                   		<td onclick="viewDetail('샤시힐스검증팀', '하반기')"><%=sh_cms_chassis %></td>
+                    	<td onclick="viewDetail('바디힐스검증팀', '하반기')"><%=sh_cms_body %></td>
+                    	<td onclick="viewDetail('제어로직검증팀', '하반기')"><%=sh_cms_control %></td>
+                    	<td onclick="viewDetail('기능안전검증팀', '하반기')"><%=sh_cms_safe %></td>
+                    	<td onclick="viewDetail('자율주행검증팀', '하반기')"><%=sh_cms_auto %></td>
+                    	<td onclick="viewDetail('미래차검증전략실', '하반기')"><%=sh_cms_vt %></td>
                     </tr>
                      <tr class="lastTD saleTD rateTD">
                     	<td>매출 달성률</td>
@@ -2407,13 +2414,13 @@ function y_rsales() {
                     </tr>
                     <tr class="yearTD saleTD dataTD corrTD_y" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td><%=y_cms_total %></td>
-                   		<td><%=y_cms_chassis %></td>
-                    	<td><%=y_cms_body %></td>
-                    	<td><%=y_cms_control %></td>
-                    	<td><%=y_cms_safe %></td>
-                    	<td><%=y_cms_auto %></td>
-                    	<td><%=y_cms_vt %></td>
+                    	<td onclick="viewDetail('Total', '연간')"><%=y_cms_total %></td>
+                   		<td onclick="viewDetail('샤시힐스검증팀', '연간')"><%=y_cms_chassis %></td>
+                    	<td onclick="viewDetail('바디힐스검증팀', '연간')"><%=y_cms_body %></td>
+                    	<td onclick="viewDetail('제어로직검증팀', '연간')"><%=y_cms_control %></td>
+                    	<td onclick="viewDetail('기능안전검증팀', '연간')"><%=y_cms_safe %></td>
+                    	<td onclick="viewDetail('자율주행검증팀', '연간')"><%=y_cms_auto %></td>
+                    	<td onclick="viewDetail('미래차검증전략실', '연간')"><%=y_cms_vt %></td>
                     </tr>
                      <tr class="yearTD saleTD rateTD">
                     	<td>매출 달성률</td>

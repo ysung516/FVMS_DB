@@ -41,7 +41,6 @@
 	
 	String str = "";
 	
-	
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,21 +71,30 @@
 #sidebarToggle{
 		display:none;
 	}
+	
+	
 @media ( max-width :800px) {
-#sidebarToggle{
+	body{
+		font-size:small;
+	}
+	#sidebarToggle{
 		display:block;
 	}
 	.tableST {
 		width: 100% !important;
-		height: 40%;
-		
 	}
-.table-responsive2 {
-	height: 40vh !important;
-}
-
+	.table-responsive2 {
+		visibility: collapse;
+		height: 5vh;
+	}
 	#timelineChart {
 		width: 100% !important;
+	}
+}
+
+@media ( min-width :800px) {
+	.table-responsive2 {
+		height: 65vh;
 	}
 }
 
@@ -104,9 +112,9 @@
 .table-responsive2 {
 	display: block;
 	width: 100%;
-	height: 65vh;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
+	margin-bottom:20px;
 }
 
 .memberTable {
@@ -501,6 +509,14 @@
            	  })
            	  
       	  	memberInfoTable(team, rank);
+           	
+           	// if mobile
+           	var windowWidth = $(window).width();
+           	console.log(windowWidth);
+           	if(windowWidth <= 800){
+           		$('.table-responsive2').css('height', '40vh');
+           		$('.table-responsive2').css('visibility', 'unset');
+           	}
        }	//end
          
           function memberInfoTable(team, rank){
@@ -1669,7 +1685,7 @@
 		                    <td onclick="drawChartOp('미래차검증전략실','total')"><%=List1.size()%></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','수석')"><%=List11.size() %></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','책임')"><%=List12.size() %></td>
-		    	                <td onclick="drawChartOp('미래차검증전략실','선임')"><%=List13.size() %></td>
+		    	            <td onclick="drawChartOp('미래차검증전략실','선임')"><%=List13.size() %></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','전임')"><%=List14.size() %></td>
 		                    <td onclick="drawChartOp('미래차검증전략실','인턴')"><%=List15.size() %></td>
 	                    </tr>

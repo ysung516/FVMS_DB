@@ -121,10 +121,14 @@ tr:last-child {
 }
 
 #managerTable {
-	white-space: nowrap;
-	overflow: auto;
-	width: 100%;
+	table-layout:fixed;
 	margin-top: 10px;
+	width:100%;
+}
+
+#managerTable th, #managerTable td{
+	overflow: hidden;
+    white-space: nowrap;
 }
 
 .m-0 .text-primary {
@@ -204,6 +208,9 @@ tr:last-child {
 	.table-responsive {
 		width: 100%;
 		margin-left:0;
+	}
+	#managerTable{
+		width: 100%;
 	}
 	body {
 		font-size: small;

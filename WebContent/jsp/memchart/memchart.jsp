@@ -458,6 +458,10 @@
 	.memchart div{
 	line-height:130% !important;}
 	
+	#organizationChart{
+		float: left;
+	}
+	
 </style>
 
 <body id="page-top">
@@ -586,8 +590,10 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
 								style="padding-left: 17px;">조직도
-								<label style="float:right; font-size:13px;display:inline-block;"><input type="checkbox" id="cooper" name="cooper" value="cooper">
-								<span style="vertical-align: text-top; margin-left: 2px; color: black; font-weight: 100;">협력업체 및 세부정보</span></label>
+								<label style="font-size: 12px; display: block; margin-left: 5px; margin-top: 5px; margin-bottom: 0px;">
+									<input type="checkbox" id="cooper" name="cooper" value="cooper">
+									<span style="vertical-align: text-top; margin-left: 2px; color: black; font-weight: 100;">협력업체 및 세부정보</span>
+								</label>
 							</h6>
 							
 						</div>
