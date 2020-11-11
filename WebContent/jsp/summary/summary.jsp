@@ -475,6 +475,8 @@
 
 #dataTable{
 	font-size:small;
+	float:left;
+	max-width:750px;
 }
 .firstTD.orderTD{
 	background: #a3c7e494;
@@ -586,41 +588,47 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:765px){
-	#sidebarToggle{
-		display:inline;
-	}
-	.container-fluid{
-	margin-top: 80px;
-	}
-	.chart{
-	width:100% !important;
-}
-	#content{
-	margin-left:0;
-	}
-	
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
+		#sidebarToggle{
+			display:inline;
+		}
+		.container-fluid{
+			margin-top: 80px;
+		}
+		.chart{
+			width:100% !important;
+		}
+		#content{
+			margin-left:0;
+		}
+		
+		.topbar{
+			z-index:999;
+			position:fixed;
+			width:100%;
 		}
 		.card-body{
 			padding:0px;
 		}
 		.pie{
-		height:100%;
-		width:100%;
-	}
+			height:100%;
+			width:100%;
+		}
 		.container-fluid{
 			padding: 0;
 		}
 		.card-header:first-child{
 			padding: 0;
 		}
-		
+			
 		body{
-		font-size:small;}
-}
+			font-size:small;
+		}
+			
+		#dataTable{
+			width:100%;
+			table-layout:fixed;
+		}
+	}
 
 	.loading{
 		position:fixed;
@@ -664,6 +672,10 @@ ul.tabs li.current{
 		text-align: left;
 	} 
 	
+	.changeCompeData{
+		 width:42px;
+		 margin-right:0px;
+	}
 </style>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
@@ -2006,12 +2018,12 @@ function y_rsales() {
  				<label style="margin-right:7px;"><input id="checkRATE" class="OSchartClass" type="checkbox" checked>비율</label>
  				<label style="margin-right:7px;"><input id="checkDATA" class="OSchartClass" type="checkbox" checked>값</label>
  				<%if(permission == 0){ %>
- 				<div id="setRankCompe" style="margin-bottom:10px; font-size:small;">
+ 				<div id="setRankCompe" style="margin-bottom:10px; font-size:small; width:">
  					<form name="changeCompe" method="post" action="./summary_changeComp.jsp">
-	 					수석 : <input name="1step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("수석")%>"/>
-	 					책임 : <input name="2step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("책임")%>"/>
-	 					선임 : <input name="3step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("선임")%>"/>
-	 					전임 : <input name="4step" style="width:55px; margin-right:10px;" value="<%=RankCompe.get("전임")%>"/>
+	 					수석 : <input name="1step" class="changeCompeData" value="<%=RankCompe.get("수석")%>"/>
+	 					책임 : <input name="2step" class="changeCompeData" value="<%=RankCompe.get("책임")%>"/>
+	 					선임 : <input name="3step" class="changeCompeData" value="<%=RankCompe.get("선임")%>"/>
+	 					전임 : <input name="4step" class="changeCompeData" value="<%=RankCompe.get("전임")%>"/>
 	 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" style="font-size: xx-small; vertical-align: bottom;"/>
 	 				</form>
  				</div>
