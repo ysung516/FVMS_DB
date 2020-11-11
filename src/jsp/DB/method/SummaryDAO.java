@@ -452,33 +452,6 @@ public class SummaryDAO {
 		return rs;
 	}
 	
-	public static void main(String[] args) {
-	 //TODO Auto-generated method stub
-		/*SummaryDAO te = new SummaryDAO();
-		
-		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
-		list = te.getCMS_minusList("기능안전검증팀");
-		for(int i=0; i<list.size(); i++) {
-			System.out.println(list.get(i).getNo());
-			System.out.println(list.get(i).getProjectName());
-			System.out.println(list.get(i).getSalesTeam());
-			System.out.println(list.get(i).getTeam());
-			System.out.println(list.get(i).getName());
-			System.out.println(list.get(i).getRank());
-			System.out.println(list.get(i).getStart());
-			System.out.println(list.get(i).getEnd());
-			System.out.println(list.get(i).getFH_MM());
-			System.out.println(list.get(i).getSH_MM());
-			System.out.println(list.get(i).getFH_MM_CMS());
-			System.out.println(list.get(i).getSH_MM_CMS());
-			System.out.println("----------------------------------------");
-		}
-		*/
-		
-		//System.out.println(te.cal_manmoth("2019-09-02", "2019-12-20")[0]);
-		//System.out.println(te.cal_manmoth("2019-09-02", "2019-12-20")[1]);
-		
-}
 
 	
 }

@@ -1,20 +1,38 @@
-import jsp.DB.method.ReportDAO;
-import jsp.smtp.method.ExcelExporter;
-import jsp.smtp.method.PostMan;
-
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 
-import com.googleDrive.method.*;
+
 
 public class maintest {
-//	
-//	public static void main(String[] args) {
-//		 //TODO Auto-generated method stub
-//	
-//		System.out.println("123");
-//	}
-//	
+	
+	/*
+	public static void main(String[] args) {
+		 //TODO Auto-generated method stub
+		String mainURL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
+		String connectURL = "http://suresofttech.hanbiro.net/ngw/sign/auth"; 
+		String URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
+
+		try {
+
+			 Document doc=Jsoup.connect(URL)
+               
+                     .timeout(3000000).get();
+			 System.out.println(3);
+			 
+			 Elements element = doc.getAllElements();
+			 System.out.println(element);
+			 System.out.println(4);
+			 
+			 
+			//doc.text();
+			//doc.html();
+			//System.out.println(doc.text());
+			//System.out.println(doc.html());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	*/
 }
 
 
