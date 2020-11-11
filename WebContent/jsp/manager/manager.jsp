@@ -79,11 +79,26 @@
 	
 .table-responsive {
 	width: 70%;
-	margin-left:5%;
+	margin-left:40px;
 }
 
-#manager_List {
-	white-space: initial;
+#managerTable tr {
+	border-bottom: 1px solid #d1d3e2;
+	
+}
+
+#managerTable {
+	table-layout:fixed;
+	margin-top: 10px;
+	width:100%;
+	max-width:1234px;
+	overflow: auto;
+    white-space: nowrap;
+}
+
+#managerTable th, #managerTable td{
+	overflow: hidden;
+    white-space: nowrap;
 }
 
 #manager_List td {
@@ -115,21 +130,6 @@ tr:last-child {
 	border-top: 1px solid;
 }
 
-#managerTable tr {
-	border-bottom: 1px solid #d1d3e2;
-	
-}
-
-#managerTable {
-	table-layout:fixed;
-	margin-top: 10px;
-	width:100%;
-}
-
-#managerTable th, #managerTable td{
-	overflow: hidden;
-    white-space: nowrap;
-}
 
 .m-0 .text-primary {
 	vertical-align: middle;
@@ -150,12 +150,6 @@ tr:last-child {
 	top: 9px;
 }
 
-#dataTable td:nth-child(odd) {
-	
-	vertical-align: middle;
-	word-break: keep-all;
-	width: 10%;
-}
 
 .loading {
 	position: fixed;

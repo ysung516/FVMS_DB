@@ -112,6 +112,7 @@
 	width: 100%;
 	margin-top: 10px;
 	word-break: keep-all;
+	max-width: 1300px;
 }
 
 .summary_p {

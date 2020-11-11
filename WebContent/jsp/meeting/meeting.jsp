@@ -85,6 +85,7 @@
 	overflow: auto;
 	width: 100%;
 	margin-top: 10px;
+	max-width: 1630px;
 }
 
 #meetingList td {
