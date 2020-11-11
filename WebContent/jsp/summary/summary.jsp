@@ -628,6 +628,11 @@ ul.tabs li.current{
 			width:100%;
 			table-layout:fixed;
 		}
+		#dataTable thead th, #dataTable tbody td{
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		
 	}
 
 	.loading{
@@ -2024,7 +2029,8 @@ function y_rsales() {
 	 					책임 : <input name="2step" class="changeCompeData" value="<%=RankCompe.get("책임")%>"/>
 	 					선임 : <input name="3step" class="changeCompeData" value="<%=RankCompe.get("선임")%>"/>
 	 					전임 : <input name="4step" class="changeCompeData" value="<%=RankCompe.get("전임")%>"/>
-	 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" style="font-size: xx-small; vertical-align: bottom;"/>
+	 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" 
+	 						style="font-size: xx-small; vertical-align: bottom; margin-left:10px;"/>
 	 				</form>
  				</div>
  				<%} %>
