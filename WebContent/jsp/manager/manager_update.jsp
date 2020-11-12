@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="java.util.ArrayList" import="jsp.Bean.model.*"
 	import="jsp.DB.method.*"
-	import="java.text.SimpleDateFormat" import="java.util.Date"%>
+	import="java.text.SimpleDateFormat" import="java.util.Date"
+	import="java.util.HashMap"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,12 +49,16 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		wyear = 0;
 	}
 	
+	SummaryDAO summaryDao = new SummaryDAO();
+	HashMap<String, Integer> rankList = summaryDao.getRank();
+	
 %>
 
 <script>
 	$(document).ready(function(){
 		$("#team").val("<%=member.getTEAM()%>").prop("selected", true);		
 		$("#permission").val("<%=member.getPermission()%>").prop("selected", true);
+		$('#rank').val("<%=member.getRANK()%>").prop("selected", true);
 	});
 	
 	function changeCome(obj){
@@ -350,8 +355,11 @@ textarea {
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center">직급</td>
-											<td colspan="3"><input name="rank"
-												value="<%=member.getRANK()%>" class="update_input"></td>
+											<td colspan="3"><select id="rank" name="rank">
+													<%for(String key : rankList.keySet()){ %>
+														<option value="<%=key %>"><%=key %></option>
+													<%} %>
+											</select></td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center">직책</td>

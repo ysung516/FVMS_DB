@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="java.util.ArrayList" import="jsp.Bean.model.*"
-	import="jsp.DB.method.*"%>
+	import="jsp.DB.method.*"
+	import="java.util.HashMap"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +22,10 @@
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
 	memberList = memberDao.getMemberData();
+	
+	SummaryDAO summaryDao = new SummaryDAO();
+	HashMap<String, Integer> rankList = summaryDao.getRank();
+	
 	
 %>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -383,11 +388,9 @@ textarea {
 										<tr>
 											<td class="m-0 text-primary" align="center">직급</td>
 											<td colspan="3"><select id="rank" name="rank">
-													<option value="수석">수석</option>
-													<option value="책임">책임</option>
-													<option value="선임">선임</option>
-													<option value="전임">전임</option>
-													<option value="인턴">인턴</option>
+													<%for(String key : rankList.keySet()){ %>
+														<option value="<%=key %>"><%=key %></option>
+													<%} %>
 											</select></td>
 										</tr>
 

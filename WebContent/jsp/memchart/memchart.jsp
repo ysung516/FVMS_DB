@@ -187,23 +187,27 @@
 				$('#coopTR').append(coopTR);
 				
 				<%for(MemberBean mem : cooperationList){
+					String rank = mem.getRANK();
+					if(mem.getRANK().equals("-")){
+						rank = "";
+					}
 					if(mem.getTEAM().equals("미래차검증전략실")){%>
-						$('#coopTR > .vt > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+						$('#coopTR > .vt > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
 						vtnum = vtnum + 1;
 					<%continue; }if(mem.getTEAM().equals("샤시힐스검증팀")){%>
-						$('#coopTR > .chasis > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+						$('#coopTR > .chasis > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
 						chasisnum = chasisnum + 1;
 					<%continue; }if(mem.getTEAM().equals("바디힐스검증팀")){%>
-						$('#coopTR > .body > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+						$('#coopTR > .body > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
 						bodynum = bodynum + 1;
 					<%continue; }if(mem.getTEAM().equals("제어로직검증팀")){%>
-						$('#coopTR > .control > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+						$('#coopTR > .control > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
 						controlnum = controlnum + 1;
 					<%continue; }if(mem.getTEAM().equals("기능안전검증팀")){%>
-						$('#coopTR > .safe > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+						$('#coopTR > .safe > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
 						safenum = safenum + 1;
 					<%continue; }if(mem.getTEAM().equals("자율주행검증팀")){%>
-						$('#coopTR > .auto > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+						$('#coopTR > .auto > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
 						autonum = autonum + 1;
 					<%continue; }%>
 				<%}%>

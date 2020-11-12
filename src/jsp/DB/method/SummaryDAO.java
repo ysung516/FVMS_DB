@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import jsp.Bean.model.*;
 
@@ -383,14 +384,14 @@ public class SummaryDAO {
 	}
 	
 	public HashMap<String, Integer> getRank(){
-		HashMap<String, Integer> rank = new HashMap<String, Integer>();
+		HashMap<String, Integer> rank = new LinkedHashMap<String, Integer>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from rank");
+	    	query.append("SELECT * from rank order by rank_id");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
