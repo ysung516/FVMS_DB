@@ -1,4 +1,6 @@
 package Selenium.method;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,11 +14,12 @@ public class SeleniumExample {
 	private WebDriver driver;
 	private WebElement element;
 	private String url;
-    
+	
 	//Properties 설정
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "C:\\Users\\User\\git\\FVMS_DB\\chromedriver.exe";
 	public static String TEST_URL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
+	public static String URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
 	
 	public SeleniumExample() {
 		//System Property SetUp
@@ -32,15 +35,12 @@ public class SeleniumExample {
     
     public void login() {
        try {
-
             driver.get(TEST_URL);
-
             //로그인 버튼 클릭
             // class로 찾아도 되지만, xpath(상대 or 절대)로 찾는게 나은 거 같습니다.
-            Thread.sleep(1000);
+            Thread.sleep(5000);
             element = driver.findElement(By.xpath("//*[@id=\"log-userid\"]"));
             element.click();
-            
 
             //아이디 입력
             // id 값으로도 찾을 수 있습니다. 
@@ -55,13 +55,61 @@ public class SeleniumExample {
             element = driver.findElement(By.id("btn-log"));
             element.click();
 
-            Thread.sleep(10000);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             //driver.close();
         }
 
+    }
+    public void loadPage() {
+    	try {
+			Thread.sleep(3000);
+			driver.get(URL);
+			Thread.sleep(10000);
+			int x = driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
+					.get(0).getLocation().getX();
+			int y = driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
+					.get(0).getLocation().getY();
+			
+			while(x != 0 && y != 0) {
+				driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button")).get(0).click();
+				Thread.sleep(5000);
+				x = driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
+						.get(0).getLocation().getX();
+				y = driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
+						.get(0).getLocation().getY();
+			}
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	   
+    }
+    public void crawldata() {
+    	List<WebElement> emailList;
+    	List<WebElement> partList;
+    	List<WebElement> mobileList;
+    	List<WebElement> namerankList;
+    	
+    	namerankList = driver.findElements(By.xpath("//span[@class='org-name-info']//a[@class='dark']"));
+        partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
+        mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); //a[@class='text']//span[@class='hidden-xs']
+        emailList = driver.findElements(By.xpath("//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
+           
+        int cnt = 0;
+           
+       for(int i=0; i<namerankList.size(); i++) {
+           System.out.print(namerankList.get(i).getText());
+           System.out.print(" - ");
+           System.out.print(partList.get(i+1).getText());
+           System.out.print(" - ");
+           System.out.print(mobileList.get(i).getText());
+           System.out.print(" - ");
+           System.out.println(emailList.get(i).getText().split("@")[0]);
+           cnt++;
+          }
+    
     }
 }
