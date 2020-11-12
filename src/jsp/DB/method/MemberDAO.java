@@ -357,7 +357,7 @@ public class MemberDAO {
 	     int rs = 0;
 	     
 	     try {
-	    	 	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission)"
+	    	 	String query = "insert into memberCopy(id, pw, 소속, 팀, 이름, 직급, 직책, permission)"
 	    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?)";
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
@@ -451,7 +451,7 @@ public class MemberDAO {
 	      return rs;
 	 }
 	 
-	// 협력업체 회원정보 가져오기
+	// 현재 프로젝트 참여중인 협력업체 회원정보 가져오기
 	public ArrayList<MemberBean> getMember_cooperation() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -478,6 +478,38 @@ public class MemberDAO {
 	    		member.setGMAIL(rs.getString("gmail"));	
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
+	    		list.add(member);
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
+	
+	// 협력업체 회원정보 가져오기
+	public ArrayList<MemberBean> getMember_coop() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select id, 이름, 소속 from member where 소속 != '슈어소프트테크' and 직급 != '인턴';");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		MemberBean member = new MemberBean();
+	    		member.setID(rs.getString("id"));
+	    		member.setPART(rs.getString("소속"));
+	    		member.setNAME(rs.getString("이름"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {

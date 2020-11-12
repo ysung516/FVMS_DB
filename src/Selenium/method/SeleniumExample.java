@@ -116,7 +116,7 @@ public class SeleniumExample {
 	public ArrayList<MemberBean> crawldata() {
 		MemberDAO memberDao = new MemberDAO();
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
-		ArrayList<MemberBean> coopList = memberDao.getMember_cooperation();
+		ArrayList<MemberBean> coopList = memberDao.getMember_coop();
 		int result = 0;
 		int count = 0;
 		String id = "";
@@ -141,13 +141,14 @@ public class SeleniumExample {
 			for (int i = 0; i < namerankList.size(); i++) {
 				int cnt = 0;
 				for (int a = 0; a < coopList.size(); a++) {
-					if (coopList.get(a).getID().equals(emailList.get(i).getText().split("@")[0])) {
+					if (coopList.get(a).getID().trim().equals(emailList.get(i).getText().split("@")[0].trim())) {
 						MemberBean mem = new MemberBean();
 						mem.setID(emailList.get(i).getText().split("@")[0]);
 						mem.setPART(partList.get(i + 1).getText());
 						mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
 						list.add(mem);
-						cnt++;
+						cnt = 1;
+						break;
 					}
 				}
 				if (cnt == 0) {
@@ -167,10 +168,7 @@ public class SeleniumExample {
 					}
 					String position = "-";
 					String permission = "3";
-					// result = memberDao.insertMember(name, id, pw, part, team, rank, position,
-					// permission);
-					System.out.println(rank + "---");
-					count++;
+					result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission);
 				}
 			}
 			System.out.println(count);
