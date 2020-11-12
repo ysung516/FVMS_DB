@@ -1,4 +1,5 @@
 package Selenium.method;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -7,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import jsp.Bean.model.*;
+import jsp.DB.method.*;
 
 public class SeleniumExample {
 	
@@ -87,7 +91,12 @@ public class SeleniumExample {
 		}
     	   
     }
-    public void crawldata() {
+    public ArrayList<MemberBean> crawldata() {
+    	MemberDAO memberDao = new MemberDAO();
+    	ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+    	ArrayList<MemberBean> coopList = memberDao.getMember_cooperation();
+    	int result = 0;
+    	
     	try {
 			Thread.sleep(3000);
 	    	List<WebElement> emailList;
@@ -99,23 +108,39 @@ public class SeleniumExample {
 	        partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
 	        mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); //a[@class='text']//span[@class='hidden-xs']
 	        emailList = driver.findElements(By.xpath("//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
-    
-	       for(int i=0; i<namerankList.size(); i++) {
-	           System.out.print(namerankList.get(i).getText());
-	           System.out.print(" - ");
-	           System.out.print(partList.get(i+1).getText());
-	           System.out.print(" - ");
-	           System.out.print(mobileList.get(i).getText());
-	           System.out.print(" - ");
-	           System.out.println(emailList.get(i).getText().split("@")[0]);
-	          }
+	        for(int i=0; i<namerankList.size(); i++) {
+	        	int cnt = 0;
+		        for(int a=0; a<coopList.size(); a++) {
+		        	if(coopList.get(a).getID().equals(emailList.get(i).getText().split("@")[0])) {
+			        	MemberBean mem = new MemberBean();
+			        	mem.setID(emailList.get(i).getText().split("@")[0]);
+			        	mem.setPART(partList.get(i+1).getText());
+			        	mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
+			        	list.add(mem);
+		        	}
+		        }
+		        if(cnt == 0) {
+		        	String id = emailList.get(i).getText().split("@")[0];
+		        	String name = namerankList.get(i).getText().split(" ")[0];
+		        	String pw = "12345";
+		        	String part = partList.get(i+1).getText();
+		        	String team = "미래차검증전략실";
+		        	String rank = namerankList.get(i).getText().split(" ")[1];
+		        	String position = "-";
+		        	String permission = "3";
+		        	//result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission);
+		        	System.out.println(rank + "---");
+		        }
+	        }
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+            driver.close();
 		} finally {
             driver.close();
         }
-
+    	
+    	return list;
     
     }
 }
