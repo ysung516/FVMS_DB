@@ -1,3 +1,4 @@
+package Selenium.method;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,16 +13,10 @@ public class SeleniumExample {
 	private WebElement element;
 	private String url;
     
-//	String mainURL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
-//	String connectURL = "http://suresofttech.hanbiro.net/ngw/sign/auth"; 
-//	String URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
-	
-	
 	//Properties 설정
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "C:\\Users\\User\\git\\FVMS_DB\\chromedriver.exe";
 	public static String TEST_URL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
-	public static String URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
 	
 	public SeleniumExample() {
 		//System Property SetUp
@@ -39,6 +34,7 @@ public class SeleniumExample {
        try {
 
             driver.get(TEST_URL);
+
             //로그인 버튼 클릭
             // class로 찾아도 되지만, xpath(상대 or 절대)로 찾는게 나은 거 같습니다.
             Thread.sleep(1000);
@@ -59,8 +55,7 @@ public class SeleniumExample {
             element = driver.findElement(By.id("btn-log"));
             element.click();
 
-            Thread.sleep(3000);
-            driver.get(URL);
+            Thread.sleep(10000);
 
         } catch (Exception e) {
             e.printStackTrace();
