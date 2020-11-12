@@ -88,28 +88,34 @@ public class SeleniumExample {
     	   
     }
     public void crawldata() {
-    	List<WebElement> emailList;
-    	List<WebElement> partList;
-    	List<WebElement> mobileList;
-    	List<WebElement> namerankList;
-    	
-    	namerankList = driver.findElements(By.xpath("//span[@class='org-name-info']//a[@class='dark']"));
-        partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
-        mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); //a[@class='text']//span[@class='hidden-xs']
-        emailList = driver.findElements(By.xpath("//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
-           
-        int cnt = 0;
-           
-       for(int i=0; i<namerankList.size(); i++) {
-           System.out.print(namerankList.get(i).getText());
-           System.out.print(" - ");
-           System.out.print(partList.get(i+1).getText());
-           System.out.print(" - ");
-           System.out.print(mobileList.get(i).getText());
-           System.out.print(" - ");
-           System.out.println(emailList.get(i).getText().split("@")[0]);
-           cnt++;
-          }
+    	try {
+			Thread.sleep(3000);
+	    	List<WebElement> emailList;
+	    	List<WebElement> partList;
+	    	List<WebElement> mobileList;
+	    	List<WebElement> namerankList;
+	    	
+	    	namerankList = driver.findElements(By.xpath("//span[@class='org-name-info']//a[@class='dark']"));
+	        partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
+	        mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); //a[@class='text']//span[@class='hidden-xs']
+	        emailList = driver.findElements(By.xpath("//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
+    
+	       for(int i=0; i<namerankList.size(); i++) {
+	           System.out.print(namerankList.get(i).getText());
+	           System.out.print(" - ");
+	           System.out.print(partList.get(i+1).getText());
+	           System.out.print(" - ");
+	           System.out.print(mobileList.get(i).getText());
+	           System.out.print(" - ");
+	           System.out.println(emailList.get(i).getText().split("@")[0]);
+	          }
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            driver.close();
+        }
+
     
     }
 }

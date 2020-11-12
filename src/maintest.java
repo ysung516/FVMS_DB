@@ -13,6 +13,7 @@ public class maintest {
 		SeleniumExample test = new SeleniumExample(); 
 		test.login();
 		test.loadPage();
+		test.crawldata();
 		}
 
     
