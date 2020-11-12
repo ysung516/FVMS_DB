@@ -351,14 +351,14 @@ public class MemberDAO {
 
 	 // 회원등록 등록
 	 public int insertMember(String name, String id, String pw, String part, String team, 
-			 String rank, String position, String permission) {
+			 String rank, String position, String permission, String mobile, String gmail) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
 	     int rs = 0;
 	     
 	     try {
-	    	 	String query = "insert into memberCopy(id, pw, 소속, 팀, 이름, 직급, 직책, permission)"
-	    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?)";
+	    	 	String query = "insert into memberCopy(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail)"
+	    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?)";
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
 		    	pstmt.setString(1, id);
@@ -369,6 +369,8 @@ public class MemberDAO {
 		    	pstmt.setString(5, rank);
 		    	pstmt.setString(6, position);
 		    	pstmt.setString(7, permission);
+		    	pstmt.setString(8, mobile);
+		    	pstmt.setString(9, gmail);
 		    	rs = pstmt.executeUpdate();
 	     }catch (SQLException e) {
 				e.printStackTrace();

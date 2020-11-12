@@ -133,6 +133,20 @@
 <body>
 	<h3 id="h3" style="text-align: center; margin-bottom: 30px;"><%=team %> 매출 보정 상세 내역</h3>
 	<div>
+		<div>
+			<table id="allData">
+				<thead>
+					<tr>
+						<th>매출 달성</th>
+						<th>매출 달성 보정</th>
+						<th>추가 매출 총합</th>
+						<th>삭제 매출 총합</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 		<%if(!(team.equals("Total")) && plus.size() != 0){ %>
 		<div>
 			<table id="plusTable">
