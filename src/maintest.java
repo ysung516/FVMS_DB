@@ -12,8 +12,10 @@ public class maintest {
 		
 		SeleniumExample test = new SeleniumExample(); 
 		test.login();
-		test.loadPage("cooper");
-		test.crawldata();
+//		test.loadPage("coop");
+//		test.crawldata();
+		test.loadPage("vt");
+		test.vtdata();
 		}
 
     

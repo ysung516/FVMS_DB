@@ -80,13 +80,14 @@ public class SeleniumExample {
 	 	String R_URL="";
 	 	String R_btn="";
 	 	
-	 	if(URL == "coop") {
+	 	if(URL.equals("coop")) {
 	 		R_URL = coop_URL;
 	 		R_btn = coop_btn;
-	 	} else {
+	 	} else if(URL.equals("vt")){
 	 		R_URL = vt_URL;
-	 		R_URL = vt_btn;
+	 		R_btn = vt_btn;
 	 	}
+	 	System.out.println(R_URL);
 	
 		try {
 			Thread.sleep(3000);
@@ -119,6 +120,7 @@ public class SeleniumExample {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			driver.close();
 		}
 
 	}
@@ -130,11 +132,11 @@ public class SeleniumExample {
 		int result = 0;
 		int count = 0;
 		String id = "";
-		String pw = "";
 		String name = "";
 		String part = "";
-		String team = "";
 		String rank = "";
+		String mobile = "";
+		String gmail = "";
 
 		try {
 			Thread.sleep(3000);
@@ -163,9 +165,9 @@ public class SeleniumExample {
 				}
 				if (cnt == 0) {
 					id = emailList.get(i).getText().split("@")[0];
-					pw = "12345";
+					String pw = "12345";
 					part = partList.get(i + 1).getText();
-					team = "미래차검증전략실";
+					String team = "미래차검증전략실";
 					if (namerankList.get(i).getText().contains(" ")) {
 						name = namerankList.get(i).getText().split(" ")[0];
 						rank = namerankList.get(i).getText().split(" ")[1];
@@ -178,7 +180,83 @@ public class SeleniumExample {
 					}
 					String position = "-";
 					String permission = "3";
-					result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission);
+					mobile = mobileList.get(i).getText();
+					gmail = emailList.get(i).getText();
+					result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission, mobile, gmail);
+					count++;
+				}
+			}
+			System.out.println(count);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			driver.close();
+		} finally {
+			driver.close();
+		}
+
+		return list;
+	}
+	
+	public ArrayList<MemberBean> vtdata() {
+		MemberDAO memberDao = new MemberDAO();
+		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> memList = memberDao.getMemberData();
+		int result = 0;
+		int count = 0;
+		String id = "";
+		String name = "";
+		String team = "";
+		String rank = "";
+		String mobile = "";
+		String gmail = "";
+
+		try {
+			Thread.sleep(3000);
+			List<WebElement> emailList;
+			List<WebElement> partList;
+			List<WebElement> mobileList;
+			List<WebElement> namerankList;
+
+			namerankList = driver.findElements(By.xpath("//span[@class='org-name-info']//a[@class='dark']"));
+			partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
+			mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); // a[@class='text']//span[@class='hidden-xs']
+			emailList = driver.findElements(By.xpath(
+					"//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
+			for (int i = 0; i < namerankList.size(); i++) {
+				int cnt = 0;
+				for (int a = 0; a < memList.size(); a++) {
+					if (memList.get(a).getID().trim().equals(emailList.get(i).getText().split("@")[0].trim())) {
+						MemberBean mem = new MemberBean();
+						mem.setID(emailList.get(i).getText().split("@")[0]);
+						mem.setPART(partList.get(i + 1).getText());
+						mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
+						list.add(mem);
+						cnt = 1;
+						break;
+					}
+				}
+				if (cnt == 0) {
+					id = emailList.get(i).getText().split("@")[0];
+					String pw = "12345";
+					String part = "슈어소프트테크";
+					team = partList.get(i + 1).getText();
+					if (namerankList.get(i).getText().contains(" ")) {
+						name = namerankList.get(i).getText().split(" ")[0];
+						rank = namerankList.get(i).getText().split(" ")[1];
+						if (!(rank.equals("전임") || rank.equals("선임") || rank.equals("책임") || rank.equals("수석"))) {
+							rank = "-";
+						}
+					} else {
+						name = namerankList.get(i).getText();
+						rank = "-";
+					}
+					String position = "-";
+					String permission = "2";
+					mobile = mobileList.get(i).getText();
+					gmail = emailList.get(i).getText();
+					result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission, mobile, gmail);
+					count++;
 				}
 			}
 			System.out.println(count);

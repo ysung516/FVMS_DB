@@ -30,11 +30,13 @@
 			String rank = request.getParameter("rank");
 			String position = request.getParameter("position");
 			String permission = request.getParameter("permission");
+			String mobile = "-";
+			String gmail = "-";
 			
 			if(memberDao.returnMember(id).getID()!= null){
 				script.print("<script> alert('사용중인 아이디 입니다.'); history.back(); </script>");
 			} else{
-				if(memberDao.insertMember(name, id, pw, part, team, rank, position, permission) == 1){
+				if(memberDao.insertMember(name, id, pw, part, team, rank, position, permission, mobile, gmail) == 1){
 					script.print("<script> alert('회원이 등록 되었습니다..'); location.href = 'manager.jsp'; </script>");
 				}
 				else{
