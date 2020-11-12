@@ -351,6 +351,10 @@ function getTextByClone( tag ){
         return textContent; 
 }
 
+function memberSyn(){
+	location.href ="member_syn.jsp";
+}
+
 function viewDetail(id){
 	var nowDate = new Date();
 	var year = nowDate.getFullYear();
@@ -493,8 +497,8 @@ function viewDetail(id){
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자
-								페이지</h6>
+							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
+							<button onclick="memberSyn()">인력 동기화</button>
 						</div>
 
 						<div class="table-responsive" style="margin-bottom: 40px;">
