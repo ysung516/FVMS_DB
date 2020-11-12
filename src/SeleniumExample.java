@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -45,17 +46,13 @@ public class SeleniumExample {
             //element = driver.findElement(By.id("id"));
             // 크롤링으로 text를 입력하면 굉장히 빠릅니다, 인식하지 못한 상태에서 이벤트를 발생시키면, 제대로 작동하지 않기 때문에 thread sleep으로 기다려줍니다.
             Thread.sleep(500); 
-            element.sendKeys("fvms");
+            element.sendKeys("fvms",Keys.TAB,"suresoft1!");
             // 유저 정보를 담은 객체에서 아이디값을 가져와서 넣어주면 되겠죠-
 
             Thread.sleep(500); 
-            //패스워드 입력 - 아이디와 마찬가지입니다.
-            element = driver.findElement(By.id("p"));
-            element.sendKeys("suresoft1!");
-
             //전송
             element = driver.findElement(By.id("btn-log"));
-            element.submit();
+            element.click();
 
             Thread.sleep(10000);
 
