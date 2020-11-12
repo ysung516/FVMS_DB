@@ -33,9 +33,9 @@ public class SeleniumExample {
 
             driver.get(TEST_URL);
 
-            /*
             //로그인 버튼 클릭
-            // class로 찾아도 되지만, xpath(상대 or 절대)로 찾는게 나은 거 같습니다. 
+            // class로 찾아도 되지만, xpath(상대 or 절대)로 찾는게 나은 거 같습니다.
+            Thread.sleep(1000);
             element = driver.findElement(By.xpath("//*[@id=\"log-userid\"]"));
             element.click();
             
@@ -48,6 +48,7 @@ public class SeleniumExample {
             element.sendKeys("fvms");
             // 유저 정보를 담은 객체에서 아이디값을 가져와서 넣어주면 되겠죠-
 
+            Thread.sleep(500); 
             //패스워드 입력 - 아이디와 마찬가지입니다.
             element = driver.findElement(By.id("p"));
             element.sendKeys("suresoft1!");
@@ -56,12 +57,12 @@ public class SeleniumExample {
             element = driver.findElement(By.id("btn-log"));
             element.submit();
 
-            Thread.sleep(10000);*/
+            Thread.sleep(10000);
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            driver.close();
+            //driver.close();
         }
 
     }
