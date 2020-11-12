@@ -1,6 +1,7 @@
 package Selenium.method;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -125,9 +126,16 @@ public class SeleniumExample {
 
 	}
 
-	public ArrayList<MemberBean> crawldata() {
-		MemberDAO memberDao = new MemberDAO();
+	public HashMap<String, ArrayList<MemberBean>> crawldata() {
+		login();
+		loadPage("coop");
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> sucList = new ArrayList<MemberBean>();
+		HashMap<String, ArrayList<MemberBean>> reList = new HashMap<String, ArrayList<MemberBean>>();
+		HashMap<String, ArrayList<MemberBean>> falseList = new HashMap<String, ArrayList<MemberBean>>();
+		falseList.put("false", list);
+		
+		MemberDAO memberDao = new MemberDAO();
 		ArrayList<MemberBean> coopList = memberDao.getMember_coop();
 		int result = 0;
 		int count = 0;
@@ -184,23 +192,38 @@ public class SeleniumExample {
 					gmail = emailList.get(i).getText();
 					result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission, mobile, gmail);
 					count++;
+					
+					MemberBean mem = new MemberBean();
+					mem.setID(emailList.get(i).getText().split("@")[0]);
+					mem.setPART(partList.get(i + 1).getText());
+					mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
+					sucList.add(mem);
 				}
 			}
 			System.out.println(count);
+			reList.put("suc", sucList);
+			reList.put("fail", list);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			driver.close();
+			return falseList;
 		} finally {
-			driver.close();
+			
 		}
 
-		return list;
+		return reList;
 	}
 	
-	public ArrayList<MemberBean> vtdata() {
-		MemberDAO memberDao = new MemberDAO();
+	public HashMap<String, ArrayList<MemberBean>> vtdata() {
+		loadPage("vt");
 		ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> sucList = new ArrayList<MemberBean>();
+		HashMap<String, ArrayList<MemberBean>> reList = new HashMap<String, ArrayList<MemberBean>>();
+		HashMap<String, ArrayList<MemberBean>> falseList = new HashMap<String, ArrayList<MemberBean>>();
+		falseList.put("false", list);
+
+		MemberDAO memberDao = new MemberDAO();
 		ArrayList<MemberBean> memList = memberDao.getMemberData();
 		int result = 0;
 		int count = 0;
@@ -257,17 +280,26 @@ public class SeleniumExample {
 					gmail = emailList.get(i).getText();
 					result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission, mobile, gmail);
 					count++;
+					
+					MemberBean mem = new MemberBean();
+					mem.setID(emailList.get(i).getText().split("@")[0]);
+					mem.setTEAM(partList.get(i + 1).getText());
+					mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
+					sucList.add(mem);
 				}
 			}
 			System.out.println(count);
+			reList.put("suc", sucList);
+			reList.put("fail", list);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			driver.close();
+			return falseList;
 		} finally {
 			driver.close();
 		}
 
-		return list;
+		return reList;
 	}
 }
