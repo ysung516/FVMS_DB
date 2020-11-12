@@ -23,8 +23,9 @@ public class SeleniumExample {
 	// Properties 설정
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "C:\\Users\\User\\git\\FVMS_DB\\chromedriver.exe";
-	public static String TEST_URL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
-	public static String URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
+	public static String login_URL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
+//	public static String coop_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
+	//public static String vt_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_173/";	
 
 	public SeleniumExample() {
 		// System Property SetUp
@@ -40,7 +41,7 @@ public class SeleniumExample {
 
 	public void login() {
 		try {
-			driver.get(TEST_URL);
+			driver.get(login_URL);
 			// 로그인 버튼 클릭
 			// class로 찾아도 되지만, xpath(상대 or 절대)로 찾는게 나은 거 같습니다.
 			Thread.sleep(5000);
@@ -69,10 +70,27 @@ public class SeleniumExample {
 
 	}
 
-	public void loadPage() {
+	public void loadPage(String URL) {
+		String coop_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
+		String coop_btn = "//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button";
+		
+	 	String vt_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_173/";	
+	 	String vt_btn = "//*[@id=\"ngw.addrbook.container.addrbook_0_173\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button";
+	 	
+	 	String R_URL="";
+	 	String R_btn="";
+	 	
+	 	if(URL == "coop") {
+	 		R_URL = coop_URL;
+	 		R_btn = coop_btn;
+	 	} else {
+	 		R_URL = vt_URL;
+	 		R_URL = vt_btn;
+	 	}
+	
 		try {
 			Thread.sleep(3000);
-			driver.get(URL);
+			driver.get(R_URL);
 			Thread.sleep(10000);
 
 			if (driver.findElements(By.xpath("//button[@class='btn btn-xs btn-default no-border close-punch-btn']"))
@@ -86,24 +104,16 @@ public class SeleniumExample {
 			element = driver.findElement(By.xpath("//label[@class='btn btn-xs btn-white btn-default']"));
 			element.click();
 
-			int x = driver.findElements(By.xpath(
-					"//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
+			int x = driver.findElements(By.xpath(R_btn))
 					.get(0).getLocation().getX();
-			int y = driver.findElements(By.xpath(
-					"//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
+			int y = driver.findElements(By.xpath(R_btn))
 					.get(0).getLocation().getY();
 
 			while (x != 0 && y != 0) {
-				driver.findElements(By.xpath(
-						"//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
-						.get(0).click();
+				driver.findElements(By.xpath(R_btn)).get(0).click();
 				Thread.sleep(5000);
-				x = driver.findElements(By.xpath(
-						"//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
-						.get(0).getLocation().getX();
-				y = driver.findElements(By.xpath(
-						"//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
-						.get(0).getLocation().getY();
+				x = driver.findElements(By.xpath(R_btn)).get(0).getLocation().getX();
+				y = driver.findElements(By.xpath(R_btn)).get(0).getLocation().getY();
 			}
 
 		} catch (InterruptedException e) {
