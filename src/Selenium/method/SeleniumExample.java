@@ -71,6 +71,16 @@ public class SeleniumExample {
 			Thread.sleep(3000);
 			driver.get(URL);
 			Thread.sleep(10000);
+			
+			if(driver.findElements(By.xpath("//button[@class='btn btn-xs btn-default no-border close-punch-btn']")).size() != 0) {
+				for(WebElement li : driver.findElements(By.xpath("//button[@class='btn btn-xs btn-default no-border close-punch-btn']"))) {
+					li.click();
+				}
+			}
+			Thread.sleep(500);
+			element = driver.findElement(By.xpath("//label[@class='btn btn-xs btn-white btn-default']"));
+			element.click();
+			
 			int x = driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
 					.get(0).getLocation().getX();
 			int y = driver.findElements(By.xpath("//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button"))
@@ -92,55 +102,72 @@ public class SeleniumExample {
     	   
     }
     public ArrayList<MemberBean> crawldata() {
-    	MemberDAO memberDao = new MemberDAO();
-    	ArrayList<MemberBean> list = new ArrayList<MemberBean>();
-    	ArrayList<MemberBean> coopList = memberDao.getMember_cooperation();
-    	int result = 0;
-    	
-    	try {
-			Thread.sleep(3000);
-	    	List<WebElement> emailList;
-	    	List<WebElement> partList;
-	    	List<WebElement> mobileList;
-	    	List<WebElement> namerankList;
-	    	
-	    	namerankList = driver.findElements(By.xpath("//span[@class='org-name-info']//a[@class='dark']"));
-	        partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
-	        mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); //a[@class='text']//span[@class='hidden-xs']
-	        emailList = driver.findElements(By.xpath("//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
-	        for(int i=0; i<namerankList.size(); i++) {
-	        	int cnt = 0;
-		        for(int a=0; a<coopList.size(); a++) {
-		        	if(coopList.get(a).getID().equals(emailList.get(i).getText().split("@")[0])) {
-			        	MemberBean mem = new MemberBean();
-			        	mem.setID(emailList.get(i).getText().split("@")[0]);
-			        	mem.setPART(partList.get(i+1).getText());
-			        	mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
-			        	list.add(mem);
-		        	}
-		        }
-		        if(cnt == 0) {
-		        	String id = emailList.get(i).getText().split("@")[0];
-		        	String name = namerankList.get(i).getText().split(" ")[0];
-		        	String pw = "12345";
-		        	String part = partList.get(i+1).getText();
-		        	String team = "미래차검증전략실";
-		        	String rank = namerankList.get(i).getText().split(" ")[1];
-		        	String position = "-";
-		        	String permission = "3";
-		        	//result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission);
-		        	System.out.println(rank + "---");
-		        }
-	        }
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-            driver.close();
-		} finally {
-            driver.close();
-        }
-    	
-    	return list;
-    
-    }
+        MemberDAO memberDao = new MemberDAO();
+        ArrayList<MemberBean> list = new ArrayList<MemberBean>();
+        ArrayList<MemberBean> coopList = memberDao.getMember_cooperation();
+        int result = 0;
+        int count =0;
+        String id = "";
+        String pw = "";
+        String name = "";
+        String part = "";
+        String team = "";
+        String rank = "";
+        
+        try {
+      Thread.sleep(3000);
+         List<WebElement> emailList;
+         List<WebElement> partList;
+         List<WebElement> mobileList;
+         List<WebElement> namerankList;
+         
+         namerankList = driver.findElements(By.xpath("//span[@class='org-name-info']//a[@class='dark']"));
+            partList = driver.findElements(By.xpath("//span[@class='group item-hiding-group group-cps']"));
+            mobileList = driver.findElements(By.xpath("//span[@class='tel item-hiding-tel tel-cps']")); //a[@class='text']//span[@class='hidden-xs']
+            emailList = driver.findElements(By.xpath("//span[@class='email item-hiding-email email-cps']//a[@class='text']//span[@class='hidden-xs']"));
+            for(int i=0; i<namerankList.size(); i++) {
+             int cnt = 0;
+             for(int a=0; a<coopList.size(); a++) {
+              if(coopList.get(a).getID().equals(emailList.get(i).getText().split("@")[0])) {
+               MemberBean mem = new MemberBean();
+               mem.setID(emailList.get(i).getText().split("@")[0]);
+               mem.setPART(partList.get(i+1).getText());
+               mem.setNAME(namerankList.get(i).getText().split(" ")[0]);
+               list.add(mem);
+               cnt++;
+              }
+             }
+             if(cnt == 0) {
+              id = emailList.get(i).getText().split("@")[0];
+              pw = "12345";
+              part = partList.get(i+1).getText();
+              team = "미래차검증전략실";
+              if(namerankList.get(i).getText().contains(" ")) {
+               name = namerankList.get(i).getText().split(" ")[0];
+               rank = namerankList.get(i).getText().split(" ")[1];
+               if(!(rank.equals("전임") || rank.equals("선임") || rank.equals("책임") || rank.equals("수석"))) {
+                rank = "-";
+               }
+              }else {
+               name = namerankList.get(i).getText();
+               rank = "-";
+              }
+              String position = "-";
+              String permission = "3";
+              //result = memberDao.insertMember(name, id, pw, part, team, rank, position, permission);
+              System.out.println(rank + "---");
+              count++;
+             }
+            }
+            System.out.println(count);
+     } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+               driver.close();
+     } finally {
+               driver.close();
+           }
+        
+        return list;
+       }
 }
