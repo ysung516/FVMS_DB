@@ -1,11 +1,11 @@
-<%@page import="Selenium.method.SeleniumExample"%>
-<%@page import="com.thoughtworks.selenium.Selenium"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.DB.method.*" import="jsp.Bean.model.*"
 	import="Selenium.method.*"
 	import="java.util.ArrayList"
-	import="java.util.HashMap"%>
+	import="java.util.HashMap"
+	import="com.thoughtworks.selenium.Selenium"
+	import="Selenium.method.SeleniumExample"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +26,7 @@
 	String vtStr = "";
 	
 	SeleniumExample selenium = new SeleniumExample();
+
 	HashMap<String, ArrayList<MemberBean>> coopData = selenium.crawldata();
 	for(String key : coopData.keySet()){
 		if(key.equals("false")){

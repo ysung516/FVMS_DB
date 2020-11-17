@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 import jsp.Bean.model.*;
 import jsp.DB.method.*;
@@ -22,21 +24,45 @@ public class SeleniumExample {
 	private String url;
 
 	// Properties 설정
-	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static String WEB_DRIVER_PATH = "C:\\Users\\User\\git\\FVMS_DB\\chromedriver.exe";
+	public static String WEB_DRIVER_ID = "webdriver.gecko.driver";
+	//public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
+	
+	//public static String WEB_DRIVER_PATH = "geckodriver";
+	public static String WEB_DRIVER_PATH = "chromedriver";
+	
+	//public static String WEB_DRIVER_PATH = "C:\\Users\\User\\git\\FVMS_DB\\chromedriver.exe";
 	public static String login_URL = "http://suresofttech.hanbiro.net/ngw/app/#/sign";
+	
 //	public static String coop_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
 	//public static String vt_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_173/";	
 
 	public SeleniumExample() {
 		// System Property SetUp
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
-
+		
+		
+	
+		
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("headless");
+		//options.addArguments("--window-size=1920x1080"); 
+		//options.addArguments("--disable-gpu");
+		/*
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--remote-debugging-port=9222");
+		options.setBinary("google-chrome-stable_current_x86_64.rpm");
+		
+	
+		
 		// Driver SetUp
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized"); // 전체화면으로 실행
 		options.addArguments("--disable-popup-blocking"); // 팝업 무시
 		options.addArguments("--disable-default-apps");
+		options.setBinary("google-chrome-stable_current_amd64.deb");
+		*/
+		
 		driver = new ChromeDriver(options);
 	}
 
@@ -62,6 +88,7 @@ public class SeleniumExample {
 			// 전송
 			element = driver.findElement(By.id("btn-log"));
 			element.click();
+			System.out.println(1);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +97,7 @@ public class SeleniumExample {
 		}
 
 	}
-
+	
 	public void loadPage(String URL) {
 		String coop_URL = "http://suresofttech.hanbiro.net/ngw/app/#/addrbook/list/0_196/";
 		String coop_btn = "//*[@id=\"ngw.addrbook.container.addrbook_0_196\"]/split-screen-view/list-view/div/div[2]/div/div[2]/div[2]/button";
@@ -117,7 +144,7 @@ public class SeleniumExample {
 				x = driver.findElements(By.xpath(R_btn)).get(0).getLocation().getX();
 				y = driver.findElements(By.xpath(R_btn)).get(0).getLocation().getY();
 			}
-
+			System.out.println(2);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

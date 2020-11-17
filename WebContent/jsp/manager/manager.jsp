@@ -355,12 +355,17 @@ function memberSyn(){
 	location.href ="member_syn.jsp";
 }
 
+function workPlaceManage(){
+	location.href ="workPlace_manage.jsp"
+}
+
 function viewDetail(id){
 	var nowDate = new Date();
 	var year = nowDate.getFullYear();
 	var popupX = (document.body.offsetWidth/2)-(600/2);
 	window.open('../schedule/detail_PR.jsp?id='+id+'&year='+year , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
 }
+
 </script>
 
 <body id="page-top">
@@ -499,6 +504,7 @@ function viewDetail(id){
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
 							<button onclick="memberSyn()">인력 동기화</button>
+							<button onclick="workPlaceManage()">근무지 관리</button>
 						</div>
 
 						<div class="table-responsive" style="margin-bottom: 40px;">
