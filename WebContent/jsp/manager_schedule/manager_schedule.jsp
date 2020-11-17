@@ -312,14 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	#sidebarToggle{
 		display:none;
 	}
-	.sidebar{
-		position: absolute;
-		height:100%;
-		z-index:9999;
-	}
-	#content{
-		margin-left:90px;
-	}
+
 #reload_btn a {
 	box-shadow: 1px 2px 0px 0px #3ba9e0;
 	background-color: white;

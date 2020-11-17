@@ -78,14 +78,7 @@
 #sidebarToggle{
 		display:none;
 	}
-#content{
-	margin-left:90px;
-}
-.sidebar{
-		position:absolute;
-		z-index:9999;
-	}
-	
+
 textarea {
 	width: 100%;
 }

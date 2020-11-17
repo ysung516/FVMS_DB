@@ -325,14 +325,6 @@
 #sidebarToggle{
 		display:none;
 	}
-#content{
-	margin-left:90px;
-}
-.sidebar{
-		position:absolute;
-		height:100eh;
-		z-index:9999;
-	}
 	
 .loading {
 	position: fixed;

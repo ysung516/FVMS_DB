@@ -68,15 +68,7 @@
 	.sortBTN{
 	font-size:5px;
 	}
-	.sidebar{
-		position: absolute;
-		height:100%;
-		z-index:9999;
-	}
-	#content{
-		margin-left:90px;
-	}
-	
+
 .table-responsive {
 	width: 70%;
 	margin-left:40px;

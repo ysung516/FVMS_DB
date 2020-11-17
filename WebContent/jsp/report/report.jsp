@@ -80,23 +80,12 @@
 	width:60%;
 	margin-left:0;
 }
-.sidebar{
-		position: absolute;
-		z-index:9999999;
-		background-image : none !important;
-}
-.sidebar2{
-	position: absolute;
-	height: 100%;
-	z-index:9999999;
-}
+
 #wrapper #content-wrapper{
 	overflow-x: initial;
 }
 
-	#content{
-		margin-left:90px;
-	}
+
 .table-responsive {
 	overflow: auto;
 }
@@ -347,9 +336,7 @@ button:focus {
 
 		<!-- Sidebar -->
 		
-		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled sidebar2"
-			id="accordionSidebar"></ul>
+
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
 			id="accordionSidebar">

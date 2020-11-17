@@ -57,14 +57,7 @@
 .table-responsive{
 	width:60%;
 }
-.sidebar{
-		position:absolute;
-		height:100%;
-		z-index:9999;
-	}
-	#content{
-		margin-left:90px;
-	}
+
 #meeting_btn {
 	position: fixed;
 	bottom: 0;

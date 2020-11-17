@@ -525,15 +525,7 @@
 .chart{
 	width:50% !important;
 }
-#content{
-	margin-left:90px;
-}
-	.sidebar{
-		position: absolute;
-		height:100%;
-		z-index:9999;
-	}
-	
+
 	.pie{
 		height:350px;
 		width:500px;
