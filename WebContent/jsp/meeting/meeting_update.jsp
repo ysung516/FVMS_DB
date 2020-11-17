@@ -68,12 +68,12 @@ $(document).ready(function () {
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
     });
+    $('#count').val($('#nextPlanTable > tbody tr').length);
 })
 var count = $('#nextPlanTable > tbody tr').length;
 function rowAdd(){
 	count = $('#nextPlanTable > tbody tr').length;
 	count++;
-	console.log(count);
 	var innerHtml = "";
 	innerHtml += '<tr>';
 	innerHtml += '<td style="padding: 0px;">'+count+'</td>';
@@ -335,7 +335,7 @@ function deleteNP(){
            <div class="table-responsive">
            
            <form method ="post" action="meeting_updatePro.jsp" name="meet_update">
-           <input id="count" type="hidden" name="count" value="0"> 
+           <input id="count" type="hidden" name="count"> 
 			<table class="table table-bordered" id="dataTable">
 					<tr>
 						<td class="m-0 text-primary" align="center" style="word-break: keep-all;">회의명</td>
@@ -418,8 +418,8 @@ function deleteNP(){
 			<td colspan="4" style="border-color: #fff;">
 			<input type="submit" name="complete" id="complete" value="완료" class="btn btn-primary" ></td>
 			</tr>
-				<input type="hidden" name="no" value="<%=no%>">
 			</table>
+			<input type="hidden" name="no" value="<%=no%>">
 	      </form>
         </div>
 

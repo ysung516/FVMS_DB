@@ -78,6 +78,7 @@
 			
 			if(meetDao.updateMeet(no, MeetName, MeetDate, MeetPlace, attendees, attendees_ex, meetNote, issue)== 1){
 				meetDao.updateNextPlan(no, nextPlanTableName);
+				System.out.println(count);
 				if(count > 0){
 					for(int i=0; i<count; i++){
 						item[i] = request.getParameter("item"+(i+1));
@@ -85,6 +86,7 @@
 						pm[i] = request.getParameter("pm"+(i+1));
 					}	
 					meetDao.insertNextPlanData(nextPlanTableName, item, deadline, pm, count);
+					System.out.println(1);
 				}
 				
 				script.print("<script> alert('회의록 수정 되었습니다.'); location.href = 'meeting.jsp'</script>");

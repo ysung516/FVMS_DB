@@ -19,7 +19,7 @@
 		session.setMaxInactiveInterval(60*60);
 		ManagerDAO managerDao = new ManagerDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		ArrayList wpList = managerDao.getWorkPlaceList();
+		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
 	%>
 
 <meta charset="utf-8">
@@ -43,21 +43,22 @@
 
 </head>
 <style>
-	#content{
-		margin-left:90px;
-	}
+
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
-	#sidebarToggle{
-		display:none;
-	}
+.place_width{
+	width: 40%
+}
+#sidebarToggle{
+	display:none;
+}
+.wpTable{
+	padding : 10px;
+	width : 50%;
+	text-align: center;
+}
 
-	.sidebar{
-		position: absolute;
-		height:100%;
-		z-index:9999;
-	}
 #manager_btn {
 	position: fixed;
 	bottom: 0;
@@ -98,6 +99,10 @@
 }
 
 @media ( max-width :765px) {
+	.wpTable{
+		padding: 5px;
+		width: 100%;
+	}
 	#sidebarToggle{
 		display:block;
 	}
@@ -126,12 +131,6 @@
 		width: 100%;
 		margin-left:0;
 	}
-	#managerTable{
-		width: 100%;
-	}
-	body {
-		font-size: small;
-	}
 }
 
 </style>
@@ -143,6 +142,7 @@
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
+	    $('#count').val($('#workplaceList tr').length);
 	});
 	
 	function memberSyn(){
@@ -151,6 +151,43 @@
 
 	function workPlaceManage(){
 		location.href ="workPlace_manage.jsp"
+	}
+	
+	var count = $('#workplaceList tr').length;
+	
+	function rowAdd(){
+		count = $('#workplaceList tr').length;
+		count++;
+		console.log(count);
+		var innerHtml = "";
+		innerHtml += '<tr>';
+		innerHtml += '<td>'+count+'</td>';
+		innerHtml += '<td class="place_width"><input name="place"></td>';
+		innerHtml += '<td><input type="color" value="#ffffff" name="color"></td>';
+		innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
+		innerHtml += '</tr>';
+		$('#count').val(count);
+		$('#workplaceList').append(innerHtml);
+	}
+	
+	function deleteNP(){
+		$(document).on("click",".deleteNP",function(){
+			var str =""
+			var tdArr = new Array();
+			var btn = $(this);
+			var tr = btn.parent().parent();
+			var td = tr.children();
+			var delID = td.eq(0).text();
+			tr.remove();
+			
+			var len = $('#workplaceList tr').length;
+			for(var a=0; a<=len; a++){
+				$("#workplaceList tr:eq("+a+") td:eq(0)").text((a+1));
+				$("#workplaceList tr:eq("+a+") td:eq(1) input").attr("name", "place");
+				$("#workplaceList tr:eq("+a+") td:eq(2) input").attr("name", "color");
+			}
+			$('#count').val($('#workplaceList tr').length);
+		});
 	}
 
 </script>
@@ -164,7 +201,7 @@
 	</div>
 	<!--  로딩화면  끝  -->
 	<!-- Page Wrapper -->
-
+	<div id="wrapper">
 		<!-- Sidebar -->
 		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 			<!-- Sidebar - Brand -->
@@ -235,6 +272,10 @@
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
 			<% }%>
 		</ul>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
 			<!-- Main Content -->
 			<div id="content">
@@ -252,6 +293,8 @@
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
+
+
 
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
@@ -285,34 +328,41 @@
 							<button onclick="memberSyn()">인력 동기화</button>
 							<button onclick="workPlaceManage()">근무지 관리</button>
 						</div>
-
-						<div class="table-responsive">
+						<form method="post" action="workPlace_managePro.jsp">
+						<div class="table-responsive" style="padding: 20px">
 						
-						<table>
+						 <input id="count" type="hidden" name="count">
+						
+						<table class="wpTable">
 							<thead>
 								<tr>
 									<th>NO</th>
 									<th>근무지</th>
-									<th></th>
+									<th>COLOR</th>
+									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
 								</tr>
 							</thead>
-							<tbody></tbody>
-						</table>
+							<tbody id="workplaceList">
 							<%
 								for(int i=0; i<wpList.size(); i++){%>
 									<tr>
-										<td><%=i+1%></td>
-										<td><%=i %></td>
-										<td></td>
+										<td><%= wpList.get(i).getNo() %></td>
+										<td class="place_width"><input name="place" value="<%=wpList.get(i).getPlace()%>" ></td>
+										<td class="place_width"><input type="color" name="color" value="<%=wpList.get(i).getColor()%>" ></td>
+										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
 									</tr>									
 							<%}%>
+							</tbody>
+						</table>
+						
 						</div>
 
 						<!-- /.container-fluid -->
 
 						<div id="manager_btn">
-							<a href="manager_add.jsp" class="btn btn-primary">추가</a>
+							<input type="submit" value="저장" class="btn btn-primary">
 						</div>
+						</form>
 						<!-- End of Main Content -->
 
 					</div>
@@ -325,7 +375,7 @@
 				<a class="scroll-to-top rounded" href="#page-top"> <i
 					class="fas fa-angle-up"></i>
 				</a>
-			</div>
+
 				<!-- Logout Modal-->
 				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
