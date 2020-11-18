@@ -95,6 +95,10 @@ textarea {
 #sidebarToggle{
 		display:block;
 	}
+	.sidebar .nav-item{
+ 	white-space:nowrap !important;
+ 	font-size: x-large !important;	 
+	}
 	#accordionSidebar{
 	width: 100%;
 	height: 100%;
