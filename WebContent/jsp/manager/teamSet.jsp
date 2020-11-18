@@ -338,6 +338,7 @@
 						<div class="table-responsive" style="padding: 20px">
 						<input id="count" type="hidden" name="count">
 						<table class="wpTable">
+							<caption style="caption-side: top; color:red; font-size:small; font-weight: bold;">우선순위 0은 항상 실로 고정</caption>
 							<thead>
 								<tr>
 									<th>우선순위</th>
@@ -346,13 +347,20 @@
 								</tr>
 							</thead>
 							<tbody id="workplaceList">
-								<%for(int teamNum : teamList.keySet()){ %>
-								<tr>
-									<td><input class="num_width" name="teamNum" value="<%=teamNum %>" ></td>
-									<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
-									<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
-								</tr>
-								<%} %>
+								<%for(int teamNum : teamList.keySet()){ 
+									if(teamNum==0){%>
+									<tr>
+										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" readonly></td>
+										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
+										<td></td>
+									</tr>
+									<%}else{%>
+									<tr>
+										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" ></td>
+										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
+										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
+									</tr>
+								<%}} %>
 							</tbody>
 						</table>
 						
