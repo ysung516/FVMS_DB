@@ -472,7 +472,10 @@
 
 </head>
 <style>
-
+.sidebar{
+		position:relative;
+		z-index:997;
+}
 #dataTable{
 	font-size:small;
 	float:left;
@@ -589,15 +592,38 @@ ul.tabs li.current{
 		.chart{
 			width:100% !important;
 		}
-		#content{
-			margin-left:0;
-		}
-		
-		.topbar{
-			z-index:999;
-			position:fixed;
-			width:100%;
-		}
+		.sidebar .nav-item{
+		 	white-space:nowrap !important;
+		 	font-size: x-large !important;	 	
+	}
+	
+	#accordionSidebar{
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content{
+		margin-left:0;
+	}
+	.nav-item{
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
+			padding-top: 0px;
+			
+	} 
+	
+	.topbar{
+		z-index:999;
+		position:fixed;
+		width:100%;
+	}
 		.card-body{
 			padding:0px;
 		}

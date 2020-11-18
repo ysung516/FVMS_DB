@@ -574,14 +574,14 @@ $(document).ready(function(){
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
 							<!-- <button onclick="memberSyn()">인력 동기화</button> -->
 							<div style="margin-left:15px; margin-top: 5px;">
-								<button class="btn btn-primary" onclick="workPlaceManage()" style="font-size:x-small; margin-right:5px;">근무지 관리</button>
-								<button class="btn btn-primary" onClick="location.href='teamSet.jsp'" style="font-size:x-small; margin-right:5px;">팀 관리</button>
+								<button class="btn btn-primary" onclick="workPlaceManage()" style="font-size:small; margin-right:5px;">근무지 관리</button>
+								<button class="btn btn-primary" onClick="location.href='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
 								<form name="formUpload" method="post" action="member_sync.jsp" enctype="multipart/form-data"
 										onsubmit="return checkForm(file1)" style="margin-top:5px; font-size:x-small;">
-									<span id="ExampleDown" class="btn btn-primary" style="font-size:x-small;">엑셀 다운 방법</span>
+									<span id="ExampleDown" class="btn btn-primary" style="font-size:small;">엑셀 다운 방법</span>
 									<img class="hoverEvent" src="../../img/Example_excelDownload.png">
-									<input type="file" name="file1" size="40" style="padding: 2px; font-size: x-small; border: 1px black dashed; vertical-align: bottom;">
-									<button type="submit" class="btn btn-primary" style="font-size:x-small;">동기화</button>
+									<input type="file" name="file1" size="40" style="padding: 2px; font-size: small; border: 1px black dashed; vertical-align: bottom;">
+									<button type="submit" class="btn btn-primary" style="font-size:small;">동기화</button>
 								</form>
 							</div>
 						</div>

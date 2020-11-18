@@ -100,13 +100,10 @@ function input_check_func() {
 #sidebarToggle{
 		display:none;
 	}
-#content{
-	margin-left:90px;
-}
 .sidebar{
-		position:absolute;
-		z-index:9999;
-	}
+		position:relative;
+		z-index:997;
+}
 #dataTable td:nth-child(odd) {
 	text-align: center;
 	vertical-align: middle;
@@ -146,6 +143,33 @@ function input_check_func() {
 	.card-header{
 		margin-top:4.75rem;
 	}
+	.sidebar .nav-item{
+	 	white-space:nowrap !important;
+	 	font-size: x-large !important;	 	
+}
+
+#accordionSidebar{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: inline;
+	padding-top: 60px;
+	position: fixed;
+	z-index: 998;
+}
+#content{
+	margin-left:0;
+}
+.nav-item{
+	position: absolute;
+	display: inline-block;
+	padding-top: 20px;
+}
+.topbar .dropdown {
+		padding-top: 0px;
+		
+} 
+	
 	.topbar{
 		z-index:999;
 		position:fixed;

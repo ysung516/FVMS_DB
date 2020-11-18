@@ -246,13 +246,9 @@
 		display:none;
 	}
 .sidebar{
-		position:absolute;
-		height : 100%;
-		z-index:9999;
-	}
-	#content{
-		margin-left:90px;
-	}
+	position:relative;
+	z-index:997;
+}
 	.m-0 .text-primary{
 		vertical-align:middle;
 		text-align:center;
@@ -287,21 +283,44 @@
 		left: 50%;
 		transform:translate(-50%, -50%);
 	}
-	@media(max-width:765px){
+@media(max-width:765px){
 	#sidebarToggle{
 		display:block;
 	}
 		.card-header{
 		margin-top:4.75rem;
 	}
+			.sidebar .nav-item{
+	 	white-space:nowrap !important;
+	 	font-size: x-large !important;	 	
+	}
 	.topbar{
 		z-index:999;
 		position:fixed;
 		width:100%;
-		}
-	#content{
-		margin-left:0px;
 	}
+	#accordionSidebar{
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content{
+		margin-left:0;
+	}
+	.nav-item{
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
+			padding-top: 0px;
+			
+	} 
+
 		.container-fluid{
 			padding: 0;
 		}

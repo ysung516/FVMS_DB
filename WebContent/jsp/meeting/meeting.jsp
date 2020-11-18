@@ -57,7 +57,10 @@
 .table-responsive{
 	width:60%;
 }
-
+.sidebar{
+	position:relative;
+	z-index:997;
+}
 #meeting_btn {
 	position: fixed;
 	bottom: 0;
@@ -137,14 +140,37 @@ tr:last-child {
 	.card-header{
 		margin-top:4.75rem;
 	}
+		.sidebar .nav-item{
+	 	white-space:nowrap !important;
+	 	font-size: x-large !important;	 	
+	}
 	.topbar{
 		z-index:999;
 		position:fixed;
 		width:100%;
-		}
-#content{
-		margin-left:0px;
 	}
+	#accordionSidebar{
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content{
+		margin-left:0;
+	}
+	.nav-item{
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
+			padding-top: 0px;
+			
+	} 
+
 	.container-fluid {
 		padding: 0;
 	}

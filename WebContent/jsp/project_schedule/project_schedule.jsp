@@ -125,7 +125,10 @@
 .topbar {
     height: 3.375rem;
 }
-
+.sidebar{
+	position:relative;
+	z-index:997;
+}
 @media(max-width:800px){
 	body{
 		font-size:small;
@@ -151,6 +154,36 @@
 	.table-responsive{
 		overflow: auto !important;
 	}
+		.sidebar .nav-item{
+	 	white-space:nowrap !important;
+	 	font-size: x-large !important;	 	
+	}
+	.topbar{
+		z-index:999;
+		width:100%;
+	}
+	#accordionSidebar{
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content{
+		margin-left:0;
+	}
+	.nav-item{
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
+		padding-top: 0px;
+			
+	} 
+	
 }
 
 @media(min-width:800px){

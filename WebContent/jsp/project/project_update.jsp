@@ -81,14 +81,10 @@
 #sidebarToggle{
 		display:none;
 	}
-#content{
-	margin-left:90px;
-}
 .sidebar{
-		position: absolute;
-		height: 100%;
-		z-index:9999;
-	}
+	position:relative;
+	z-index:997;
+}
 .loading {
 	position: fixed;
 	text-align: center;
@@ -123,9 +119,33 @@
 #sidebarToggle{
 		display:block;
 	}
-#content{
-	margin-left:0;
-}
+	.sidebar .nav-item{
+	 	white-space:nowrap !important;
+	 	font-size: x-large !important;	 	
+	}
+	
+	#accordionSidebar{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: inline;
+	padding-top: 60px;
+	position: fixed;
+	z-index: 998;
+	}
+	#content{
+		margin-left:0;
+	}
+	.nav-item{
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
+			padding-top: 0px;
+			
+	} 
+
 	.card-header{
 		margin-top:3.75rem;
 	}
