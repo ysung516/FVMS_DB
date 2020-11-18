@@ -326,8 +326,8 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
 							<div style="margin-top: 5px;">
-								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:x-small; margin-right:5px;">관리자 메인</button>
-								<button class="btn btn-primary" onclick="location.href ='teamSet.jsp'" style="font-size:x-small; margin-right:5px;">팀 관리</button>
+								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:small; margin-right:5px;">관리자 메인</button>
+								<button class="btn btn-primary" onclick="location.href ='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
 							</div>
 						</div>
 						<form method="post" action="workPlace_managePro.jsp">
