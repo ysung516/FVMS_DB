@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 import jsp.Bean.model.MemberBean;
 
@@ -357,7 +359,7 @@ public class MemberDAO {
 	     int rs = 0;
 	     
 	     try {
-	    	 	String query = "insert into memberCopy(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail)"
+	    	 	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail)"
 	    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?)";
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
@@ -380,6 +382,39 @@ public class MemberDAO {
 			}
 		 return rs;
 	 }
+	 
+	// 회원등록 동기화 등록
+	public int plusNewMember(String name, String id, String pw, String part, String team, 
+			 String rank, String position, String permission, String mobile, String gmail, String comeDate) {
+			 Connection conn = null;
+			 PreparedStatement pstmt = null;
+		     int rs = 0;
+		     
+		     try {
+		    	 	String query = "insert into memberCopy(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail, 입사일)"
+		    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?,?)";
+			    	conn = DBconnection.getConnection();
+			    	pstmt = conn.prepareStatement(query.toString());
+			    	pstmt.setString(1, id);
+			    	//pstmt.setString(2, pw);
+			    	pstmt.setString(2, part);
+			    	pstmt.setString(3, team);
+			    	pstmt.setString(4, name);
+			    	pstmt.setString(5, rank);
+			    	pstmt.setString(6, position);
+			    	pstmt.setString(7, permission);
+			    	pstmt.setString(8, mobile);
+			    	pstmt.setString(9, gmail);
+			    	pstmt.setString(10, comeDate);
+			    	rs = pstmt.executeUpdate();
+		     }catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+					if(conn != null) try {conn.close();} catch(SQLException ex) {}
+				}
+			 return rs;
+	}
 	 
 	 public ArrayList<MemberBean> teamMember(String team) {
 		 ArrayList<MemberBean> teamMem = new ArrayList<MemberBean>();
@@ -553,4 +588,29 @@ public class MemberDAO {
 	    return coopNum;
 	}
 	
+	public LinkedHashMap<Integer, String> getTeam(){
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null; 
+	    LinkedHashMap<Integer, String> list = new LinkedHashMap<Integer, String>();
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select * from team order by teamNum;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		list.put(rs.getInt("teamNum"), rs.getString("teamName"));
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
 }	//end 

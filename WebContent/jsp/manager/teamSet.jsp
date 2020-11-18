@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.DB.method.*" import="jsp.Bean.model.*"
 	import="java.util.ArrayList" import="java.util.List"
-	import="java.text.SimpleDateFormat" import="java.util.Date"%>
+	import="java.text.SimpleDateFormat" import="java.util.Date"
+	import="java.util.LinkedHashMap"%>
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -17,9 +18,10 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(60*60);
-		ManagerDAO managerDao = new ManagerDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+		
+		MemberDAO memberDao = new MemberDAO();
+		LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	%>
 
 <meta charset="utf-8">
@@ -29,7 +31,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Sure FVMS - workPlaceMangement</title>
+<title>Sure FVMS - team Setting</title>
 
 <!-- Custom fonts for this template-->
 <link href="../../vendor/fontawesome-free/css/all.min.css"
@@ -46,9 +48,6 @@
 
 .sidebar .nav-item{
 	 	word-break: keep-all;
-}
-.place_width{
-	width: 40%
 }
 #sidebarToggle{
 	display:none;
@@ -96,6 +95,14 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.num_width{
+	width: 50%;
+}
+
+.team_width{
+	width: 100%;
 }
 
 @media ( max-width :765px) {
@@ -157,16 +164,14 @@
 	
 	function rowAdd(){
 		count = $('#workplaceList tr').length;
-		count++;
 		console.log(count);
 		var innerHtml = "";
 		innerHtml += '<tr>';
-		innerHtml += '<td>'+count+'</td>';
-		innerHtml += '<td class="place_width"><input name="place"></td>';
-		innerHtml += '<td><input type="color" value="#ffffff" name="color"></td>';
+		innerHtml += '<td><input class="num_width" name="teamNum" value="'+count+'" ></td>';
+		innerHtml += '<td><input class="team_width" name="teamName" value="" ></td>';
 		innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
 		innerHtml += '</tr>';
-		$('#count').val(count);
+		$('#count').val(count+1);
 		$('#workplaceList').append(innerHtml);
 	}
 	
@@ -182,9 +187,8 @@
 			
 			var len = $('#workplaceList tr').length;
 			for(var a=0; a<=len; a++){
-				$("#workplaceList tr:eq("+a+") td:eq(0)").text((a+1));
-				$("#workplaceList tr:eq("+a+") td:eq(1) input").attr("name", "place");
-				$("#workplaceList tr:eq("+a+") td:eq(2) input").attr("name", "color");
+				$("#workplaceList tr:eq("+a+") td:eq(0) input").attr("name", "teamNum").val(a);
+				$("#workplaceList tr:eq("+a+") td:eq(1) input").attr("name", "teamName");
 			}
 			$('#count').val($('#workplaceList tr').length);
 		});
@@ -327,33 +331,28 @@
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
 							<div style="margin-top: 5px;">
 								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:x-small; margin-right:5px;">관리자 메인</button>
-								<button class="btn btn-primary" onclick="location.href ='teamSet.jsp'" style="font-size:x-small; margin-right:5px;">팀 관리</button>
+								<button class="btn btn-primary" onclick="location.href ='workPlace_manage.jsp'" style="font-size:x-small; margin-right:5px;">근무지 관리</button>
 							</div>
 						</div>
-						<form method="post" action="workPlace_managePro.jsp">
+						<form method="post" action="">
 						<div class="table-responsive" style="padding: 20px">
-						
-						 <input id="count" type="hidden" name="count">
-						
+						<input id="count" type="hidden" name="count">
 						<table class="wpTable">
 							<thead>
 								<tr>
-									<th>NO</th>
-									<th>근무지</th>
-									<th>COLOR</th>
+									<th>우선순위</th>
+									<th>팀</th>
 									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
 								</tr>
 							</thead>
 							<tbody id="workplaceList">
-							<%
-								for(int i=0; i<wpList.size(); i++){%>
-									<tr>
-										<td><%= wpList.get(i).getNo() %></td>
-										<td class="place_width"><input name="place" value="<%=wpList.get(i).getPlace()%>" ></td>
-										<td class="place_width"><input type="color" name="color" value="<%=wpList.get(i).getColor()%>" ></td>
-										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
-									</tr>									
-							<%}%>
+								<%for(int teamNum : teamList.keySet()){ %>
+								<tr>
+									<td><input class="num_width" name="teamNum" value="<%=teamNum %>" ></td>
+									<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
+									<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
+								</tr>
+								<%} %>
 							</tbody>
 						</table>
 						

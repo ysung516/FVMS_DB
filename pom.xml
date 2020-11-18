@@ -77,7 +77,19 @@
 		   <artifactId>selenium-chrome-driver</artifactId>
 		   <version>2.42.2</version>
 		</dependency>
-	
+		
+		<dependency>
+		    <groupId>servlets.com</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>05Nov2002</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>net.sourceforge.jexcelapi</groupId>
+		    <artifactId>jxl</artifactId>
+		    <version>2.6.12</version>
+		</dependency>
+			
 	</dependencies>
 
 	<build>

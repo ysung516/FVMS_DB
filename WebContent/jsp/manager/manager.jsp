@@ -206,6 +206,42 @@ tr:last-child {
 .sortDIV {
 	display: inline;
 }
+
+#ExampleDown {
+    cursor: pointer;
+}
+.hoverEvent {
+  display: none;
+  position: absolute;
+  width: 600px;
+  padding: 8px;
+  left: 0;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;  
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+.hoverEvent:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 5px;
+  pointer-events: none;
+  content: " ";
+}
+
+#ExampleDown:hover + .hoverEvent {
+  display: block;
+}
 </style>
 
 <!-- sorting table -->
@@ -343,9 +379,9 @@ function getTextByClone( tag ){
         return textContent; 
 }
 
-function memberSyn(){
+/*function memberSyn(){
 	location.href ="member_syn.jsp";
-}
+}*/
 
 function workPlaceManage(){
 	location.href ="workPlace_manage.jsp"
@@ -354,9 +390,50 @@ function workPlaceManage(){
 function viewDetail(id){
 	var nowDate = new Date();
 	var year = nowDate.getFullYear();
-	var popupX = (document.body.offsetWidth/2)-(600/2);
+	var popupX = (document.body.offsetWidth/2) - (600/2);
 	window.open('../schedule/detail_PR.jsp?id='+id+'&year='+year , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
 }
+
+// 업로드 파일 체크
+function checkForm(){
+	if(formUpload.file1.value == ""){
+		alert("파일을 업로드 해주세요.");
+		return false;
+	} else if(!checkFileType(formUpload.file1.value)){
+		alert(".xls .csv 파일만 업로드 해주세요.");
+		return false;
+	}
+	return true;
+}
+
+function checkFileType(filePath){
+	var fileLen = filePath.length;
+	var fileFormat = filePath.substring(fileLen - 4);
+	fileFormat = fileFormat.toLowerCase();
+	
+	if(fileFormat == ".xls"){
+		return true;
+	} else if(fileFormat == ".csv"){
+		return true;
+	} else if(fileFormat == "xlsx"){
+		return true;
+	} else{
+		return false;
+	}
+}
+
+function mouseEvent(){
+	$('#ExampleDown').on('mouseover', function(){
+		
+	});
+	$('#ExampleDown').on('mouseleave', function(){
+		
+	});
+}
+
+$(document).ready(function(){
+
+});
 
 </script>
 
@@ -495,8 +572,18 @@ function viewDetail(id){
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
-							<button onclick="memberSyn()">인력 동기화</button>
-							<button onclick="workPlaceManage()">근무지 관리</button>
+							<!-- <button onclick="memberSyn()">인력 동기화</button> -->
+							<div style="margin-left:15px; margin-top: 5px;">
+								<button class="btn btn-primary" onclick="workPlaceManage()" style="font-size:x-small; margin-right:5px;">근무지 관리</button>
+								<button class="btn btn-primary" onClick="location.href='teamSet.jsp'" style="font-size:x-small; margin-right:5px;">팀 관리</button>
+								<form name="formUpload" method="post" action="member_sync.jsp" enctype="multipart/form-data"
+										onsubmit="return checkForm(file1)" style="margin-top:5px; font-size:x-small;">
+									<span id="ExampleDown" class="btn btn-primary" style="font-size:x-small;">엑셀 다운 방법</span>
+									<img class="hoverEvent" src="../../img/Example_excelDownload.png">
+									<input type="file" name="file1" size="40" style="padding: 2px; font-size: x-small; border: 1px black dashed; vertical-align: bottom;">
+									<button type="submit" class="btn btn-primary" style="font-size:x-small;">동기화</button>
+								</form>
+							</div>
 						</div>
 
 						<div class="table-responsive" style="margin-bottom: 40px;">
