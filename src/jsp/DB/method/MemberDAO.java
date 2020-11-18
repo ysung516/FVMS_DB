@@ -391,7 +391,7 @@ public class MemberDAO {
 		     int rs = 0;
 		     
 		     try {
-		    	 	String query = "insert into memberCopy(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail, 입사일)"
+		    	 	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail, 입사일)"
 		    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?,?)";
 			    	conn = DBconnection.getConnection();
 			    	pstmt = conn.prepareStatement(query.toString());
