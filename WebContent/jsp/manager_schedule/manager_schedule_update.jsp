@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.io.PrintWriter"%>
+	pageEncoding="UTF-8" import="java.io.PrintWriter"
+	import="jsp.DB.method.*" import="jsp.Bean.model.*"
+	import="java.util.ArrayList"
+	%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +23,17 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
 	
+	ManagerDAO managerDao = new ManagerDAO();
+	MSC_DAO  mscDao = new MSC_DAO();
+	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+	
+	request.setCharacterEncoding("UTF-8");
+	int num = Integer.parseInt(request.getParameter("num"));
+	MSC_Bean msc = mscDao.getMSCList_set(num);
+
+	String setDate = msc.getDate();
+	String setAm = msc.getAMplace();
+	String setPm = msc.getPMplace();
 %>
 
 <meta charset="utf-8">
@@ -189,7 +203,7 @@ summary {
 }
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script type="text/javascript">
+<script>
 
 	 function AMfocus(){
 	  document.getElementById('AMradio').checked=true;
@@ -203,11 +217,17 @@ summary {
 	 window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	 $(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	     $('.loading').hide();
+	     placeSelected();
+	     amtextbox();
+	     pmtextbox();
+	     amChangeSel();
+	     pmChangeSel();
 	 });
 
-		$(function(){
+	 function amtextbox(){
 			$("#amselboxDirect").hide();
 			var se = document.getElementById("amPlaceSel");
+			console.log(se.options[se.selectedIndex].value);
 			if(se.options[se.selectedIndex].value == "기타"){
 					$("#amselboxDirect").show();
 			}else{
@@ -218,11 +238,10 @@ summary {
 						$("#amselboxDirect").show();
 					}  else {
 						$("#amselboxDirect").hide();
-					}
-			})
-		});
-		
-		$(function(){
+	 				}
+		})
+	 }
+	 function pmtextbox(){
 			var se = document.getElementById("pmPlaceSel");
 			if(se.options[se.selectedIndex].value == "기타"){
 				$("#pmselboxDirect").show();
@@ -236,8 +255,8 @@ summary {
 						$("#pmselboxDirect").hide();
 					}
 			})
-		});
-
+	 }
+	 
 		function amChangeSel() {
 			var se = document.getElementById("amPlaceSel");
 			if(se.options[se.selectedIndex].value != "기타"){
@@ -248,6 +267,25 @@ summary {
 			var se = document.getElementById("pmPlaceSel");
 			if(se.options[se.selectedIndex].value != "기타"){
 				$("#pmselboxDirect").val("");
+			}
+		}
+		
+		function placeSelected(){
+			var opt = document.querySelectorAll("#amPlaceSel option");
+			var opt2 = document.querySelectorAll("#pmPlaceSel option");
+			$('#amPlaceSel').val("기타").attr('selected','selected');
+			$('#pmPlaceSel').val("기타").attr('selected','selected');
+			for(var a=0; a<opt.length; a++){
+				if(opt[a].value == '<%=setAm%>'){
+					$('#amPlaceSel option:eq('+a+')').attr('selected','selected');
+					break;
+				}
+			}
+			for(var b=0; b<opt2.length; b++){
+				if(opt2[b].value == '<%=setPm%>'){
+					$('#pmPlaceSel option:eq('+b+')').attr('selected','selected');
+					break;
+				}
 			}
 		}
 </script>
@@ -262,15 +300,7 @@ summary {
 		</div>
 	</div>
 	<!--  로딩화면  끝  -->
-	<%
-		request.setCharacterEncoding("UTF-8");
-		String num = request.getParameter("num");
-		String setDate = request.getParameter("date");
-		String setAm = request.getParameter("amPlace");
-		String setPm = request.getParameter("pmPlace");
-		
-		
-	%>
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -436,43 +466,15 @@ summary {
 										<tr>
 											<td class="m-0 text-primary" align="center"
 												style="white-space: nowrap;">오전장소</td>
-											<td id="table_td"><select id="amPlaceSel"
-												name="amPlaceSel" onchange="amChangeSel()">
-													<option value="슈어(본사,삼성)"
-														<% if(setAm.equals("슈어(본사,삼성)")){%> selected="selected"
-														<%}%>>슈어(본사,삼성)</option>
-													<option value="슈어(남양사무실)"
-														<% if(setAm.equals("슈어(남양사무실)")){%> selected="selected"
-														<%}%>>슈어(남양사무실)</option>
-													<option value="슈어(대전사무실)"
-														<% if(setAm.equals("슈어(대전사무실)")){%> selected="selected"
-														<%}%>>슈어(대전사무실)</option>
-													<option value="HMC(남양연구소)"
-														<% if(setAm.equals("HMC(남양연구소)")){%> selected="selected"
-														<%}%>>HMC(남양연구소)</option>
-													<option value="오트론(삼성)" <% if(setAm.equals("오트론(삼성)")){%>
-														selected="selected" <%}%>>오트론(삼성)</option>
-													<option value="모비스(의왕)" <% if(setAm.equals("모비스(의왕)")){%>
-														selected="selected" <%}%>>모비스(의왕)</option>
-													<option value="모비스(마북)" <% if(setAm.equals("모비스(마북)")){%>
-														selected="selected" <%}%>>모비스(마북)</option>
-													<option value="엠엔소프트(용산)"
-														<% if(setAm.equals("엠엔소프트(용산)")){%> selected="selected"
-														<%}%>>엠엔소프트(용산)</option>
-													<option value="트랜시스(남양)" <% if(setAm.equals("트랜시스(남양)")){%>
-														selected="selected" <%}%>>트랜시스(남양)</option>
-													<option value="휴가" <% if(setAm.equals("휴가")){%>
-														selected="selected" <%}%>>휴가</option>
-													<option value="기타"
-														<% if(!(setAm.equals("슈어(본사,삼성)") || setAm.equals("슈어(남양사무실)") || setAm.equals("슈어(대전사무실)") || setAm.equals("HMC(남양연구소)") || setAm.equals("오트론(삼성)")
-    					|| setAm.equals("모비스(의왕)") || setAm.equals("모비스(마북)") || setAm.equals("엠엔소프트(용산)") || setAm.equals("휴가") || setAm.equals("트랜시스(남양)")))
-    					{%>
-														selected="selected" <%}%>>기타</option>
-											</select> <input type="text" id="amselboxDirect" name="amselboxDirect"
-												<% if(!(setAm.equals("슈어(본사,삼성)") || setAm.equals("슈어(남양사무실)") || setAm.equals("슈어(대전사무실)") || setAm.equals("HMC(남양연구소)") || setAm.equals("오트론(삼성)")
-    					|| setAm.equals("모비스(의왕)") || setAm.equals("모비스(마북)") || setAm.equals("엠엔소프트(용산)") || setAm.equals("휴가") || setAm.equals("트랜시스(남양)")))
-    					{%>
-												value="<%=setAm%>" <%}%> /></td>
+											<td id="table_td">
+											<select id="amPlaceSel" name="amPlaceSel" onchange="amChangeSel()">
+												<%
+													for(int i=0; i<wpList.size(); i++){%>
+														<option class="test" value="<%=wpList.get(i).getPlace()%>"><%=wpList.get(i).getPlace()%></option>													
+												<%}%>
+													<option value="휴가">휴가</option>
+													<option value="기타">기타</option>
+											</select> <input type="text" id="amselboxDirect" name="amselboxDirect" value="<%=setAm%>"/></td>
 										</tr>
 										<tr height="1" bgcolor="#82B5DF">
 											<td colspan="2"></td>
@@ -482,41 +484,13 @@ summary {
 												style="white-space: nowrap;">오후장소</td>
 											<td id="table_td"><select id="pmPlaceSel"
 												name="pmPlaceSel" onchange="pmChangeSel()">
-													<option value="슈어(본사,삼성)"
-														<% if(setPm.equals("슈어(본사,삼성)")){%> selected="selected"
-														<%}%>>슈어(본사,삼성)</option>
-													<option value="슈어(남양사무실)"
-														<% if(setPm.equals("슈어(남양사무실)")){%> selected="selected"
-														<%}%>>슈어(남양사무실)</option>
-													<option value="슈어(대전사무실)"
-														<% if(setPm.equals("슈어(대전사무실)")){%> selected="selected"
-														<%}%>>슈어(대전사무실)</option>
-													<option value="HMC(남양연구소)"
-														<% if(setPm.equals("HMC(남양연구소)")){%> selected="selected"
-														<%}%>>HMC(남양연구소)</option>
-													<option value="오트론(삼성)" <% if(setPm.equals("오트론(삼성)")){%>
-														selected="selected" <%}%>>오트론(삼성)</option>
-													<option value="모비스(의왕)" <% if(setPm.equals("모비스(의왕)")){%>
-														selected="selected" <%}%>>모비스(의왕)</option>
-													<option value="모비스(마북)" <% if(setPm.equals("모비스(마북)")){%>
-														selected="selected" <%}%>>모비스(마북)</option>
-													<option value="엠엔소프트(용산)"
-														<% if(setPm.equals("엠엔소프트(용산)")){%> selected="selected"
-														<%}%>>엠엔소프트(용산)</option>
-													<option value="트랜시스(남양)" <% if(setPm.equals("트랜시스(남양)")){%>
-														selected="selected" <%}%>>트랜시스(남양)</option>
-													<option value="휴가" <% if(setPm.equals("휴가")){%>
-														selected="selected" <%}%>>휴가</option>
-													<option value="기타"
-														<% if(!(setPm.equals("슈어(본사,삼성)") || setPm.equals("슈어(남양사무실)") || setPm.equals("슈어(대전사무실)") || setPm.equals("HMC(남양연구소)") || setPm.equals("오트론(삼성)")
-    					|| setPm.equals("모비스(의왕)") || setPm.equals("모비스(마북)") || setPm.equals("엠엔소프트(용산)") || setPm.equals("휴가") || setPm.equals("트랜시스(남양)")))
-    					{%>
-														selected="selected" <%}%>>기타</option>
-											</select> <input type="text" id="pmselboxDirect" name="pmselboxDirect"
-												<% if(!(setPm.equals("슈어(본사,삼성)") || setPm.equals("슈어(남양사무실)") || setPm.equals("슈어(대전사무실)") || setPm.equals("HMC(남양연구소)") || setPm.equals("오트론(삼성)")
-    					|| setPm.equals("모비스(의왕)") || setPm.equals("모비스(마북)") || setPm.equals("엠엔소프트(용산)") || setPm.equals("휴가") || setPm.equals("트랜시스(남양)")))
-    					{%>
-												value="<%=setPm%>" <%}%> /></td>
+													<%
+														for(int i=0; i<wpList.size(); i++){%>
+															<option class="test" value="<%=wpList.get(i).getPlace()%>"><%=wpList.get(i).getPlace()%></option>													
+												<%}%>
+													<option value="휴가">휴가</option>
+													<option value="기타">기타</option>
+											</select> <input type="text" id="pmselboxDirect" name="pmselboxDirect" value="<%=setPm%>"/></td>
 										</tr>
 										<tr height="1" bgcolor="#fff">
 											<td colspan="2"></td>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
-	import="jsp.Bean.model.MSC_Bean" import="java.util.ArrayList"
+	import="jsp.Bean.model.*" import="java.util.ArrayList"
 	import="java.util.Date" import="java.text.SimpleDateFormat"
 	import="jsp.DB.method.*"%>
 <!DOCTYPE html>
@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <%
       	for(MSC_Bean li : MSCList){
       		String id = li.getNo()+ " " + li.getID();
+      		String title_str = li.getName() +"<br> 오전 : <span style=background-color:" +li.getAMcolor() + ">" + li.getAMplace() +"</span> <br>오후 : <span style=background-color:" + li.getPMcolor() + ">" + li.getPMplace() + "</span>";  
          	 %> 
          	    	  {
          	    		  groupId: '<%=li.getName()%>',
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
          	    		  <%}%>
          	    		  
          	    		  id : '<%=id%>',
-         	    		  title: '<%=li.getName()%>\n오전: <%=li.getAMplace()%> \n오후: <%=li.getPMplace()%> ',
+         	    		  title: '<%=title_str%>',
          	    		  start: '<%=li.getDate()%>',
          	    		  backgroundColor: 'white',
          	    		  textColor: 'black',
@@ -228,37 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function placeColor() {
 	    $(".fc-event-title").text(function () {
-	    	var str1 = "슈어(본사,삼성)";
-	    	var regex1 = /(슈어\(본사\,삼성\))/g;
-	    	var str2 = "슈어(남양사무실)";
-	    	var regex2 = /(슈어\(남양사무실\))/g;
-	    	var str3 = "HMC(남양연구소)";
-	    	var regex3 = /(HMC\(남양연구소\))/g;
-	    	var str4 = "오트론(삼성)";
-	    	var regex4 = /(오트론\(삼성\))/g;
-	    	var str5 = "모비스(의왕)";
-	    	var regex5 = /(모비스\(의왕\))/g;
-	    	var str6 = "모비스(마북)";
-	    	var regex6 = /(모비스\(마북\))/g;
-	    	var str7 = "엠엔소프트(용산)";
-	    	var regex7 = /(엠엔소프트\(용산\))/g;
-	    	var str8 = "트랜시스(남양)";
-	    	var regex8 = /(트랜시스\(남양\))/g;
-	    	var str9 = "휴가";
-	    	var regex9 = /(휴가)/g;
-	    	var str10 = "슈어(대전사무실)";
-	    	var regex10 = /(슈어\(대전사무실\))/g;
-	        $(this).html( $(this).text().replace(regex1, "<span style='background:#dad9d9d4'>"+str1+"</span>")
-	        		.replace(regex2, "<span style='background:#898989'>"+str2+"</span>")
-	        		.replace(regex3, "<span style='background:#5fc8f2b8'>"+str3+"</span>")
-	        		.replace(regex4, "<span style='background:#FFB870'>"+str4+"</span>")
-	        		.replace(regex5, "<span style='background:#64acee'>"+str5+"</span>")
-	        		.replace(regex6, "<span style='background:#94c4f0'>"+str6+"</span>")
-	        		.replace(regex7, "<span style='background:#ffbc46b0'>"+str7+"</span>")
-	        		.replace(regex8, "<span style='background:#B8D6F2'>"+str8+"</span>")
-	        		.replace(regex9, "<span style='background:#cadeb5'>"+str9+"</span>")
-	        		.replace(regex10, "<span style='background:#acacacd4'>"+str10+"</span>")
-	        		);
+	        $(this).html( $(this).text().replace(" ", " "));
 	    });
 	}
 	
