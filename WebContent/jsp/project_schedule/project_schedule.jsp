@@ -89,7 +89,7 @@
 	position:relative;
 	z-index:997;
 }
-@media(max-width:800px){
+@media(max-width:755px){
 	body{
 		font-size:small;
 		}
@@ -144,6 +144,35 @@
 			
 	} 
 	
+}
+
+@media (min-width:756px) and (max-width:799px){
+	
+
+	#sidebarToggle{
+		display:block;
+	}
+	
+	.tableST{
+		width : 100% !important;
+		height: 40%;
+		
+	}
+
+	.table-responsive2 {
+		visibility: collapse;
+		height: 5vh;
+		overflow: auto !important;
+	}
+	#timelineChart{
+		width:  100% !important;
+	
+	}
+	.table-responsive{
+		overflow: auto !important;
+	}
+	
+
 }
 
 @media(min-width:800px){
@@ -737,7 +766,7 @@
 				
 				<div class="table-responsive2">
 				<table class="table table-bordered" id="select_info" style="font-size:12px;">
-	                <thead>
+	                <thead> 
 	                    <tr style="text-align:center;background-color:#15a3da52;">
 		                    <th style="width:12%;">팀(수주)</th>
 		                    <th style="width:12%;">팀(매출)</th>

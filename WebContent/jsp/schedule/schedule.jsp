@@ -83,7 +83,7 @@
 	z-index:997;
 }
 	
-@media ( max-width :800px) {
+@media ( max-width :755px) {
 	body{
 		font-size:small;
 	}
@@ -132,7 +132,34 @@
 	} 
 	
 }
+@media (min-width:756px) and (max-width:799px){
+	
 
+	#sidebarToggle{
+		display:block;
+	}
+	
+	.tableST{
+		width : 100% !important;
+		height: 40%;
+		
+	}
+
+	.table-responsive2 {
+		visibility: collapse;
+		height: 5vh;
+		overflow: auto !important;
+	}
+	#timelineChart{
+		width:  100% !important;
+	
+	}
+	.table-responsive{
+		overflow: auto !important;
+	}
+	
+	
+}
 @media ( min-width :800px) {
 	.table-responsive2 {
 		height: 65vh;
