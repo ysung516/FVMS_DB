@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="jsp.DB.method.*"
 	import="java.util.ArrayList" import="java.util.Date"
-	import="java.text.SimpleDateFormat"%>
+	import="java.text.SimpleDateFormat"
+	import="java.util.LinkedHashMap"
+	import="java.util.HashMap"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,9 +25,13 @@
 	session.setMaxInactiveInterval(60*60);
 	
 	MemberDAO memberDao = new MemberDAO();
-	SchDAO schDao = new SchDAO();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+	
+	SchDAO schDao = new SchDAO();
 	ArrayList<schBean> schList = schDao.getProject_except8();
+	
+	// 현재 날짜 가져오기
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
@@ -214,179 +220,59 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 <%
-	ArrayList<MemberBean> List1 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List11 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List12 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List13 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List14 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List15 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List2 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List21 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List22 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List23 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List24 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List25 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List3 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List31 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List32 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List33 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List34 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List35 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List4 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List41 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List42 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List43 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List44 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List45 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List5 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List51 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List52 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List53 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List54 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List55 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List6 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List61 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List62 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List63 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List64 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List65 = new ArrayList<MemberBean>();
-	
+	HashMap<String, HashMap<String, ArrayList<MemberBean>>> allList = new HashMap<String, HashMap<String, ArrayList<MemberBean>>>();
+
 	ArrayList<MemberBean> ListT = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT1 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT2 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT3 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT4 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT5 = new ArrayList<MemberBean>();
-	
-	for(int i=0; i<memberList.size(); i++){
-		if(memberList.get(i).getTEAM().equals("미래차검증전략실")){
-			List1.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List11.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List12.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List13.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List14.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List15.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("샤시힐스검증팀")){
-			List2.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List21.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List22.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List23.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List24.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List25.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("바디힐스검증팀")){
-			List3.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List31.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List32.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List33.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List34.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List35.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("제어로직검증팀")){
-			List4.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List41.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List42.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List43.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List44.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List45.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("기능안전검증팀")){
-			List5.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List51.add(memberList.get(i));
+
+	for(int key : teamList.keySet()){
+		HashMap<String, ArrayList<MemberBean>> teamMember = new HashMap<String, ArrayList<MemberBean>>();
+		ArrayList<MemberBean> total = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list1 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list2 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list3 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list4 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list5 = new ArrayList<MemberBean>();
+		for(int i=0; i<memberList.size(); i++){
+			if(memberList.get(i).getTEAM().equals(teamList.get(key))){
+				total.add(memberList.get(i));
 				ListT.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List52.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List53.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List54.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List55.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("자율주행검증팀")){
-			List6.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List61.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List62.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List63.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List64.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List65.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
+				if(memberList.get(i).getRANK().equals("수석")){
+					list1.add(memberList.get(i));
+					ListT1.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("책임")){
+					list2.add(memberList.get(i));
+					ListT2.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("선임")){
+					list3.add(memberList.get(i));
+					ListT3.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("전임")){
+					list4.add(memberList.get(i));
+					ListT4.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("인턴")){
+					list5.add(memberList.get(i));
+					ListT5.add(memberList.get(i));
+					continue;
+				}
 			}
 		}
-		
-		
+		teamMember.put("total", total);
+		teamMember.put("수석", list1);
+		teamMember.put("책임", list2);
+		teamMember.put("선임", list3);
+		teamMember.put("전임", list4);
+		teamMember.put("인턴", list5);
+		allList.put(teamList.get(key), teamMember);
 	}
+
 %>	
           google.charts.load("current", {packages:["timeline"]});
           google.charts.setOnLoadCallback(drawChart);
@@ -554,770 +440,139 @@
            	}
        }	//end
          
-          function memberInfoTable(team, rank){
-        	  	var inner="";   	  	
-          	  	if(team == '미래차검증전략실'){
-          	  		if(rank == 'total'){
-          	  			inner="";
-          	  			<%
-          	  				
-          	  				for(int a=0; a<List1.size(); a++){
-          	  					str = "";
-          	  				%>
-          	  					var id = '<%=List1.get(a).getID()%>';
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List1.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List1.get(a).getTEAM()%>'+"</td>";
-    	      	  				inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List1.get(a).getNAME()%>'+"</a></td>";
-       	  						inner += "<td>"+'<%=List1.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List1.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List1.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List1.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List11.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  					var id = '<%=List11.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List11.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List11.get(a).getTEAM()%>'+"</td>";
-          	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List11.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List11.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List11.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List11.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List11.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List12.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List12.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List12.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List12.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List12.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List12.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List12.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List12.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List12.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List13.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List13.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List13.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List13.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List13.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List13.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List13.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List13.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List13.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List14.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List14.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List14.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List14.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List14.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List14.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List14.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List14.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List14.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-          				inner="";
-           	  			<%
-        	  				for(int a=0; a<List15.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List15.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List15.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List15.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List15.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List15.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List15.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List15.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List15.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}	  		
-          	  		}
-          	  	
-          	  	else if(team == '샤시힐스검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List2.size(); a++){
-          	  					str = "";
-          	  				%>
-          	  				var id = '<%=List2.get(a).getID()%>';
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List2.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List2.get(a).getTEAM()%>'+"</td>";
-       		  				inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List2.get(a).getNAME()%>'+"</a></td>";
-       	  						inner += "<td>"+'<%=List2.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List2.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List2.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List2.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List21.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List21.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List21.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List21.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List21.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List21.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List21.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List21.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List21.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List22.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List22.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List22.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List22.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List22.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List22.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List22.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List22.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List22.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List23.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List23.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List23.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List23.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List23.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List23.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List23.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List23.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List23.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List24.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List24.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List24.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List24.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List24.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List24.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List24.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List24.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List24.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List25.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List25.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List25.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List25.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List25.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List25.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List25.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List25.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List25.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}	
-          	  		}
-          	  	
-          	  	else if(team == '바디힐스검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List3.size(); a++){
-          	  					str = "";
-          	  				%>
-          	  				var id = '<%=List3.get(a).getID()%>';
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List3.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List3.get(a).getTEAM()%>'+"</td>";
-       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List3.get(a).getNAME()%>'+"</a></td>";
-       	  						inner += "<td>"+'<%=List3.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List3.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List3.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List3.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List31.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List31.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List31.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List31.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List31.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List31.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List31.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List31.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List31.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List32.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List32.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List32.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List32.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List32.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List32.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List32.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List32.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List32.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List33.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List33.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List33.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List33.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List33.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List33.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List33.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List33.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List33.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List34.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List34.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List34.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List34.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List34.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List34.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List34.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List34.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List34.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List35.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List35.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List35.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List35.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List35.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List35.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List35.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List35.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List35.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-          	  	
-          	  	else if(team == '제어로직검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List4.size(); a++){
-          	  					str = "";
-          	  				%>
-          	  				var id = '<%=List4.get(a).getID()%>';
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List4.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List4.get(a).getTEAM()%>'+"</td>";
-       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List4.get(a).getNAME()%>'+"</a></td>";
-       	  						inner += "<td>"+'<%=List4.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List4.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List4.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List4.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List41.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List41.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List41.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List41.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List41.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List41.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List41.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List41.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List41.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List42.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List42.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List42.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List42.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List42.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List42.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List42.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List42.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List42.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List43.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List43.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List43.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List43.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List43.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List43.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List43.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List43.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List43.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List44.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List44.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List44.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List44.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List44.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List44.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List44.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List44.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List44.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List45.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List45.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List45.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List45.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List45.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List45.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List45.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List45.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List45.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		
-          	  		}
-          	  	
-          	  	else if(team == '기능안전검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List5.size(); a++){
-          	  					str = "";
-          	  				%>
-          	  				var id = '<%=List5.get(a).getID()%>';
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List5.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List5.get(a).getTEAM()%>'+"</td>";
-       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List5.get(a).getNAME()%>'+"</a></td>";
-       	  						inner += "<td>"+'<%=List5.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List5.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List5.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List5.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List51.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List51.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List51.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List51.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List51.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List51.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List51.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List51.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List51.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List52.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List52.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List52.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List52.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List52.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List52.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List52.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List52.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List52.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List53.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List53.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List53.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List53.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List53.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List53.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List53.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List53.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List53.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List54.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List54.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List54.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List54.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List54.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List54.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List54.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List54.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List54.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List55.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List55.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List55.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List55.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List55.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List55.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List55.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List55.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List55.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-          	  	
-          	  	else if(team == '자율주행검증팀'){
-          	  		if(rank == 'total'){
-          	  		inner="";
-          	  			<%
-          	  				for(int a=0; a<List6.size(); a++){
-          	  					str = "";
-          	  				%>
-          	  				var id = '<%=List6.get(a).getID()%>';
-       	  						inner += "<tr>";
-       	  						inner += "<td>"+'<%=List6.get(a).getPART()%>'+"</td>";
-       		  					inner += "<td>"+'<%=List6.get(a).getTEAM()%>'+"</td>";
-       		  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List6.get(a).getNAME()%>'+"</a></td>";
-       	  						inner += "<td>"+'<%=List6.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List6.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List6.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List6.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-       	  						inner += "</tr>";
-       	  					<%}%>
-       	  					$('#memberINFO').empty();
-       	  					$('#memberINFO').append(inner);
-          	  			}
-          			else if(rank == '수석'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List61.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List61.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List61.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List61.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List61.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List61.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List61.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List61.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List61.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '책임'){
-          			inner="";
-           	  			<%
-        	  				for(int a=0; a<List62.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List62.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List62.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List62.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List62.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List62.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List62.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List62.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List62.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '선임'){
-           	  			<%
-        	  				for(int a=0; a<List63.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List63.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List63.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List63.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List63.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List63.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List63.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List63.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List63.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '전임'){
-           	  			<%
-        	  				for(int a=0; a<List64.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List64.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List64.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List64.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List64.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List64.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List64.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List64.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List64.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          			else if(rank == '인턴'){
-           	  			<%
-        	  				for(int a=0; a<List65.size(); a++){
-        	  					str = "";
-        	  				%>
-        	  				var id = '<%=List65.get(a).getID()%>';
-         						inner += "<tr>";
-         						inner += "<td>"+'<%=List65.get(a).getPART()%>'+"</td>";
-        	  					inner += "<td>"+'<%=List65.get(a).getTEAM()%>'+"</td>";
-        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=List65.get(a).getNAME()%>'+"</a></td>";
-         						inner += "<td>"+'<%=List65.get(a).getRANK()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List65.get(a).getMOBILE()%>'+"</td>";
-       	  						inner += "<td>"+'<%=List65.get(a).getADDRESS()%>'+"</td>";
-       	  						str = "<%=List65.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
-         						inner += "</tr>";
-         					<%}%>
-         					$('#memberINFO').empty();
-         					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-          	  	
-          	  	else if(team == 'total'){
+       function memberInfoTable(team, rank){
+        	  	var inner="";
+        	  	<%for(int key : teamList.keySet()){%>
+	        	  	if(team == '<%=teamList.get(key)%>'){
+	          	  		if(rank == 'total'){
+	          	  			inner="";
+	          	  			<%
+	          	  				for(int a=0; a<allList.get(teamList.get(key)).get("total").size(); a++){
+	          	  					str = "";
+	          	  				%>
+	          	  					var id = '<%=allList.get(teamList.get(key)).get("total").get(a).getID()%>';
+	       	  						inner += "<tr>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getPART()%>'+"</td>";
+	       		  					inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getTEAM()%>'+"</td>";
+	    	      	  				inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=allList.get(teamList.get(key)).get("total").get(a).getNAME()%>'+"</a></td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getRANK()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getMOBILE()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getADDRESS()%>'+"</td>";
+	       	  						str = "<%=allList.get(teamList.get(key)).get("total").get(a).getID()%>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "</tr>";
+	       	  					<%}%>
+	       	  					$('#memberINFO').empty();
+	       	  					$('#memberINFO').append(inner);
+	          	  		}
+	          			else if(rank == '수석'){
+	          				inner="";
+	           	  			<%
+	        	  				for(int a=0; a<allList.get(teamList.get(key)).get("수석").size(); a++){
+	        	  					str = "";
+	        	  				%>
+	        	  					var id = '<%=allList.get(teamList.get(key)).get("수석").get(a).getID()%>';
+	         						inner += "<tr>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getPART()%>'+"</td>";
+	        	  					inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getTEAM()%>'+"</td>";
+	          	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getNAME()%>'+"</a></td>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getRANK()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getMOBILE()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getADDRESS()%>'+"</td>";
+	       	  						str = "<%=allList.get(teamList.get(key)).get("수석").get(a).getID()%>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	         						inner += "</tr>";
+	         					<%}%>
+	         					$('#memberINFO').empty();
+	         					$('#memberINFO').append(inner);
+	           	  		}
+	          			else if(rank == '책임'){
+	          				inner="";
+	           	  			<%
+	        	  				for(int a=0; a<allList.get(teamList.get(key)).get("책임").size(); a++){
+	        	  					str = "";
+	        	  				%>
+	        	  				var id = '<%=allList.get(teamList.get(key)).get("책임").get(a).getID()%>';
+	         						inner += "<tr>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getPART()%>'+"</td>";
+	        	  					inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getTEAM()%>'+"</td>";
+	        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getNAME()%>'+"</a></td>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getRANK()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getMOBILE()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getADDRESS()%>'+"</td>";
+	       	  						str = "<%=allList.get(teamList.get(key)).get("책임").get(a).getID()%>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	         						inner += "</tr>";
+	         					<%}%>
+	         					$('#memberINFO').empty();
+	         					$('#memberINFO').append(inner);
+	           	  		}
+	          			else if(rank == '선임'){
+	          				inner="";
+	           	  			<%
+	        	  				for(int a=0; a<allList.get(teamList.get(key)).get("선임").size(); a++){
+	        	  					str = "";
+	        	  				%>
+	        	  				var id = '<%=allList.get(teamList.get(key)).get("선임").get(a).getID()%>';
+	         						inner += "<tr>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getPART()%>'+"</td>";
+	        	  					inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getTEAM()%>'+"</td>";
+	        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getNAME()%>'+"</a></td>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getRANK()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getMOBILE()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getADDRESS()%>'+"</td>";
+	       	  						str = "<%=allList.get(teamList.get(key)).get("선임").get(a).getID()%>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	         						inner += "</tr>";
+	         					<%}%>
+	         					$('#memberINFO').empty();
+	         					$('#memberINFO').append(inner);
+	           	  		}
+	          			else if(rank == '전임'){
+	          				inner="";
+	           	  			<%
+	        	  				for(int a=0; a<allList.get(teamList.get(key)).get("전임").size(); a++){
+	        	  					str = "";
+	        	  				%>
+	        	  				var id = '<%=allList.get(teamList.get(key)).get("전임").get(a).getID()%>';
+	         						inner += "<tr>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getPART()%>'+"</td>";
+	        	  					inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getTEAM()%>'+"</td>";
+	        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getNAME()%>'+"</a></td>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getRANK()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getMOBILE()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getADDRESS()%>'+"</td>";
+	       	  						str = "<%=allList.get(teamList.get(key)).get("전임").get(a).getID()%>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	         						inner += "</tr>";
+	         					<%}%>
+	         					$('#memberINFO').empty();
+	         					$('#memberINFO').append(inner);
+	           	  		}
+	          			else if(rank == '인턴'){
+	          				inner="";
+	           	  			<%
+	        	  				for(int a=0; a<allList.get(teamList.get(key)).get("인턴").size(); a++){
+	        	  					str = "";
+	        	  				%>
+	        	  				var id = '<%=allList.get(teamList.get(key)).get("인턴").get(a).getID()%>';
+	         						inner += "<tr>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getPART()%>'+"</td>";
+	        	  					inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getTEAM()%>'+"</td>";
+	        	  					inner += "<td><a href=../manager/manager_update.jsp?id="+id+">"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getNAME()%>'+"</a></td>";
+	         						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getRANK()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getMOBILE()%>'+"</td>";
+	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getADDRESS()%>'+"</td>";
+	       	  						str = "<%=allList.get(teamList.get(key)).get("인턴").get(a).getID()%>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	         						inner += "</tr>";
+	         					<%}%>
+	         					$('#memberINFO').empty();
+	         					$('#memberINFO').append(inner);
+	           	  		}
+	          	  	}
+        	  	<%}%>
+        	  	if(team == 'total'){
           	  		if(rank == 'total'){
           	  		inner="";
           	  			<%
@@ -1338,7 +593,7 @@
        	  					<%}%>
        	  					$('#memberINFO').empty();
        	  					$('#memberINFO').append(inner);
-          	  			}
+          	  		}
           			else if(rank == '수석'){
           			inner="";
            	  			<%
@@ -1359,7 +614,7 @@
          					<%}%>
          					$('#memberINFO').empty();
          					$('#memberINFO').append(inner);
-           	  			}
+           	  		}
           			else if(rank == '책임'){
           			inner="";
            	  			<%
@@ -1380,7 +635,7 @@
          					<%}%>
          					$('#memberINFO').empty();
          					$('#memberINFO').append(inner);
-           	  			}
+           	  		}
           			else if(rank == '선임'){
            	  			<%
         	  				for(int a=0; a<ListT3.size(); a++){
@@ -1400,7 +655,7 @@
          					<%}%>
          					$('#memberINFO').empty();
          					$('#memberINFO').append(inner);
-           	  			}
+           	  		}
           			else if(rank == '전임'){
            	  			<%
         	  				for(int a=0; a<ListT4.size(); a++){
@@ -1420,7 +675,7 @@
          					<%}%>
          					$('#memberINFO').empty();
          					$('#memberINFO').append(inner);
-           	  			}
+           	  		}
           			else if(rank == '인턴'){
            	  			<%
         	  				for(int a=0; a<ListT5.size(); a++){
@@ -1440,9 +695,11 @@
          					<%}%>
          					$('#memberINFO').empty();
          					$('#memberINFO').append(inner);
-           	  			}
-          	  		}
-       }
+           	  		}
+          	  	}
+          	  	
+    }
+
 
     function viewDetail(id){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
@@ -1715,60 +972,17 @@
 	                    </tr>
                     </thead>
                     <tbody>
+                    	<%for(int key : teamList.keySet()){ %>
 	                    <tr>
-		                    <th>미래차검증전략실</th>
-		                    <td onclick="drawChartOp('미래차검증전략실','total')"><%=List1.size()%></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','수석')"><%=List11.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','책임')"><%=List12.size() %></td>
-		    	            <td onclick="drawChartOp('미래차검증전략실','선임')"><%=List13.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','전임')"><%=List14.size() %></td>
-		                    <td onclick="drawChartOp('미래차검증전략실','인턴')"><%=List15.size() %></td>
+		                    <th><%=teamList.get(key) %></th>
+		                    <td onclick="drawChartOp('<%=teamList.get(key) %>','total')"><%=allList.get(teamList.get(key)).get("total").size()%></td>
+		                    <td onclick="drawChartOp('<%=teamList.get(key) %>','수석')"><%=allList.get(teamList.get(key)).get("수석").size() %></td>
+		                    <td onclick="drawChartOp('<%=teamList.get(key) %>','책임')"><%=allList.get(teamList.get(key)).get("책임").size() %></td>
+		    	            <td onclick="drawChartOp('<%=teamList.get(key) %>','선임')"><%=allList.get(teamList.get(key)).get("선임").size() %></td>
+		                    <td onclick="drawChartOp('<%=teamList.get(key) %>','전임')"><%=allList.get(teamList.get(key)).get("전임").size() %></td>
+		                    <td onclick="drawChartOp('<%=teamList.get(key) %>','인턴')"><%=allList.get(teamList.get(key)).get("인턴").size() %></td>
 	                    </tr>
-	                   <tr>
-	          		 		<th>샤시힐스검증팀</th>
-	                 		<td onclick="drawChartOp('샤시힐스검증팀','total')"><%=List2.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','수석')"><%=List21.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','책임')"><%=List22.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','선임')"><%=List23.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','전임')"><%=List24.size()%></td>
-		                    <td onclick="drawChartOp('샤시힐스검증팀','인턴')"><%=List25.size()%></td>
-	                   </tr> 
-	                   <tr>
-	          		 		<th>바디힐스검증팀</th>
-	                   		<td onclick="drawChartOp('바디힐스검증팀','total')"><%=List3.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','수석')"><%=List31.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','책임')"><%=List32.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','선임')"><%=List33.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','전임')"><%=List34.size()%></td>
-		                    <td onclick="drawChartOp('바디힐스검증팀','인턴')"><%=List35.size()%></td>
-	                   </tr> 
-	                   <tr>
-	          		 		<th>제어로직검증팀</th>
-	                   		<td onclick="drawChartOp('제어로직검증팀','total')"><%=List4.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','수석')"><%=List41.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','책임')"><%=List42.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','선임')"><%=List43.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','전임')"><%=List44.size()%></td>
-		                    <td onclick="drawChartOp('제어로직검증팀','인턴')"><%=List45.size()%></td>
-	                   </tr> 
-	                   <tr>
-	          		 		<th>기능안전검증팀</th>
-	                   		<td onclick="drawChartOp('기능안전검증팀','total')"><%=List5.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','수석')"><%=List51.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','책임')"><%=List52.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','선임')"><%=List53.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','전임')"><%=List54.size()%></td>
-		                    <td onclick="drawChartOp('기능안전검증팀','인턴')"><%=List55.size()%></td>
-	                   </tr> 
-	                   <tr>
-	          		 		<th>자율주행검증팀</th>
-	                   		<td onclick="drawChartOp('자율주행검증팀','total')"><%=List6.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','수석')"><%=List61.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','책임')"><%=List62.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','선임')"><%=List63.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','전임')"><%=List64.size()%></td>
-		                    <td onclick="drawChartOp('자율주행검증팀','인턴')"><%=List65.size()%></td>
-	                   </tr>
+                    	<%} %>
 						<tr>
 	          		 		<th>total</th>
 	                        <td onclick="drawChartOp('total','total')"><%=ListT.size()%></td>
