@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.io.PrintWriter"%>
+	pageEncoding="UTF-8" import="java.io.PrintWriter"
+	import="jsp.DB.method.*" import="jsp.Bean.model.*"
+	import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +21,9 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(60*60);
 		String date = request.getParameter("date");
+		
+		ManagerDAO managerDao = new ManagerDAO();
+		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
 	
 %>
 
@@ -35,8 +40,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -378,17 +382,13 @@ summary {
 									<tr>
 										<td class="m-0 text-primary" align="center"
 											style="white-space: nowrap;">오전</td>
-										<td id="table_td"><select id="amPlaceSel"
-											name="amPlaceSel">
-												<option value="슈어(본사,삼성)" selected="selected">슈어(본사,삼성)</option>
-												<option value="슈어(남양사무실)">슈어(남양사무실)</option>
-												<option value="슈어(대전사무실)">슈어(대전사무실)</option>
-												<option value="HMC(남양연구소)">HMC(남양연구소)</option>
-												<option value="오트론(삼성)">오트론(삼성)</option>
-												<option value="모비스(의왕)">모비스(의왕)</option>
-												<option value="모비스(마북)">모비스(마북)</option>
-												<option value="엠엔소프트(용산)">엠엔소프트(용산)</option>
-												<option value="트랜시스(남양)">트랜시스(남양)</option>
+											
+										<td id="table_td"><select id="amPlaceSel" name="amPlaceSel">
+												<%
+													for(int i=0; i<wpList.size(); i++){%>
+														<option value="<%=wpList.get(i).getPlace()%>"><%=wpList.get(i).getPlace()%></option>													
+												<%}%>
+													
 												<option value="휴가">휴가</option>
 												<option value="기타">기타</option>
 										</select> <input type="text" id="amselboxDirect" name="amselboxDirect" />
@@ -405,15 +405,10 @@ summary {
 											style="white-space: nowrap;">오후</td>
 										<td id="table_td"><select id="pmPlaceSel"
 											name="pmPlaceSel">
-												<option value="슈어(본사,삼성)" selected="selected">슈어(본사,삼성)</option>
-												<option value="슈어(남양사무실)">슈어(남양사무실)</option>
-												<option value="슈어(대전사무실)">슈어(대전사무실)</option>
-												<option value="HMC(남양연구소)">HMC(남양연구소)</option>
-												<option value="오트론(삼성)">오트론(삼성)</option>
-												<option value="모비스(의왕)">모비스(의왕)</option>
-												<option value="모비스(마북)">모비스(마북)</option>
-												<option value="엠엔소프트(용산)">엠엔소프트(용산)</option>
-												<option value="트랜시스(남양)">트랜시스(남양)</option>
+												<%
+													for(int i=0; i<wpList.size(); i++){%>
+														<option value="<%=wpList.get(i).getPlace()%>"><%=wpList.get(i).getPlace()%></option>													
+												<%}%>
 												<option value="휴가">휴가</option>
 												<option value="기타">기타</option>
 										</select> <input type="text" id="pmselboxDirect" name="pmselboxDirect" />

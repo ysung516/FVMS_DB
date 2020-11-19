@@ -138,7 +138,7 @@
 			PmPlace_arr[4] = PMother;
 		}
 		
-		List<String> print = mscDao.weekAdd_MSC(AmPlace_arr, PmPlace_arr, date_arr, team, sessionID, sessionName);
+		List<String> print = mscDao.weekAdd_MSC(AmPlace_arr, PmPlace_arr, date_arr, sessionID);
 		if(print.isEmpty() == false){
 			%><script> alert('<%for(String value : print){out.print(value);%>'+'\n'+'<%}%>'+'\n일정이 입력되었습니다.'); 
 							location.href = 'manager_schedule.jsp'; </script>
