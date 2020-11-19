@@ -13,8 +13,8 @@ public class DBconnection {
 	
 	private static final String USERNAME = "dsc05157";
 	private static final String PASSWORD = "suresoft0!";
-	private static final String URL = "jdbc:mysql://localhost:3306/dsc05157?serverTimezone=UTC"; //서버
-	//private static final String URL = "jdbc:mysql://dsc05157.cafe24.com:3306/dsc05157?serverTimezone=UTC"; //로컬
+	//private static final String URL = "jdbc:mysql://localhost:3306/dsc05157?serverTimezone=UTC"; //서버
+	private static final String URL = "jdbc:mysql://dsc05157.cafe24.com:3306/dsc05157?serverTimezone=UTC"; //로컬
 	public static Connection getConnection(){
 		Connection conn = null; 
 		try {

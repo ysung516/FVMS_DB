@@ -280,8 +280,8 @@ public class SummaryDAO {
 	}
 	
 	// 팀별 목포 수주,매출 데이터 가져오기
-	public ArrayList<TeamBean> getTagetData(){
-		ArrayList<TeamBean> list = new ArrayList<TeamBean>();
+	public HashMap<String, TeamBean> getTagetData(){
+		HashMap<String, TeamBean> reList = new HashMap<String, TeamBean>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -300,7 +300,7 @@ public class SummaryDAO {
 	    		team.setFH_targetSales(rs.getFloat("상반기목표매출"));
 	    		team.setSH_targetOrder(rs.getFloat("하반기목표수주"));
 	    		team.setSH_targetSales(rs.getFloat("하반기목표매출"));
-	    		list.add(team);
+	    		reList.put(rs.getString("teamName"), team);
 	    	}
 	    }catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -310,7 +310,7 @@ public class SummaryDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-	    return list;
+	    return reList;
 	}
 	
 	// 목표 수주,매출 저장
