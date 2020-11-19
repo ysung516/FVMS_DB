@@ -278,9 +278,42 @@ public class SummaryDAO {
 		
 		return list;
 	}
-	
 	// 팀별 목포 수주,매출 데이터 가져오기
-	public HashMap<String, TeamBean> getTagetData(){
+		public ArrayList<TeamBean> getTagetData(){
+			ArrayList<TeamBean> List = new ArrayList<TeamBean>();
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("SELECT * from team");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	
+		    	while(rs.next()) {
+		    		TeamBean team = new TeamBean();
+		    		team.setTeamNum(rs.getInt("teamNum"));
+		    		team.setTeamName(rs.getString("teamName"));
+		    		team.setFH_targetOrder(rs.getFloat("상반기목표수주"));
+		    		team.setFH_targetSales(rs.getFloat("상반기목표매출"));
+		    		team.setSH_targetOrder(rs.getFloat("하반기목표수주"));
+		    		team.setSH_targetSales(rs.getFloat("하반기목표매출"));
+		    		List.add(team);
+		    	}
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return List;
+	}
+		
+	// 팀별 목포 수주,매출 데이터 가져오기
+	public HashMap<String, TeamBean> getTargetData(){
 		HashMap<String, TeamBean> reList = new HashMap<String, TeamBean>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
