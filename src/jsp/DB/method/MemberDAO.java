@@ -60,6 +60,51 @@ public class MemberDAO {
 	    return list;
 	}
 	
+	// 현재 프로젝트에 참여중인 실 인원만
+	public ArrayList<MemberBean> getMemberDataInPro() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("SELECT distinct a.* FROM member as a, rank as b, position as c, team as d, career as e "
+	    			+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND a.id = e.id AND e.start < now() and e.end > now() "
+	    			+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		MemberBean member = new MemberBean();
+	    		member.setID(rs.getString("id"));
+	    		member.setPASSWORD(rs.getString("pw"));
+	    		member.setPART(rs.getString("소속"));
+	    		member.setTEAM(rs.getString("팀"));
+	    		member.setNAME(rs.getString("이름"));
+	    		member.setRANK(rs.getString("직급"));
+	    		member.setPosition(rs.getString("직책"));
+	    		member.setADDRESS(rs.getString("거주지"));
+	    		member.setComDate(rs.getString("입사일"));
+	    		member.setMOBILE(rs.getString("mobile"));
+	    		member.setGMAIL(rs.getString("gmail"));	
+	    		member.setCareer(rs.getString("프로젝트수행이력"));
+	    		member.setLevel(rs.getInt("level"));
+	    		member.setPermission(rs.getString("permission"));
+	    		list.add(member);
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
+	
 	// 모든 회원정보 가져오기(소속순)
 	public ArrayList<MemberBean> getMemberData_part() {
 		Connection conn = null;

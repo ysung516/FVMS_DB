@@ -4,7 +4,7 @@
 	import="java.util.List" import="jsp.DB.method.*"
 	import="jsp.Bean.model.*"
 	import="java.text.SimpleDateFormat" import="java.util.Date"
-	import="java.util.HashMap"%>
+	import="java.util.HashMap" import="java.util.LinkedHashMap"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +24,7 @@
 	    ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation(); //협력업체
 	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();
+	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	%>
 
 <meta charset="utf-8">
@@ -58,13 +59,13 @@
 		}else{
 			var half = '상반기';
 		}
+		
 		$('.tag').html('인턴('+year+'년 '+half+')');
-		var chasisNum = 0;
-		var bodyNum = 0;
-		var controlNum = 0;
-		var safeNum = 0;
-		var autoNum = 0;
+		<%for(int key : teamList.keySet()){%>
+			var Num<%=key%> = 0;
+		<%}%>
 		var internNum = 0;
+		
 		<%for(MemberBean mem : memberList){
 			if(mem.getPosition().equals("실장")){%>
 				$('#vtM').html('<%=mem.getNAME()%>' + ' 실장');
@@ -77,99 +78,43 @@
 					$('.cen').append('<%=mem.getNAME()%>');
 				}
 			<%	continue; }
-			if(mem.getTEAM().equals("샤시힐스검증팀")){%>
-				chasisNum = chasisNum + 1;
-				<%if(mem.getPosition().equals("팀장")){%>
-					$('.chasis > .teamM').html('<%=mem.getNAME()%>' + ' 팀장');
-				<%continue; }
-				if(mem.getRANK().equals("수석") || mem.getRANK().equals("책임")){%>
-					$('.chasis > .lv2').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>');
-				<%continue; }
-				if(mem.getRANK().equals("선임")){%>
-					$('.chasis > .lv3').append('<%=mem.getNAME()%>' + ' 선임<br>');
-				<%continue; }
-				if(mem.getRANK().equals("전임")){%>
-					$('.chasis > .lv4').append('<%=mem.getNAME()%>' + ' 전임<br>');
-				<%continue; }
+			for(int key : teamList.keySet()){
+				if(key != 0){
+					if(mem.getTEAM().equals(teamList.get(key))){%>
+						Num<%=key%> = Num<%=key%> + 1;
+						<%if(mem.getPosition().equals("팀장")){%>
+							$('.<%=key%> > .teamM').html('<%=mem.getNAME()%>' + ' 팀장');
+						<%break; }
+						if(mem.getRANK().equals("수석") || mem.getRANK().equals("책임")){%>
+							$('.<%=key%> > .lv2').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>');
+						<%break; }
+						if(mem.getRANK().equals("선임")){%>
+							$('.<%=key%> > .lv3').append('<%=mem.getNAME()%>' + ' 선임<br>');
+						<%break; }
+						if(mem.getRANK().equals("전임")){%>
+							$('.<%=key%> > .lv4').append('<%=mem.getNAME()%>' + ' 전임<br>');
+						<%break; }
+					}
+				}
 			}
-			if(mem.getTEAM().equals("바디힐스검증팀")){%>
-				bodyNum = bodyNum + 1;
-				<%if(mem.getPosition().equals("팀장")){%>
-					$('.body > .teamM').html('<%=mem.getNAME()%>' + ' 팀장');
-				<%continue; }
-				if(mem.getRANK().equals("수석") || mem.getRANK().equals("책임")){%>
-					$('.body > .lv2').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>');
-				<%continue; }
-				if(mem.getRANK().equals("선임")){%>
-					$('.body > .lv3').append('<%=mem.getNAME()%>' + ' 선임<br>');
-				<%continue; }
-				if(mem.getRANK().equals("전임")){%>
-					$('.body > .lv4').append('<%=mem.getNAME()%>' + ' 전임<br>');
-				<%continue; }
-			}
-			if(mem.getTEAM().equals("제어로직검증팀")){%>
-				controlNum = controlNum + 1;
-				<%if(mem.getPosition().equals("팀장")){%>
-					$('.control > .teamM').html('<%=mem.getNAME()%>' + ' 팀장');
-				<%continue; }
-				if(mem.getRANK().equals("수석") || mem.getRANK().equals("책임")){%>
-					$('.control > .lv2').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>');
-				<%continue; }
-				if(mem.getRANK().equals("선임")){%>
-					$('.control > .lv3').append('<%=mem.getNAME()%>' + ' 선임<br>');
-				<%continue; }
-				if(mem.getRANK().equals("전임")){%>
-					$('.control > .lv4').append('<%=mem.getNAME()%>' + ' 전임<br>');
-				<%continue; }
-			}
-			if(mem.getTEAM().equals("기능안전검증팀")){%>
-				safeNum = safeNum + 1;
-				<%if(mem.getPosition().equals("팀장")){%>
-					$('.safe > .teamM').html('<%=mem.getNAME()%>' + ' 팀장');
-				<%continue; }
-				if(mem.getRANK().equals("수석") || mem.getRANK().equals("책임")){%>
-					$('.safe > .lv2').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>');
-				<%continue; }
-				if(mem.getRANK().equals("선임")){%>
-					$('.safe > .lv3').append('<%=mem.getNAME()%>' + ' 선임<br>');
-				<%continue; }
-				if(mem.getRANK().equals("전임")){%>
-					$('.safe > .lv4').append('<%=mem.getNAME()%>' + ' 전임<br>');
-				<%continue; }
-			}if(mem.getTEAM().equals("자율주행검증팀")){%>
-				autoNum = autoNum + 1;
-				<%if(mem.getPosition().equals("팀장")){%>
-					$('.auto > .teamM').html('<%=mem.getNAME()%>' + ' 팀장');
-				<%continue; }
-				if(mem.getRANK().equals("수석") || mem.getRANK().equals("책임")){%>
-					$('.auto > .lv2').append('<%=mem.getNAME()%>' + ' ' + '<%=mem.getRANK()%>' + '<br>');
-				<%continue; }
-				if(mem.getRANK().equals("선임")){%>
-					$('.auto > .lv3').append('<%=mem.getNAME()%>' + ' 선임<br>');
-				<%continue; }
-				if(mem.getRANK().equals("전임")){%>
-					$('.auto > .lv4').append('<%=mem.getNAME()%>' + ' 전임<br>');
-				<%continue; }
-			}}%>
-			
-			$('#chasisnum').html(chasisNum + '명');
-			$('#bodynum').html(bodyNum + '명');
-			$('#controlnum').html(controlNum + '명');
-			$('#safenum').html(safeNum + '명');
-			$('#autonum').html(autoNum + '명');
-			$('#internnum').html(internNum + '명');
-			
+		}
+		
+		for(int key : teamList.keySet()){
+			if(key != 0){%>
+				$('#'+'<%=key%>'+'num').html(Num<%=key%> + '명');
+			<%}
+		}%>
+		$('#internnum').html(internNum + '명');
 	}
 	
 	function cooperView(){	
 		$('#cooper').change(function(){
 			if($('#cooper').is(":checked")){
 				$('#vt6 > td').css('border-bottom','0px');
-				$('#coopTR > .chasis > .coop').empty();
-				$('#coopTR > .body > .coop').empty();
-				$('#coopTR > .control > .coop').empty();
-				$('#coopTR > .safe > .coop').empty();
-				$('#coopTR > .auto > .coop').empty();
+				<%for(int key : teamList.keySet()){
+					if(key != 0){%>
+				$('#coopTR > .<%=key%> > .coop').empty();
+				<%}}%>
 				
 				var str = "";
 				<%for(String coop : coopNum.keySet()){%>
@@ -177,11 +122,9 @@
 				<%}%>
 				
 				var vtnum = 0;
-				var chasisnum = 0;
-				var bodynum = 0;
-				var controlnum = 0;
-				var safenum = 0;
-				var autonum = 0;
+				<%for(int key : teamList.keySet()){%>
+						var Num<%=key%> = 0;
+				<%}%>
 				
 				var coopTR = '<td class = "vt vtadd" style="border:0.1px #393A60 solid;border-top:0px;"><div class="coop vtadd"></div></td>';
 				$('#coopTR').append(coopTR);
@@ -191,42 +134,40 @@
 					if(mem.getRANK().equals("-")){
 						rank = "";
 					}
-					if(mem.getTEAM().equals("미래차검증전략실")){%>
-						$('#coopTR > .vt > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
-						vtnum = vtnum + 1;
-					<%continue; }if(mem.getTEAM().equals("샤시힐스검증팀")){%>
-						$('#coopTR > .chasis > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
-						chasisnum = chasisnum + 1;
-					<%continue; }if(mem.getTEAM().equals("바디힐스검증팀")){%>
-						$('#coopTR > .body > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
-						bodynum = bodynum + 1;
-					<%continue; }if(mem.getTEAM().equals("제어로직검증팀")){%>
-						$('#coopTR > .control > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
-						controlnum = controlnum + 1;
-					<%continue; }if(mem.getTEAM().equals("기능안전검증팀")){%>
-						$('#coopTR > .safe > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
-						safenum = safenum + 1;
-					<%continue; }if(mem.getTEAM().equals("자율주행검증팀")){%>
-						$('#coopTR > .auto > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
-						autonum = autonum + 1;
-					<%continue; }%>
+					for(int key : teamList.keySet()){
+						if(key == 0 && mem.getTEAM().equals(teamList.get(key))){%>
+							$('#coopTR > .vt > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+							vtnum = vtnum + 1;
+							<%break; 
+						}else if(key != 0 && mem.getTEAM().equals(teamList.get(key))){%>
+							$('#coopTR > .<%=key%> > .coop').append('<%=mem.getNAME()%>' + ' ' + '<%=rank%>' + '<br>(' + '<%=mem.getPART()%>' + ')<br>');
+							Num<%=key%> = Num<%=key%> + 1;
+							<%break; 
+						}
+					}
+				}%>
+				
+				var total_vt = 0;
+				var total = 0;
+				
+				<%for(int key : teamList.keySet()){
+					if(key != 0){%>
+					Num<%=key%> = Num<%=key%> + parseInt($('#'+'<%=key%>'+'num').text().split()[0]);
+					<%}
+				}%>
+				
+				<%for(int key : teamList.keySet()){
+					if(key != 0){%>
+					total_vt = total_vt + parseInt($('#'+'<%=key%>'+'num').text().split()[0]);
+					total = total + Num<%=key%>;
+					<%}%>
 				<%}%>
+				total = total + vtnum;
 				
-				var chasisnum = chasisnum + parseInt($('#chasisnum').text().split()[0]);
-				var bodynum = bodynum + parseInt($('#bodynum').text().split()[0]);
-				var controlnum = controlnum + parseInt($('#controlnum').text().split()[0]);
-				var safenum = safenum + parseInt($('#safenum').text().split()[0]);
-				var autonum = autonum + parseInt($('#autonum').text().split()[0]);
-				
-				var total_vt = parseInt($('#chasisnum').text().split()[0]) + parseInt($('#bodynum').text().split()[0])
-							+ parseInt($('#controlnum').text().split()[0]) + parseInt($('#safenum').text().split()[0])
-							+ parseInt($('#autonum').text().split()[0]);
-				var total = chasisnum+bodynum+controlnum+safenum+autonum+vtnum
-				
-				var vt18 = '<td class="chartHeader vtadd">미래차검증전략실</td>';
+				var vt18 = '<td class="chartHeader vtadd">' + '<%=teamList.get(0)%>' + '</td>';
 				$('#vt1').append(vt18);
 				$('#vt8').append(vt18);
-				var vt2 = '<th class="chartHeader vtadd">미래차검증전략실</th>';
+				var vt2 = '<th class="chartHeader vtadd">' + '<%=teamList.get(0)%>' + '</th>';
 				$('#vt2').append(vt2);
 				var vt3 = '<td class = "vt vtadd" style="border:0.1px #393A60 solid; border-bottom: 0px;"><div class="teamM vtadd"></div></td>';
 				$('#vt3').append(vt3);
@@ -235,64 +176,48 @@
 						+'<p style="color:red;"><b>Total<a style="font-size:10px; color:red;">(협력제외)</a> : '+total_vt+'명</b></p><br>'
 						+'<b>협력업체 총 인원</b><br>' + str + '</div></td>';
 				$('#vt4').append(vt4);
-				/*var vt5 = '<td class = "vt vtadd"><div class="lv3 vtadd"></div></td>';
-				$('#vt5').append(vt5);
-				var vt6 = '<td class = "vt vtadd"><div class="lv4 vtadd"></div></td>';
-				$('#vt6').append(vt6);*/
 				var vt7 = '<th class="chartHeader vtadd">명</th>';
 				$('#vt7').append(vt7);
 				var totalP = '<td class = "chartHeader vtadd" id="vtnum"></td>';
 				$('#totalP').append(totalP);
 				
-				$('#chasisnum').html(chasisnum + '명');
-				$('#bodynum').html(bodynum + '명');
-				$('#controlnum').html(controlnum + '명');
-				$('#safenum').html(safenum + '명');
-				$('#autonum').html(autonum + '명');
+				<%for(int key : teamList.keySet()){
+					if(key != 0){%>
+					$('#'+'<%=key%>'+'num').html(Num<%=key%>+ '명');
+					<%}
+				}%>
 				$('#vtnum').html(vtnum + '명');
 				$('#coopTR').css('visibility', 'visible');
 				
 	
 			}else{
 				$('#vt6 > td').css('border-bottom','0.1px solid #393A60');
-				var chasisnum = 0;
-				var bodynum = 0;
-				var controlnum = 0;
-				var safenum = 0;
-				var autonum = 0;
+				<%for(int key : teamList.keySet()){
+					if(key != 0){%>
+						var Num<%=key%> = 0;
+					<%}
+				}%>
 				
 				<%for(MemberBean mem : cooperationList){
-					if(mem.getTEAM().equals("샤시힐스검증팀")){%>
-						chasisnum = chasisnum + 1;
-					<%continue; }if(mem.getTEAM().equals("바디힐스검증팀")){%>
-						bodynum = bodynum + 1;
-					<%continue; }if(mem.getTEAM().equals("제어로직검증팀")){%>
-						controlnum = controlnum + 1;
-					<%continue; }if(mem.getTEAM().equals("기능안전검증팀")){%>
-						safenum = safenum + 1;
-					<%continue; }if(mem.getTEAM().equals("자율주행검증팀")){%>
-						autonum = autonum + 1;
-					<%continue; }%>
-				<%}%>
+					for(int key : teamList.keySet()){
+						if(key != 0){
+							if(mem.getTEAM().equals(teamList.get(key))){%>
+								Num<%=key%> = Num<%=key%> + 1;
+							<%break; }
+						}
+					}
+				}%>
 				
 				$('.vtadd').remove();
 				
-				var chasisnum =parseInt($('#chasisnum').text().split()[0]) - chasisnum;
-				var bodynum =parseInt($('#bodynum').text().split()[0]) -  bodynum;
-				var controlnum =parseInt($('#controlnum').text().split()[0]) -  controlnum;
-				var safenum =parseInt($('#safenum').text().split()[0]) -  safenum;
-				var autonum =parseInt($('#autonum').text().split()[0]) -  autonum;
-				$('#chasisnum').html(chasisnum + '명');
-				$('#bodynum').html(bodynum + '명');
-				$('#controlnum').html(controlnum + '명');
-				$('#safenum').html(safenum + '명');
-				$('#autonum').html(autonum + '명');
+				<%for(int key : teamList.keySet()){
+					if(key != 0){%>
+						Num<%=key%> =parseInt($('#'+'<%=key%>'+'num').text().split()[0]) - Num<%=key%>;
+						$('#'+'<%=key%>'+'num').html(Num<%=key%> + '명');
+						$('#coopTR > .<%=key%> > .coop').empty();
+					<%}
+				}%>
 				
-				$('#coopTR > .chasis > .coop').empty();
-				$('#coopTR > .body > .coop').empty();
-				$('#coopTR > .control > .coop').empty();
-				$('#coopTR > .safe > .coop').empty();
-				$('#coopTR > .auto > .coop').empty();
 				$('#coopTR').css('visibility', 'collapse');
 			}
 		});
@@ -627,117 +552,69 @@
 								<div>
 									<table class = "memchart" style="margin-left: auto; margin-right: auto; border-spacing : 20px 0; border-collapse:unset; margin-bottom:15px;">
 											<tr id = "vt1">
-												<td class = "chartHeader">샤시힐스검증팀</td>
-												<td class = "chartHeader">바디힐스검증팀</td>
-												<td class = "chartHeader">제어로직검증팀</td>
-												<td class = "chartHeader">기능안전검증팀</td>
-												<td class = "chartHeader">자율주행검증팀</td>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "chartHeader"><%=teamList.get(key) %></td>
+												<%}} %>
 											</tr>
 									</table>
 							      	<table class = "memchart" style="margin-left: auto; margin-right: auto; border-spacing : 20px 0px; border-collapse:unset;">
 										<thead style="visibility : collapse;">
 											<tr id = "vt2">
-												<th class = "chartHeader">샤시힐스검증팀</th>
-												<th class = "chartHeader">바디힐스검증팀</th>
-												<th class = "chartHeader">제어로직검증팀</th>
-												<th class = "chartHeader">기능안전검증팀</th>
-												<th class = "chartHeader">자율주행검증팀</th>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<th class = "chartHeader"><%=teamList.get(key) %></th>
+												<%}} %>
 											</tr>
 										</thead>
 										<tbody style="background-color:#F2F2F2;">
 											<tr id = "vt3">
-												<td class = "chasis" style="border:0.1px #393A60 solid; border-bottom: 0px;">
-													<div class="teamM"></div>
-												</td>
-												<td class = "body" style="border:0.1px #393A60 solid; border-bottom: 0px;">
-													<div class="teamM"></div>
-												</td>
-												<td class = "control" style="border:0.1px #393A60 solid; border-bottom: 0px;">
-													<div class="teamM"></div>
-												</td>
-												<td class = "safe" style="border:0.1px #393A60 solid; border-bottom: 0px;">
-													<div class="teamM"></div>
-												</td>
-												<td class = "auto" style="border:0.1px #393A60 solid; border-bottom: 0px;">
-													<div class="teamM"></div>
-												</td>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "<%=key %>" style="border:0.1px #393A60 solid; border-bottom: 0px;">
+														<div class="teamM"></div>
+													</td>
+												<%}} %>
 											</tr>
 											<tr id = "vt4">
-												<td class = "chasis" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv2"></div>
-												</td>
-												<td class = "body" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv2"></div>
-												</td>
-												<td class = "control" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv2"></div>
-												</td>
-												<td class = "safe" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv2"></div>
-												</td>
-												<td class = "auto" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv2"></div>
-												</td>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "<%=key %>" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
+														<div class = "lv2"></div>
+													</td>
+												<%}} %>
 											</tr>
 											<tr id = "vt5">
-												<td class = "chasis" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv3"></div>
-												</td>
-												<td class = "body" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv3"></div>
-												</td>
-												<td class = "control" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv3"></div>
-												</td>
-												<td class = "safe" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv3"></div>
-												</td>
-												<td class = "auto" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
-													<div class = "lv3"></div>
-												</td>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "<%=key %>" style="border:0.1px #393A60 solid; border-bottom: 0px; border-top:0px;">
+														<div class = "lv3"></div>
+													</td>
+												<%}} %>
 											</tr>
 											<tr id = "vt6">
-												<td class = "chasis" style="border:0.1px #393A60 solid;border-top:0px;">
-													<div class = "lv4"></div>
-												</td>
-												<td class = "body" style="border:0.1px #393A60 solid;border-top:0px;">
-													<div class = "lv4"></div>
-												</td>
-												<td class = "control" style="border:0.1px #393A60 solid; border-top:0px;">
-													<div class = "lv4"></div>
-												</td>
-												<td class = "safe" style="border:0.1px #393A60 solid;  border-top:0px;">
-													<div class = "lv4"></div>
-												</td>
-												<td class = "auto" style="border:0.1px #393A60 solid; border-top:0px;">
-													<div class = "lv4"></div>
-												</td>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "<%=key %>" style="border:0.1px #393A60 solid;border-top:0px;">
+														<div class = "lv4"></div>
+													</td>
+												<%}} %>
 											</tr>
 											<tr id="coopTR" style="visibility : collapse;">
-												<td class = "chasis" style="border:0.1px #393A60 solid; border-top:0px;">
-													<div class = "coop"></div>
-												</td>
-												<td class = "body" style="border:0.1px #393A60 solid;border-top:0px;">
-													<div class = "coop" ></div>
-												</td>
-												<td class = "control" style="border:0.1px #393A60 solid; border-top:0px;">
-													<div class = "coop"></div>
-												</td>
-												<td class = "safe" style="border:0.1px #393A60 solid;border-top:0px;">
-													<div class = "coop"></div>
-												</td>
-												<td class = "auto" style="border:0.1px #393A60 solid; border-top:0px;">
-													<div class = "coop"></div>
-												</td>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "<%=key %>" style="border:0.1px #393A60 solid; border-top:0px;">
+														<div class = "coop"></div>
+													</td>
+												<%}} %>
 											</tr>
 										</tbody>
 										<tfoot style="visibility : collapse;">
 											<tr id = "vt7">
-												<th class = "chartHeader">명</th>
-												<th class = "chartHeader">명</th>
-												<th class = "chartHeader">명</th>
-												<th class = "chartHeader">명</th>
-												<th class = "chartHeader">명</th>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<th class = "chartHeader">명</th>
+												<%}} %>
 											</tr>
 										</tfoot>
 									</table>
@@ -745,19 +622,17 @@
 									<table class="memchart" style="margin-left: auto; margin-right: auto; margin-top:15px; border-spacing : 20px 0; border-collapse:unset;">
 										<thead style="visibility : collapse;">
 											<tr id = "vt8">
-												<th class = "chartHeader">샤시힐스검증팀</th>
-												<th class = "chartHeader">바디힐스검증팀</th>
-												<th class = "chartHeader">제어로직검증팀</th>
-												<th class = "chartHeader">기능안전검증팀</th>
-												<th class = "chartHeader">자율주행검증팀</th>
+												<%for(int key : teamList.keySet()){ 
+													if(key != 0){%>
+													<td class = "chartHeader"><%=teamList.get(key) %></td>
+												<%}} %>
 											</tr>
 										</thead>
 										<tr id = "totalP">
-											<td class = "chartHeader" id="chasisnum"></td>
-											<td class = "chartHeader" id="bodynum"></td>
-											<td class = "chartHeader" id="controlnum"></td>
-											<td class = "chartHeader" id="safenum"></td>
-											<td class = "chartHeader" id="autonum"></td>
+											<%for(int key : teamList.keySet()){ 
+												if(key != 0){%>
+												<td class = "chartHeader" id="<%=key %>num"></td>
+											<%}} %>
 										</tr>
 									</table>
 								</div>
