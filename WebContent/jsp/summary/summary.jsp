@@ -10,6 +10,8 @@
     import = "java.util.Date"
     import = "java.text.SimpleDateFormat"
     import = "java.util.HashMap"  
+    import = "java.util.LinkedHashMap"  
+    import = "java.util.LinkedList"
   %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,18 +33,19 @@
 	session.setMaxInactiveInterval(60*60);
 	
 	MemberDAO memberDao = new MemberDAO();
-    ArrayList<MemberBean> memberList = memberDao.getMemberData();
-    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation(); //협력업체
-    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();
+    ArrayList<MemberBean> memberList = memberDao.getMemberData();	// 실 인원 정보
+    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	
 	SummaryDAO summaryDao = new SummaryDAO();
-	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();
-	HashMap<String, Integer> RankCompe = summaryDao.getRank();
+	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();	// 이번년도 실적보고 프로젝트 리스트
+	HashMap<String, Integer> RankCompe = summaryDao.getRank();	// 직급별 기준
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
-	ArrayList<TeamBean> teamList = summaryDao.getTagetData();
+	LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData();
 	StateOfProBean ST = new StateOfProBean();
 	StateOfProBean ST2 = new StateOfProBean();
+	
+	StringBuffer total_goal_str = null;
 	
 	// 프로젝트 현황
 	int totalY2=0;
@@ -53,406 +56,223 @@
 	int totalY7=0;
 	int totalY8=0;
 	
-	// 상반기 예상 수주
-	float FH_chassis_ORDER = 0; 
-	float FH_body_ORDER = 0;
-	float FH_control_ORDER = 0; 
-	float FH_safe_ORDER = 0;
-	float FH_auto_ORDER = 0;
-	float FH_vt_ORDER = 0;
-	float FH_total_ORDER = 0;
-	
-	// 하반기 예상 수주
-	float SH_chassis_ORDER = 0; 
-	float SH_body_ORDER = 0;
-	float SH_control_ORDER = 0; 
-	float SH_safe_ORDER = 0;
-	float SH_auto_ORDER = 0;
-	float SH_vt_ORDER = 0;
-	float SH_total_ORDER = 0;
-	
-	// 상반기 수주 달성
-	float FH_chassis_RPJ = 0;
-	float FH_body_RPJ = 0;
-	float FH_control_RPJ = 0;
-	float FH_safe_RPJ = 0;
-	float FH_auto_RPJ = 0;
-	float FH_vt_RPJ = 0;
-	float FH_total_RPJ = 0;
-	
-	// 하반기 수주 달성
-	float SH_chassis_RPJ = 0;
-	float SH_body_RPJ = 0;
-	float SH_control_RPJ = 0;
-	float SH_safe_RPJ = 0;
-	float SH_auto_RPJ = 0;
-	float SH_vt_RPJ = 0;
-	float SH_total_RPJ = 0;
-	
-	// 상반기 예상 매출
-	float FH_chassis_PJSALES = 0;
-	float FH_body_PJSALES = 0;
-	float FH_control_PJSALES = 0;
-	float FH_safe_PJSALES = 0;
-	float FH_auto_PJSALES = 0;
-	float FH_vt_PJSALES = 0;
-	float FH_total_PJSALES = 0;
-
-	// 하반기 예상 매출
-	float SH_chassis_PJSALES = 0;
-	float SH_body_PJSALES = 0;
-	float SH_control_PJSALES = 0;
-	float SH_safe_PJSALES = 0;
-	float SH_auto_PJSALES = 0;
-	float SH_vt_PJSALES = 0;
-	float SH_total_PJSALES = 0;
-	
-	// 상반기 매출 달성
-	float FH_chassis_RSALES = 0;
-	float FH_body_RSALES = 0;
-	float FH_control_RSALES = 0;
-	float FH_safe_RSALES = 0;
-	float FH_auto_RSALES = 0;
-	float FH_vt_RSALES = 0;
-	float FH_total_RSALES = 0;
-	
-	// 하반기 매출 달성
-	float SH_chassis_RSALES = 0;
-	float SH_body_RSALES = 0;
-	float SH_control_RSALES = 0;
-	float SH_safe_RSALES = 0;
-	float SH_auto_RSALES = 0;
-	float SH_vt_RSALES = 0;
-	float SH_total_RSALES = 0;
-	
-	// 수주 & 매출 관련 변수
-	for(int i=0; i<teamList.size(); i++){
-		teamNameList.add(i, teamList.get(i).getTeamName()); 		
+	/* ========목표======== */
+	// 목표수주
+	LinkedHashMap<String, Float> FH_goalOrder = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_goalOrder = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_goalOrder = new LinkedHashMap<String, Float>();
+	float FH_totalGoalOrder = 0;
+	float SH_totalGoalOrder = 0;
+	float Y_totalGoalOrder = 0;
+	for(int key : teamList.keySet()){
+		//상반기
+		FH_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetOrder());
+		FH_totalGoalOrder += teamGoalList.get(teamList.get(key)).getFH_targetOrder();
+		//하반기
+		SH_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getSH_targetOrder());
+		SH_totalGoalOrder += teamGoalList.get(teamList.get(key)).getSH_targetOrder();
+		//연간
+		Y_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetOrder() + teamGoalList.get(teamList.get(key)).getSH_targetOrder());
+		Y_totalGoalOrder += teamGoalList.get(teamList.get(key)).getFH_targetOrder() + teamGoalList.get(teamList.get(key)).getSH_targetOrder();
 	}
-	
-	int target = teamNameList.indexOf("샤시힐스검증팀");
-	int target1 = teamNameList.indexOf("바디힐스검증팀");
-	int target2 = teamNameList.indexOf("제어로직검증팀");
-	int target3 = teamNameList.indexOf("기능안전검증팀");
-	int target4 = teamNameList.indexOf("자율주행검증팀");
-	int target5 = teamNameList.indexOf("미래차검증전략실");
+	// 목표매출
+	LinkedHashMap<String, Float> FH_goalSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_goalSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_goalSale = new LinkedHashMap<String, Float>();
+	float FH_totalGoalSale = 0;
+	float SH_totalGoalSale = 0;
+	float Y_totalGoalSale = 0;
+	for(int key : teamList.keySet()){
+		//상반기
+		FH_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetSales());
+		FH_totalGoalSale += teamGoalList.get(teamList.get(key)).getFH_targetSales();
+		//하반기
+		SH_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getSH_targetSales());
+		SH_totalGoalSale += teamGoalList.get(teamList.get(key)).getSH_targetSales();
+		//연간
+		Y_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetSales() + teamGoalList.get(teamList.get(key)).getSH_targetSales());
+		Y_totalGoalSale += teamGoalList.get(teamList.get(key)).getFH_targetSales() + teamGoalList.get(teamList.get(key)).getSH_targetSales();
+	}
 
 	
-	// 상반기 목표 수주,매출
-	float FH_chassis_PJ = teamList.get(target).getFH_targetOrder();
-	float FH_body_PJ = teamList.get(target1).getFH_targetOrder();
-	float FH_control_PJ = teamList.get(target2).getFH_targetOrder();
-	float FH_safe_PJ = teamList.get(target3).getFH_targetOrder();
-	float FH_auto_PJ = teamList.get(target4).getFH_targetOrder();
-	float FH_vt_PJ = teamList.get(target5).getFH_targetOrder();
-	float FH_total_PJ = FH_chassis_PJ + FH_body_PJ + FH_control_PJ + FH_safe_PJ + FH_auto_PJ + FH_vt_PJ;
+	// 예상수주
+	LinkedHashMap<String, Float> FH_preOrder = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_preOrder = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_preOrder = new LinkedHashMap<String, Float>();
+	float FH_totalpreOrder = 0;
+	float SH_totalpreOrder = 0;
+	float Y_totalpreOrder = 0;
 	
-	float FH_chassis_SALES = teamList.get(target).getFH_targetSales();
-	float FH_body_SALES = teamList.get(target1).getFH_targetSales();
-	float FH_control_SALES = teamList.get(target2).getFH_targetSales();
-	float FH_safe_SALES = teamList.get(target3).getFH_targetSales();
-	float FH_auto_SALES = teamList.get(target4).getFH_targetSales();
-	float FH_vt_SALES = teamList.get(target5).getFH_targetSales();
-	float FH_total_SALES = FH_chassis_SALES + FH_body_SALES + FH_control_SALES + FH_safe_SALES + FH_auto_SALES + FH_vt_SALES;
+	// 수주달성
+	LinkedHashMap<String, Float> FH_achOrder = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_achOrder = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_achOrder = new LinkedHashMap<String, Float>();
+	float FH_totalachOrder = 0;
+	float SH_totalachOrder = 0;
+	float Y_totalachOrder = 0;
 	
+	// 예상매출
+	LinkedHashMap<String, Float> FH_preSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_preSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_preSale = new LinkedHashMap<String, Float>();
+	float FH_totalpreSale = 0;
+	float SH_totalpreSale = 0;
+	float Y_totalpreSale = 0;
+	
+	// 매출달성
+	LinkedHashMap<String, Float> FH_achSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_achSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_achSale = new LinkedHashMap<String, Float>();
+	float FH_totalachSale = 0;
+	float SH_totalachSale = 0;
+	float Y_totalachSale = 0;
+	
+	// 매출보정
+	LinkedHashMap<String, Float> FH_corrSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> SH_corrSale = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> Y_corrSale = new LinkedHashMap<String, Float>();
+	
+	for(int key : teamList.keySet()){
+		FH_preOrder.put(teamList.get(key), new Float(0));
+		SH_preOrder.put(teamList.get(key), new Float(0));
+		Y_preOrder.put(teamList.get(key), new Float(0));
+		FH_achOrder.put(teamList.get(key), new Float(0));
+		SH_achOrder.put(teamList.get(key), new Float(0));
+		Y_achOrder.put(teamList.get(key), new Float(0));
+		FH_preSale.put(teamList.get(key), new Float(0));
+		SH_preSale.put(teamList.get(key), new Float(0));
+		Y_preSale.put(teamList.get(key), new Float(0));
+		FH_achSale.put(teamList.get(key), new Float(0));
+		SH_achSale.put(teamList.get(key), new Float(0));
+		Y_achSale.put(teamList.get(key), new Float(0));
+		FH_corrSale.put(teamList.get(key), new Float(0));
+		SH_corrSale.put(teamList.get(key), new Float(0));
+		Y_corrSale.put(teamList.get(key), new Float(0));
+		
+		for(int i = 0; i < pjList.size(); i++){
+			if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
+				/* ========예상수주======== */
+				//상반기
+				FH_preOrder.put(teamList.get(key), FH_preOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER_PROJECTIONS());
+				FH_totalpreOrder += pjList.get(i).getFH_ORDER_PROJECTIONS();
+				//하반기
+				SH_preOrder.put(teamList.get(key), SH_preOrder.get(teamList.get(key)) + pjList.get(i).getSH_ORDER_PROJECTIONS());
+				SH_totalpreOrder += pjList.get(i).getSH_ORDER_PROJECTIONS();
+				//연간
+				Y_preOrder.put(teamList.get(key), Y_preOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS());
+				Y_totalpreOrder += pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS();
 
-	// 하반기 목표수주,매출
-	float SH_chassis_PJ = teamList.get(target).getSH_targetOrder();
-	float SH_body_PJ = teamList.get(target1).getSH_targetOrder();
-	float SH_control_PJ = teamList.get(target2).getSH_targetOrder();
-	float SH_safe_PJ = teamList.get(target3).getSH_targetOrder();
-	float SH_auto_PJ = teamList.get(target4).getSH_targetOrder();
-	float SH_vt_PJ = teamList.get(target5).getSH_targetOrder();
-	float SH_total_PJ = SH_chassis_PJ + SH_body_PJ + SH_control_PJ + SH_safe_PJ + SH_auto_PJ + SH_vt_PJ;
-	
-	float SH_chassis_SALES = teamList.get(target).getSH_targetSales();
-	float SH_body_SALES = teamList.get(target1).getSH_targetSales();
-	float SH_control_SALES = teamList.get(target2).getSH_targetSales();
-	float SH_safe_SALES = teamList.get(target3).getSH_targetSales();
-	float SH_auto_SALES = teamList.get(target4).getSH_targetSales();
-	float SH_vt_SALES = teamList.get(target5).getSH_targetSales();
-	float SH_total_SALES = SH_chassis_SALES + SH_body_SALES + SH_control_SALES + SH_safe_SALES + SH_auto_SALES + SH_vt_SALES;
-	
-	// 연간
-	float Y_chassis_PJ = FH_chassis_PJ + SH_chassis_PJ;
-	float Y_body_PJ = FH_body_PJ + SH_body_PJ;
-	float Y_control_PJ = FH_control_PJ + SH_control_PJ;
-	float Y_safe_PJ = FH_safe_PJ + SH_safe_PJ;
-	float Y_auto_PJ = FH_auto_PJ + SH_auto_PJ;
-	float Y_vt_PJ = FH_vt_PJ + SH_vt_PJ;
-	float Y_total_pj = FH_total_PJ + SH_total_PJ;
-	
-	float Y_chassis_SALES = FH_chassis_SALES + SH_chassis_SALES;
-	float Y_body_SALES = FH_body_SALES + SH_body_SALES;
-	float Y_control_SALES = FH_control_SALES + SH_control_SALES;
-	float Y_safe_SALES = FH_safe_SALES + SH_safe_SALES;
-	float Y_auto_SALES = FH_auto_SALES + SH_auto_SALES;
-	float Y_vt_SALES = FH_vt_SALES + SH_vt_SALES;
-	float Y_total_SALES = FH_total_SALES + SH_total_SALES;
+				/* ========수주달성======== */
+				//상반기
+				FH_achOrder.put(teamList.get(key), FH_achOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER());
+				FH_totalachOrder += pjList.get(i).getFH_ORDER();
+				//하반기
+				SH_achOrder.put(teamList.get(key), SH_achOrder.get(teamList.get(key)) + pjList.get(i).getSH_ORDER());
+				SH_totalachOrder += pjList.get(i).getSH_ORDER();
+				//연간
+				Y_achOrder.put(teamList.get(key), Y_achOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER());
+				Y_totalachOrder += pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER();
+			}
+			if(pjList.get(i).getTEAM_SALES().equals(teamList.get(key))){
+				/* ========예상매출======== */
+				//상반기
+				FH_preSale.put(teamList.get(key), FH_preSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES_PROJECTIONS());
+				FH_totalpreSale += pjList.get(i).getFH_SALES_PROJECTIONS();
+				//하반기
+				SH_preSale.put(teamList.get(key), SH_preSale.get(teamList.get(key)) + pjList.get(i).getSH_SALES_PROJECTIONS());
+				SH_totalpreSale += pjList.get(i).getSH_SALES_PROJECTIONS();
+				//연간
+				Y_preSale.put(teamList.get(key), Y_preSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS());
+				Y_totalpreSale += pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS();
 
-	
-	for(int i=0; i<pjList.size(); i++){
-		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
-			FH_chassis_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_chassis_RPJ += pjList.get(i).getFH_ORDER();
-			SH_chassis_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_chassis_RPJ += pjList.get(i).getSH_ORDER();
-		} else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
-			FH_body_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_body_RPJ += pjList.get(i).getFH_ORDER();
-			SH_body_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_body_RPJ += pjList.get(i).getSH_ORDER();
-			
-		} else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
-			FH_control_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_control_RPJ += pjList.get(i).getFH_ORDER();
-			SH_control_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_control_RPJ += pjList.get(i).getSH_ORDER();
-			
-		} else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
-			FH_safe_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_safe_RPJ += pjList.get(i).getFH_ORDER();
-			SH_safe_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_safe_RPJ += pjList.get(i).getSH_ORDER();	
-		} else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
-			FH_auto_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_auto_RPJ += pjList.get(i).getFH_ORDER();
-			SH_auto_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_auto_RPJ += pjList.get(i).getSH_ORDER();
-			
-		} else if(pjList.get(i).getTEAM_SALES().equals("미래차검증전략실")){
-			FH_vt_ORDER += pjList.get(i).getFH_ORDER_PROJECTIONS();
-			FH_vt_RPJ += pjList.get(i).getFH_ORDER();
-			SH_vt_ORDER += pjList.get(i).getSH_ORDER_PROJECTIONS();
-			SH_vt_RPJ += pjList.get(i).getSH_ORDER();
+				/* ========매출달성======== */
+				//상반기
+				FH_achSale.put(teamList.get(key), FH_achSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES());
+				FH_totalachSale += pjList.get(i).getFH_SALES();
+				//하반기
+				SH_achSale.put(teamList.get(key), SH_achSale.get(teamList.get(key)) + pjList.get(i).getSH_SALES());
+				SH_totalachSale += pjList.get(i).getSH_SALES();
+				//연간
+				Y_achSale.put(teamList.get(key), Y_achSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES());
+				Y_totalachSale += pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES();
+			}
 		}
 	}
-	for(int i=0; i<pjList.size(); i++){
-		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
-			FH_chassis_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_chassis_RSALES += pjList.get(i).getFH_SALES();
-			SH_chassis_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_chassis_RSALES += pjList.get(i).getSH_SALES();
-			
-		} else if(pjList.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
-			FH_body_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_body_RSALES += pjList.get(i).getFH_SALES();
-			SH_body_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_body_RSALES += pjList.get(i).getSH_SALES();
-		} else if(pjList.get(i).getTEAM_SALES().equals("제어로직검증팀")){
-			FH_control_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_control_RSALES += pjList.get(i).getFH_SALES();
-			SH_control_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_control_RSALES += pjList.get(i).getSH_SALES();
-			
-		} else if(pjList.get(i).getTEAM_SALES().equals("기능안전검증팀")){
-			FH_safe_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_safe_RSALES += pjList.get(i).getFH_SALES();
-			SH_safe_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_safe_RSALES += pjList.get(i).getSH_SALES();
-		} else if(pjList.get(i).getTEAM_SALES().equals("자율주행검증팀")){
-			FH_auto_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_auto_RSALES += pjList.get(i).getFH_SALES();
-			SH_auto_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_auto_RSALES += pjList.get(i).getSH_SALES();
-			
-		} else if(pjList.get(i).getTEAM_SALES().equals("미래차검증전략실")){
-			FH_vt_PJSALES += pjList.get(i).getFH_SALES_PROJECTIONS();
-			FH_vt_RSALES += pjList.get(i).getFH_SALES();
-			SH_vt_PJSALES += pjList.get(i).getSH_SALES_PROJECTIONS();
-			SH_vt_RSALES += pjList.get(i).getSH_SALES();
-		}
-	}
-	
-
-	FH_total_ORDER = FH_chassis_ORDER + FH_body_ORDER + FH_control_ORDER + FH_safe_ORDER + FH_auto_ORDER + FH_vt_ORDER;
-	SH_total_ORDER = SH_chassis_ORDER + SH_body_ORDER + SH_control_ORDER + SH_safe_ORDER + SH_auto_ORDER + SH_vt_ORDER;
-	FH_total_RPJ = FH_chassis_RPJ + FH_body_RPJ + FH_control_RPJ + FH_safe_RPJ + FH_auto_RPJ + FH_vt_RPJ;
-	SH_total_RPJ = SH_chassis_RPJ + SH_body_RPJ + SH_control_RPJ + SH_safe_RPJ + SH_auto_RPJ + SH_vt_RPJ;
-	FH_total_PJSALES = FH_chassis_PJSALES + FH_body_PJSALES + FH_control_PJSALES + FH_safe_PJSALES + FH_auto_PJSALES + FH_vt_PJSALES;
-	SH_total_PJSALES = SH_chassis_PJSALES + SH_body_PJSALES + SH_control_PJSALES + SH_safe_PJSALES + SH_auto_PJSALES + SH_vt_PJSALES;
-	FH_total_RSALES = FH_chassis_RSALES + FH_body_RSALES + FH_control_RSALES + FH_safe_RSALES + FH_auto_RSALES + FH_vt_RSALES;
-	SH_total_RSALES = SH_chassis_RSALES + SH_body_RSALES + SH_control_RSALES + SH_safe_RSALES + SH_auto_RSALES + SH_vt_RSALES;
-	
-	//연간 예상 수주
-	float Y_chassis_ORDER = FH_chassis_ORDER + SH_chassis_ORDER;
-	float Y_body_ORDER = FH_body_ORDER + SH_body_ORDER;
-	float Y_control_ORDER = FH_control_ORDER + SH_control_ORDER;
-	float Y_safe_ORDER = FH_safe_ORDER + SH_safe_ORDER;
-	float Y_auto_ORDER = FH_auto_ORDER + SH_auto_ORDER;
-	float Y_vt_ORDER = FH_vt_ORDER + SH_vt_ORDER;
-	float Y_total_ORDER = FH_total_ORDER + SH_total_ORDER;
-	
-	//연간 수주 달성
-	float Y_chassis_RPJ = FH_chassis_RPJ + SH_chassis_RPJ;
-	float Y_body_RPJ = FH_body_RPJ + SH_body_RPJ;
-	float Y_control_RPJ = FH_control_RPJ + SH_control_RPJ;
-	float Y_safe_RPJ = FH_safe_RPJ + SH_safe_RPJ;
-	float Y_auto_RPJ = FH_auto_RPJ + SH_auto_RPJ;
-	float Y_vt_RPJ = FH_vt_RPJ + SH_vt_RPJ;
-	float Y_total_RPJ = FH_total_RPJ + SH_total_RPJ;
-	
-	//연간 예상 매출
-	float Y_chassis_PJSALES = FH_chassis_PJSALES + SH_chassis_PJSALES;
-	float Y_body_PJSALES = FH_body_PJSALES + SH_body_PJSALES;
-	float Y_control_PJSALES = FH_control_PJSALES + SH_control_PJSALES;
-	float Y_safe_PJSALES = FH_safe_PJSALES + SH_safe_PJSALES;
-	float Y_auto_PJSALES = FH_auto_PJSALES + SH_auto_PJSALES;
-	float Y_vt_PJSALES = FH_vt_PJSALES + SH_vt_PJSALES;
-	float Y_total_PJSALES = FH_total_PJSALES + SH_total_PJSALES;
-	
-	//연간 매출 달성
-	float Y_chassis_RSALES = FH_chassis_RSALES + SH_chassis_RSALES;
-	float Y_body_RSALES = FH_body_RSALES + SH_body_RSALES;
-	float Y_control_RSALES = FH_control_RSALES + SH_control_RSALES;
-	float Y_safe_RSALES = FH_safe_RSALES + SH_safe_RSALES;
-	float Y_auto_RSALES = FH_auto_RSALES + SH_auto_RSALES;
-	float Y_vt_RSALES = FH_vt_RSALES + SH_vt_RSALES;
-	float Y_total_RSALES = FH_total_RSALES + SH_total_RSALES;
-	
 	
 	// 팀별 보정
-	ArrayList<CMSBean> CMS_minus_chassis = summaryDao.getCMS_minusList("샤시힐스검증팀");
-	ArrayList<CMSBean> CMS_minus_body = summaryDao.getCMS_minusList("바디힐스검증팀");
-	ArrayList<CMSBean> CMS_minus_control = summaryDao.getCMS_minusList("제어로직검증팀");
-	ArrayList<CMSBean> CMS_minus_safe = summaryDao.getCMS_minusList("기능안전검증팀");
-	ArrayList<CMSBean> CMS_minus_auto = summaryDao.getCMS_minusList("자율주행검증팀");
-	ArrayList<CMSBean> CMS_minus_vt = summaryDao.getCMS_minusList("미래차검증전략실");
-
-	ArrayList<CMSBean> CMS_plus_chassis = summaryDao.getCMS_plusList("샤시힐스검증팀");
-	ArrayList<CMSBean> CMS_plus_body = summaryDao.getCMS_plusList("바디힐스검증팀");
-	ArrayList<CMSBean> CMS_plus_control = summaryDao.getCMS_plusList("제어로직검증팀");
-	ArrayList<CMSBean> CMS_plus_safe = summaryDao.getCMS_plusList("기능안전검증팀");
-	ArrayList<CMSBean> CMS_plus_auto = summaryDao.getCMS_plusList("자율주행검증팀");
-	ArrayList<CMSBean> CMS_plus_vt = summaryDao.getCMS_plusList("미래차검증전략실");
-	
-// 팀별 보정값 변수 및 for문
-	// 샤시힐스
-	float fh_cms_plus_chassis = 0;
-	float sh_cms_plus_chassis = 0;
-	for(CMSBean cms : CMS_plus_chassis){
-		fh_cms_plus_chassis += cms.getFH_MM_CMS();
-		sh_cms_plus_chassis += cms.getSH_MM_CMS();
-	}
-	float fh_cms_minus_chassis = 0;
-	float sh_cms_minus_chassis = 0;
-	for(CMSBean cms : CMS_minus_chassis){
-		fh_cms_minus_chassis += cms.getFH_MM_CMS();
-		sh_cms_minus_chassis += cms.getSH_MM_CMS();
+	LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>> corrVal = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>>();
+	for(int key : teamList.keySet()){
+		LinkedHashMap<String, ArrayList<CMSBean>> val = new LinkedHashMap<String, ArrayList<CMSBean>>();
+		val.put("plus", summaryDao.getCMS_plusList(teamList.get(key)));
+		val.put("minus", summaryDao.getCMS_minusList(teamList.get(key)));
+		corrVal.put(teamList.get(key), val);
 	}
 	
-	// 바디힐스
-	float fh_cms_plus_body = 0;
-	float sh_cms_plus_body = 0;
-	for(CMSBean cms : CMS_plus_body){
-		fh_cms_plus_body += cms.getFH_MM_CMS();
-		sh_cms_plus_body += cms.getSH_MM_CMS();
-	}
-	float fh_cms_minus_body = 0;
-	float sh_cms_minus_body = 0;
-	for(CMSBean cms : CMS_minus_body){
-		fh_cms_minus_body += cms.getFH_MM_CMS();
-		sh_cms_minus_body += cms.getSH_MM_CMS();
-	}
-	
-	// 제어로직
-	float fh_cms_plus_control = 0;
-	float sh_cms_plus_control = 0;
-	for(CMSBean cms : CMS_plus_control){
-		fh_cms_plus_control += cms.getFH_MM_CMS();
-		sh_cms_plus_control += cms.getSH_MM_CMS();
-	}
-	float fh_cms_minus_control = 0;
-	float sh_cms_minus_control = 0;
-	for(CMSBean cms : CMS_minus_control){
-		fh_cms_minus_control += cms.getFH_MM_CMS();
-		sh_cms_minus_control += cms.getSH_MM_CMS();
-	}
-	
-	// 기능안전
-	float fh_cms_plus_safe = 0;
-	float sh_cms_plus_safe = 0;
-	for(CMSBean cms : CMS_plus_safe){
-		fh_cms_plus_safe += cms.getFH_MM_CMS();
-		sh_cms_plus_safe += cms.getSH_MM_CMS();
-	}
-	float fh_cms_minus_safe = 0;
-	float sh_cms_minus_safe = 0;
-	for(CMSBean cms : CMS_minus_safe){
-		fh_cms_minus_safe += cms.getFH_MM_CMS();
-		sh_cms_minus_safe += cms.getSH_MM_CMS();
+	// 팀별 보정값 변수 및 for문
+	LinkedHashMap<String, LinkedList<LinkedList<Float>>> corrRate = new LinkedHashMap<String, LinkedList<LinkedList<Float>>>();
+	for(String key : corrVal.keySet()){
+		LinkedList<LinkedList<Float>> list_all = new LinkedList<LinkedList<Float>>();
+		LinkedList<Float> list_fh = new LinkedList<Float>();
+		LinkedList<Float> list_sh = new LinkedList<Float>();
+		LinkedList<Float> list_y = new LinkedList<Float>();
+		
+		float fh_plus = 0;
+		float sh_plus = 0;
+		float y_plus = 0;
+		float fh_minus = 0;
+		float sh_minus = 0;
+		float y_minus = 0;
+		
+		for(CMSBean cms : corrVal.get(key).get("plus")){
+			fh_plus += cms.getFH_MM_CMS();
+			sh_plus += cms.getSH_MM_CMS();
+			y_plus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+		}
+		for(CMSBean cms : corrVal.get(key).get("minus")){
+			fh_minus += cms.getFH_MM_CMS();
+			sh_minus += cms.getSH_MM_CMS();
+			y_minus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+		}
+		
+		list_fh.add(fh_plus);
+		list_fh.add(fh_minus);
+		list_sh.add(sh_plus);
+		list_sh.add(sh_minus);
+		list_y.add(y_plus);
+		list_y.add(y_minus);
+		
+		list_all.add(list_fh);
+		list_all.add(list_sh);
+		list_all.add(list_y);
+		
+		corrRate.put(key, list_all);
 	}
 	
-	// 자율주행
-	float fh_cms_plus_auto = 0;
-	float sh_cms_plus_auto = 0;
-	for(CMSBean cms : CMS_plus_auto){
-		fh_cms_plus_auto += cms.getFH_MM_CMS();
-		sh_cms_plus_auto += cms.getSH_MM_CMS();
+	// 매출 보정 결과값
+	LinkedList<LinkedHashMap<String, Float>> cmsRate = new LinkedList<LinkedHashMap<String, Float>>();
+	LinkedHashMap<String, Float> RateMap_fh = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> RateMap_sh = new LinkedHashMap<String, Float>();
+	LinkedHashMap<String, Float> RateMap_y = new LinkedHashMap<String, Float>();
+	float totalCmsFh = 0;
+	float totalCmsSh = 0;
+	float totalCmsY = 0;
+	for(String key : corrRate.keySet()){
+		float fh_cms_chassis = FH_achSale.get(key) - corrRate.get(key).get(0).get(1) + corrRate.get(key).get(0).get(0);
+	    float sh_cms_chassis = SH_achSale.get(key) - corrRate.get(key).get(1).get(1) + corrRate.get(key).get(1).get(0);
+	    float y_cms_chassis = Y_achSale.get(key) - corrRate.get(key).get(2).get(1) + corrRate.get(key).get(2).get(0);
+	    RateMap_fh.put(key, fh_cms_chassis);
+		RateMap_sh.put(key, sh_cms_chassis);
+		RateMap_y.put(key, y_cms_chassis);
+		totalCmsFh += fh_cms_chassis;
+		totalCmsSh += sh_cms_chassis;
+		totalCmsY += y_cms_chassis;
 	}
-	float fh_cms_minus_auto = 0;
-	float sh_cms_minus_auto = 0;
-	for(CMSBean cms : CMS_minus_auto){
-		fh_cms_minus_auto += cms.getFH_MM_CMS();
-		sh_cms_minus_auto += cms.getSH_MM_CMS();
-	}
-	
-	// 실
-	float fh_cms_plus_vt = 0;
-	float sh_cms_plus_vt = 0;
-	for(CMSBean cms : CMS_plus_vt){
-		fh_cms_plus_vt += cms.getFH_MM_CMS();
-		sh_cms_plus_vt += cms.getSH_MM_CMS();
-	}
-	float fh_cms_minus_vt = 0;
-	float sh_cms_minus_vt = 0;
-	for(CMSBean cms : CMS_minus_vt){
-		fh_cms_minus_vt += cms.getFH_MM_CMS();
-		sh_cms_minus_vt += cms.getSH_MM_CMS();
-	}
-	
-	// 연간
-	float y_cms_plus_chassis = fh_cms_plus_chassis + sh_cms_plus_chassis;
-	float y_cms_plus_body = fh_cms_plus_body + sh_cms_plus_body;
-	float y_cms_plus_control = fh_cms_plus_control + sh_cms_plus_control;
-	float y_cms_plus_safe = fh_cms_plus_safe + sh_cms_plus_safe;
-	float y_cms_plus_auto = fh_cms_plus_auto + sh_cms_plus_auto;
-	float y_cms_plus_vt = fh_cms_plus_vt + sh_cms_plus_vt;
-	float y_cms_minus_chassis = fh_cms_minus_chassis + sh_cms_minus_chassis;
-	float y_cms_minus_body = fh_cms_minus_body + sh_cms_minus_body;
-	float y_cms_minus_control = fh_cms_minus_control + sh_cms_minus_control;
-	float y_cms_minus_safe = fh_cms_minus_safe + sh_cms_minus_safe;
-	float y_cms_minus_auto = fh_cms_minus_auto + sh_cms_minus_auto;
-	float y_cms_minus_vt = fh_cms_minus_vt + sh_cms_minus_vt;
-	
-	// 매출보정값
-	float fh_cms_chassis = FH_chassis_RSALES - fh_cms_minus_chassis + fh_cms_plus_chassis;
-	float sh_cms_chassis = SH_chassis_RSALES - sh_cms_minus_chassis + sh_cms_plus_chassis;
-	float y_cms_chassis = Y_chassis_RSALES - y_cms_minus_chassis + y_cms_plus_chassis;
-	
-	float fh_cms_body = FH_body_RSALES - fh_cms_minus_body + fh_cms_plus_body;
-	float sh_cms_body = SH_body_RSALES - sh_cms_minus_body + sh_cms_plus_body;
-	float y_cms_body = Y_body_RSALES - y_cms_minus_body + y_cms_plus_body;
-	
-	float fh_cms_control = FH_control_RSALES - fh_cms_minus_control + fh_cms_plus_control;
-	float sh_cms_control = SH_control_RSALES - sh_cms_minus_control + sh_cms_plus_control;
-	float y_cms_control = Y_control_RSALES - y_cms_minus_control + y_cms_plus_control;
-	
-	float fh_cms_safe = FH_safe_RSALES - fh_cms_minus_safe + fh_cms_plus_safe;
-	float sh_cms_safe = SH_safe_RSALES - sh_cms_minus_safe + sh_cms_plus_safe;
-	float y_cms_safe = Y_safe_RSALES - y_cms_minus_safe + y_cms_plus_safe;
-	
-	float fh_cms_auto = FH_auto_RSALES - fh_cms_minus_auto + fh_cms_plus_auto;
-	float sh_cms_auto = SH_auto_RSALES - sh_cms_minus_auto + sh_cms_plus_auto;
-	float y_cms_auto = Y_auto_RSALES - y_cms_minus_auto + y_cms_plus_auto;
-	
-	float fh_cms_vt = FH_vt_RSALES - fh_cms_minus_vt + fh_cms_plus_vt;
-	float sh_cms_vt = SH_vt_RSALES - sh_cms_minus_vt + sh_cms_plus_vt;
-	float y_cms_vt = Y_vt_RSALES - y_cms_minus_vt + y_cms_plus_vt;
-	
-	float fh_cms_total = fh_cms_chassis + fh_cms_body + fh_cms_control + fh_cms_safe + fh_cms_auto + fh_cms_vt;
-	float sh_cms_total = sh_cms_chassis + sh_cms_body + sh_cms_control + sh_cms_safe + sh_cms_auto + sh_cms_vt;
-	float y_cms_total = y_cms_chassis + y_cms_body + y_cms_control + y_cms_safe + y_cms_auto + y_cms_vt;
+	RateMap_fh.put("Total", totalCmsFh);
+	RateMap_sh.put("Total", totalCmsSh);
+	RateMap_y.put("Total", totalCmsY);
+	cmsRate.add(RateMap_fh);
+	cmsRate.add(RateMap_sh);
+	cmsRate.add(RateMap_y);
 %>
 
 <meta charset="utf-8">
@@ -717,82 +537,36 @@ google.charts.setOnLoadCallback(sh_sales);
 google.charts.setOnLoadCallback(y_order);
 google.charts.setOnLoadCallback(y_sales);
 
-
+// 상반기 수주 차트 그리기
 function fh_order() {
-	  <%
-  	  StringBuffer FH_chassis_project_pj = new StringBuffer();
-		  StringBuffer FH_body_project_pj = new StringBuffer();
-		  StringBuffer FH_control_project_pj = new StringBuffer();
-		  StringBuffer FH_safe_project_pj = new StringBuffer();
-		  StringBuffer FH_auto_project_pj = new StringBuffer();
-		  
-		  FH_chassis_project_pj.append("<table class=tootipTable>");
-		  FH_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-		  
-		  FH_body_project_pj.append("<table class=tootipTable>");
-		  FH_body_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-		  
-		  FH_control_project_pj.append("<table class=tootipTable>");
-		  FH_control_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-		  
-		  FH_safe_project_pj.append("<table class=tootipTable>");
-		  FH_safe_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-		  
-		  FH_auto_project_pj.append("<table class=tootipTable>");
-		  FH_auto_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-		  
-		  for(int i=0; i<pjList.size(); i++){
-		  		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
-		  			FH_chassis_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
-		  			FH_body_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
-		  			FH_control_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
-		  			FH_safe_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
-		  			FH_auto_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
-		  		}
-		  	}
-		  
-		  FH_chassis_project_pj.append("<tr><td>total</td><td>"+FH_chassis_ORDER+"</td><td>"+FH_chassis_RPJ+"</td></tr>");
-		  FH_chassis_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_chassis_PJ+" (백만)</td></tr>");
-		  FH_chassis_project_pj.append("</table>");
-		  
-		  FH_body_project_pj.append("<tr><td>total</td><td>"+FH_body_ORDER+"</td><td>"+FH_body_RPJ+"</td></tr>");
-		  FH_body_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_body_PJ+" (백만)</td></tr>");
-		  FH_body_project_pj.append("</table>");
-		  
-		  FH_control_project_pj.append("<tr><td>total</td><td>"+FH_control_ORDER+"</td><td>"+FH_control_RPJ+"</td></tr>");
-		  FH_control_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_control_PJ+" (백만)</td></tr>");
-		  FH_control_project_pj.append("</table>");
-		  
-		  FH_safe_project_pj.append("<tr><td>total</td><td>"+FH_safe_ORDER+"</td><td>"+FH_safe_RPJ+"</td></tr>");
-		  FH_safe_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_safe_PJ+" (백만)</td></tr>");
-		  FH_safe_project_pj.append("</table>");
-		  
-		  FH_auto_project_pj.append("<tr><td>total</td><td>"+FH_auto_ORDER+"</td><td>"+FH_auto_RPJ+"</td></tr>");
-		  FH_auto_project_pj.append("<tr><td colspan=3>목표수주 : "+FH_auto_PJ+" (백만)</td></tr>");
-		  FH_auto_project_pj.append("</table>");
+	 <%
+	 	HashMap<Integer, StringBuffer> table_fh_order = new HashMap<Integer, StringBuffer>();
+	 	total_goal_str = new StringBuffer();
+	 	total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>");
+	 	for(int key : teamList.keySet()){
+	 		StringBuffer element = new StringBuffer();
+	 		element.append("<table class=tootipTable>");
+		element.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+		
+		for(int i=0; i<pjList.size(); i++){
+	  		if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
+	  			element.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+	  				+pjList.get(i).getFH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_ORDER()+"</td></tr>");
+	  		}
+		}
+		
+		element.append("<tr><td>total</td><td>"+FH_preOrder.get(teamList.get(key))+"</td><td>"+FH_achOrder.get(teamList.get(key))+"</td></tr>");
+		element.append("<tr><td colspan=3>목표수주 : "+FH_goalOrder.get(teamList.get(key))+" (백만)</td></tr>");
+		element.append("</table>");
+		
+		table_fh_order.put(key, element);
+		if(key != 0){
+			total_goal_str.append("<tr><td>" + teamList.get(key).substring(0, 4) + "</td><td>" + FH_goalOrder.get(teamList.get(key))
+						+ "</td><td>" + FH_preOrder.get(teamList.get(key)) + "</td><td>" + FH_achOrder.get(teamList.get(key)) + "</td></tr>");
+		}
+	 	}
+	 	total_goal_str.append("</table>");
 	 %>
-
-	  // 목표
-	  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>';
-	  		total_str += '<tr><td>샤시힐스</td><td>'+<%=FH_chassis_PJ%>+'</td><td>'+<%=FH_chassis_ORDER%>+'</td><td>'+<%=FH_chassis_RPJ%>+'</td></tr>';
-	  		total_str += '<tr><td>바디힐스</td><td>'+<%=FH_body_PJ%>+'</td><td>'+<%=FH_body_ORDER%>+'</td><td>'+<%=FH_body_RPJ%>+'</td></tr>';
-	  		total_str += '<tr><td>제어로직</td><td>'+<%=FH_control_PJ%>+'</td><td>'+<%=FH_control_ORDER%>+'</td><td>'+<%=FH_control_RPJ%>+'</td></tr>';
-	  		total_str += '<tr><td>기능안전</td><td>'+<%=FH_safe_PJ%>+'</td><td>'+<%=FH_safe_ORDER%>+'</td><td>'+<%=FH_safe_RPJ%>+'</td></tr>';
-	  		total_str += '<tr><td>자율주행</td><td>'+<%=FH_auto_PJ%>+'</td><td>'+<%=FH_auto_ORDER%>+'</td><td>'+<%=FH_auto_RPJ%>+'</td></tr>';
-	  		total_str += '<tr><td>total</td><td>'+<%=FH_total_PJ%>+'</td><td>'+<%=FH_total_ORDER%>+'</td><td>'+<%=FH_total_RPJ%>+'</td></tr></table>';
 	  		
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn('string', 'Team');
@@ -803,12 +577,11 @@ function fh_order() {
     dataTable.addColumn('number', '수주달성');
     dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addRows([
-  	  ['Total', <%=FH_total_PJ%>, total_str, <%=FH_total_ORDER%>, total_str, <%=FH_total_RPJ%>, total_str],
-        ['샤시힐스', <%=FH_chassis_PJ%>,'<%=FH_chassis_project_pj%>',<%=FH_chassis_ORDER%>,'<%=FH_chassis_project_pj%>', <%=FH_chassis_RPJ%>, '<%=FH_chassis_project_pj%>'],
-        ['바디힐스', <%=FH_body_PJ%>,'<%=FH_body_project_pj%>',<%=FH_body_ORDER%>,'<%=FH_body_project_pj%>', <%=FH_body_RPJ%>, '<%=FH_body_project_pj%>'],
-        ['제어로직', <%=FH_control_PJ%>,'<%=FH_control_project_pj%>',<%=FH_control_ORDER%>,'<%=FH_control_project_pj%>', <%=FH_control_RPJ%>, '<%=FH_control_project_pj%>'],
-        ['기능안전', <%=FH_safe_PJ%>,'<%=FH_safe_project_pj%>',<%=FH_safe_ORDER%>,'<%=FH_safe_project_pj%>', <%=FH_safe_RPJ%>, '<%=FH_safe_project_pj%>'],
-        ['자율주행', <%=FH_auto_PJ%>,'<%=FH_auto_project_pj%>',<%=FH_auto_ORDER%>,'<%=FH_auto_project_pj%>', <%=FH_auto_RPJ%>, '<%=FH_auto_project_pj%>']
+  	  	['Total', <%=FH_totalGoalOrder%>, '<%=total_goal_str%>', <%=FH_totalpreOrder%>, '<%=total_goal_str%>', <%=FH_totalachOrder%>, '<%=total_goal_str%>']
+  	  	<%for(int key : teamList.keySet()){
+  	  		if(key != 0){%>
+        ,['<%=teamList.get(key).substring(0, 4)%>', <%=FH_goalOrder.get(teamList.get(key))%>,'<%=table_fh_order.get(key)%>',<%=FH_preOrder.get(teamList.get(key))%>,'<%=table_fh_order.get(key)%>', <%=FH_achOrder.get(teamList.get(key))%>, '<%=table_fh_order.get(key)%>']
+  	  	<%}}%>
     ]);
     
     var fh_order_option = { 
@@ -834,102 +607,51 @@ function fh_order() {
     fh_order_chart.draw(dataTable, fh_order_option);
 }
 
+//상반기 매출 차트 그리기
 function fh_sales() {
-
     <%
-	  	StringBuffer FH_chassis_project_Sales = new StringBuffer();
-	  	StringBuffer FH_body_project_Sales = new StringBuffer();
-	  	StringBuffer FH_control_project_Sales = new StringBuffer();
-	  	StringBuffer FH_safe_project_Sales = new StringBuffer();
-	  	StringBuffer FH_auto_project_Sales = new StringBuffer();
-	  	
-	  	FH_chassis_project_Sales.append("<table class=tootipTable>");
-	  	FH_chassis_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-		  
-	  	FH_body_project_Sales.append("<table class=tootipTable>");
-	  	FH_body_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-		  
-	  	FH_control_project_Sales.append("<table class=tootipTable>");
-	  	FH_control_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-		  
-	  	FH_safe_project_Sales.append("<table class=tootipTable>");
-	  	FH_safe_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-		  
-	  	FH_auto_project_Sales.append("<table class=tootipTable>");
-	  	FH_auto_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-		  
-		  	
-		  	for(int i=0; i<pjList.size(); i++){
-		  		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
-		  			FH_chassis_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
-		  			FH_body_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_SALES().equals("제어로직검증팀")){
-		  			FH_control_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_SALES().equals("기능안전검증팀")){
-		  			FH_safe_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
-		  		}
-		  		else if(pjList.get(i).getTEAM_SALES().equals("자율주행검증팀")){
-		  			FH_auto_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-			  				+pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
-		  		}
-		  	}
-		  	
-		  	FH_chassis_project_Sales.append("<tr><td>total</td><td>"+FH_chassis_PJSALES+"</td><td>"+FH_chassis_RSALES+"</td></tr>");
-		  	FH_chassis_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_chassis_SALES+" (백만)</td></tr>");
-		  	FH_chassis_project_Sales.append("</table>");
-			  
-		  	FH_body_project_Sales.append("<tr><td>total</td><td>"+FH_body_PJSALES+"</td><td>"+FH_body_RSALES+"</td></tr>");
-		  	FH_body_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_body_SALES+" (백만)</td></tr>");
-		  	FH_body_project_Sales.append("</table>");
-			  
-		  	FH_control_project_Sales.append("<tr><td>total</td><td>"+FH_control_PJSALES+"</td><td>"+FH_control_RSALES+"</td></tr>");
-		  	FH_control_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_control_SALES+" (백만)</td></tr>");
-		  	FH_control_project_Sales.append("</table>");
-			  
-		  	FH_safe_project_Sales.append("<tr><td>total</td><td>"+FH_safe_PJSALES+"</td><td>"+FH_safe_RSALES+"</td></tr>");
-		  	FH_safe_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_safe_SALES+" (백만)</td></tr>");
-		  	FH_safe_project_Sales.append("</table>");
-			  
-		  	FH_auto_project_Sales.append("<tr><td>total</td><td>"+FH_auto_PJSALES+"</td><td>"+FH_auto_RSALES+"</td></tr>");
-		  	FH_auto_project_Sales.append("<tr><td colspan=3>목표매출 : "+FH_auto_SALES+" (백만)</td></tr>");
-		  	FH_auto_project_Sales.append("</table>");
-	  %>
-	  
-	  // 목표
-	  var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>';
-		total_str += '<tr><td>샤시힐스</td><td>'+<%=FH_chassis_SALES%>+'</td><td>'+<%=FH_chassis_PJSALES%>+'</td><td>'+<%=FH_chassis_RSALES%>+'</td></tr>';
-		total_str += '<tr><td>바디힐스</td><td>'+<%=FH_body_SALES%>+'</td><td>'+<%=FH_body_PJSALES%>+'</td><td>'+<%=FH_body_RSALES%>+'</td></tr>';
-		total_str += '<tr><td>제어로직</td><td>'+<%=FH_control_SALES%>+'</td><td>'+<%=FH_control_PJSALES%>+'</td><td>'+<%=FH_control_RSALES%>+'</td></tr>';
-		total_str += '<tr><td>기능안전</td><td>'+<%=FH_safe_SALES%>+'</td><td>'+<%=FH_safe_PJSALES%>+'</td><td>'+<%=FH_safe_RSALES%>+'</td></tr>';
-		total_str += '<tr><td>자율주행</td><td>'+<%=FH_auto_SALES%>+'</td><td>'+<%=FH_auto_PJSALES%>+'</td><td>'+<%=FH_auto_RSALES%>+'</td></tr>';
-		total_str += '<tr><td>total</td><td>'+<%=FH_total_SALES%>+'</td><td>'+<%=FH_total_PJSALES%>+'</td><td>'+<%=FH_total_RSALES%>+'</td></tr></table>';
-
+    HashMap<Integer, StringBuffer> table_fh_sales = new HashMap<Integer, StringBuffer>();
+    total_goal_str = new StringBuffer();
+    total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>");
+    for(int key : teamList.keySet()){
+         StringBuffer element = new StringBuffer();
+         element.append("<table class=tootipTable>");
+         element.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+         
+         for(int i=0; i<pjList.size(); i++){
+              if(pjList.get(i).getTEAM_SALES().equals(teamList.get(key))){
+                   element.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+                        +pjList.get(i).getFH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getFH_SALES()+"</td></tr>");
+              }
+         }
+         
+         element.append("<tr><td>total</td><td>"+FH_preSale.get(teamList.get(key))+"</td><td>"+FH_achSale.get(teamList.get(key))+"</td></tr>");
+         element.append("<tr><td colspan=3>목표매출 : "+FH_goalSale.get(teamList.get(key))+" (백만)</td></tr>");
+         element.append("</table>");
+         
+         table_fh_sales.put(key, element);
+         if(key != 0){
+              total_goal_str.append("<tr><td>" + teamList.get(key).substring(0, 4) + "</td><td>" + FH_goalSale.get(teamList.get(key))
+                             + "</td><td>" + FH_preSale.get(teamList.get(key)) + "</td><td>" + FH_achSale.get(teamList.get(key)) + "</td></tr>");
+         }
+    }
+    total_goal_str.append("</table>");
+    %>
+               
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn('string', 'Team');
     dataTable.addColumn('number', '목표매출');
-    // A column for custom tooltip content
     dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addColumn('number', '예상매출');
-    // A column for custom tooltip content
     dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addColumn('number', '매출달성');
-    // A column for custom tooltip content
     dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     dataTable.addRows([
-  	  ['Total', <%=FH_total_SALES%>, total_str, <%=FH_total_PJSALES%>, total_str, <%=FH_total_RSALES%>, total_str],
-        ['샤시힐스', <%=FH_chassis_SALES%>, '<%=FH_chassis_project_Sales%>', <%=FH_chassis_PJSALES%>, '<%=FH_chassis_project_Sales%>', <%=FH_chassis_RSALES%>, '<%=FH_chassis_project_Sales%>'],
-        ['바디힐스', <%=FH_body_SALES%>, '<%=FH_body_project_Sales%>', <%=FH_body_PJSALES%>, '<%=FH_body_project_Sales%>', <%=FH_body_RSALES%>, '<%=FH_body_project_Sales%>'],
-        ['제어로직', <%=FH_control_SALES%>, '<%=FH_control_project_Sales%>', <%=FH_control_PJSALES%>, '<%=FH_control_project_Sales%>', <%=FH_control_RSALES%>, '<%=FH_control_project_Sales%>'],
-        ['기능안전', <%=FH_safe_SALES%>, '<%=FH_safe_project_Sales%>', <%=FH_safe_PJSALES%>, '<%=FH_safe_project_Sales%>', <%=FH_safe_RSALES%>, '<%=FH_safe_project_Sales%>'],
-        ['자율주행', <%=FH_auto_SALES%>, '<%=FH_auto_project_Sales%>', <%=FH_auto_PJSALES%>, '<%=FH_auto_project_Sales%>', <%=FH_auto_RSALES%>, '<%=FH_auto_project_Sales%>']
+          ['Total', <%=FH_totalGoalSale%>, '<%=total_goal_str%>', <%=FH_totalpreSale%>, '<%=total_goal_str%>', <%=FH_totalachSale%>, '<%=total_goal_str%>']
+          <%for(int key : teamList.keySet()){
+               if(key != 0){%>
+        ,['<%=teamList.get(key).substring(0, 4)%>', <%=FH_goalSale.get(teamList.get(key))%>,'<%=table_fh_sales.get(key)%>',<%=FH_preSale.get(teamList.get(key))%>,'<%=table_fh_sales.get(key)%>', <%=FH_achSale.get(teamList.get(key))%>, '<%=table_fh_sales.get(key)%>']
+          <%}}%>
     ]);
 
     var fh_sales_option = {
@@ -951,472 +673,274 @@ function fh_sales() {
     fh_sales_chart.draw(dataTable, fh_sales_option);
   }
 
+//하반기 수주 바차트 그리기
 function sh_order() {	
-// 목표
-var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>';
-		total_str += '<tr><td>샤시힐스</td><td>'+<%=SH_chassis_PJ%>+'</td><td>'+<%=SH_chassis_ORDER%>+'</td><td>'+<%=SH_chassis_RPJ%>+'</td></tr>';
-		total_str += '<tr><td>바디힐스</td><td>'+<%=SH_body_PJ%>+'</td><td>'+<%=SH_body_ORDER%>+'</td><td>'+<%=SH_body_RPJ%>+'</td></tr>';
-		total_str += '<tr><td>제어로직</td><td>'+<%=SH_control_PJ%>+'</td><td>'+<%=SH_control_ORDER%>+'</td><td>'+<%=SH_control_RPJ%>+'</td></tr>';
-		total_str += '<tr><td>기능안전</td><td>'+<%=SH_safe_PJ%>+'</td><td>'+<%=SH_safe_ORDER%>+'</td><td>'+<%=SH_safe_RPJ%>+'</td></tr>';
-		total_str += '<tr><td>자율주행</td><td>'+<%=SH_auto_PJ%>+'</td><td>'+<%=SH_auto_ORDER%>+'</td><td>'+<%=SH_auto_RPJ%>+'</td></tr>';
-		total_str += '<tr><td>total</td><td>'+<%=SH_total_PJ%>+'</td><td>'+<%=SH_total_ORDER%>+'</td><td>'+<%=SH_total_RPJ%>+'</td></tr></table>';
+	<%
+  	HashMap<Integer, StringBuffer> table_sh_order = new HashMap<Integer, StringBuffer>();
+  	total_goal_str = new StringBuffer();
+  	total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>");
+  	for(int key : teamList.keySet()){
+  		StringBuffer element = new StringBuffer();
+  		element.append("<table class=tootipTable>");
+		element.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
 		
-
-<%
-StringBuffer SH_chassis_project_pj = new StringBuffer();
-StringBuffer SH_body_project_pj = new StringBuffer();
-StringBuffer SH_control_project_pj = new StringBuffer();
-StringBuffer SH_safe_project_pj = new StringBuffer();
-StringBuffer SH_auto_project_pj = new StringBuffer();
-
-SH_chassis_project_pj.append("<table class=tootipTable>");
-SH_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-
-SH_body_project_pj.append("<table class=tootipTable>");
-SH_body_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-
-SH_control_project_pj.append("<table class=tootipTable>");
-SH_control_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-
-SH_safe_project_pj.append("<table class=tootipTable>");
-SH_safe_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-
-SH_auto_project_pj.append("<table class=tootipTable>");
-SH_auto_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-
-for(int i=0; i<pjList.size(); i++){
-		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
-			SH_chassis_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
-		}
-		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
-			SH_body_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+		for(int i=0; i<pjList.size(); i++){
+	  		if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
+	  			element.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
 	  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+	  		}
 		}
-		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
-			SH_control_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-	  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
+		
+		element.append("<tr><td>total</td><td>"+SH_preOrder.get(teamList.get(key))+"</td><td>"+SH_achOrder.get(teamList.get(key))+"</td></tr>");
+		element.append("<tr><td colspan=3>목표수주 : "+SH_goalOrder.get(teamList.get(key))+" (백만)</td></tr>");
+		element.append("</table>");
+		
+		table_sh_order.put(key, element);
+		if(key != 0){
+			total_goal_str.append("<tr><td>" + teamList.get(key).substring(0, 4) + "</td><td>" + SH_goalOrder.get(teamList.get(key))
+						+ "</td><td>" + SH_preOrder.get(teamList.get(key)) + "</td><td>" + SH_achOrder.get(teamList.get(key)) + "</td></tr>");
 		}
-		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
-			SH_safe_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-	  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
-		}
-		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
-			SH_auto_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-	  				+pjList.get(i).getSH_ORDER_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_ORDER()+"</td></tr>");
-		}
-	}
+  	}
+  	total_goal_str.append("</table>");
+	 %>
+	  		
+	var dataTable = new google.visualization.DataTable();
+	dataTable.addColumn('string', 'Team');
+	dataTable.addColumn('number', '목표수주');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '예상수주');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '수주달성');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addRows([
+		  	['Total', <%=SH_totalGoalOrder%>, '<%=total_goal_str%>', <%=SH_totalpreOrder%>, '<%=total_goal_str%>', <%=SH_totalachOrder%>, '<%=total_goal_str%>']
+		  	<%for(int key : teamList.keySet()){
+		  		if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=SH_goalOrder.get(teamList.get(key))%>,'<%=table_sh_order.get(key)%>',<%=SH_preOrder.get(teamList.get(key))%>,'<%=table_sh_order.get(key)%>', <%=SH_achOrder.get(teamList.get(key))%>, '<%=table_sh_order.get(key)%>']
+		  	<%}}%>
+	]);
 
-SH_chassis_project_pj.append("<tr><td>total</td><td>"+SH_chassis_ORDER+"</td><td>"+SH_chassis_RPJ+"</td></tr>");
-SH_chassis_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_chassis_PJ+" (백만)</td></tr>");
-SH_chassis_project_pj.append("</table>");
-
-SH_body_project_pj.append("<tr><td>total</td><td>"+SH_body_ORDER+"</td><td>"+SH_body_RPJ+"</td></tr>");
-SH_body_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_body_PJ+" (백만)</td></tr>");
-SH_body_project_pj.append("</table>");
-
-SH_control_project_pj.append("<tr><td>total</td><td>"+SH_control_ORDER+"</td><td>"+SH_control_RPJ+"</td></tr>");
-SH_control_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_control_PJ+" (백만)</td></tr>");
-SH_control_project_pj.append("</table>");
-
-SH_safe_project_pj.append("<tr><td>total</td><td>"+SH_safe_ORDER+"</td><td>"+SH_safe_RPJ+"</td></tr>");
-SH_safe_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_safe_PJ+" (백만)</td></tr>");
-SH_safe_project_pj.append("</table>");
-
-SH_auto_project_pj.append("<tr><td>total</td><td>"+SH_auto_ORDER+"</td><td>"+SH_auto_RPJ+"</td></tr>");
-SH_auto_project_pj.append("<tr><td colspan=3>목표수주 : "+SH_auto_PJ+" (백만)</td></tr>");
-SH_auto_project_pj.append("</table>");
-
-%>
-  
-var dataTable = new google.visualization.DataTable();
-dataTable.addColumn('string', 'Team');
-dataTable.addColumn('number', '목표수주');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addColumn('number', '예상수주');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addColumn('number', '수주달성');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});	
-dataTable.addRows([
-	 ['Total', <%=SH_total_PJ%>, total_str, <%=SH_total_ORDER%>, total_str, <%=SH_total_RPJ%>, total_str],
-   ['샤시힐스', <%=SH_chassis_PJ%>,'<%=SH_chassis_project_pj%>',<%=SH_chassis_ORDER%>,'<%=SH_chassis_project_pj%>', <%=SH_chassis_RPJ%>, '<%=SH_chassis_project_pj%>'],
-   ['바디힐스', <%=SH_body_PJ%>,'<%=SH_body_project_pj%>',<%=SH_body_ORDER%>,'<%=SH_body_project_pj%>', <%=SH_body_RPJ%>, '<%=SH_body_project_pj%>'],
-   ['제어로직', <%=SH_control_PJ%>,'<%=SH_control_project_pj%>',<%=SH_control_ORDER%>,'<%=SH_control_project_pj%>', <%=SH_control_RPJ%>, '<%=SH_control_project_pj%>'],
-   ['기능안전', <%=SH_safe_PJ%>,'<%=SH_safe_project_pj%>',<%=SH_safe_ORDER%>,'<%=SH_safe_project_pj%>', <%=SH_safe_RPJ%>, '<%=SH_safe_project_pj%>'],
-   ['자율주행', <%=SH_auto_PJ%>,'<%=SH_auto_project_pj%>',<%=SH_auto_ORDER%>,'<%=SH_auto_project_pj%>', <%=SH_auto_RPJ%>, '<%=SH_auto_project_pj%>']
-]);
-
-var sh_order_option = { 
-		title: '하반기 수주',
-		width: '100%',
-      'height': 500,
-      'legend': {'position': 'bottom'},
-      tooltip:{isHtml: true},
-      series: {
-      	 0: { color: '#d4fc79' },
-           1: { color: '#84fab0' },
-           2: { color: '#96e6a1' }
-        }
-};
-
-var sh_order_chart = new google.visualization.ColumnChart(document.getElementById('sh_order_chart'));
-
-sh_order_chart.draw(dataTable, sh_order_option);
+	var sh_order_option = { 
+			title: '하반기 수주',
+			width: '100%',
+	      'height': 500,
+	      'legend': {'position': 'bottom'},
+	      tooltip:{isHtml: true},
+	      series: {
+	      	 0: { color: '#d4fc79' },
+	           1: { color: '#84fab0' },
+	           2: { color: '#96e6a1' }
+	        }
+	};
+	
+	var sh_order_chart = new google.visualization.ColumnChart(document.getElementById('sh_order_chart'));
+	
+	sh_order_chart.draw(dataTable, sh_order_option);
 }
 
+//하반기 매출 바차트 그리기
 function sh_sales() {
-
-<%
-	StringBuffer SH_chassis_project_Sales = new StringBuffer();
-	StringBuffer SH_body_project_Sales = new StringBuffer();
-	StringBuffer SH_control_project_Sales = new StringBuffer();
-	StringBuffer SH_safe_project_Sales = new StringBuffer();
-	StringBuffer SH_auto_project_Sales = new StringBuffer();
-	
-	SH_chassis_project_Sales.append("<table class=tootipTable>");
-	SH_chassis_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	SH_body_project_Sales.append("<table class=tootipTable>");
-	SH_body_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	SH_control_project_Sales.append("<table class=tootipTable>");
-	SH_control_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	SH_safe_project_Sales.append("<table class=tootipTable>");
-	SH_safe_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	SH_auto_project_Sales.append("<table class=tootipTable>");
-	SH_auto_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	  	
-	  	for(int i=0; i<pjList.size(); i++){
-	  		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
-	  			SH_chassis_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
-	  			SH_body_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("제어로직검증팀")){
-	  			SH_control_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("기능안전검증팀")){
-	  			SH_safe_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("자율주행검증팀")){
-	  			SH_auto_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
-	  		}
-	  	}
-	  	
-	  	SH_chassis_project_Sales.append("<tr><td>total</td><td>"+SH_chassis_PJSALES+"</td><td>"+SH_chassis_RSALES+"</td></tr>");
-	  	SH_chassis_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_chassis_SALES+" (백만)</td></tr>");
-	  	SH_chassis_project_Sales.append("</table>");
-		  
-	  	SH_body_project_Sales.append("<tr><td>total</td><td>"+SH_body_PJSALES+"</td><td>"+SH_body_RSALES+"</td></tr>");
-	  	SH_body_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_body_SALES+" (백만)</td></tr>");
-	  	SH_body_project_Sales.append("</table>");
-		  
-	  	SH_control_project_Sales.append("<tr><td>total</td><td>"+SH_control_PJSALES+"</td><td>"+SH_control_RSALES+"</td></tr>");
-	  	SH_control_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_control_SALES+" (백만)</td></tr>");
-	  	SH_control_project_Sales.append("</table>");
-		  
-	  	SH_safe_project_Sales.append("<tr><td>total</td><td>"+SH_safe_PJSALES+"</td><td>"+SH_safe_RSALES+"</td></tr>");
-	  	SH_safe_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_safe_SALES+" (백만)</td></tr>");
-	  	SH_safe_project_Sales.append("</table>");
-		  
-	  	SH_auto_project_Sales.append("<tr><td>total</td><td>"+SH_auto_PJSALES+"</td><td>"+SH_auto_RSALES+"</td></tr>");
-	  	SH_auto_project_Sales.append("<tr><td colspan=3>목표매출 : "+SH_auto_SALES+" (백만)</td></tr>");
-	  	SH_auto_project_Sales.append("</table>");
-
-%>
-// 목표
-var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>';
-	total_str += '<tr><td>샤시힐스</td><td>'+<%=SH_chassis_SALES%>+'</td><td>'+<%=SH_chassis_PJSALES%>+'</td><td>'+<%=SH_chassis_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>바디힐스</td><td>'+<%=SH_body_SALES%>+'</td><td>'+<%=SH_body_PJSALES%>+'</td><td>'+<%=SH_body_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>제어로직</td><td>'+<%=SH_control_SALES%>+'</td><td>'+<%=SH_control_PJSALES%>+'</td><td>'+<%=SH_control_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>기능안전</td><td>'+<%=SH_safe_SALES%>+'</td><td>'+<%=SH_safe_PJSALES%>+'</td><td>'+<%=SH_safe_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>자율주행</td><td>'+<%=SH_auto_SALES%>+'</td><td>'+<%=SH_auto_PJSALES%>+'</td><td>'+<%=SH_auto_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>total</td><td>'+<%=SH_total_SALES%>+'</td><td>'+<%=SH_total_PJSALES%>+'</td><td>'+<%=SH_total_RSALES%>+'</td></tr></table>';
-
-
- var dataTable = new google.visualization.DataTable();
- dataTable.addColumn('string', 'Team');
- dataTable.addColumn('number', '목표매출');
- // A column for custom tooltip content
-	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
- dataTable.addColumn('number', '예상매출');
- // A column for custom tooltip content
-	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
- dataTable.addColumn('number', '매출달성');
- // A column for custom tooltip content
-	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
- dataTable.addRows([
-	  ['Total', <%=SH_total_SALES%>, total_str, <%=SH_total_PJSALES%>, total_str, <%=SH_total_RSALES%>, total_str],
-    ['샤시힐스', <%=SH_chassis_SALES%>, '<%=SH_chassis_project_Sales%>', <%=SH_chassis_PJSALES%>, '<%=SH_chassis_project_Sales%>', <%=SH_chassis_RSALES%>, '<%=SH_chassis_project_Sales%>'],
-    ['바디힐스', <%=SH_body_SALES%>, '<%=SH_body_project_Sales%>', <%=SH_body_PJSALES%>, '<%=SH_body_project_Sales%>', <%=SH_body_RSALES%>, '<%=SH_body_project_Sales%>'],
-    ['제어로직', <%=SH_control_SALES%>, '<%=SH_control_project_Sales%>', <%=SH_control_PJSALES%>, '<%=SH_control_project_Sales%>', <%=SH_control_RSALES%>, '<%=SH_control_project_Sales%>'],
-    ['기능안전', <%=SH_safe_SALES%>, '<%=SH_safe_project_Sales%>', <%=SH_safe_PJSALES%>, '<%=SH_safe_project_Sales%>', <%=SH_safe_RSALES%>, '<%=SH_safe_project_Sales%>'],
-    ['자율주행', <%=SH_auto_SALES%>, '<%=SH_auto_project_Sales%>', <%=SH_auto_PJSALES%>, '<%=SH_auto_project_Sales%>', <%=SH_auto_RSALES%>, '<%=SH_auto_project_Sales%>']
- ]);
-
- var sh_sales_option = {
-
-     title: '하반기 매출',
-     width: '100%',
-     'height': 500,
-     'legend': {'position': 'bottom'},
-     tooltip:{isHtml: true},
-     series: {
-         0: { color: '#ffd1ff' },
-         1: { color: '#fbc2eb' },
-         2: { color: '#a18cd1' }
-       }
-
- };
-
- var sh_sales_chart = new google.visualization.ColumnChart(document.getElementById('sh_sales_chart'));
-
- sh_sales_chart.draw(dataTable, sh_sales_option);
-}
-
-function y_order() {
-
-<%
-	StringBuffer Y_chassis_project_pj = new StringBuffer();
-	StringBuffer Y_body_project_pj = new StringBuffer();
-	StringBuffer Y_control_project_pj = new StringBuffer();
-	StringBuffer Y_safe_project_pj = new StringBuffer();
-	StringBuffer Y_auto_project_pj = new StringBuffer();
-	
-	Y_chassis_project_pj.append("<table class=tootipTable>");
-	Y_chassis_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-	  
-	Y_body_project_pj.append("<table class=tootipTable>");
-	Y_body_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-	  
-	Y_control_project_pj.append("<table class=tootipTable>");
-	Y_control_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-	  
-	Y_safe_project_pj.append("<table class=tootipTable>");
-	Y_safe_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-	  
-	Y_auto_project_pj.append("<table class=tootipTable>");
-	Y_auto_project_pj.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
-	  
-	  	
-	  	for(int i=0; i<pjList.size(); i++){
-	  		if(pjList.get(i).getTEAM_ORDER().equals("샤시힐스검증팀")){
-	  			Y_chassis_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_ORDER().equals("바디힐스검증팀")){
-	  			Y_body_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_ORDER().equals("제어로직검증팀")){
-	  			Y_control_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_ORDER().equals("기능안전검증팀")){
-	  			Y_safe_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_ORDER().equals("자율주행검증팀")){
-	  			Y_auto_project_pj.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_ORDER_PROJECTIONS()+pjList.get(i).getSH_ORDER_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_ORDER()+pjList.get(i).getSH_ORDER())+"</td></tr>");
-	  		}
-	  	}
-	  	
-	  	Y_chassis_project_pj.append("<tr><td>total</td><td>"+Y_chassis_ORDER+"</td><td>"+Y_chassis_RPJ+"</td></tr>");
-	  	Y_chassis_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_chassis_ORDER+" (백만)</td></tr>");
-	  	Y_chassis_project_pj.append("</table>");
-		  
-	  	Y_body_project_pj.append("<tr><td>total</td><td>"+Y_body_ORDER+"</td><td>"+Y_body_RPJ+"</td></tr>");
-	  	Y_body_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_body_ORDER+" (백만)</td></tr>");
-	  	Y_body_project_pj.append("</table>");
-		  
-	  	Y_control_project_pj.append("<tr><td>total</td><td>"+Y_control_ORDER+"</td><td>"+Y_control_RPJ+"</td></tr>");
-	  	Y_control_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_control_ORDER+" (백만)</td></tr>");
-	  	Y_control_project_pj.append("</table>");
-		  
-	  	Y_safe_project_pj.append("<tr><td>total</td><td>"+Y_safe_ORDER+"</td><td>"+Y_safe_RPJ+"</td></tr>");
-	  	Y_safe_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_safe_ORDER+" (백만)</td></tr>");
-	  	Y_safe_project_pj.append("</table>");
-		  
-	  	Y_auto_project_pj.append("<tr><td>total</td><td>"+Y_auto_ORDER+"</td><td>"+Y_auto_RPJ+"</td></tr>");
-	  	Y_auto_project_pj.append("<tr><td colspan=3>목표수주 : "+Y_auto_ORDER+" (백만)</td></tr>");
-	  	Y_auto_project_pj.append("</table>");
-%>
-
-// 목표
-var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>';
-	total_str += '<tr><td>샤시힐스</td><td>'+<%=Y_chassis_PJ%>+'</td><td>'+<%=Y_chassis_ORDER%>+'</td><td>'+<%=Y_chassis_RPJ%>+'</td></tr>';
-	total_str += '<tr><td>바디힐스</td><td>'+<%=Y_body_PJ%>+'</td><td>'+<%=Y_body_ORDER%>+'</td><td>'+<%=Y_body_RPJ%>+'</td></tr>';
-	total_str += '<tr><td>제어로직</td><td>'+<%=Y_control_PJ%>+'</td><td>'+<%=Y_control_ORDER%>+'</td><td>'+<%=Y_control_RPJ%>+'</td></tr>';
-	total_str += '<tr><td>기능안전</td><td>'+<%=Y_safe_PJ%>+'</td><td>'+<%=Y_safe_ORDER%>+'</td><td>'+<%=Y_safe_RPJ%>+'</td></tr>';
-	total_str += '<tr><td>자율주행</td><td>'+<%=Y_auto_PJ%>+'</td><td>'+<%=Y_auto_ORDER%>+'</td><td>'+<%=Y_auto_RPJ%>+'</td></tr>';
-	total_str += '<tr><td>total</td><td>'+<%=Y_total_pj%>+'</td><td>'+<%=Y_total_ORDER%>+'</td><td>'+<%=Y_total_RPJ%>+'</td></tr></table>';
-
-var dataTable = new google.visualization.DataTable();
-dataTable.addColumn('string', 'Team');
-dataTable.addColumn('number', '목표수주');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addColumn('number', '예상수주');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addColumn('number', '수주달성');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addRows([
-	['Total', <%=Y_total_pj%>, total_str, <%=Y_total_ORDER%>, total_str, <%=Y_total_RPJ%>, total_str],
-  ['샤시힐스', <%=Y_chassis_PJ%>, '<%=Y_chassis_project_pj%>', <%=Y_chassis_ORDER%>, '<%=Y_chassis_project_pj%>', <%=Y_chassis_RPJ%>, '<%=Y_chassis_project_pj%>'],
-  ['바디힐스', <%=Y_body_PJ%>, '<%=Y_body_project_pj%>', <%=Y_body_ORDER%>, '<%=Y_body_project_pj%>', <%=Y_body_RPJ%>, '<%=Y_body_project_pj%>'],
-  ['제어로직', <%=Y_control_PJ%>, '<%=Y_control_project_pj%>', <%=Y_control_ORDER%>, '<%=Y_control_project_pj%>', <%=Y_control_RPJ%>, '<%=Y_control_project_pj%>'],
-  ['기능안전', <%=Y_safe_PJ%>, '<%=Y_auto_project_pj%>', <%=Y_safe_ORDER%>, '<%=Y_auto_project_pj%>', <%=Y_auto_RPJ%>, '<%=Y_auto_project_pj%>'],
-  ['자율주행', <%=Y_auto_PJ%>, '<%=Y_auto_project_pj%>', <%=Y_auto_ORDER%>, '<%=Y_auto_project_pj%>', <%=Y_auto_RPJ%>, '<%=Y_auto_project_pj%>']
-]);
-
-var y_order_option = {
-
-  title: '연간 수주',
-  width: '100%',
-  'height': 500,
-  'legend': {'position': 'bottom'},
-  tooltip:{isHtml: true},
-  series: {
-  	 0: { color: '#d4fc79' },
-       1: { color: '#84fab0' },
-       2: { color: '#96e6a1' }
+	<%
+    HashMap<Integer, StringBuffer> table_sh_sales = new HashMap<Integer, StringBuffer>();
+    total_goal_str = new StringBuffer();
+    total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>");
+    for(int key : teamList.keySet()){
+         StringBuffer element = new StringBuffer();
+         element.append("<table class=tootipTable>");
+         element.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+         
+         for(int i=0; i<pjList.size(); i++){
+              if(pjList.get(i).getTEAM_SALES().equals(teamList.get(key))){
+                   element.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+                        +pjList.get(i).getSH_SALES_PROJECTIONS()+"</td><td>"+pjList.get(i).getSH_SALES()+"</td></tr>");
+              }
+         }
+         
+         element.append("<tr><td>total</td><td>"+SH_preSale.get(teamList.get(key))+"</td><td>"+SH_achSale.get(teamList.get(key))+"</td></tr>");
+         element.append("<tr><td colspan=3>목표매출 : "+SH_goalSale.get(teamList.get(key))+" (백만)</td></tr>");
+         element.append("</table>");
+         
+         table_sh_sales.put(key, element);
+         if(key != 0){
+              total_goal_str.append("<tr><td>" + teamList.get(key).substring(0, 4) + "</td><td>" + SH_goalSale.get(teamList.get(key))
+                             + "</td><td>" + SH_preSale.get(teamList.get(key)) + "</td><td>" + SH_achSale.get(teamList.get(key)) + "</td></tr>");
+         }
     }
+    total_goal_str.append("</table>");
+	%>
+	         
+	var dataTable = new google.visualization.DataTable();
+	dataTable.addColumn('string', 'Team');
+	dataTable.addColumn('number', '목표매출');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '예상매출');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '매출달성');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addRows([
+	    ['Total', <%=SH_totalGoalSale%>, '<%=total_goal_str%>', <%=SH_totalpreSale%>, '<%=total_goal_str%>', <%=SH_totalachSale%>, '<%=total_goal_str%>']
+	    <%for(int key : teamList.keySet()){
+	         if(key != 0){%>
+	  ,['<%=teamList.get(key).substring(0, 4)%>', <%=SH_goalSale.get(teamList.get(key))%>,'<%=table_sh_sales.get(key)%>',<%=SH_preSale.get(teamList.get(key))%>,'<%=table_sh_sales.get(key)%>', <%=SH_achSale.get(teamList.get(key))%>, '<%=table_sh_sales.get(key)%>']
+	    <%}}%>
+	]);
 
-};
-
-var y_order_chart = new google.visualization.ColumnChart(document.getElementById('y_order_chart'));
-
-y_order_chart.draw(dataTable, y_order_option);
+	 var sh_sales_option = {
+	
+	     title: '하반기 매출',
+	     width: '100%',
+	     'height': 500,
+	     'legend': {'position': 'bottom'},
+	     tooltip:{isHtml: true},
+	     series: {
+	         0: { color: '#ffd1ff' },
+	         1: { color: '#fbc2eb' },
+	         2: { color: '#a18cd1' }
+	       }
+	
+	 };
+	
+	 var sh_sales_chart = new google.visualization.ColumnChart(document.getElementById('sh_sales_chart'));
+	
+	 sh_sales_chart.draw(dataTable, sh_sales_option);
 }
 
-function y_sales() {
-<%
-	StringBuffer Y_chassis_project_Sales = new StringBuffer();
-	StringBuffer Y_body_project_Sales = new StringBuffer();
-	StringBuffer Y_control_project_Sales = new StringBuffer();
-	StringBuffer Y_safe_project_Sales = new StringBuffer();
-	StringBuffer Y_auto_project_Sales = new StringBuffer();
+//연간 수주 바차트 그리기
+function y_order() {
+	<%
+  	HashMap<Integer, StringBuffer> table_y_order = new HashMap<Integer, StringBuffer>();
+  	total_goal_str = new StringBuffer();
+  	total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>");
+  	for(int key : teamList.keySet()){
+  		StringBuffer element = new StringBuffer();
+  		element.append("<table class=tootipTable>");
+		element.append("<tr><td>프로젝트</td><td>예상수주</td><td>수주달성</td></tr>");
+		
+		for(int i=0; i<pjList.size(); i++){
+	  		if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
+	  			float y_val_preOrder = pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS();
+	  			float y_val_order = pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER();
+	  			element.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+	  				+y_val_preOrder+"</td><td>"+y_val_order+"</td></tr>");
+	  		}
+		}
+		
+		element.append("<tr><td>total</td><td>"+Y_preOrder.get(teamList.get(key))+"</td><td>"+Y_achOrder.get(teamList.get(key))+"</td></tr>");
+		element.append("<tr><td colspan=3>목표수주 : "+Y_goalOrder.get(teamList.get(key))+" (백만)</td></tr>");
+		element.append("</table>");
+		
+		table_y_order.put(key, element);
+		if(key != 0){
+			total_goal_str.append("<tr><td>" + teamList.get(key).substring(0, 4) + "</td><td>" + Y_goalOrder.get(teamList.get(key))
+						+ "</td><td>" + Y_preOrder.get(teamList.get(key)) + "</td><td>" + Y_achOrder.get(teamList.get(key)) + "</td></tr>");
+		}
+  	}
+  	total_goal_str.append("</table>");
+	 %>
+	  		
+	var dataTable = new google.visualization.DataTable();
+	dataTable.addColumn('string', 'Team');
+	dataTable.addColumn('number', '목표수주');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '예상수주');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '수주달성');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addRows([
+		  	['Total', <%=Y_totalGoalOrder%>, '<%=total_goal_str%>', <%=Y_totalpreOrder%>, '<%=total_goal_str%>', <%=Y_totalachOrder%>, '<%=total_goal_str%>']
+		  	<%for(int key : teamList.keySet()){
+		  		if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=Y_goalOrder.get(teamList.get(key))%>,'<%=table_y_order.get(key)%>',<%=Y_preOrder.get(teamList.get(key))%>,'<%=table_y_order.get(key)%>', <%=Y_achOrder.get(teamList.get(key))%>, '<%=table_y_order.get(key)%>']
+		  	<%}}%>
+	]);
 	
-	Y_chassis_project_Sales.append("<table class=tootipTable>");
-	Y_chassis_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	Y_body_project_Sales.append("<table class=tootipTable>");
-	Y_body_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	Y_control_project_Sales.append("<table class=tootipTable>");
-	Y_control_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	Y_safe_project_Sales.append("<table class=tootipTable>");
-	Y_safe_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	Y_auto_project_Sales.append("<table class=tootipTable>");
-	Y_auto_project_Sales.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
-	  
-	  	for(int i=0; i<pjList.size(); i++){
-	  		if(pjList.get(i).getTEAM_SALES().equals("샤시힐스검증팀")){
-	  			Y_chassis_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("바디힐스검증팀")){
-	  			Y_body_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("제어로직검증팀")){
-	  			Y_control_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("기능안전검증팀")){
-	  			Y_safe_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES())+"</td></tr>");
-	  		}
-	  		else if(pjList.get(i).getTEAM_SALES().equals("자율주행검증팀")){
-	  			Y_auto_project_Sales.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
-		  				+(pjList.get(i).getFH_SALES_PROJECTIONS()+pjList.get(i).getSH_SALES_PROJECTIONS())+"</td><td>"+(pjList.get(i).getFH_SALES()+pjList.get(i).getSH_SALES())+"</td></tr>");
-	  		}
-	  	}
-	  	
-	  	Y_chassis_project_Sales.append("<tr><td>total</td><td>"+Y_chassis_PJSALES+"</td><td>"+Y_chassis_RSALES+"</td></tr>");
-	  	Y_chassis_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_chassis_SALES+" (백만)</td></tr>");
-	  	Y_chassis_project_Sales.append("</table>");
-		  
-	  	Y_body_project_Sales.append("<tr><td>total</td><td>"+Y_body_PJSALES+"</td><td>"+Y_body_RSALES+"</td></tr>");
-	  	Y_body_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_body_SALES+" (백만)</td></tr>");
-	  	Y_body_project_Sales.append("</table>");
-		  
-	  	Y_control_project_Sales.append("<tr><td>total</td><td>"+Y_control_PJSALES+"</td><td>"+Y_control_RSALES+"</td></tr>");
-	  	Y_control_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_control_SALES+" (백만)</td></tr>");
-	  	Y_control_project_Sales.append("</table>");
-		  
-	  	Y_safe_project_Sales.append("<tr><td>total</td><td>"+Y_safe_PJSALES+"</td><td>"+Y_safe_RSALES+"</td></tr>");
-	  	Y_safe_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_safe_SALES+" (백만)</td></tr>");
-	  	Y_safe_project_Sales.append("</table>");
-		  
-	  	Y_auto_project_Sales.append("<tr><td>total</td><td>"+Y_auto_PJSALES+"</td><td>"+Y_auto_RSALES+"</td></tr>");
-	  	Y_auto_project_Sales.append("<tr><td colspan=3>목표매출 : "+Y_auto_SALES+" (백만)</td></tr>");
-	  	Y_auto_project_Sales.append("</table>");
-%>
-// 목표
-var total_str = '<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>';
-	total_str += '<tr><td>샤시힐스</td><td>'+<%=Y_chassis_SALES%>+'</td><td>'+<%=Y_chassis_PJSALES%>+'</td><td>'+<%=Y_chassis_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>바디힐스</td><td>'+<%=Y_body_SALES%>+'</td><td>'+<%=Y_body_PJSALES%>+'</td><td>'+<%=Y_body_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>제어로직</td><td>'+<%=Y_control_SALES%>+'</td><td>'+<%=Y_control_PJSALES%>+'</td><td>'+<%=Y_control_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>기능안전</td><td>'+<%=Y_safe_SALES%>+'</td><td>'+<%=Y_safe_PJSALES%>+'</td><td>'+<%=Y_safe_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>자율주행</td><td>'+<%=Y_auto_SALES%>+'</td><td>'+<%=Y_auto_PJSALES%>+'</td><td>'+<%=Y_auto_RSALES%>+'</td></tr>';
-	total_str += '<tr><td>total</td><td>'+<%=Y_total_SALES%>+'</td><td>'+<%=Y_total_PJSALES%>+'</td><td>'+<%=Y_total_RSALES%>+'</td></tr></table>';
+	var y_order_option = {
+	
+	  title: '연간 수주',
+	  width: '100%',
+	  'height': 500,
+	  'legend': {'position': 'bottom'},
+	  tooltip:{isHtml: true},
+	  series: {
+	  	 0: { color: '#d4fc79' },
+	       1: { color: '#84fab0' },
+	       2: { color: '#96e6a1' }
+	    }
+	
+	};
+	
+	var y_order_chart = new google.visualization.ColumnChart(document.getElementById('y_order_chart'));
+	
+	y_order_chart.draw(dataTable, y_order_option);
+}
 
-var dataTable = new google.visualization.DataTable();
-dataTable.addColumn('string', 'Team');
-dataTable.addColumn('number', '목표매출');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addColumn('number', '예상매출');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addColumn('number', '매출달성');
-// A column for custom tooltip content
-dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-dataTable.addRows([
-	  ['Total', <%=Y_total_SALES%>, total_str, <%=Y_total_PJSALES%>, total_str, <%=Y_total_RSALES%>, total_str],
-    ['샤시힐스', <%=Y_chassis_SALES%>, '<%=Y_chassis_project_Sales%>', <%=Y_chassis_PJSALES%>, '<%=Y_chassis_project_Sales%>', <%=Y_chassis_RSALES%>, '<%=Y_chassis_project_Sales%>'],
-    ['바디힐스', <%=Y_body_SALES%>, '<%=Y_body_project_Sales%>', <%=Y_body_PJSALES%>, '<%=Y_body_project_Sales%>', <%=Y_body_RSALES%>, '<%=Y_body_project_Sales%>'],
-    ['제어로직', <%=Y_control_SALES%>, '<%=Y_control_project_Sales%>', <%=Y_control_PJSALES%>, '<%=Y_control_project_Sales%>', <%=Y_control_RSALES%>, '<%=Y_control_project_Sales%>'],
-    ['기능안전', <%=Y_safe_SALES%>, '<%=Y_safe_project_Sales%>', <%=Y_safe_PJSALES%>, '<%=Y_safe_project_Sales%>', <%=Y_safe_RSALES%>, '<%=Y_safe_project_Sales%>'],
-    ['자율주행', <%=Y_auto_SALES%>, '<%=Y_auto_project_Sales%>', <%=Y_auto_PJSALES%>, '<%=Y_auto_project_Sales%>', <%=Y_auto_RSALES%>, '<%=Y_auto_project_Sales%>']
-]);
+//연간 매출 바차트 그리기
+function y_sales() {
+	<%
+    HashMap<Integer, StringBuffer> table_y_sales = new HashMap<Integer, StringBuffer>();
+    total_goal_str = new StringBuffer();
+    total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표매출</td><td>예상매출</td><td>매출달성</td></tr>");
+    for(int key : teamList.keySet()){
+         StringBuffer element = new StringBuffer();
+         element.append("<table class=tootipTable>");
+         element.append("<tr><td>프로젝트</td><td>예상매출</td><td>매출달성</td></tr>");
+         
+         for(int i=0; i<pjList.size(); i++){
+              if(pjList.get(i).getTEAM_SALES().equals(teamList.get(key))){
+            	  	float y_val_preSales = pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS();
+  	  				float y_val_sales = pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES();
+                   	element.append("<tr><td>"+pjList.get(i).getPROJECT_NAME()+"</td><td>"
+                        +y_val_preSales+"</td><td>"+y_val_sales+"</td></tr>");
+              }
+         }
+         
+         element.append("<tr><td>total</td><td>"+Y_preSale.get(teamList.get(key))+"</td><td>"+Y_achSale.get(teamList.get(key))+"</td></tr>");
+         element.append("<tr><td colspan=3>목표매출 : "+Y_goalSale.get(teamList.get(key))+" (백만)</td></tr>");
+         element.append("</table>");
+         
+         table_y_sales.put(key, element);
+         if(key != 0){
+              total_goal_str.append("<tr><td>" + teamList.get(key).substring(0, 4) + "</td><td>" + Y_goalSale.get(teamList.get(key))
+                             + "</td><td>" + Y_preSale.get(teamList.get(key)) + "</td><td>" + Y_achSale.get(teamList.get(key)) + "</td></tr>");
+         }
+    }
+    total_goal_str.append("</table>");
+	%>
+	         
+	var dataTable = new google.visualization.DataTable();
+	dataTable.addColumn('string', 'Team');
+	dataTable.addColumn('number', '목표매출');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '예상매출');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addColumn('number', '매출달성');
+	dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+	dataTable.addRows([
+	    ['Total', <%=Y_totalGoalSale%>, '<%=total_goal_str%>', <%=Y_totalpreSale%>, '<%=total_goal_str%>', <%=Y_totalachSale%>, '<%=total_goal_str%>']
+	    <%for(int key : teamList.keySet()){
+	         if(key != 0){%>
+	  ,['<%=teamList.get(key).substring(0, 4)%>', <%=Y_goalSale.get(teamList.get(key))%>,'<%=table_y_sales.get(key)%>',<%=Y_preSale.get(teamList.get(key))%>,'<%=table_y_sales.get(key)%>', <%=Y_achSale.get(teamList.get(key))%>, '<%=table_y_sales.get(key)%>']
+	    <%}}%>
+	]);
 
-var y_sales_option = {
- 
-    title: '연간 매출', 
-    width: '100%',
-    'height': 500,
-    'legend': {'position': 'bottom'},
-    tooltip:{isHtml: true},
-    series: {
-        0: { color: '#ffd1ff' },
-        1: { color: '#fbc2eb' },
-        2: { color: '#a18cd1' }
-      }
-
-};
-
-var y_sales_chart = new google.visualization.ColumnChart(document.getElementById('y_sales_chart'));
-
-y_sales_chart.draw(dataTable, y_sales_option);
+	var y_sales_option = {
+	 
+	    title: '연간 매출', 
+	    width: '100%',
+	    'height': 500,
+	    'legend': {'position': 'bottom'},
+	    tooltip:{isHtml: true},
+	    series: {
+	        0: { color: '#ffd1ff' },
+	        1: { color: '#fbc2eb' },
+	        2: { color: '#a18cd1' }
+	      }
+	
+	};
+	
+	var y_sales_chart = new google.visualization.ColumnChart(document.getElementById('y_sales_chart'));
+	
+	y_sales_chart.draw(dataTable, y_sales_option);
 } 
     
 /*도넛 차트*/
@@ -1430,13 +954,12 @@ google.charts.setOnLoadCallback(y_rsales);
 
 function fh_rpj() {
 	  var fh_rpj_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['샤시힐스',   <%=FH_chassis_RPJ%>],
-	    ['바디힐스',   <%=FH_body_RPJ%>],
-	    ['제어로직',  <%=FH_control_RPJ%>],
-	    ['기능안전',  <%=FH_safe_RPJ%>],
-	    ['자율주행',  <%=FH_auto_RPJ%>],
-	    ['실',  <%=FH_vt_RPJ%>],
+	    ['Count', 'How Many']
+	    <%for(int key : teamList.keySet()){
+	    	if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=FH_achOrder.get(teamList.get(key))%>]
+	    <%}}%>
+	    ,['실', <%=FH_achOrder.get(teamList.get(0))%>]
 	  ]);
 
 	  var fh_rpj_options = {
@@ -1452,13 +975,12 @@ function fh_rpj() {
 	
 function sh_rpj() {
 	  var sh_rpj_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['샤시힐스',   <%=SH_chassis_RPJ%>],
-	    ['바디힐스',   <%=SH_body_RPJ%>],
-	    ['제어로직',  <%=SH_control_RPJ%>],
-	    ['기능안전',  <%=SH_safe_RPJ%>],
-	    ['자율주행',  <%=SH_auto_RPJ%>],
-	    ['실',  <%=SH_vt_RPJ%>],
+	    ['Count', 'How Many']
+	    <%for(int key : teamList.keySet()){
+	    	if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=SH_achOrder.get(teamList.get(key))%>]
+	    <%}}%>
+	    ,['실', <%=SH_achOrder.get(teamList.get(0))%>]
 	  ]);
 
 	  var sh_rpj_options = {
@@ -1474,13 +996,12 @@ function sh_rpj() {
 	
 function y_rpj() {
 	  var y_rpj_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['샤시힐스',   <%=Y_chassis_RPJ%>],
-	    ['바디힐스',   <%=Y_body_RPJ%>],
-	    ['제어로직',  <%=Y_control_RPJ%>],
-	    ['기능안전',  <%=Y_safe_RPJ%>],
-	    ['자율주행',  <%=Y_auto_RPJ%>],
-	    ['실',  <%=Y_vt_RPJ%>],
+	    ['Count', 'How Many']
+	    <%for(int key : teamList.keySet()){
+	    	if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=Y_achOrder.get(teamList.get(key))%>]
+	    <%}}%>
+	    ,['실', <%=Y_achOrder.get(teamList.get(0))%>]
 	  ]);
 
 	  var y_rpj_options = {
@@ -1496,13 +1017,12 @@ function y_rpj() {
 
 function fh_rsales() {
 	  var fh_rsales_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['샤시힐스',   <%=FH_chassis_RSALES%>],
-	    ['바디힐스',   <%=FH_body_RSALES%>],
-	    ['제어로직',  <%=FH_control_RSALES%>],
-	    ['기능안전',  <%=FH_safe_RSALES%>],
-	    ['자율주행',  <%=FH_auto_RSALES%>],
-	    ['실',  <%=FH_vt_RSALES%>],
+	    ['Count', 'How Many']
+	    <%for(int key : teamList.keySet()){
+	    	if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=FH_achSale.get(teamList.get(key))%>]
+	    <%}}%>
+	    ,['실', <%=FH_achSale.get(teamList.get(0))%>]
 	  ]);
 
 	  var fh_rsales_options = {
@@ -1518,13 +1038,12 @@ function fh_rsales() {
 	
 function sh_rsales() {
 	  var sh_rsales_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['샤시힐스',   <%=SH_chassis_RSALES%>],
-	    ['바디힐스',   <%=SH_body_RSALES%>],
-	    ['제어로직',  <%=SH_control_RSALES%>],
-	    ['기능안전',  <%=SH_safe_RSALES%>],
-	    ['자율주행',  <%=SH_auto_RSALES%>],
-	    ['실',  <%=SH_vt_RSALES%>],
+	    ['Count', 'How Many']
+	    <%for(int key : teamList.keySet()){
+	    	if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=SH_achSale.get(teamList.get(key))%>]
+	    <%}}%>
+	    ,['실', <%=SH_achSale.get(teamList.get(0))%>]
 	  ]);
 
 	  var sh_rsales_options = {
@@ -1540,13 +1059,12 @@ function sh_rsales() {
 	
 function y_rsales() {
 	  var y_rsales_data = google.visualization.arrayToDataTable([
-	    ['Count', 'How Many'],
-	    ['샤시힐스',   <%=Y_chassis_RSALES%>],
-	    ['바디힐스',   <%=Y_body_RSALES%>],
-	    ['제어로직',  <%=Y_control_RSALES%>],
-	    ['기능안전',  <%=Y_safe_RSALES%>],
-	    ['자율주행',  <%=Y_auto_RSALES%>],
-	    ['실',  <%=Y_vt_RSALES%>],
+	    ['Count', 'How Many']
+	    <%for(int key : teamList.keySet()){
+	    	if(key != 0){%>
+	    ,['<%=teamList.get(key).substring(0, 4)%>', <%=Y_achSale.get(teamList.get(key))%>]
+	    <%}}%>
+	    ,['실', <%=Y_achSale.get(teamList.get(0))%>]
 	  ]);
 
 	  var y_rsales_options = {
@@ -2080,385 +1598,416 @@ function y_rsales() {
 	                    <th>구분</th>
 	                    <th>항목</th>
 	                    <th>Total</th>
-	                    <th>샤시힐스</th>
-	                    <th>바디힐스</th>
-	                    <th>제어로직</th>
-	                    <th>기능안전</th>
-	                    <th>자율주행</th>
+	                    <%for(int key : teamList.keySet()){
+	                    	if(key != 0){%>
+	    	                    <th><%=teamList.get(key).substring(0,4) %></th>
+	                    	<%}
+	                    }%>
 	                    <th>실</th>
                     </tr>
                   </thead>  
                   
                   <tbody>
+                  	<!-- 상반기목표수주 -->
                     <tr class="firstTD orderTD dataTD">
                     	<td rowspan="12" style="text-align:center; font-size: medium; padding-top: 10px" class="firstTD firstTag">상반기</td>
                     	<td style="text-align:center; vertical-align: middle;">목표 수주</td>
-                    	<td><%=FH_total_PJ%></td>
-                    	<td><input class="sale" name="FH_chassis_PJ" value='<%=FH_chassis_PJ%>'></td>
-                    	<td><input class="sale" name="FH_body_PJ" value='<%=FH_body_PJ%>'></td>
-                    	<td><input class="sale" name="FH_control_PJ" value='<%=FH_control_PJ%>'></td>
-                    	<td><input class="sale" name="FH_safe_PJ" value='<%=FH_safe_PJ%>'></td>
-                    	<td><input class="sale" name="FH_auto_PJ" value='<%=FH_auto_PJ%>'></td>
-                    	<td><input class="sale" name="FH_vt_PJ" value='<%=FH_vt_PJ%>'></td>
+                    	<td><%=FH_totalGoalOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><input class="sale" name="FH_<%=key%>_PJ" value='<%=FH_goalOrder.get(teamList.get(key))%>'></td>
+                    		<%}
+                    	} %>
+                    	<td><input class="sale" name="FH_vt_PJ" value='<%=FH_goalOrder.get(teamList.get(0))%>'></td>
                     </tr>
+                  	<!-- 상반기예상수주 -->
                     <tr class="firstTD orderTD dataTD">
                     	<td>예상 수주</td>
-                    	<td><%=FH_total_ORDER%></td>
-                    	<td><%=FH_chassis_ORDER%></td>
-                    	<td><%=FH_body_ORDER%></td>
-                    	<td><%=FH_control_ORDER%></td>
-                    	<td><%=FH_safe_ORDER%></td>
-                    	<td><%=FH_auto_ORDER%></td>
-                    	<td><%=FH_vt_ORDER%></td>
+                    	<td><%=FH_totalpreOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=FH_preOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=FH_preOrder.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="firstTD orderTD rateTD">
+                  	<!-- 상반기예상수주(%) -->
+                    <tr class="firstTD orderTD rateTD">
                     	<td>예상 수주(%)</td>
-                    	<td><%=String.format("%.1f", FH_total_ORDER/FH_total_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_chassis_ORDER/FH_chassis_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_body_ORDER/FH_body_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_control_ORDER/FH_control_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_safe_ORDER/FH_safe_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_auto_ORDER/FH_auto_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_vt_ORDER/FH_vt_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_totalpreOrder/FH_totalGoalOrder *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", FH_preOrder.get(teamList.get(key))/FH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", FH_preOrder.get(teamList.get(0))/FH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
+                  	<!-- 상반기수주달성 -->
                      <tr class="firstTD orderTD dataTD">
                     	<td>수주 달성</td> 	
-                    	<td><%=FH_total_RPJ%></td>
-                    	<td><%=FH_chassis_RPJ%></td>
-                    	<td><%=FH_body_RPJ%></td>
-                    	<td><%=FH_control_RPJ%></td>
-                    	<td><%=FH_safe_RPJ%></td>
-                    	<td><%=FH_auto_RPJ%></td>
-                    	<td><%=FH_vt_RPJ%></td>
-                    	
+                    	<td><%=FH_totalachOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=FH_achOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=FH_achOrder.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="firstTD orderTD rateTD">
+                  	<!-- 상반기수주달성률 -->
+                    <tr class="firstTD orderTD rateTD">
                     	<td>수주 달성률</td>
-                    	<td><%=String.format("%.1f", FH_total_RPJ/FH_total_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_chassis_RPJ/FH_chassis_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_body_RPJ/FH_body_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_control_RPJ/FH_control_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_safe_RPJ/FH_safe_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_auto_RPJ/FH_auto_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_vt_RPJ/FH_vt_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_totalachOrder/FH_totalGoalOrder *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", FH_achOrder.get(teamList.get(key))/FH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", FH_achOrder.get(teamList.get(0))/FH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="firstTD saleTD dataTD">
+                  	<!-- 상반기목표매출 -->
+                    <tr class="firstTD saleTD dataTD">
                     	<td style="vertical-align: middle;">목표 매출</td>
-                        <td><%=FH_total_SALES%></td>
-                    	<td><input class="sale" name="FH_chassis_SALES" value='<%=FH_chassis_SALES %>'></td>
-                    	<td><input class="sale" name="FH_body_SALES" value='<%=FH_body_SALES %>'></td>
-                    	<td><input class="sale" name="FH_control_SALES" value='<%=FH_control_SALES %>'></td>
-                    	<td><input class="sale" name="FH_safe_SALES" value='<%=FH_safe_SALES %>'></td>
-                    	<td><input class="sale" name="FH_auto_SALES" value='<%=FH_auto_SALES %>'></td>
-                    	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_vt_SALES %>'></td>
+                    	<td><%=FH_totalGoalSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><input class="sale" name="FH_<%=key%>_SALES" value='<%=FH_goalSale.get(teamList.get(key))%>'></td>
+                    		<%}
+                    	} %>
+                    	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_goalSale.get(teamList.get(0))%>'></td>
                     </tr>
-                     <tr class="firstTD saleTD dataTD">
+                  	<!-- 상반기예상매출 -->
+                    <tr class="firstTD saleTD dataTD">
                     	<td>예상 매출</td>
-                    	<td><%=FH_total_PJSALES %></td>
-                    	<td><%=FH_chassis_PJSALES %></td>
-                    	<td><%=FH_body_PJSALES %></td>
-                    	<td><%=FH_control_PJSALES %></td>
-                    	<td><%=FH_safe_PJSALES %></td>
-                    	<td><%=FH_auto_PJSALES %></td>
-                    	<td><%=FH_vt_PJSALES %></td>
+                    	<td><%=FH_totalpreSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=FH_preSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=FH_preSale.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="firstTD saleTD rateTD">
+                  	<!-- 상반기예상매출(%) -->
+                    <tr class="firstTD saleTD rateTD">
                     	<td>예상 매출(%)</td>
-                    	
-                    	<td><%=String.format("%.1f", FH_total_PJSALES/FH_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_chassis_PJSALES/FH_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_body_PJSALES/FH_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_control_PJSALES/FH_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_safe_PJSALES/FH_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_auto_PJSALES/FH_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_vt_PJSALES/FH_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_totalpreSale/FH_totalGoalSale *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", FH_preSale.get(teamList.get(key))/FH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", FH_preSale.get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="firstTD saleTD dataTD">
+                  	<!-- 상반기매출달성 -->
+                    <tr class="firstTD saleTD dataTD">
                     	<td>매출 달성</td>
-                    	<td><%=FH_total_RSALES %></td>
-                   		<td><%=FH_chassis_RSALES %></td>
-                    	<td><%=FH_body_RSALES %></td>
-                    	<td><%=FH_control_RSALES %></td>
-                    	<td><%=FH_safe_RSALES %></td>
-                    	<td><%=FH_auto_RSALES %></td>
-                    	<td><%=FH_vt_RSALES %></td>
+                    	<td><%=FH_totalachSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=FH_achSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=FH_achSale.get(teamList.get(0))%></td>
                     </tr>
+                  	<!-- 상반기매출보정 -->
                     <tr class="firstTD saleTD dataTD corrTD_fh" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td onclick="viewDetail('Total', '상반기')"><%=fh_cms_total %></td>
-                   		<td onclick="viewDetail('샤시힐스검증팀', '상반기')"><%=fh_cms_chassis %></td>
-                    	<td onclick="viewDetail('바디힐스검증팀', '상반기')"><%=fh_cms_body %></td>
-                    	<td onclick="viewDetail('제어로직검증팀', '상반기')"><%=fh_cms_control %></td>
-                    	<td onclick="viewDetail('기능안전검증팀', '상반기')"><%=fh_cms_safe %></td>
-                    	<td onclick="viewDetail('자율주행검증팀', '상반기')"><%=fh_cms_auto %></td>
-                    	<td onclick="viewDetail('미래차검증전략실', '상반기')"><%=fh_cms_vt %></td>
+                    	<td onclick="viewDetail('Total', '상반기')"><%=cmsRate.get(0).get("Total") %></td>
+                    	<%for(String key : cmsRate.get(0).keySet()) {
+                    		if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+                    		<td onclick="viewDetail('<%=key%>', '상반기')"><%=cmsRate.get(0).get(key) %></td>
+                    		<%}
+                    	} %>
+                    	<td onclick="viewDetail('<%=teamList.get(0) %>', '상반기')"><%=cmsRate.get(0).get(teamList.get(0)) %></td>
                     </tr>
-
-                     <tr class="firstTD saleTD rateTD">
+                    <!-- 상반기매출달성률 -->
+					<tr class="firstTD saleTD rateTD">
                     	<td>매출 달성률</td>
-                    	<td><%=String.format("%.1f", FH_total_RSALES/FH_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_chassis_RSALES/FH_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_body_RSALES/FH_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_control_RSALES/FH_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_safe_RSALES/FH_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_auto_RSALES/FH_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", FH_vt_RSALES/FH_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", FH_totalachSale/FH_totalGoalSale *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", FH_achSale.get(teamList.get(key))/FH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", FH_achSale.get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
+                    <!-- 상반기매출보정달성률 -->
                     <tr class="firstTD saleTD rateTD corrRate_fh" style="color:red;">
                     	<td>매출 보정 달성률</td>
-                    	<td><%=String.format("%.1f", fh_cms_total/FH_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", fh_cms_chassis/FH_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", fh_cms_body/FH_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", fh_cms_control/FH_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", fh_cms_safe/FH_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", fh_cms_auto/FH_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", fh_cms_vt/FH_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", cmsRate.get(0).get("Total")/FH_totalGoalSale *100)%>(%)</td>
+                    	<%for(String key : cmsRate.get(0).keySet()) {
+                    		if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+                    		<td><%=String.format("%.1f", cmsRate.get(0).get(key)/FH_goalSale.get(key) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", cmsRate.get(0).get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
                     
-                     <tr class="lastTD orderTD dataTD">
+                    <!-- 하반기목표수주 -->
+                    <tr class="lastTD orderTD dataTD">
                     	<td rowspan="12" style="text-align:center; font-size: medium; padding-top: 10px" class="lastTD lastTag">하반기</td>
                     	<td style="text-align:center; vertical-align: middle;">목표 수주</td>
-                    	<td><%=SH_total_PJ%></td>
-                    	<td><input class="sale" name="SH_chassis_PJ" value='<%=SH_chassis_PJ %>'></td>
-                    	<td><input class="sale" name="SH_body_PJ" value='<%=SH_body_PJ %>'></td>
-                    	<td><input class="sale" name="SH_control_PJ" value='<%=SH_control_PJ %>'></td>
-                    	<td><input class="sale" name="SH_safe_PJ" value='<%=SH_safe_PJ %>'></td>
-                    	<td><input class="sale" name="SH_auto_PJ" value='<%=SH_auto_PJ %>'></td>
-                    	<td><input class="sale" name="SH_vt_PJ" value='<%=SH_vt_PJ %>'></td>
+                    	<td><%=SH_totalGoalOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><input class="sale" name="SH_<%=key%>_PJ" value='<%=SH_goalOrder.get(teamList.get(key))%>'></td>
+                    		<%}
+                    	} %>
+                    	<td><input class="sale" name="SH_vt_PJ" value='<%=SH_goalOrder.get(teamList.get(0))%>'></td>
                     </tr>
-                     <tr class="lastTD orderTD dataTD">
+                    <!-- 하반기예상수주 -->
+                    <tr class="lastTD orderTD dataTD">
                     	<td>예상 수주</td>
-                    	<td><%=SH_total_ORDER%></td>
-                    	<td><%=SH_chassis_ORDER%></td>
-                    	<td><%=SH_body_ORDER%></td>
-                    	<td><%=SH_control_ORDER%></td>
-                    	<td><%=SH_safe_ORDER%></td>
-                    	<td><%=SH_auto_ORDER%></td>
-                    	<td><%=SH_vt_ORDER%></td>
+                    	<td><%=SH_totalpreOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=SH_preOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=SH_preOrder.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="lastTD orderTD rateTD">
+                    <!-- 하반기예상수주(%) -->
+                    <tr class="lastTD orderTD rateTD">
                     	<td>예상 수주(%)</td>
-						<td><%=String.format("%.1f", SH_total_ORDER/SH_total_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_chassis_ORDER/SH_chassis_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_body_ORDER/SH_body_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_control_ORDER/SH_control_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_safe_ORDER/SH_safe_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_auto_ORDER/SH_auto_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_vt_ORDER/SH_vt_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_totalpreOrder/SH_totalGoalOrder *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", SH_preOrder.get(teamList.get(key))/SH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", SH_preOrder.get(teamList.get(0))/SH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="lastTD orderTD dataTD">
+                    <!-- 하반기수주달성 -->
+                    <tr class="lastTD orderTD dataTD">
                     	<td>수주 달성</td>
-                    	<td><%=SH_total_RPJ%></td>
-                    	<td><%=SH_chassis_RPJ%></td>
-                    	<td><%=SH_body_RPJ%></td>
-                    	<td><%=SH_control_RPJ%></td>
-                    	<td><%=SH_safe_RPJ%></td>
-                    	<td><%=SH_auto_RPJ%></td>
-                    	<td><%=SH_vt_RPJ%></td>
-                    	
+                    	<td><%=SH_totalachOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=SH_achOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=SH_achOrder.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="lastTD orderTD rateTD">
+                    <!-- 하반기수주달성률 -->
+                    <tr class="lastTD orderTD rateTD">
                     	<td>수주 달성률</td>
-						<td><%=String.format("%.1f", SH_total_RPJ/SH_total_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_chassis_RPJ/SH_chassis_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_body_RPJ/SH_body_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_control_RPJ/SH_control_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_safe_RPJ/SH_safe_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_auto_RPJ/SH_auto_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_vt_RPJ/SH_vt_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_totalachOrder/SH_totalGoalOrder *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", SH_achOrder.get(teamList.get(key))/SH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", SH_achOrder.get(teamList.get(0))/SH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="lastTD saleTD dataTD">
+                    <!-- 하반기목표매출 -->
+                    <tr class="lastTD saleTD dataTD">
                     	<td style="vertical-align: middle;">목표 매출</td>
-                        <td><%=SH_total_SALES%></td>
-                    	<td><input class="sale" name="SH_chassis_SALES" value='<%=SH_chassis_SALES %>'></td>
-                    	<td><input class="sale" name="SH_body_SALES" value='<%=SH_body_SALES %>'></td>
-                    	<td><input class="sale" name="SH_control_SALES" value='<%=SH_control_SALES %>'></td>
-                    	<td><input class="sale" name="SH_safe_SALES" value='<%=SH_safe_SALES %>'></td>
-                    	<td><input class="sale" name="SH_auto_SALES" value='<%=SH_auto_SALES %>'></td>
-                    	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_vt_SALES %>'></td>
+                    	<td><%=SH_totalGoalSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><input class="sale" name="SH_<%=key%>_SALES" value='<%=SH_goalSale.get(teamList.get(key))%>'></td>
+                    		<%}
+                    	} %>
+                    	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_goalSale.get(teamList.get(0))%>'></td>
                     </tr>
-                     <tr class="lastTD saleTD dataTD">
+                    <!-- 하반기예상매출 -->
+                    <tr class="lastTD saleTD dataTD">
                     	<td>예상 매출</td>
-                    	<td><%=SH_total_PJSALES %></td>
-                    	<td><%=SH_chassis_PJSALES %></td>
-                    	<td><%=SH_body_PJSALES %></td>
-                    	<td><%=SH_control_PJSALES %></td>
-                    	<td><%=SH_safe_PJSALES %></td>
-                    	<td><%=SH_auto_PJSALES %></td>
-                    	<td><%=SH_vt_PJSALES %></td>
+                    	<td><%=SH_totalpreSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=SH_preSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=SH_preSale.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="lastTD saleTD rateTD">
+                    <!-- 하반기예상매출(%) -->
+                    <tr class="lastTD saleTD rateTD">
                     	<td>예상 매출(%)</td>
-                    	<td><%=String.format("%.1f", SH_total_PJSALES/SH_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_chassis_PJSALES/SH_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_body_PJSALES/SH_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_control_PJSALES/SH_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_safe_PJSALES/SH_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_auto_PJSALES/SH_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_vt_PJSALES/SH_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_totalpreSale/SH_totalGoalSale *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", SH_preSale.get(teamList.get(key))/SH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", SH_preSale.get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="lastTD saleTD dataTD">
+                    <!-- 하반기매출달성 -->
+                    <tr class="lastTD saleTD dataTD">
                     	<td>매출 달성</td>
-                    	<td><%=SH_total_RSALES %></td>
-                   		<td><%=SH_chassis_RSALES %></td>
-                    	<td><%=SH_body_RSALES %></td>
-                    	<td><%=SH_control_RSALES %></td>
-                    	<td><%=SH_safe_RSALES %></td>
-                    	<td><%=SH_auto_RSALES %></td>
-                    	<td><%=SH_vt_RSALES %></td>
-                    	
+                    	<td><%=SH_totalachSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=SH_achSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=SH_achSale.get(teamList.get(0))%></td>
                     </tr>
+                    <!-- 하반기매출보정 -->
                     <tr class="lastTD saleTD dataTD corrTD_sh" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td onclick="viewDetail('Total', '하반기')"><%=sh_cms_total %></td>
-                   		<td onclick="viewDetail('샤시힐스검증팀', '하반기')"><%=sh_cms_chassis %></td>
-                    	<td onclick="viewDetail('바디힐스검증팀', '하반기')"><%=sh_cms_body %></td>
-                    	<td onclick="viewDetail('제어로직검증팀', '하반기')"><%=sh_cms_control %></td>
-                    	<td onclick="viewDetail('기능안전검증팀', '하반기')"><%=sh_cms_safe %></td>
-                    	<td onclick="viewDetail('자율주행검증팀', '하반기')"><%=sh_cms_auto %></td>
-                    	<td onclick="viewDetail('미래차검증전략실', '하반기')"><%=sh_cms_vt %></td>
+                    	<td onclick="viewDetail('Total', '하반기')"><%=cmsRate.get(1).get("Total") %></td>
+                         <%for(String key : cmsRate.get(1).keySet()) {
+                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+                              <td onclick="viewDetail('<%=key%>', '하반기')"><%=cmsRate.get(1).get(key) %></td>
+                              <%}
+                         } %>
+                        <td onclick="viewDetail('<%=teamList.get(0) %>', '하반기')"><%=cmsRate.get(1).get(teamList.get(0)) %></td>
                     </tr>
-                     <tr class="lastTD saleTD rateTD">
+                    <!-- 하반기매출달성률 -->
+                    <tr class="lastTD saleTD rateTD">
                     	<td>매출 달성률</td>
-                    	<td><%=String.format("%.1f", SH_total_RSALES/SH_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_chassis_RSALES/SH_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_body_RSALES/SH_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_control_RSALES/SH_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_safe_RSALES/SH_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_auto_RSALES/SH_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", SH_vt_RSALES/SH_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", SH_totalachSale/SH_totalGoalSale *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", SH_achSale.get(teamList.get(key))/SH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", SH_achSale.get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
+                    <!-- 하반기매출보정달성률 -->
                     <tr class="lastTD saleTD rateTD corrRate_sh" style="color:red;">
                     	<td>매출 보정 달성률</td>
-                    	<td><%=String.format("%.1f", sh_cms_total/SH_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", sh_cms_chassis/SH_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", sh_cms_body/SH_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", sh_cms_control/SH_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", sh_cms_safe/SH_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", sh_cms_auto/SH_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", sh_cms_vt/SH_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", cmsRate.get(1).get("Total")/SH_totalGoalSale *100)%>(%)</td>
+                         <%for(String key : cmsRate.get(1).keySet()) {
+                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+                              <td><%=String.format("%.1f", cmsRate.get(1).get(key)/SH_goalSale.get(key) *100)%>(%)</td>
+                              <%}
+                         } %>
+                        <td><%=String.format("%.1f", cmsRate.get(1).get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
                     
+                    <!-- 연간목표수주 -->
                     <tr class="yearTD orderTD dataTD">
                     	<td rowspan="12" style="text-align:center; font-size: medium; padding-top: 10px" class="yearTD yearTag">연간</td>
                     	<td style="text-align:center;">목표 수주</td>
-                    	<td><%=Y_total_pj %></td>
-                    	<td><%=Y_chassis_PJ %></td>
-                    	<td><%=Y_body_PJ %></td>
-                    	<td><%=Y_control_PJ %></td>
-                    	<td><%=Y_safe_PJ %></td>
-                    	<td><%=Y_auto_PJ %></td>
-                    	<td><%=Y_vt_PJ %></td>
+                    	<td><%=Y_totalGoalOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=Y_goalOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=Y_goalOrder.get(teamList.get(0))%></td>
                     </tr>
+                    <!-- 연간예상수주 -->
                     <tr class="yearTD orderTD dataTD">
                     	<td>예상 수주</td>
-                    	<td><%=Y_total_ORDER %></td>
-                    	<td><%=Y_chassis_ORDER %></td>
-                    	<td><%=Y_body_ORDER %></td>
-                    	<td><%=Y_control_ORDER %></td>
-                    	<td><%=Y_safe_ORDER %></td>
-                    	<td><%=Y_auto_ORDER %></td>
-                    	<td><%=Y_vt_ORDER %></td>
+                    	<td><%=Y_totalpreOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=Y_preOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=Y_preOrder.get(teamList.get(0))%></td>
                     </tr>
+                    <!-- 연간예상수주(%) -->
                      <tr class="yearTD orderTD rateTD">
                     	<td>예상 수주(%)</td>
-                    	<td><%=String.format("%.1f", Y_total_ORDER/Y_total_pj *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_chassis_ORDER/Y_chassis_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_body_ORDER/Y_body_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_control_ORDER/Y_control_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_safe_ORDER/Y_safe_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_auto_ORDER/Y_auto_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_vt_ORDER/Y_vt_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_totalpreOrder/Y_totalGoalOrder *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", Y_preOrder.get(teamList.get(key))/Y_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", Y_preOrder.get(teamList.get(0))/Y_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="yearTD orderTD dataTD">
+                    <!-- 연간수주달성 -->
+                    <tr class="yearTD orderTD dataTD">
                     	<td>수주 달성</td>
-                    	<td><%=Y_total_RPJ %></td>
-                    	<td><%=Y_chassis_RPJ %></td>
-                    	<td><%=Y_body_RPJ %></td>
-                    	<td><%=Y_control_RPJ %></td>
-                    	<td><%=Y_safe_RPJ %></td>
-                    	<td><%=Y_auto_RPJ %></td>
-                    	<td><%=Y_vt_RPJ %></td>
+                    	<td><%=Y_totalachOrder%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=Y_achOrder.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=Y_achOrder.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="yearTD orderTD rateTD">
+                    <!-- 연간수주달성률 -->
+                    <tr class="yearTD orderTD rateTD">
                     	<td>수주 달성률</td>
-                    	<td><%=String.format("%.1f", Y_total_RPJ/Y_total_pj *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_chassis_RPJ/Y_chassis_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_body_RPJ/Y_body_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_control_RPJ/Y_control_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_safe_RPJ/Y_safe_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_auto_RPJ/Y_auto_PJ *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_vt_RPJ/Y_vt_PJ *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_totalachOrder/Y_totalGoalOrder *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", Y_achOrder.get(teamList.get(key))/Y_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", Y_achOrder.get(teamList.get(0))/Y_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="yearTD saleTD dataTD">
+                    <!-- 연간목표매출 -->
+                    <tr class="yearTD saleTD dataTD">
                     	<td>목표 매출</td>
-                        <td><%=Y_total_SALES %></td>
-                    	<td><%=Y_chassis_SALES %></td>
-                    	<td><%=Y_body_SALES %></td>
-                    	<td><%=Y_control_SALES %></td>
-                    	<td><%=Y_safe_SALES %></td>
-                    	<td><%=Y_auto_SALES %></td>
-                    	<td><%=Y_vt_SALES %></td>
+                    	<td><%=Y_totalGoalSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=Y_goalSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=Y_goalSale.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="yearTD saleTD dataTD">
+                    <!-- 연간예상매출 -->
+                    <tr class="yearTD saleTD dataTD">
                     	<td>예상 매출</td>
-                    	<td><%=Y_total_PJSALES %></td>
-                    	<td><%=Y_chassis_PJSALES %></td>
-                    	<td><%=Y_body_PJSALES %></td>
-                    	<td><%=Y_control_PJSALES %></td>
-                    	<td><%=Y_safe_PJSALES %></td>
-                    	<td><%=Y_auto_PJSALES %></td>
-                    	<td><%=Y_vt_PJSALES %></td>
+                    	<td><%=Y_totalpreSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=Y_preSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=Y_preSale.get(teamList.get(0))%></td>
                     </tr>
-                     <tr class="yearTD saleTD rateTD">
+                    <!-- 연간예상매출(%) -->
+                    <tr class="yearTD saleTD rateTD">
                     	<td>예상 매출(%)</td>
-                    	<td><%=String.format("%.1f", Y_total_PJSALES/Y_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_chassis_PJSALES/Y_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_body_PJSALES/Y_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_control_PJSALES/Y_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_safe_PJSALES/Y_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_auto_PJSALES/Y_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_vt_PJSALES/Y_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_totalpreSale/Y_totalGoalSale *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", Y_preSale.get(teamList.get(key))/Y_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", Y_preSale.get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
-                     <tr class="yearTD saleTD dataTD">
+                    <!-- 연간매출달성 -->
+                    <tr class="yearTD saleTD dataTD">
                     	<td>매출 달성</td>
-                    	<td><%=Y_total_RSALES %></td>
-                    	<td><%=Y_chassis_RSALES %></td>
-                    	<td><%=Y_body_RSALES %></td>
-                    	<td><%=Y_control_RSALES %></td>
-                    	<td><%=Y_safe_RSALES %></td>
-                    	<td><%=Y_auto_RSALES %></td>
-                    	<td><%=Y_vt_RSALES %></td>
+                    	<td><%=Y_totalachSale%></td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=Y_achSale.get(teamList.get(key))%></td>
+                    		<%}
+                    	} %>
+                    	<td><%=Y_achSale.get(teamList.get(0))%></td>
                     </tr>
+                    <!-- 연간매출보정 -->
                     <tr class="yearTD saleTD dataTD corrTD_y" style="color:red;">
                     	<td>매출 보정 </td>
-                    	<td onclick="viewDetail('Total', '연간')"><%=y_cms_total %></td>
-                   		<td onclick="viewDetail('샤시힐스검증팀', '연간')"><%=y_cms_chassis %></td>
-                    	<td onclick="viewDetail('바디힐스검증팀', '연간')"><%=y_cms_body %></td>
-                    	<td onclick="viewDetail('제어로직검증팀', '연간')"><%=y_cms_control %></td>
-                    	<td onclick="viewDetail('기능안전검증팀', '연간')"><%=y_cms_safe %></td>
-                    	<td onclick="viewDetail('자율주행검증팀', '연간')"><%=y_cms_auto %></td>
-                    	<td onclick="viewDetail('미래차검증전략실', '연간')"><%=y_cms_vt %></td>
+                    	<td onclick="viewDetail('Total', '연간')"><%=cmsRate.get(2).get("Total") %></td>
+                         <%for(String key : cmsRate.get(2).keySet()) {
+                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+                              <td onclick="viewDetail('<%=key%>', '연간')"><%=cmsRate.get(2).get(key) %></td>
+                              <%}
+                         } %>
+                        <td onclick="viewDetail('<%=teamList.get(0) %>', '연간')"><%=cmsRate.get(2).get(teamList.get(0)) %></td>
                     </tr>
-                     <tr class="yearTD saleTD rateTD">
+                    <!-- 연간매출달성률 -->
+                    <tr class="yearTD saleTD rateTD">
                     	<td>매출 달성률</td>
-                    	<td><%=String.format("%.1f", Y_total_RSALES/Y_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_chassis_RSALES/Y_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_body_RSALES/Y_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_control_RSALES/Y_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_safe_RSALES/Y_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_auto_RSALES/Y_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", Y_vt_RSALES/Y_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", Y_totalachSale/Y_totalGoalSale *100)%>(%)</td>
+                    	<%for(int key : teamList.keySet()){
+                    		if(key != 0){%>
+                    		<td><%=String.format("%.1f", Y_achSale.get(teamList.get(key))/Y_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+                    		<%}
+                    	} %>
+                    	<td><%=String.format("%.1f", Y_achSale.get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
+                    <!-- 연간매출보정달성률 -->
                     <tr class="yearTD saleTD rateTD corrRate_y" style="color:red;">
                     	<td>매출 보정 달성률</td>
-                    	<td><%=String.format("%.1f", y_cms_total/Y_total_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", y_cms_chassis/Y_chassis_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", y_cms_body/Y_body_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", y_cms_control/Y_control_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", y_cms_safe/Y_safe_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", y_cms_auto/Y_auto_SALES *100)%>(%)</td>
-                    	<td><%=String.format("%.1f", y_cms_vt/Y_vt_SALES *100)%>(%)</td>
+                    	<td><%=String.format("%.1f", cmsRate.get(2).get("Total")/Y_totalGoalSale *100)%>(%)</td>
+                         <%for(String key : cmsRate.get(2).keySet()) {
+                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+                              <td><%=String.format("%.1f", cmsRate.get(2).get(key)/Y_goalSale.get(key) *100)%>(%)</td>
+                              <%}
+                         } %>
+                         <td><%=String.format("%.1f", cmsRate.get(2).get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
                     </tr>
                   	  </tbody>                            
                		 </table>

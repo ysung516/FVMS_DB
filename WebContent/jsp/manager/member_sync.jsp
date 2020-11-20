@@ -138,7 +138,7 @@
 				gmail = obj.getString("이메일");
 				rank = obj.getString("직위");
 				comeDate = obj.getString("입사일");
-				if(!(rank.equals("전임") || rank.equals("선임") || rank.equals("책임") || rank.equals("수석"))){
+				if(!(rank.equals("인턴") || rank.equals("전임") || rank.equals("선임") || rank.equals("책임") || rank.equals("수석"))){
 					rank = "-";
 				}
 				for(int teamNum : teamList.keySet()){
