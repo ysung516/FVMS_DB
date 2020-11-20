@@ -19,9 +19,15 @@
 		session.setMaxInactiveInterval(60*60);
 		
 		MemberDAO memberDao = new MemberDAO();
+		ExpendDAO expendDao = new ExpendDAO();
 		MemberBean member = memberDao.returnMember(sessionID);
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
+		Date nowYear = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String year = sf.format(nowYear);
+		
+		ArrayList<String> teamList  = expendDao.getTeamData();
 	%>
 
 <meta charset="utf-8">
@@ -48,9 +54,11 @@
 	
 <script>
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-	    $('.loading').hide();
+	$(document).ready(function(){
+		$('.loading').hide();
 	});
+	
+	
 </script>
 
 <style>
@@ -289,6 +297,22 @@ legend {
 						</div>
 
 						<div class="card-body">
+						<table class="table table-bordered">
+							<thead>
+							<tr>							
+								<th><%=year%>년</th>
+								<%
+									for(int i=0; i<teamList.size(); i++){%>
+										<th><%=teamList.get(i)%></th>
+								<%}%>
+							<tr>
+							</thead>
+							<tbody>
+								<tr id="fist_half"></tr>
+								<tr id="second_half"></tr>
+								<tr id="total"></tr>
+							</tbody>
+						</table>
 						</div>
 					</div>
 					
@@ -330,7 +354,6 @@ legend {
 						</div>
 					</div>
 				</div>
-
 
 				<!-- Bootstrap core JavaScript-->
 				<script src="../../vendor/jquery/jquery.min.js"></script>

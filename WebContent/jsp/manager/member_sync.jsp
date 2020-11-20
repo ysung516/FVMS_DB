@@ -40,7 +40,8 @@
 	PrintWriter script =  response.getWriter();
 	// excel => json
 	//경로설정
-	String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";
+	String path = "../webapps/ROOT/upload";
+	//String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";
 	//파일받기
 	MultipartRequest multipartRequest = new MultipartRequest(request, path, 1024*1024*30, "utf-8", new DefaultFileRenamePolicy());
 	//파일 원래 이름 저장

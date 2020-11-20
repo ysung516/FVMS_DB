@@ -30,9 +30,11 @@
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
+	ManagerDAO managerDao = new ManagerDAO();
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -765,7 +767,12 @@ function btn_insert(){
 
 										<tr>
 											<th>근무지</th>
-											<td><input id="WORK_PLACE" name="WORK_PLACE"></input></td>
+											<td><select id="workPlace" name="WORK_PLACE">
+											<%
+												for(int i=0; i<wpList.size(); i++){%>
+													<option value="<%=wpList.get(i).getPlace()%>"><%=wpList.get(i).getPlace()%></option>
+											<%}%>
+											</select></td>
 										</tr>
 
 										<tr>

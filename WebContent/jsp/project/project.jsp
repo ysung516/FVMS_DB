@@ -660,6 +660,10 @@
 	  		});
     	}
     }
+    function updateWorkPlace(projectNo, projectName, place){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('update_workPlace.jsp?no=' + projectNo + '&name=' + projectName + '&place=' + place +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
+    }
     
     function updateCheck(projectNo, projectName, check, attr){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
@@ -1107,7 +1111,7 @@
 										<td id="<%=projectList.get(i).getNO()%>착수" class="td" onclick="updateStart('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','<%=projectList.get(i).getPROJECT_START()%>')"><%=projectList.get(i).getPROJECT_START()%></td>
 										<td id="<%=projectList.get(i).getNO()%>종료" class="td" onclick="updateEnd('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','<%=projectList.get(i).getPROJECT_END()%>')"><%=projectList.get(i).getPROJECT_END()%></td>
 										<td id="<%=projectList.get(i).getNO()%>고객담당자" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','고객담당자')"><%=projectList.get(i).getCLIENT_PTB()%></td>
-										<td id="<%=projectList.get(i).getNO()%>근무지" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','근무지')"><%=projectList.get(i).getWORK_PLACE()%></td>
+										<td id="<%=projectList.get(i).getNO()%>근무지" class="td" onclick="updateWorkPlace('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','<%=projectList.get(i).getWORK_PLACE()%>')"><%=projectList.get(i).getWORK_PLACE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>업무" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','업무')"><%=projectList.get(i).getWORK()%></td>	
 										<td onclick="updatePM('<%=projectList.get(i).getNO()%>','<%=projectList.get(i).getPROJECT_NAME()%>')">
 											<%

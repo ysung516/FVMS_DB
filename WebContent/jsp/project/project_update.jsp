@@ -25,6 +25,7 @@
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
+	ManagerDAO managerDao = new ManagerDAO();
 	
 	int year = Integer.parseInt(request.getParameter("year"));
 	
@@ -32,6 +33,8 @@
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
 	ArrayList<CareerBean> careerList_PM = projectDao.getCarrerPM(no);
+	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+	
 	String textPM = "";
 	String textWorker = "";
 	for(int i=0; i<careerList_PM.size(); i++){
@@ -181,6 +184,7 @@ $(document).ready(function () {
 	teamMember('#PM-team','#PROJECT_MANAGER');
 	$("#team_sales").val("<%=project.getTEAM_SALES()%>").prop("selected", true);
 	$("#team_order").val("<%=project.getTEAM_ORDER()%>").prop("selected", true);
+	$("#workPlace").val("<%=project.getWORK_PLACE()%>").prop("selected",true);
 	$("#STATE").val("<%=project.getSTATE()%>").prop("selected", true);
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
 	$("input:radio[name='reportCheck']:radio[value='<%=project.getREPORTCHECK()%>']").prop("checked", true);
@@ -699,8 +703,12 @@ function btn_copy(){
 
 										<tr>
 											<th>근무지</th>
-											<td><input id="WORK_PLACE" name="WORK_PLACE"
-												value="<%=project.getWORK_PLACE()%>"></input></td>
+											<td><select id="workPlace" name="WORK_PLACE">
+											<%
+												for(int i=0; i<wpList.size(); i++){%>
+													<option value="<%=wpList.get(i).getPlace()%>"><%=wpList.get(i).getPlace()%></option>
+											<%}%>
+											</select></td>
 										</tr>
 
 										<tr>
