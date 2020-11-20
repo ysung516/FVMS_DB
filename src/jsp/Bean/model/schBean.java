@@ -17,6 +17,7 @@ public class schBean {
 	private String rank;
 	private String pm;
 	private String workList;
+	private String state;
 	
 	public String getPm() {
 		return pm;
@@ -72,5 +73,11 @@ public class schBean {
 	}
 	public void setRank(String rank) {
 		this.rank = rank;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 }

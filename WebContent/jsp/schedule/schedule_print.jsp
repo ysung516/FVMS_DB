@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="jsp.DB.method.*"
 	import="java.util.ArrayList" import="java.util.Date"
-	import="java.text.SimpleDateFormat"%>
+	import="java.text.SimpleDateFormat"
+	import="java.util.LinkedHashMap"
+	import="java.util.HashMap"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,219 +26,102 @@
 	MemberDAO memberDao = new MemberDAO();
 	ProjectDAO projectDao = new ProjectDAO();
 	SchDAO schDao = new SchDAO();
+	
+	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<schBean> schList = schDao.getProject_except8();
-	//ArrayList<schBean> schList = new ArrayList<schBean>();
+	
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
-	
-	
-	ArrayList<String> userID = new ArrayList<String>();
-	ArrayList<String> userName = new ArrayList<String>();
-	
-	for(int i=0; i<memberList.size(); i++){
-		userID.add(memberList.get(i).getID());
-		userName.add(memberList.get(i).getNAME());
-	}
-	
-	String str = "";
+	String nowYear = sf.format(nowTime).split("-")[0];
+   	int preYear = Integer.parseInt(nowYear) - 1;
+   	int nextYear = Integer.parseInt(nowYear) + 1;
+   	
+   	//HashMap<팀명, HashMap<total or 직급, ArrayList<MemberBean>>>
+   	HashMap<String, HashMap<String, ArrayList<MemberBean>>> allList = new HashMap<String, HashMap<String, ArrayList<MemberBean>>>();
 
-	ArrayList<MemberBean> List1 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List11 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List12 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List13 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List14 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List15 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List2 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List21 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List22 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List23 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List24 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List25 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List3 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List31 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List32 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List33 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List34 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List35 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List4 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List41 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List42 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List43 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List44 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List45 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List5 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List51 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List52 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List53 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List54 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List55 = new ArrayList<MemberBean>();
-	
-	ArrayList<MemberBean> List6 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List61 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List62 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List63 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List64 = new ArrayList<MemberBean>();
-	ArrayList<MemberBean> List65 = new ArrayList<MemberBean>();
-	
 	ArrayList<MemberBean> ListT = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT1 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT2 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT3 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT4 = new ArrayList<MemberBean>();
 	ArrayList<MemberBean> ListT5 = new ArrayList<MemberBean>();
-	
-	for(int i=0; i<memberList.size(); i++){
-		if(memberList.get(i).getTEAM().equals("미래차검증전략실")){
-			List1.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List11.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List12.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List13.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List14.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List15.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("샤시힐스검증팀")){
-			List2.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List21.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List22.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List23.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List24.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List25.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("바디힐스검증팀")){
-			List3.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List31.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List32.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List33.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List34.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List35.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("제어로직검증팀")){
-			List4.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List41.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List42.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List43.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List44.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List45.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("기능안전검증팀")){
-			List5.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List51.add(memberList.get(i));
-				ListT.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List52.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List53.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List54.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List55.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-			
-		}else if(memberList.get(i).getTEAM().equals("자율주행검증팀")){
-			List6.add(memberList.get(i));
-			ListT.add(memberList.get(i));
-			if(memberList.get(i).getRANK().equals("수석")){
-				List61.add(memberList.get(i));
-				ListT1.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("책임")){
-				List62.add(memberList.get(i));
-				ListT2.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("선임")){
-				List63.add(memberList.get(i));
-				ListT3.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("전임")){
-				List64.add(memberList.get(i));
-				ListT4.add(memberList.get(i));
-			} else if(memberList.get(i).getRANK().equals("인턴")){
-				List65.add(memberList.get(i));
-				ListT5.add(memberList.get(i));
-			}
-		}	
-	}
 
+	for(int key : teamList.keySet()){
+		HashMap<String, ArrayList<MemberBean>> teamMember = new HashMap<String, ArrayList<MemberBean>>();
+		ArrayList<MemberBean> total = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list1 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list2 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list3 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list4 = new ArrayList<MemberBean>();
+		ArrayList<MemberBean> list5 = new ArrayList<MemberBean>();
+		for(int i=0; i<memberList.size(); i++){
+			if(memberList.get(i).getTEAM().equals(teamList.get(key))){
+				total.add(memberList.get(i));
+				ListT.add(memberList.get(i));
+				if(memberList.get(i).getRANK().equals("수석")){
+					list1.add(memberList.get(i));
+					ListT1.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("책임")){
+					list2.add(memberList.get(i));
+					ListT2.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("선임")){
+					list3.add(memberList.get(i));
+					ListT3.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("전임")){
+					list4.add(memberList.get(i));
+					ListT4.add(memberList.get(i));
+					continue;
+				} else if(memberList.get(i).getRANK().equals("인턴")){
+					list5.add(memberList.get(i));
+					ListT5.add(memberList.get(i));
+					continue;
+				}
+			}
+		}
+		teamMember.put("total", total);
+		teamMember.put("수석", list1);
+		teamMember.put("책임", list2);
+		teamMember.put("선임", list3);
+		teamMember.put("전임", list4);
+		teamMember.put("인턴", list5);
+		allList.put(teamList.get(key), teamMember);
+	}
 	
-   	String nowYear = sf.format(nowTime).split("-")[0];
-   	int preYear = Integer.parseInt(nowYear) - 1;
-   	int nextYear = Integer.parseInt(nowYear) + 1;
+
+	HashMap<Integer, Integer> teamNum = new HashMap<Integer, Integer>();
+	for(int key : teamList.keySet()){
+		teamNum.put(key, new Integer(0));
+		for(int i=0; i<schList.size(); i++){
+			if(teamList.get(key).equals(schList.get(i).getTeam())){
+				teamNum.put(key, teamNum.get(key)+1);
+			}
+		}
+		System.out.println(teamNum.get(key));
+	}
 %>
 
 <style>
-	#timelineChart{
+	#0{
 		padding-right : 40px;
 	}
-	#timelineChart2{
+	#1{
 		padding-right : 40px;
 	}
-	#timelineChart3{
+	#2{
 		padding-right : 40px;
 	}
-	#timelineChart4{
+	#3{
 		padding-right : 40px;
 	}
-	#timelineChart5{
+	#4{
 		padding-right : 40px;
 	}
-	#timelineChart6{
+	#5{
 		padding-right : 40px;
 	}
 	
@@ -250,12 +135,9 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 google.charts.load("current", {packages:["timeline"]});
-google.charts.setOnLoadCallback(drawChartOp);
-google.charts.setOnLoadCallback(drawChartOp2);
-google.charts.setOnLoadCallback(drawChartOp3);
-google.charts.setOnLoadCallback(drawChartOp4);
-google.charts.setOnLoadCallback(drawChartOp5);
-google.charts.setOnLoadCallback(drawChartOp6);
+<%for(int key : teamList.keySet()){%>
+google.charts.setOnLoadCallback(drawChartOp<%=key%>);
+<%}%>
 
 
 function nowLine(div){
@@ -268,21 +150,15 @@ function nowLine(div){
 	  })
 		var nowWord = $('#' + div + ' text:contains("Now")');
 	  nowWord.prev().first().attr('height', height + 'px').attr('width', '1px').attr('y', '0');
-	}
-
-var cnt = 0;
-var cnt1 = 0;
-var cnt2 = 0;
-var cnt3 = 0;
-var cnt4 = 0;
-var cnt5 = 0;
+}
 
 
-
-function drawChartOp(){
-	var team = '미래차검증전략실';
+<%for(int key : teamList.keySet()){
+	   	StringBuffer strColor = new StringBuffer();%>
+function drawChartOp<%=key%>(){
+	var team = '<%=teamList.get(key)%>';
 	var rank = 'total';
-	  var container = document.getElementById('timelineChart');
+	  var container = document.getElementById('<%=key%>');
 	    var chart = new google.visualization.Timeline(container);
 	    var dataTable = new google.visualization.DataTable();
 
@@ -299,7 +175,6 @@ function drawChartOp(){
 	    <%
 	  	  for(int i=0; i<schList.size(); i++){%>
 	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-	  	  		cnt ++;
 	  			 dataTable.addRows([
 	  				[	'<%=schList.get(i).getName()%>'
       				,'<%=schList.get(i).getProjectName()%>'
@@ -310,275 +185,26 @@ function drawChartOp(){
       				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 	            ]);
 	  		}  	
-	<%}%>
-		if(cnt > 0){
-			$('#timelineChart').height(cnt*50);
+	<%	}%>
+		if(<%=teamNum.get(key)%> > 0){
+			$('#'+'<%=key%>').height(<%=teamNum.get(key)%>*55);
 		}
+		
 	  	chart.draw(dataTable);
-		nowLine('timelineChart');
+		nowLine('<%=key%>');
 	 	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
 	 		if(obj.row == 0){
 	 			$('.google-visualization-tooltip').css('display', 'none');
 	 		}
-	 	    nowLine('timelineChart');
+	 	    nowLine('<%=key%>');
 	 	  })
 	 	  
 	 	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	 	  	nowLine('timelineChart');
+	 	  	nowLine('<%=key%>');
 	 	  })
   	//memberInfoTable(team, rank);
 }	//end
-
-function drawChartOp2(){
-	var team = '바디힐스검증팀';
-	var rank = 'total';
-	  var container = document.getElementById('timelineChart2');
-	    var chart = new google.visualization.Timeline(container);
-	    var dataTable = new google.visualization.DataTable();
-
-	    dataTable.addColumn({ type: 'string', id: 'Position' });
-	    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-	    dataTable.addColumn({ type: 'string', role: 'tooltip' });
-	    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-	    dataTable.addColumn({ type: 'date', id: 'Start' });
-	    dataTable.addColumn({ type: 'date', id: 'End' });
-	    dataTable.addRows([
-	    		[ '\0', 'Now','','',new Date(), new Date()],
-	    		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-			]);
-	    <%
-	  	  for(int i=0; i<schList.size(); i++){%>
-	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-	  	  		cnt1++;
-	  			 dataTable.addRows([
-	  				[	'<%=schList.get(i).getName()%>'
-      				,'<%=schList.get(i).getProjectName()%>'
-      				
-      				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-      				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-      				,''
-      				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-	            ]);
-	  		}  	
-	<%}%>
-		if(cnt1 > 0){
-			$('#timelineChart2').height(cnt1*50);
-		}
-	  	chart.draw(dataTable);
-		nowLine('timelineChart2');
-	 	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-	 		if(obj.row == 0){
-	 			$('.google-visualization-tooltip').css('display', 'none');
-	 		}
-	 	    nowLine('timelineChart2');
-	 	  })
-	 	  
-	 	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	 	  	nowLine('timelineChart2');
-	 	  })
-  	//memberInfoTable(team, rank);
-}	//end
-
-
-function drawChartOp3(){
-	var team = '샤시힐스검증팀';
-	var rank = 'total';
-	  var container = document.getElementById('timelineChart3');
-	    var chart = new google.visualization.Timeline(container);
-	    var dataTable = new google.visualization.DataTable();
-
-	    dataTable.addColumn({ type: 'string', id: 'Position' });
-	    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-	    dataTable.addColumn({ type: 'string', role: 'tooltip' });
-	    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-	    dataTable.addColumn({ type: 'date', id: 'Start' });
-	    dataTable.addColumn({ type: 'date', id: 'End' });
-	    dataTable.addRows([
-	    		[ '\0', 'Now','','',new Date(), new Date()],
-	    		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-			]);
-	    <%
-	  	  for(int i=0; i<schList.size(); i++){%>
-	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-	  	  		cnt2++;
-	  			 dataTable.addRows([
-	  				[	'<%=schList.get(i).getName()%>'
-      				,'<%=schList.get(i).getProjectName()%>'
-      				
-      				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-      				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-      				,''
-      				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-	            ]);
-	  		}  	
-	<%}%>
-		if(cnt2 > 0){
-			$('#timelineChart3').height(cnt2*47);
-		}
-	  	chart.draw(dataTable);
-		nowLine('timelineChart3');
-	 	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-	 		if(obj.row == 0){
-	 			$('.google-visualization-tooltip').css('display', 'none');
-	 		}
-	 	    nowLine('timelineChart3');
-	 	  })
-	 	  
-	 	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	 	  	nowLine('timelineChart3');
-	 	  })
-}	//end
-
-
-function drawChartOp4(){
-	var team = '제어로직검증팀';
-	var rank = 'total';
-	  var container = document.getElementById('timelineChart4');
-	    var chart = new google.visualization.Timeline(container);
-	    var dataTable = new google.visualization.DataTable();
-
-	    dataTable.addColumn({ type: 'string', id: 'Position' });
-	    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-	    dataTable.addColumn({ type: 'string', role: 'tooltip' });
-	    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-	    dataTable.addColumn({ type: 'date', id: 'Start' });
-	    dataTable.addColumn({ type: 'date', id: 'End' });
-	    dataTable.addRows([
-	    		[ '\0', 'Now','','',new Date(), new Date()],
-	    		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-			]);
-	    <%
-	  	  for(int i=0; i<schList.size(); i++){%>
-	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-	  	  		cnt3++;
-	  			 dataTable.addRows([
-	  				[	'<%=schList.get(i).getName()%>'
-      				,'<%=schList.get(i).getProjectName()%>'
-      				
-      				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-      				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-      				,''
-      				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-	            ]);
-	  		}  	
-	<%}%>
-		if(cnt3 > 0){
-			$('#timelineChart4').height(cnt3*47);
-		}
-	  	chart.draw(dataTable);
-		nowLine('timelineChart4');
-	 	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-	 		if(obj.row == 0){
-	 			$('.google-visualization-tooltip').css('display', 'none');
-	 		}
-	 	    nowLine('timelineChart4');
-	 	  })
-	 	  
-	 	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	 	  	nowLine('timelineChart4');
-	 	  })
-  	//memberInfoTable(team, rank);
-}	//end
-
-
-function drawChartOp5(){
-	var team = '기능안전검증팀';
-	var rank = 'total';
-	  var container = document.getElementById('timelineChart5');
-	    var chart = new google.visualization.Timeline(container);
-	    var dataTable = new google.visualization.DataTable();
-
-	    dataTable.addColumn({ type: 'string', id: 'Position' });
-	    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-	    dataTable.addColumn({ type: 'string', role: 'tooltip' });
-	    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-	    dataTable.addColumn({ type: 'date', id: 'Start' });
-	    dataTable.addColumn({ type: 'date', id: 'End' });
-	    dataTable.addRows([
-	    		[ '\0', 'Now','','',new Date(), new Date()],
-	    		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-			]);
-	    <%
-	  	  for(int i=0; i<schList.size(); i++){%>
-	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-	  	  		cnt4++;
-	  			 dataTable.addRows([
-	  				[	'<%=schList.get(i).getName()%>'
-      				,'<%=schList.get(i).getProjectName()%>'
-      				
-      				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-      				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-      				,''
-      				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-	            ]);
-	  		}  	
-	<%}%>
-		if(cnt4 > 0){
-			$('#timelineChart5').height(cnt4*53);
-		}
-	  	chart.draw(dataTable);
-		nowLine('timelineChart5');
-	 	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-	 		if(obj.row == 0){
-	 			$('.google-visualization-tooltip').css('display', 'none');
-	 		}
-	 	    nowLine('timelineChart5');
-	 	  })
-	 	  
-	 	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	 	  	nowLine('timelineChart5');
-	 	  })
-}	//end
-
-function drawChartOp6(){
-	var team = '자율주행검증팀';
-	var rank = 'total';
-	  var container = document.getElementById('timelineChart6');
-	    var chart = new google.visualization.Timeline(container);
-	    var dataTable = new google.visualization.DataTable();
-
-	    dataTable.addColumn({ type: 'string', id: 'Position' });
-	    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
-	    dataTable.addColumn({ type: 'string', role: 'tooltip' });
-	    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-	    dataTable.addColumn({ type: 'date', id: 'Start' });
-	    dataTable.addColumn({ type: 'date', id: 'End' });
-	    dataTable.addRows([
-	    		[ '\0', 'Now','','',new Date(), new Date()],
-	    		['\0','','', 'opacity:0', new Date('<%=preYear%>-01-01'), new Date('<%=nextYear%>-12-31')]
-			]);
-	    <%
-	  	  for(int i=0; i<schList.size(); i++){%>
-	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-	  	  		cnt5++;
-	  			 dataTable.addRows([
-	  				[	'<%=schList.get(i).getName()%>'
-      				,'<%=schList.get(i).getProjectName()%>'
-      				
-      				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-      				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-      				,''
-      				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-	            ]);
-	  		}  	
-	<%}%>
-		if(cnt5 > 0){
-			$('#timelineChart6').height(cnt5*50);
-		}
-	  	chart.draw(dataTable);
-		nowLine('timelineChart6');
-	 	google.visualization.events.addListener(chart, 'onmouseover', function(obj){
-	 		if(obj.row == 0){
-	 			$('.google-visualization-tooltip').css('display', 'none');
-	 		}
-	 	    nowLine('timelineChart6');
-	 	  })
-	 	  
-	 	  google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-	 	  	nowLine('timelineChart6');
-	 	  })
-}	//end
-
+<%}%>
 //페이지 시작시 호출 함수
 $(document).ready(function (){
 	document.body.style.zoom=0.8;
@@ -588,29 +214,10 @@ $(document).ready(function (){
 
 </head>
 <body>
-
-	<p><b>미래차검증전략실</b></p>
-	<div id="timelineChart"></div>
+	<%for(int key : teamList.keySet()){ %>
+	<p><b><%=teamList.get(key) %></b></p>
+	<div id="<%=key%>"></div>
 	<div class="endline"></div><br style="height:0; line-height:0">
-  
-    <p><b>바디힐스검증팀</b></p>
-    <div id="timelineChart2"></div>
-    <div class="endline"></div><br style="height:0; line-height:0">
-
-    <p><b>샤시힐스검증팀</b></p>
-    <div id="timelineChart3"></div>
-    <div class="endline"></div><br style="height:0; line-height:0">
-
-    <p><b>제어로직검증팀</b></p>
-    <div id="timelineChart4"></div>
-    <div class="endline"></div><br style="height:0; line-height:0">
- 
-    <p><b>기능안전검증팀</b></p>
-    <div id="timelineChart5"></div>
-    <div class="endline"></div><br style="height:0; line-height:0">
-    
-    <p><b>자율주행검증팀</b></p>
-    <div id="timelineChart6"></div>
-
-    </body>
+	<%} %>
+</body>
 </html>

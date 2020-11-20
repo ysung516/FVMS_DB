@@ -272,6 +272,7 @@
 	  	String nowYear = sf.format(nowTime).split("-")[0];
 	  	int preYear = Integer.parseInt(nowYear) - 1;
 	  	int nextYear = Integer.parseInt(nowYear) + 1;
+	   	StringBuffer strColor = new StringBuffer();
 	%>
 
      google.charts.load("current", {packages:["timeline"]});
@@ -289,7 +290,7 @@
   	  nowWord.prev().first().attr('height', height + 'px').attr('width', '1px').attr('y', '0');
   	}
     
-     function drawChart() {
+    function drawChart() {
     	 
        var container = document.getElementById('timelineChart');
        var chart = new google.visualization.Timeline(container);
@@ -314,12 +315,11 @@
         				+'<b>착수일 : </b><%=projectList.get(key).get(b).getPROJECT_START()%><br><b>종료일 : </b><%=projectList.get(key).get(b).getPROJECT_END()%></div>'
         				,'text-align:left'
         				, new Date('<%=projectList.get(key).get(b).getPROJECT_START()%>'), new Date('<%=projectList.get(key).get(b).getPROJECT_END()%>')]
-        		<%}}%>
+	        	<%}}%>
           ]);
          
           var options = {
           	timeline: { colorByRowLabel: false, groupByRowLabel: true, avoidOverlappingGridLines : false}
-          	
           };
           
 	          chart.draw(dataTable, options);
@@ -431,12 +431,12 @@
 		$('#projectINFO').append(inner);
 		
 		// if mobile
-         	var windowWidth = $(window).width();
-         	console.log(windowWidth);
-         	if(windowWidth <= 800){
-         		$('.table-responsive2').css('height', '40vh');
-         		$('.table-responsive2').css('visibility', 'unset');
-         	}
+       	var windowWidth = $(window).width();
+       	console.log(windowWidth);
+       	if(windowWidth <= 800){
+       		$('.table-responsive2').css('height', '40vh');
+       		$('.table-responsive2').css('visibility', 'unset');
+       	}
 	}
 	
 	function goPrint(){

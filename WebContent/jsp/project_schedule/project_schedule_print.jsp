@@ -5,6 +5,7 @@
     import="java.util.Date"
 	import="java.text.SimpleDateFormat"
 	import="java.util.HashMap"
+	import="java.util.LinkedHashMap"
     %>
 <!DOCTYPE html>
 <html>
@@ -43,75 +44,34 @@ td{
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	ProjectDAO projectDao = new ProjectDAO();
-	Date nowTime = new Date();
+	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
+	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+	
+	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
+	int year = Integer.parseInt(date.split("-")[0]); // 이번 년도
 	
-	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();
-	ArrayList<Project_sch_Bean> vh_project = projectList.get("미래차검증전략실");
-	ArrayList<Project_sch_Bean> chasis_project = projectList.get("샤시힐스검증팀");
-	ArrayList<Project_sch_Bean> body_project = projectList.get("바디힐스검증팀");
-	ArrayList<Project_sch_Bean> control_project = projectList.get("제어로직검증팀");
-	ArrayList<Project_sch_Bean> save_project = projectList.get("기능안전검증팀");
-	ArrayList<Project_sch_Bean> auto_project = projectList.get("자율주행검증팀");
-	
-	System.out.println(vh_project.size());
-	
-	HashMap<String, Integer> vh_count = new HashMap<String, Integer>();
-	HashMap<String, Integer> chasis_count = new HashMap<String, Integer>();
-	HashMap<String, Integer> body_count = new HashMap<String, Integer>();
-	HashMap<String, Integer> control_count = new HashMap<String, Integer>();
-	HashMap<String, Integer> save_count = new HashMap<String, Integer>();
-	HashMap<String, Integer> auto_count = new HashMap<String, Integer>();
-	
-	for(Project_sch_Bean i : vh_project){
-		if(vh_count.containsKey(i.getSTATE())){
-			vh_count.put(i.getSTATE(), vh_count.get(i.getSTATE())+1);
-		}else{
-			vh_count.put(i.getSTATE(), 1);
-		}
+	// 실, 팀별 프로젝트 정보 HashMap<팀명, ArrayList<프로젝트스케줄빈>>
+	HashMap<String, ArrayList<Project_sch_Bean>> projectMap = new HashMap<String, ArrayList<Project_sch_Bean>>();
+	for(int key : teamList.keySet()){
+		ArrayList<Project_sch_Bean> teamProject = projectList.get(teamList.get(key));
+		projectMap.put(teamList.get(key), teamProject);
 	}
 	
-	for(Project_sch_Bean i : chasis_project){
-		if(chasis_count.containsKey(i.getSTATE())){
-			chasis_count.put(i.getSTATE(), chasis_count.get(i.getSTATE())+1);
-		}else{
-			chasis_count.put(i.getSTATE(), 1);
+	// 실, 팀 프로젝트 상태별 개수 HashMap<팀명, HashMap<상태, 개수>>
+	HashMap<String, HashMap<String, Integer>> projectNum = new HashMap<String, HashMap<String, Integer>>();
+	for(int key : teamList.keySet()){
+		HashMap<String, Integer> projectState = new HashMap<String, Integer>();
+		for(Project_sch_Bean i : projectMap.get(teamList.get(key))){
+			if(projectState.containsKey(i.getSTATE())){
+				projectState.put(i.getSTATE(), projectState.get(i.getSTATE())+1);
+			}else{
+				projectState.put(i.getSTATE(), 1);
+			}
 		}
-	}
-	
-	for(Project_sch_Bean i : body_project){
-		if(body_count.containsKey(i.getSTATE())){
-			body_count.put(i.getSTATE(), body_count.get(i.getSTATE())+1);
-		}else{
-			body_count.put(i.getSTATE(), 1);
-		}
-	}
-	
-	for(Project_sch_Bean i : control_project){
-		if(control_count.containsKey(i.getSTATE())){
-			control_count.put(i.getSTATE(), control_count.get(i.getSTATE())+1);
-		}else{
-			control_count.put(i.getSTATE(), 1);
-		}
-	}
-	
-	for(Project_sch_Bean i : save_project){
-		if(save_count.containsKey(i.getSTATE())){
-			save_count.put(i.getSTATE(), save_count.get(i.getSTATE())+1);
-		}else{
-			save_count.put(i.getSTATE(), 1);
-		}
-	}
-	
-	for(Project_sch_Bean i : auto_project){
-		if(auto_count.containsKey(i.getSTATE())){
-			auto_count.put(i.getSTATE(), auto_count.get(i.getSTATE())+1);
-		}else{
-			auto_count.put(i.getSTATE(), 1);
-		}
+		projectNum.put(teamList.get(key), projectState);
 	}
 	
 %>
@@ -138,6 +98,7 @@ function drawChart() {
 	   	String nowYear = sf.format(nowTime).split("-")[0];
 	   	int preYear = Integer.parseInt(nowYear) - 1;
 	   	int nextYear = Integer.parseInt(nowYear) + 1;
+	   	StringBuffer strColor = new StringBuffer();
 		%>
   var container = document.getElementById('timelineChart');
   var chart = new google.visualization.Timeline(container);
@@ -205,10 +166,14 @@ function clickfun(state, team){
 		if(team == '<%=key%>'){
 			<%for(Project_sch_Bean i : projectList.get(key)){%>
 				if(state == '<%=i.getSTATE()%>'){
-					inner += "<tr>";
+					inner += '<tr>';
 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
  					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
- 					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+ 					if(<%=permission%> == 0){
+	  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+	  				}else{
+	  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+	  				}
 					inner += "<td><div class='teamover'>"+'<%=i.getCLIENT()%>'+"</div></td>";
 					inner += "<td>"+'<%=i.getPROJECT_START()%>'+"</td>";
 					inner += "<td>"+'<%=i.getPROJECT_END()%>'+"</td>";
@@ -218,7 +183,11 @@ function clickfun(state, team){
 					inner += "<tr>";
 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
  					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
- 					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+ 					if(<%=permission%> == 0){
+	  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+	  				}else{
+	  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+	  				}
 					inner += "<td><div class='teamover'>"+'<%=i.getCLIENT()%>'+"</div></td>";
 					inner += "<td>"+'<%=i.getPROJECT_START()%>'+"</td>";
 					inner += "<td>"+'<%=i.getPROJECT_END()%>'+"</td>";
@@ -231,8 +200,12 @@ function clickfun(state, team){
 			if(state == '<%=i.getSTATE()%>'){
 				inner += "<tr>";
 				inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
-				inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
-				inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
+					if(<%=permission%> == 0){
+  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+  				}else{
+  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+  				}
 				inner += "<td><div class='teamover'>"+'<%=i.getCLIENT()%>'+"</div></td>";
 				inner += "<td>"+'<%=i.getPROJECT_START()%>'+"</td>";
 				inner += "<td>"+'<%=i.getPROJECT_END()%>'+"</td>";
@@ -241,8 +214,12 @@ function clickfun(state, team){
 			}else if(state == 'total'){
 				inner += "<tr>";
 				inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
-				inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
-				inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
+					if(<%=permission%> == 0){
+  					inner += "<td><div class='textover'><a href='../project/project_update.jsp?no=<%=i.getNO()%>&year=<%=year%>'>"+"<%=i.getPROJECT_NAME()%>"+"</a></div></td>";
+  				}else{
+  					inner += "<td><div class='textover'>"+"<%=i.getPROJECT_NAME()%>"+"</div></td>";
+  				}
 				inner += "<td><div class='teamover'>"+'<%=i.getCLIENT()%>'+"</div></td>";
 				inner += "<td>"+'<%=i.getPROJECT_START()%>'+"</td>";
 				inner += "<td>"+'<%=i.getPROJECT_END()%>'+"</td>";
@@ -269,16 +246,16 @@ function clickfun(state, team){
 <body>
 	<div id="timelineChart"></div>
 	<div class="endline"></div><br style="height:0; line-height:0">
-					<table class="memberTable" id="infoTable" style="font-size:14px;">
+				<table class="memberTable" id="infoTable" style="font-size:14px;">
 					<thead>
 	                  <tr style="background-color:#15a3da52;">
 		                    <th>상태</th>
 		                    <th>Total</th>
-		                    <th>샤시힐스</th>
-		                    <th>바디힐스</th>
-		                    <th>제어로직</th>
-		                    <th>기능안전</th>
-		                    <th>자율주행</th>
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<th><%=teamList.get(key).substring(0, 4) %></th>
+		                    	<%} 
+		                    }%>
 		                    <th>실</th>
 	                    </tr>
                     </thead>
@@ -286,106 +263,106 @@ function clickfun(state, team){
 	                    <tr id="step1">
 		                    <th style="text-align:left">1.예산확보</th>
 		                    <td onclick="clickfun('1.예산확보', 'total')"></td>
-		                    <td onclick="clickfun('1.예산확보', '샤시힐스검증팀')"><%if(chasis_count.get("1.예산확보")!=null){%><%=chasis_count.get("1.예산확보") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('1.예산확보', '바디힐스검증팀')"><%if(body_count.get("1.예산확보")!=null){%><%=body_count.get("1.예산확보") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('1.예산확보', '제어로직검증팀')"><%if(control_count.get("1.예산확보")!=null){%><%=control_count.get("1.예산확보") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('1.예산확보', '기능안전검증팀')"><%if(save_count.get("1.예산확보")!=null){%><%=save_count.get("1.예산확보") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('1.예산확보', '자율주행검증팀')"><%if(auto_count.get("1.예산확보")!=null){%><%=auto_count.get("1.예산확보") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('1.예산확보', '미래차검증전략실')"><%if(vh_count.get("1.예산확보")!=null){%><%=vh_count.get("1.예산확보") %><%}else{ %>0<%} %></td>
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('1.예산확보', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("1.예산확보")!=null){%><%=projectNum.get(teamList.get(key)).get("1.예산확보") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('1.예산확보', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("1.예산확보")!=null){%><%=projectNum.get(teamList.get(0)).get("1.예산확보") %><%}else{ %>0<%} %></td>
 	                    </tr>
 	                   <tr id="step2">
 		                    <th style="text-align:left">2.고객의사</th>
 		                    <td onclick="clickfun('2.고객의사', 'total')"></td>
-		                    <td onclick="clickfun('2.고객의사', '샤시힐스검증팀')"><%if(chasis_count.get("2.고객의사")!=null){%><%=chasis_count.get("2.고객의사") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('2.고객의사', '바디힐스검증팀')"><%if(body_count.get("2.고객의사")!=null){%><%=body_count.get("2.고객의사") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('2.고객의사', '제어로직검증팀')"><%if(control_count.get("2.고객의사")!=null){%><%=control_count.get("2.고객의사") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('2.고객의사', '기능안전검증팀')"><%if(save_count.get("2.고객의사")!=null){%><%=save_count.get("2.고객의사") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('2.고객의사', '자율주행검증팀')"><%if(auto_count.get("2.고객의사")!=null){%><%=auto_count.get("2.고객의사") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('2.고객의사', '미래차검증전략실')"><%if(vh_count.get("2.고객의사")!=null){%><%=vh_count.get("2.고객의사") %><%}else{ %>0<%} %></td>
-	                   </tr> 
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('2.고객의사', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("2.고객의사")!=null){%><%=projectNum.get(teamList.get(key)).get("2.고객의사") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('2.고객의사', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("2.고객의사")!=null){%><%=projectNum.get(teamList.get(0)).get("2.고객의사") %><%}else{ %>0<%} %></td>
+	                    </tr> 
 	                   <tr id="step3">
 		                    <th style="text-align:left">3.제안단계</th>
 		                    <td onclick="clickfun('3.제안단계', 'total')"></td>
-		                    <td onclick="clickfun('3.제안단계', '샤시힐스검증팀')"><%if(chasis_count.get("3.제안단계")!=null){%><%=chasis_count.get("3.제안단계") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('3.제안단계', '바디힐스검증팀')"><%if(body_count.get("3.제안단계")!=null){%><%=body_count.get("3.제안단계") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('3.제안단계', '제어로직검증팀')"><%if(control_count.get("3.제안단계")!=null){%><%=control_count.get("3.제안단계") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('3.제안단계', '기능안전검증팀')"><%if(save_count.get("3.제안단계")!=null){%><%=save_count.get("3.제안단계") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('3.제안단계', '자율주행검증팀')"><%if(auto_count.get("3.제안단계")!=null){%><%=auto_count.get("3.제안단계") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('3.제안단계', '미래차검증전략실')"><%if(vh_count.get("3.제안단계")!=null){%><%=vh_count.get("3.제안단계") %><%}else{ %>0<%} %></td>
-	                   </tr> 
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('3.제안단계', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("3.제안단계")!=null){%><%=projectNum.get(teamList.get(key)).get("3.제안단계") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('3.제안단계', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("3.제안단계")!=null){%><%=projectNum.get(teamList.get(0)).get("3.제안단계") %><%}else{ %>0<%} %></td>
+	                    </tr> 
 	                   <tr id="step4">
 		                    <th style="text-align:left">4.업체선정</th>
 		                    <td onclick="clickfun('4.업체선정', 'total')"></td>
-		                    <td onclick="clickfun('4.업체선정', '샤시힐스검증팀')"><%if(chasis_count.get("4.업체선정")!=null){%><%=chasis_count.get("4.업체선정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('4.업체선정', '바디힐스검증팀')"><%if(body_count.get("4.업체선정")!=null){%><%=body_count.get("4.업체선정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('4.업체선정', '제어로직검증팀')"><%if(control_count.get("4.업체선정")!=null){%><%=control_count.get("4.업체선정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('4.업체선정', '기능안전검증팀')"><%if(save_count.get("4.업체선정")!=null){%><%=save_count.get("4.업체선정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('4.업체선정', '자율주행검증팀')"><%if(auto_count.get("4.업체선정")!=null){%><%=auto_count.get("4.업체선정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('4.업체선정', '미래차검증전략실')"><%if(vh_count.get("4.업체선정")!=null){%><%=vh_count.get("4.업체선정") %><%}else{ %>0<%} %></td>
-	                   </tr> 
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('4.업체선정', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("4.업체선정")!=null){%><%=projectNum.get(teamList.get(key)).get("4.업체선정") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('4.업체선정', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("4.업체선정")!=null){%><%=projectNum.get(teamList.get(0)).get("4.업체선정") %><%}else{ %>0<%} %></td>
+	                    </tr> 
 	                   <tr id="step5">
 		                    <th style="text-align:left">5.진행예정</th>
 		                    <td onclick="clickfun('5.진행예정', 'total')"></td>
-		                    <td onclick="clickfun('5.진행예정', '샤시힐스검증팀')"><%if(chasis_count.get("5.진행예정")!=null){%><%=chasis_count.get("5.진행예정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('5.진행예정', '바디힐스검증팀')"><%if(body_count.get("5.진행예정")!=null){%><%=body_count.get("5.진행예정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('5.진행예정', '제어로직검증팀')"><%if(control_count.get("5.진행예정")!=null){%><%=control_count.get("5.진행예정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('5.진행예정', '기능안전검증팀')"><%if(save_count.get("5.진행예정")!=null){%><%=save_count.get("5.진행예정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('5.진행예정', '자율주행검증팀')"><%if(auto_count.get("5.진행예정")!=null){%><%=auto_count.get("5.진행예정") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('5.진행예정', '미래차검증전략실')"><%if(vh_count.get("5.진행예정")!=null){%><%=vh_count.get("5.진행예정") %><%}else{ %>0<%} %></td>
-	                   </tr> 
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('5.진행예정', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("5.진행예정")!=null){%><%=projectNum.get(teamList.get(key)).get("5.진행예정") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('5.진행예정', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("5.진행예정")!=null){%><%=projectNum.get(teamList.get(0)).get("5.진행예정") %><%}else{ %>0<%} %></td>
+	                    </tr> 
 	                   <tr id="step6">
 		                    <th style="text-align:left">6.진행중</th>
 		                    <td onclick="clickfun('6.진행중', 'total')"></td>
-		                    <td onclick="clickfun('6.진행중', '샤시힐스검증팀')"><%if(chasis_count.get("6.진행중")!=null){%><%=chasis_count.get("6.진행중") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('6.진행중', '바디힐스검증팀')"><%if(body_count.get("6.진행중")!=null){%><%=body_count.get("6.진행중") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('6.진행중', '제어로직검증팀')"><%if(control_count.get("6.진행중")!=null){%><%=control_count.get("6.진행중") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('6.진행중', '기능안전검증팀')"><%if(save_count.get("6.진행중")!=null){%><%=save_count.get("6.진행중") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('6.진행중', '자율주행검증팀')"><%if(auto_count.get("6.진행중")!=null){%><%=auto_count.get("6.진행중") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('6.진행중', '미래차검증전략실')"><%if(vh_count.get("6.진행중")!=null){%><%=vh_count.get("6.진행중") %><%}else{ %>0<%} %></td>
-	                   </tr>
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('6.진행중', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("6.진행중")!=null){%><%=projectNum.get(teamList.get(key)).get("6.진행중") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('6.진행중', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("6.진행중")!=null){%><%=projectNum.get(teamList.get(0)).get("6.진행중") %><%}else{ %>0<%} %></td>
+	                    </tr>
 						<tr id="step7">
 		                    <th style="text-align:left">7.종료</th>
 		                    <td onclick="clickfun('7.종료', 'total')"></td>
-		                    <td onclick="clickfun('7.종료', '샤시힐스검증팀')"><%if(chasis_count.get("7.종료")!=null){%><%=chasis_count.get("7.종료") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('7.종료', '바디힐스검증팀')"><%if(body_count.get("7.종료")!=null){%><%=body_count.get("7.종료") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('7.종료', '제어로직검증팀')"><%if(control_count.get("7.종료")!=null){%><%=control_count.get("7.종료") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('7.종료', '기능안전검증팀')"><%if(save_count.get("7.종료")!=null){%><%=save_count.get("7.종료") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('7.종료', '자율주행검증팀')"><%if(auto_count.get("7.종료")!=null){%><%=auto_count.get("7.종료") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('7.종료', '미래차검증전략실')"><%if(vh_count.get("7.종료")!=null){%><%=vh_count.get("7.종료") %><%}else{ %>0<%} %></td>
-	                   </tr>
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('7.종료', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("7.종료")!=null){%><%=projectNum.get(teamList.get(key)).get("7.종료") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('7.종료', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("7.종료")!=null){%><%=projectNum.get(teamList.get(0)).get("7.종료") %><%}else{ %>0<%} %></td>
+	                    </tr>
 						<tr id="step8">
 		                    <th style="text-align:left">8.Dropped</th>
 		                    <td onclick="clickfun('8.Dropped', 'total')"></td>
-		                    <td onclick="clickfun('8.Dropped', '샤시힐스검증팀')"><%if(chasis_count.get("8.Dropped")!=null){%><%=chasis_count.get("8.Dropped") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('8.Dropped', '바디힐스검증팀')"><%if(body_count.get("8.Dropped")!=null){%><%=body_count.get("8.Dropped") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('8.Dropped', '제어로직검증팀')"><%if(control_count.get("8.Dropped")!=null){%><%=control_count.get("8.Dropped") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('8.Dropped', '기능안전검증팀')"><%if(save_count.get("8.Dropped")!=null){%><%=save_count.get("8.Dropped") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('8.Dropped', '자율주행검증팀')"><%if(auto_count.get("8.Dropped")!=null){%><%=auto_count.get("8.Dropped") %><%}else{ %>0<%} %></td>
-		                    <td onclick="clickfun('8.Dropped', '미래차검증전략실')"><%if(vh_count.get("8.Dropped")!=null){%><%=vh_count.get("8.Dropped") %><%}else{ %>0<%} %></td>
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('8.Dropped', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("8.Dropped")!=null){%><%=projectNum.get(teamList.get(key)).get("8.Dropped") %><%}else{ %>0<%} %></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('8.Dropped', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("8.Dropped")!=null){%><%=projectNum.get(teamList.get(0)).get("8.Dropped") %><%}else{ %>0<%} %></td>
 	                   </tr>
 					   <tr id="step9">
 		                    <th style="text-align:left">Total</th>
 		                    <td onclick="clickfun('total', 'total')"></td>
-		                    <td onclick="clickfun('total', '샤시힐스검증팀')"><%=chasis_project.size()%></td>
-		                    <td onclick="clickfun('total', '바디힐스검증팀')"><%=body_project.size()%></td>
-		                    <td onclick="clickfun('total', '제어로직검증팀')"><%=control_project.size()%></td>
-		                    <td onclick="clickfun('total', '기능안전검증팀')"><%=save_project.size()%></td>
-		                    <td onclick="clickfun('total', '자율주행검증팀')"><%=auto_project.size()%></td>
-		                    <td onclick="clickfun('total', '미래차검증전략실')"><%=vh_project.size()%></td>
+		                    <%for(int key : teamList.keySet()){ 
+		                    	if(key != 0){%>
+		                    	<td onclick="clickfun('total', '<%=teamList.get(key)%>')"><%=projectMap.get(teamList.get(key)).size()%></td>
+		                    	<%} 
+		                    }%>
+		                    <td onclick="clickfun('total', '<%=teamList.get(0)%>')"><%=projectMap.get(teamList.get(0)).size()%></td>
 	                   </tr>
                    </tbody>
                 </table>
                 
                 <table class="table table-bordered" id="select_info" style="font-size:12px;">
-	                <thead>
+	                <thead> 
 	                    <tr style="text-align:center;background-color:#15a3da52;">
-		                    <th style="width:12vw;">팀(수주)</th>
-		                    <th style="width:12vw;">팀(매출)</th>
-		                    <th style="width:38vw;">프로젝트명</th>
-		                    <th style="width:10vw;">고객사</th>
-		                    <th style="width:13vw;">착수</th>
-		                    <th style="width:13vw;">종료</th>
-		                    <th style="width:8vw;">PM</th>                 	         
+		                    <th style="width:12%;">팀(수주)</th>
+		                    <th style="width:12%;">팀(매출)</th>
+		                    <th style="width:29%;">프로젝트명</th>
+		                    <th style="width:13%;">고객사</th>
+		                    <th style="width:13%;">착수</th>
+		                    <th style="width:13%;">종료</th>
+		                    <th style="width:8%;">PM</th>                 	         
 	                    </tr>
                     </thead>
                     <tbody id="projectINFO"></tbody>

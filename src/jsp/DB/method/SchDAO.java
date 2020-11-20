@@ -31,7 +31,7 @@ public class SchDAO {
 			ArrayList<MemberBean> memberList = memberDao.getMemberData();
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("SELECT career.*,project.PM as PPM, project.투입명단, project.프로젝트명, member.이름, member.팀, member.직책, member.소속, member.직급 "
+		    	query.append("SELECT career.*,project.PM as PPM,project.상태, project.투입명단, project.프로젝트명, member.이름, member.팀, member.직책, member.소속, member.직급 "
 		    			+ "FROM career, member, project, team "
 		    			+ "where career.id = member.id and career.projectNo = project.no and member.팀 = team.teamName "
 		    			+ "and project.상태 != '8.dropped' and project.상태 != '7.종료' and project.year = "+year+" " 
@@ -63,6 +63,7 @@ public class SchDAO {
 							} 
 						}
 					}
+					sch.setState(rs.getString("상태"));
 					sch.setWorkList(workerList_NAME);
 					sch.setProjectName(rs.getString("프로젝트명"));
 					sch.setStart(rs.getString("start"));
