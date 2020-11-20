@@ -312,15 +312,15 @@ public class SummaryDAO {
 		    return List;
 	}
 		
-	// 팀별 목포 수주,매출 데이터 가져오기
-	public HashMap<String, TeamBean> getTargetData(){
-		HashMap<String, TeamBean> reList = new HashMap<String, TeamBean>();
+	// 팀별 목표 수주,매출 데이터 가져오기
+	public LinkedHashMap<String, TeamBean> getTargetData(){
+		LinkedHashMap<String, TeamBean> reList = new LinkedHashMap<String, TeamBean>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from team");
+	    	query.append("SELECT * from team order by teamNum");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

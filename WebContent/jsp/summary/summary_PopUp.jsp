@@ -351,6 +351,7 @@
 				</div>
 				<%}
 		} %>
+		<p class="none" id="minusP" style="display:none">*****삭제된 매출 없음*****</p>
 	</div>
 </body>
 </html>

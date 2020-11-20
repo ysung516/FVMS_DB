@@ -34,14 +34,14 @@
 	String date = sf.format(nowTime);
 	int year = Integer.parseInt(date.split("-")[0]); // 이번 년도
 	
-	// 실, 팀별 프로젝트 정보
+	// 실, 팀별 프로젝트 정보 HashMap<팀명, ArrayList<프로젝트스케줄빈>>
 	HashMap<String, ArrayList<Project_sch_Bean>> projectMap = new HashMap<String, ArrayList<Project_sch_Bean>>();
 	for(int key : teamList.keySet()){
 		ArrayList<Project_sch_Bean> teamProject = projectList.get(teamList.get(key));
 		projectMap.put(teamList.get(key), teamProject);
 	}
 	
-	// 실, 팀 프로젝트 상태별 개수
+	// 실, 팀 프로젝트 상태별 개수 HashMap<팀명, HashMap<상태, 개수>>
 	HashMap<String, HashMap<String, Integer>> projectNum = new HashMap<String, HashMap<String, Integer>>();
 	for(int key : teamList.keySet()){
 		HashMap<String, Integer> projectState = new HashMap<String, Integer>();
