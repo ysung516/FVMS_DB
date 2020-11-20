@@ -870,6 +870,12 @@ function btn_insert(){
 												class="sheetCheck" type="radio" name="sheetCheck" value="0">미사용
 											</td>
 										</tr>
+										<tr>
+											<th><span style="color: red;">*</span>복사</th>
+											<td><input type="radio" name="copy" value="1" checked="checked">사용 
+												<input type="radio" name="copy" value="0">미사용
+											</td>
+										</tr>
 										<tr align="center">
 											<td colspan="2"><input id="COMPLETE" type="submit"
 												name="COMPLETE" value="완료" class="btn btn-primary">

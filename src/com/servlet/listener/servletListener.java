@@ -20,7 +20,6 @@ public class servletListener implements ServletContextListener{
 		Scheduler ste = new Scheduler();
         ste.startScheduleTask();
         ste.projectUpdate();
-        ste.PreYear_project_copy();
 	}
 	
 }

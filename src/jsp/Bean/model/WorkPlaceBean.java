@@ -4,6 +4,13 @@ public class WorkPlaceBean {
 	private int no;
 	private String place;
 	private String color;
+	private int cost;
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
 	public int getNo() {
 		return no;
 	}

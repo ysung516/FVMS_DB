@@ -80,6 +80,8 @@
 			  startPM[i] = request.getParameter(workerListPM[i]+"/startPM");
 			  endPM[i] = request.getParameter(workerListPM[i]+"/endPM");
 		  }
+		  
+		  String copy = request.getParameter("copyCheck");
 
 		if(PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
@@ -88,7 +90,7 @@
 			if(projectDao.updateProject(TEAM_ORDER, TEAM_SALES, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
 					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS,FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
 					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO, year) == 1){
+					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT, NO, year,copy) == 1){
 				projectDao.deleteCareer(NO,"1");
 				projectDao.deleteCareer(NO,"0");
 				projectDao.setCareer(workerListPM, NO, startPM, endPM, "1");

@@ -27,8 +27,9 @@
 	Date nowDate = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 	int year = Integer.parseInt(sf.format(nowDate));
-	int nowYear = Integer.parseInt(sf.format(nowDate));
-	int yearCount = nowYear - projectDao.minYear() + 1;
+	
+	int maxYear = projectDao.maxYear();
+	int yearCount = maxYear - projectDao.minYear() + 1;
 	
 	if(request.getParameter("selectYear") != null){
 		year = Integer.parseInt(request.getParameter("selectYear"));
@@ -301,14 +302,14 @@
 	
 	// table load
     function cbLoad(){
-    	for(var a=1;a<33;a++){
+    	for(var a=1;a<34;a++){
     		$('td:nth-child('+a+')').hide();
 			$('th:nth-child('+a+')').hide();
     	}
        	var inner = "";
        	var labelList = new Array();
        	labelList = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21'
-       		,'22','23','24','25','26','27','28','29','30','31','32'];
+       		,'22','23','24','25','26','27','28','29','30','31','32','33'];
        	
        	for(var c=0; c<outAttr.length; c++){
        		if(outAttr[c] == '1'){
@@ -440,6 +441,11 @@
        			$('th:nth-child(32)').show();
        			labelList.splice(labelList.indexOf(outAttr[c]),1);
        		}
+       		else if (outAttr[c] == '33'){
+       			$('td:nth-child(33)').show();
+       			$('th:nth-child(33)').show();
+       			labelList.splice(labelList.indexOf(outAttr[c]),1);
+       		}
        		
        	}
        	for(var d=0; d<labelList.length; d++){
@@ -509,6 +515,8 @@
        			inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','31')>주간보고서사용</label>";
        		}else if (labelList[d] == '32'){
        			inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','32')>실적보고</label>";
+       		}else if (labelList[d] == '33'){
+       			inner += "<label id=실적보고 class=labelST onclick=labelEvent('복사','33')>복사</label>";
        		}
        	}
     	$('#list').append(inner);
@@ -558,9 +566,9 @@
            		$( "th" ).show();
                 //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
                 $(".labelST").remove();
-                AttrList = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32";
+                AttrList = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33";
                 saveAttrTap();
-            //클릭이 안되있으면
+            //클릭 해제
             }else{
             	$( ".td" ).hide();
             	$( ".th" ).hide();
@@ -594,6 +602,7 @@
             	inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','30')>외주수요</label>";
             	inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','31')>주간보고서사용</label>";
             	inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','32')>실적보고</label>";
+            	inner += "<label id=복사 class=labelST onclick=labelEvent('복사','33')>복사</label>";
             	$('#list').append(inner);
             	AttrList = "4 19 20 26";
             	saveAttrTap();
@@ -999,15 +1008,20 @@
 						<select id="project_year" name="project_year" onchange="listLoad()">
 							<%
 								for(int i=0; i<yearCount; i++){%>
-									<option value='<%=nowYear-i%>'><%=nowYear-i%></option>
+									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
 							<%}%>
 							
 						</select>
 						<%
+						
               	if(permission == 0){
               		%><form action="project_synchronization.jsp"
 							method="post" style="display: inline; float: right">
-							<input type="submit" value="동기화" class="btn btn-primary">
+							<input type="submit" value="스프레드시트 동기화" class="btn btn-primary">
+					</form>
+					<form action="project_copy.jsp"
+							method="post" style="display: inline; float: right; margin-right: 15px">
+							<input type="submit" value="<%=maxYear + 1%>년 복사" class="btn btn-primary">
 					</form>
 					<%
               	}
@@ -1076,6 +1090,7 @@
 										<th class="th" onclick="hideAttr(30)">외주수요</th>
 										<th class="th" onclick="hideAttr(31)">주간보고서사용</th>
 										<th class="th" onclick="hideAttr(32)">실적보고</th>
+										<th class="th" onclick="hideAttr(32)">복사</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -1145,6 +1160,15 @@
 												out.print("OFF");
 											}
 											%></td>
+											
+										<td class="td" onclick="updateCheck('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getCopy()%>', 'copy')">
+										<%
+											if(projectList.get(i).getCopy().equals("1")){
+												out.print("ON");
+											} else {
+												out.print("OFF");
+											}
+											%></td>
 										<%}
 										
 										else{%>
@@ -1167,15 +1191,15 @@
 										<td class="td"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
 										<td class="td"><%=projectList.get(i).getSH_SALES()%></td>
 										
-										<td class="td"><%=projectList.get(i).getSH_ORDER()+projectList.get(i).getFH_ORDER()%></td>
-										<td class="td"><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
+										<td><%=projectList.get(i).getSH_ORDER()+projectList.get(i).getFH_ORDER()%></td>
+										<td><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
 										
 										<td class="td"><%=projectList.get(i).getPROJECT_START()%></td>
 										<td class="td"><%=projectList.get(i).getPROJECT_END()%></td>
 										<td class="td"><%=projectList.get(i).getCLIENT_PTB()%></td>
 										<td class="td"><%=projectList.get(i).getWORK_PLACE()%></td>
 										<td class="td"><%=projectList.get(i).getWORK()%></td>
-										<td class="td">
+										<td>
 											<%
 						                      	if(i<PMnameList.size()){
 						                      		out.print(PMnameList.get(i));
@@ -1206,7 +1230,16 @@
 											} else {
 												out.print("OFF");
 											}
-											%></td>	
+											%></td>
+											
+										<td class="td">
+										<%
+											if(projectList.get(i).getCopy().equals("1")){
+												out.print("ON");
+											} else {
+												out.print("OFF");
+											}
+											%></td>			
 										<%}%>
 
 									</tr>

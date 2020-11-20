@@ -189,6 +189,7 @@ $(document).ready(function () {
 	$('#PROJECT_MANAGER').val('<%=PMdata.getID()%>').prop("selected", true);
 	$("input:radio[name='reportCheck']:radio[value='<%=project.getREPORTCHECK()%>']").prop("checked", true);
 	$("input:radio[name='sheetCheck']:radio[value='<%=project.getRESULT_REPORT()%>']").prop("checked", true);
+	$("input:radio[name='copyCheck']:radio[value='<%=project.getCopy()%>']").prop("checked", true);
 	
     // Form Submit
     $(document).on("submit", "form", function(event){
@@ -811,7 +812,7 @@ function btn_copy(){
 												</table></td>
 										</tr>
 										<tr>
-											<th>2020(상)평가유형</th>
+											<th>평가유형</th>
 											<td><input id="ASSESSMENT_TYPE" name="ASSESSMENT_TYPE"
 												value="<%=project.getASSESSMENT_TYPE()%>"></input></td>
 										</tr>
@@ -838,6 +839,13 @@ function btn_copy(){
 											<td id="resultFocus"><input class="sheetCheck" type="radio"
 												name="sheetCheck" value="1" checked="checked">사용 <input
 												class="sheetCheck" type="radio" name="sheetCheck" value="0">미사용
+											</td>
+										</tr>
+										<tr>
+											<th><span style="color: red;">*</span>복사</th>
+											<td id="copyFocus">
+											<input type="radio"name="copyCheck" value="1" checked="checked">사용 
+											<input type="radio" name="copyCheck" value="0">미사용
 											</td>
 										</tr>
 										<tr align="center">

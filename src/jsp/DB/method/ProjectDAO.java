@@ -67,6 +67,7 @@ public class ProjectDAO {
 	    		project.setRESULT_REPORT(rs.getInt("실적보고"));
 	    		project.setNO(rs.getInt("no"));
 	    		project.setYear(rs.getInt("year"));
+	    		project.setCopy(rs.getString("copy"));
 	    	}
 	    	
 	    	
@@ -130,6 +131,7 @@ public class ProjectDAO {
 		    		project.setRESULT_REPORT(rs.getInt("실적보고"));
 		    		project.setNO(rs.getInt("no"));
 		    		project.setYear(rs.getInt("year"));
+		    		project.setCopy(rs.getString("copy"));
 		    		pjList.add(project);
 		    	}
 		    	
@@ -234,7 +236,8 @@ public class ProjectDAO {
 		float EMPLOY_DEMAND,
 		float OUTSOURCE_DEMAND,
 		int REPORT_CHECK,
-		int RESULT_REPORT
+		int RESULT_REPORT,
+		String copy
 		) 
 	
 	{
@@ -249,7 +252,7 @@ public class ProjectDAO {
 			StringBuffer query = new StringBuffer();
 	    	query.append("insert into project(팀_수주,팀_매출,프로젝트코드,프로젝트명,상태,실,고객사,고객부서,ManMonth,프로젝트계약금액_백만,"
 	    			+ "상반기예상수주,상반기수주,상반기예상매출,상반기매출,하반기예상수주,하반기수주,하반기예상매출,하반기매출,착수,종료,고객담당자,근무지,"
-	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요,주간보고서사용,실적보고,year) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+	    			+ "업무,PM,투입명단,평가유형,채용수요,외주수요,주간보고서사용,실적보고,year,copy) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM_ORDER);
@@ -283,6 +286,7 @@ public class ProjectDAO {
 	    	pstmt.setInt(29, REPORT_CHECK);
 	    	pstmt.setInt(30, RESULT_REPORT);
 	    	pstmt.setInt(31, nowYear);
+	    	pstmt.setString(32, copy);
 	    	pstmt.executeUpdate();
 	    	// no 반환
 	    	rs = pstmt.executeQuery("select last_insert_id()");
@@ -334,7 +338,8 @@ public class ProjectDAO {
 		int REPORT_CHECK,
 		int RESULT_REPORT,
 		int NO,
-		int year
+		int year,
+		String copy
 		) 
 	
 	{
@@ -346,7 +351,7 @@ public class ProjectDAO {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET 팀_수주=?,팀_매출=?,프로젝트코드=?,프로젝트명=?,상태=?,실=?,고객사=?,고객부서=?,ManMonth=?,프로젝트계약금액_백만=?,"
 	    			+ "상반기예상수주=?,상반기수주=?,상반기예상매출=?,상반기매출=?,하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,착수=?,종료=?,고객담당자=?,근무지=?,"
-	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=?,실적보고=? WHERE no=? and year=?;");
+	    			+ "업무=?,PM=?,투입명단=?,평가유형=?,채용수요=?,외주수요=?,주간보고서사용=?,실적보고=?, copy=? WHERE no=? and year=?;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, TEAM_ORDER);
@@ -379,8 +384,9 @@ public class ProjectDAO {
 	    	pstmt.setFloat(28, OUTSOURCE_DEMAND);
 	    	pstmt.setInt(29, REPORT_CHECK);
 	    	pstmt.setInt(30, RESULT_REPORT);
-	    	pstmt.setInt(31, NO);
-	    	pstmt.setInt(32, year);
+	    	pstmt.setString(31, copy);
+	    	pstmt.setInt(32, NO);
+	    	pstmt.setInt(33, year);
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -441,6 +447,7 @@ public class ProjectDAO {
 	    		project.setREPORTCHECK(rs.getInt("주간보고서사용"));
 	    		project.setRESULT_REPORT(rs.getInt("실적보고"));
 	    		project.setNO(rs.getInt("no"));
+	    		project.setCopy(rs.getString("copy"));
 	    		projectList.add(project);
 	    	}
 		}catch (SQLException e) {
@@ -748,7 +755,7 @@ public class ProjectDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 	    	query.append("UPDATE project SET ManMonth=?,프로젝트계약금액_백만=?,상반기예상수주=?,상반기수주=?,상반기예상매출=?,상반기매출=?,"
-	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=? WHERE no=?;");
+	    			+ "하반기예상수주=?,하반기수주=?,하반기예상매출=?,하반기매출=?,채용수요=?,외주수요=?,주간보고서사용=?, copy=? WHERE no=?;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setFloat(1, 0);
@@ -764,7 +771,8 @@ public class ProjectDAO {
 	    	pstmt.setFloat(11, 0);
 	    	pstmt.setFloat(12, 0);
 	    	pstmt.setInt(13, 0);
-	    	pstmt.setInt(14, NO);
+	    	pstmt.setString(14, "0");
+	    	pstmt.setInt(15, NO);
 	    	
 	    	rs = pstmt.executeUpdate();
 		}catch (SQLException e) {
@@ -903,7 +911,7 @@ public class ProjectDAO {
 		
 		
 		
-		// 전년도 프로젝트 복사(상태 : DROP, 종료 제외)
+		// 전년도 프로젝트 복사
 		public int copy_preYearData() 
 		
 		{
@@ -912,14 +920,12 @@ public class ProjectDAO {
 			ResultSet rs = null;
 			int no = 0;
 			
-			
 			try {
-				Date nowDate = new Date();
-				int nowYear = Integer.parseInt(sf.format(nowDate));
+				int nowYear = maxYear();
 				StringBuffer query = new StringBuffer();
 		    	query.append("insert into project (select 팀_수주, 팀_매출, 프로젝트코드, 프로젝트명, 상태, 실, 고객사, 고객부서, ManMonth, 프로젝트계약금액_백만, 상반기예상수주, 상반기수주, 상반기예상매출, 상반기매출, 하반기예상수주,"
-		    			+ "하반기수주, 하반기예상매출, 하반기매출, 착수, 종료, 고객담당자, 근무지, 업무, PM, 투입명단, 평가유형, 채용수요, 외주수요, 주간보고서사용, 실적보고,no, (year+1) as year"
-		    			+ " from project where year = "+ (nowYear-1) +" and 상태 != '8.Dropped')");
+		    			+ "하반기수주, 하반기예상매출, 하반기매출, 착수, 종료, 고객담당자, 근무지, 업무, PM, 투입명단, 평가유형, 채용수요, 외주수요, 주간보고서사용, 실적보고,no, (year+1) as year, copy"
+		    			+ " from project where year = "+ nowYear +" and copy = 1)");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
 		    	pstmt.executeUpdate();
@@ -935,6 +941,7 @@ public class ProjectDAO {
 			
 			return no;
 		}
+		/*
 		// 전년도 프로젝트 복사
 		public int update_preYearData() 
 		{
@@ -944,8 +951,7 @@ public class ProjectDAO {
 			int no = 0;
 			
 			try {
-				Date nowDate = new Date();
-				int nowYear = Integer.parseInt(sf.format(nowDate));
+				int nowYear = maxYear();
 				StringBuffer query = new StringBuffer();
 		    	query.append("update project set 실적보고=0 where year="+(nowYear)+" and 상태 = '7.종료'");
 		    	conn = DBconnection.getConnection();
@@ -963,6 +969,7 @@ public class ProjectDAO {
 			
 			return no;
 		}
+		*/
 		public int minYear() {
 			Connection conn = null;
 		    PreparedStatement pstmt = null;
@@ -977,6 +984,32 @@ public class ProjectDAO {
 		    	rs = pstmt.executeQuery();
 		    	if(rs.next()) {
 		    		year = rs.getInt("min(year)");
+		    	}
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return year;
+		}
+		
+		public int maxYear() {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    int year = 0;
+		    
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("select max(year) from project");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	if(rs.next()) {
+		    		year = rs.getInt("max(year)");
 		    	}
 		    }catch (SQLException e) {
 				// TODO Auto-generated catch block

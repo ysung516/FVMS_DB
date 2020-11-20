@@ -70,28 +70,6 @@ public class Scheduler {
         }, 0, 60, TimeUnit.MINUTES);
     }
       
-    public void PreYear_project_copy() {
-        final ScheduledFuture<?> taskHandle = scheduler.scheduleAtFixedRate(
-            new Runnable() {
-                public void run() {
-                    try {
-                       	Date nowTime = new Date();
-                    	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-                    	String nowDate = sf.format(nowTime);
-                    	String month = nowDate.split("-")[1];
-                    	String day = nowDate.split("-")[2];
-                    	if(month.equals("01")) {
-                    		if(day.equals("01")) {
-                    			projectDao.copy_preYearData();
-                    		}
-                    	}
-                        
-                    }catch(Exception ex) {
-                        ex.printStackTrace(); //or loggger would be better
-                    }
-                }
-            }, 0, 1, TimeUnit.DAYS);
-        }
     
     public void reportBackUp() throws GeneralSecurityException, IOException, Exception {
 	       	Date nowTime = new Date();

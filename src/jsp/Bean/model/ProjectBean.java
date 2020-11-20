@@ -33,7 +33,15 @@ public class ProjectBean {
 	private int RESULT_REPORT; //실적보고
 	private int NO;
 	private int year;	// 년도
+	private String copy; // 차년도 복사
 	
+	
+	public String getCopy() {
+		return copy;
+	}
+	public void setCopy(String copy) {
+		this.copy = copy;
+	}
 	public int getYear() {
 		return year;
 	}

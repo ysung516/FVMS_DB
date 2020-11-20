@@ -359,11 +359,12 @@
 						
 						 <input id="count" type="hidden" name="count">
 						
-						<table class="wpTable">
+						<table class="wpTable table table-bordered">
 							<thead>
 								<tr>
 									<th>NO</th>
 									<th>근무지</th>
+									<th>파견비용</th>
 									<th>COLOR</th>
 									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
 								</tr>
@@ -374,6 +375,7 @@
 									<tr>
 										<td><%= wpList.get(i).getNo() %></td>
 										<td class="place_width"><input name="place" value="<%=wpList.get(i).getPlace()%>" ></td>
+										<td class="place_width"><input name="cost" value=""></td>
 										<td class="place_width"><input type="color" name="color" value="<%=wpList.get(i).getColor()%>" ></td>
 										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
 									</tr>									
