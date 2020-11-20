@@ -1615,10 +1615,10 @@ function y_rsales() {
                     	<td><%=FH_totalGoalOrder%></td>
                     	<%for(int key : teamList.keySet()){
                     		if(key != 0){%>
-                    		<td><input class="sale" name="FH_<%=key%>_PJ" value='<%=FH_goalOrder.get(teamList.get(key))%>'></td>
+                    		<td><input class="sale" name="FH_<%=key%>_PJ" value="<%=FH_goalOrder.get(teamList.get(key))%>"></td>
                     		<%}
                     	} %>
-                    	<td><input class="sale" name="FH_vt_PJ" value='<%=FH_goalOrder.get(teamList.get(0))%>'></td>
+                    	<td><input class="sale" name="FH_0_PJ" value="<%=FH_goalOrder.get(teamList.get(0))%>"></td>
                     </tr>
                   	<!-- 상반기예상수주 -->
                     <tr class="firstTD orderTD dataTD">
@@ -1673,7 +1673,7 @@ function y_rsales() {
                     		<td><input class="sale" name="FH_<%=key%>_SALES" value='<%=FH_goalSale.get(teamList.get(key))%>'></td>
                     		<%}
                     	} %>
-                    	<td><input class="sale" name="FH_vt_SALES" value='<%=FH_goalSale.get(teamList.get(0))%>'></td>
+                    	<td><input class="sale" name="FH_0_SALES" value='<%=FH_goalSale.get(teamList.get(0))%>'></td>
                     </tr>
                   	<!-- 상반기예상매출 -->
                     <tr class="firstTD saleTD dataTD">
@@ -1749,10 +1749,10 @@ function y_rsales() {
                     	<td><%=SH_totalGoalOrder%></td>
                     	<%for(int key : teamList.keySet()){
                     		if(key != 0){%>
-                    		<td><input class="sale" name="SH_<%=key%>_PJ" value='<%=SH_goalOrder.get(teamList.get(key))%>'></td>
+                    		<td><input class="sale" name="SH_<%=key%>_PJ" value="<%=SH_goalOrder.get(teamList.get(key))%>"></td>
                     		<%}
                     	} %>
-                    	<td><input class="sale" name="SH_vt_PJ" value='<%=SH_goalOrder.get(teamList.get(0))%>'></td>
+                    	<td><input class="sale" name="SH_0_PJ" value="<%=SH_goalOrder.get(teamList.get(0))%>"></td>
                     </tr>
                     <!-- 하반기예상수주 -->
                     <tr class="lastTD orderTD dataTD">
@@ -1807,7 +1807,7 @@ function y_rsales() {
                     		<td><input class="sale" name="SH_<%=key%>_SALES" value='<%=SH_goalSale.get(teamList.get(key))%>'></td>
                     		<%}
                     	} %>
-                    	<td><input class="sale" name="SH_vt_SALES" value='<%=SH_goalSale.get(teamList.get(0))%>'></td>
+                    	<td><input class="sale" name="SH_0_SALES" value='<%=SH_goalSale.get(teamList.get(0))%>'></td>
                     </tr>
                     <!-- 하반기예상매출 -->
                     <tr class="lastTD saleTD dataTD">

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.mysql.cj.protocol.Resultset;
 
@@ -463,16 +464,15 @@ public class ProjectDAO {
 	
 	//팀 정렬로 프로젝트 가져오기
 	public HashMap<String, ArrayList<Project_sch_Bean>> getProjectList_team(){
-		HashMap<String, ArrayList<Project_sch_Bean>> projectList = new HashMap<>();
-		ArrayList<Project_sch_Bean> chasis = new ArrayList<Project_sch_Bean>();
-		ArrayList<Project_sch_Bean> body = new ArrayList<Project_sch_Bean>();
-		ArrayList<Project_sch_Bean> control = new ArrayList<Project_sch_Bean>();
-		ArrayList<Project_sch_Bean> save = new ArrayList<Project_sch_Bean>();
-		ArrayList<Project_sch_Bean> auto = new ArrayList<Project_sch_Bean>();
-		ArrayList<Project_sch_Bean> vh = new ArrayList<Project_sch_Bean>();
-		
 		MemberDAO memberDao = new MemberDAO();
+		LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 		ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
+		
+		HashMap<String, ArrayList<Project_sch_Bean>> projectList = new HashMap<>();
+		for(int key : teamList.keySet()) {
+			projectList.put(teamList.get(key), new ArrayList<Project_sch_Bean>());
+		}
+		
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -531,27 +531,9 @@ public class ProjectDAO {
 	    			project.setWORKER_LIST(workerString);
 	    		}
 	    		project.setNO(rs.getInt("no"));
-	    		if (team.equals("샤시힐스검증팀")) {
-	    			chasis.add(project);
-	    		}else if(team.equals("바디힐스검증팀")) {
-	    			body.add(project);
-	    		}else if(team.equals("기능안전검증팀")) {
-	    			save.add(project);
-	    		}else if(team.equals("제어로직검증팀")) {
-	    			control.add(project);
-	    		}else if(team.equals("자율주행검증팀")) {
-	    			auto.add(project);
-	    		}else{
-	    			vh.add(project);
-	    		}
+	    		
+	    		projectList.get(team).add(project);
 	    	}
-
-	    	projectList.put("미래차검증전략실", vh);
-	    	projectList.put("샤시힐스검증팀", chasis);
-	    	projectList.put("바디힐스검증팀", body);
-	    	projectList.put("제어로직검증팀", control);
-	    	projectList.put("기능안전검증팀", save);
-	    	projectList.put("자율주행검증팀", auto);
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

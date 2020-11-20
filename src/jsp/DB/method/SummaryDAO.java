@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 import jsp.Bean.model.*;
 
@@ -347,63 +348,28 @@ public class SummaryDAO {
 	}
 	
 	// 목표 수주,매출 저장
-	public int[] saveTargetData(float FH_chassis_PJ, float FH_body_PJ, float FH_control_PJ, float FH_safe_PJ, float FH_auto_PJ, float FH_vt_PJ,
-			float FH_chassis_SALES, float FH_body_SALES, float FH_control_SALES, float FH_safe_SALES, float FH_auto_SALES, float FH_vt_SALES,
-			float SH_chassis_PJ, float SH_body_PJ, float SH_control_PJ, float SH_safe_PJ, float SH_auto_PJ, float SH_vt_PJ,
-			float SH_chassis_SALES, float SH_body_SALES, float SH_control_SALES, float SH_safe_SALES, float SH_auto_SALES, float SH_vt_SALES) {
+	public int[] saveTargetData(HashMap<String, LinkedList<LinkedList<Float>>> dataList) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
-	    int[] rs = new int[6];
-	
+	    int[] rs = new int[dataList.size()];
+	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
 	    	query.append("update team set 상반기목표수주=?, 상반기목표매출=?, 하반기목표수주=?, 하반기목표매출=? where teamName=?;");
 	    	conn = DBconnection.getConnection();
 	    	conn.setAutoCommit(false);
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setFloat(1, FH_chassis_PJ);
-	    	pstmt.setFloat(2, FH_chassis_SALES);
-	    	pstmt.setFloat(3, SH_chassis_PJ);
-	    	pstmt.setFloat(4, SH_chassis_SALES);
-	    	pstmt.setString(5, "샤시힐스검증팀");
-	    	pstmt.addBatch();
 	    	
-	    	pstmt.setFloat(1, FH_body_PJ);
-	    	pstmt.setFloat(2, FH_body_SALES);
-	    	pstmt.setFloat(3, SH_body_PJ);
-	    	pstmt.setFloat(4, SH_body_SALES);
-	    	pstmt.setString(5, "바디힐스검증팀");
-	       	pstmt.addBatch();
-	    	
-	    	pstmt.setFloat(1, FH_control_PJ);
-	    	pstmt.setFloat(2, FH_control_SALES);
-	    	pstmt.setFloat(3, SH_control_PJ);
-	    	pstmt.setFloat(4, SH_control_SALES);
-	    	pstmt.setString(5, "제어로직검증팀");
-	       	pstmt.addBatch();
+	    	for(String key : dataList.keySet()) {
+	    		pstmt.setFloat(1, dataList.get(key).get(0).get(0));
+		    	pstmt.setFloat(2, dataList.get(key).get(0).get(1));
+		    	pstmt.setFloat(3, dataList.get(key).get(1).get(0));
+		    	pstmt.setFloat(4, dataList.get(key).get(1).get(1));
+		    	pstmt.setString(5, key);
+		    	pstmt.addBatch();
+	    	}
 	       	
-	    	pstmt.setFloat(1, FH_safe_PJ);
-	    	pstmt.setFloat(2, FH_safe_SALES);
-	    	pstmt.setFloat(3, SH_safe_PJ);
-	    	pstmt.setFloat(4, SH_safe_SALES);
-	    	pstmt.setString(5, "기능안전검증팀");
-	       	pstmt.addBatch();
-	    	
-	    	pstmt.setFloat(1, FH_auto_PJ);
-	    	pstmt.setFloat(2, FH_auto_SALES);
-	    	pstmt.setFloat(3, SH_auto_PJ);
-	    	pstmt.setFloat(4, SH_auto_SALES);
-	    	pstmt.setString(5, "자율주행검증팀");
-	       	pstmt.addBatch();
-	    	
-	    	pstmt.setFloat(1, FH_vt_PJ);
-	    	pstmt.setFloat(2, FH_vt_SALES);
-	    	pstmt.setFloat(3, SH_vt_PJ);
-	    	pstmt.setFloat(4, SH_vt_SALES);
-	    	pstmt.setString(5, "미래차검증전략실");
-	       	pstmt.addBatch();
-	       	
-	    	rs =pstmt.executeBatch();
+	    	rs = pstmt.executeBatch();
 	    	conn.commit();
 	    	
 	    }catch (SQLException e) {
