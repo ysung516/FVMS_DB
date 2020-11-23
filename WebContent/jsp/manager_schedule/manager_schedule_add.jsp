@@ -21,9 +21,10 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(60*60);
 		String date = request.getParameter("date");
+		int year = Integer.parseInt(date.split("-")[0]);
 		
 		ManagerDAO managerDao = new ManagerDAO();
-		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(year);
 	
 %>
 

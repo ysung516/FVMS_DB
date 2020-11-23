@@ -179,12 +179,60 @@ public class ExpendDAO {
 			return result;
 		}
 		
+		/*
 		
+		public int minYear() {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    int year = 0;
+		    
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("select min(year) from workPlace");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	if(rs.next()) {
+		    		year = rs.getInt("min(year)");
+		    	}
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return year;
+		}
 		
+		public int maxYear() {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    int year = 0;
+		    
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("select max(year) from workPlace");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeQuery();
+		    	if(rs.next()) {
+		    		year = rs.getInt("max(year)");
+		    	}
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return year;
+		}
 		
-		
-		
-		
-		
+		*/
 		
 }

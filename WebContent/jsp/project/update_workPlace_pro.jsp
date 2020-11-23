@@ -22,11 +22,6 @@
 	int no = Integer.parseInt(request.getParameter("no"));
 	int year = Integer.parseInt(request.getParameter("year"));
 	String place = request.getParameter("place");
-	
-	System.out.println(no);
-	System.out.println(year);
-	System.out.println(place);
-	
 	ProjectDAO projectDao = new ProjectDAO();
 	int result = 0;
 	result = projectDao.updateData(no, place, "근무지", year);

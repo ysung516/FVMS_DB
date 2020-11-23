@@ -22,10 +22,11 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
+	int year = Integer.parseInt(request.getParameter("date").split("-")[0]);
 	
 	ManagerDAO managerDao = new ManagerDAO();
 	MSC_DAO  mscDao = new MSC_DAO();
-	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(year);
 	
 	request.setCharacterEncoding("UTF-8");
 	int num = Integer.parseInt(request.getParameter("num"));

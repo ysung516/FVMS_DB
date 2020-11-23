@@ -41,7 +41,7 @@
 		String place = request.getParameter("place");
 		
 		ManagerDAO managerDao = new ManagerDAO();
-		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(year);
 		
 	%>
 	<style>

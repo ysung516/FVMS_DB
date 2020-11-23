@@ -36,6 +36,7 @@
 	</form>
 	<form id="GoUpdate" name="GoUpdate" method="post"
 		action="manager_schedule_update.jsp">
+	<input type="hidden" name="date" value="<%=date%>" />
 	 <input type="hidden" name="num" value="<%=num%>" />
 	</form>
 

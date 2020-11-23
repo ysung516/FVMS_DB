@@ -33,7 +33,7 @@
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
 	ArrayList<CareerBean> careerList_PM = projectDao.getCarrerPM(no);
-	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(year);
 	
 	String textPM = "";
 	String textWorker = "";

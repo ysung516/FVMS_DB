@@ -19,8 +19,22 @@
 		session.setMaxInactiveInterval(60*60);
 		ManagerDAO managerDao = new ManagerDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+		
+		int maxYear = managerDao.maxYear();
+		int minYear = managerDao.minYear();
+		int yearCount = maxYear - minYear + 1;
+		
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		
+		String nowYear = sf.format(nowDate); 
+		int year = Integer.parseInt(nowYear);
+		if(request.getParameter("year") != null){
+			year = Integer.parseInt(request.getParameter("year"));
+		}
+		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(year);
 	%>
+	
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -167,6 +181,7 @@
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
 	    $('#count').val($('#workplaceList tr').length);
+	    $('#wp_year').val(<%=year%>).attr("selected","selected");
 	});
 	
 	function memberSyn(){
@@ -187,6 +202,7 @@
 		innerHtml += '<tr>';
 		innerHtml += '<td>'+count+'</td>';
 		innerHtml += '<td class="place_width"><input name="place"></td>';
+		innerHtml += '<td><input name="cost" value="0"></td>';
 		innerHtml += '<td><input type="color" value="#ffffff" name="color"></td>';
 		innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
 		innerHtml += '</tr>';
@@ -208,12 +224,24 @@
 			for(var a=0; a<=len; a++){
 				$("#workplaceList tr:eq("+a+") td:eq(0)").text((a+1));
 				$("#workplaceList tr:eq("+a+") td:eq(1) input").attr("name", "place");
-				$("#workplaceList tr:eq("+a+") td:eq(2) input").attr("name", "color");
+				$("#workplaceList tr:eq("+a+") td:eq(2) input").attr("name", "cost");
+				$("#workplaceList tr:eq("+a+") td:eq(3) input").attr("name", "color");
 			}
 			$('#count').val($('#workplaceList tr').length);
 		});
 	}
 
+	function listLoad(){
+		var year = $('#wp_year').val();
+		location.href ="workPlace_manage.jsp?year="+year;
+	}
+	
+	function copy_nextYear(){
+		var year = $('#wp_copy').val();
+		var cnt = $('#count').val();
+		location.href ="wp_nextcopy.jsp?year="+year+"&cnt="+cnt;
+		
+	}
 </script>
 
 <body id="page-top">
@@ -358,13 +386,20 @@
 						<div class="table-responsive" style="padding: 20px">
 						
 						 <input id="count" type="hidden" name="count">
-						
+						 <input id="year" type="hidden" name="year" value="<%=year%>">
+						<select id="wp_year" name="wp_year" onchange="listLoad()">
+							<%
+								for(int i=0; i<yearCount; i++){%>
+									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+							<%}%>
+						</select>
+							<input id="wp_copy" type="button" class="btn btn-primary" onclick="copy_nextYear()" value="<%=maxYear+1%>년 생성">
 						<table class="wpTable table table-bordered">
 							<thead>
 								<tr>
 									<th>NO</th>
 									<th>근무지</th>
-									<th>파견비용</th>
+									<th>파견비용(단위: 만)</th>
 									<th>COLOR</th>
 									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
 								</tr>
@@ -373,9 +408,9 @@
 							<%
 								for(int i=0; i<wpList.size(); i++){%>
 									<tr>
-										<td><%= wpList.get(i).getNo() %></td>
+										<td><%=i+1%></td>
 										<td class="place_width"><input name="place" value="<%=wpList.get(i).getPlace()%>" ></td>
-										<td class="place_width"><input name="cost" value=""></td>
+										<td class="place_width"><input name="cost" value="<%=wpList.get(i).getCost()%>"></td>
 										<td class="place_width"><input type="color" name="color" value="<%=wpList.get(i).getColor()%>" ></td>
 										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
 									</tr>									

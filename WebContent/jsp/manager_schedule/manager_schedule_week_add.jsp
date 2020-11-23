@@ -22,7 +22,7 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(60*60);
 		String date = request.getParameter("weekDate");
-		
+		int year = Integer.parseInt(date.split("-")[0]);
 		// 문자형 date형으로 변환
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date to = transFormat.parse(date);
@@ -41,7 +41,7 @@
 		String date5 = transFormat.format(cal.getTime());
 		
 		ManagerDAO managerDao = new ManagerDAO();
-		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+		ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(year);
 		
 %>
 
