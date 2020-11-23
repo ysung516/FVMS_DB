@@ -8,7 +8,8 @@ public class CareerBean {
 	private String start;
 	private String end;
 	private String pm;
-	
+	private String color;
+
 	public String getProjectName() {
 		return projectName;
 	}
@@ -50,5 +51,11 @@ public class CareerBean {
 	}
 	public void setPm(String pm) {
 		this.pm = pm;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

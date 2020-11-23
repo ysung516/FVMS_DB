@@ -71,6 +71,11 @@ public class SchDAO {
 					sch.setName(rs.getString("이름"));
 					sch.setTeam(rs.getString("팀"));
 					sch.setRank(rs.getString("직급"));
+					if(rs.getString("상태").contains("6.진행중") == true) {
+						sch.setColor("#D24F4F");
+					}else {
+						sch.setColor("#358DCC");
+					}
 					schList.add(sch);
 				}
 			}catch (SQLException e) {
@@ -109,6 +114,11 @@ public class SchDAO {
 					career.setStart(rs.getString("start"));
 					career.setEnd(rs.getString("end"));
 					career.setPm(rs.getString("pm"));
+					if(rs.getString("상태").contains("6.진행중") == true) {
+						career.setColor("#D24F4F");
+					}else {
+						career.setColor("#358DCC");
+					}
 					careerList.add(career);
 				}
 			}catch (SQLException e) {

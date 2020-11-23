@@ -18,6 +18,8 @@ public class schBean {
 	private String pm;
 	private String workList;
 	private String state;
+	private String color;
+
 	
 	public String getPm() {
 		return pm;
@@ -77,7 +79,13 @@ public class schBean {
 	public String getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(String color) {
 		this.state = state;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

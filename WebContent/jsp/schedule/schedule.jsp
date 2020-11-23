@@ -341,27 +341,16 @@
               		<%
 	            		for(int b=0; b<schList.size(); b++){
 	            		%>
-	            		if('<%=schList.get(b).getState()%>' == '6.진행중'){
 		      	  	  		dataTable.addRows([
 		    	  					['<%=schList.get(b).getName()%>'
 		            				,'<%=schList.get(b).getProjectName()%>'
 		            				
 		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(b).getPm()%><br><b>투입명단 : </b> <%=schList.get(b).getWorkList().trim()%></p>' 
 		            				+ '<b>착수일 : </b><%=schList.get(b).getStart()%><br><b>종료일 : </b><%=schList.get(b).getEnd()%></div>'
-		            				,'#D24F4F'
+		            				,'<%=schList.get(b).getColor()%>'
 		            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
 		    	            	]);
-		      	  	  	}else{
-			      	  		dataTable.addRows([
-			    	  			['<%=schList.get(b).getName()%>'
-			            		,'<%=schList.get(b).getProjectName()%>'
-			            		,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(b).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(b).getPm()%><br><b>투입명단 : </b> <%=schList.get(b).getWorkList().trim()%></p>' 
-			            				+ '<b>착수일 : </b><%=schList.get(b).getStart()%><br><b>종료일 : </b><%=schList.get(b).getEnd()%></div>'
-			            				,'#358DCC'
-			            				, new Date('<%=schList.get(b).getStart()%>'), new Date('<%=schList.get(b).getEnd()%>')]
-			    	            	]);
-		      	  	  		}
-	            	
+		      	  	  	
 	            		<%}
             	%>
             chart.draw(dataTable);
@@ -409,99 +398,54 @@
 	      	  	  for(int i=0; i<schList.size(); i++){%>
 	      	  	  	if(rank=='total'){
 		      	  	  	if(team == '<%=schList.get(i).getTeam()%>'){
-		      	  	  		if('<%=schList.get(i).getState()%>' == '6.진행중'){
 		      	  	  		dataTable.addRows([
 		    	  				[	'<%=schList.get(i).getName()%>'
 		            				,'<%=schList.get(i).getProjectName()%>'
 		            				
 		            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
 		            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-		            				,'#D24F4F'
+		            				,'<%=schList.get(i).getColor()%>'
 		            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 		    	            	]);
-		      	  	  		}else{
-			      	  	  		dataTable.addRows([
-			    	  				[	'<%=schList.get(i).getName()%>'
-			            				,'<%=schList.get(i).getProjectName()%>'
-			            				
-			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#358DCC'
-			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-		      	  	  		}
 		    	  			 
 		    	  		} else if(team == 'total'){
-		    	  			if('<%=schList.get(i).getState()%>' == '6.진행중'){
-			    	  			dataTable.addRows([
+			    	  				dataTable.addRows([
 			    	  				[	'<%=schList.get(i).getName()%>'
 			            				,'<%=schList.get(i).getProjectName()%>'
-			            				
 			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
 			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#D24F4F'
+			            				,'<%=schList.get(i).getColor()%>'
 			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 			    	            ]);
-		    	  			}else{
-			      	  	  		dataTable.addRows([
-			    	  				[	'<%=schList.get(i).getName()%>'
-			            				,'<%=schList.get(i).getProjectName()%>'
-			            				
-			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#358DCC'
-			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-		      	  	  		}
-		    	  		}
+		    	  			
+		    	  			
 		    	  			
 	
+	      	  	  		}
 	      	  	  	}
 	      	  	  	else{
 		      	  	  	if(team == '<%=schList.get(i).getTeam()%>' && rank == '<%=schList.get(i).getRank()%>'){
-		      	  	  		if('<%=schList.get(i).getState()%>' == '6.진행중'){
 			    	  			dataTable.addRows([
 			    	  				[	'<%=schList.get(i).getName()%>'
 			            				,'<%=schList.get(i).getProjectName()%>'
 			            				
 			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
 			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#D24F4F'
+			            				,'<%=schList.get(i).getColor()%>'
 			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 			    	            ]);
-		      	  	  		}else{
-			      	  	  		dataTable.addRows([
-			    	  				[	'<%=schList.get(i).getName()%>'
-			            				,'<%=schList.get(i).getProjectName()%>'
-			            				
-			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#358DCC'
-			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-		      	  	  		}
+		      	  	  		
 		    	  		}else if(team == 'total' && rank == '<%=schList.get(i).getRank()%>'){
-		    	  			if('<%=schList.get(i).getState()%>' == '6.진행중'){
 			    	  			dataTable.addRows([
 			    	  				[	'<%=schList.get(i).getName()%>'
 			            				,'<%=schList.get(i).getProjectName()%>'
 			            				
 			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
 			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#D24F4F'
+			            				,'<%=schList.get(i).getColor()%>'
 			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
 			    	            ]);
-		    	  			}else{
-		    	  				dataTable.addRows([
-			    	  				[	'<%=schList.get(i).getName()%>'
-			            				,'<%=schList.get(i).getProjectName()%>'
-			            				
-			            				,'<div class = "tooltip-padding"> <h6><strong><%=schList.get(i).getProjectName()%></strong></h6>' + '<hr style ="border:solid 1px;color:black">' + '<p><b>PM : </b><%=schList.get(i).getPm()%><br><b>투입명단 : </b> <%=schList.get(i).getWorkList().trim()%></p>' 
-			            				+ '<b>착수일 : </b><%=schList.get(i).getStart()%><br><b>종료일 : </b><%=schList.get(i).getEnd()%></div>'
-			            				,'#358DCC'
-			            				, new Date('<%=schList.get(i).getStart()%>'), new Date('<%=schList.get(i).getEnd()%>')]
-			    	            ]);
-		    	  			}
+		    	  			
 		    	  		}
 	      	  	  	}			      	  	
       	  	  	
