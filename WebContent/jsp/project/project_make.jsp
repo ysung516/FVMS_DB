@@ -34,7 +34,7 @@
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
 	ArrayList<String> teamList = projectDao.getTeamData();
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
-	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList();
+	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(nowYear);
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
