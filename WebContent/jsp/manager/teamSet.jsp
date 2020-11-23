@@ -56,11 +56,7 @@
 	position:relative;
 	z-index:997;
 }
-.wpTable{
-	padding : 10px;
-	width : 50%;
-	text-align: center;
-}
+
 
 #manager_btn {
 	position: fixed;
@@ -78,6 +74,17 @@
 	text-align: center;
 }
 
+.num_width{
+	width: 60px;
+}
+
+.button_width{
+	width : 55px;
+}
+
+td, th{
+	text-align: center;
+}
 
 .loading {
 	position: fixed;
@@ -99,14 +106,6 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
-
-.num_width{
-	width: 50%;
-}
-
-.team_width{
-	width: 100%;
 }
 
 @media ( max-width :765px) {
@@ -193,7 +192,7 @@
 		innerHtml += '<tr>';
 		innerHtml += '<td><input class="num_width" name="teamNum" value="'+count+'" ></td>';
 		innerHtml += '<td><input class="team_width" name="teamName" value="" ></td>';
-		innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
+		innerHtml += '<td class="button_width"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
 		innerHtml += '</tr>';
 		$('#count').val(count+1);
 		$('#workplaceList').append(innerHtml);
@@ -358,15 +357,15 @@
 								<button class="btn btn-primary" onclick="location.href ='workPlace_manage.jsp'" style="font-size:small; margin-right:5px;">근무지 관리</button>
 							</div>
 						</div>
-						<form method="post" action="">
+						<form method="post" action="teamSetPro.jsp">
 						<div class="table-responsive" style="padding: 20px">
 						<input id="count" type="hidden" name="count">
 						<table class="wpTable">
 							<caption style="caption-side: top; color:red; font-size:small; font-weight: bold;">우선순위 0은 항상 실로 고정</caption>
 							<thead>
 								<tr>
-									<th>우선순위</th>
-									<th>팀</th>
+									<th class="num">우선순위</th>
+									<th class="team">팀</th>
 									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
 								</tr>
 							</thead>
@@ -374,15 +373,16 @@
 								<%for(int teamNum : teamList.keySet()){ 
 									if(teamNum==0){%>
 									<tr>
-										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" readonly></td>
-										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
-										<td></td>
+										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" style="color: #969696;" readonly></td>
+										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>"></td>
+										<td class="button_width"></td>
 									</tr>
 									<%}else{%>
 									<tr>
 										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" ></td>
 										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
-										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
+										<td class="button_width"></td>
+										<!-- <td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>  -->
 									</tr>
 								<%}} %>
 							</tbody>

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import jsp.Bean.model.MemberBean;
 
@@ -633,16 +635,22 @@ public class MemberDAO {
 	    return coopNum;
 	}
 	
+	//현재년도 팀 가져오기
 	public LinkedHashMap<Integer, String> getTeam(){
+		Date date = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String year = sf.format(date);
+		
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null; 
 	    LinkedHashMap<Integer, String> list = new LinkedHashMap<Integer, String>();
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from team order by teamNum;");
+	    	query.append("select * from team where year=? order by teamNum;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, year);
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
 	    		list.put(rs.getInt("teamNum"), rs.getString("teamName"));
@@ -657,5 +665,46 @@ public class MemberDAO {
 		}
 	    
 	    return list;
+	}
+	
+	//년도별 팀 가져오기
+	public LinkedHashMap<Integer, String> getTeam_year(String year){
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null; 
+	    LinkedHashMap<Integer, String> list = new LinkedHashMap<Integer, String>();
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select * from team where year=? order by teamNum;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, year);
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		list.put(rs.getInt("teamNum"), rs.getString("teamName"));
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
+	
+	public String phone(String src) {
+		if (src == null) {
+			return "";
+	    }
+	    if (src.length() == 8) {
+	    	return src.replaceFirst("^([0-9]{4})([0-9]{4})$", "$1-$2");
+	    } else if (src.length() == 12) {
+	    	return src.replaceFirst("(^[0-9]{4})([0-9]{4})([0-9]{4})$", "$1-$2-$3");
+	    } else {
+	    	return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3");
+	    }
 	}
 }	//end 

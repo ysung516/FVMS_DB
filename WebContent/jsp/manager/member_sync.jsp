@@ -22,9 +22,7 @@
     import="jsp.Bean.model.*" import="jsp.DB.method.*"
     import="java.io.File"
     import="com.oreilly.servlet.MultipartRequest"
-    import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"  
-    import="java.util.Enumeration" import="java.util.Vector"
-    import="java.util.Map" import="java.util.HashMap"
+    import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"
     import="java.util.ArrayList" import="java.util.List"
    	import="java.util.LinkedHashMap"
     %>
@@ -38,14 +36,18 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	PrintWriter script =  response.getWriter();
+	
 	// excel => json
 	//경로설정
-	String path = "../webapps/ROOT/upload";
-	//String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";
+	String path = "../webapps/ROOT/upload";	//서버
+	//String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";	//로컬
+	
 	//파일받기
 	MultipartRequest multipartRequest = new MultipartRequest(request, path, 1024*1024*30, "utf-8", new DefaultFileRenamePolicy());
+	
 	//파일 원래 이름 저장
 	String originalFileName = multipartRequest.getOriginalFileName("file1");
+	
 	//파일 업로드
 	File file = multipartRequest.getFile("file1");
 	FileInputStream excelFile = new FileInputStream(file);
@@ -107,18 +109,19 @@
 	int cocount = 0;
 	int vtcount = 0;
 	int result = 0;
-	String name = "";
-	String id = "";
-	String part = "-";
-	String team = "-";
-	String rank = "-";
-	String mobile = "-";
-	String gmail = "-";
-	String permission = "3";
-	String comeDate = "";
 	
 	try{
 		for(int a=0; a<jsonArray.length(); a++){
+			String name = "";
+			String id = "";
+			String part = "-";
+			String team = "-";
+			String rank = "-";
+			String mobile = "-";
+			String gmail = "-";
+			String permission = "3";
+			String comeDate = "";
+			
 			int cnt = 0;
 			JSONObject obj = jsonArray.getJSONObject(a);
 			id = obj.getString("이메일").split("@")[0];
@@ -135,33 +138,39 @@
 				team = obj.getString("그룹").replace(" ", "");
 				int teamCheck = 0;
 				mobile = obj.getString("휴대전화");
+				if(!mobile.equals("") && !mobile.contains("-") && mobile.charAt(0) != '0'){	// 휴대폰 번호에 하이픈이 없어서 맨 앞에 0이 지워졌을 경우
+					mobile = "0" + mobile;
+					mobile = memberDao.phone(mobile);
+				}
 				gmail = obj.getString("이메일");
-				rank = obj.getString("직위");
 				comeDate = obj.getString("입사일");
+				rank = obj.getString("직위");
 				if(!(rank.equals("인턴") || rank.equals("전임") || rank.equals("선임") || rank.equals("책임") || rank.equals("수석"))){
 					rank = "-";
 				}
-				for(int teamNum : teamList.keySet()){
+				for(int teamNum : teamList.keySet()){	// 본사 직원일 때
 					if(team.replace(" ", "").equals(teamList.get(teamNum))){
 						teamCheck = 1;
 						part = "슈어소프트테크";
-						permission = "2";
+						// permission = "2";
 						break;
 					}
 				}
 				if(teamCheck == 0){
 					team = teamList.get(0);
 				}
+				
 				result = memberDao.plusNewMember(name, id, "12345", part, team, rank, "-", permission, mobile, gmail, comeDate);
-	
+				
 				System.out.println(result);
 				cocount += result;
 			}
+
 		}
 		System.out.println(cocount);
-	
 		script.print("<script> alert('회원 추가를 성공하였습니다.'); location.href = 'manager.jsp'; </script>");
 	}catch(Exception e){
+		System.out.println(e.getMessage());
 		script.print("<script> alert('회원 추가를 실패하였습니다.'); history.back(); </script>");
 	}
 %>
