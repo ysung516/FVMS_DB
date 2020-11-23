@@ -33,15 +33,27 @@
 	session.setMaxInactiveInterval(60*60);
 	
 	MemberDAO memberDao = new MemberDAO();
-    ArrayList<MemberBean> memberList = memberDao.getMemberData();	// 실 인원 정보
-    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
-	
 	SummaryDAO summaryDao = new SummaryDAO();
-	ArrayList<ProjectBean> pjList = summaryDao.getProjectList();	// 이번년도 실적보고 프로젝트 리스트
+	
+	Date nowTime = new Date();
+	SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
+	String nowYear = sf_yyyy.format(nowTime);
+	
+	int maxYear = summaryDao.maxYear();
+	int yearCount = maxYear - summaryDao.minYear() + 1;
+	
+	if(request.getParameter("selectYear") != null){
+		nowYear = request.getParameter("selectYear");
+	}
+	
+    ArrayList<MemberBean> memberList = memberDao.getMemberData();	// 실 인원 정보
+    LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);	// 현재 년도 팀 정보 가져오기
+	
+	ArrayList<ProjectBean> pjList = summaryDao.getProjectList(nowYear);	// 이번년도 실적보고 프로젝트 리스트
 	HashMap<String, Integer> RankCompe = summaryDao.getRank();	// 직급별 기준
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
-	LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData();
+	LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData(nowYear);	// 현재 년도 팀별 목표값 가져오기
 	StateOfProBean ST = new StateOfProBean();
 	StateOfProBean ST2 = new StateOfProBean();
 	
@@ -1104,10 +1116,9 @@ function y_rsales() {
 	
 	function orderByDate(){
 		<%
-			Date nowTime = new Date();
-			SimpleDateFormat sf = new SimpleDateFormat("MM");
+			SimpleDateFormat sf_mm = new SimpleDateFormat("MM");
 		%>
-		var month = <%=Integer.parseInt(sf.format(nowTime))%>;
+		var month = <%=Integer.parseInt(sf_mm.format(nowTime))%>;
 		if(month > 6){
 			$('#tab-4').after($('#tab-3'));
 			$('#tab-3').after($('#tab-2'));
@@ -1388,13 +1399,59 @@ function y_rsales() {
 	
     function viewDetail(team, time){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('summary_PopUp.jsp?team='+team + '&time=' + time , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=1000, height=700');
+    	var sale = 0;
+    	var saleSet = 0;
+    	if(time == '상반기'){
+    		if(team == 'Total'){
+        		sale = <%=FH_totalachSale%>;
+        		saleSet = <%=cmsRate.get(0).get("Total") %>
+        	} else{
+    	    	<%for(int key : teamList.keySet()){%>
+    	    		if(team == '<%=teamList.get(key)%>'){
+    	    			sale = <%=FH_achSale.get(teamList.get(key))%>;
+    	    			saleSet = <%=cmsRate.get(0).get(teamList.get(key)) %>;
+    	    		}
+    	    	<%}%>
+        	}
+    	}else if(time == '하반기'){
+    		if(team == 'Total'){
+        		sale = <%=SH_totalachSale%>;
+        		saleSet = <%=cmsRate.get(1).get("Total") %>
+        	} else{
+    	    	<%for(int key : teamList.keySet()){%>
+    	    		if(team == '<%=teamList.get(key)%>'){
+    	    			sale = <%=SH_achSale.get(teamList.get(key))%>;
+    	    			saleSet = <%=cmsRate.get(1).get(teamList.get(key)) %>;
+    	    		}
+    	    	<%}%>
+        	}
+    	}else if(time == '연간'){
+    		if(team == 'Total'){
+        		sale = <%=Y_totalachSale%>;
+        		saleSet = <%=cmsRate.get(2).get("Total") %>
+        	} else{
+    	    	<%for(int key : teamList.keySet()){%>
+    	    		if(team == '<%=teamList.get(key)%>'){
+    	    			sale = <%=Y_achSale.get(teamList.get(key))%>;
+    	    			saleSet = <%=cmsRate.get(2).get(teamList.get(key)) %>;
+    	    		}
+    	    	<%}%>
+        	}
+    	}
+    	
+    	window.open('summary_PopUp.jsp?team='+team + '&time=' + time + '&sale=' + sale + '&saleSet=' + saleSet , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=1000, height=700');
     }
+    
+    function loadYear(){
+		var year = $('#selYear').val();
+		location.href ="summary.jsp?selectYear="+year;
+	}
 	
 	$(document).ready(function(){
 		$('.loading').hide();
 		stateColor();
 		orderByDate();
+		$('#selYear').val(<%=nowYear%>).prop("selected",true);
 		
 		$('ul.tabs li').click(function() {
 			var tab_id = $(this).attr('data-tab');
@@ -1543,8 +1600,14 @@ function y_rsales() {
       <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출</h6>
-        </div>
+         		<h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출
+         		<select id="selYear" name="selYear" onchange="loadYear()">
+         			<%for(int i=0; i<yearCount; i++){%>
+					<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+					<%}%>
+         		</select>
+         		</h6>
+        	</div>
             <div class="card-body">
 	<div class="container2">
 	<ul class="tabs">
@@ -1585,7 +1648,7 @@ function y_rsales() {
                   <thead>
                    <tr>
                     	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="5"style="text-align:center;background-color:#5a6f7730;">상세내역(단위: 백만)</td>
+                    	<td colspan="<%=teamList.size()-1%>"style="text-align:center;background-color:#5a6f7730;">상세내역(단위: 백만)</td>
                     	<td>
                     	<%
                     		if(permission == 0){

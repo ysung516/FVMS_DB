@@ -675,10 +675,9 @@ public class MemberDAO {
 	    LinkedHashMap<Integer, String> list = new LinkedHashMap<Integer, String>();
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("select * from team where year=? order by teamNum;");
+	    	query.append("select * from team where year="+year+" order by teamNum;");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, year);
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
 	    		list.put(rs.getInt("teamNum"), rs.getString("teamName"));

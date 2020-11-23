@@ -22,6 +22,8 @@
 	
 	String team = request.getParameter("team");
 	String time = request.getParameter("time");
+	float sale = Float.parseFloat(request.getParameter("sale"));
+	float saleSet = Float.parseFloat(request.getParameter("saleSet"));
 	
 	SummaryDAO summaryDao = new SummaryDAO();
 	HashMap<String, Integer> rank = summaryDao.getRank();	// 직급별 기준
@@ -36,19 +38,74 @@
 		pANDm.put("minus", summaryDao.getCMS_minusList(teamList.get(key)));
 		setVal.put(teamList.get(key), pANDm);
 	}
+	
+	float totalPlus = 0;
+	float totalMinus = 0;
+	if(!(team.equals("Total"))){
+		if(time.equals("상반기")){
+			for(CMSBean cms : setVal.get(team).get("plus")){
+				totalPlus += cms.getFH_MM_CMS();
+			}
+			for(CMSBean cms : setVal.get(team).get("minus")){
+				totalMinus += cms.getFH_MM_CMS();
+			}
+		}else if(time.equals("하반기")){
+			for(CMSBean cms : setVal.get(team).get("plus")){
+				totalPlus += cms.getSH_MM_CMS();
+			}
+			for(CMSBean cms : setVal.get(team).get("minus")){
+				totalMinus += cms.getSH_MM_CMS();
+			}
+		}else if(time.equals("연간")){
+			for(CMSBean cms : setVal.get(team).get("plus")){
+				totalPlus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+			}
+			for(CMSBean cms : setVal.get(team).get("minus")){
+				totalMinus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+			}
+		}
+	}else{
+		for(int key : teamList.keySet()){
+			if(time.equals("상반기")){
+				for(CMSBean cms : setVal.get(teamList.get(key)).get("plus")){
+					totalPlus += cms.getFH_MM_CMS();
+				}
+				for(CMSBean cms : setVal.get(teamList.get(key)).get("minus")){
+					totalMinus += cms.getFH_MM_CMS();
+				}
+			}else if(time.equals("하반기")){
+				for(CMSBean cms : setVal.get(teamList.get(key)).get("plus")){
+					totalPlus += cms.getSH_MM_CMS();
+				}
+				for(CMSBean cms : setVal.get(teamList.get(key)).get("minus")){
+					totalMinus += cms.getSH_MM_CMS();
+				}
+			}else if(time.equals("연간")){
+				for(CMSBean cms : setVal.get(teamList.get(key)).get("plus")){
+					totalPlus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+				}
+				for(CMSBean cms : setVal.get(teamList.get(key)).get("minus")){
+					totalMinus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+				}
+			}
+		}
+	}
 
 %>
 <head>
 <meta charset="UTF-8">
-<title><%=team %> 매출 보정 상세 내역</title>
+<title><%=time%> <%=team %> 매출 보정 상세 내역</title>
 </head>
 
 <style>
 	#plusTable, #minusTable, #plusTableT, #minusTableT, #allData{
 		width: 100%;
     	border-collapse: collapse;
-    	margin-bottom: 10px;
 		table-layout:fixed;
+		margin-bottom: 30px;
+	}
+	#allData{
+		text-align: center;
 	}
 	th, td{
 		font-size: small;
@@ -105,12 +162,12 @@
 </script>
 
 <body>
-	<h3 id="h3" style="text-align: center; margin-bottom: 30px;"><%=team %> 매출 보정 상세 내역</h3>
+	<h3 id="h3" style="text-align: center; margin-bottom: 30px;"><%=time%> <%=team %> 매출 보정 상세 내역</h3>
 	<div>
 		<div>
 			<table id="allData">
 				<thead>
-					<tr>
+					<tr style="background-color: #bde8ae;">
 						<th>매출 달성</th>
 						<th>매출 달성 보정</th>
 						<th>추가 매출 총합</th>
@@ -118,6 +175,12 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+						<td><%=String.format("%.1f", sale) %></td>
+						<td><%=String.format("%.1f", saleSet) %></td>
+						<td><%=totalPlus %></td>
+						<td><%=totalMinus %></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

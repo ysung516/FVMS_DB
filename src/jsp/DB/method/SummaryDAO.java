@@ -18,16 +18,16 @@ public class SummaryDAO {
 	public SummaryDAO() {}
 	
 	// 프로젝트이 데이터
-	public ArrayList<ProjectBean> getProjectList(){
+	public ArrayList<ProjectBean> getProjectList(String year){
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 	    
 	    try {
-	    	Date now = new Date();
+	    	/*Date now = new Date();
 	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	    	String year = sf.format(now);
+	    	String year = sf.format(now);*/
 	    	StringBuffer query = new StringBuffer();
 	    	query.append("SELECT * from project where 실적보고 = 1 and year ="+year+" ;");
 	    	conn = DBconnection.getConnection();
@@ -314,14 +314,14 @@ public class SummaryDAO {
 	}
 		
 	// 팀별 목표 수주,매출 데이터 가져오기
-	public LinkedHashMap<String, TeamBean> getTargetData(){
+	public LinkedHashMap<String, TeamBean> getTargetData(String year){
 		LinkedHashMap<String, TeamBean> reList = new LinkedHashMap<String, TeamBean>();
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT * from team order by teamNum");
+	    	query.append("SELECT * from team where year="+year+" order by teamNum");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -452,6 +452,56 @@ public class SummaryDAO {
 		return rs;
 	}
 	
-
+	public int minYear() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int year = 0;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select min(year) from team");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	if(rs.next()) {
+	    		year = rs.getInt("min(year)");
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    return year;
+	}
+	
+	public int maxYear() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int year = 0;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select max(year) from team");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	if(rs.next()) {
+	    		year = rs.getInt("max(year)");
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    return year;
+	}
 	
 }
