@@ -87,7 +87,7 @@ public class sheetMethod {
 	}
 	
 	 // 프로젝트 데이터 스프레드시트와 동기화
-	 public static void synchronization() throws GeneralSecurityException, IOException, ServiceException {
+	 public static void synchronization(String spreadsheet) throws GeneralSecurityException, IOException, ServiceException {
 	  ProjectDAO projectDao = new ProjectDAO();
 	  MemberDAO memberDao = new MemberDAO();
 	  ArrayList<ProjectBean> pjList = projectDao.getProject_synchronization();
@@ -97,7 +97,7 @@ public class sheetMethod {
 	  
 	  // 시트연결 
 	     //findSheet("동기화시트");
-	     URL listFeedUrl = findSheet("동기화시트").getListFeedUrl();
+	     URL listFeedUrl = findSheet(spreadsheet).getListFeedUrl();
 	     ListFeed listFeed = connect().getFeed(listFeedUrl, ListFeed.class);
 	        List<ListEntry> li = listFeed.getEntries(); //전체 데이터 리스트로 저장
 	        ListEntry li_new = new ListEntry(); //새로운 데이터 저장할  리스트

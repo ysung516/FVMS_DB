@@ -19,7 +19,7 @@
 			script.print("<script> alert('관리자가 아닙니다.'); history.back(); </script>");
 		} else{
 			
-			sheetMethod.synchronization();
+			sheetMethod.synchronization(request.getParameter("spreadsheet"));
 			script.print("<script> alert('동기화 되었습니다.'); location.href = 'project.jsp' </script>");
 		}
 	}	

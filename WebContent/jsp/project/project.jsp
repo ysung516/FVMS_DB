@@ -1017,6 +1017,7 @@
               	if(permission == 0){
               		%><form action="project_synchronization.jsp"
 							method="post" style="display: inline; float: right">
+							<input name="spreadsheet" value="" />
 							<input type="submit" value="스프레드시트 동기화" class="btn btn-primary">
 					</form>
 					<form action="project_copy.jsp"
