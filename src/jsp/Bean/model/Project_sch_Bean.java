@@ -12,7 +12,8 @@ public class Project_sch_Bean {
 	private String PROJECT_MANAGER;	// PM
 	private String WORKER_LIST;	// 투입명단
 	private int NO;
-	
+	private String color;
+
 	public String getTEAM() {
 		return TEAM;
 	}
@@ -79,5 +80,10 @@ public class Project_sch_Bean {
 	public void setNO(int nO) {
 		NO = nO;
 	}
-
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 }

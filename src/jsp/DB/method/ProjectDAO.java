@@ -449,6 +449,12 @@ public class ProjectDAO {
 	    		project.setRESULT_REPORT(rs.getInt("실적보고"));
 	    		project.setNO(rs.getInt("no"));
 	    		project.setCopy(rs.getString("copy"));
+				if(rs.getString("상태").contains("6.진행중") == true) {
+					project.setColor("#D24F4F");
+				}else {
+					project.setColor("#358DCC");
+				}
+
 	    		projectList.add(project);
 	    	}
 		}catch (SQLException e) {
@@ -531,6 +537,11 @@ public class ProjectDAO {
 	    			project.setWORKER_LIST(workerString);
 	    		}
 	    		project.setNO(rs.getInt("no"));
+				if(rs.getString("상태").contains("6.진행중") == true) {
+					project.setColor("#D24F4F");
+				}else {
+					project.setColor("#358DCC");
+				}
 	    		
 	    		projectList.get(team).add(project);
 	    	}

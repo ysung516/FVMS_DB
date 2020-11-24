@@ -34,7 +34,8 @@ public class ProjectBean {
 	private int NO;
 	private int year;	// 년도
 	private String copy; // 차년도 복사
-	
+	private String color;
+
 	
 	public String getCopy() {
 		return copy;
@@ -234,5 +235,11 @@ public class ProjectBean {
 	}
 	public void setNO(int nO) {
 		NO = nO;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 }
