@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import jsp.Bean.model.WorkPlaceBean;
 
 public class ManagerDAO {
@@ -240,5 +243,178 @@ public class ManagerDAO {
 		}
 	    return year;
 	}
-
+	
+	public int teamCopy_next() {
+		SummaryDAO summaryDao = new SummaryDAO();
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    int maxYear = summaryDao.maxYear();
+	    Date date =  new Date();
+	    SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	    int year = Integer.parseInt(sf.format(date)) + 1;
+	    
+	    if(maxYear < year) {
+		    try {
+		    	String query = "INSERT INTO team(teamName, teamNum, year) SELECT teamName, teamNum, year+1 FROM teamCopy WHERE year = DATE_FORMAT(now(), '%Y');";
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	rs = pstmt.executeUpdate();
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+	    }else {
+	    	rs = 0;
+	    }
+	    
+	    System.out.println(rs);
+	    
+		return rs;
+	}
+	
+	/*
+	  팀 수정 함수 시작
+	*/
+	
+	//1. team테이블 복사
+	public int copyTeamToTeamBackup(String year) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="CREATE TABLE IF NOT EXISTS teamBackUp SELECT * FROM team WHERE year="+year+";";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	//2. 팀 테이블에서 해당 연도 데이터만 삭제
+	public int deleteTeam(String year) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="DELETE FROM team WHERE year"+year+";";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	//3. 백업 테이블 team 테이블로 복사
+	public int copyTeamBackUpToTeam(String year) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="INSERT INTO team SELECT * FROM teamBackUp;";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	//4. 백업테이블 삭제
+	public int dropTeamBackUp() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="DROP TABLE teamBackUp;";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	// 팀수정
+	public int teamSet(String year, String[] teamNum, String[] teamName, int count) {
+		copyTeamToTeamBackup(year);	// 1. 백업테이블로 복사
+		deleteTeam(year); // 2. 해당 년도 데이터 삭제
+		
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	//insert
+	    	String query = "insert into team(teamName, teamNum ,year) values(?,?,?) ";
+	    	if(count > 1) {
+	    		for(int i=0; i<count-1; i++) {
+	    			query += ",(?,?,?)";
+	    		}
+	    		query += ";";
+	    	}
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, teamName[0]);
+	    	pstmt.setString(2, teamNum[0]);
+	    	pstmt.setString(3, year);
+	    	if(count > 1) {
+	    		int cnt = 4;
+	    		for(int j=0; j<count-1; j++) {
+	    	    	pstmt.setString(cnt, teamName[j+1]);
+	    			cnt ++;
+	    	    	pstmt.setString(cnt, teamNum[j+1]);
+	    			cnt ++;
+	    	    	pstmt.setString(cnt, year);
+	    			cnt++;
+	    		}
+	    	}
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// 현재 year데이터 다 지우고 백업 테이블 복사
+			deleteTeam(year); // 해당 년도 데이터 삭제
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			// 백업 테이블 삭제
+			dropTeamBackUp();
+		}
+	    
+	    return rs;
+	}
 }
