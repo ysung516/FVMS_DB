@@ -73,6 +73,8 @@ public class SchDAO {
 					sch.setRank(rs.getString("직급"));
 					if(rs.getString("상태").contains("6.진행중") == true) {
 						sch.setColor("#D24F4F");
+					}else if(rs.getString("상태").contains("7.종료") == true || rs.getString("상태").contains("8.Dropped") == true) {
+						sch.setColor("#848484");
 					}else {
 						sch.setColor("#358DCC");
 					}
@@ -116,6 +118,8 @@ public class SchDAO {
 					career.setPm(rs.getString("pm"));
 					if(rs.getString("상태").contains("6.진행중") == true) {
 						career.setColor("#D24F4F");
+					}else if(rs.getString("상태").contains("7.종료") == true || rs.getString("상태").contains("8.Dropped") == true) {
+						career.setColor("#848484");
 					}else {
 						career.setColor("#358DCC");
 					}

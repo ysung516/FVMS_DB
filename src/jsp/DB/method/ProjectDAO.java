@@ -451,6 +451,8 @@ public class ProjectDAO {
 	    		project.setCopy(rs.getString("copy"));
 				if(rs.getString("상태").contains("6.진행중") == true) {
 					project.setColor("#D24F4F");
+				}else if(rs.getString("상태").contains("7.종료") == true || rs.getString("상태").contains("8.Dropped") == true) {
+					project.setColor("#848484");
 				}else {
 					project.setColor("#358DCC");
 				}
@@ -539,6 +541,8 @@ public class ProjectDAO {
 	    		project.setNO(rs.getInt("no"));
 				if(rs.getString("상태").contains("6.진행중") == true) {
 					project.setColor("#D24F4F");
+				}else if(rs.getString("상태").contains("7.종료") == true || rs.getString("상태").contains("8.Dropped") == true) {
+					project.setColor("#848484");
 				}else {
 					project.setColor("#358DCC");
 				}
