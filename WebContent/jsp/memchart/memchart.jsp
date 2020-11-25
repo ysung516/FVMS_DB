@@ -98,12 +98,19 @@
 				}
 			}
 		}
-		
+		%>
+		var totalVT = 0;
+		<%
 		for(int key : teamList.keySet()){
 			if(key != 0){%>
 				$('#'+'<%=key%>'+'num').html(Num<%=key%> + '명');
+				totalVT += Num<%=key%>;
 			<%}
 		}%>
+		
+		var string = '<span style="font-size: medium; color: red; margin-left:10px;">총 인원 : ' + totalVT + '명</span>'
+		$('#vtMain h4').html('<%=teamList.get(0)%>' + string);
+		
 		$('#internnum').html(internNum + '명');
 	}
 	
@@ -235,6 +242,7 @@
 				$('.sidebar').css("height", 'auto');
 			}
 		});
+		
 	});
 	
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
@@ -547,6 +555,9 @@
 
 						<div class="card-body">
 							<div class="table-respensive" id="organizationChart">
+								<div id="vtMain" style="text-align: center;">
+									<h4 style="color:black;"></h4>
+								</div>
 								<div id="vtM" style="text-align:center; margin:15px; color:black; text-decoration:underline; font-size:18px;">
 								</div>
 								<div>
