@@ -29,7 +29,7 @@
 	
 	int year = Integer.parseInt(request.getParameter("year"));
 	
-	ArrayList<String> teamList = projectDao.getTeamData();
+	ArrayList<String> teamList = projectDao.getTeamData(request.getParameter("year"));
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);
 	ArrayList<CareerBean> careerList_PM = projectDao.getCarrerPM(no);

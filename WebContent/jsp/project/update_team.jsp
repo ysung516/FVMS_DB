@@ -41,7 +41,7 @@
 	String what = request.getParameter("what");
 	
 	ProjectDAO projectDao = new ProjectDAO();
-	ArrayList<String> teamList = projectDao.getTeamData();
+	ArrayList<String> teamList = projectDao.getTeamData(request.getParameter("year"));
 %>
 
 <style>

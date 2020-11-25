@@ -179,7 +179,7 @@ public class ProjectDAO {
 	}
 	
 	// 팀 데이터 가져오기
-	public ArrayList<String> getTeamData(){
+	public ArrayList<String> getTeamData(String year){
 		ArrayList<String> list = new ArrayList<String>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -187,7 +187,7 @@ public class ProjectDAO {
 		
 		try {
 			StringBuffer query = new StringBuffer();
-	    	query.append("select * from team order by teamNum");
+	    	query.append("select * from team where year="+year+" order by teamNum");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();

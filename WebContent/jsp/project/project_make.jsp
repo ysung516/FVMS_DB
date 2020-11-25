@@ -32,7 +32,7 @@
 	MemberDAO memberDao = new MemberDAO();
 	ManagerDAO managerDao = new ManagerDAO();
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
-	ArrayList<String> teamList = projectDao.getTeamData();
+	ArrayList<String> teamList = projectDao.getTeamData(sf.format(nowDate));
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(nowYear);
 %>
