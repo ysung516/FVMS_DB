@@ -561,7 +561,6 @@ $(document).ready(function(){
 						<i class="fa fa-bars"></i>
 					</button>
 
-
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
 
