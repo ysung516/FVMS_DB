@@ -18,16 +18,42 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	
+	String year = request.getParameter("nowYear");
 	int count = Integer.parseInt(request.getParameter("count"));
 	String [] teamNum = new String[count-1];
 	String [] teamName = new String[count-1];
+	String [] fh_order = new String[count-1];
+	String [] fh_sale = new String[count-1];
+	String [] sh_order = new String[count-1];
+	String [] sh_sale = new String[count-1];
 	
 	for(int i = 0; i < count; i++){
 		teamNum = request.getParameterValues("teamNum");
 		teamName = request.getParameterValues("teamName");
+		fh_order = request.getParameterValues("fh_order");
+		fh_sale = request.getParameterValues("fh_sale");
+		sh_order = request.getParameterValues("sh_order");
+		sh_sale = request.getParameterValues("sh_sale");
+	}
+	
+	System.out.println(request.getParameterValues("fh_order").length);
+	System.out.println(request.getParameterValues("fh_sale").length);
+	System.out.println(request.getParameterValues("sh_order").length);
+	System.out.println(request.getParameterValues("sh_sale").length);
+	
+	for(int i = 0; i < count; i++){
+		System.out.println(teamNum[i] + " : " + teamName[i]);
 	}
 	
 	ManagerDAO managerDao = new ManagerDAO();
+	int rs = managerDao.teamSet(year, teamNum, teamName, fh_order, fh_sale, sh_order, sh_sale, count);
+	
+	if(rs == count){
+		script.print("<script> alert('팀 정보가 저장 되었습니다.'); location.href = 'teamSet.jsp?year="+year+"'</script>");
+	}else{
+		script.print("<script> alert('저장 실패!!'); history.back();</script>");
+	}
 %>
+
 </body>
 </html>

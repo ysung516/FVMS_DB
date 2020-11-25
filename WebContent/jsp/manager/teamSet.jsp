@@ -14,14 +14,33 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
+		
+		int permission = Integer.parseInt(session.getAttribute("permission").toString());
+		if(permission != 0){
+			script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+		}
 			
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		session.setMaxInactiveInterval(60*60);
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
+		SummaryDAO summaryDao = new SummaryDAO();
 		MemberDAO memberDao = new MemberDAO();
-		LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+		
+		Date nowTime = new Date();
+		SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
+		String nowYear = sf_yyyy.format(nowTime);
+		int year = Integer.parseInt(sf_yyyy.format(nowTime));
+		
+		if(request.getParameter("selectYear") != null){
+			nowYear = request.getParameter("selectYear");
+		}
+		
+		int maxYear = summaryDao.maxYear();
+		int yearCount = maxYear - summaryDao.minYear() + 1;
+		
+		LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);
+		LinkedHashMap<String, TeamBean> teamData = summaryDao.getTargetData(nowYear);
 	%>
 
 <meta charset="utf-8">
@@ -43,7 +62,7 @@
 <!-- Custom styles for this template-->
 <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
 
-</head>
+
 <style>
 
 .sidebar .nav-item{
@@ -82,8 +101,16 @@
 	width : 55px;
 }
 
+.goal{
+	width: 70px;
+}
+
 td, th{
 	text-align: center;
+}
+
+th{
+	font-size: small;
 }
 
 .loading {
@@ -166,32 +193,35 @@ td, th{
 </style>
 
 <!-- sorting table -->
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript" src="jquery.tablednd.js"></script>
 <script type="text/javascript">
 
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
 	    $('.loading').hide();
-	    $('#count').val($('#workplaceList tr').length);
+	    $('#count').val($('#table tr').length-1);
+		$('#selYear').val(<%=nowYear%>).prop("selected",true);
 	});
 	
-	function memberSyn(){
-		location.href ="member_syn.jsp";
-	}
-
-	function workPlaceManage(){
-		location.href ="workPlace_manage.jsp"
+	function loadYear(){
+		var year = $('#selYear').val();
+		location.href ="teamSet.jsp?selectYear="+year;
 	}
 	
-	var count = $('#workplaceList tr').length;
+	var count = $('#table tr').length-1;
 	
 	function rowAdd(){
-		count = $('#workplaceList tr').length;
+		count = $('#table tr').length-1;
 		console.log(count);
 		var innerHtml = "";
 		innerHtml += '<tr>';
-		innerHtml += '<td><input class="num_width" name="teamNum" value="'+count+'" ></td>';
+		innerHtml += '<td><input class="num_width" name="teamNum" value="'+count+'" type="hidden"><span>'+count+'</span></td>';
 		innerHtml += '<td><input class="team_width" name="teamName" value="" ></td>';
+		innerHtml += '<td><input class="goal" name="fh_order" value=""></td>';
+		innerHtml += '<td><input class="goal" name="fh_sale" value=""></td>';
+		innerHtml += '<td><input class="goal" name="sh_order" value=""></td>';
+		innerHtml += '<td><input class="goal" name="sh_sale" value=""></td>';
 		innerHtml += '<td class="button_width"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
 		innerHtml += '</tr>';
 		$('#count').val(count+1);
@@ -199,7 +229,7 @@ td, th{
 	}
 	
 	function deleteNP(){
-		$(document).on("click",".deleteNP",function(){
+		$(document).on("click",".deleteNP",function(){	
 			var str =""
 			var tdArr = new Array();
 			var btn = $(this);
@@ -210,15 +240,41 @@ td, th{
 			
 			var len = $('#workplaceList tr').length;
 			for(var a=0; a<=len; a++){
-				$("#workplaceList tr:eq("+a+") td:eq(0) input").attr("name", "teamNum").val(a);
+				$("#workplaceList tr:eq("+a+") td:eq(0) span").text(a+1);
+				$("#workplaceList tr:eq("+a+") td:eq(0) input").attr("name", "teamNum").val(a+1);
 				$("#workplaceList tr:eq("+a+") td:eq(1) input").attr("name", "teamName");
+				$("#workplaceList tr:eq("+a+") td:eq(2) input").attr("name", "fh_order");
+				$("#workplaceList tr:eq("+a+") td:eq(3) input").attr("name", "fh_sale");
+				$("#workplaceList tr:eq("+a+") td:eq(4) input").attr("name", "sh_order");
+				$("#workplaceList tr:eq("+a+") td:eq(5) input").attr("name", "sh_sale");
 			}
-			$('#count').val($('#workplaceList tr').length);
+			$('#count').val($('#table tr').length-1);
 		});
 	}
-
+	
+	jQuery(document).ready(function($){
+		$("#table tbody").tableDnD({
+			onDragClass: "dnd_drag",
+		    onDragStart: function(table, row) {
+		        console.log("start drag");
+		    },
+		    onDrop: function(table, row) {
+		        console.log($.tableDnD.serializeTable(table));
+		        var len = $('#workplaceList tr').length;
+				for(var a=0; a<=len; a++){
+					$("#workplaceList tr:eq("+a+") td:eq(0) span").text(a+1);
+					$("#workplaceList tr:eq("+a+") td:eq(0) input").attr("name", "teamNum").val(a+1);
+					$("#workplaceList tr:eq("+a+") td:eq(1) input").attr("name", "teamName");
+					$("#workplaceList tr:eq("+a+") td:eq(2) input").attr("name", "fh_order");
+					$("#workplaceList tr:eq("+a+") td:eq(3) input").attr("name", "fh_sale");
+					$("#workplaceList tr:eq("+a+") td:eq(4) input").attr("name", "sh_order");
+					$("#workplaceList tr:eq("+a+") td:eq(5) input").attr("name", "sh_sale");
+				}
+		    }
+		});
+	});
 </script>
-
+</head>
 <body id="page-top">
 	<!--  로딩화면  시작  -->
 	<div class="loading">
@@ -351,43 +407,66 @@ td, th{
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
+							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">팀 관리 페이지
+								<select id="selYear" name="selYear" onchange="loadYear()">
+				         			<%for(int i=0; i<yearCount; i++){%>
+									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+									<%}%>
+				         		</select>
+							</h6>
 							<div style="margin-top: 5px;">
 								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:small; margin-right:5px;">관리자 메인</button>
 								<button class="btn btn-primary" onclick="location.href ='workPlace_manage.jsp'" style="font-size:small; margin-right:5px;">근무지 관리</button>
+				         		<button class="btn btn-primary" style="font-size:small; background-color: #364d91;" onclick="location.href='team_nextCopy.jsp?year=<%=year+1%>'"><%=year+1 %>년 팀 생성</button>
 							</div>
 						</div>
 						<form method="post" action="teamSetPro.jsp">
 						<div class="table-responsive" style="padding: 20px">
 						<input id="count" type="hidden" name="count">
-						<table class="wpTable">
-							<caption style="caption-side: top; color:red; font-size:small; font-weight: bold;">우선순위 0은 항상 실로 고정</caption>
+						<input id="nowYear" type="hidden" name="nowYear" value="<%=nowYear%>">
+						<p style="caption-side: top; color:red; font-size:small; font-weight: bold;">
+							우선순위 0은 항상 실로 고정
+							<br>팀 삭제 시 요약(수입, 지출), 수익성 분석, 조직도, 스케줄(엔지니어, 프로젝트)에서 해당 팀 안보임
+						</p>
+						<table class="wpTable" id="table">
 							<thead>
 								<tr>
 									<th class="num">우선순위</th>
 									<th class="team">팀</th>
-									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
+									<th class="fh_order">상반기<br>목표수주</th>
+									<th class="fh_sale">상반기<br>목표매출</th>
+									<th class="sh_order">하반기<br>목표수주</th>
+									<th class="sh_sale">하반기<br>목표매출</th>
+									<th class="button_width"><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
+									<th>순서변경</th>
 								</tr>
 							</thead>
+								<tr>
+									<td><input class="num_width" name="teamNum" value="0" type="hidden"><span>0</span></td>
+									<td><input class="team_width" name="teamName" value="<%=teamList.get(0) %>"></td>
+									<td><input class="goal" name="fh_order" value="<%=teamData.get(teamList.get(0)).getFH_targetOrder()%>"></td>
+									<td><input class="goal" name="fh_sale" value="<%=teamData.get(teamList.get(0)).getFH_targetSales()%>"></td>
+									<td><input class="goal" name="sh_order" value="<%=teamData.get(teamList.get(0)).getSH_targetOrder()%>"></td>
+									<td><input class="goal" name="sh_sale" value="<%=teamData.get(teamList.get(0)).getSH_targetSales()%>"></td>
+									<td class="button_width"></td>
+									<td></td>
+								</tr>
 							<tbody id="workplaceList">
 								<%for(int teamNum : teamList.keySet()){ 
-									if(teamNum==0){%>
-									<tr>
-										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" style="color: #969696;" readonly></td>
-										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>"></td>
-										<td class="button_width"></td>
-									</tr>
-									<%}else{%>
-									<tr>
-										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" ></td>
+									if(teamNum!=0){%>
+									<tr class="changeRow" id="<%=teamNum%>">
+										<td><input class="num_width" name="teamNum" value="<%=teamNum %>" type="hidden"><span><%=teamNum %></span></td>
 										<td><input class="team_width" name="teamName" value="<%=teamList.get(teamNum) %>" ></td>
-										<td class="button_width"></td>
-										<!-- <td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>  -->
+										<td><input class="goal" name="fh_order" value="<%=teamData.get(teamList.get(teamNum)).getFH_targetOrder()%>"></td>
+										<td><input class="goal" name="fh_sale" value="<%=teamData.get(teamList.get(teamNum)).getFH_targetSales()%>"></td>
+										<td><input class="goal" name="sh_order" value="<%=teamData.get(teamList.get(teamNum)).getSH_targetOrder()%>"></td>
+										<td><input class="goal" name="sh_sale" value="<%=teamData.get(teamList.get(teamNum)).getSH_targetSales()%>"></td>
+										<td class="button_width"><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
+										<td>=</td>
 									</tr>
 								<%}} %>
 							</tbody>
 						</table>
-						
 						</div>
 
 						<!-- /.container-fluid -->
@@ -451,5 +530,5 @@ td, th{
 				<script src="../../js/demo/chart-pie-demo.js"></script>
 				<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
-
+						
 </html>
