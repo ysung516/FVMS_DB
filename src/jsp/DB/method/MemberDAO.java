@@ -430,55 +430,140 @@ public class MemberDAO {
 		 return rs;
 	 }
 	 
-	// 회원등록 동기화 등록
-	public int plusNewMember(String name, String id, String pw, String part, String team, 
-			 String rank, String position, String permission, String mobile, String gmail, String comeDate) {
-			 Connection conn = null;
-			 PreparedStatement pstmt = null;
-		     int rs = 0;
-		     
-		     try {
-		    	 	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail, 입사일)"
-		    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?,?)";
-			    	conn = DBconnection.getConnection();
-			    	pstmt = conn.prepareStatement(query.toString());
-			    	pstmt.setString(1, id);
-			    	//pstmt.setString(2, pw);
-			    	pstmt.setString(2, part);
-			    	pstmt.setString(3, team);
-			    	pstmt.setString(4, name);
-			    	pstmt.setString(5, rank);
-			    	pstmt.setString(6, position);
-			    	pstmt.setString(7, permission);
-			    	pstmt.setString(8, mobile);
-			    	pstmt.setString(9, gmail);
-			    	pstmt.setString(10, comeDate);
-			    	rs = pstmt.executeUpdate();
-		     }catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-					if(conn != null) try {conn.close();} catch(SQLException ex) {}
-				}
-			 return rs;
-	}
-	 
-	 public ArrayList<MemberBean> teamMember(String team) {
-		 ArrayList<MemberBean> teamMem = new ArrayList<MemberBean>();
+	 // 동기화 시 존재 회원 휴대전화 업데이트
+	 public int updateSyncExcel(String id, String phone) {
+
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
-	     ResultSet rs = null;
-	     
+	     int rs = 0;
+	   
 	     try {
-	    	StringBuffer query = new StringBuffer();
-			query.append("SELECT * FROM member WHERE team=?");
+	       String query = "update member SET mobile=? where id =?";
+	       conn = DBconnection.getConnection();
+	       pstmt = conn.prepareStatement(query.toString());
+	       pstmt.setString(1, phone);
+	       pstmt.setString(2, id);
+	
+	       rs = pstmt.executeUpdate();
+	 
+	     }  catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	    
+	   } finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	      return rs;
+	 }
+	 
+	// 엑셀 동기화로 회원 등록
+	public int plusNewMember(String name, String id, String pw, String part, String team, 
+		String rank, String position, String permission, String mobile, String gmail, String comeDate) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    int rs = 0;
 
-	        conn = DBconnection.getConnection();
-	        pstmt = conn.prepareStatement(query.toString());
-            pstmt.setString(1, team);
-            rs = pstmt.executeQuery();
-            
-            if(rs.next()) {
+    	//insertRankPeriod(id, rank, comeDate);
+    	
+	    try {
+	    	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail, 입사일)"
+	    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?,?)";
+		    conn = DBconnection.getConnection();
+		    pstmt = conn.prepareStatement(query.toString());
+		    pstmt.setString(1, id);
+		    //pstmt.setString(2, pw);
+		    pstmt.setString(2, part);
+		    pstmt.setString(3, team);
+		    pstmt.setString(4, name);
+		    pstmt.setString(5, rank);
+		    pstmt.setString(6, position);
+		    pstmt.setString(7, permission);
+		    pstmt.setString(8, mobile);
+		    pstmt.setString(9, gmail);
+		    pstmt.setString(10, comeDate);
+		    rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			e.printStackTrace();
+		    //deleteRankPeriod(id, rank);
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return rs;
+	}
+	
+	// 엑셀 동기화로 회원 등록 시 rank_period 테이블에도 추가
+	public int insertRankPeriod(String id, String rank, String start) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    Date date = new Date();
+	    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	    if(start.equals("") || start == null) {
+	    	start = sf.format(date);
+	    }
+	    
+	    try {
+	    	String query = "insert into rank_period(id, rank, start) values(?,?,?)";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, id);
+	    	pstmt.setString(2, rank);
+	    	pstmt.setString(3, start);
+	    	rs = pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+	    	if(conn != null) try {conn.close();} catch(SQLException ex) {}
+	    }
+	    
+	    return rs;
+	}
+	
+	// 엑셀 동기화 오류 시 rank_period 테이블에서도 데이터 삭제
+	public int deleteRankPeriod(String id, String rank) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    int rs = 0;
+
+	    System.out.println("빼기");
+	    try {
+	    	String query = "delete from rank_period where id=?, rank=?";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, id);
+	    	pstmt.setString(2, rank);
+	    	rs = pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+	    	if(conn != null) try {conn.close();} catch(SQLException ex) {}
+	    }
+	    
+	    return rs;
+	}
+	
+	public ArrayList<MemberBean> teamMember(String team) {
+		ArrayList<MemberBean> teamMem = new ArrayList<MemberBean>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	     
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	
+	    	query.append("SELECT * FROM member WHERE team=?");
+
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, team);
+	    	rs = pstmt.executeQuery();
+
+	    	if(rs.next()) {
             	MemberBean member = new MemberBean();
 	    		member.setID(rs.getString("id"));
 	    		member.setPASSWORD(rs.getString("pw"));
@@ -496,15 +581,15 @@ public class MemberDAO {
 	    		member.setPermission(rs.getString("permission"));
 	    		teamMem.add(member);
 	    	}
-	     }catch (SQLException e) {
-	    	 e.printStackTrace();
-	     } finally {
-	    	 if(rs != null) try {rs.close();} catch(SQLException ex) {}
-	    	 if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-	    	 if(conn != null) try {conn.close();} catch(SQLException ex) {}
-	     }
+	    }catch (SQLException e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	if(rs != null) try {rs.close();} catch(SQLException ex) {}
+	    	if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+	    	if(conn != null) try {conn.close();} catch(SQLException ex) {}
+	    }
 	     
-		 return teamMem;
+		return teamMem;
 	 }
 
 	 //비밀번호 초기화

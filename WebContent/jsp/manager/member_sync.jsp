@@ -39,8 +39,8 @@
 	
 	// excel => json
 	//경로설정
-	String path = "../webapps/ROOT/upload";	//서버
-	//String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";	//로컬
+	//String path = "../webapps/ROOT/upload";	//서버
+	String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";	//로컬
 	
 	//파일받기
 	MultipartRequest multipartRequest = new MultipartRequest(request, path, 1024*1024*30, "utf-8", new DefaultFileRenamePolicy());
@@ -128,6 +128,14 @@
 			for(MemberBean coop : memList){
 				if(coop.getID().trim().equals(id.trim())){
 					cnt = 1;
+					if(!coop.getMOBILE().equals(obj.getString("휴대전화"))){
+						mobile = obj.getString("휴대전화");
+						if(!mobile.equals("") && !mobile.contains("-") && mobile.charAt(0) != '0'){	// 휴대폰 번호에 하이픈이 없어서 맨 앞에 0이 지워졌을 경우
+							mobile = "0" + mobile;
+							mobile = memberDao.phone(mobile);
+						}
+						memberDao.updateSyncExcel(id, mobile);
+					}
 					break;
 				}
 			}
@@ -162,12 +170,10 @@
 				
 				result = memberDao.plusNewMember(name, id, "12345", part, team, rank, "-", permission, mobile, gmail, comeDate);
 				
-				System.out.println(result);
 				cocount += result;
 			}
 
 		}
-		System.out.println(cocount);
 		script.print("<script> alert('회원 추가를 성공하였습니다.'); location.href = 'manager.jsp'; </script>");
 	}catch(Exception e){
 		System.out.println(e.getMessage());
