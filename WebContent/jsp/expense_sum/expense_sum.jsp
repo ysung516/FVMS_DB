@@ -13,6 +13,10 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
+		int permission = Integer.parseInt(session.getAttribute("permission").toString());
+		if(permission > 2){
+			script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+		}
 		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
@@ -21,13 +25,40 @@
 		MemberDAO memberDao = new MemberDAO();
 		ExpendDAO expendDao = new ExpendDAO();
 		MemberBean member = memberDao.returnMember(sessionID);
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
 		Date nowYear = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 		String year = sf.format(nowYear);
 		
-		ArrayList<String> teamList  = expendDao.getTeamData();
+		int fyear = Integer.parseInt(sf.format(nowYear));
+		int startYear = 2020;
+		int yearCount = fyear - startYear + 1;
+		
+		int year_int = Integer.parseInt(year);
+		
+		if(request.getParameter("year") != null){
+			year_int = Integer.parseInt(request.getParameter("year"));
+		}
+		ArrayList<String> teamList  = expendDao.getTeamData(year);
+		ArrayList<Expend_TeamBean> exList = new ArrayList<Expend_TeamBean>();
+		ArrayList<Expend_CoopBean> exList_coop = new ArrayList<Expend_CoopBean>();
+		ArrayList<Expend_CoopBean> test = expendDao.getExpend_coop("제어로직검증팀", year_int);
+				
+		for(int z=0; z<test.size(); z++){
+			System.out.println(test.get(z).getProjectName());
+			System.out.println(test.get(z).getName());
+			System.out.println(test.get(z).getPart());
+			System.out.println(test.get(z).getRank());
+			System.out.println(test.get(z).getStart());
+			System.out.println(test.get(z).getEnd());
+			System.out.println(test.get(z).getFh_mm());
+			System.out.println(test.get(z).getSh_mm());
+			System.out.println(test.get(z).getFh_ex());
+			System.out.println(test.get(z).getSh_ex());
+			System.out.println();
+		}
+		
+		
 	%>
 
 <meta charset="utf-8">
@@ -56,9 +87,57 @@
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
 	$(document).ready(function(){
 		$('.loading').hide();
+		$('#ex_year').val(<%=year_int%>).attr("selected","selected");
+		Expend_Sure();
 	});
 	
 	
+	function listLoad(){
+		var year = $('#ex_year').val();
+		location.href ="expense_sum.jsp?year="+year;
+	}
+	
+	function Expend_Sure(){
+		var FHsure= new Array();
+		var SHsure = new Array();
+		var FHcoop = new Array();
+		var SHcoop = new Array();
+		<%
+			for(int i=0; i<teamList.size(); i++){
+				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
+				exList_coop = expendDao.getExpend_coop(teamList.get(i), year_int);
+				int [] sure_sum = {0,0};
+				int [] coop_sum = {0,0};
+				for(int j=0; j<exList.size(); j++){
+					sure_sum[0] += exList.get(j).getFh_expend();
+					sure_sum[1] += exList.get(j).getSh_expend();
+				}
+				for(int z=0; z<exList_coop.size(); z++){
+					coop_sum[0] += exList_coop.get(z).getFh_ex();
+					coop_sum[1] += exList_coop.get(z).getSh_ex();
+				}
+				
+				String team = teamList.get(i);
+				%>
+				FHsure[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','슈어','<%=sure_sum[0]%>')>"+<%=sure_sum[0]%>+"</td>";
+				SHsure[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','슈어','<%=sure_sum[1]%>')>"+<%=sure_sum[1]%>+"</td>";
+				FHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','외부','<%=coop_sum[0]%>')"+<%=coop_sum[0]%>+"</td>";
+				SHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','외부','<%=coop_sum[1]%>')"+<%=coop_sum[1]%>+"</td>";
+			<%}%>
+		
+		var cnt = <%=teamList.size()%>;
+		for(var a=0; a<cnt; a++){
+			$('#fist_half_in').append(FHsure[a]);
+			$('#second_half_in').append(SHsure[a]);
+			$('#fist_half_out').append(FHcoop[a]);
+			$('#second_half_out').append(SHcoop[a]);
+		}
+	}
+	
+	function detail(team, semi, com, sum){
+		var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('expense_detail.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&com='+com+'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
+	}
 </script>
 
 <style>
@@ -293,24 +372,36 @@ legend {
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
-								style="padding-left: 17px;">지출 요약</h6>
+								style="padding-left: 17px;">지출 요약 (단위 : 만)</h6>
 						</div>
 
 						<div class="card-body">
 						<table class="table table-bordered">
 							<thead>
 							<tr>							
-								<th><%=year%>년</th>
+								<th>
+									<select id="ex_year" name="wp_year" onchange="listLoad()">
+										<%
+											for(int i=0; i<yearCount; i++){ %>
+												<option value="<%=fyear - i%>"><%=fyear - i%></option>
+										<%}%>
+									</select>
+								</th>
 								<%
 									for(int i=0; i<teamList.size(); i++){%>
 										<th><%=teamList.get(i)%></th>
 								<%}%>
 							<tr>
 							</thead>
+							
 							<tbody>
-								<tr id="fist_half"></tr>
-								<tr id="second_half"></tr>
-								<tr id="total"></tr>
+								<tr id="fist_half_in"><td>상반기 인력 비용 (슈어)</td></tr>
+								<tr id="fist_half_out"><td>상반기 인력 비용 (협력)</td></tr>
+								<tr id="fist_half_eq"><td>상반비 장비 구매</td></tr>							
+								<tr id="second_half_in"><td>하반기 인력 비용 (슈어)</td></tr>
+								<tr id="second_half_out"><td>하반기 인력 비용 (협력)</td></tr>
+								<tr id="second_half_eq"><td>하반기 장비 구매</td></tr>
+								<tr id="total"><td>합계</td></tr>
 							</tbody>
 						</table>
 						</div>

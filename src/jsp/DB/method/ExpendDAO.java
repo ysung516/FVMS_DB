@@ -13,7 +13,7 @@ import jsp.Bean.model.*;
 
 public class ExpendDAO {
 	// 팀 데이터 가져오기
-		public ArrayList<String> getTeamData(){
+		public ArrayList<String> getTeamData(String year){
 			ArrayList<String> list = new ArrayList<String>();
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -21,9 +21,10 @@ public class ExpendDAO {
 			
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("select * from team order by teamNum");
+		    	query.append("select * from team where year = ? order by teamNum");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, year);
 		    	rs = pstmt.executeQuery();
 		    	
 		    	while(rs.next()) {
@@ -40,28 +41,48 @@ public class ExpendDAO {
 			return list;
 		}
 		
-		public ArrayList<ExpendBean> getExpend_sure(String team, String year){
-			ArrayList<ExpendBean> list = new ArrayList<ExpendBean>();
+		public ArrayList<Expend_TeamBean> getExpend_sure(String team, String year){
+			ArrayList<Expend_TeamBean> list = new ArrayList<Expend_TeamBean>();
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
+			String DF_end = year+"-12-31"; 
+			
 			
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("SELECT career.*,project.팀_매출,project.프로젝트명, member.이름, member.직급, member.소속, rank.expend_sure "
-		    			+ "FROM career,project,member,rank "
-		    			+ "where career.id = member.id and member.직급 = rank.rank and career.projectNo = project.no "
-		    			+ "and project.팀_매출 = ? and project.year = ? and project.상태 != '8.Dropped' and member.소속 = '슈어소프트테크' order by career.projectNo;");
+		    	query.append("SELECT member.id, member.팀, member.이름, member.소속, rank_period.rank, rank_period.start, rank_period.end, rank.expend_sure "
+		    			+ "from member, rank_period, rank "
+		    			+ "where rank_period.rank = rank.rank and member.id = rank_period.id and member.소속 = '슈어소프트테크' and member.팀 = ?");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
 		    	pstmt.setString(1, team);
-		    	pstmt.setString(2, year);
 		    	rs = pstmt.executeQuery();
 		    	while(rs.next()) {
 		    		
+		    		Expend_TeamBean exTeam = new Expend_TeamBean();
+		    		exTeam.setId(rs.getString("id"));
+		    		exTeam.setName(rs.getString("이름"));
+		    		exTeam.setTeam(rs.getString("팀"));
+		    		exTeam.setPart(rs.getString("소속"));
+		    		exTeam.setRank(rs.getString("rank"));
+		    		exTeam.setExpend(rs.getInt("expend_sure"));
+		    		exTeam.setStart(rs.getString("start"));
+		    		if(rs.getString("end").equals("now")) {
+		    			exTeam.setEnd(DF_end);
+		    		} else {
+		    			exTeam.setEnd(rs.getString("end"));
+		    		}
+		    		
+		    		float [] result = cal_manmoth(exTeam.getStart(), exTeam.getEnd(), year);
+		    		exTeam.setFh_mm(result[0]);
+		    		exTeam.setSh_mm(result[1]);
+		    		
+		    		exTeam.setFh_expend( (exTeam.getFh_mm() * exTeam.getExpend()) );
+		    		exTeam.setSh_expend( (exTeam.getSh_mm() * exTeam.getExpend()) );
+		    		list.add(exTeam);
 		    	}
 		    		
-		    	
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -74,18 +95,44 @@ public class ExpendDAO {
 			return list;
 		}
 		
-		public ArrayList<ExpendBean> getExpend_coop(String team){
-			ArrayList<ExpendBean> list = new ArrayList<ExpendBean>();
+		public ArrayList<Expend_CoopBean> getExpend_coop(String team, int year){
+			ArrayList<Expend_CoopBean> list = new ArrayList<Expend_CoopBean>();
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("select * from ");
+				query.append("SELECT career.id, career.start, career.end"
+						+ ", member.이름, member.직급, member.소속"
+						+ ",project.프로젝트명, project.팀_매출, rank.expend_coop "
+		    			+ "FROM career,project,member,rank "
+		    			+ "where career.id = member.id and member.직급 = rank.rank and career.projectNo = project.no "
+		    			+ "and project.팀_매출 = ? and project.year = ? and member.소속 != '슈어소프트테크'");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, team);
+		    	pstmt.setInt(2, year);
+		    	
 		    	rs = pstmt.executeQuery();
+		    	while(rs.next()) {
+		    		Expend_CoopBean exCoop = new Expend_CoopBean();
+		    		exCoop.setId(rs.getString("id"));
+		    		exCoop.setStart(rs.getString("start"));
+		    		exCoop.setEnd(rs.getString("end"));
+		    		exCoop.setName(rs.getString("이름"));
+		    		exCoop.setTeam(rs.getString("팀_매출"));
+		    		exCoop.setRank(rs.getString("직급"));
+		    		exCoop.setPart(rs.getString("소속"));
+		    		exCoop.setProjectName(rs.getString("프로젝트명"));
+		    		exCoop.setExpend(rs.getInt("expend_coop"));
+		    		float [] result = cal_manmoth(exCoop.getStart(), exCoop.getEnd(), Integer.toString(year));
+		    		exCoop.setFh_mm(result[0]);
+		    		exCoop.setSh_mm(result[1]);
+		    		exCoop.setFh_ex( (exCoop.getFh_mm() * exCoop.getExpend()) );
+		    		exCoop.setSh_ex( (exCoop.getSh_mm() * exCoop.getExpend()) );
+		    		list.add(exCoop);
+		    	}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,8 +148,8 @@ public class ExpendDAO {
 		
 		
 		// 상반기, 하반기 manmonth 계산
-		public String [] cal_manmoth(String start, String end, String year) {
-			String [] result = new String[2];
+		public float [] cal_manmoth(String start, String end, String year) {
+			float [] result = new float[2];
 			long fh_mm = 0;
 			long sh_mm = 0;
 			
@@ -173,8 +220,8 @@ public class ExpendDAO {
 				sh_mm = 0;
 			}
 			
-			result[0] = String.format("%.1f", (fh_mm/30.0));
-			result[1] = String.format("%.1f", (sh_mm/30.5));
+			result[0] = Float.parseFloat(String.format("%.1f", (fh_mm/30.1)));  
+			result[1] = Float.parseFloat(String.format("%.1f", (sh_mm/30.2)));
 			
 			return result;
 		}
