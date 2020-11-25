@@ -30,16 +30,18 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
-	String id = request.getParameter("id");	
-	MemberDAO memberDao = new MemberDAO();
+	String id = request.getParameter("id");
 	
+	Date date = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	String year = sf.format(date);
+	
+	MemberDAO memberDao = new MemberDAO();
 	ProjectDAO projectDao = new ProjectDAO();
-	ArrayList<String> teamList = projectDao.getTeamData();
+	ArrayList<String> teamList = projectDao.getTeamData(year);
 	MemberBean member = memberDao.returnMember(id);
 	
-	Date nowDate = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	int nowYear = Integer.parseInt(sf.format(nowDate));
+	int nowYear = Integer.parseInt(sf.format(date));
 	int wyear = 0;
 	
 	if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){

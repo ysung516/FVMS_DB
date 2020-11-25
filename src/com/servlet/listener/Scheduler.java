@@ -59,7 +59,7 @@ public class Scheduler {
                 	Calendar cal = Calendar.getInstance();
             		String time = cal.getTime().toString().split(" |:")[3];
             		if(time.equals("05")) {
-            			sheetMethod.synchronization();
+            			sheetMethod.synchronization("동기화시트"); //변경필요
             			System.out.println(nowDate+" --- 시트 동기화");
             		}
                     

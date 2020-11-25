@@ -561,7 +561,6 @@ $(document).ready(function(){
 						<i class="fa fa-bars"></i>
 					</button>
 
-
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
 
@@ -692,6 +691,7 @@ $(document).ready(function(){
 					  		}else{
 					  			wyear = 0;
 					  		}%>
+					  		var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
 				   		html += '<tr>';
 				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
@@ -701,7 +701,7 @@ $(document).ready(function(){
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
-				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
+				   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
 				   		$("#manager_List").empty();
@@ -718,6 +718,7 @@ $(document).ready(function(){
 					  		}else{
 					  			wyear = 0;
 					  		}%>
+					  		var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
 				   		html += '<tr>';
 				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
@@ -727,7 +728,7 @@ $(document).ready(function(){
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
-				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
+				   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
 				   		$("#manager_List").empty();
@@ -744,6 +745,7 @@ $(document).ready(function(){
 					  		}else{
 					  			wyear = 0;
 							}%>
+							var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
 				   		html += '<tr>';
 				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
 				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
@@ -753,7 +755,7 @@ $(document).ready(function(){
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
 				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
-				   		html += '<td class="extra">'+'수행프로젝트이력 채우기'+'</td>';
+				   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
 				   		html += '</tr>';
 				   		<%}%>
 				   		$("#manager_List").empty();

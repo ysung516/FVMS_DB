@@ -1,8 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="java.util.ArrayList" import="jsp.Bean.model.*"
 	import="jsp.DB.method.*"
-	import="java.util.HashMap"%>
+	import="java.util.HashMap"
+	import="java.util.Date"
+	import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +19,12 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*60);
+	Date date = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	String year = sf.format(date);
+	
 	ProjectDAO projectDao = new ProjectDAO();
-	ArrayList<String> teamList = projectDao.getTeamData();
+	ArrayList<String> teamList = projectDao.getTeamData(year);
 	MemberDAO memberDao = new MemberDAO();
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
