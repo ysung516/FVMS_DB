@@ -102,7 +102,7 @@
 }
 
 .goal{
-	width: 70px;
+	width: 80px;
 }
 
 td, th{
