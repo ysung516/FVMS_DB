@@ -412,15 +412,15 @@ textarea {
 											<td class="m-0 text-primary" align="center"
 												style="word-break: keep-all;">입사일</td>
 											<td colspan="3"><input type="date" name="comDate" id="comDate" 
-												style="width:100%;" value="<%=member.getComDate()%>" max="9999-12-31" 
+												style="width:160px;" value="<%=member.getComDate()%>" max="9999-12-31" 
 												onchange="changeCome(this)">
 											</td>
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center"
 												style="word-break: keep-all;">경력</td>
-											<td colspan="3"><input name="workEx" id="workEx" 
-												style="width:100%;" value="<%=member.getWorkEx()%>" class="update_input">
+											<td colspan="3"><input type='number' name="workEx" id="workEx" min='0' step='1'
+											style="width:60px;" value="<%=member.getWorkEx()%>" class="update_input">
 											</td>
 										</tr>
 										<tr>
