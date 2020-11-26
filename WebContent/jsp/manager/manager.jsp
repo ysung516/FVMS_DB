@@ -59,6 +59,12 @@
 </script>
 
 <style>
+.card{
+	width:80%;
+}
+.extra{
+	overflow:visible !important;
+}
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
@@ -73,8 +79,8 @@
 	z-index:997;
 }
 .table-responsive {
-	width: 70%;
-	margin-left:40px;
+margin:0 auto;
+	width:95%;
 }
 
 #managerTable tr {
@@ -83,6 +89,7 @@
 }
 
 #managerTable {
+	font-size:small;
 	table-layout:fixed;
 	margin-top: 10px;
 	width:100%;
@@ -90,6 +97,7 @@
 	overflow: auto;
     white-space: nowrap;
 }
+
 
 #managerTable th, #managerTable td{
 	overflow: hidden;
@@ -169,7 +177,14 @@ tr:last-child {
 }
 
 @media ( max-width :765px) {
-
+	.sortBTN {
+    font-size: 1px;
+    width: 18px;
+    padding: 1px;
+}
+	.card{
+	width:100%;
+}
 	#sidebarToggle{
 		display:block;
 	}
@@ -614,27 +629,27 @@ $(document).ready(function(){
 							<table id="managerTable">
 								<thead>
 									<tr>
-										<th>팀
+										<th style="text-align:center;">팀
 											<button class="sortBTN" onclick="sort_team()">▼</button>
 										</th>
-										<th>소속
+										<th style="text-align:center;">소속
 											<button class="sortBTN" onclick="sort_part()">▼</button>
 										</th>
-										<th>이름
+										<th style="text-align:center;">이름
 											<button class="sortBTN" onclick="sortTD (2)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (2)">▼</button>
 										</th>
-										<th>직급
+										<th style="text-align:center;">직급
 											<button class="sortBTN" onclick="sort_rank()">▼</button>
 										</th>
-										<th>권한
+										<th style="text-align:center;">권한
 											<button class="sortBTN" onclick="sortTD (4)">▲</button>
 											<button class="sortBTN" onclick="reverseTD (4)">▼</button>
 										</th>
-										<th class="extra">거주지</th>
-										<th class="extra">mobile</th>
-										<th class="extra">연차</th>
-										<th class="extra">프로젝트 수행 이력</th>
+										<th class="extra" style="text-align:center;">거주지</th>
+										<th class="extra" style="text-align:center;">mobile</th>
+										<th class="extra" style="text-align:center;">연차</th>
+										<th class="extra" style="text-align:center;">프로젝트<br>수행이력</th>
 										
 
 									</tr>

@@ -109,6 +109,9 @@
 
 </head>
 <style>
+.card{
+	width:80%;
+}
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
@@ -121,7 +124,6 @@
 }
 .container-fluid{
 	margin-right:0;
-	width:94%;
 }
 #insert {
 	width: 100%;
@@ -183,6 +185,9 @@ textarea {
 
 
 @media ( max-width :765px) {
+.card{
+	width:100%;
+}
 	#sidebarToggle{
 		display:block;
 	}

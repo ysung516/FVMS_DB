@@ -102,6 +102,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
+.card{
+	width:80%;
+}
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
@@ -117,7 +120,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 }
 .container-fluid{
 	margin-right:0;
-	width:94%;
+
 }
 input {
 	border: 1px solid #d1d3e2;
@@ -159,6 +162,10 @@ textarea {
 }
 
 @media ( max-width :765px) {
+	.card{
+	width:100%;
+}
+.si
 	#sidebarToggle{
 		display:block;
 	}
