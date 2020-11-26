@@ -101,7 +101,7 @@ public class SchDAO {
 			
 			try {
 				StringBuffer query = new StringBuffer();
-		    	query.append("select career.*, project.프로젝트명,project.상태 from career,project where career.projectNo=project.no and career.id = ? and project.상태 != '8.Dropped'"
+		    	query.append("select career.*, project.프로젝트명,project.상태 from career,project where career.projectNo=project.no and career.id = ? and project.상태 != '8.Dropped' and project.year = "+year+" "
 		    			+ "order by field(project.상태,'6.진행중')desc");
 		    	conn = DBconnection.getConnection();
 		    	pstmt = conn.prepareStatement(query.toString());
