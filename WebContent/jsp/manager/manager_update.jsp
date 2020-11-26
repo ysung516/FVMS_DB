@@ -418,6 +418,13 @@ textarea {
 										</tr>
 										<tr>
 											<td class="m-0 text-primary" align="center"
+												style="word-break: keep-all;">경력</td>
+											<td colspan="3"><input name="workEx" id="workEx" 
+												style="width:100%;" value="<%=member.getWorkEx()%>" class="update_input">
+											</td>
+										</tr>
+										<tr>
+											<td class="m-0 text-primary" align="center"
 												style="word-break: keep-all;">연차</td>
 											<td colspan="3" id="wyear"><%=wyear %></td>
 										</tr>

@@ -48,6 +48,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -93,6 +94,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -136,6 +138,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -179,6 +182,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -224,6 +228,7 @@ public class MemberDAO {
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
 	    		member.setSaveAttr(rs.getString("saveAttr"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    	}
 
 	    }  catch (SQLException e) {
@@ -606,6 +611,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		teamMem.add(member);
 	    	}
 	    }catch (SQLException e) {
