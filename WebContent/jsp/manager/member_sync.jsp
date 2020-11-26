@@ -39,8 +39,8 @@
 	
 	// excel => json
 	//경로설정
-	//String path = "../webapps/ROOT/upload";	//서버
-	String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";	//로컬
+	String path = "../webapps/ROOT/upload";	//서버
+	//String path = "C:/Users/User/git/FVMS_DB/WebContent/upload";	//로컬
 	
 	//파일받기
 	MultipartRequest multipartRequest = new MultipartRequest(request, path, 1024*1024*30, "utf-8", new DefaultFileRenamePolicy());
@@ -134,7 +134,11 @@
 							mobile = "0" + mobile;
 							mobile = memberDao.phone(mobile);
 						}
-						memberDao.updateSyncExcel(id, mobile);
+						memberDao.updateMobileExcel(id, mobile);
+					}
+					if(!coop.getComDate().equals(obj.getString("입사일"))){
+						comeDate = obj.getString("입사일");
+						memberDao.updateComeDateExcel(id, comeDate);
 					}
 					break;
 				}

@@ -431,7 +431,7 @@ public class MemberDAO {
 	 }
 	 
 	 // 동기화 시 존재 회원 휴대전화 업데이트
-	 public int updateSyncExcel(String id, String phone) {
+	 public int updateMobileExcel(String id, String phone) {
 
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -456,6 +456,33 @@ public class MemberDAO {
 		}
 	      return rs;
 	 }
+	 
+	// 동기화 시 존재 회원 입사일 업데이트
+	public int updateComeDateExcel(String id, String comeDate) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = "update member SET 입사일=? where id =?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, comeDate);
+			pstmt.setString(2, id);
+
+			rs = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
+		}
+		return rs;
+	}
 	 
 	// 엑셀 동기화로 회원 등록
 	public int plusNewMember(String name, String id, String pw, String part, String team, 
