@@ -85,22 +85,27 @@
 
 </script>
 <style>
-.card{
-	width:80%;
+.card {
+	width: 80%;
 }
-.sidebar .nav-item{
-	 	word-break: keep-all;
+
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-#sidebarToggle{
-		display:none;
-	}
-.container-fluid{
-	margin-right:0;
+
+#sidebarToggle {
+	display: none;
 }
-.sidebar{
-	position:relative;
-	z-index:997;
+
+.container-fluid {
+	margin-right: 0;
 }
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 .btn_group {
 	right: 0;
 	margin-right: 24px;
@@ -109,11 +114,11 @@
 	top: 9px;
 }
 
-#dataTable td:nth-child(odd) {
+#dataTable th {
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
-	width: 20%;
+	width: 150px;
 }
 
 .loading {
@@ -139,25 +144,25 @@
 }
 
 @media ( max-width :765px) {
-.card{
-	width:100%;
-}
-#sidebarToggle{
-		display:block;
+	.card {
+		width: 100%;
 	}
-	.card-header{
-		margin-top:4.75rem;
+	#sidebarToggle {
+		display: block;
 	}
-	.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
+	.card-header {
+		margin-top: 4.75rem;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
 	}
-	#accordionSidebar{
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
+	#accordionSidebar {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -166,18 +171,17 @@
 		position: fixed;
 		z-index: 998;
 	}
-	#content{
-		margin-left:0;
+	#content {
+		margin-left: 0;
 	}
-	.nav-item{
+	.nav-item {
 		position: absolute;
 		display: inline-block;
 		padding-top: 20px;
 	}
 	.topbar .dropdown {
-			padding-top: 0px;
-			
-	} 
+		padding-top: 0px;
+	}
 	.card-header:first-child {
 		padding: 0;
 	}
@@ -336,77 +340,77 @@
 									<input type="hidden" name="id" value="<%=id%>">
 									<table class="table table-bordered" id="dataTable">
 										<tr>
-											<td>팀</td>
+											<th>팀</th>
 											<td><%=member.getTEAM()%></td>
 										</tr>
 										<tr>
-											<td>이름</td>
+											<th>이름</th>
 											<td><%=member.getNAME()%></td>
 										</tr>
 										<tr>
-											<td>권한</td>
+											<th>권한</th>
 											<td><%=member.getPermission()%></td>
 										</tr>
 										<tr>
-											<td>소속</td>
+											<th>소속</th>
 											<td><%=member.getPART()%></td>
 										</tr>
 										<tr>
-											<td>직급</td>
+											<th>직급</th>
 											<td><%=member.getRANK()%></td>
 										</tr>
 										<tr>
-											<td>직책</td>
+											<th>직책</th>
 											<td><%=member.getPosition()%></td>
 										</tr>
 										<tr>
-											<td>mobile</td>
+											<th>mobile</th>
 											<td><%=member.getMOBILE()%></td>
 										</tr>
 										<tr>
-											<td>gmail</td>
+											<th>gmail</th>
 											<td><%=member.getGMAIL()%></td>
 										</tr>
 										<tr>
-											<td>거주지</td>
+											<th>거주지</th>
 											<td><%=member.getADDRESS()%></td>
 										</tr>
 										<tr>
-											<td>입사일</td>
+											<th>입사일</th>
 											<td><%=member.getComDate()%></td>
 										</tr>
 										<tr>
-											<td>경력</td>
+											<th>경력</th>
 											<td><%=member.getWorkEx()%></td>
 										</tr>
 										<tr>
-											<td>연차</td>
+											<th>연차</th>
 											<td><%=wyear %></td>
 										</tr>
 										<tr>
-											<td>프로젝트 수행 이력</td>
+											<th>프로젝트<br>수행 이력</th>
 											<td>
-												<%
-					      	line = member.getP_career();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces;"><%=li%></p> <%
-					      	}
-					     	 %>
+											<%
+									      	line = member.getP_career();
+									      	for(String li : line){
+									      		%><p style="white-space: break-spaces;"><%=li%></p> <%
+									      	}
+									     	 %>
 											</td>
 										</tr>
 										<tr>
-											<td>ID</td>
+											<th>ID</th>
 											<td><%=member.getID()%></td>
 										</tr>
 
 
 
 										<tr>
-											<td colspan="2"><a href="manager_update.jsp?id=<%=id%>"
+											<th colspan="2"><a href="manager_update.jsp?id=<%=id%>"
 												class="btn btn-primary">수정</a> <a href="manager.jsp"
 												class="btn btn-primary">목록</a> <input id="reset"
 												type="submit" value="비밀번호 초기화" class="btn btn-primary">
-											</td>
+											</th>
 										</tr>
 
 									</table>

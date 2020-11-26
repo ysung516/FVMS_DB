@@ -31,9 +31,11 @@
 		String career = request.getParameter("career");
 		String workEx  = request.getParameter("workEx");
 		
+		String originRank = request.getParameter("originRank");
+		
 		MemberDAO memberDao = new MemberDAO();
 		
-		if(memberDao.managerUpdate(id, address, comDate, mobile, gmail, career, part, team, permission, rank, position, workEx) == 1){
+		if(memberDao.managerUpdate(id, address, comDate, mobile, gmail, career, part, team, permission, rank, position, workEx, originRank) == 1){
 			script.print("<script> alert('회원 정보 수정 되었습니다..'); location.href = 'manager.jsp'; </script>");
 		}
 		else{

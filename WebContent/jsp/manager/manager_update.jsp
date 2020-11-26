@@ -64,6 +64,8 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	});
 	
 	function changeCome(obj){
+		var workex = Number(document.getElementById('workEx').value);
+		console.log(workex);
 		var nowDate = new Date();
 		year = nowDate.getFullYear();
 		
@@ -71,9 +73,28 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 		inputYear = inputDate.split("-")[0];
 		
 		if(year >= inputYear){
-			wyear = year - inputYear + 1;
+			wyear = year - inputYear + 1 + workex;
 		}else{
-			wyear = 0;
+			wyear = workEx;
+		}
+		
+		document.getElementById('wyear').innerText = wyear;
+		console.log(wyear);
+	}
+	
+	function changeWorkEx(obj){
+		var workEx = Number(obj.value);
+		
+		var nowDate = new Date();
+		year = nowDate.getFullYear();
+		
+		var inputDate = document.getElementById('comDate').value;
+		inputYear = inputDate.split("-")[0];
+		
+		if(year >= inputYear){
+			wyear = year - inputYear + 1 + workEx;
+		}else{
+			wyear = workEx;
 		}
 		
 		document.getElementById('wyear').innerText = wyear;
@@ -102,26 +123,31 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 
 </head>
 <style>
-.card{
-	width:80%;
+.card {
+	width: 80%;
 }
-.sidebar .nav-item{
-	 	word-break: keep-all;
+
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-#sidebarToggle{
-		display:none;
-	}
-.sidebar{
-	position:relative;
-	z-index:997;
+
+#sidebarToggle {
+	display: none;
 }
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 .update_input {
 	width: 100%;
 }
-.container-fluid{
-	margin-right:0;
 
+.container-fluid {
+	margin-right: 0;
 }
+
 input {
 	border: 1px solid #d1d3e2;
 	border-radius: 4px;
@@ -132,11 +158,11 @@ textarea {
 	border-radius: 4px;
 }
 
-#dataTable td:nth-child(odd) {
+#dataTable th {
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
-	width: 20%;
+	width: 150px;
 }
 
 .loading {
@@ -162,26 +188,26 @@ textarea {
 }
 
 @media ( max-width :765px) {
-	.card{
-	width:100%;
-}
-.si
-	#sidebarToggle{
-		display:block;
+	.card {
+		width: 100%;
 	}
-	.card-header{
-		margin-top:4.75rem;
+	.si
+	#sidebarToggle {
+		display: block;
 	}
-	.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
+	.card-header {
+		margin-top: 4.75rem;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
 	}
-	#accordionSidebar{
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
+	#accordionSidebar {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -190,18 +216,17 @@ textarea {
 		position: fixed;
 		z-index: 998;
 	}
-	#content{
-		margin-left:0;
+	#content {
+		margin-left: 0;
 	}
-	.nav-item{
+	.nav-item {
 		position: absolute;
 		display: inline-block;
 		padding-top: 20px;
 	}
 	.topbar .dropdown {
-			padding-top: 0px;
-			
-	} 
+		padding-top: 0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -359,15 +384,16 @@ textarea {
 							<div class="table-responsive">
 								<form method="post" action="manager_updatePro.jsp">
 									<input type="hidden" name="id" value="<%=id%>">
+									<input type="hidden" name="originRank" value="<%=member.getRANK()%>">
 									<table class="table table-bordered" id="dataTable">
 										<tr>
-											<td class="m-0 text-primary" align="center">소속</td>
+											<th class="m-0 text-primary" align="center">소속</th>
 											<td colspan="3"><input name="part"
 												value="<%=member.getPART()%>" class="update_input"></td>
 										</tr>
 
 										<tr>
-											<td class="m-0 text-primary" align="center">팀</td>
+											<th class="m-0 text-primary" align="center">팀</th>
 											<td colspan="3"><select id="team" name="team">
 													<%
                       		for(int i=0; i<teamList.size(); i++){
@@ -378,7 +404,7 @@ textarea {
 											</select></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">권한</td>
+											<th class="m-0 text-primary" align="center">권한</th>
 											<td colspan="3"><select id="permission"
 												name="permission">
 													<option value="0">마스터</option>
@@ -388,7 +414,7 @@ textarea {
 											</select></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">직급</td>
+											<th class="m-0 text-primary" align="center">직급</th>
 											<td colspan="3"><select id="rank" name="rank">
 													<%for(String key : rankList.keySet()){ %>
 														<option value="<%=key %>"><%=key %></option>
@@ -396,55 +422,56 @@ textarea {
 											</select></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">직책</td>
+											<th class="m-0 text-primary" align="center">직책</th>
 											<td colspan="3"><input name="position"
 												value="<%=member.getPosition()%>" class="update_input"></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">moblie</td>
+											<th class="m-0 text-primary" align="center">moblie</th>
 											<td colspan="3"><input name="mobile"
 												value="<%=member.getMOBILE()%>" class="update_input"></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">gmail</td>
+											<th class="m-0 text-primary" align="center">gmail</th>
 											<td colspan="3"><input name="gmail"
 												value="<%=member.getGMAIL()%>" class="update_input"></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">거주지</td>
+											<th class="m-0 text-primary" align="center">거주지</th>
 											<td colspan="3"><input name="address"
 												value="<%=member.getADDRESS()%>" class="update_input"></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center"
-												style="word-break: keep-all;">입사일</td>
+											<th class="m-0 text-primary" align="center"
+												style="word-break: keep-all;">입사일</th>
 											<td colspan="3"><input type="date" name="comDate" id="comDate" 
 												style="width:160px;" value="<%=member.getComDate()%>" max="9999-12-31" 
 												onchange="changeCome(this)">
 											</td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center"
-												style="word-break: keep-all;">경력</td>
+											<th class="m-0 text-primary" align="center"
+												style="word-break: keep-all;">경력</th>
 											<td colspan="3"><input type='number' name="workEx" id="workEx" min='0' step='1'
-											style="width:60px;" value="<%=member.getWorkEx()%>" class="update_input">
+											style="width:60px;" value="<%=member.getWorkEx()%>" class="update_input"
+											onchange="changeWorkEx(this)">
 											</td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center"
-												style="word-break: keep-all;">연차</td>
+											<th class="m-0 text-primary" align="center"
+												style="word-break: keep-all;">연차</th>
 											<td colspan="3" id="wyear"><%=wyear %></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center"
-												style="vertical-align: middle;">프로젝트 수행 이력</td>
+											<th class="m-0 text-primary" align="center"
+												style="vertical-align: middle;">프로젝트<br>수행 이력</th>
 											<td colspan="3"><input name="career"
 												value="<%=member.getCareer()%>" class="update_input"></td>
 										</tr>
 										<tr align="center">
-											<td colspan="4"><input id="COMPLETE" type="submit"
+											<th colspan="4"><input id="COMPLETE" type="submit"
 												name="COMPLETE" value="완료" class="btn btn-primary">
-												<a href="manager.jsp" class="btn btn-primary">취소</a></td>
+												<a href="manager.jsp" class="btn btn-primary">취소</a></th>
 										</tr>
 									</table>
 								</form>

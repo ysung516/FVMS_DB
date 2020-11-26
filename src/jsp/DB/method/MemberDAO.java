@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.util.Calendar;
 
 import jsp.Bean.model.MemberBean;
 
@@ -313,44 +315,108 @@ public class MemberDAO {
 	      return rs;
 	 }
 
-	 //관리자페이지에서 회원 수정
-	 public int managerUpdate(String id, String address, String comeDate, String mobile, String gmail, 
-			 String career, String part, String team, String permission, String rank, String position, String workEx) {
-		 Connection conn = null;
-		 PreparedStatement pstmt = null;
-	     int rs = 0;
-	   
-	      try {
-	       String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, "
-	       		+ "소속=?,팀=?,permission=?,직급=?,직책=?, 경력=? where id = ?";
-	       conn = DBconnection.getConnection();
-	       pstmt = conn.prepareStatement(query.toString());
-	       
-	       pstmt.setString(1, address);
-	       pstmt.setString(2, comeDate);
-	       pstmt.setString(3, mobile);
-	       pstmt.setString(4, gmail);
-	       pstmt.setString(5, career);
-	       pstmt.setString(6, part);
-	       pstmt.setString(7, team);
-	       pstmt.setString(8, permission);
-	       pstmt.setString(9, rank);
-	       pstmt.setString(10, position);
-	       pstmt.setInt(11, Integer.parseInt(workEx));
-	       pstmt.setString(12, id);
-	       rs = pstmt.executeUpdate();
-	       
-	      }  catch (SQLException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	    
-	   } finally {
+	// 관리자페이지에서 회원 수정
+	public int managerUpdate(String id, String address, String comeDate, String mobile, String gmail, String career,
+			String part, String team, String permission, String rank, String position, String workEx,
+			String originRank) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, "
+					+ "소속=?,팀=?,permission=?,직급=?,직책=?, 경력=? where id = ?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+
+			pstmt.setString(1, address);
+			pstmt.setString(2, comeDate);
+			pstmt.setString(3, mobile);
+			pstmt.setString(4, gmail);
+			pstmt.setString(5, career);
+			pstmt.setString(6, part);
+			pstmt.setString(7, team);
+			pstmt.setString(8, permission);
+			pstmt.setString(9, rank);
+			pstmt.setString(10, position);
+			pstmt.setInt(11, Integer.parseInt(workEx));
+			pstmt.setString(12, id);
+			rs = pstmt.executeUpdate();
+
+			if (!originRank.equals(rank)) {
+				updateRankPeriod(id, originRank);
+				insertRankPeriod(id, rank);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-	      return rs;
-	 }
+		return rs;
+	}
 	 
+	// 직급 수정시 period 테이블 update
+	public int updateRankPeriod(String id, String originRank) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		Date date = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sf.format(date);
+
+		try {
+			String query = "update rank_period set end=? where id=? and rank=?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+
+			pstmt.setString(1, today);
+			pstmt.setString(2, id);
+			pstmt.setString(3, originRank);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return rs;
+	}
+	
+	// 직급 수정 시 period 테이블 insert
+	public int insertRankPeriod(String id, String rank) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 1);
+		String tomorrow = df.format(cal.getTime());
+
+		try {
+			String query = "insert into rank_period(id, rank, start) values(?,?,?)";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, id);
+			pstmt.setString(2, rank);
+			pstmt.setString(3, tomorrow);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return rs;
+	}
+
 	 // 마이페이지 수정
 	 public int mypageUpdate(String id, String address, String comeDate, String mobile,
 			 String gmail, String career, String workEx) {
@@ -390,20 +456,43 @@ public class MemberDAO {
 		 PreparedStatement pstmt = null;
 	     int rs = 0;
 	     try {
-		    	String query = "delete from member where id =?";
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	pstmt.setString(1, id);
-		    	rs = pstmt.executeUpdate();
-		    }catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
+	    	String query = "delete from member where id =?";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, id);
+	    	rs = pstmt.executeUpdate();
+	    	deleteMemberRank(id);
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
 	     return rs;
 	 }
+	 
+	// 회원 삭제 시 rank_period 테이블에서도 데이터 삭제
+	public int deleteMemberRank(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = "delete from rank_period where id=?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, id);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+
+		return rs;
+	}
 
 	 // 회원등록 등록
 	 public int insertMember(String name, String id, String pw, String part, String team, 

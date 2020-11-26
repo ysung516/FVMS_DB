@@ -65,8 +65,9 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
     $('.loading').hide();
 });
 
-
 function changeCome(obj){
+	var workex = Number(document.getElementById('workEx').value);
+	console.log(workex);
 	var nowDate = new Date();
 	year = nowDate.getFullYear();
 	
@@ -74,9 +75,28 @@ function changeCome(obj){
 	inputYear = inputDate.split("-")[0];
 	
 	if(year >= inputYear){
-		wyear = year - inputYear + 1;
+		wyear = year - inputYear + 1 + workex;
 	}else{
-		wyear = 0;
+		wyear = workEx;
+	}
+	
+	document.getElementById('wyear').innerText = wyear;
+	console.log(wyear);
+}
+
+function changeWorkEx(obj){
+	var workEx = Number(obj.value);
+	
+	var nowDate = new Date();
+	year = nowDate.getFullYear();
+	
+	var inputDate = document.getElementById('comDate').value;
+	inputYear = inputDate.split("-")[0];
+	
+	if(year >= inputYear){
+		wyear = year - inputYear + 1 + workEx;
+	}else{
+		wyear = workEx;
 	}
 	
 	document.getElementById('wyear').innerText = wyear;
@@ -208,17 +228,17 @@ textarea {
 			<li class="nav-item"><a class="nav-link"
 				href="../summary/summary.jsp"> <i class="fas fa-fw fa-table"></i>
 					<span>수입 요약</span></a></li>
-					
+
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
-				href="../expense_sum/expense_sum.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>지출 요약</span></a></li>
-					
+				href="../expense_sum/expense_sum.jsp"> <i
+					class="fas fa-fw fa-table"></i> <span>지출 요약</span></a></li>
+
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
-				href="../profit_analysis/profit_analysis.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>수익성 분석</span></a></li>
-					
+				href="../profit_analysis/profit_analysis.jsp"> <i
+					class="fas fa-fw fa-table"></i> <span>수익성 분석</span></a></li>
+
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
 				href="../memchart/memchart.jsp"> <i class="fas fa-fw fa-table"></i>
@@ -237,7 +257,7 @@ textarea {
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄 - 프로젝트</span></a></li>
-					
+
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -252,20 +272,24 @@ textarea {
 			<li class="nav-item"><a class="nav-link"
 				href="../meeting/meeting.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>고객미팅 회의록</span></a></li>
-					
+
 			<!-- Nav Item - meeting -->
 			<li class="nav-item"><a class="nav-link"
 				href="../assessment/assessment.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>평가</span></a></li>
 
 			<!-- Nav Item - manager page -->
-			<%if(permission == 0){ %>
+			<%
+				if (permission == 0) {
+			%>
 			<li class="nav-item"><a class="nav-link"
 				href="../manager/manager.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>관리자 페이지</span></a></li>
-			<% }%>
+			<%
+				}
+			%>
 
-			
+
 
 		</ul>
 		<!-- End of Sidebar -->
@@ -352,32 +376,35 @@ textarea {
 
 										<tr>
 											<th class="m-0 text-primary">입사일</th>
-											<td colspan="3"><input type="date" name="comDate" id="comDate" 
-												style="width:150px;" value="<%=member.getComDate()%>" max="9999-12-31" 
+											<td colspan="3"><input type="date" name="comDate"
+												id="comDate" style="width: 150px;"
+												value="<%=member.getComDate()%>" max="9999-12-31"
 												onchange="changeCome(this)"></td>
 										</tr>
 										<tr>
 											<th class="m-0 text-primary">경력</th>
-											<td colspan="3"><input type='number' name="workEx" id="workEx" min='0' step='1'
-											style="width:60px;" value="<%=member.getWorkEx()%>" class="update_input">
-											</td>
+											<td colspan="3"><input type='number' name="workEx"
+												id="workEx" min='0' step='1' style="width: 60px;"
+												value="<%=member.getWorkEx()%>" class="update_input"
+												onchange="changeWorkEx(this)"></td>
 										</tr>
 										<tr>
 											<th class="m-0 text-primary">연차</th>
-											<td colspan="3" id="wyear"><%=wyear+member.getWorkEx()%></td>
+											<td colspan="3" id="wyear"><%=wyear + member.getWorkEx()%></td>
 										</tr>
 										<tr>
 											<th class="m-0 text-primary">mobile</th>
 											<td colspan="3"><input name="mobile" id="mobile"
-												value="<%=member.getMOBILE() %>" style="width: 100%;"></td>
+												value="<%=member.getMOBILE()%>" style="width: 100%;"></td>
 										</tr>
 										<tr>
 											<th class="m-0 text-primary">Gmail</th>
 											<td colspan="3"><input name="gmail" id=""
-												value="<%=member.getGMAIL() %>" style="width: 100%;"></td>
+												value="<%=member.getGMAIL()%>" style="width: 100%;"></td>
 										</tr>
 										<tr>
-											<th class="m-0 text-primary">프로젝트<br>수행 이력</th>
+											<th class="m-0 text-primary">프로젝트<br>수행 이력
+											</th>
 											<td colspan="3"><textarea name="career" id="career"
 													rows="5"><%=member.getCareer()%></textarea></td>
 										</tr>
