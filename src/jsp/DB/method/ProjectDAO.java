@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-
-import com.mysql.cj.protocol.Resultset;
-
 import jsp.Bean.model.*;
 
 public class ProjectDAO {

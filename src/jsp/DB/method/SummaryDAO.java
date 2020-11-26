@@ -139,8 +139,8 @@ public class SummaryDAO {
 			sh_mm = 0;
 		}
 		
-		result[0] = String.format("%.1f", (fh_mm/30.0));
-		result[1] = String.format("%.1f", (sh_mm/30.5));
+		result[0] = String.format("%.1f", (fh_mm/30.1));
+		result[1] = String.format("%.1f", (sh_mm/30.3));
 		
 		return result;
 	}

@@ -327,14 +327,18 @@ public class ReportDAO {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
+	    int year = Integer.parseInt(weekly.split("/")[0]);
+	    
 	    try {
 	    	String query = "SELECT a.no, a.프로젝트명, a.PM, a.투입명단 FROM project a left outer join (select * from weekly_Report where 주차 = ?)"
-	    			+ " b on a.no = b.프로젝트no where b.프로젝트no is null AND a.주간보고서사용=1";
+	    			+ " b on a.no = b.프로젝트no where b.프로젝트no is null AND a.주간보고서사용=1 and a.year = ?";
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	pstmt.setString(1, weekly);
+	    	pstmt.setInt(2, year);
 	    	rs = pstmt.executeQuery();
 	    	while(rs.next()) {
+	    		
 	    		ProjectBean project = new ProjectBean();
 	    		project.setPROJECT_NAME(rs.getString("프로젝트명"));
 	    		project.setNO(rs.getInt("no"));

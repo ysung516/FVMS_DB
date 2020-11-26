@@ -21,7 +21,6 @@
 		
 		int count = Integer.parseInt(request.getParameter("count"));
 		int year = Integer.parseInt(request.getParameter("year"));
-		System.out.println(year);
 		
 		String [] workPlace = new String[count];
 		String [] color = new String[count];

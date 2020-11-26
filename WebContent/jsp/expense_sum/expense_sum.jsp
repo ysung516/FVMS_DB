@@ -42,6 +42,12 @@
 		ArrayList<String> teamList  = expendDao.getTeamData(year);
 		ArrayList<Expend_TeamBean> exList = new ArrayList<Expend_TeamBean>();
 		ArrayList<Expend_CoopBean> exList_coop = new ArrayList<Expend_CoopBean>();
+		ArrayList<DPcostBean> dpList = new ArrayList<DPcostBean>();
+		ArrayList<Eq_PurchaseBean> FH_eqList = new ArrayList<Eq_PurchaseBean>();
+		ArrayList<Eq_PurchaseBean> SH_eqList = new ArrayList<Eq_PurchaseBean>();
+				
+		ArrayList<Rank_CostBean> rankCost = expendDao.getRankCost();
+		/*
 		ArrayList<Expend_CoopBean> test = expendDao.getExpend_coop("제어로직검증팀", year_int);
 				
 		for(int z=0; z<test.size(); z++){
@@ -57,7 +63,7 @@
 			System.out.println(test.get(z).getSh_ex());
 			System.out.println();
 		}
-		
+		*/
 		
 	%>
 
@@ -88,7 +94,7 @@
 	$(document).ready(function(){
 		$('.loading').hide();
 		$('#ex_year').val(<%=year_int%>).attr("selected","selected");
-		Expend_Sure();
+		Expend();
 	});
 	
 	
@@ -97,17 +103,26 @@
 		location.href ="expense_sum.jsp?year="+year;
 	}
 	
-	function Expend_Sure(){
+	function Expend(){
 		var FHsure= new Array();
 		var SHsure = new Array();
 		var FHcoop = new Array();
 		var SHcoop = new Array();
+		var FHdp = new Array();
+		var SHdp = new Array();
 		<%
 			for(int i=0; i<teamList.size(); i++){
 				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
 				exList_coop = expendDao.getExpend_coop(teamList.get(i), year_int);
+				dpList = expendDao.getExpend_dp(teamList.get(i), year_int);
+				FH_eqList = expendDao.getPurchaseList(teamList.get(i), year_int, 0);
+				SH_eqList= expendDao.getPurchaseList(teamList.get(i), year_int, 1);
 				int [] sure_sum = {0,0};
 				int [] coop_sum = {0,0};
+				int [] dp_sum = {0,0};
+				int [] eq_sum = {0,0};
+				int [] out_sum = {0,0};
+				
 				for(int j=0; j<exList.size(); j++){
 					sure_sum[0] += exList.get(j).getFh_expend();
 					sure_sum[1] += exList.get(j).getSh_expend();
@@ -116,13 +131,28 @@
 					coop_sum[0] += exList_coop.get(z).getFh_ex();
 					coop_sum[1] += exList_coop.get(z).getSh_ex();
 				}
-				
+				for(int x=0; x<dpList.size(); x++){
+					dp_sum[0] += dpList.get(x).getFh_ex();
+					dp_sum[1] += dpList.get(x).getSh_ex();
+				}
+				for(int q=0; q<FH_eqList.size(); q++){
+					eq_sum[0] += FH_eqList.get(q).getSum();
+				}
+				for(int w=0; w<SH_eqList.size(); w++){
+					eq_sum[1] += SH_eqList.get(w).getSum();
+				}
 				String team = teamList.get(i);
 				%>
 				FHsure[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','슈어','<%=sure_sum[0]%>')>"+<%=sure_sum[0]%>+"</td>";
 				SHsure[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','슈어','<%=sure_sum[1]%>')>"+<%=sure_sum[1]%>+"</td>";
-				FHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','외부','<%=coop_sum[0]%>')"+<%=coop_sum[0]%>+"</td>";
-				SHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','외부','<%=coop_sum[1]%>')"+<%=coop_sum[1]%>+"</td>";
+				
+				FHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','외부','<%=coop_sum[0]%>')>"+<%=coop_sum[0]%>+"</td>";
+				SHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','외부','<%=coop_sum[1]%>')>"+<%=coop_sum[1]%>+"</td>";
+				
+				FHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','상반기','<%=dp_sum[0]%>')>"+<%=(dp_sum[0] + eq_sum[0])%>+"</td>";
+				SHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','하반기','<%=dp_sum[1]%>')>"+<%=(dp_sum[1] + eq_sum[1])%>+"</td>";
+				
+				
 			<%}%>
 		
 		var cnt = <%=teamList.size()%>;
@@ -131,12 +161,18 @@
 			$('#second_half_in').append(SHsure[a]);
 			$('#fist_half_out').append(FHcoop[a]);
 			$('#second_half_out').append(SHcoop[a]);
+			$('#fist_half_dp').append(FHdp[a]);
+			$('#second_half_dp').append(SHdp[a]);
 		}
 	}
 	
 	function detail(team, semi, com, sum){
 		var popupX = (document.body.offsetWidth/2)-(600/2);
     	window.open('expense_detail.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&com='+com+'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
+	}
+	function detail_dp(team, semi, sum){
+		var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('expense_dp.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
 	}
 </script>
 
@@ -376,6 +412,36 @@ legend {
 						</div>
 
 						<div class="card-body">
+						<%
+							if(permission == 0){%>
+								<div style="margin-bottom:10px; font-size:small;">
+			 					<form name="changeExpend_sure" method="post" action="expend_sure_updatePro.jsp">
+			 						<p style="color:black; margin-bottom:0px; display: list-item; margin-left: 16px;"><b>슈어소프트 직급 단가(단위:만)</b></p>
+				 					<p style="margin-left:15px;">
+				 					<%
+				 						for(int i=0; i<rankCost.size(); i++){%>
+				 							<%=rankCost.get(i).getRank() %> : <input name="expend_sure" value="<%=rankCost.get(i).getExpend_sure()%>">
+				 					<%}%>
+					 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" 
+					 						style="font-size: xx-small; vertical-align: bottom; margin-left:10px;"/>
+				 					</p>
+				 				</form>
+ 							</div>
+							
+ 							<div style="margin-bottom:10px; font-size:small;">
+			 					<form name="changeExpend_sure" method="post" action="expend_coop_updatePro.jsp">
+			 						<p style="color:black; margin-bottom:0px; display: list-item; margin-left: 16px;"><b>외주업체 직급 단가(단위:만)</b></p>
+				 					<p style="margin-left:15px;">
+				 					<%
+				 						for(int i=0; i<rankCost.size(); i++){%>
+				 							<%=rankCost.get(i).getRank() %> : <input name="expend_coop" value="<%=rankCost.get(i).getExpend_coop()%>">
+				 					<%}%>
+					 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" 
+					 						style="font-size: xx-small; vertical-align: bottom; margin-left:10px;"/>
+				 					</p>
+				 				</form>
+ 							</div>
+ 							<%}%>
 						<table class="table table-bordered">
 							<thead>
 							<tr>							
@@ -397,10 +463,10 @@ legend {
 							<tbody>
 								<tr id="fist_half_in"><td>상반기 인력 비용 (슈어)</td></tr>
 								<tr id="fist_half_out"><td>상반기 인력 비용 (협력)</td></tr>
-								<tr id="fist_half_eq"><td>상반비 장비 구매</td></tr>							
+								<tr id="fist_half_dp"><td>상반기 주요 지출 합계</td></tr>
 								<tr id="second_half_in"><td>하반기 인력 비용 (슈어)</td></tr>
 								<tr id="second_half_out"><td>하반기 인력 비용 (협력)</td></tr>
-								<tr id="second_half_eq"><td>하반기 장비 구매</td></tr>
+								<tr id="second_half_dp"><td>하반기 주요 지출 합계</td></tr>
 								<tr id="total"><td>합계</td></tr>
 							</tbody>
 						</table>

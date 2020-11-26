@@ -37,8 +37,6 @@
 	ReportBean PreReport = reportDao.getReportBackUp(projectNo,weekly);
 	ArrayList<ProjectBean> unWrite = reportDao.getUnwrittenReport(reportDao.getWeekly(nowDate));
 	ProjectBean pjBean = new ProjectBean();
-	ProjectBean f_pjBean = projectDao.getProjectBean_no(unWrite.get(0).getNO(),nowYear);
-	//String no = request.getParameter("no");
 	
 	String str = "";
 	
@@ -50,7 +48,6 @@ function loactionPage(){
 	var projectNo = $('#title').val();
 	location.href ="report_write.jsp?projectNo="+projectNo;
 }
-
 function loadData(){
 	$('#title').val(<%=projectNo%>).prop("selected",true);
 	
@@ -128,6 +125,7 @@ function loadData(){
 			<%}
 		}%>
 	}
+
 
 function checkText(){
 	$('.DOC_TEXT_1').keyup(function (e){
@@ -235,7 +233,7 @@ $(document).ready(function () {
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
