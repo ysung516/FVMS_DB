@@ -739,7 +739,7 @@
     	var popupX = (document.body.offsetWidth/2)-(600/2);
     	window.open('detail_PR.jsp?id='+id+'&year='+<%=year%> , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=760, height=700');
     }
-       
+      
    	function goPrint(){
  		var popupX = (document.body.offsetWidth/2)-(600/2);
  		window.open('schedule_print.jsp', '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=1300, height=900');

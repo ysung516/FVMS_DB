@@ -485,7 +485,7 @@
 	         				,new Date('<%=projectList.get(key).get(b).getPROJECT_START()%>'), new Date('<%=projectList.get(key).get(b).getPROJECT_END()%>')]
 	         		<%}}%>
 	            ]);
-	 	          
+	 	         
 	 	           var options = {
 	 	           	timeline: { colorByRowLabel: false, groupByRowLabel: true, avoidOverlappingGridLines : false}
 	 	           	
