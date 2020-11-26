@@ -353,13 +353,13 @@ public class MemberDAO {
 	 
 	 // 마이페이지 수정
 	 public int mypageUpdate(String id, String address, String comeDate, String mobile,
-			 String gmail, String career) {
+			 String gmail, String career, String workEx) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
 	     int rs = 0;
 	   
 	      try {
-	       String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ? where id = ?";
+	       String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, 경력 = ? where id = ?";
 	       conn = DBconnection.getConnection();
 	       pstmt = conn.prepareStatement(query.toString());
 	       
@@ -368,7 +368,8 @@ public class MemberDAO {
 	       pstmt.setString(3, mobile);
 	       pstmt.setString(4, gmail);
 	       pstmt.setString(5, career);
-	       pstmt.setString(6, id);
+	       pstmt.setInt(6, Integer.parseInt(id));
+	       pstmt.setString(7, id);
 	       rs = pstmt.executeUpdate();
 	       
 	      }  catch (SQLException e) {

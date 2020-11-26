@@ -87,25 +87,28 @@ function changeCome(obj){
 
 </head>
 <style>
-.sidebar .nav-item{
-	 	word-break: keep-all;
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-#sidebarToggle{
-		display:none;
-	}
-.sidebar{
-		position:relative;
-		z-index:997;
+
+#sidebarToggle {
+	display: none;
 }
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 textarea {
 	width: 100%;
 }
 
-#dataTable td:nth-child(odd) {
+#dataTable th {
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
-	width: 20%;
+	width: 150px;
 }
 
 .loading {
@@ -131,44 +134,41 @@ textarea {
 }
 
 @media ( max-width :765px) {
-#sidebarToggle{
-		display:block;
+	#sidebarToggle {
+		display: block;
 	}
-.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
-}
-
-#accordionSidebar{
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	display: inline;
-	padding-top: 60px;
-	position: fixed;
-	z-index: 998;
-}
-#content{
-	margin-left:0;
-}
-.nav-item{
-	position: absolute;
-	display: inline-block;
-	padding-top: 20px;
-}
-.topbar .dropdown {
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
+	}
+	#accordionSidebar {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content {
+		margin-left: 0;
+	}
+	.nav-item {
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
 		padding-top: 0px;
-		
-} 
-	.card-header{
-		margin-top:3.75rem;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
-		
+	.card-header {
+		margin-top: 3.75rem;
+	}
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
 	.container-fluid {
 		padding: 0 !important;
 	}
@@ -178,20 +178,6 @@ textarea {
 	body {
 		font-size: small;
 	}
-}
-
-fieldset {
-	border: 3px inset;
-	border-color: #5d7ace;
-	margin-bottom: 15px;
-}
-
-legend {
-	color: #1b3787 !important;
-	font-size: 18px;
-	font-weight: 600;
-	width: auto;
-	padding: 5px;
 }
 </style>
 <body id="page-top">
@@ -347,48 +333,51 @@ legend {
 									<table class="table table-bordered" id="dataTable">
 
 										<tr>
-											<td class="m-0 text-primary" align="center"
-												style="word-break: keep-all;">ID</td>
+											<th class="m-0 text-primary">ID</th>
 											<td colspan="3"><%=member.getID()%></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">팀</td>
+											<th class="m-0 text-primary">팀</th>
 											<td colspan="3"><%=member.getTEAM()%></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">이름</td>
+											<th class="m-0 text-primary">이름</th>
 											<td colspan="3"><%=member.getNAME()%></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">거주지</td>
+											<th class="m-0 text-primary">거주지</th>
 											<td colspan="3"><input name="address" id=address
 												value="<%=member.getADDRESS()%>" style="width: 100%;"></td>
 										</tr>
 
 										<tr>
-											<td class="m-0 text-primary" align="center">입사일</td>
+											<th class="m-0 text-primary">입사일</th>
 											<td colspan="3"><input type="date" name="comDate" id="comDate" 
-												style="width:100%;" value="<%=member.getComDate()%>" max="9999-12-31" 
+												style="width:150px;" value="<%=member.getComDate()%>" max="9999-12-31" 
 												onchange="changeCome(this)"></td>
 										</tr>
-
 										<tr>
-											<td class="m-0 text-primary" align="center">연차</td>
-											<td colspan="3" id="wyear"><%=wyear%></td>
+											<th class="m-0 text-primary">경력</th>
+											<td colspan="3"><input type='number' name="workEx" id="workEx" min='0' step='1'
+											style="width:60px;" value="<%=member.getWorkEx()%>" class="update_input">
+											</td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">mobile</td>
+											<th class="m-0 text-primary">연차</th>
+											<td colspan="3" id="wyear"><%=wyear+member.getWorkEx()%></td>
+										</tr>
+										<tr>
+											<th class="m-0 text-primary">mobile</th>
 											<td colspan="3"><input name="mobile" id="mobile"
 												value="<%=member.getMOBILE() %>" style="width: 100%;"></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center">Gmail</td>
+											<th class="m-0 text-primary">Gmail</th>
 											<td colspan="3"><input name="gmail" id=""
 												value="<%=member.getGMAIL() %>" style="width: 100%;"></td>
 										</tr>
 										<tr>
-											<td class="m-0 text-primary" align="center"
-												style="vertical-align: middle;">프로젝트 수행 이력</td>
+											<th class="m-0 text-primary">프로젝트<br>수행 이력</th>
 											<td colspan="3"><textarea name="career" id="career"
 													rows="5"><%=member.getCareer()%></textarea></td>
 										</tr>

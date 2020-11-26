@@ -67,14 +67,15 @@ public class SummaryDAO {
 	}
 	
 	// 상반기, 하반기 manmonth 계산
-	public String [] cal_manmoth(String start, String end) {
+	public String [] cal_manmoth(String start, String end, String year) {
 		String [] result = new String[2];
 		long fh_mm = 0;
 		long sh_mm = 0;
 		Date nowDate = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		String Date = sf.format(nowDate);
-		int nowYear = Integer.parseInt(Date.split("-")[0]);
+		//int nowYear = Integer.parseInt(Date.split("-")[0]);
+		int nowYear = Integer.parseInt(year);
 		String startDate = "";
 		String endDate = "";
 		Date sDate;
@@ -144,35 +145,6 @@ public class SummaryDAO {
 		return result;
 	}
 	
-	// 직급별 비용 기준 가져오기
-	public HashMap<String, Integer> RankCost(){
-		HashMap<String, Integer> reMap = new HashMap<String, Integer>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			String query = "select rank, compensation from rank";
-			conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	rs = pstmt.executeQuery();
-	    	
-	    	while(rs.next()) {
-	    		reMap.put(rs.getString("rank"), rs.getInt("compensation"));
-	    	}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
-		}
-		
-		return reMap;
-	}
-	
 	// id의 직급 내역 가져오기 linkedlist에 담고 최신순으로 먼저 담기게
 	public LinkedList<LinkedList<String>> rankList_id(String id){
 		LinkedList<LinkedList<String>> reMap = new LinkedList<LinkedList<String>>();
@@ -216,11 +188,11 @@ public class SummaryDAO {
 	}
 	
 	// 날짜별 직급으로 비용 계산
-	public float[] cal_cost(String id, String nowRank, String start, String end) throws ParseException {
+	public float[] cal_cost(String id, String nowRank, String start, String end, String year) throws ParseException {
 		float [] result = null;
 		String [] cal_mm = null;
 		LinkedList<LinkedList<String>> myRankList = rankList_id(id);	// id의 직급 내역 리스트 : [직급,start,end]로 된 리스트의 리스트
-		HashMap<String, Integer> rankCostList = RankCost();	// 직급별 비용 리스트 <직급, 비용>
+		HashMap<String, Integer> rankCostList = getRank();	// 직급별 비용 리스트 <직급, 비용>
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date startPro = sf.parse(start);
@@ -229,7 +201,7 @@ public class SummaryDAO {
 			// 1) 프로젝트 기간동안 계속 현재 직급
 			if( startPro.after(sf.parse(myRankList.get(0).get(1))) || startPro.equals(sf.parse(myRankList.get(0).get(1))) ) {	
 				result = new float[2];
-				cal_mm = cal_manmoth(start, end);
+				cal_mm = cal_manmoth(start, end, year);
 				//기존과 동일한 방식으로 진행, 비용의 단위가 만 단위이기 때문에 시스템 상에 백만 단위로 계산해주어야함(/100)
 				result[0] = Float.parseFloat(cal_mm[0]) * rankCostList.get(nowRank) / 100;
 				result[1] = Float.parseFloat(cal_mm[1]) * rankCostList.get(nowRank) / 100;
@@ -240,18 +212,18 @@ public class SummaryDAO {
 					&& ( endPro.after(sf.parse(myRankList.get(0).get(1))) || endPro.equals(sf.parse(myRankList.get(0).get(1)))) ){
 				result = new float[2];
 				// 1. 현재직급 ~ 플젝종료날짜
-				cal_mm = cal_manmoth(myRankList.get(0).get(1), end);
+				cal_mm = cal_manmoth(myRankList.get(0).get(1), end, year);
 				result[0] = Float.parseFloat(cal_mm[0]) * rankCostList.get(nowRank) / 100;
 				result[1] = Float.parseFloat(cal_mm[1]) * rankCostList.get(nowRank) / 100;
 				// 2. 이전직급 ~ 플젝시작날짜
 				for(int i = 1; i < myRankList.size(); i++) {
 					if( startPro.after(sf.parse(myRankList.get(i).get(1))) ||  startPro.equals(sf.parse(myRankList.get(i).get(1))) ) {
-						cal_mm = cal_manmoth(start, myRankList.get(i).get(2));
+						cal_mm = cal_manmoth(start, myRankList.get(i).get(2), year);
 						result[0] += Float.parseFloat(cal_mm[0]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						result[1] += Float.parseFloat(cal_mm[1]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						return result;
 					} else if( startPro.before(sf.parse(myRankList.get(i).get(1))) ) {
-						cal_mm = cal_manmoth(myRankList.get(i).get(1), myRankList.get(i).get(2));
+						cal_mm = cal_manmoth(myRankList.get(i).get(1), myRankList.get(i).get(2), year);
 						result[0] += Float.parseFloat(cal_mm[0]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						result[1] += Float.parseFloat(cal_mm[1]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						continue;
@@ -266,16 +238,16 @@ public class SummaryDAO {
 				// 이 경우 모두 이전 직급에서 진행된 프로젝트
 				for(int i = 1; i < myRankList.size(); i++) {
 					if( startPro.after(sf.parse(myRankList.get(i).get(1))) || startPro.equals(sf.parse(myRankList.get(i).get(1))) ) {
-						cal_mm = cal_manmoth(start, end);
+						cal_mm = cal_manmoth(start, end, year);
 						if(endPro.after(sf.parse(myRankList.get(i).get(2)))) {
-							cal_mm = cal_manmoth(start, myRankList.get(i).get(2));
+							cal_mm = cal_manmoth(start, myRankList.get(i).get(2), year);
 						}
 						result[0] += Float.parseFloat(cal_mm[0]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						result[1] += Float.parseFloat(cal_mm[1]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						return result;
 					} else if( startPro.before(sf.parse(myRankList.get(i).get(1))) 
 							&& ( endPro.after(sf.parse(myRankList.get(i).get(1))) || endPro.equals(sf.parse(myRankList.get(i).get(1)))) ) {
-						cal_mm = cal_manmoth(myRankList.get(i).get(1), end);
+						cal_mm = cal_manmoth(myRankList.get(i).get(1), end, year);
 						result[0] += Float.parseFloat(cal_mm[0]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						result[1] += Float.parseFloat(cal_mm[1]) * rankCostList.get(myRankList.get(i).get(0)) / 100;
 						continue;
@@ -292,16 +264,13 @@ public class SummaryDAO {
 		return result;
 	}
 	
-	public ArrayList<CMSBean> getCMS_minusList(String projectTeam){
+	public ArrayList<CMSBean> getCMS_minusList(String projectTeam, String year){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			Date now = new Date();
-	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	    	String year = sf.format(now);
 			StringBuffer query = new StringBuffer();
 	    	query.append("select project.no, project.프로젝트명, project.팀_매출, member.id, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
 	    			+ "from project, career, member, rank "
@@ -325,8 +294,8 @@ public class SummaryDAO {
 	    		cms.setRank(rs.getString("직급"));
 	    		cms.setStart(rs.getString("start"));
 	    		cms.setEnd(rs.getString("end"));
-	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[0]));
-	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[1]));
+	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[0]));
+	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[1]));
 	    		//현재 직급으로만 계산한 것
 	    		//cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")/100));
 	    		//cms.setSH_MM_CMS((cms.getSH_MM() * rs.getInt("compensation")/100));
@@ -334,7 +303,7 @@ public class SummaryDAO {
 	    		//지금까지 직급 내역으로 계산
 	    		float[] result = new float[2];
 	    		try {
-	    			result = cal_cost(id, rs.getString("직급"), rs.getString("start"), rs.getString("end"));
+	    			result = cal_cost(id, rs.getString("직급"), rs.getString("start"), rs.getString("end"), year);
 	    		}catch(Exception e){
 	    			result[0] = 0;
 	    			result[1] = 1;
@@ -355,16 +324,13 @@ public class SummaryDAO {
 		return list;
 	}
 	
-	public ArrayList<CMSBean> getCMS_plusList(String team){
+	public ArrayList<CMSBean> getCMS_plusList(String team, String year){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			Date now = new Date();
-	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	    	String year = sf.format(now);
 			StringBuffer query = new StringBuffer();
 	    	query.append("select project.no, project.프로젝트명, project.팀_매출,member.id, member.팀, member.이름, member.직급, career.start, career.end, rank.compensation "
 	    			+ "from project, career, member, rank "
@@ -387,8 +353,8 @@ public class SummaryDAO {
 	    		cms.setRank(rs.getString("직급"));
 	    		cms.setStart(rs.getString("start"));
 	    		cms.setEnd(rs.getString("end"));
-	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[0]));
-	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"))[1]));
+	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[0]));
+	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[1]));
 	    		//현재 직급으로만 계산한 것
 	    		//cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")/100));
 	    		//cms.setSH_MM_CMS((cms.getSH_MM() * rs.getInt("compensation")/100));
@@ -396,7 +362,7 @@ public class SummaryDAO {
 	    		//지금까지 직급 내역으로 계산
 	    		float[] result = new float[2];
 	    		try {
-	    			result = cal_cost(id, rs.getString("직급"), rs.getString("start"), rs.getString("end"));
+	    			result = cal_cost(id, rs.getString("직급"), rs.getString("start"), rs.getString("end"), year);
 	    		}catch(Exception e){
 	    			result[0] = 0;
 	    			result[1] = 1;
@@ -459,7 +425,7 @@ public class SummaryDAO {
 		return list;
 	}
 	// 팀별 목포 수주,매출 데이터 가져오기
-		public ArrayList<TeamBean> getTagetData(){
+	public ArrayList<TeamBean> getTagetData(){
 			ArrayList<TeamBean> List = new ArrayList<TeamBean>();
 			Connection conn = null;
 		    PreparedStatement pstmt = null;
@@ -527,14 +493,14 @@ public class SummaryDAO {
 	}
 	
 	// 목표 수주,매출 저장
-	public int[] saveTargetData(HashMap<String, LinkedList<LinkedList<Float>>> dataList) {
+	public int[] saveTargetData(HashMap<String, LinkedList<LinkedList<Float>>> dataList, String year) {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    int[] rs = new int[dataList.size()];
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("update team set 상반기목표수주=?, 상반기목표매출=?, 하반기목표수주=?, 하반기목표매출=? where teamName=?;");
+	    	query.append("update team set 상반기목표수주=?, 상반기목표매출=?, 하반기목표수주=?, 하반기목표매출=? where teamName=? and year=?;");
 	    	conn = DBconnection.getConnection();
 	    	conn.setAutoCommit(false);
 	    	pstmt = conn.prepareStatement(query.toString());
@@ -545,6 +511,7 @@ public class SummaryDAO {
 		    	pstmt.setFloat(3, dataList.get(key).get(1).get(0));
 		    	pstmt.setFloat(4, dataList.get(key).get(1).get(1));
 		    	pstmt.setString(5, key);
+		    	pstmt.setString(6, year);
 		    	pstmt.addBatch();
 	    	}
 	       	

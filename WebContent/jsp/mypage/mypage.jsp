@@ -72,34 +72,24 @@
 	});
 </script>
 <style>
-.sidebar .nav-item{
-	 	word-break: keep-all;
-}
-#sidebarToggle{
-		display:none;
-	}
-.sidebar{
-		position:relative;
-		z-index:997;
-}
-textarea {
-	width: 100%;
+.sidebar .nav-item {
+	word-break: keep-all;
 }
 
-#dataTable td:nth-child(odd) {
+#sidebarToggle {
+	display: none;
+}
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
+#dataTable th{
 	text-align: center;
 	vertical-align: middle;
 	word-break: keep-all;
-	width: 20%;
-}
-
-.meeting_table {
-	width: 100%;
-}
-
-.meeting_table td {
-	border: 1px solid black;
-	white-space: nowrap;
+	width: 150px;
 }
 
 .loading {
@@ -125,43 +115,41 @@ textarea {
 }
 
 @media ( max-width :765px) {
-#sidebarToggle{
-		display:block;
+	#sidebarToggle {
+		display: block;
 	}
-.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
-}
-
-#accordionSidebar{
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	display: inline;
-	padding-top: 60px;
-	position: fixed;
-	z-index: 998;
-}
-#content{
-	margin-left:0;
-}
-.nav-item{
-	position: absolute;
-	display: inline-block;
-	padding-top: 20px;
-}
-.topbar .dropdown {
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
+	}
+	#accordionSidebar {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content {
+		margin-left: 0;
+	}
+	.nav-item {
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
 		padding-top: 0px;
-		
-} 
-	.card-header{
-		margin-top:4.75rem;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
+	.card-header {
+		margin-top: 4.75rem;
+	}
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -171,24 +159,6 @@ textarea {
 	body {
 		font-size: small;
 	}
-}
-
-fieldset {
-	border-top: 3px inset;
-	border-color: #5d7ace;
-}
-
-legend {
-	color: #1b3787 !important;
-	font-size: 18px;
-	font-weight: 600;
-	width: auto;
-	padding: 5px;
-}
-
-.report_div {
-	padding-left: 15px;
-	padding-bottom: 15px;
 }
 </style>
 
@@ -341,66 +311,69 @@ legend {
 
 								<table class="table table-bordered" id="dataTable">
 									<tr>
-										<td>ID</td>
+										<th>ID</th>
 										<td><%=member.getID()%></td>
 									</tr>
 									<tr>
-										<td>팀</td>
+										<th>팀</th>
 										<td><%=member.getTEAM()%></td>
 									</tr>
 									<tr>
-										<td>이름</td>
+										<th>이름</th>
 										<td><%=member.getNAME()%></td>
 									</tr>
 									<tr>
-										<td>비밀번호</td>
+										<th>비밀번호</th>
 										<td><a href="update_pwd.jsp"
 											class="btn btn-info btn-icon-split btn-sm">변경</a>
 
 											<p
 												style="font-size: xx-small; color: red; margin: 6px 0 0 0;">
 												*비빌번호는 암호화가 되어있어 노출위험이 없습니다 :D <br>*비밀번호 분실시 실장님께 초기화
-												요청이 가능합니다. 초기화 된 비밀호는 [12345] 입니다
+												요청이 가능합니다. 초기화 된 비밀번호는 [12345] 입니다
 											</p></td>
 									</tr>
 									<tr>
-										<td>직급</td>
+										<th>직급</th>
 										<td><%=member.getRANK()%></td>
 									</tr>
 									<tr>
-										<td>직책</td>
+										<th>직책</th>
 										<td><%=member.getPosition()%></td>
 									</tr>
 
 									<tr>
-										<td>거주지</td>
+										<th>거주지</th>
 										<td><%=member.getADDRESS()%></td>
 									</tr>
 									<tr>
-										<td>입사일</td>
+										<th>입사일</th>
 										<td><%=member.getComDate()%></td>
 									</tr>
 									<tr>
-										<td>연차</td>
-										<td><%=wyear %></td>
+										<th>경력</th>
+										<td><%=member.getWorkEx()%></td>
 									</tr>
 									<tr>
-										<td>Mobile</td>
+										<th>연차</th>
+										<td><%=wyear+member.getWorkEx()%></td>
+									</tr>
+									<tr>
+										<th>Mobile</th>
 										<td><%=member.getMOBILE() %></td>
 									</tr>
 									<tr>
-										<td>Gmail</td>
+										<th>Gmail</th>
 										<td><%=member.getGMAIL() %></td>
 									</tr>
 									<tr>
-										<td>프로젝트 수행 이력</td>
+										<th>프로젝트<br>수행 이력</th>
 										<td>
-											<%
-					      	line = member.getP_career();
-					      	for(String li : line){
-					      		%><p style="white-space: break-spaces"><%=li%></p> <%
-					      	}
-					     	 %>
+										<%
+								      	line = member.getP_career();
+								      	for(String li : line){%>
+								      	<p style="white-space: break-spaces"><%=li%></p> 
+								      	<%}%>
 										</td>
 									</tr>
 

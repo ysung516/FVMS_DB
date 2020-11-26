@@ -214,8 +214,8 @@
 	LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>> corrVal = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>>();
 	for(int key : teamList.keySet()){
 		LinkedHashMap<String, ArrayList<CMSBean>> val = new LinkedHashMap<String, ArrayList<CMSBean>>();
-		val.put("plus", summaryDao.getCMS_plusList(teamList.get(key)));
-		val.put("minus", summaryDao.getCMS_minusList(teamList.get(key)));
+		val.put("plus", summaryDao.getCMS_plusList(teamList.get(key), nowYear));
+		val.put("minus", summaryDao.getCMS_minusList(teamList.get(key), nowYear));
 		corrVal.put(teamList.get(key), val);
 	}
 	
@@ -1642,6 +1642,7 @@ function y_rsales() {
  				<%} %>
  				
 			<form method="post" action="Save_targetData.jsp">
+				<input type="hidden" name="nowYear" value="<%=nowYear %>">
  				 <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable">
                   <thead>

@@ -19,9 +19,11 @@
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../../html/login.html' </script>");
 		}
 
+		String year = request.getParameter("nowYear");
+		
 		SummaryDAO summaryDao = new SummaryDAO();
 		MemberDAO memberDao = new MemberDAO();
-		LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+		LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(year);
 		// 디비 처리 함수로 보내줄 해시맵 HashMap<팀명, 상하반기<수주매출<값>>>
 		HashMap<String, LinkedList<LinkedList<Float>>> dataList = new HashMap<String, LinkedList<LinkedList<Float>>>();
 		int checkNull = 0;
@@ -53,7 +55,7 @@
 		if(checkNull == teamList.size()){
 			int check [] = new int[teamList.size()];
 			int cnt = 0;
-			check = summaryDao.saveTargetData(dataList);
+			check = summaryDao.saveTargetData(dataList, year);
 			for(int i=0; i<check.length; i++){
 				if (check[i] == 1){
 					cnt ++;
