@@ -42,6 +42,18 @@
 		ExpendDAO expendDao = new ExpendDAO();
 		ArrayList<DPcostBean> dpList = expendDao.getExpend_dp(team, year);
 		ArrayList<Eq_PurchaseBean> eqList = expendDao.getPurchaseList(team, year, eq_semi);
+		ArrayList<Outside_ExpendBean> outexList = expendDao.getOutside_Expend(team, year, eq_semi);
+		float eq_sum = 0;
+		float outex_sum = 0;
+		
+		for(int i=0; i<eqList.size(); i++){
+			eq_sum += eqList.get(i).getSum();
+		}
+		for(int i=0; i<outexList.size(); i++){
+			outex_sum += outexList.get(i).getCost();
+		}
+		
+		
 	%>
 </head>
 <style>
@@ -80,7 +92,6 @@
 			innerHtml += '<td></td>';
 			innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
 			innerHtml += '</tr>';
-			$('#count').val(count);
 			$('#eqList').append(innerHtml);
 		}
 		
@@ -98,9 +109,41 @@
 			for(var a=0; a<=len; a++){
 				$("#eqList tr:eq("+a+") td:eq(0)").text((a+1));
 			}
-			$('#count').val($('#eqList tr').length);
 		});
 	}
+	
+	function rowAdd2(){
+		count = $('#outexList tr').length;
+		count++;
+		var innerHtml = "";
+		innerHtml += '<tr>';
+		innerHtml += '<td>'+count+'</td>';
+		innerHtml += '<td><input name="name"></td>';
+		innerHtml += '<td><input name="rank"></td>';
+		innerHtml += '<td><input name="content"></td>';
+		innerHtml += '<td><input type="date" name="date"></td>';
+		innerHtml += '<td><input name="cost" value="0"></td>';
+		innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
+		innerHtml += '</tr>';
+		$('#outexList').append(innerHtml);
+	}
+	
+function deleteNP2(){
+	$(document).on("click",".deleteNP",function(){
+		var str =""
+		var tdArr = new Array();
+		var btn = $(this);
+		var tr = btn.parent().parent();
+		var td = tr.children();
+		var delID = td.eq(0).text();
+		tr.remove();
+		
+		var len = $('#outexList tr').length;
+		for(var a=0; a<=len; a++){
+			$("#outexList tr:eq("+a+") td:eq(0)").text((a+1));
+		}
+	});
+}
 </script>
 <body>
 	<br>
@@ -157,7 +200,10 @@
 		
 		<br><br><br>
 		<form method="post" action="update_EqPro.jsp">
-		<input type="hidden" id="count" name="cnt" value="<%=eqList.size()%>">
+		<input type="hidden" name="team" value="<%=team%>">
+		<input type="hidden" name="eq_semi" value="<%=eq_semi%>">
+		<input type="hidden" name="year" value="<%=year%>">
+		<input type="hidden" name="sum" value="<%=sum %>">
 		<p id="name"><%=team%> - <%=semi%> 장비 구입 내역</p>
 			<table  style="width: 100%">
 				<thead>
@@ -188,11 +234,64 @@
 				<tfoot>
 					<tr style="b">
 						<td style="background-color: yellowgreen">지출 합계</td>
-						<td colspan=8><%=sum %> (만)</td>
+						<td colspan=8><%=eq_sum%> (만)</td>
 					</tr>
 				</tfoot>
 			</table>
-				<input style="margin-top: 15px" type="submit" class="btn btn-primary" value="저장">
+				<%
+					if(permission == 0){%>
+						<input style="margin-top: 15px" type="submit" class="btn btn-primary" value="저장">
+				<%}%>
+				
+			</form>
+			
+			
+			
+			<br><br><br>
+			<form method="post" action="update_outexPro.jsp">
+				<input type="hidden" name="team" value="<%=team%>">
+				<input type="hidden" name="eq_semi" value="<%=eq_semi%>">
+				<input type="hidden" name="year" value="<%=year%>">
+				<input type="hidden" name="sum" value="<%=sum %>">
+				<p id="name"><%=team%> - <%=semi%> 외근 비용 처리 내역</p>
+					<table  style="width: 100%">
+						<thead>
+							<tr>
+								<th></th>
+								<th>이름</th>
+								<th>직급</th>
+								<th>외근 처리</th>
+								<th>날짜</th>
+								<th>금액(만)</th>
+								<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd2();"></th>
+							</tr>
+						</thead>
+						<tbody id ="outexList">
+							<%
+								for(int i=0; i<outexList.size(); i++){%>
+								<input type="hidden" name="id" value="<%=outexList.get(i).getId()%>">
+								<tr>
+									<td><%=i+1%></td>
+									<td><input name="name" value="<%=outexList.get(i).getName()%>"></td>
+									<td><input name="rank" value="<%=outexList.get(i).getRank()%>"></td>
+									<td><input name="content" value="<%=outexList.get(i).getContent()%>"></td>
+									<td><input type="date" name="date" value="<%=outexList.get(i).getDate()%>"></td>
+									<td><input name="cost" value="<%=outexList.get(i).getCost()%>"></td>
+									<td><input class="deleteNP" type="button" onclick="deleteNP2()" value="삭제"></td>
+								</tr>					
+							<%}%>
+						</tbody>
+						<tfoot>
+							<tr style="b">
+								<td style="background-color: yellowgreen">지출 합계</td>
+								<td colspan=8><%=outex_sum%> (만)</td>
+							</tr>
+						</tfoot>
+					</table>
+						<%
+							if(permission == 0){%>
+								<input style="margin-top: 15px" type="submit" class="btn btn-primary" value="저장">
+					<%}%>	
 			</form>
 </body>
 

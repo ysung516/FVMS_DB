@@ -22,10 +22,12 @@
 		
 		String sum = request.getParameter("sum");
 		String team = request.getParameter("team");
+		String [] id = request.getParameterValues("id");
 		String [] name = request.getParameterValues("name");
+		String [] rank = request.getParameterValues("rank");
+		String [] content = request.getParameterValues("content");
 		String [] date = request.getParameterValues("date");
 		String [] cost = request.getParameterValues("cost");
-		String [] count = request.getParameterValues("count");
 		int semi = Integer.parseInt(request.getParameter("eq_semi"));
 		int year = Integer.parseInt(request.getParameter("year"));
 		int cnt = name.length; 
@@ -38,9 +40,9 @@
 		}
 		
 		ExpendDAO expendDao = new ExpendDAO();
-		expendDao.drop_EQpurchaseTable(team, year, semi);
-		expendDao.save_eqPurchase(team, name, date, cost, count, year, semi, cnt);
-		script.print("<script> alert('장비 구매 내역이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
+		expendDao.drop_outexTable(year, semi);
+		expendDao.save_outex(id, name, content, date, cost, year, semi, cnt);
+		script.print("<script> alert('외근 비용이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
 	%>
 </body>
 </html>

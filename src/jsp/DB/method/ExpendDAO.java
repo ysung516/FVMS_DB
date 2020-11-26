@@ -267,6 +267,119 @@ public class ExpendDAO {
 			return list;
 		}
 		
+		// 외근 비용 처리 내역
+		public ArrayList<Outside_ExpendBean> getOutside_Expend(String team, int year, int semi){
+			ArrayList<Outside_ExpendBean> list = new ArrayList<Outside_ExpendBean>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				StringBuffer query = new StringBuffer();
+				query.append("select outside_expend.*, member.이름, member.직급 from outside_expend, member "
+						+ "where outside_expend.id = member.id and outside_expend.year=? and outside_expend.semi=? and member.팀=?");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setInt(1, year);
+		    	pstmt.setInt(2, semi);
+		    	pstmt.setString(3, team);
+		    	rs = pstmt.executeQuery();
+		    	while(rs.next()) {
+		    		Outside_ExpendBean outex = new Outside_ExpendBean();
+		    		outex.setNo(rs.getInt("no"));
+		    		outex.setId(rs.getString("id"));
+		    		outex.setName(rs.getString("이름"));
+		    		outex.setRank(rs.getString("직급"));
+		    		outex.setContent(rs.getString("content"));
+		    		outex.setCost(rs.getFloat("cost"));
+		    		outex.setDate(rs.getString("date"));
+		    		outex.setSemi(rs.getInt("semi"));
+		    		outex.setYear(rs.getInt("year"));
+		    		list.add(outex);
+		    	}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			
+			return list;
+		}
+		
+		public int save_outex(String [] id, String [] name, String [] content, String [] date, String [] cost, int year, int semi, int cnt) {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    int rs = 0;
+		    try {
+		    	String query = "insert into outside_expend(id,content,cost,date,semi,year) values(?,?,?,?,?,?) ";
+		    	if(cnt > 1) {
+		    		for(int i=0; i<cnt-1; i++) {
+		    			query += ",(?,?,?,?,?,?)";
+		    		}
+		    		query += ";";
+		    	}
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, id[0]);
+		    	pstmt.setString(2, content[0]);
+		    	pstmt.setFloat(3, Float.parseFloat(cost[0]));
+		    	pstmt.setString(4, date[0]);
+		    	pstmt.setInt(5, semi);
+		    	pstmt.setInt(6, year);
+		    	if(cnt > 1) {
+		    		int cnt_query = 7;
+		    		for(int j=0; j<cnt-1; j++) {
+		    			pstmt.setString(cnt_query, id[j+1]);
+		    			cnt_query ++;
+		    			pstmt.setString(cnt_query, content[j+1]);
+		    			cnt_query ++;
+		    			pstmt.setFloat(cnt_query, Float.parseFloat(cost[j+1]));
+		    			cnt_query ++;
+		    			pstmt.setString(cnt_query, date[j+1]);
+		    			cnt_query ++;
+		    			pstmt.setInt(cnt_query, semi);
+		    			cnt_query ++;
+		    			pstmt.setInt(cnt_query, year);
+		    			cnt_query ++;
+		    		}
+		    	}
+		    	rs = pstmt.executeUpdate();
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    
+			return rs;
+		}
+		
+	
+		public int drop_outexTable(int year, int semi) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+		    int rs = 0;
+		    try {
+		    	String query = "delete from outside_expend where semi=? and year = ?";
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setInt(1, semi);
+		    	pstmt.setInt(2, year);
+		    	rs = pstmt.executeUpdate();
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return rs;
+		}
+		
 		public int[] update_CostData(int step1, int step2, int step3, int step4, String attr) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -309,8 +422,79 @@ public class ExpendDAO {
 			return rs;
 		}
 		
+		public int save_eqPurchase(String team, String [] name, String [] date, String [] cost, String [] count, int year, int semi, int cnt) {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    int rs = 0;
+		    try {
+		    	String query = "insert into eq_purchase(team,name,cost,date,count,semi,year) values(?,?,?,?,?,?,?) ";
+		    	if(cnt > 1) {
+		    		for(int i=0; i<cnt-1; i++) {
+		    			query += ",(?,?,?,?,?,?,?)";
+		    		}
+		    		query += ";";
+		    	}
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, team);
+		    	pstmt.setString(2, name[0]);
+		    	pstmt.setFloat(3, Float.parseFloat(cost[0]));
+		    	pstmt.setString(4, date[0]);
+		    	pstmt.setInt(5, Integer.parseInt(count[0]));
+		    	pstmt.setInt(6, semi);
+		    	pstmt.setInt(7, year);
+		    	if(cnt > 1) {
+		    		int cnt_query = 8;
+		    		for(int j=0; j<cnt-1; j++) {
+		    			pstmt.setString(cnt_query, team);
+		    			cnt_query ++;
+		    			pstmt.setString(cnt_query, name[j+1]);
+		    			cnt_query ++;
+		    			pstmt.setFloat(cnt_query, Float.parseFloat(cost[j+1]));
+		    			cnt_query ++;
+		    			pstmt.setString(cnt_query, date[j+1]);
+		    			cnt_query ++;
+		    			pstmt.setInt(cnt_query, Integer.parseInt(count[j+1]));
+		    			cnt_query ++;
+		    			pstmt.setInt(cnt_query, semi);
+		    			cnt_query ++;
+		    			pstmt.setInt(cnt_query, year);
+		    			cnt_query ++;
+		    		}
+		    	}
+		    	rs = pstmt.executeUpdate();
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    
+			return rs;
+		}
 		
-		
+		public int drop_EQpurchaseTable(String team, int year, int semi) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+		    int rs = 0;
+		    try {
+		    	String query = "delete from eq_purchase where team=? and semi=? and year = ?";
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, team);
+		    	pstmt.setInt(2, semi);
+		    	pstmt.setInt(3, year);
+		    	rs = pstmt.executeUpdate();
+		    }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    return rs;
+		}
 		
 		
 		
