@@ -139,11 +139,6 @@
 	float SH_totalachSale = 0;
 	float Y_totalachSale = 0;
 	
-	// 매출보정
-	LinkedHashMap<String, Float> FH_corrSale = new LinkedHashMap<String, Float>();
-	LinkedHashMap<String, Float> SH_corrSale = new LinkedHashMap<String, Float>();
-	LinkedHashMap<String, Float> Y_corrSale = new LinkedHashMap<String, Float>();
-	
 	for(int key : teamList.keySet()){
 		FH_preOrder.put(teamList.get(key), new Float(0));
 		SH_preOrder.put(teamList.get(key), new Float(0));
@@ -157,9 +152,6 @@
 		FH_achSale.put(teamList.get(key), new Float(0));
 		SH_achSale.put(teamList.get(key), new Float(0));
 		Y_achSale.put(teamList.get(key), new Float(0));
-		FH_corrSale.put(teamList.get(key), new Float(0));
-		SH_corrSale.put(teamList.get(key), new Float(0));
-		Y_corrSale.put(teamList.get(key), new Float(0));
 		
 		for(int i = 0; i < pjList.size(); i++){
 			if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
@@ -210,6 +202,13 @@
 			}
 		}
 	}
+	
+	
+	/*
+	
+	매출 보정 start
+	
+	*/
 	
 	// 팀별 보정
 	LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>> corrVal = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>>();

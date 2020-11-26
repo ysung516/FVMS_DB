@@ -198,11 +198,15 @@
 							<th style="width:9%">시작일</th>
 							<th style="width:9%">종료일</th>
 							<%if(time.equals("상반기") || time.equals("연간")){ %>
+							<%if(permission == 0){ %>
 							<th>상반기</th>
+							<%} %>
 							<th>월수(상)</th>
 							<%}
 							if(time.equals("하반기") || time.equals("연간")){%>
+							<%if(permission == 0){ %>
 							<th>하반기</th>
+							<%} %>
 							<th>월수(하)</th>
 							<%} %>
 						</tr>
@@ -223,11 +227,15 @@
 							<td><%=cms.getStart() %></td>
 							<td><%=cms.getEnd() %></td>
 							<%if(time.equals("상반기") || time.equals("연간")){ %>
+							<%if(permission == 0){ %>
 							<td><%="+" + cms.getFH_MM_CMS() %></td>
+							<%} %>
 							<td><%=cms.getFH_MM() %></td>
 							<%}
 							if(time.equals("하반기") || time.equals("연간")){%>
+							<%if(permission == 0){ %>
 							<td><%="+" + cms.getSH_MM_CMS() %></td>
+							<%} %>
 							<td><%=cms.getSH_MM() %></td>
 							<%} %>
 						</tr>
@@ -256,11 +264,15 @@
 									<th style="width:9%">시작일</th>
 									<th style="width:9%">종료일</th>
 									<%if(time.equals("상반기") || time.equals("연간")){ %>
+									<%if(permission == 0){ %>
 									<th>상반기</th>
+									<%} %>
 									<th>월수(상)</th>
 									<%}
 									if(time.equals("하반기") || time.equals("연간")){%>
+									<%if(permission == 0){ %>
 									<th>하반기</th>
+									<%} %>
 									<th>월수(하)</th>
 									<%} %>
 								</tr>
@@ -283,11 +295,15 @@
 										<td><%=cms.getStart() %></td>
 										<td><%=cms.getEnd() %></td>
 										<%if(time.equals("상반기") || time.equals("연간")){ %>
+										<%if(permission == 0){ %>
 										<td><%="+" + cms.getFH_MM_CMS() %></td>
+										<%} %>
 										<td><%=cms.getFH_MM() %></td>
 										<%}
 										if(time.equals("하반기") || time.equals("연간")){%>
+										<%if(permission == 0){ %>
 										<td><%="+" + cms.getSH_MM_CMS() %></td>
+										<%} %>
 										<td><%=cms.getSH_MM() %></td>
 										<%} %>
 									</tr>
@@ -315,11 +331,15 @@
 							<th style="width:9%">시작일</th>
 							<th style="width:9%">종료일</th>
 							<%if(time.equals("상반기") || time.equals("연간")){ %>
+							<%if(permission == 0){ %>
 							<th>상반기</th>
+							<%} %>
 							<th>월수(상)</th>
 							<%}
 							if(time.equals("하반기") || time.equals("연간")){%>
+							<%if(permission == 0){ %>
 							<th>하반기</th>
+							<%} %>
 							<th>월수(하)</th>
 							<%} %>
 						</tr>
@@ -340,11 +360,15 @@
 							<td><%=cms.getStart() %></td>
 							<td><%=cms.getEnd() %></td>
 							<%if(time.equals("상반기") || time.equals("연간")){ %>
+							<%if(permission == 0){ %>
 							<td><%="-" + cms.getFH_MM_CMS() %></td>
+							<%} %>
 							<td><%=cms.getFH_MM() %></td>
 							<%}
 							if(time.equals("하반기") || time.equals("연간")){%>
+							<%if(permission == 0){ %>
 							<td><%="-" + cms.getSH_MM_CMS() %></td>
+							<%} %>
 							<td><%=cms.getSH_MM() %></td>
 							<%} %>
 						</tr>
@@ -373,11 +397,15 @@
 								<th style="width:9%">시작일</th>
 								<th style="width:9%">종료일</th>
 								<%if(time.equals("상반기") || time.equals("연간")){ %>
+								<%if(permission == 0){ %>
 								<th>상반기</th>
+								<%} %>
 								<th>월수(상)</th>
 								<%}
 								if(time.equals("하반기") || time.equals("연간")){%>
+								<%if(permission == 0){ %>
 								<th>하반기</th>
+								<%} %>
 								<th>월수(하)</th>
 								<%} %>
 							</tr>
@@ -399,11 +427,15 @@
 									<td><%=cms.getStart() %></td>
 									<td><%=cms.getEnd() %></td>
 									<%if(time.equals("상반기") || time.equals("연간")){ %>
+									<%if(permission == 0){ %>
 									<td><%="-" + cms.getFH_MM_CMS() %></td>
+									<%} %>
 									<td><%=cms.getFH_MM() %></td>
 									<%}
 									if(time.equals("하반기") || time.equals("연간")){%>
+									<%if(permission == 0){ %>
 									<td><%="-" + cms.getSH_MM_CMS() %></td>
+									<%} %>
 									<td><%=cms.getSH_MM() %></td>
 									<%} %>
 								</tr>
