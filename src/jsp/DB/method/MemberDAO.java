@@ -48,6 +48,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -93,6 +94,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -136,6 +138,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -179,6 +182,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		list.add(member);
 	    	}
 	    }  catch (SQLException e) {
@@ -224,6 +228,7 @@ public class MemberDAO {
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
 	    		member.setSaveAttr(rs.getString("saveAttr"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    	}
 
 	    }  catch (SQLException e) {
@@ -309,15 +314,15 @@ public class MemberDAO {
 	 }
 
 	 //관리자페이지에서 회원 수정
-	 public int managerUpdate(String id, String address, String comeDate, String mobile,
-			 String gmail, String career, String part, String team, String permission, String rank, String position) {
+	 public int managerUpdate(String id, String address, String comeDate, String mobile, String gmail, 
+			 String career, String part, String team, String permission, String rank, String position, String workEx) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
 	     int rs = 0;
 	   
 	      try {
 	       String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, "
-	       		+ "소속=?,팀=?,permission=?,직급=?,직책=? where id = ?";
+	       		+ "소속=?,팀=?,permission=?,직급=?,직책=?, 경력=? where id = ?";
 	       conn = DBconnection.getConnection();
 	       pstmt = conn.prepareStatement(query.toString());
 	       
@@ -331,7 +336,8 @@ public class MemberDAO {
 	       pstmt.setString(8, permission);
 	       pstmt.setString(9, rank);
 	       pstmt.setString(10, position);
-	       pstmt.setString(11, id);
+	       pstmt.setInt(11, Integer.parseInt(workEx));
+	       pstmt.setString(12, id);
 	       rs = pstmt.executeUpdate();
 	       
 	      }  catch (SQLException e) {
@@ -431,7 +437,7 @@ public class MemberDAO {
 	 }
 	 
 	 // 동기화 시 존재 회원 휴대전화 업데이트
-	 public int updateSyncExcel(String id, String phone) {
+	 public int updateMobileExcel(String id, String phone) {
 
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -456,6 +462,33 @@ public class MemberDAO {
 		}
 	      return rs;
 	 }
+	 
+	// 동기화 시 존재 회원 입사일 업데이트
+	public int updateComeDateExcel(String id, String comeDate) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = "update member SET 입사일=? where id =?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, comeDate);
+			pstmt.setString(2, id);
+
+			rs = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
+		}
+		return rs;
+	}
 	 
 	// 엑셀 동기화로 회원 등록
 	public int plusNewMember(String name, String id, String pw, String part, String team, 
@@ -579,6 +612,7 @@ public class MemberDAO {
 	    		member.setCareer(rs.getString("프로젝트수행이력"));
 	    		member.setLevel(rs.getInt("level"));
 	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
 	    		teamMem.add(member);
 	    	}
 	    }catch (SQLException e) {
