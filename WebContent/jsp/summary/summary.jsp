@@ -1438,7 +1438,7 @@ function y_rsales() {
         	}
     	}
     	
-    	window.open('summary_PopUp.jsp?team='+team + '&time=' + time + '&sale=' + sale + '&saleSet=' + saleSet , 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=1000, height=700');
+    	window.open('summary_PopUp.jsp?team='+team + '&time=' + time + '&sale=' + sale + '&saleSet=' + saleSet + '&year=' + '<%=nowYear%>', 'popUpWindow', 'toolbar=yes,status=yes, menubar=yes, left='+popupX+', top=10, width=1000, height=700');
     }
     
     function loadYear(){

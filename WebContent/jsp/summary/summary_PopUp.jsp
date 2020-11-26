@@ -24,6 +24,7 @@
 	String time = request.getParameter("time");
 	float sale = Float.parseFloat(request.getParameter("sale"));
 	float saleSet = Float.parseFloat(request.getParameter("saleSet"));
+	String year = request.getParameter("year");
 	
 	SummaryDAO summaryDao = new SummaryDAO();
 	HashMap<String, Integer> rank = summaryDao.getRank();	// 직급별 기준
@@ -34,8 +35,8 @@
 	HashMap<String, HashMap<String, ArrayList<CMSBean>>> setVal = new HashMap<String, HashMap<String, ArrayList<CMSBean>>>();
 	for(int key : teamList.keySet()){
 		HashMap<String, ArrayList<CMSBean>> pANDm = new HashMap<String, ArrayList<CMSBean>>();
-		pANDm.put("plus", summaryDao.getCMS_plusList(teamList.get(key)));
-		pANDm.put("minus", summaryDao.getCMS_minusList(teamList.get(key)));
+		pANDm.put("plus", summaryDao.getCMS_plusList(teamList.get(key), year));
+		pANDm.put("minus", summaryDao.getCMS_minusList(teamList.get(key), year));
 		setVal.put(teamList.get(key), pANDm);
 	}
 	
