@@ -363,7 +363,7 @@
 			if(team == '<%=key%>'){
 				<%for(Project_sch_Bean i : projectList.get(key)){%>
 					if(state == '<%=i.getSTATE()%>'){
-						inner += '<tr>';
+						inner += '<tr style="<%=i.getColor()%>">';
 						inner += "<td><div class='teamover'>"+'<%=i.getTEAM_ORDER()%>'+"</div></td>";
 	 					inner += "<td><div class='teamover'>"+'<%=i.getTEAM_SALES()%>'+"</div></td>";
 	 					if(<%=permission%> == 0){
@@ -446,7 +446,7 @@
 	
 	function match(a, b){
 		if (a==b){
-			return 'stroke-width: 3;stroke-color: red;';
+			return 'stroke-width: 5;stroke-color: black;';
 		}else{
 			return '';
 		}
@@ -481,7 +481,7 @@
 	         				+'<p><b>PM : </b><%=projectList.get(key).get(b).getPROJECT_MANAGER()%><br>'
 	         				+'<b>투입명단 : </b><%=projectList.get(key).get(b).getWORKER_LIST()%></p>' 
 	         				+'<b>착수일 : </b><%=projectList.get(key).get(b).getPROJECT_START()%><br><b>종료일 : </b><%=projectList.get(key).get(b).getPROJECT_END()%></div>'
-	         				,match(projectName, '<%=projectList.get(key).get(b).getPROJECT_NAME()%>')
+	         				,'<%=projectList.get(key).get(b).getColor()%>' + match(projectName, '<%=projectList.get(key).get(b).getPROJECT_NAME()%>')
 	         				,new Date('<%=projectList.get(key).get(b).getPROJECT_START()%>'), new Date('<%=projectList.get(key).get(b).getPROJECT_END()%>')]
 	         		<%}}%>
 	            ]);
