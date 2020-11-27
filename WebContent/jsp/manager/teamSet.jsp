@@ -417,7 +417,6 @@ th{
 							<div style="margin-top: 5px;">
 								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:small; margin-right:5px;">관리자 메인</button>
 								<button class="btn btn-primary" onclick="location.href ='workPlace_manage.jsp'" style="font-size:small; margin-right:5px;">근무지 관리</button>
-								<button class="btn btn-primary" onClick="location.href='personalManage.jsp'" style="font-size:small; margin-right:5px;">인사 관리</button>
 				         		<button class="btn btn-primary" style="font-size:small; background-color: #364d91;" onclick="location.href='team_nextCopy.jsp?year=<%=year+1%>'"><%=year+1 %>년 팀 생성</button>
 							</div>
 						</div>

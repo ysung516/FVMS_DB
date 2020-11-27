@@ -471,7 +471,7 @@ textarea {
 										<tr align="center">
 											<th colspan="4"><input id="COMPLETE" type="submit"
 												name="COMPLETE" value="완료" class="btn btn-primary">
-												<a href="manager.jsp" class="btn btn-primary">취소</a></th>
+												<a href="manager_view.jsp?id=<%=id %>" class="btn btn-primary">취소</a></th>
 										</tr>
 									</table>
 								</form>

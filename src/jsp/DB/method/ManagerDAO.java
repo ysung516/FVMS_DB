@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import jsp.Bean.model.WorkPlaceBean;
+import jsp.Bean.model.rankPeriodBean;
 
 public class ManagerDAO {
 	
@@ -429,5 +432,42 @@ public class ManagerDAO {
 		}
 	    
 	    return rs;
+	}
+	
+	// rank_period 테이블 가져오기
+	public ArrayList<rankPeriodBean> getPeriod(String id){
+		ArrayList<rankPeriodBean> list = new ArrayList<rankPeriodBean>();
+		
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select * from rank_period where id=? order by start");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, id);
+	    	rs = pstmt.executeQuery();
+
+	    	while(rs.next()) {
+	    		rankPeriodBean bean = new rankPeriodBean();
+	    		bean.setId(rs.getString("id"));
+	    		bean.setRank(rs.getString("rank"));
+	    		bean.setStart("start");
+	    		bean.setEnd("end");
+	    		
+	    		list.add(bean);
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+		return list;
 	}
 }
