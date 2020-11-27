@@ -11,14 +11,13 @@
 <head>
 
 <%
-
-	PrintWriter script =  response.getWriter();
-	if (session.getAttribute("sessionID") == null){
+	PrintWriter script = response.getWriter();
+	if (session.getAttribute("sessionID") == null) {
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	if(permission > 2){
+	if (permission > 2) {
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
 	ProjectDAO projectDao = new ProjectDAO();
@@ -31,57 +30,53 @@
 	int maxYear = projectDao.maxYear();
 	int yearCount = maxYear - projectDao.minYear() + 1;
 	
-	if(request.getParameter("selectYear") != null){
+	if (request.getParameter("selectYear") != null) {
 		year = Integer.parseInt(request.getParameter("selectYear"));
 	}
 	
-	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*60);
-	
-	
+	session.setMaxInactiveInterval(60 * 60);
 	
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(year);
-	ArrayList<MemberBean> memberList = memberDao.getMemberData(); 
+	String sheetName = projectDao.getSpreadSheetYear(Integer.toString(year));
+	
+	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	MemberBean myInfo = memberDao.returnMember(sessionID);
 	
 	
 	ArrayList<String[]> workerIdList = new ArrayList<String[]>();
 	ArrayList<String> PMnameList = new ArrayList<String>();
 	String[] workerIdArray = {};
-	String pmInfo="";
+	String pmInfo = "";
 	
 	// 투입명단 id >> 이름으로 변경
-	for(int i=0; i<projectList.size();i++){
-		if(projectList.get(i).getWORKER_LIST() != null){
-			workerIdArray =  projectList.get(i).getWORKER_LIST().split(" ");
-			for(int a=0; a<workerIdArray.length; a++){
-				for(int b=0; b<memberList.size(); b++){
-					if(workerIdArray[a].equals(memberList.get(b).getID())){
-						workerIdArray[a] = memberList.get(b).getNAME();
-					}
-				}
+	for (int i = 0; i < projectList.size(); i++) {
+		if (projectList.get(i).getWORKER_LIST() != null) {
+			workerIdArray = projectList.get(i).getWORKER_LIST().split(" ");
+			for (int a = 0; a < workerIdArray.length; a++) {
+		for (int b = 0; b < memberList.size(); b++) {
+			if (workerIdArray[a].equals(memberList.get(b).getID())) {
+				workerIdArray[a] = memberList.get(b).getNAME();
+			}
+		}
 			}
 			workerIdList.add(workerIdArray);
 		}
 	}
 	
 	// PM ID >> 이름 변경
-	for(int i=0; i<projectList.size();i++){
-		if(projectList.get(i).getWORKER_LIST() != null){
-			pmInfo =  projectList.get(i).getPROJECT_MANAGER();
-			for(int b=0; b<memberList.size(); b++){
-				if(pmInfo.equals(memberList.get(b).getID())){
-					pmInfo = memberList.get(b).getNAME();
-				}
+	for (int i = 0; i < projectList.size(); i++) {
+		if (projectList.get(i).getWORKER_LIST() != null) {
+			pmInfo = projectList.get(i).getPROJECT_MANAGER();
+			for (int b = 0; b < memberList.size(); b++) {
+		if (pmInfo.equals(memberList.get(b).getID())) {
+			pmInfo = memberList.get(b).getNAME();
+		}
 			}
 			PMnameList.add(pmInfo);
 		}
 	}
-	
-	
-
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,16 +99,19 @@
 
 </head>
 <style>
-.sidebar .nav-item{
-	 	word-break: keep-all;
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-#sidebarToggle{
-		display:none;
-	}
-.sidebar{
-	position:relative;
-	z-index:997;
+
+#sidebarToggle {
+	display: none;
 }
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 .cb {
 	height: 18px;
 	width: 18px;
@@ -180,83 +178,99 @@
 	transform: translate(-50%, -50%);
 }
 
-
-.table { border:1px solid; border-collapse: collapse; white-space: nowrap;}
-.table td, .test-table th { border: 1px solid; width: 90px; }
-.table thead th { position:sticky; top: 0; background-color: yellow; border:1px solid; }
-.table-responsive { width:100% ;height:70vh; overflow: auto; }
-
-.textover{
-	width:18vw;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	white-space:nowrap;
+.table {
+	border: 1px solid;
+	border-collapse: collapse;
+	white-space: nowrap;
 }
-#dataTable{
+
+.table td, .test-table th {
+	border: 1px solid;
+	width: 90px;
+}
+
+.table thead th {
+	position: sticky;
+	top: 0;
+	background-color: yellow;
+	border: 1px solid;
+}
+
+.table-responsive {
+	width: 100%;
+	height: 70vh;
+	overflow: auto;
+}
+
+.textover {
+	width: 18vw;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#dataTable {
 	width: 40%;
 }
-#dataTable td:hover{
+
+#dataTable td:hover {
 	background-color: black;
 }
-#dataTable th:hover{
+
+#dataTable th:hover {
 	background-color: purple;
 }
 
-.labelST{
+.labelST {
 	margin-left: 15px;
 }
-.labelST:hover{
-	color: red;
-}	
-	
-	
-@media ( max-width :765px) {
-#sidebarToggle{
-		display:block;
-	}
-	.textover{
-		width:46vw;
-		overflow:hidden;
-		text-overflow:ellipsis;
-		white-space:nowrap;
-	}
 
-	.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
+.labelST:hover {
+	color: red;
+}
+
+@media ( max-width :765px) {
+	#sidebarToggle {
+		display: block;
 	}
-	
-	#accordionSidebar{
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	display: inline;
-	padding-top: 60px;
-	position: fixed;
-	z-index: 998;
+	.textover {
+		width: 46vw;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
-	#content{
-		margin-left:0;
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
 	}
-	.nav-item{
+	#accordionSidebar {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content {
+		margin-left: 0;
+	}
+	.nav-item {
 		position: absolute;
 		display: inline-block;
 		padding-top: 20px;
 	}
 	.topbar .dropdown {
-			padding-top: 0px;
-			
-	} 
-		.card-header{
-		margin-top:3.75rem;
+		padding-top: 0px;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
-		
-		
+	.card-header {
+		margin-top: 3.75rem;
+	}
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
 	body {
 		font-size: small;
 	}
@@ -282,8 +296,6 @@
 		margin-left: 14px !important;
 	}
 }
-
-
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
@@ -292,7 +304,6 @@
 		var year = $('#project_year').val();
 		location.href ="project.jsp?selectYear="+year;
 	}
-
 
 	var AttrList = '<%=myInfo.getSaveAttr()%>';
 	var outAttr = new Array();
@@ -526,7 +537,6 @@
     	}
     }
 	
-	
 	// 탭 숨기기
     function hideAttr(num){
     	$("input:checkbox[id='checkall']").prop("checked", false);
@@ -622,8 +632,6 @@
   		});
     }
     
-    
-    
     function stateColor(){
     	var str;
     	for(var i=0;i<=<%=projectList.size()%>;i++){
@@ -669,6 +677,7 @@
 	  		});
     	}
     }
+    
     function updateWorkPlace(projectNo, projectName, place){
     	var popupX = (document.body.offsetWidth/2)-(600/2);
     	window.open('update_workPlace.jsp?no=' + projectNo + '&name=' + projectName + '&place=' + place +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=600, height=250');
@@ -708,7 +717,11 @@
     	window.open('update_end.jsp?no=' + projectNo + '&name=' + projectName + '&endDate=' + endDate +'&year='+<%=year%>, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
     }
     
-    
+    function openSheetManager(year){
+    	var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('sheetManage.jsp?year=' + year, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, width=600, height=500');
+    }
+   
     $(document).ready(function(){
         //최상단 체크박스 클릭
         cbLoad();
@@ -723,6 +736,7 @@
         });
     });
     
+    
     //table sorting
     function sortingNumber( a , b ){  
         if ( typeof a == "number" && typeof b == "number" ) return a - b; 
@@ -734,6 +748,7 @@
         if ( numA == "NaN" || numB == "NaN" || a != numA || b != numB ) return false; 
         return parseFloat( a ) - parseFloat( b ); 
 	} 
+    
 	/* changeForSorting() : 문자열 바꾸기. */ 
 	function changeForSorting( first , second ){  
 	        // 문자열의 복사본 만들기. 
@@ -762,6 +777,7 @@
 	        change.second = b.replace( /\d+/g, addZero ); 
 	        return change; 
 	} 
+	
 	/* byLocale() */ 
 	function byLocale(){ 
 	        var compare = function( a , b ){ 
@@ -776,8 +792,8 @@
 	        var descendingOrder = function( a , b ){  return compare( b , a );  }; 
 	        return { ascending : ascendingOrder, descending : descendingOrder }; 
 	} 
+	
 	/* replacement() */ 
-	 
 	function replacement( parent ){  
 	        var tagName = parent.tagName.toLowerCase(); 
 	        if ( tagName == "table" ) parent = parent.tBodies[ 0 ]; 
@@ -833,6 +849,7 @@
 	        }; 
 	        return replace; 
 	} 
+	
 	function getTextByClone( tag ){  
 	        var clone = tag.cloneNode( true ); // 태그의 복사본 만들기. 
 	        var br = clone.getElementsByTagName( "br" ); 
@@ -855,16 +872,13 @@
 	        var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
 	        return textContent; 
 	}
-	
-	
-   </script>
+</script>
+
 <script type="text/javascript">
-	
 	<!-- 로딩화면 -->
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-
-	
 </script>
+
 <body id="page-top">
 	<!--  로딩화면  시작  -->
 	<div class="loading">
@@ -1017,12 +1031,13 @@
               	if(permission == 0){
               		%><form action="project_synchronization.jsp"
 							method="post" style="display: inline; float: right">
-							<input name="spreadsheet" value="" />
-							<input type="submit" value="스프레드시트 동기화" class="btn btn-primary">
+							<input style="font-size:small; margin-left: 20px;" name="spreadsheet" value="<%=sheetName %>" readonly/>
+							<input style="font-size:small;" type="submit" value="스프레드시트 동기화" class="btn btn-primary">
+							<input style="font-size:small;" type="button" value="스프레드시트 관리" class="btn btn-primary" onclick="openSheetManager('<%=year%>')">
 					</form>
 					<form action="project_copy.jsp"
 							method="post" style="display: inline; float: right; margin-right: 15px">
-							<input type="submit" value="<%=maxYear + 1%>년 복사" class="btn btn-primary">
+							<input style="font-size:small;" type="submit" value="<%=maxYear + 1%>년 복사" class="btn btn-primary">
 					</form>
 					<%
               	}

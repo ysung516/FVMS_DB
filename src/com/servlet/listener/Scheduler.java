@@ -55,11 +55,17 @@ public class Scheduler {
                 try {
                 	Date nowTime = new Date();
                 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
+                	SimpleDateFormat sfyear = new SimpleDateFormat("yyyy");
                 	String nowDate = sf.format(nowTime);
+                	String nowYear = sfyear.format(nowTime);
                 	Calendar cal = Calendar.getInstance();
             		String time = cal.getTime().toString().split(" |:")[3];
+            		
+            		// 동기화 될 시트 이름
+            		String sheetName = projectDao.getSpreadSheetYear(nowYear);
+            		
             		if(time.equals("05")) {
-            			sheetMethod.synchronization("동기화시트"); //변경필요
+            			sheetMethod.synchronization(sheetName); //변경필요
             			System.out.println(nowDate+" --- 시트 동기화");
             		}
                     

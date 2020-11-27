@@ -36,15 +36,6 @@
 		sh_sale = request.getParameterValues("sh_sale");
 	}
 	
-	System.out.println(request.getParameterValues("fh_order").length);
-	System.out.println(request.getParameterValues("fh_sale").length);
-	System.out.println(request.getParameterValues("sh_order").length);
-	System.out.println(request.getParameterValues("sh_sale").length);
-	
-	for(int i = 0; i < count; i++){
-		System.out.println(teamNum[i] + " : " + teamName[i]);
-	}
-	
 	ManagerDAO managerDao = new ManagerDAO();
 	int rs = managerDao.teamSet(year, teamNum, teamName, fh_order, fh_sale, sh_order, sh_sale, count);
 	

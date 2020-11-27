@@ -59,49 +59,53 @@
 </script>
 
 <style>
-.card{
-	width:80%;
+.card {
+	width: 80%;
 }
-.extra{
-	overflow:visible !important;
+
+.extra {
+	overflow: visible !important;
 }
-.sidebar .nav-item{
-	 	word-break: keep-all;
+
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-	#sidebarToggle{
-		display:none;
-	}
-	.sortBTN{
-	font-size:5px;
-	}
-.sidebar{
-	position:relative;
-	z-index:997;
+
+#sidebarToggle {
+	display: none;
 }
+
+.sortBTN {
+	font-size: 5px;
+}
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 .table-responsive {
-margin:0 auto;
-	width:95%;
+	margin: 0 auto;
+	width: 95%;
 }
 
 #managerTable tr {
 	border-bottom: 1px solid #d1d3e2;
-	
 }
 
 #managerTable {
-	font-size:small;
-	table-layout:fixed;
+	font-size: small;
+	table-layout: fixed;
 	margin-top: 10px;
-	width:100%;
-	max-width:1234px;
+	width: 100%;
+	max-width: 1234px;
 	overflow: auto;
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
-
-#managerTable th, #managerTable td{
+#managerTable th, #managerTable td {
 	overflow: hidden;
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 #manager_List td {
@@ -133,7 +137,6 @@ tr:last-child {
 	border-top: 1px solid;
 }
 
-
 .m-0 .text-primary {
 	vertical-align: middle;
 	text-align: center;
@@ -152,7 +155,6 @@ tr:last-child {
 	position: absolute;
 	top: 9px;
 }
-
 
 .loading {
 	position: fixed;
@@ -178,32 +180,32 @@ tr:last-child {
 
 @media ( max-width :765px) {
 	.sortBTN {
-    font-size: 1px;
-    width: 18px;
-    padding: 1px;
-}
-	.card{
-	width:100%;
-}
-	#sidebarToggle{
-		display:block;
+		font-size: 1px;
+		width: 18px;
+		padding: 1px;
 	}
-	.extra{
-		display:none;
+	.card {
+		width: 100%;
 	}
-	.card-header{
-		margin-top:4.75rem;
+	#sidebarToggle {
+		display: block;
 	}
-	.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
+	.extra {
+		display: none;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
+	.card-header {
+		margin-top: 4.75rem;
 	}
-	#accordionSidebar{
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
+	}
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
+	#accordionSidebar {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -212,19 +214,17 @@ tr:last-child {
 		position: fixed;
 		z-index: 998;
 	}
-	#content{
-		margin-left:0;
+	#content {
+		margin-left: 0;
 	}
-	.nav-item{
+	.nav-item {
 		position: absolute;
 		display: inline-block;
 		padding-top: 20px;
 	}
 	.topbar .dropdown {
-			padding-top: 0px;
-			
-	} 
-
+		padding-top: 0px;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -233,9 +233,9 @@ tr:last-child {
 	}
 	.table-responsive {
 		width: 100%;
-		margin-left:0;
+		margin-left: 0;
 	}
-	#managerTable{
+	#managerTable {
 		width: 100%;
 	}
 	body {
@@ -248,39 +248,40 @@ tr:last-child {
 }
 
 #ExampleDown {
-    cursor: pointer;
+	cursor: pointer;
 }
+
 .hoverEvent {
-  display: none;
-  position: absolute;
-  width: 600px;
-  padding: 8px;
-  left: 0;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;  
-  border-radius: 8px;
-  background: #333;
-  color: #fff;
-  font-size: 14px;
+	display: none;
+	position: absolute;
+	width: 600px;
+	padding: 8px;
+	left: 0;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	background: #333;
+	color: #fff;
+	font-size: 14px;
 }
 
 .hoverEvent:after {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -10px;
-  border: solid transparent;
-  border-color: rgba(51, 51, 51, 0);
-  border-bottom-color: #333;
-  border-width: 5px;
-  pointer-events: none;
-  content: " ";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	margin-left: -10px;
+	border: solid transparent;
+	border-color: rgba(51, 51, 51, 0);
+	border-bottom-color: #333;
+	border-width: 5px;
+	pointer-events: none;
+	content: " ";
 }
 
-#ExampleDown:hover + .hoverEvent {
-  display: block;
+#ExampleDown:hover+.hoverEvent {
+	display: block;
 }
 </style>
 
@@ -615,6 +616,7 @@ $(document).ready(function(){
 							<div style="margin-left:15px; margin-top: 5px;">
 								<button class="btn btn-primary" onclick="workPlaceManage()" style="font-size:small; margin-right:5px;">근무지 관리</button>
 								<button class="btn btn-primary" onClick="location.href='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
+								<button class="btn btn-primary" onClick="location.href='personalManage.jsp'" style="font-size:small; margin-right:5px;">인사 관리</button>
 								<form name="formUpload" method="post" action="member_sync.jsp" enctype="multipart/form-data"
 										onsubmit="return checkForm(file1)" style="margin-top:5px; font-size:x-small;">
 									<span id="ExampleDown" class="btn btn-primary" style="font-size:small;">엑셀 다운 방법</span>

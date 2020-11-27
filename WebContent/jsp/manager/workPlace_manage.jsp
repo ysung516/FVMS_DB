@@ -380,6 +380,7 @@
 							<div style="margin-top: 5px;">
 								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:small; margin-right:5px;">관리자 메인</button>
 								<button class="btn btn-primary" onclick="location.href ='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
+								<button class="btn btn-primary" onClick="location.href='personalManage.jsp'" style="font-size:small; margin-right:5px;">인사 관리</button>
 							</div>
 						</div>
 						<form method="post" action="workPlace_managePro.jsp">

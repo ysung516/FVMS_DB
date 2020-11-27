@@ -870,71 +870,68 @@ public class ProjectDAO {
 		}
 		return result;
 	}
+	
 	// career 작성
-		public int setCareer(String[] id, int projectNo,String[] start,String[] end,String pm) 
-		
-		{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			int rs = 0;
-			
-			try {
-		    	conn = DBconnection.getConnection();
-		    	for(int i=0; i<id.length; i++) {
-		    		pstmt = conn.prepareStatement("insert into career(id,projectNo,start,end,pm) values(?,?,?,?,?)");
-			    	pstmt.setString(1, id[i]);
-			    	pstmt.setInt(2, projectNo);
-			    	pstmt.setString(3, start[i]);
-			    	pstmt.setString(4, end[i]);
-			    	pstmt.setString(5, pm);
-			    	rs = pstmt.executeUpdate();
-		    	}
-		    	
-			}catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-			
-			return rs;
-		}
+	public int setCareer(String[] id, int projectNo,String[] start,String[] end,String pm) 
 	
-		// 프로젝트 전년도 데이터 복사
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
 		
-		
-		
-		// 전년도 프로젝트 복사
-		public int copy_preYearData() 
-		
-		{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			int no = 0;
-			
-			try {
-				int nowYear = maxYear();
-				StringBuffer query = new StringBuffer();
-		    	query.append("insert into project (select 팀_수주, 팀_매출, 프로젝트코드, 프로젝트명, 상태, 실, 고객사, 고객부서, ManMonth, 프로젝트계약금액_백만, 상반기예상수주, 상반기수주, 상반기예상매출, 상반기매출, 하반기예상수주,"
-		    			+ "하반기수주, 하반기예상매출, 하반기매출, 착수, 종료, 고객담당자, 근무지, 업무, PM, 투입명단, 평가유형, 채용수요, 외주수요, 주간보고서사용, 실적보고,no, (year+1) as year, copy"
-		    			+ " from project where year = "+ nowYear +" and copy = 1)");
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	pstmt.executeUpdate();
-	
-			}catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if(rs != null) try {rs.close();} catch(SQLException ex) {}
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-			
-			return no;
+		try {
+	    	conn = DBconnection.getConnection();
+	    	for(int i=0; i<id.length; i++) {
+	    		pstmt = conn.prepareStatement("insert into career(id,projectNo,start,end,pm) values(?,?,?,?,?)");
+		    	pstmt.setString(1, id[i]);
+		    	pstmt.setInt(2, projectNo);
+		    	pstmt.setString(3, start[i]);
+		    	pstmt.setString(4, end[i]);
+		    	pstmt.setString(5, pm);
+		    	rs = pstmt.executeUpdate();
+	    	}
+	    	
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+		
+		return rs;
+	}
+	
+	// 전년도 프로젝트 복사
+	public int copy_preYearData() 
+	
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int no = 0;
+		
+		try {
+			int nowYear = maxYear();
+			StringBuffer query = new StringBuffer();
+	    	query.append("insert into project (select 팀_수주, 팀_매출, 프로젝트코드, 프로젝트명, 상태, 실, 고객사, 고객부서, ManMonth, 프로젝트계약금액_백만, 상반기예상수주, 상반기수주, 상반기예상매출, 상반기매출, 하반기예상수주,"
+	    			+ "하반기수주, 하반기예상매출, 하반기매출, 착수, 종료, 고객담당자, 근무지, 업무, PM, 투입명단, 평가유형, 채용수요, 외주수요, 주간보고서사용, 실적보고,no, (year+1) as year, copy"
+	    			+ " from project where year = "+ nowYear +" and copy = 1)");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.executeUpdate();
+
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return no;
+	}
 		/*
 		// 전년도 프로젝트 복사
 		public int update_preYearData() 
@@ -964,55 +961,245 @@ public class ProjectDAO {
 			return no;
 		}
 		*/
-		public int minYear() {
-			Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    int year = 0;
-		    
-		    try {
-		    	StringBuffer query = new StringBuffer();
-		    	query.append("select min(year) from project");
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	rs = pstmt.executeQuery();
-		    	if(rs.next()) {
-		    		year = rs.getInt("min(year)");
-		    	}
-		    }catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				if(rs != null) try {rs.close();} catch(SQLException ex) {}
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-		    return year;
+	public int minYear() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int year = 0;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select min(year) from project");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	if(rs.next()) {
+	    		year = rs.getInt("min(year)");
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+	    return year;
+	}
 		
-		public int maxYear() {
-			Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    int year = 0;
-		    
-		    try {
-		    	StringBuffer query = new StringBuffer();
-		    	query.append("select max(year) from project");
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	rs = pstmt.executeQuery();
-		    	if(rs.next()) {
-		    		year = rs.getInt("max(year)");
-		    	}
-		    }catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				if(rs != null) try {rs.close();} catch(SQLException ex) {}
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-		    return year;
+	public int maxYear() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int year = 0;
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("select max(year) from project");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	if(rs.next()) {
+	    		year = rs.getInt("max(year)");
+	    	}
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
+	    return year;
+	}
+		
+	// 전체 년도 스프레드시트 SureSoft-PMS에 저장될 시트 리스트 가져오기
+	public LinkedHashMap<String, String> getSpreadSheetList() {
+		LinkedHashMap<String, String> list = new LinkedHashMap<String, String> ();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from spreadSheet order by year;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+
+	    	while(rs.next()) {
+	    		list.put(rs.getString("year"), rs.getString("sheetName"));
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}		
+		return list;
+	}
+	
+	// 해당 년도 스프레드시트 SureSoft-PMS에 저장될 시트 이름 가져오기
+	public String getSpreadSheetYear(String year) {
+		String fileName = new String();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("select * from spreadSheet where year=?;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setString(1, year);
+	    	rs = pstmt.executeQuery();
+
+	    	if(rs.next()) {
+	    		fileName = rs.getString("sheetName");
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}		
+		return fileName;
+	}
+	
+	//1. spreadsheet 테이블 복사
+	public int copySheetToSheetBackup() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="CREATE TABLE IF NOT EXISTS spreadBackUp SELECT * FROM spreadSheet;";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	//2. spreadsheet 테이블 비우기
+	public int truncateSpreadSheet() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="TRUNCATE TABLE spreadSheet;";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	//3. 백업 테이블 spreadsheet 테이블로 복사
+	public int copySheetBackUpToSheet() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="INSERT INTO spreadSheet SELECT * FROM spreadBackUp;";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
+	//4. 백업테이블 삭제
+	public int dropSheetBackUp() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+	    try {
+	    	String query ="DROP TABLE spreadBackUp;";
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeUpdate();
+	    }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+		
+	// 
+	public int insertSpreadSheet(String year[], String[] sheet, int cnt) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		try {
+			copySheetToSheetBackup();	// 1. 백업테이블로 복사
+			truncateSpreadSheet();		// 2. 스프레드시트 테이블 비우기
+			StringBuffer query = new StringBuffer();
+			query.append("insert into spreadSheet(year, sheetName) values(?,?)");
+			if(cnt > 1) {
+				for(int i=0; i<cnt-1; i++) {
+					query.append(",(?,?)");
+				}
+			}
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, year[0]);
+			pstmt.setString(2, sheet[0]);
+			if(cnt > 1) {
+				int count = 3;
+				for(int i=0; i<cnt-1; i++) {
+					pstmt.setString(count, year[i+1]);
+					count++;
+					pstmt.setString(count, sheet[i+1]);
+					count++;
+				}
+			}
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			truncateSpreadSheet();		// 스프레드시트 테이블 비우기
+			copySheetBackUpToSheet();	// 백업테이블에서 스프레드시트 테이블로 복사
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			// 백업 테이블 삭제
+			dropSheetBackUp();
+		}	
+		
+		return rs;
+	}
 }	// end 
