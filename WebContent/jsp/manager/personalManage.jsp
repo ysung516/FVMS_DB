@@ -21,7 +21,7 @@
 			
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(60*60);
+		session.setMaxInactiveInterval(60*240);
 		
 		String id = request.getParameter("id");
 		
@@ -35,6 +35,7 @@
 		int year = Integer.parseInt(sf_yyyy.format(nowTime));
 		
 		ArrayList<rankPeriodBean> rank_period_list = managerDao.getPeriod(id);
+		MemberBean memberInfo = memberDao.returnMember(id);
 %>
 
 <meta charset="utf-8">
@@ -106,6 +107,20 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+th, td{
+	border: 1px solid white;
+	padding: 7px;
+	text-align: center;
+}
+
+th {
+	background-color: #4e73df54;
+}
+
+td {
+	background-color: #ecedf0;
 }
 
 @media ( max-width :765px) {
@@ -301,78 +316,107 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
 					<div class="card shadow mb-4">
+					
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">인사 관리 페이지</h6>
+							<h6 class="m-0 font-weight-bold text-primary" id="view_btn"><%=memberInfo.getNAME() %> 인사 관리 페이지
+							<input type="button" value="퇴사 처리" style="float: right; font-size: small;" class="btn btn-primary" onclick="location.href='resign.jsp?id=<%=id%>'">
+							</h6>
 						</div>
+						
+						<form method="POST" action="savePeriod.jsp">
 						<div class="table-responsive" style="padding: 20px">
+							<input type="hidden" name="id" value="<%=id %>">
+							<input type="hidden" name="cnt" value="<%=rank_period_list.size() %>">
+							<table  style="margin-bottom: 20px;">
+								<tr>
+									<th style="width: 70px;">입사일</th>
+									<td style="width: 360px;"><%=memberInfo.getComDate() %></td>
+								</tr>
+							</table>
+							<table id="InfoTable">
+								<tr>
+									<th style="width: 70px;">직급</th>
+									<th style="width: 180px;">시작 날짜</th>
+									<th style="width: 180px;">종료 날짜</th>
+								</tr>
+								<%for(rankPeriodBean bean : rank_period_list){ %>
+								<tr>
+									<td>
+										<input type="hidden" name="rank" value="<%=bean.getRank()%>"><%=bean.getRank() %>
+									</td>
+									<td>
+										<input type="date" name="startDate" id="comDate" style="width:160px;" value="<%=bean.getStart() %>" max="9999-12-31">
+									</td>
+									<td>
+										<input type="date" name="endDate" id="comDate" style="width:160px;" value="<%=bean.getEnd() %>" max="9999-12-31">
+									</td>
+								</tr>
+								<%} %>
+							</table>
 						</div>
 
 						<!-- /.container-fluid -->
-
 						<div id="manager_btn">
 							<input type="submit" value="저장" class="btn btn-primary">
 						</div>
-						<!-- End of Main Content -->
-
+						</form>
+						
 					</div>
-					<!-- End of Content Wrapper -->
-
 				</div>
-				
+			</div>
+			<!-- End of Main Content -->
+		</div>
+		<!-- End of Content Wrapper -->
 	</div>
 	<!-- End of Page Wrapper -->
 
-				<!-- Scroll to Top Button-->
-				<a class="scroll-to-top rounded" href="#page-top"> <i
-					class="fas fa-angle-up"></i>
-				</a>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-				<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-								<button class="close" type="button" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button"
-									data-dismiss="modal">취소</button>
-								<form method="post" action="../LogoutPro.jsp">
-									<input type="submit" class="btn btn-primary" value="확인" />
-								</form>
-							</div>
-						</div>
-					</div>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
 				</div>
-
-				<!-- Bootstrap core JavaScript-->
-				<script src="../../vendor/jquery/jquery.min.js"></script>
-				<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-				<!-- Core plugin JavaScript-->
-				<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-				<!-- Custom scripts for all pages-->
-				<script src="../../js/sb-admin-2.min.js"></script>
-
-				<!-- Page level plugins -->
-				<script src="../../vendor/chart.js/Chart.min.js"></script>
-
-				<!-- Page level custom scripts -->
-				<script src="../../js/demo/chart-area-demo.js"></script>
-				<script src="../../js/demo/chart-pie-demo.js"></script>
-				<script src="../../js/demo/chart-bar-demo.js"></script>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

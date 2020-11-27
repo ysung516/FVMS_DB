@@ -416,7 +416,35 @@ public class MemberDAO {
 		}
 		return rs;
 	}
+	
+	// period 테이블 전체 수정
+	public int updatePeriod(String rank, String start, String end, String id) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    int rs = 0;
+	    
+		try {
+			String query = "update rank_period set start=?, end=? where id=? and rank=?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
 
+			pstmt.setString(1, start);
+			pstmt.setString(2, end);
+			pstmt.setString(3, id);
+			pstmt.setString(4, rank);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return rs;
+	}
+	
 	 // 마이페이지 수정
 	 public int mypageUpdate(String id, String address, String comeDate, String mobile,
 			 String gmail, String career, String workEx) {
@@ -446,9 +474,38 @@ public class MemberDAO {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-	      return rs;
+	     return rs;
 	 }
 	 
+	 // 퇴사처리
+	public int resignMember(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		Date date = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sf.format(date);
+		
+		try {
+			String query = "update member set 퇴사일 = ? where id = ?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+
+			pstmt.setString(1, today);
+			pstmt.setString(2, id);
+			rs = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return rs;
+	}
 	 
 	 // 회원삭제
 	 public int deleteMember(String id) {

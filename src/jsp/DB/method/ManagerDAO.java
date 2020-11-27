@@ -454,8 +454,8 @@ public class ManagerDAO {
 	    		rankPeriodBean bean = new rankPeriodBean();
 	    		bean.setId(rs.getString("id"));
 	    		bean.setRank(rs.getString("rank"));
-	    		bean.setStart("start");
-	    		bean.setEnd("end");
+	    		bean.setStart(rs.getString("start"));
+	    		bean.setEnd(rs.getString("end"));
 	    		
 	    		list.add(bean);
 	    	}

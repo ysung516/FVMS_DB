@@ -26,15 +26,11 @@ for(int i=0; i<cnt; i++){
 	sheetName = request.getParameterValues("sheetName");
 }
 
-for(int i=0; i<cnt; i++){
-	System.out.println(year[i] + " : " + sheetName[i]);
-}
-
 ProjectDAO projectDAO = new ProjectDAO();
 int rs = projectDAO.insertSpreadSheet(year, sheetName, cnt);
 
 if(rs == cnt){
-	script.print("<script language='javascript'> alert('팀 정보가 저장 되었습니다.'); window.open('','_self').close();</script>");
+	script.print("<script language='javascript'> alert('팀 정보가 저장되었습니다.'); window.open('','_self').close();</script>");
 }else{
 	script.print("<script> alert('저장 실패!!'); history.back();</script>");
 }
