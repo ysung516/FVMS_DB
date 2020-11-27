@@ -22,7 +22,7 @@
 	}
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*60);
+	session.setMaxInactiveInterval(60*240);
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	ReportDAO reportDao = new ReportDAO();

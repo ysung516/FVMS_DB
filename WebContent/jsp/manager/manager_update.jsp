@@ -29,7 +29,7 @@ $(window).load(function () {          //페이지가 로드 되면 로딩 화면
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*60);
+	session.setMaxInactiveInterval(60*240);
 	String id = request.getParameter("id");
 	
 	Date date = new Date();

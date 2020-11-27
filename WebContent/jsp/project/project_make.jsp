@@ -22,7 +22,7 @@
 
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*60);
+	session.setMaxInactiveInterval(60*240);
 	
 	Date nowDate = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");

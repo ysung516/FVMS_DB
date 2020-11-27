@@ -20,7 +20,7 @@
 		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(60*60);
+		session.setMaxInactiveInterval(60*240);
 		String date = request.getParameter("weekDate");
 		int year = Integer.parseInt(date.split("-")[0]);
 		// 문자형 date형으로 변환

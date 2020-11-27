@@ -18,9 +18,9 @@
 		 script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	 }
 	
-	 String sessionID = session.getAttribute("sessionID").toString();
-	 String sessionName = session.getAttribute("sessionName").toString();
-	 session.setMaxInactiveInterval(15*60);
+	String sessionID = session.getAttribute("sessionID").toString();
+	String sessionName = session.getAttribute("sessionName").toString();
+	session.setMaxInactiveInterval(60*240);
 	
 	
 	 // 출력

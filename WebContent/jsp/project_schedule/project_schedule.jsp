@@ -22,7 +22,7 @@
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*60);
+	session.setMaxInactiveInterval(60*240);
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();

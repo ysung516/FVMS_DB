@@ -28,7 +28,7 @@ if (session.getAttribute("sessionID") == null) {
 
 String sessionID = session.getAttribute("sessionID").toString();
 String sessionName = session.getAttribute("sessionName").toString();
-session.setMaxInactiveInterval(60 * 60);
+session.setMaxInactiveInterval(60*240);
 
 int permission = Integer.parseInt(session.getAttribute("permission").toString());
 //int count = 1;
