@@ -18,6 +18,7 @@ public class MemberBean {
 	private String RANK; // 직급
 	private String Position; // 직책
 	private String comDate; // 입사일
+	private String outDate;	// 퇴사일
 	private String career; // 커리어
 	private int level; // 관리자 일정 정렬 순서
 	private String permission; // 권한
@@ -69,6 +70,14 @@ public class MemberBean {
 
 	public void setCareer(String career) {
 		this.career = career;
+	}
+
+	public String getOutDate() {
+		return outDate;
+	}
+
+	public void setOutDate(String outDate) {
+		this.outDate = outDate;
 	}
 
 	public String getComDate() {
