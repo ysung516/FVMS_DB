@@ -16,7 +16,6 @@
 			
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(60*240);
 		ManagerDAO managerDao = new ManagerDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		

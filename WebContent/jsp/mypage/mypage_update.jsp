@@ -15,7 +15,6 @@
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*240);
 	String no = request.getParameter("no");
 	
 	// 출력

@@ -21,7 +21,6 @@
 	if(permission > 2){
 		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
-	session.setMaxInactiveInterval(60*240);
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	

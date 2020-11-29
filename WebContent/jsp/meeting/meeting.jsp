@@ -20,7 +20,6 @@
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*240);
 	MeetingDAO meetDao = new MeetingDAO();
 	
 	ArrayList<MeetBean> list = meetDao.getMeetBean();

@@ -16,7 +16,6 @@
 			
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(60*240);
 		MemberDAO memberDao = new MemberDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		ArrayList<MemberBean> memberList = memberDao.getMemberData();

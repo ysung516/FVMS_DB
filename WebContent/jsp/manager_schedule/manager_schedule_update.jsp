@@ -21,7 +21,6 @@
 	
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
-	session.setMaxInactiveInterval(60*240);
 	int year = Integer.parseInt(request.getParameter("date").split("-")[0]);
 	
 	ManagerDAO managerDao = new ManagerDAO();

@@ -18,8 +18,7 @@
 		}
 		
 		String sessionID = session.getAttribute("sessionID").toString();
-		String sessionName = session.getAttribute("sessionName").toString();
-		session.setMaxInactiveInterval(60*240);
+		String sessionName = session.getAttribute("sessionName").toString();		
 		String date = request.getParameter("date");
 		int year = Integer.parseInt(date.split("-")[0]);
 		
