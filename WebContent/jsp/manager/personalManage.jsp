@@ -320,7 +320,9 @@ td {
 					
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn"><%=memberInfo.getNAME() %> 인사 관리 페이지
+							<%if(memberInfo.getOutDate().equals("-")){ %>
 							<input type="button" value="퇴사 처리" style="float: right; font-size: small;" class="btn btn-primary" onclick="location.href='resign.jsp?id=<%=id%>'">
+							<%} %>
 							</h6>
 						</div>
 						
@@ -332,6 +334,10 @@ td {
 								<tr>
 									<th style="width: 70px;">입사일</th>
 									<td style="width: 360px;"><%=memberInfo.getComDate() %></td>
+								</tr>
+								<tr>
+									<th style="width: 70px;">퇴사일</th>
+									<td style="width: 360px;"><%=memberInfo.getOutDate() %></td>
 								</tr>
 							</table>
 							<table id="InfoTable">
