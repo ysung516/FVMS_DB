@@ -28,7 +28,7 @@
 	SchDAO schDao = new SchDAO();
 	
 	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
-	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
 	ArrayList<schBean> schList = schDao.getProject_except8();
 	
 	Date nowTime = new Date();

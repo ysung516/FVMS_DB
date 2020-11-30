@@ -20,9 +20,9 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		MemberDAO memberDao = new MemberDAO();
-	    ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
 	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation(); //협력업체
-	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();
+	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();	// 협력업체 별 인원 수 가져오기
 	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	%>
 
@@ -546,7 +546,7 @@
 								style="padding-left: 17px;">조직도
 								<label style="font-size: 12px; display: block; margin-left: 5px; margin-top: 5px; margin-bottom: 0px;">
 									<input type="checkbox" id="cooper" name="cooper" value="cooper">
-									<span style="vertical-align: text-top; margin-left: 2px; color: black; font-weight: 100;">협력업체 및 세부정보</span>
+									<span style="vertical-align: text-top; margin-left: 2px; color: black; font-weight: 100;">협력업체 및 상세 정보</span>
 								</label>
 							</h6>
 							

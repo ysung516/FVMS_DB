@@ -12,8 +12,6 @@ public class PostMan {
 	String backupDate = sf.format(date);
 	final String from = "fvms@dsc05157.cafe24.com"; // 메일 보내는 사람
 	final String to = "ymyou@suresofttech.com";	// 메일 받는 사람
-	//final String to = "ysung516@gmail.com"; 
-	//String to = "shinhaelim@gmail.com"; 
 	
 	public void post() {
 		String subject = backupDate+"주간보고서 백업 파일 입니다.";// 제목
@@ -28,9 +26,7 @@ public class PostMan {
 				Mailsystem mt = new Mailsystem();
 
 				// 메일보내기
-				//mt.sendEmail(from, to, cc, subject, content);
 				mt.sendMailWithFile(from, to, subject, content, "Report-export.xlsx");
-				//mt.sendMailWithFile(from, to, subject, content, "C:\\Users\\User\\git\\FVMS_DB\\Report-export.xlsx");
 				System.out.println("메일 전송에 성공하였습니다.");
 			} catch (MessagingException me) {
 				System.out.println("메일 전송에 실패하였습니다.");
@@ -56,7 +52,6 @@ public class PostMan {
 				Mailsystem mt = new Mailsystem();
 
 				// 메일보내기
-				//mt.sendEmail(from, to, cc, subject, content);
 				mt.sendMailWithFile(from, to, subject, content, "MeetingLog-export.xlsx");
 				System.out.println("메일 전송에 성공하였습니다.");
 			} catch (MessagingException me) {

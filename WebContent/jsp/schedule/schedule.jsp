@@ -24,7 +24,7 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
 	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	
 	SchDAO schDao = new SchDAO();

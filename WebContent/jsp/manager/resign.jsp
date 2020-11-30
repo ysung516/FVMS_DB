@@ -16,14 +16,14 @@ String sessionID = session.getAttribute("sessionID").toString();
 String sessionName = session.getAttribute("sessionName").toString();
 
 String id = request.getParameter("id");
+String rank = request.getParameter("rank");
 
 MemberDAO memberDao = new MemberDAO();
 
-if(memberDao.resignMember(id) == 1){
+if(memberDao.resignMember(id, rank) == 1){
 	script.print("<script> alert('퇴사 처리되었습니다..'); location.href = 'manager.jsp'; </script>");
 }else{
 	script.print("<script> alert('퇴사 처리에 실패했습니다.'); history.back(); </script>");
-	
 }
 %>
 </head>

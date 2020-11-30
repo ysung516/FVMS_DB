@@ -375,10 +375,18 @@
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
+							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지
+								<select id="wp_year" name="wp_year" onchange="listLoad()">
+									<%
+										for(int i=0; i<yearCount; i++){%>
+											<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+									<%}%>
+								</select>
+							</h6>
 							<div style="margin-top: 5px;">
 								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:small; margin-right:5px;">관리자 메인</button>
 								<button class="btn btn-primary" onclick="location.href ='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
+								<button id="wp_copy" class="btn btn-primary" style="font-size:small; background-color: #364d91;" onclick="copy_nextYear()"><%=maxYear+1%>년 생성</button>
 							</div>
 						</div>
 						<form method="post" action="workPlace_managePro.jsp">
@@ -386,13 +394,6 @@
 						
 						 <input id="count" type="hidden" name="count">
 						 <input id="year" type="hidden" name="year" value="<%=year%>">
-						<select id="wp_year" name="wp_year" onchange="listLoad()">
-							<%
-								for(int i=0; i<yearCount; i++){%>
-									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
-							<%}%>
-						</select>
-							<input id="wp_copy" type="button" class="btn btn-primary" onclick="copy_nextYear()" value="<%=maxYear+1%>년 생성">
 						<table class="wpTable table table-bordered">
 							<thead>
 								<tr>
