@@ -69,9 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
       	
      
       <%
-        MSC_DAO msc = new MSC_DAO();
+        MSC_DAO mscDao = new MSC_DAO();
 		ArrayList<MSC_Bean> MSCList = new ArrayList<MSC_Bean>();
-		MSCList = msc.allMSC();
+		MSCList = mscDao.allMSC();
 		
 		SimpleDateFormat format = new SimpleDateFormat("HH");
 		Date time = new Date();

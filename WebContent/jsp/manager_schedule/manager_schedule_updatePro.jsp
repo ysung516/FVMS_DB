@@ -36,9 +36,9 @@
 		}
 		String date = request.getParameter("DATE");
 		PrintWriter script =  response.getWriter();
-		MSC_DAO method = new MSC_DAO();
+		MSC_DAO mscDao = new MSC_DAO();
 		
-		if(method.update_MSC(num, AmPlace, PmPlace, date) == 1){
+		if(mscDao.update_MSC(num, AmPlace, PmPlace, date) == 1){
 			 script.print("<script> alert('일정이 수정되었습니다.'); location.href = 'manager_schedule.jsp'; </script>");
 			
 		} else script.print("<script> alert('수정되지 않았습니다.'); history.back(); </script>");
