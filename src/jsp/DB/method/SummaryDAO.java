@@ -17,11 +17,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-
 public class SummaryDAO {
 	public SummaryDAO() {}
 	
-	// 프로젝트이 데이터
+	// 해당 년도 프로젝트 중 실적보고할 프로젝트 리스트 가져오기
 	public ArrayList<ProjectBean> getProjectList(String year){
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -29,9 +28,6 @@ public class SummaryDAO {
 	    ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 	    
 	    try {
-	    	/*Date now = new Date();
-	    	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	    	String year = sf.format(now);*/
 	    	StringBuffer query = new StringBuffer();
 	    	query.append("SELECT * from project where 실적보고 = 1 and year ="+year+" ;");
 	    	conn = DBconnection.getConnection();
@@ -264,6 +260,7 @@ public class SummaryDAO {
 		return result;
 	}
 	
+	// 매출보정 시 마이너스 될 리스트
 	public ArrayList<CMSBean> getCMS_minusList(String projectTeam, String year){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
@@ -296,10 +293,6 @@ public class SummaryDAO {
 	    		cms.setEnd(rs.getString("end"));
 	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[0]));
 	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[1]));
-	    		//현재 직급으로만 계산한 것
-	    		//cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")/100));
-	    		//cms.setSH_MM_CMS((cms.getSH_MM() * rs.getInt("compensation")/100));
-	    		
 	    		//지금까지 직급 내역으로 계산
 	    		float[] result = new float[2];
 	    		try {
@@ -324,6 +317,7 @@ public class SummaryDAO {
 		return list;
 	}
 	
+	// 매출보정 시 플러스 될 리스트
 	public ArrayList<CMSBean> getCMS_plusList(String team, String year){
 		ArrayList<CMSBean> list = new ArrayList<CMSBean>();
 		Connection conn = null;
@@ -355,10 +349,6 @@ public class SummaryDAO {
 	    		cms.setEnd(rs.getString("end"));
 	    		cms.setFH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[0]));
 	    		cms.setSH_MM(Float.parseFloat(cal_manmoth(rs.getString("start"), rs.getString("end"), year)[1]));
-	    		//현재 직급으로만 계산한 것
-	    		//cms.setFH_MM_CMS((cms.getFH_MM() * rs.getInt("compensation")/100));
-	    		//cms.setSH_MM_CMS((cms.getSH_MM() * rs.getInt("compensation")/100));
-	    		
 	    		//지금까지 직급 내역으로 계산
 	    		float[] result = new float[2];
 	    		try {
@@ -382,8 +372,6 @@ public class SummaryDAO {
 		
 		return list;
 	}
-	
-	
 	
 	// summary 수주/매출 테이블용 career 데이터
 	public ArrayList<careerSummary_Bean> getCareerSummary(){
@@ -424,6 +412,7 @@ public class SummaryDAO {
 		
 		return list;
 	}
+	
 	// 팀별 목포 수주,매출 데이터 가져오기
 	public ArrayList<TeamBean> getTagetData(){
 			ArrayList<TeamBean> List = new ArrayList<TeamBean>();
@@ -528,6 +517,7 @@ public class SummaryDAO {
 	    return rs;	    
 	}
 	
+	// 직급과 기준값 가져오기
 	public HashMap<String, Integer> getRank(){
 		HashMap<String, Integer> rank = new LinkedHashMap<String, Integer>();
 		Connection conn = null;
@@ -556,6 +546,7 @@ public class SummaryDAO {
 		return rank;
 	}
 	
+	// 직급 별 기준 값 변경
 	public int[] changeRankCompensation(int step1, int step2, int step3, int step4) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -598,6 +589,7 @@ public class SummaryDAO {
 		return rs;
 	}
 	
+	// 팀 데이터 중 가장 작은 년도 가져오기
 	public int minYear() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -624,6 +616,7 @@ public class SummaryDAO {
 	    return year;
 	}
 	
+	// 팀 데이터 중 가장 최신 년도 가져오기
 	public int maxYear() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
