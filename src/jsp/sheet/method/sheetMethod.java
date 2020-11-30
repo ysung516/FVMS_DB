@@ -29,7 +29,7 @@ import jsp.DB.method.ProjectDAO;
 
 public class sheetMethod {
 
-	final static String FileName = "SureSoft-PMS";
+	final static String FileName = "SureSoft-PMS";	// 동기화 할 구글스프레드시트 파일 이름
 	final static String keyPath = "service.p12";
 
 	// 싱글톤 패턴
@@ -61,11 +61,11 @@ public class sheetMethod {
 
 	// 메인 시트 불러오기
 	public static List<WorksheetEntry> access() throws GeneralSecurityException, IOException, ServiceException {
-		SpreadsheetService service = connect();
+		SpreadsheetService service = connect();	// 스프레드시트 연결
 		List<SpreadsheetEntry> spreadsheets;
 		SpreadsheetFeed feed = service.getFeed(
 				new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full"), SpreadsheetFeed.class);
-		spreadsheets = feed.getEntries();
+		spreadsheets = feed.getEntries();	// 계정이 가지고 있는 스프레드시트 리스트를 가져옴
 		SpreadsheetEntry entry = null;
 		for (int i = 0; i < spreadsheets.size(); i++) {
 			entry = spreadsheets.get(i); // 접근가능 모든파일중 filename찾기
@@ -73,14 +73,15 @@ public class sheetMethod {
 				break;
 			}
 		}
-		List<WorksheetEntry> worksheets = entry.getWorksheets();
+		List<WorksheetEntry> worksheets = entry.getWorksheets();	// 찾은 파일이 가지고 있는 시트 리스트
+		
 		return worksheets;
 	}
 
 	// WorkSheet 찾기
 	public static WorksheetEntry findSheet(String sheetName)
 			throws GeneralSecurityException, IOException, ServiceException {
-		List<WorksheetEntry> worksheets = access();
+		List<WorksheetEntry> worksheets = access();	// 연결 후 시트파일이 가진 시트리스트 불러옴
 		WorksheetEntry worksheet = null;
 		for (int k = 0; k < worksheets.size(); k++) {
 			worksheet = worksheets.get(k);
@@ -88,7 +89,7 @@ public class sheetMethod {
 				break;
 			}
 		}
-		return worksheet;
+		return worksheet;	// 동기화 할 시트
 	}
 
 	// 프로젝트 데이터 스프레드시트와 동기화
