@@ -18,7 +18,7 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		MemberDAO memberDao = new MemberDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		ArrayList<MemberBean> memberList = memberDao.getMemberDataEndOut();
+		ArrayList<MemberBean> memberList = memberDao.getMemberDataEndOut();	// 퇴사한 멤버를 젤 마지막에 오도록 가져오기
 		
 		Date nowDate = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
@@ -285,7 +285,7 @@ tr:last-child {
 
 <!-- sorting table -->
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"> // 소팅
 function sortingNumber( a , b ){  
         if ( typeof a == "number" && typeof b == "number" ) return a - b; 
         // 천단위 쉼표와 공백문자만 삭제하기.  
@@ -416,14 +416,6 @@ function getTextByClone( tag ){
         } 
         var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
         return textContent; 
-}
-
-/*function memberSyn(){
-	location.href ="member_syn.jsp";
-}*/
-
-function workPlaceManage(){
-	location.href ="workPlace_manage.jsp"
 }
 
 function viewDetail(id){
@@ -612,7 +604,7 @@ $(document).ready(function(){
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
 							<!-- <button onclick="memberSyn()">인력 동기화</button> -->
 							<div style="margin-left:15px; margin-top: 5px;">
-								<button class="btn btn-primary" onclick="workPlaceManage()" style="font-size:small; margin-right:5px;">근무지 관리</button>
+								<button class="btn btn-primary" onclick="location.href ='workPlace_manage.jsp'" style="font-size:small; margin-right:5px;">근무지 관리</button>
 								<button class="btn btn-primary" onClick="location.href='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
 								<form name="formUpload" method="post" action="member_sync.jsp" enctype="multipart/form-data"
 										onsubmit="return checkForm(file1)" style="margin-top:5px; font-size:x-small;">
@@ -697,154 +689,156 @@ $(document).ready(function(){
 								</tbody>
 							</table>
 							<script type="text/javascript">
-			       var myTable = document.getElementById( "managerTable" ); 
-			       var replace = replacement( myTable ); 
-			       function sortTD( index ){replace.ascending( index ); } 
-			       function reverseTD( index ){replace.descending( index );} 
-			       
-
-				   	function sort_team(){
-				   		var html = '';
-				   		<%memberList = memberDao.getMemberDataEndOut();
-				   		for (int i=0; i<memberList.size() ; i++){
-					  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-					  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-					  			wyear = nowYear -  comYear + 1;
-					  		}else{
-					  			wyear = 0;
-					  		}%>
-					  		var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
-				   		html += '<tr>';
-				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
-				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
-				   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
-				   		html += '</tr>';
-				   		<%}%>
-				   		$("#manager_List").empty();
-				   		$("#manager_List").append(html);
-				   	}
-				   	
-				   	function sort_part(){
-				   		var html = '';
-				   		<%memberList = memberDao.getMemberData_part();
-				   		for (int i=0; i<memberList.size() ; i++){
-					  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-					  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-					  			wyear = nowYear -  comYear + 1;
-					  		}else{
-					  			wyear = 0;
-					  		}%>
-					  		var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
-				   		html += '<tr>';
-				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
-				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
-				   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
-				   		html += '</tr>';
-				   		<%}%>
-				   		$("#manager_List").empty();
-				   		$("#manager_List").append(html);
-				   	}
-				   	
-				   	function sort_rank(){
-				   		var html = '';
-				   		<%memberList = memberDao.getMemberData_rank();
-				   		for (int i=0; i<memberList.size() ; i++){
-					  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-					  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-					  			wyear = nowYear -  comYear + 1;
-					  		}else{
-					  			wyear = 0;
-							}%>
-							var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
-				   		html += '<tr>';
-				   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
-				   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
-				   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
-				   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
-				   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
-				   		html += '</tr>';
-				   		<%}%>
-				   		$("#manager_List").empty();
-				   		$("#manager_List").append(html);
-				   	}
-			       </script>
-						</div>
-
-						<!-- /.container-fluid -->
-
-						<div id="manager_btn">
-							<a href="manager_add.jsp" class="btn btn-primary">추가</a>
-						</div>
-						<!-- End of Main Content -->
-
-					</div>
-					<!-- End of Content Wrapper -->
-
-				</div>
-				<!-- End of Page Wrapper -->
-
-				<!-- Scroll to Top Button-->
-				<a class="scroll-to-top rounded" href="#page-top"> <i
-					class="fas fa-angle-up"></i>
-				</a>
-
-				<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-								<button class="close" type="button" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button"
-									data-dismiss="modal">취소</button>
-								<form method="post" action="../LogoutPro.jsp">
-									<input type="submit" class="btn btn-primary" value="확인" />
-								</form>
-							</div>
+						       var myTable = document.getElementById( "managerTable" ); 
+						       var replace = replacement( myTable ); 
+						       function sortTD( index ){replace.ascending( index ); } 
+						       function reverseTD( index ){replace.descending( index );} 
+						       
+			
+							   	function sort_team(){
+							   		var html = '';
+							   		<%memberList = memberDao.getMemberDataEndOut();
+							   		for (int i=0; i<memberList.size() ; i++){
+								  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+								  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+								  			wyear = nowYear -  comYear + 1;
+								  		}else{
+								  			wyear = 0;
+								  		}%>
+								  		var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
+							   		html += '<tr>';
+							   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
+							   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+							   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
+							   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
+							   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
+							   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
+							   		html += '</tr>';
+							   		<%}%>
+							   		$("#manager_List").empty();
+							   		$("#manager_List").append(html);
+							   	}
+							   	
+							   	function sort_part(){
+							   		var html = '';
+							   		<%memberList = memberDao.getMemberData_part();
+							   		for (int i=0; i<memberList.size() ; i++){
+								  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+								  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+								  			wyear = nowYear -  comYear + 1;
+								  		}else{
+								  			wyear = 0;
+								  		}%>
+								  		var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
+							   		html += '<tr>';
+							   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
+							   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+							   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
+							   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
+							   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
+							   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
+							   		html += '</tr>';
+							   		<%}%>
+							   		$("#manager_List").empty();
+							   		$("#manager_List").append(html);
+							   	}
+							   	
+							   	function sort_rank(){
+							   		var html = '';
+							   		<%memberList = memberDao.getMemberData_rank();
+							   		for (int i=0; i<memberList.size() ; i++){
+								  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
+								  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+								  			wyear = nowYear -  comYear + 1;
+								  		}else{
+								  			wyear = 0;
+										}%>
+										var str = 'viewDetail("<%=memberList.get(i).getID()%>")';
+							   		html += '<tr>';
+							   		html += '<td>' + '<%=memberList.get(i).getTEAM()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getPART()%>' + '</td>';
+							   		html += '<td><a href="manager_view.jsp?id='+'<%=memberList.get(i).getID()%>'+'">' + '<%=memberList.get(i).getNAME()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getRANK()%>' + '</td>';
+							   		html += '<td>' + '<%=memberList.get(i).getPermission()%>' + '</td>';
+							   		html += '<td class="extra">'+'<%=memberList.get(i).getADDRESS() %>'+'</td>';
+							   		html += '<td class="extra">'+'<%=memberList.get(i).getMOBILE() %>'+'</td>';
+							   		html += '<td class="extra">'+'<%=wyear %>'+'</td>';
+							   		html += '<td class="extra" style="text-align:center;">'+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='"+str+"'>"+'</td>';
+							   		html += '</tr>';
+							   		<%}%>
+							   		$("#manager_List").empty();
+							   		$("#manager_List").append(html);
+							   	}
+							</script>
 						</div>
 					</div>
 				</div>
+				<!-- /.container-fluid -->
 
-				<!-- Bootstrap core JavaScript-->
-				<script src="../../vendor/jquery/jquery.min.js"></script>
-				<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+				<div id="manager_btn">
+					<a href="manager_add.jsp" class="btn btn-primary">추가</a>
+				</div>
+			</div>
+			<!-- End of Main Content -->
 
-				<!-- Core plugin JavaScript-->
-				<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+		</div>
+		<!-- End of Content Wrapper -->
 
-				<!-- Custom scripts for all pages-->
-				<script src="../../js/sb-admin-2.min.js"></script>
+	</div>
+	<!-- End of Page Wrapper -->
 
-				<!-- Page level plugins -->
-				<script src="../../vendor/chart.js/Chart.min.js"></script>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-				<!-- Page level custom scripts -->
-				<script src="../../js/demo/chart-area-demo.js"></script>
-				<script src="../../js/demo/chart-pie-demo.js"></script>
-				<script src="../../js/demo/chart-bar-demo.js"></script>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

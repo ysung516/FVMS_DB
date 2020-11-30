@@ -1473,17 +1473,19 @@ function y_rsales() {
 </script>
 <body id="page-top">
 	<!--  로딩화면  시작  -->
-				  <div class="loading">
-				  <div id="load">
-				<i class="fas fa-spinner fa-10x fa-spin"></i>
-				  </div>
-				  </div>
-		<!--  로딩화면  끝  -->
- <!-- Page Wrapper -->
- <div id="wrapper">
+	<div class="loading">
+		<div id="load">
+			<i class="fas fa-spinner fa-10x fa-spin"></i>
+		</div>
+	</div>
+	<!--  로딩화면  끝  -->
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-  <!-- Sidebar -->
-		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+		<!-- Sidebar -->
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+			id="accordionSidebar">
 			<!-- Sidebar - Brand -->
 
 			<!-- Nav Item - summary -->
@@ -1495,17 +1497,17 @@ function y_rsales() {
 			<li class="nav-item active"><a class="nav-link"
 				href="../summary/summary.jsp"> <i class="fas fa-fw fa-table"></i>
 					<span>수입 요약</span></a></li>
-					
+
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
-				href="../expense_sum/expense_sum.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>지출 요약</span></a></li>
-					
+				href="../expense_sum/expense_sum.jsp"> <i
+					class="fas fa-fw fa-table"></i> <span>지출 요약</span></a></li>
+
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
-				href="../profit_analysis/profit_analysis.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>수익성 분석</span></a></li>
-					
+				href="../profit_analysis/profit_analysis.jsp"> <i
+					class="fas fa-fw fa-table"></i> <span>수익성 분석</span></a></li>
+
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
 				href="../memchart/memchart.jsp"> <i class="fas fa-fw fa-table"></i>
@@ -1524,7 +1526,7 @@ function y_rsales() {
 			<li class="nav-item"><a class="nav-link"
 				href="../project_schedule/project_schedule.jsp"> <i
 					class="fas fa-fw fa-calendar"></i> <span>스케줄 - 프로젝트</span></a></li>
-					
+
 			<!-- Nav Item - manager schedule -->
 			<li class="nav-item"><a class="nav-link"
 				href="../manager_schedule/manager_schedule.jsp"> <i
@@ -1539,7 +1541,7 @@ function y_rsales() {
 			<li class="nav-item"><a class="nav-link"
 				href="../meeting/meeting.jsp"> <i
 					class="fas fa-fw fa-clipboard-list"></i> <span>고객미팅 회의록</span></a></li>
-					
+
 			<!-- Nav Item - meeting -->
 			<li class="nav-item"><a class="nav-link"
 				href="../assessment/assessment.jsp"> <i
@@ -1554,616 +1556,630 @@ function y_rsales() {
 		</ul>
 		<!-- End of Sidebar -->
 
-  <!-- Content Wrapper -->
-  <div id="content-wrapper" class="d-flex flex-column">
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-   <!-- Main Content -->
-   <div id="content">
+			<!-- Main Content -->
+			<div id="content">
 
-    <!-- Topbar -->
-    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+				<!-- Topbar -->
+				<nav
+					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-     <!-- Sidebar Toggle (Topbar) -->
-     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-      <i class="fa fa-bars"></i>
-     </button>
+					<!-- Sidebar Toggle (Topbar) -->
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
 
-     <!-- Topbar Navbar -->
-     <ul class="navbar-nav ml-auto">
-      <div class="topbar-divider d-none d-sm-block"></div>
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav ml-auto">
+						<div class="topbar-divider d-none d-sm-block"></div>
 
-      <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sessionName%></span>
-                <i class="fas fa-info-circle"></i>
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-          </ul>
+						<!-- Nav Item - User Information -->
+						<li class="nav-item dropdown no-arrow"><a
+							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <span
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sessionName%></span>
+								<i class="fas fa-info-circle"></i>
+						</a> <!-- Dropdown - User Information -->
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="#" data-toggle="modal"
+									data-target="#logoutModal"> <i
+									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									Logout
+								</a>
+							</div></li>
+					</ul>
 
-        </nav>
-    <!-- End of Topbar -->
+				</nav>
+				<!-- End of Topbar -->
 
-  <!-- Begin Page Content -->
-    <div class="container-fluid">
- 
-   
-      <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-         		<h6 class="m-0 font-weight-bold text-primary" style="padding-left: 17px;">수주 & 매출
-         		<select id="selYear" name="selYear" onchange="loadYear()">
-         			<%for(int i=0; i<yearCount; i++){%>
-					<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
-					<%}%>
-         		</select>
-         		</h6>
-        	</div>
-            <div class="card-body">
-	<div class="container2">
-	<ul class="tabs">
-		<li class="tab-link current" data-tab="tab-1">전체보기</li>
-		<li class="tab-link" data-tab="tab-2">상반기</li>
-		<li class="tab-link" data-tab="tab-3">하반기</li>
-		<li class="tab-link" data-tab="tab-4">연간</li>
-	</ul>
-			
- 				<div id="tab-1" class="tab-content current">
- 				<label style="margin-right:7px;"><input id="checkALL" class="OSchartClass" type="checkbox" checked>ALL</label>
- 				<label style="margin-right:7px;"><input id="checkFIRST" class="OSchartClass" type="checkbox" checked>상반기</label>
- 				<label style="margin-right:7px;"><input id="checkLAST" class="OSchartClass" type="checkbox" checked>하반기</label>
- 				<label style="margin-right:7px;"><input id="checkYEAR" class="OSchartClass" type="checkbox" checked>연간</label>
- 				<label style="margin-right:7px;"><input id="checkORDER" class="OSchartClass" type="checkbox" checked>수주</label>
- 				<label style="margin-right:7px;"><input id="checkSALE" class="OSchartClass" type="checkbox" checked>매출</label>
- 				<label style="margin-right:7px;"><input id="checkRATE" class="OSchartClass" type="checkbox" checked>비율</label>
- 				<label style="margin-right:7px;"><input id="checkDATA" class="OSchartClass" type="checkbox" checked>값</label>
- 				<%if(permission == 0){ %>
- 				<div id="setRankCompe" style="margin-bottom:10px; font-size:small; width:">
- 					<form name="changeCompe" method="post" action="./summary_changeComp.jsp">
- 						<p style="color:black; margin-bottom:0px; display: list-item; margin-left: 16px;"><b>매출 보정 기준값 변경(단위:만)</b></p>
-	 					<p style="margin-left:15px;">
-		 					수석 : <input name="1step" class="changeCompeData" value="<%=RankCompe.get("수석")%>"/>
-		 					책임 : <input name="2step" class="changeCompeData" value="<%=RankCompe.get("책임")%>"/>
-		 					선임 : <input name="3step" class="changeCompeData" value="<%=RankCompe.get("선임")%>"/>
-		 					전임 : <input name="4step" class="changeCompeData" value="<%=RankCompe.get("전임")%>"/>
-		 					<input type="submit" class="btn btn-primary" name="setCompe" value="변경" 
-		 						style="font-size: xx-small; vertical-align: bottom; margin-left:10px;"/>
-	 					</p>
-	 				</form>
- 				</div>
- 				<%} %>
- 				
-			<form method="post" action="Save_targetData.jsp">
-				<input type="hidden" name="nowYear" value="<%=nowYear %>">
- 				 <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable">
-                  <thead>
-                   <tr>
-                    	<td colspan="3" style="border:0px;"></td>
-                    	<td colspan="<%=teamList.size()-1%>"style="text-align:center;background-color:#5a6f7730;">상세내역(단위: 백만)</td>
-                    	<td>
-                    	<%
-                    		if(permission == 0){
-                    			%><input type="submit" value="저장"><%	
-                    		}	
-                    	%>
-                    	</td>
-                    </tr>  
-                    <tr style="text-align:center;background-color:#5a6f7730;">
-	                    <th>구분</th>
-	                    <th>항목</th>
-	                    <th>Total</th>
-	                    <%for(int key : teamList.keySet()){
-	                    	if(key != 0){%>
-	    	                    <th><%=teamList.get(key).substring(0,4) %></th>
-	                    	<%}
-	                    }%>
-	                    <th>실</th>
-                    </tr>
-                  </thead>  
-                  
-                  <tbody>
-                  	<!-- 상반기목표수주 -->
-                    <tr class="firstTD orderTD dataTD">
-                    	<td rowspan="12" style="text-align:center; font-size: medium; padding-top: 10px" class="firstTD firstTag">상반기</td>
-                    	<td style="text-align:center; vertical-align: middle;">목표 수주</td>
-                    	<td><%=FH_totalGoalOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><input class="sale" name="FH_<%=key%>_PJ" value="<%=FH_goalOrder.get(teamList.get(key))%>"></td>
-                    		<%}
-                    	} %>
-                    	<td><input class="sale" name="FH_0_PJ" value="<%=FH_goalOrder.get(teamList.get(0))%>"></td>
-                    </tr>
-                  	<!-- 상반기예상수주 -->
-                    <tr class="firstTD orderTD dataTD">
-                    	<td>예상 수주</td>
-                    	<td><%=FH_totalpreOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=FH_preOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=FH_preOrder.get(teamList.get(0))%></td>
-                    </tr>
-                  	<!-- 상반기예상수주(%) -->
-                    <tr class="firstTD orderTD rateTD">
-                    	<td>예상 수주(%)</td>
-                    	<td><%=String.format("%.1f", FH_totalpreOrder/FH_totalGoalOrder *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", FH_preOrder.get(teamList.get(key))/FH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", FH_preOrder.get(teamList.get(0))/FH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                  	<!-- 상반기수주달성 -->
-                     <tr class="firstTD orderTD dataTD">
-                    	<td>수주 달성</td> 	
-                    	<td><%=FH_totalachOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=FH_achOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=FH_achOrder.get(teamList.get(0))%></td>
-                    </tr>
-                  	<!-- 상반기수주달성률 -->
-                    <tr class="firstTD orderTD rateTD">
-                    	<td>수주 달성률</td>
-                    	<td><%=String.format("%.1f", FH_totalachOrder/FH_totalGoalOrder *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", FH_achOrder.get(teamList.get(key))/FH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", FH_achOrder.get(teamList.get(0))/FH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                  	<!-- 상반기목표매출 -->
-                    <tr class="firstTD saleTD dataTD">
-                    	<td style="vertical-align: middle;">목표 매출</td>
-                    	<td><%=FH_totalGoalSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><input class="sale" name="FH_<%=key%>_SALES" value='<%=FH_goalSale.get(teamList.get(key))%>'></td>
-                    		<%}
-                    	} %>
-                    	<td><input class="sale" name="FH_0_SALES" value='<%=FH_goalSale.get(teamList.get(0))%>'></td>
-                    </tr>
-                  	<!-- 상반기예상매출 -->
-                    <tr class="firstTD saleTD dataTD">
-                    	<td>예상 매출</td>
-                    	<td><%=FH_totalpreSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=FH_preSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=FH_preSale.get(teamList.get(0))%></td>
-                    </tr>
-                  	<!-- 상반기예상매출(%) -->
-                    <tr class="firstTD saleTD rateTD">
-                    	<td>예상 매출(%)</td>
-                    	<td><%=String.format("%.1f", FH_totalpreSale/FH_totalGoalSale *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", FH_preSale.get(teamList.get(key))/FH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", FH_preSale.get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                  	<!-- 상반기매출달성 -->
-                    <tr class="firstTD saleTD dataTD">
-                    	<td>매출 달성</td>
-                    	<td><%=FH_totalachSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=FH_achSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=FH_achSale.get(teamList.get(0))%></td>
-                    </tr>
-                  	<!-- 상반기매출보정 -->
-                    <tr class="firstTD saleTD dataTD corrTD_fh" style="color:red;">
-                    	<td>매출 보정 </td>
-                    	<td onclick="viewDetail('Total', '상반기')"><%=cmsRate.get(0).get("Total") %></td>
-                    	<%for(String key : cmsRate.get(0).keySet()) {
-                    		if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
-                    		<td onclick="viewDetail('<%=key%>', '상반기')"><%=cmsRate.get(0).get(key) %></td>
-                    		<%}
-                    	} %>
-                    	<td onclick="viewDetail('<%=teamList.get(0) %>', '상반기')"><%=cmsRate.get(0).get(teamList.get(0)) %></td>
-                    </tr>
-                    <!-- 상반기매출달성률 -->
-					<tr class="firstTD saleTD rateTD">
-                    	<td>매출 달성률</td>
-                    	<td><%=String.format("%.1f", FH_totalachSale/FH_totalGoalSale *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", FH_achSale.get(teamList.get(key))/FH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", FH_achSale.get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 상반기매출보정달성률 -->
-                    <tr class="firstTD saleTD rateTD corrRate_fh" style="color:red;">
-                    	<td>매출 보정 달성률</td>
-                    	<td><%=String.format("%.1f", cmsRate.get(0).get("Total")/FH_totalGoalSale *100)%>(%)</td>
-                    	<%for(String key : cmsRate.get(0).keySet()) {
-                    		if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
-                    		<td><%=String.format("%.1f", cmsRate.get(0).get(key)/FH_goalSale.get(key) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", cmsRate.get(0).get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    
-                    <!-- 하반기목표수주 -->
-                    <tr class="lastTD orderTD dataTD">
-                    	<td rowspan="12" style="text-align:center; font-size: medium; padding-top: 10px" class="lastTD lastTag">하반기</td>
-                    	<td style="text-align:center; vertical-align: middle;">목표 수주</td>
-                    	<td><%=SH_totalGoalOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><input class="sale" name="SH_<%=key%>_PJ" value="<%=SH_goalOrder.get(teamList.get(key))%>"></td>
-                    		<%}
-                    	} %>
-                    	<td><input class="sale" name="SH_0_PJ" value="<%=SH_goalOrder.get(teamList.get(0))%>"></td>
-                    </tr>
-                    <!-- 하반기예상수주 -->
-                    <tr class="lastTD orderTD dataTD">
-                    	<td>예상 수주</td>
-                    	<td><%=SH_totalpreOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=SH_preOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=SH_preOrder.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 하반기예상수주(%) -->
-                    <tr class="lastTD orderTD rateTD">
-                    	<td>예상 수주(%)</td>
-                    	<td><%=String.format("%.1f", SH_totalpreOrder/SH_totalGoalOrder *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", SH_preOrder.get(teamList.get(key))/SH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", SH_preOrder.get(teamList.get(0))/SH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 하반기수주달성 -->
-                    <tr class="lastTD orderTD dataTD">
-                    	<td>수주 달성</td>
-                    	<td><%=SH_totalachOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=SH_achOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=SH_achOrder.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 하반기수주달성률 -->
-                    <tr class="lastTD orderTD rateTD">
-                    	<td>수주 달성률</td>
-                    	<td><%=String.format("%.1f", SH_totalachOrder/SH_totalGoalOrder *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", SH_achOrder.get(teamList.get(key))/SH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", SH_achOrder.get(teamList.get(0))/SH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 하반기목표매출 -->
-                    <tr class="lastTD saleTD dataTD">
-                    	<td style="vertical-align: middle;">목표 매출</td>
-                    	<td><%=SH_totalGoalSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><input class="sale" name="SH_<%=key%>_SALES" value='<%=SH_goalSale.get(teamList.get(key))%>'></td>
-                    		<%}
-                    	} %>
-                    	<td><input class="sale" name="SH_0_SALES" value='<%=SH_goalSale.get(teamList.get(0))%>'></td>
-                    </tr>
-                    <!-- 하반기예상매출 -->
-                    <tr class="lastTD saleTD dataTD">
-                    	<td>예상 매출</td>
-                    	<td><%=SH_totalpreSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=SH_preSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=SH_preSale.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 하반기예상매출(%) -->
-                    <tr class="lastTD saleTD rateTD">
-                    	<td>예상 매출(%)</td>
-                    	<td><%=String.format("%.1f", SH_totalpreSale/SH_totalGoalSale *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", SH_preSale.get(teamList.get(key))/SH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", SH_preSale.get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 하반기매출달성 -->
-                    <tr class="lastTD saleTD dataTD">
-                    	<td>매출 달성</td>
-                    	<td><%=SH_totalachSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=SH_achSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=SH_achSale.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 하반기매출보정 -->
-                    <tr class="lastTD saleTD dataTD corrTD_sh" style="color:red;">
-                    	<td>매출 보정 </td>
-                    	<td onclick="viewDetail('Total', '하반기')"><%=cmsRate.get(1).get("Total") %></td>
-                         <%for(String key : cmsRate.get(1).keySet()) {
-                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
-                              <td onclick="viewDetail('<%=key%>', '하반기')"><%=cmsRate.get(1).get(key) %></td>
-                              <%}
-                         } %>
-                        <td onclick="viewDetail('<%=teamList.get(0) %>', '하반기')"><%=cmsRate.get(1).get(teamList.get(0)) %></td>
-                    </tr>
-                    <!-- 하반기매출달성률 -->
-                    <tr class="lastTD saleTD rateTD">
-                    	<td>매출 달성률</td>
-                    	<td><%=String.format("%.1f", SH_totalachSale/SH_totalGoalSale *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", SH_achSale.get(teamList.get(key))/SH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", SH_achSale.get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 하반기매출보정달성률 -->
-                    <tr class="lastTD saleTD rateTD corrRate_sh" style="color:red;">
-                    	<td>매출 보정 달성률</td>
-                    	<td><%=String.format("%.1f", cmsRate.get(1).get("Total")/SH_totalGoalSale *100)%>(%)</td>
-                         <%for(String key : cmsRate.get(1).keySet()) {
-                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
-                              <td><%=String.format("%.1f", cmsRate.get(1).get(key)/SH_goalSale.get(key) *100)%>(%)</td>
-                              <%}
-                         } %>
-                        <td><%=String.format("%.1f", cmsRate.get(1).get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    
-                    <!-- 연간목표수주 -->
-                    <tr class="yearTD orderTD dataTD">
-                    	<td rowspan="12" style="text-align:center; font-size: medium; padding-top: 10px" class="yearTD yearTag">연간</td>
-                    	<td style="text-align:center;">목표 수주</td>
-                    	<td><%=Y_totalGoalOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=Y_goalOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=Y_goalOrder.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 연간예상수주 -->
-                    <tr class="yearTD orderTD dataTD">
-                    	<td>예상 수주</td>
-                    	<td><%=Y_totalpreOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=Y_preOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=Y_preOrder.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 연간예상수주(%) -->
-                     <tr class="yearTD orderTD rateTD">
-                    	<td>예상 수주(%)</td>
-                    	<td><%=String.format("%.1f", Y_totalpreOrder/Y_totalGoalOrder *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", Y_preOrder.get(teamList.get(key))/Y_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", Y_preOrder.get(teamList.get(0))/Y_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 연간수주달성 -->
-                    <tr class="yearTD orderTD dataTD">
-                    	<td>수주 달성</td>
-                    	<td><%=Y_totalachOrder%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=Y_achOrder.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=Y_achOrder.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 연간수주달성률 -->
-                    <tr class="yearTD orderTD rateTD">
-                    	<td>수주 달성률</td>
-                    	<td><%=String.format("%.1f", Y_totalachOrder/Y_totalGoalOrder *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", Y_achOrder.get(teamList.get(key))/Y_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", Y_achOrder.get(teamList.get(0))/Y_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 연간목표매출 -->
-                    <tr class="yearTD saleTD dataTD">
-                    	<td>목표 매출</td>
-                    	<td><%=Y_totalGoalSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=Y_goalSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=Y_goalSale.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 연간예상매출 -->
-                    <tr class="yearTD saleTD dataTD">
-                    	<td>예상 매출</td>
-                    	<td><%=Y_totalpreSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=Y_preSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=Y_preSale.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 연간예상매출(%) -->
-                    <tr class="yearTD saleTD rateTD">
-                    	<td>예상 매출(%)</td>
-                    	<td><%=String.format("%.1f", Y_totalpreSale/Y_totalGoalSale *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", Y_preSale.get(teamList.get(key))/Y_goalSale.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", Y_preSale.get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 연간매출달성 -->
-                    <tr class="yearTD saleTD dataTD">
-                    	<td>매출 달성</td>
-                    	<td><%=Y_totalachSale%></td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=Y_achSale.get(teamList.get(key))%></td>
-                    		<%}
-                    	} %>
-                    	<td><%=Y_achSale.get(teamList.get(0))%></td>
-                    </tr>
-                    <!-- 연간매출보정 -->
-                    <tr class="yearTD saleTD dataTD corrTD_y" style="color:red;">
-                    	<td>매출 보정 </td>
-                    	<td onclick="viewDetail('Total', '연간')"><%=cmsRate.get(2).get("Total") %></td>
-                         <%for(String key : cmsRate.get(2).keySet()) {
-                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
-                              <td onclick="viewDetail('<%=key%>', '연간')"><%=cmsRate.get(2).get(key) %></td>
-                              <%}
-                         } %>
-                        <td onclick="viewDetail('<%=teamList.get(0) %>', '연간')"><%=cmsRate.get(2).get(teamList.get(0)) %></td>
-                    </tr>
-                    <!-- 연간매출달성률 -->
-                    <tr class="yearTD saleTD rateTD">
-                    	<td>매출 달성률</td>
-                    	<td><%=String.format("%.1f", Y_totalachSale/Y_totalGoalSale *100)%>(%)</td>
-                    	<%for(int key : teamList.keySet()){
-                    		if(key != 0){%>
-                    		<td><%=String.format("%.1f", Y_achSale.get(teamList.get(key))/Y_goalSale.get(teamList.get(key)) *100)%>(%)</td>
-                    		<%}
-                    	} %>
-                    	<td><%=String.format("%.1f", Y_achSale.get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                    <!-- 연간매출보정달성률 -->
-                    <tr class="yearTD saleTD rateTD corrRate_y" style="color:red;">
-                    	<td>매출 보정 달성률</td>
-                    	<td><%=String.format("%.1f", cmsRate.get(2).get("Total")/Y_totalGoalSale *100)%>(%)</td>
-                         <%for(String key : cmsRate.get(2).keySet()) {
-                              if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
-                              <td><%=String.format("%.1f", cmsRate.get(2).get(key)/Y_goalSale.get(key) *100)%>(%)</td>
-                              <%}
-                         } %>
-                         <td><%=String.format("%.1f", cmsRate.get(2).get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
-                    </tr>
-                  	  </tbody>                            
-               		 </table>
-               		 </div>
-               		 </form> 
-               		 </div>
-               		
-              
-               <div id="tab-2" class="tab-content current">
-               		
-	            	 <div id="fh_order_chart" class="chart bar"></div>
-	             	 <div id="fh_sales_chart" class="chart bar"></div>
-	             	 <div id="fh_rpj_chart" class="chart pie"></div>
-	             	 <div id="fh_rsales_chart" class="chart pie"></div>
-             	 	
-             </div>
-             	 
-           	  <div id="tab-3" class="tab-content current">
-             	
-					 <div id="sh_order_chart" class="chart bar"></div>
-					 <div id="sh_sales_chart" class="chart bar"></div>
-					<div id="sh_rpj_chart" class="chart pie"></div>
-					 <div id="sh_rsales_chart" class="chart pie"></div>
-           	 		
-           	 </div>
-             	 
-           	  <div id="tab-4" class="tab-content current">
-             		
-					<div id="y_order_chart" class="chart bar"></div>
-					<div id="y_sales_chart" class="chart "></div>
-				 	<div id="y_rpj_chart" class="chart pie"></div>
-				 	<div id="y_rsales_chart" class="chart pie"></div>
-           	 		
-           	 </div>
-             
-    </div>
-    </div>
-              </div>
-              
-
-   
-    <!-- /.container-fluid -->
-</div>
-
-   <!-- End of Main Content -->
-
-  <!-- End of Content Wrapper -->
-
- <!-- End of Page Wrapper -->
-
- <!-- Scroll to Top Button-->
- <a class="scroll-to-top rounded" href="#page-top">
- 	<i class="fas fa-angle-up"></i>
- </a>
-
-<!-- Logout Modal-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-   <div class="modal-content">
-    <div class="modal-header">
-     <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">×</span>
-     </button>
-    </div>
-    <div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-    <div class="modal-footer">
-     <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-    <form method = "post" action = "../LogoutPro.jsp">
-     	  <input type="submit" class="btn btn-primary" value="확인" />
-     </form>
-    </div>
-   </div>
-  </div>
- </div>
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 
 
- <!-- Bootstrap core JavaScript-->
- <script src="../../vendor/jquery/jquery.min.js"></script>
- <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+					<!-- DataTales Example -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary"
+								style="padding-left: 17px;">
+								수주 & 매출 <select id="selYear" name="selYear"
+									onchange="loadYear()">
+									<%for(int i=0; i<yearCount; i++){%>
+									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+									<%}%>
+								</select>
+							</h6>
+						</div>
+						<div class="card-body">
+							<div class="container2">
+								<ul class="tabs">
+									<li class="tab-link current" data-tab="tab-1">전체보기</li>
+									<li class="tab-link" data-tab="tab-2">상반기</li>
+									<li class="tab-link" data-tab="tab-3">하반기</li>
+									<li class="tab-link" data-tab="tab-4">연간</li>
+								</ul>
 
- <!-- Core plugin JavaScript-->
- <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+								<div id="tab-1" class="tab-content current">
+									<label style="margin-right: 7px;"><input id="checkALL"
+										class="OSchartClass" type="checkbox" checked>ALL</label> <label
+										style="margin-right: 7px;"><input id="checkFIRST"
+										class="OSchartClass" type="checkbox" checked>상반기</label> <label
+										style="margin-right: 7px;"><input id="checkLAST"
+										class="OSchartClass" type="checkbox" checked>하반기</label> <label
+										style="margin-right: 7px;"><input id="checkYEAR"
+										class="OSchartClass" type="checkbox" checked>연간</label> <label
+										style="margin-right: 7px;"><input id="checkORDER"
+										class="OSchartClass" type="checkbox" checked>수주</label> <label
+										style="margin-right: 7px;"><input id="checkSALE"
+										class="OSchartClass" type="checkbox" checked>매출</label> <label
+										style="margin-right: 7px;"><input id="checkRATE"
+										class="OSchartClass" type="checkbox" checked>비율</label> <label
+										style="margin-right: 7px;"><input id="checkDATA"
+										class="OSchartClass" type="checkbox" checked>값</label>
+									<%if(permission == 0){ %>
+									<div id="setRankCompe"
+										style="margin-bottom: 10px; font-size: small; width:">
+										<form name="changeCompe" method="post"
+											action="./summary_changeComp.jsp">
+											<p
+												style="color: black; margin-bottom: 0px; display: list-item; margin-left: 16px;">
+												<b>매출 보정 기준값 변경(단위:만)</b>
+											</p>
+											<p style="margin-left: 15px;">
+												수석 : <input name="1step" class="changeCompeData"
+													value="<%=RankCompe.get("수석")%>" /> 책임 : <input
+													name="2step" class="changeCompeData"
+													value="<%=RankCompe.get("책임")%>" /> 선임 : <input
+													name="3step" class="changeCompeData"
+													value="<%=RankCompe.get("선임")%>" /> 전임 : <input
+													name="4step" class="changeCompeData"
+													value="<%=RankCompe.get("전임")%>" /> <input type="submit"
+													class="btn btn-primary" name="setCompe" value="변경"
+													style="font-size: xx-small; vertical-align: bottom; margin-left: 10px;" />
+											</p>
+										</form>
+									</div>
+									<%} %>
 
- <!-- Custom scripts for all pages-->
- <script src="../../js/sb-admin-2.min.js"></script>
+									<form method="post" action="Save_targetData.jsp">
+										<input type="hidden" name="nowYear" value="<%=nowYear %>">
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable">
+												<thead>
+													<tr>
+														<td colspan="3" style="border: 0px;"></td>
+														<td colspan="<%=teamList.size()-1%>"
+															style="text-align: center; background-color: #5a6f7730;">상세내역(단위:
+															백만)</td>
+														<td>
+															<%if(permission == 0){%>
+															<input type="submit" value="저장">
+															<%	}%>
+														</td>
+													</tr>
+													<tr
+														style="text-align: center; background-color: #5a6f7730;">
+														<th>구분</th>
+														<th>항목</th>
+														<th>Total</th>
+														<%for(int key : teamList.keySet()){
+	                    									if(key != 0){%>
+														<th><%=teamList.get(key).substring(0,4) %></th>
+														<%}}%>
+														<th>실</th>
+													</tr>
+												</thead>
 
- <!-- Page level plugins -->
- <script src="../../vendor/chart.js/Chart.min.js"></script>
+												<tbody>
+													<!-- 상반기목표수주 -->
+													<tr class="firstTD orderTD dataTD">
+														<td rowspan="12"
+															style="text-align: center; font-size: medium; padding-top: 10px"
+															class="firstTD firstTag">상반기</td>
+														<td style="text-align: center; vertical-align: middle;">목표
+															수주</td>
+														<td><%=FH_totalGoalOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><input class="sale" name="FH_<%=key%>_PJ"
+															value="<%=FH_goalOrder.get(teamList.get(key))%>"></td>
+														<%}}%>
+                    	
+														<td><input class="sale" name="FH_0_PJ"
+															value="<%=FH_goalOrder.get(teamList.get(0))%>"></td>
+													</tr>
+													<!-- 상반기예상수주 -->
+													<tr class="firstTD orderTD dataTD">
+														<td>예상 수주</td>
+														<td><%=FH_totalpreOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=FH_preOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=FH_preOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 상반기예상수주(%) -->
+													<tr class="firstTD orderTD rateTD">
+														<td>예상 수주(%)</td>
+														<td><%=String.format("%.1f", FH_totalpreOrder/FH_totalGoalOrder *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", FH_preOrder.get(teamList.get(key))/FH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", FH_preOrder.get(teamList.get(0))/FH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 상반기수주달성 -->
+													<tr class="firstTD orderTD dataTD">
+														<td>수주 달성</td>
+														<td><%=FH_totalachOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=FH_achOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=FH_achOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 상반기수주달성률 -->
+													<tr class="firstTD orderTD rateTD">
+														<td>수주 달성률</td>
+														<td><%=String.format("%.1f", FH_totalachOrder/FH_totalGoalOrder *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", FH_achOrder.get(teamList.get(key))/FH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", FH_achOrder.get(teamList.get(0))/FH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 상반기목표매출 -->
+													<tr class="firstTD saleTD dataTD">
+														<td style="vertical-align: middle;">목표 매출</td>
+														<td><%=FH_totalGoalSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><input class="sale" name="FH_<%=key%>_SALES"
+															value='<%=FH_goalSale.get(teamList.get(key))%>'></td>
+														<%}} %>
+														<td><input class="sale" name="FH_0_SALES"
+															value='<%=FH_goalSale.get(teamList.get(0))%>'></td>
+													</tr>
+													<!-- 상반기예상매출 -->
+													<tr class="firstTD saleTD dataTD">
+														<td>예상 매출</td>
+														<td><%=FH_totalpreSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=FH_preSale.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=FH_preSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 상반기예상매출(%) -->
+													<tr class="firstTD saleTD rateTD">
+														<td>예상 매출(%)</td>
+														<td><%=String.format("%.1f", FH_totalpreSale/FH_totalGoalSale *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", FH_preSale.get(teamList.get(key))/FH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", FH_preSale.get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 상반기매출달성 -->
+													<tr class="firstTD saleTD dataTD">
+														<td>매출 달성</td>
+														<td><%=FH_totalachSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=FH_achSale.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=FH_achSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 상반기매출보정 -->
+													<tr class="firstTD saleTD dataTD corrTD_fh"
+														style="color: red;">
+														<td>매출 보정</td>
+														<td onclick="viewDetail('Total', '상반기')"><%=cmsRate.get(0).get("Total") %></td>
+														<%for(String key : cmsRate.get(0).keySet()) {
+                    										if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+														<td onclick="viewDetail('<%=key%>', '상반기')"><%=cmsRate.get(0).get(key) %></td>
+														<%}} %>
+														<td onclick="viewDetail('<%=teamList.get(0) %>', '상반기')"><%=cmsRate.get(0).get(teamList.get(0)) %></td>
+													</tr>
+													<!-- 상반기매출달성률 -->
+													<tr class="firstTD saleTD rateTD">
+														<td>매출 달성률</td>
+														<td><%=String.format("%.1f", FH_totalachSale/FH_totalGoalSale *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", FH_achSale.get(teamList.get(key))/FH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", FH_achSale.get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 상반기매출보정달성률 -->
+													<tr class="firstTD saleTD rateTD corrRate_fh"
+														style="color: red;">
+														<td>매출 보정 달성률</td>
+														<td><%=String.format("%.1f", cmsRate.get(0).get("Total")/FH_totalGoalSale *100)%>(%)</td>
+														<%for(String key : cmsRate.get(0).keySet()) {
+                    										if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+														<td><%=String.format("%.1f", cmsRate.get(0).get(key)/FH_goalSale.get(key) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", cmsRate.get(0).get(teamList.get(0))/FH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
 
- <!-- Page level custom scripts -->
- <script src="../../js/demo/chart-area-demo.js"></script>
- <script src="../../js/demo/chart-pie-demo.js"></script>
- <script src="../../js/demo/chart-bar-demo.js"></script>
+													<!-- 하반기목표수주 -->
+													<tr class="lastTD orderTD dataTD">
+														<td rowspan="12"
+															style="text-align: center; font-size: medium; padding-top: 10px"
+															class="lastTD lastTag">하반기</td>
+														<td style="text-align: center; vertical-align: middle;">목표
+															수주</td>
+														<td><%=SH_totalGoalOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><input class="sale" name="SH_<%=key%>_PJ"
+															value="<%=SH_goalOrder.get(teamList.get(key))%>"></td>
+														<%}} %>
+														<td><input class="sale" name="SH_0_PJ"
+															value="<%=SH_goalOrder.get(teamList.get(0))%>"></td>
+													</tr>
+													<!-- 하반기예상수주 -->
+													<tr class="lastTD orderTD dataTD">
+														<td>예상 수주</td>
+														<td><%=SH_totalpreOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=SH_preOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=SH_preOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 하반기예상수주(%) -->
+													<tr class="lastTD orderTD rateTD">
+														<td>예상 수주(%)</td>
+														<td><%=String.format("%.1f", SH_totalpreOrder/SH_totalGoalOrder *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", SH_preOrder.get(teamList.get(key))/SH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", SH_preOrder.get(teamList.get(0))/SH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 하반기수주달성 -->
+													<tr class="lastTD orderTD dataTD">
+														<td>수주 달성</td>
+														<td><%=SH_totalachOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=SH_achOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=SH_achOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 하반기수주달성률 -->
+													<tr class="lastTD orderTD rateTD">
+														<td>수주 달성률</td>
+														<td><%=String.format("%.1f", SH_totalachOrder/SH_totalGoalOrder *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", SH_achOrder.get(teamList.get(key))/SH_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", SH_achOrder.get(teamList.get(0))/SH_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 하반기목표매출 -->
+													<tr class="lastTD saleTD dataTD">
+														<td style="vertical-align: middle;">목표 매출</td>
+														<td><%=SH_totalGoalSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><input class="sale" name="SH_<%=key%>_SALES"
+															value='<%=SH_goalSale.get(teamList.get(key))%>'></td>
+														<%}} %>
+														<td><input class="sale" name="SH_0_SALES"
+															value='<%=SH_goalSale.get(teamList.get(0))%>'></td>
+													</tr>
+													<!-- 하반기예상매출 -->
+													<tr class="lastTD saleTD dataTD">
+														<td>예상 매출</td>
+														<td><%=SH_totalpreSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=SH_preSale.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=SH_preSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 하반기예상매출(%) -->
+													<tr class="lastTD saleTD rateTD">
+														<td>예상 매출(%)</td>
+														<td><%=String.format("%.1f", SH_totalpreSale/SH_totalGoalSale *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", SH_preSale.get(teamList.get(key))/SH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", SH_preSale.get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 하반기매출달성 -->
+													<tr class="lastTD saleTD dataTD">
+														<td>매출 달성</td>
+														<td><%=SH_totalachSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=SH_achSale.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=SH_achSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 하반기매출보정 -->
+													<tr class="lastTD saleTD dataTD corrTD_sh"
+														style="color: red;">
+														<td>매출 보정</td>
+														<td onclick="viewDetail('Total', '하반기')"><%=cmsRate.get(1).get("Total") %></td>
+														<%for(String key : cmsRate.get(1).keySet()) {
+                              								if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+														<td onclick="viewDetail('<%=key%>', '하반기')"><%=cmsRate.get(1).get(key) %></td>
+														<%}} %>
+														<td onclick="viewDetail('<%=teamList.get(0) %>', '하반기')"><%=cmsRate.get(1).get(teamList.get(0)) %></td>
+													</tr>
+													<!-- 하반기매출달성률 -->
+													<tr class="lastTD saleTD rateTD">
+														<td>매출 달성률</td>
+														<td><%=String.format("%.1f", SH_totalachSale/SH_totalGoalSale *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", SH_achSale.get(teamList.get(key))/SH_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", SH_achSale.get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 하반기매출보정달성률 -->
+													<tr class="lastTD saleTD rateTD corrRate_sh"
+														style="color: red;">
+														<td>매출 보정 달성률</td>
+														<td><%=String.format("%.1f", cmsRate.get(1).get("Total")/SH_totalGoalSale *100)%>(%)</td>
+														<%for(String key : cmsRate.get(1).keySet()) {
+                              								if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+														<td><%=String.format("%.1f", cmsRate.get(1).get(key)/SH_goalSale.get(key) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", cmsRate.get(1).get(teamList.get(0))/SH_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+
+													<!-- 연간목표수주 -->
+													<tr class="yearTD orderTD dataTD">
+														<td rowspan="12"
+															style="text-align: center; font-size: medium; padding-top: 10px"
+															class="yearTD yearTag">연간</td>
+														<td style="text-align: center;">목표 수주</td>
+														<td><%=Y_totalGoalOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=Y_goalOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=Y_goalOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 연간예상수주 -->
+													<tr class="yearTD orderTD dataTD">
+														<td>예상 수주</td>
+														<td><%=Y_totalpreOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=Y_preOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=Y_preOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 연간예상수주(%) -->
+													<tr class="yearTD orderTD rateTD">
+														<td>예상 수주(%)</td>
+														<td><%=String.format("%.1f", Y_totalpreOrder/Y_totalGoalOrder *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", Y_preOrder.get(teamList.get(key))/Y_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", Y_preOrder.get(teamList.get(0))/Y_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 연간수주달성 -->
+													<tr class="yearTD orderTD dataTD">
+														<td>수주 달성</td>
+														<td><%=Y_totalachOrder%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=Y_achOrder.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=Y_achOrder.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 연간수주달성률 -->
+													<tr class="yearTD orderTD rateTD">
+														<td>수주 달성률</td>
+														<td><%=String.format("%.1f", Y_totalachOrder/Y_totalGoalOrder *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", Y_achOrder.get(teamList.get(key))/Y_goalOrder.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", Y_achOrder.get(teamList.get(0))/Y_goalOrder.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 연간목표매출 -->
+													<tr class="yearTD saleTD dataTD">
+														<td>목표 매출</td>
+														<td><%=Y_totalGoalSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=Y_goalSale.get(teamList.get(key))%></td>
+														<%}}%>
+														<td><%=Y_goalSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 연간예상매출 -->
+													<tr class="yearTD saleTD dataTD">
+														<td>예상 매출</td>
+														<td><%=Y_totalpreSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=Y_preSale.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=Y_preSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 연간예상매출(%) -->
+													<tr class="yearTD saleTD rateTD">
+														<td>예상 매출(%)</td>
+														<td><%=String.format("%.1f", Y_totalpreSale/Y_totalGoalSale *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", Y_preSale.get(teamList.get(key))/Y_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", Y_preSale.get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 연간매출달성 -->
+													<tr class="yearTD saleTD dataTD">
+														<td>매출 달성</td>
+														<td><%=Y_totalachSale%></td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=Y_achSale.get(teamList.get(key))%></td>
+														<%}} %>
+														<td><%=Y_achSale.get(teamList.get(0))%></td>
+													</tr>
+													<!-- 연간매출보정 -->
+													<tr class="yearTD saleTD dataTD corrTD_y"
+														style="color: red;">
+														<td>매출 보정</td>
+														<td onclick="viewDetail('Total', '연간')"><%=cmsRate.get(2).get("Total") %></td>
+														<%for(String key : cmsRate.get(2).keySet()) {
+                              								if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+														<td onclick="viewDetail('<%=key%>', '연간')"><%=cmsRate.get(2).get(key) %></td>
+														<%}} %>
+														<td onclick="viewDetail('<%=teamList.get(0) %>', '연간')"><%=cmsRate.get(2).get(teamList.get(0)) %></td>
+													</tr>
+													<!-- 연간매출달성률 -->
+													<tr class="yearTD saleTD rateTD">
+														<td>매출 달성률</td>
+														<td><%=String.format("%.1f", Y_totalachSale/Y_totalGoalSale *100)%>(%)</td>
+														<%for(int key : teamList.keySet()){
+                    										if(key != 0){%>
+														<td><%=String.format("%.1f", Y_achSale.get(teamList.get(key))/Y_goalSale.get(teamList.get(key)) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", Y_achSale.get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+													<!-- 연간매출보정달성률 -->
+													<tr class="yearTD saleTD rateTD corrRate_y"
+														style="color: red;">
+														<td>매출 보정 달성률</td>
+														<td><%=String.format("%.1f", cmsRate.get(2).get("Total")/Y_totalGoalSale *100)%>(%)</td>
+														<%for(String key : cmsRate.get(2).keySet()) {
+                              								if(!key.equals(teamList.get(0)) && !key.equals("Total")){%>
+														<td><%=String.format("%.1f", cmsRate.get(2).get(key)/Y_goalSale.get(key) *100)%>(%)</td>
+														<%}} %>
+														<td><%=String.format("%.1f", cmsRate.get(2).get(teamList.get(0))/Y_goalSale.get(teamList.get(0)) *100)%>(%)</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</form>
+								</div>
+
+
+								<div id="tab-2" class="tab-content current">
+
+									<div id="fh_order_chart" class="chart bar"></div>
+									<div id="fh_sales_chart" class="chart bar"></div>
+									<div id="fh_rpj_chart" class="chart pie"></div>
+									<div id="fh_rsales_chart" class="chart pie"></div>
+
+								</div>
+
+								<div id="tab-3" class="tab-content current">
+
+									<div id="sh_order_chart" class="chart bar"></div>
+									<div id="sh_sales_chart" class="chart bar"></div>
+									<div id="sh_rpj_chart" class="chart pie"></div>
+									<div id="sh_rsales_chart" class="chart pie"></div>
+
+								</div>
+
+								<div id="tab-4" class="tab-content current">
+
+									<div id="y_order_chart" class="chart bar"></div>
+									<div id="y_sales_chart" class="chart "></div>
+									<div id="y_rpj_chart" class="chart pie"></div>
+									<div id="y_rsales_chart" class="chart pie"></div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+
+			<!-- End of Main Content -->
+		</div>
+		<!-- End of Content Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 
 </body>
 
