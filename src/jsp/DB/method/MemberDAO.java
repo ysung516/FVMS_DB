@@ -30,7 +30,9 @@ public class MemberDAO {
 	    
 	    try {
 	    	StringBuffer query = new StringBuffer();
-	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
+	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
+	    			+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName "
+	    			+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
 	    	conn = DBconnection.getConnection();
 	    	pstmt = conn.prepareStatement(query.toString());
 	    	rs = pstmt.executeQuery();
@@ -45,6 +47,53 @@ public class MemberDAO {
 	    		member.setPosition(rs.getString("직책"));
 	    		member.setADDRESS(rs.getString("거주지"));
 	    		member.setComDate(rs.getString("입사일"));
+	    		member.setMOBILE(rs.getString("mobile"));
+	    		member.setGMAIL(rs.getString("gmail"));	
+	    		member.setCareer(rs.getString("프로젝트수행이력"));
+	    		member.setLevel(rs.getInt("level"));
+	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
+	    		list.add(member);
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
+	
+	// 모든 회원정보 가져오기 (퇴사 인원 끝순서로)
+	public ArrayList<MemberBean> getMemberDataEndOut() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
+	    			+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName "
+	    			+ "ORDER BY a.퇴사일, d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일;");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		MemberBean member = new MemberBean();
+	    		member.setID(rs.getString("id"));
+	    		member.setPASSWORD(rs.getString("pw"));
+	    		member.setPART(rs.getString("소속"));
+	    		member.setTEAM(rs.getString("팀"));
+	    		member.setNAME(rs.getString("이름"));
+	    		member.setRANK(rs.getString("직급"));
+	    		member.setPosition(rs.getString("직책"));
+	    		member.setADDRESS(rs.getString("거주지"));
+	    		member.setComDate(rs.getString("입사일"));
+	    		member.setOutDate(rs.getString("퇴사일"));
 	    		member.setMOBILE(rs.getString("mobile"));
 	    		member.setGMAIL(rs.getString("gmail"));	
 	    		member.setCareer(rs.getString("프로젝트수행이력"));

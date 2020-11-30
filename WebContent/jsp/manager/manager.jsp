@@ -18,7 +18,7 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		MemberDAO memberDao = new MemberDAO();
 		int permission = Integer.parseInt(session.getAttribute("permission").toString());
-		ArrayList<MemberBean> memberList = memberDao.getMemberData();
+		ArrayList<MemberBean> memberList = memberDao.getMemberDataEndOut();
 		
 		Date nowDate = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
@@ -656,36 +656,44 @@ $(document).ready(function(){
 								</thead>
 								<tbody id="manager_List">
 									<%
-		  	for(int i=0; i<memberList.size(); i++){
-		  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
-		  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
-		  			wyear = nowYear -  comYear + 1;
-		  		}else{
-		  			wyear = 0;
-		  		}
-		  		%><tr style="text-align: left;">
+										for (int i = 0; i < memberList.size(); i++) {
+										if (memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")) {
+											comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
+											wyear = nowYear - comYear + 1 + memberList.get(i).getWorkEx();
+										} else {
+											wyear = 0;
+										}
+									%>
+									<%if(memberList.get(i).getOutDate().equals("-")) {%>
+									<tr style="text-align: left;">
+									<%}else{ %>
+									<tr style="text-align: left; background-color: #d5d5d5;">
+									<%} %>
 										<td><%=memberList.get(i).getTEAM()%></td>
 
 										<td><%=memberList.get(i).getPART()%></td>
 
 										<td><a
-											href="manager_view.jsp?id=<%=memberList.get(i).getID()%>"><%=memberList.get(i).getNAME() %></a></td>
+											href="manager_view.jsp?id=<%=memberList.get(i).getID()%>"><%=memberList.get(i).getNAME()%></a></td>
 
 										<td><%=memberList.get(i).getRANK()%></td>
 
-										<td><%=memberList.get(i).getPermission() %></td>
-										<td class="extra"><%=memberList.get(i).getADDRESS() %></td>
-										<td class="extra"><%=memberList.get(i).getMOBILE() %></td>
-										<td class="extra"><%=wyear+memberList.get(i).getWorkEx() %></td>
-										<td class="extra" style="text-align:center;">
-											<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail("<%=memberList.get(i).getID()%>")'>
+										<td><%=memberList.get(i).getPermission()%></td>
+										<td class="extra"><%=memberList.get(i).getADDRESS()%></td>
+										<td class="extra"><%=memberList.get(i).getMOBILE()%></td>
+										<td class="extra"><%=wyear + memberList.get(i).getWorkEx()%></td>
+										<td class="extra" style="text-align: center;"><input
+											type='button'
+											class='detailBTN btn btn-info btn-icon-split btn-sm'
+											value='상세보기'
+											onclick='viewDetail("<%=memberList.get(i).getID()%>")'>
 										</td>
-										
-										
+
+
 									</tr>
-									<%	
-		  	}
-		  %>
+									<%
+										}
+									%>
 
 								</tbody>
 							</table>
