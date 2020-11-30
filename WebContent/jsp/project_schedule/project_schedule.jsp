@@ -24,7 +24,9 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	
 	ProjectDAO projectDao = new ProjectDAO();
+	// 실, 팀별 프로젝트 정보 HashMap<팀명, ArrayList<프로젝트스케줄빈>>
 	HashMap<String, ArrayList<Project_sch_Bean>> projectList = projectDao.getProjectList_team();
+	
 	MemberDAO memberDao = new MemberDAO();
 	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 
@@ -33,19 +35,12 @@
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
 	int year = Integer.parseInt(date.split("-")[0]); // 이번 년도
-	
-	// 실, 팀별 프로젝트 정보 HashMap<팀명, ArrayList<프로젝트스케줄빈>>
-	HashMap<String, ArrayList<Project_sch_Bean>> projectMap = new HashMap<String, ArrayList<Project_sch_Bean>>();
-	for(int key : teamList.keySet()){
-		ArrayList<Project_sch_Bean> teamProject = projectList.get(teamList.get(key));
-		projectMap.put(teamList.get(key), teamProject);
-	}
-	
+
 	// 실, 팀 프로젝트 상태별 개수 HashMap<팀명, HashMap<상태, 개수>>
 	HashMap<String, HashMap<String, Integer>> projectNum = new HashMap<String, HashMap<String, Integer>>();
 	for(int key : teamList.keySet()){
 		HashMap<String, Integer> projectState = new HashMap<String, Integer>();
-		for(Project_sch_Bean i : projectMap.get(teamList.get(key))){
+		for(Project_sch_Bean i : projectList.get(teamList.get(key))){
 			if(projectState.containsKey(i.getSTATE())){
 				projectState.put(i.getSTATE(), projectState.get(i.getSTATE())+1);
 			}else{
@@ -652,145 +647,147 @@
 					</ul>
 					<button onclick="goPrint()">인쇄</button>
 				</nav>
+				<!-- Topbar end -->
+				
 				<h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
 				<div class="tableST" id="infoDiv">
-				<div class="table-responsive">
-				<table class="memberTable" id="infoTable" style="font-size:14px;">
-					<thead>
-	                  <tr style="background-color:#15a3da52;">
-		                    <th>상태</th>
-		                    <th>Total</th>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<th><%=teamList.get(key).substring(0, 4) %></th>
-		                    	<%} 
-		                    }%>
-		                    <th>실</th>
-	                    </tr>
-                    </thead>
-                    <tbody>
-	                    <tr id="step1">
-		                    <th style="text-align:left">1.예산확보</th>
-		                    <td onclick="clickfun('1.예산확보', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('1.예산확보', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("1.예산확보")!=null){%><%=projectNum.get(teamList.get(key)).get("1.예산확보") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('1.예산확보', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("1.예산확보")!=null){%><%=projectNum.get(teamList.get(0)).get("1.예산확보") %><%}else{ %>0<%} %></td>
-	                    </tr>
-	                   <tr id="step2">
-		                    <th style="text-align:left">2.고객의사</th>
-		                    <td onclick="clickfun('2.고객의사', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('2.고객의사', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("2.고객의사")!=null){%><%=projectNum.get(teamList.get(key)).get("2.고객의사") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('2.고객의사', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("2.고객의사")!=null){%><%=projectNum.get(teamList.get(0)).get("2.고객의사") %><%}else{ %>0<%} %></td>
-	                    </tr> 
-	                   <tr id="step3">
-		                    <th style="text-align:left">3.제안단계</th>
-		                    <td onclick="clickfun('3.제안단계', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('3.제안단계', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("3.제안단계")!=null){%><%=projectNum.get(teamList.get(key)).get("3.제안단계") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('3.제안단계', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("3.제안단계")!=null){%><%=projectNum.get(teamList.get(0)).get("3.제안단계") %><%}else{ %>0<%} %></td>
-	                    </tr> 
-	                   <tr id="step4">
-		                    <th style="text-align:left">4.업체선정</th>
-		                    <td onclick="clickfun('4.업체선정', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('4.업체선정', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("4.업체선정")!=null){%><%=projectNum.get(teamList.get(key)).get("4.업체선정") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('4.업체선정', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("4.업체선정")!=null){%><%=projectNum.get(teamList.get(0)).get("4.업체선정") %><%}else{ %>0<%} %></td>
-	                    </tr> 
-	                   <tr id="step5">
-		                    <th style="text-align:left">5.진행예정</th>
-		                    <td onclick="clickfun('5.진행예정', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('5.진행예정', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("5.진행예정")!=null){%><%=projectNum.get(teamList.get(key)).get("5.진행예정") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('5.진행예정', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("5.진행예정")!=null){%><%=projectNum.get(teamList.get(0)).get("5.진행예정") %><%}else{ %>0<%} %></td>
-	                    </tr> 
-	                   <tr id="step6">
-		                    <th style="text-align:left">6.진행중</th>
-		                    <td onclick="clickfun('6.진행중', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('6.진행중', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("6.진행중")!=null){%><%=projectNum.get(teamList.get(key)).get("6.진행중") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('6.진행중', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("6.진행중")!=null){%><%=projectNum.get(teamList.get(0)).get("6.진행중") %><%}else{ %>0<%} %></td>
-	                    </tr>
-						<tr id="step7">
-		                    <th style="text-align:left">7.종료</th>
-		                    <td onclick="clickfun('7.종료', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('7.종료', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("7.종료")!=null){%><%=projectNum.get(teamList.get(key)).get("7.종료") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('7.종료', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("7.종료")!=null){%><%=projectNum.get(teamList.get(0)).get("7.종료") %><%}else{ %>0<%} %></td>
-	                    </tr>
-						<tr id="step8">
-		                    <th style="text-align:left">8.Dropped</th>
-		                    <td onclick="clickfun('8.Dropped', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('8.Dropped', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("8.Dropped")!=null){%><%=projectNum.get(teamList.get(key)).get("8.Dropped") %><%}else{ %>0<%} %></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('8.Dropped', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("8.Dropped")!=null){%><%=projectNum.get(teamList.get(0)).get("8.Dropped") %><%}else{ %>0<%} %></td>
-	                   </tr>
-					   <tr id="step9">
-		                    <th style="text-align:left">Total</th>
-		                    <td onclick="clickfun('total', 'total')"></td>
-		                    <%for(int key : teamList.keySet()){ 
-		                    	if(key != 0){%>
-		                    	<td onclick="clickfun('total', '<%=teamList.get(key)%>')"><%=projectMap.get(teamList.get(key)).size()%></td>
-		                    	<%} 
-		                    }%>
-		                    <td onclick="clickfun('total', '<%=teamList.get(0)%>')"><%=projectMap.get(teamList.get(0)).size()%></td>
-	                   </tr>
-                   </tbody>
-                </table>
-                </div>
-				
-				<div class="table-responsive2">
-				<table class="table table-bordered" id="select_info" style="font-size:12px;">
-	                <thead> 
-	                    <tr style="text-align:center;background-color:#15a3da52;">
-		                    <th style="width:12%;">팀(수주)</th>
-		                    <th style="width:12%;">팀(매출)</th>
-		                    <th style="width:29%;">프로젝트명</th>
-		                    <th style="width:13%;">고객사</th>
-		                    <th style="width:13%;">착수</th>
-		                    <th style="width:13%;">종료</th>
-		                    <th style="width:8%;">PM</th>                 	         
-	                    </tr>
-                    </thead>
-                    <tbody id="projectINFO"></tbody>
-                </table>
-                </div>
+					<div class="table-responsive">
+					<table class="memberTable" id="infoTable" style="font-size:14px;">
+						<thead>
+		                  <tr style="background-color:#15a3da52;">
+			                    <th>상태</th>
+			                    <th>Total</th>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<th><%=teamList.get(key).substring(0, 4) %></th>
+			                    	<%} 
+			                    }%>
+			                    <th>실</th>
+		                    </tr>
+	                    </thead>
+	                    <tbody>
+		                    <tr id="step1">
+			                    <th style="text-align:left">1.예산확보</th>
+			                    <td onclick="clickfun('1.예산확보', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('1.예산확보', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("1.예산확보")!=null){%><%=projectNum.get(teamList.get(key)).get("1.예산확보") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('1.예산확보', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("1.예산확보")!=null){%><%=projectNum.get(teamList.get(0)).get("1.예산확보") %><%}else{ %>0<%} %></td>
+		                    </tr>
+		                   <tr id="step2">
+			                    <th style="text-align:left">2.고객의사</th>
+			                    <td onclick="clickfun('2.고객의사', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('2.고객의사', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("2.고객의사")!=null){%><%=projectNum.get(teamList.get(key)).get("2.고객의사") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('2.고객의사', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("2.고객의사")!=null){%><%=projectNum.get(teamList.get(0)).get("2.고객의사") %><%}else{ %>0<%} %></td>
+		                    </tr> 
+		                   <tr id="step3">
+			                    <th style="text-align:left">3.제안단계</th>
+			                    <td onclick="clickfun('3.제안단계', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('3.제안단계', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("3.제안단계")!=null){%><%=projectNum.get(teamList.get(key)).get("3.제안단계") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('3.제안단계', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("3.제안단계")!=null){%><%=projectNum.get(teamList.get(0)).get("3.제안단계") %><%}else{ %>0<%} %></td>
+		                    </tr> 
+		                   <tr id="step4">
+			                    <th style="text-align:left">4.업체선정</th>
+			                    <td onclick="clickfun('4.업체선정', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('4.업체선정', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("4.업체선정")!=null){%><%=projectNum.get(teamList.get(key)).get("4.업체선정") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('4.업체선정', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("4.업체선정")!=null){%><%=projectNum.get(teamList.get(0)).get("4.업체선정") %><%}else{ %>0<%} %></td>
+		                    </tr> 
+		                   <tr id="step5">
+			                    <th style="text-align:left">5.진행예정</th>
+			                    <td onclick="clickfun('5.진행예정', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('5.진행예정', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("5.진행예정")!=null){%><%=projectNum.get(teamList.get(key)).get("5.진행예정") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('5.진행예정', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("5.진행예정")!=null){%><%=projectNum.get(teamList.get(0)).get("5.진행예정") %><%}else{ %>0<%} %></td>
+		                    </tr> 
+		                   <tr id="step6">
+			                    <th style="text-align:left">6.진행중</th>
+			                    <td onclick="clickfun('6.진행중', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('6.진행중', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("6.진행중")!=null){%><%=projectNum.get(teamList.get(key)).get("6.진행중") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('6.진행중', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("6.진행중")!=null){%><%=projectNum.get(teamList.get(0)).get("6.진행중") %><%}else{ %>0<%} %></td>
+		                    </tr>
+							<tr id="step7">
+			                    <th style="text-align:left">7.종료</th>
+			                    <td onclick="clickfun('7.종료', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('7.종료', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("7.종료")!=null){%><%=projectNum.get(teamList.get(key)).get("7.종료") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('7.종료', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("7.종료")!=null){%><%=projectNum.get(teamList.get(0)).get("7.종료") %><%}else{ %>0<%} %></td>
+		                    </tr>
+							<tr id="step8">
+			                    <th style="text-align:left">8.Dropped</th>
+			                    <td onclick="clickfun('8.Dropped', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('8.Dropped', '<%=teamList.get(key)%>')"><%if(projectNum.get(teamList.get(key)).get("8.Dropped")!=null){%><%=projectNum.get(teamList.get(key)).get("8.Dropped") %><%}else{ %>0<%} %></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('8.Dropped', '<%=teamList.get(0)%>')"><%if(projectNum.get(teamList.get(0)).get("8.Dropped")!=null){%><%=projectNum.get(teamList.get(0)).get("8.Dropped") %><%}else{ %>0<%} %></td>
+		                   </tr>
+						   <tr id="step9">
+			                    <th style="text-align:left">Total</th>
+			                    <td onclick="clickfun('total', 'total')"></td>
+			                    <%for(int key : teamList.keySet()){ 
+			                    	if(key != 0){%>
+			                    	<td onclick="clickfun('total', '<%=teamList.get(key)%>')"><%=projectList.get(teamList.get(key)).size()%></td>
+			                    	<%} 
+			                    }%>
+			                    <td onclick="clickfun('total', '<%=teamList.get(0)%>')"><%=projectList.get(teamList.get(0)).size()%></td>
+		                   </tr>
+	                   </tbody>
+	                </table>
+	                </div>
+					
+					<div class="table-responsive2">
+					<table class="table table-bordered" id="select_info" style="font-size:12px;">
+		                <thead> 
+		                    <tr style="text-align:center;background-color:#15a3da52;">
+			                    <th style="width:12%;">팀(수주)</th>
+			                    <th style="width:12%;">팀(매출)</th>
+			                    <th style="width:29%;">프로젝트명</th>
+			                    <th style="width:13%;">고객사</th>
+			                    <th style="width:13%;">착수</th>
+			                    <th style="width:13%;">종료</th>
+			                    <th style="width:8%;">PM</th>                 	         
+		                    </tr>
+	                    </thead>
+	                    <tbody id="projectINFO"></tbody>
+	                </table>
+	                </div>
         
                 </div>
                 
 	            <div id="timelineChart"></div>
-			</div>			
-						<!-- /.container-fluid -->
-				
-					<!-- End of Main Content -->
+		</div>			
+					<!-- /.container-fluid -->
 			
-				<!-- End of Content Wrapper -->
-			
-			<!-- End of Page Wrapper -->
+				<!-- End of Main Content -->
+		
+			<!-- End of Content Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
 			<!-- Scroll to Top Button-->
 			<a class="scroll-to-top rounded" href="#page-top"> <i
 				class="fas fa-angle-up"></i>

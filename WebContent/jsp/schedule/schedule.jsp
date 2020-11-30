@@ -24,11 +24,11 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
-	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();	// 퇴사 제외 멤버 리스트 가져오기
+	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();	// 올해 팀 리스트 가져오기
 	
 	SchDAO schDao = new SchDAO();
-	ArrayList<schBean> schList = schDao.getProject_except8();
+	ArrayList<schBean> schList = schDao.getProject_except8();	// 드롭 상태인 프로젝트 제외하고 가져오기
 	
 	// 현재 날짜 가져오기
 	Date nowTime = new Date();
@@ -1053,61 +1053,61 @@
                 <div id="timelineChart"></div>
 
 			</div>			
-						<!-- /.container-fluid -->
-				
-					<!-- End of Main Content -->
-			
-				<!-- End of Content Wrapper -->
-			
-			<!-- End of Page Wrapper -->
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fas fa-angle-up"></i>
-			</a>
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-							<button class="close" type="button" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button"
-								data-dismiss="modal">취소</button>
-							<form method="post" action="../LogoutPro.jsp">
-								<input type="submit" class="btn btn-primary" value="확인" />
-							</form>
-						</div>
-					</div>
+				<!-- /.container-fluid -->
+		
+			<!-- End of Main Content -->
+	
+		<!-- End of Content Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
 				</div>
 			</div>
+		</div>
+	</div>
 
 
 
-			<!-- Bootstrap core JavaScript-->
-			<script src="../../vendor/jquery/jquery.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
 
-			<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-			<!-- Core plugin JavaScript-->
-			<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-			<!-- Custom scripts for all pages-->
-			<script src="../../js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
 
-			<!-- Page level plugins -->
-			<script src="../../vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
 
-			<!-- Page level custom scripts -->
-			<script src="../../js/demo/chart-area-demo.js"></script>
-			<script src="../../js/demo/chart-pie-demo.js"></script>
-			<script src="../../js/demo/chart-bar-demo.js"></script>
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

@@ -23,18 +23,20 @@
 		
 		String [] line;
 		
+		// 현재 년도 가져오기
 		Date nowDate = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 		int nowYear = Integer.parseInt(sf.format(nowDate));
-		String wyear = "";
 		
+		// 입사일과 경력으로 연차 구하기
+		String wyear = "";
 		if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){
   			int comYear = Integer.parseInt(member.getComDate().split("-")[0]);
-  			wyear = Integer.toString(nowYear -  comYear + 1);
+  			wyear = Integer.toString(nowYear -  comYear + 1) + member.getWorkEx();
   		}else{
   			wyear = "입사일을 올바르게 입력하세요.";
   		}
-	%>
+%>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -269,8 +271,6 @@
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
-
-
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
@@ -323,14 +323,13 @@
 									</tr>
 									<tr>
 										<th>비밀번호</th>
-										<td><a href="update_pwd.jsp"
-											class="btn btn-info btn-icon-split btn-sm">변경</a>
-
-											<p
-												style="font-size: xx-small; color: red; margin: 6px 0 0 0;">
+										<td>
+											<a href="update_pwd.jsp" class="btn btn-info btn-icon-split btn-sm">변경</a>
+											<p style="font-size: xx-small; color: red; margin: 6px 0 0 0;">
 												*비빌번호는 암호화가 되어있어 노출위험이 없습니다 :D <br>*비밀번호 분실시 실장님께 초기화
 												요청이 가능합니다. 초기화 된 비밀번호는 [12345] 입니다
-											</p></td>
+											</p>
+										</td>
 									</tr>
 									<tr>
 										<th>직급</th>
@@ -375,7 +374,6 @@
 								      	<%}%>
 										</td>
 									</tr>
-
 								</table>
 
 								<table style="margin: 0 auto;">
@@ -387,65 +385,67 @@
 									</tr>
 								</table>
 							</div>
-
-							<!-- /.container-fluid -->
-
-						</div>
-						<!-- End of Main Content -->
-
-					</div>
-					<!-- End of Content Wrapper -->
-
-				</div>
-				<!-- End of Page Wrapper -->
-
-				<!-- Scroll to Top Button-->
-				<a class="scroll-to-top rounded" href="#page-top"> <i
-					class="fas fa-angle-up"></i>
-				</a>
-
-				<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-								<button class="close" type="button" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button"
-									data-dismiss="modal">취소</button>
-								<form method="post" action="../LogoutPro.jsp">
-									<input type="submit" class="btn btn-primary" value="확인" />
-								</form>
-							</div>
 						</div>
 					</div>
 				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-				<!-- Bootstrap core JavaScript-->
-				<script src="../../vendor/jquery/jquery.min.js"></script>
-				<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-				<!-- Core plugin JavaScript-->
-				<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-				<!-- Custom scripts for all pages-->
-				<script src="../../js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
 
-				<!-- Page level plugins -->
-				<script src="../../vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
 
-				<!-- Page level custom scripts -->
-				<script src="../../js/demo/chart-area-demo.js"></script>
-				<script src="../../js/demo/chart-pie-demo.js"></script>
-				<script src="../../js/demo/chart-bar-demo.js"></script>
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

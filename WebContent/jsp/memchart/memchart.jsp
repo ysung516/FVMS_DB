@@ -20,10 +20,10 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		MemberDAO memberDao = new MemberDAO();
-	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
-	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation(); //협력업체
+	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();	// 퇴사 제외하고 회원 정보 가져오기
+	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation();	// 협력업체
 	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();	// 협력업체 별 인원 수 가져오기
-	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();	// 올해 팀 리스트 가져오기
 	%>
 
 <meta charset="utf-8">
@@ -49,7 +49,7 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 	
 <script>
-	function memchartInsert(){
+	function memchartInsert(){	// 슈어소프트테크 소속 인원 표에 데이터 담기
 		var now = new Date();
 		var year = now.getFullYear();
 		var month = now.getMonth()+1;
@@ -113,7 +113,7 @@
 		$('#internnum').html(internNum + '명');
 	}
 	
-	function cooperView(){	
+	function cooperView(){	// 협력업체 표에 담기, 체크박스 체크 시 보여짐
 		$('#cooper').change(function(){
 			if($('#cooper').is(":checked")){
 				$('#vt6 > td').css('border-bottom','0px');
@@ -251,16 +251,19 @@
 </script>
 
 <style>
-.sidebar .nav-item{
-	 	word-break: keep-all;
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-#sidebarToggle{
-		display:none;
-	}
-.sidebar{
-		position:relative;
-		z-index:997;
-}		
+
+#sidebarToggle {
+	display: none;
+}
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 .loading {
 	position: fixed;
 	text-align: center;
@@ -284,15 +287,14 @@
 }
 
 @media ( max-width :765px) {
-#sidebarToggle{
-		display:block;
+	#sidebarToggle {
+		display: block;
 	}
-	.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
 	}
-	
-	#accordionSidebar{
+	#accordionSidebar {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -301,26 +303,25 @@
 		position: fixed;
 		z-index: 998;
 	}
-	#content{
-		margin-left:0;
+	#content {
+		margin-left: 0;
 	}
-	.nav-item{
+	.nav-item {
 		position: absolute;
 		display: inline-block;
 		padding-top: 20px;
 	}
 	.topbar .dropdown {
 		padding-top: 0px;
-			
-	} 
-	.card-header{
-		margin-top:4.75rem;
 	}
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
+	.card-header {
+		margin-top: 4.75rem;
+	}
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -332,90 +333,89 @@
 	}
 }
 
-	
-	td{
-		text-align : center;
-	}
-	
-	.table-responsive{
-	table-layout:fixed;
-	 display:table;
-	}
-	
-	table:not(.memchart):not(#intern){ 
+td {
+	text-align: center;
+}
+
+.table-responsive {
+	table-layout: fixed;
+	display: table;
+}
+
+table:not(.memchart):not(#intern) {
 	white-space: nowrap;
 	/*display:table-cell;*/
-	overflow:auto;
+	overflow: auto;
 	white-space: nowrap;
-	}
+}
 
-<!-- 조직도 css -->
-	.memchart #intern{
-		text-align : center;
-	}
+<!--
+조직도 css -->.memchart #intern {
+	text-align: center;
+}
 
-	.chartHeader, #totalP, .memInfo, .intd{
-		padding-top : 6px !important;
-		padding-bottom : 6px !important;
-		padding-right : 20px !important;
-		padding-left : 20px !important;
-	}
-	
-	.chartHeader, #totalP{
-		background-color : #393A60;
-		color : white;
-		text-align : center;
-	}
-	
-	.memchart td{
-		vertical-align:top;
-		padding-top:10px;
-		padding-bottom:10px;
-	}
-	
-	.teamM{
-		background-color : #F2F2F2;
-		color : #393A60;
-		text-decoration : underline;
-	}
-	
-	.lv2{
-		background-color : #F2F2F2;
-		color : #045FB4;
-	}
-	
-	.lv3{
-		background-color : #F2F2F2;
-		color : #B45F04;
-	}
-	
-	.lv4{
-		background-color : #F2F2F2;
-		color : #298A08;
-	}
-	
-	.coop{
-		background-color : #F2F2F2;
-		color : #8904B1;
-	}
-	
-	.tag{
-		background-color : #97A3C2;
-		color : white;
-	}
-	
-	.cen{
-		background-color : #F2F2F2;
-		color : #298A08;
-	}
-	
-	.memchart div{
-	line-height:130% !important;}
-	
-	#organizationChart{
-		float: left;
-	}
-	
+.chartHeader, #totalP, .memInfo, .intd {
+	padding-top: 6px !important;
+	padding-bottom: 6px !important;
+	padding-right: 20px !important;
+	padding-left: 20px !important;
+}
+
+.chartHeader, #totalP {
+	background-color: #393A60;
+	color: white;
+	text-align: center;
+}
+
+.memchart td {
+	vertical-align: top;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.teamM {
+	background-color: #F2F2F2;
+	color: #393A60;
+	text-decoration: underline;
+}
+
+.lv2 {
+	background-color: #F2F2F2;
+	color: #045FB4;
+}
+
+.lv3 {
+	background-color: #F2F2F2;
+	color: #B45F04;
+}
+
+.lv4 {
+	background-color: #F2F2F2;
+	color: #298A08;
+}
+
+.coop {
+	background-color: #F2F2F2;
+	color: #8904B1;
+}
+
+.tag {
+	background-color: #97A3C2;
+	color: white;
+}
+
+.cen {
+	background-color: #F2F2F2;
+	color: #298A08;
+}
+
+.memchart div {
+	line-height: 130% !important;
+}
+
+#organizationChart {
+	float: left;
+}
 </style>
 
 <body id="page-top">
