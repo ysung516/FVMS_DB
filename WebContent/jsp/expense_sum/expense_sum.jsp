@@ -41,7 +41,8 @@
 		ArrayList<String> teamList  = expendDao.getTeamData(year);
 		ArrayList<Expend_TeamBean> exList = new ArrayList<Expend_TeamBean>();
 		ArrayList<Expend_CoopBean> exList_coop = new ArrayList<Expend_CoopBean>();
-		ArrayList<DPcostBean> dpList = new ArrayList<DPcostBean>();
+		ArrayList<DPcostBean> FH_dpList = new ArrayList<DPcostBean>();
+		ArrayList<DPcostBean> SH_dpList = new ArrayList<DPcostBean>();
 		ArrayList<Eq_PurchaseBean> FH_eqList = new ArrayList<Eq_PurchaseBean>();
 		ArrayList<Eq_PurchaseBean> SH_eqList = new ArrayList<Eq_PurchaseBean>();
 		ArrayList<Outside_ExpendBean> FH_outexList = new ArrayList<Outside_ExpendBean>();
@@ -94,11 +95,14 @@
 		var SHcoop = new Array();
 		var FHdp = new Array();
 		var SHdp = new Array();
+		var totalSum = new Array();
 		<%
+			int [] total_sum = new int[teamList.size()];
 			for(int i=0; i<teamList.size(); i++){
 				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
 				exList_coop = expendDao.getExpend_coop(teamList.get(i), year_int);
-				dpList = expendDao.getExpend_dp(teamList.get(i), year_int);
+				FH_dpList = expendDao.getExpend_dp_FH(teamList.get(i), year_int);
+				SH_dpList = expendDao.getExpend_dp_SH(teamList.get(i), year_int);
 				FH_eqList = expendDao.getPurchaseList(teamList.get(i), year_int, 0);
 				SH_eqList = expendDao.getPurchaseList(teamList.get(i), year_int, 1);
 				FH_outexList = expendDao.getOutside_Expend(teamList.get(i), year_int, 0);
@@ -119,21 +123,27 @@
 					coop_sum[0] += exList_coop.get(z).getFh_ex();
 					coop_sum[1] += exList_coop.get(z).getSh_ex();
 				}
-				for(int x=0; x<dpList.size(); x++){
-					dp_sum[0] += dpList.get(x).getFh_ex();
-					dp_sum[1] += dpList.get(x).getSh_ex();
+				
+				for(int x=0; x<FH_dpList.size(); x++){
+					dp_sum[0] += FH_dpList.get(x).getFh_ex();
 				}
+				for(int r=0; r<SH_dpList.size(); r++){
+					dp_sum[1] += SH_dpList.get(r).getSh_ex();
+				}
+				
 				for(int q=0; q<FH_eqList.size(); q++){
 					eq_sum[0] += FH_eqList.get(q).getSum();
 				}
 				for(int w=0; w<SH_eqList.size(); w++){
 					eq_sum[1] += SH_eqList.get(w).getSum();
 				}
+				
 				for(int e=0; e<FH_outexList.size(); e++){
 					outex_sum[0] += FH_outexList.get(e).getCost();
 					outex_sum[1] += SH_outexList.get(e).getCost();
 				}
 				String team = teamList.get(i);
+				total_sum[i] = sure_sum[0] + sure_sum[1] + coop_sum[0] + coop_sum[1] + dp_sum[0] + dp_sum[1] + eq_sum[0] + eq_sum[1] + outex_sum[0] + outex_sum[1];
 				%>
 				FHsure[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','슈어','<%=sure_sum[0]%>')>"+<%=sure_sum[0]%>+"</td>";
 				SHsure[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','슈어','<%=sure_sum[1]%>')>"+<%=sure_sum[1]%>+"</td>";
@@ -142,7 +152,10 @@
 				SHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','외부','<%=coop_sum[1]%>')>"+<%=coop_sum[1]%>+"</td>";
 				
 				FHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','상반기','<%=dp_sum[0]%>')>"+<%=(dp_sum[0] + eq_sum[0] + outex_sum[0])%>+"</td>";
-				SHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','하반기','<%=dp_sum[1]%>')>"+<%=(dp_sum[1] + eq_sum[1] + outex_sum[1])%>+"</td>";			
+				SHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','하반기','<%=dp_sum[1]%>')>"+<%=(dp_sum[1] + eq_sum[1] + outex_sum[1])%>+"</td>";
+				
+				totalSum[<%=i%>] = "<td>"+<%=total_sum[i]%>+"</td>";
+				
 			<%}%>
 		
 		var cnt = <%=teamList.size()%>;
@@ -153,6 +166,7 @@
 			$('#second_half_out').append(SHcoop[a]);
 			$('#fist_half_dp').append(FHdp[a]);
 			$('#second_half_dp').append(SHdp[a]);
+			$('#total').append(totalSum[a]);
 		}
 	}
 	

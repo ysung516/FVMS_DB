@@ -19,28 +19,34 @@
 		}
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		
 		String sum = request.getParameter("sum");
 		String team = request.getParameter("team");
-		String [] name = request.getParameterValues("name");
-		String [] date = request.getParameterValues("date");
-		String [] cost = request.getParameterValues("cost");
-		String [] count = request.getParameterValues("count");
 		int semi = Integer.parseInt(request.getParameter("eq_semi"));
 		int year = Integer.parseInt(request.getParameter("year"));
-		int cnt = name.length; 
-		
+		ExpendDAO expendDao = new ExpendDAO();
 		String lc_semi = "";
 		if(semi == 0){
 			lc_semi = "상반기";
 		} else{
 			lc_semi = "하반기";
+		}	
+		if(request.getParameterValues("name") == null){
+			expendDao.drop_EQpurchaseTable(team, year, semi);
+			script.print("<script> alert('장비 구매 내역이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
+		} else{
+			String [] name = request.getParameterValues("name");
+			String [] date = request.getParameterValues("date");
+			String [] cost = request.getParameterValues("cost");
+			String [] count = request.getParameterValues("count");
+
+			int cnt = name.length; 
+			
+
+			
+			expendDao.drop_EQpurchaseTable(team, year, semi);
+			expendDao.save_eqPurchase(team, name, date, cost, count, year, semi, cnt);
+			script.print("<script> alert('장비 구매 내역이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
 		}
-		
-		ExpendDAO expendDao = new ExpendDAO();
-		expendDao.drop_EQpurchaseTable(team, year, semi);
-		expendDao.save_eqPurchase(team, name, date, cost, count, year, semi, cnt);
-		script.print("<script> alert('장비 구매 내역이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
 	%>
 </body>
 </html>

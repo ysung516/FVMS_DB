@@ -1,6 +1,7 @@
 package jsp.Bean.model;
 
 public class DPcostBean {
+	private String id;
 	private String name;
 	private String rank;
 	private String project;
@@ -13,6 +14,13 @@ public class DPcostBean {
 	private float fh_ex;
 	private float sh_ex;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

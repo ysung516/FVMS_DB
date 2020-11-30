@@ -19,30 +19,35 @@
 		}
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
-		
-		String sum = request.getParameter("sum");
-		String team = request.getParameter("team");
-		String [] id = request.getParameterValues("id");
-		String [] name = request.getParameterValues("name");
-		String [] rank = request.getParameterValues("rank");
-		String [] content = request.getParameterValues("content");
-		String [] date = request.getParameterValues("date");
-		String [] cost = request.getParameterValues("cost");
+		ExpendDAO expendDao = new ExpendDAO();
 		int semi = Integer.parseInt(request.getParameter("eq_semi"));
 		int year = Integer.parseInt(request.getParameter("year"));
-		int cnt = name.length; 
-		
+		String sum = request.getParameter("sum");
+		String team = request.getParameter("team");
 		String lc_semi = "";
 		if(semi == 0){
 			lc_semi = "상반기";
 		} else{
 			lc_semi = "하반기";
 		}
+		if(request.getParameterValues("id") == null){
+			expendDao.drop_outexTable(year, semi);
+			script.print("<script> alert('외근 비용이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
+		} else{
+			String [] id = request.getParameterValues("id");
+			String [] content = request.getParameterValues("content");
+			String [] date = request.getParameterValues("date");
+			String [] cost = request.getParameterValues("cost");
+			
+			int cnt = id.length; 
+	
+			expendDao.drop_outexTable(year, semi);
+			expendDao.save_outex(id, content, date, cost, year, semi, cnt);
+			script.print("<script> alert('외근 비용이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
+		}
 		
-		ExpendDAO expendDao = new ExpendDAO();
-		expendDao.drop_outexTable(year, semi);
-		expendDao.save_outex(id, name, content, date, cost, year, semi, cnt);
-		script.print("<script> alert('외근 비용이 저장 되었습니다.'); location.href = 'expense_dp.jsp?team="+team+"&year="+year+"&semi="+lc_semi+"&sum="+sum+"'</script>");
+		
+		
 	%>
 </body>
 </html>

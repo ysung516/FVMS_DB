@@ -40,7 +40,9 @@
 		}
 		
 		ExpendDAO expendDao = new ExpendDAO();
-		ArrayList<DPcostBean> dpList = expendDao.getExpend_dp(team, year);
+		ArrayList<MemberBean> memberList = expendDao.getMemberData(team);
+		ArrayList<DPcostBean> FH_dpList = expendDao.getExpend_dp_FH(team, year);
+		ArrayList<DPcostBean> SH_dpList = expendDao.getExpend_dp_SH(team, year);
 		ArrayList<Eq_PurchaseBean> eqList = expendDao.getPurchaseList(team, year, eq_semi);
 		ArrayList<Outside_ExpendBean> outexList = expendDao.getOutside_Expend(team, year, eq_semi);
 		float eq_sum = 0;
@@ -118,18 +120,17 @@
 		var innerHtml = "";
 		innerHtml += '<tr>';
 		innerHtml += '<td>'+count+'</td>';
-		innerHtml += '<td><input name="name"></td>';
-		innerHtml += '<td><input name="rank"></td>';
+		innerHtml += '<td><select name="id"><% for(int j=0; j<memberList.size(); j++){%><option value="<%=memberList.get(j).getID()%>"><%=memberList.get(j).getNAME()+" - "+memberList.get(j).getRANK() %></option><%}%></select></td>';
 		innerHtml += '<td><input name="content"></td>';
 		innerHtml += '<td><input type="date" name="date"></td>';
 		innerHtml += '<td><input name="cost" value="0"></td>';
-		innerHtml += '<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>';
+		innerHtml += '<td><input class="deleteNP2" type="button" onclick="deleteNP2()" value="삭제"></td>';
 		innerHtml += '</tr>';
 		$('#outexList').append(innerHtml);
 	}
 	
 function deleteNP2(){
-	$(document).on("click",".deleteNP",function(){
+	$(document).on("click",".deleteNP2",function(){
 		var str =""
 		var tdArr = new Array();
 		var btn = $(this);
@@ -171,25 +172,35 @@ function deleteNP2(){
 			<tbody>
 				
 				<%
-					for(int i=0; i<dpList.size(); i++){%>
-					<tr>
-						<td><%=dpList.get(i).getName() %></td>
-						<td><%=dpList.get(i).getRank() %></td>
-						<td><%=dpList.get(i).getProject() %></td>
-						<td><%=dpList.get(i).getPlace() %></td>
-						<td><%=dpList.get(i).getCost() %></td>
-						<td><%=dpList.get(i).getStart() %></td>
-						<td><%=dpList.get(i).getEnd() %></td>
-						<%
-							if(semi.equals("상반기")){%>
-							<td><%=dpList.get(i).getFh_mm() %></td>
-							<td><%=dpList.get(i).getFh_ex() %></td>
-						<%} else if(semi.equals("하반기")){%>
-							<td><%=dpList.get(i).getSh_mm() %></td>
-							<td><%=dpList.get(i).getSh_ex() %></td>
-						<%}%>			
-					</tr>					
-				<%}%>
+					if(semi.equals("상반기")){
+						for(int i=0; i<FH_dpList.size(); i++){%>
+						<tr>
+							<td><%=FH_dpList.get(i).getName() %></td>
+							<td><%=FH_dpList.get(i).getRank() %></td>
+							<td><%=FH_dpList.get(i).getProject() %></td>
+							<td><%=FH_dpList.get(i).getPlace() %></td>
+							<td><%=FH_dpList.get(i).getCost() %></td>
+							<td><%=FH_dpList.get(i).getStart() %></td>
+							<td><%=FH_dpList.get(i).getEnd() %></td>
+							<td><%=FH_dpList.get(i).getFh_mm() %></td>
+							<td><%=FH_dpList.get(i).getFh_ex() %></td>
+						</tr>					
+					<%}
+					} else if(semi.equals("하반기")){
+						for(int i=0; i<FH_dpList.size(); i++){%>
+						<tr>
+							<td><%=SH_dpList.get(i).getName() %></td>
+							<td><%=SH_dpList.get(i).getRank() %></td>
+							<td><%=SH_dpList.get(i).getProject() %></td>
+							<td><%=SH_dpList.get(i).getPlace() %></td>
+							<td><%=SH_dpList.get(i).getCost() %></td>
+							<td><%=SH_dpList.get(i).getStart() %></td>
+							<td><%=SH_dpList.get(i).getEnd() %></td>
+							<td><%=SH_dpList.get(i).getSh_mm() %></td>
+							<td><%=SH_dpList.get(i).getSh_ex() %></td>								
+						</tr>					
+					<%}
+					}%>
 				
 				<tr style="b">
 					<td style="background-color: yellowgreen">지출 합계</td>
@@ -259,7 +270,6 @@ function deleteNP2(){
 							<tr>
 								<th></th>
 								<th>이름</th>
-								<th>직급</th>
 								<th>외근 처리</th>
 								<th>날짜</th>
 								<th>금액(만)</th>
@@ -269,22 +279,30 @@ function deleteNP2(){
 						<tbody id ="outexList">
 							<%
 								for(int i=0; i<outexList.size(); i++){%>
-								<input type="hidden" name="id" value="<%=outexList.get(i).getId()%>">
 								<tr>
 									<td><%=i+1%></td>
-									<td><input name="name" value="<%=outexList.get(i).getName()%>"></td>
-									<td><input name="rank" value="<%=outexList.get(i).getRank()%>"></td>
+									<td><select name="id">
+										<%
+											for(int j=0; j<memberList.size(); j++){
+												if(outexList.get(i).getId().equals(memberList.get(j).getID())){%>
+													<option value="<%=memberList.get(j).getID()%>" selected><%=memberList.get(j).getNAME()+" - "+memberList.get(j).getRANK() %></option>
+												<%} else{%>
+													<option value="<%=memberList.get(j).getID()%>"><%=memberList.get(j).getNAME()+" - "+memberList.get(j).getRANK() %></option>
+												<%}%>
+												
+										<%} %>
+									</select></td>
 									<td><input name="content" value="<%=outexList.get(i).getContent()%>"></td>
 									<td><input type="date" name="date" value="<%=outexList.get(i).getDate()%>"></td>
 									<td><input name="cost" value="<%=outexList.get(i).getCost()%>"></td>
-									<td><input class="deleteNP" type="button" onclick="deleteNP2()" value="삭제"></td>
+									<td><input class="deleteNP2" type="button" onclick="deleteNP2()" value="삭제"></td>
 								</tr>					
 							<%}%>
 						</tbody>
 						<tfoot>
 							<tr style="b">
 								<td style="background-color: yellowgreen">지출 합계</td>
-								<td colspan=8><%=outex_sum%> (만)</td>
+								<td colspan=7><%=outex_sum%> (만)</td>
 							</tr>
 						</tfoot>
 					</table>

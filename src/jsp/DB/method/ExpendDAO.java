@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import jsp.Bean.model.*;
 
@@ -149,16 +151,17 @@ public class ExpendDAO {
 			return list;
 		}
 		
-		// 파견비용 계산
-		public ArrayList<DPcostBean> getExpend_dp(String team, int year){
+		// 상반기 파견비용 계산
+		public ArrayList<DPcostBean> getExpend_dp_FH(String team, int year){
 			ArrayList<DPcostBean> list = new ArrayList<DPcostBean>();
+			LinkedHashMap<String, DPcostBean> map = new LinkedHashMap<String,DPcostBean>();
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			try {
 				StringBuffer query = new StringBuffer();
-				query.append("select career.start, career.end, project.프로젝트명, project.근무지, workPlace.cost, member.이름, member.직급 "
+				query.append("select career.start, career.end, project.프로젝트명, project.근무지, workPlace.cost, member.이름, member.직급,member.id "
 						+ "from career, project, workPlace, member, rank "
 						+ "where career.id = member.id and career.projectNo = project.no and project.근무지 = workPlace.place and member.직급=rank.rank "
 						+ "and project.year = ?  and member.팀 = ? and member.소속 = '슈어소프트테크' "
@@ -170,6 +173,7 @@ public class ExpendDAO {
 		    	rs = pstmt.executeQuery();
 		    	while(rs.next()) {
 		    		DPcostBean dpCost = new DPcostBean();
+		    		dpCost.setId(rs.getString("id"));
 		    		dpCost.setName(rs.getString("이름"));
 		    		dpCost.setRank(rs.getString("직급"));
 		    		dpCost.setProject(rs.getString("프로젝트명"));
@@ -182,8 +186,75 @@ public class ExpendDAO {
 		    		dpCost.setSh_mm(result[1]);
 		    		dpCost.setFh_ex( (dpCost.getFh_mm() * dpCost.getCost()) );
 		    		dpCost.setSh_ex( (dpCost.getSh_mm() * dpCost.getCost()) );
-		    		list.add(dpCost);
+		    	
+		    		if(map.get(dpCost.getId()) == null) {
+		    			map.put(dpCost.getId(),dpCost);
+		    		} else {
+		    			if(map.get(dpCost.getId()).getFh_ex() <= dpCost.getFh_ex() ) {
+			    			map.put(dpCost.getId(),dpCost);
+			    		} 
+		    		} 
 		    	}
+		    	list.addAll(map.values());
+		    	
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+			
+			return list;
+		}
+		
+		// 하반기 파견비용 계산
+		public ArrayList<DPcostBean> getExpend_dp_SH(String team, int year){
+			ArrayList<DPcostBean> list = new ArrayList<DPcostBean>();
+			LinkedHashMap<String, DPcostBean> map = new LinkedHashMap<String,DPcostBean>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				StringBuffer query = new StringBuffer();
+				query.append("select career.start, career.end, project.프로젝트명, project.근무지, workPlace.cost, member.이름, member.직급,member.id "
+						+ "from career, project, workPlace, member, rank "
+						+ "where career.id = member.id and career.projectNo = project.no and project.근무지 = workPlace.place and member.직급=rank.rank "
+						+ "and project.year = ?  and member.팀 = ? and member.소속 = '슈어소프트테크' "
+						+ "order by rank.rank_id, member.이름");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setInt(1, year);
+		    	pstmt.setString(2, team);
+		    	rs = pstmt.executeQuery();
+		    	while(rs.next()) {
+		    		DPcostBean dpCost = new DPcostBean();
+		    		dpCost.setId(rs.getString("id"));
+		    		dpCost.setName(rs.getString("이름"));
+		    		dpCost.setRank(rs.getString("직급"));
+		    		dpCost.setProject(rs.getString("프로젝트명"));
+		    		dpCost.setPlace(rs.getString("근무지"));
+		    		dpCost.setCost(rs.getInt("cost"));
+		    		dpCost.setStart(rs.getString("start"));
+		    		dpCost.setEnd(rs.getString("end"));
+		    		float [] result = cal_manmoth(dpCost.getStart(), dpCost.getEnd(), Integer.toString(year));
+		    		dpCost.setFh_mm(result[0]);
+		    		dpCost.setSh_mm(result[1]);
+		    		dpCost.setFh_ex( (dpCost.getFh_mm() * dpCost.getCost()) );
+		    		dpCost.setSh_ex( (dpCost.getSh_mm() * dpCost.getCost()) );
+		    		
+		    		if(map.get(dpCost.getId()) == null) {
+		    			map.put(dpCost.getId(),dpCost);
+		    		} else {
+		    			if(map.get(dpCost.getId()).getSh_ex() <= dpCost.getSh_ex() ) {
+			    			map.put(dpCost.getId(),dpCost);
+			    		} 
+		    		}
+		    	}
+		    	list.addAll(map.values());
+		    	
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -309,7 +380,8 @@ public class ExpendDAO {
 			return list;
 		}
 		
-		public int save_outex(String [] id, String [] name, String [] content, String [] date, String [] cost, int year, int semi, int cnt) {
+		//외근비용 저장
+		public int save_outex(String [] id, String [] content, String [] date, String [] cost, int year, int semi, int cnt) {
 			Connection conn = null;
 		    PreparedStatement pstmt = null;
 		    int rs = 0;
@@ -494,6 +566,54 @@ public class ExpendDAO {
 				if(conn != null) try {conn.close();} catch(SQLException ex) {}
 			}
 		    return rs;
+		}
+		
+		
+		// 모든 회원정보 가져오기
+		public ArrayList<MemberBean> getMemberData(String team) {
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+		    
+		    try {
+		    	StringBuffer query = new StringBuffer();
+		    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
+		    			+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName and a.팀=? and a.소속 = '슈어소프트테크'"
+		    			+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
+		    	conn = DBconnection.getConnection();
+		    	pstmt = conn.prepareStatement(query.toString());
+		    	pstmt.setString(1, team);
+		    	rs = pstmt.executeQuery();
+		    	while(rs.next()) {
+		    		MemberBean member = new MemberBean();
+		    		member.setID(rs.getString("id"));
+		    		member.setPASSWORD(rs.getString("pw"));
+		    		member.setPART(rs.getString("소속"));
+		    		member.setTEAM(rs.getString("팀"));
+		    		member.setNAME(rs.getString("이름"));
+		    		member.setRANK(rs.getString("직급"));
+		    		member.setPosition(rs.getString("직책"));
+		    		member.setADDRESS(rs.getString("거주지"));
+		    		member.setComDate(rs.getString("입사일"));
+		    		member.setMOBILE(rs.getString("mobile"));
+		    		member.setGMAIL(rs.getString("gmail"));	
+		    		member.setCareer(rs.getString("프로젝트수행이력"));
+		    		member.setLevel(rs.getInt("level"));
+		    		member.setPermission(rs.getString("permission"));
+		    		member.setWorkEx(rs.getInt("경력"));
+		    		list.add(member);
+		    	}
+		    }  catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try {rs.close();} catch(SQLException ex) {}
+				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		    
+		    return list;
 		}
 		
 		
