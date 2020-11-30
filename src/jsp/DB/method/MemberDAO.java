@@ -65,6 +65,52 @@ public class MemberDAO {
 	    return list;
 	}
 	
+	// 퇴사 제외 모든 회원정보 가져오기
+	public ArrayList<MemberBean> getMemberDataWithoutOut() {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    ArrayList<MemberBean> list = new ArrayList<MemberBean>(); 
+	    
+	    try {
+	    	StringBuffer query = new StringBuffer();
+	    	query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
+	    			+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND 퇴사일 = '-' "
+	    			+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	rs = pstmt.executeQuery();
+	    	while(rs.next()) {
+	    		MemberBean member = new MemberBean();
+	    		member.setID(rs.getString("id"));
+	    		member.setPASSWORD(rs.getString("pw"));
+	    		member.setPART(rs.getString("소속"));
+	    		member.setTEAM(rs.getString("팀"));
+	    		member.setNAME(rs.getString("이름"));
+	    		member.setRANK(rs.getString("직급"));
+	    		member.setPosition(rs.getString("직책"));
+	    		member.setADDRESS(rs.getString("거주지"));
+	    		member.setComDate(rs.getString("입사일"));
+	    		member.setMOBILE(rs.getString("mobile"));
+	    		member.setGMAIL(rs.getString("gmail"));	
+	    		member.setCareer(rs.getString("프로젝트수행이력"));
+	    		member.setLevel(rs.getInt("level"));
+	    		member.setPermission(rs.getString("permission"));
+	    		member.setWorkEx(rs.getInt("경력"));
+	    		list.add(member);
+	    	}
+	    }  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+	    
+	    return list;
+	}
+	
 	// 현재 프로젝트에 참여중인 실 인원만
 	public ArrayList<MemberBean> getMemberDataInPro() {
 		Connection conn = null;
@@ -250,71 +296,68 @@ public class MemberDAO {
 	// 로그인 체크
 	public int logincheck(String id, String pw) {
 		Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    
-	    String dbPW = "";
-	    int x = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String dbPW = "";
+		int x = -1;
 		try {
 			StringBuffer query = new StringBuffer();
-			query.append("SELECT AES_DECRYPT(UNHEX(pw), 'suresoft') AS pw FROM member WHERE id=?");
+			query.append("SELECT AES_DECRYPT(UNHEX(pw), 'suresoft') AS pw FROM member WHERE id=? AND 퇴사일 = '-'");
 
-	        conn = DBconnection.getConnection();
-	        pstmt = conn.prepareStatement(query.toString());
-            pstmt.setString(1, id);
-            rs = pstmt.executeQuery();
-            
-            if(rs.next())
-            {
-            	dbPW = rs.getString("pw");
-            	if(dbPW.equals(pw)) {
-            		x = 1;	// 인증성공
-            	} else {
-            		x = 0;	// 인증실패
-            	}
-            } else {
-            	x = -1;	// 해당 아이디 없음
-            }
-            
- 			
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				dbPW = rs.getString("pw");
+				if (dbPW.equals(pw)) {
+					x = 1; // 인증성공
+				} else {
+					x = 0; // 인증실패
+				}
+			} else {
+				x = -1; // 해당 아이디 없음
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(rs != null) try {rs.close();} catch(SQLException ex) {}
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			if (rs != null) try { rs.close(); } catch (SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
 		}
-	
+
 		return x;
-	 }
-	
+	}
 		
-	//비밀번호 수정
-	 public int changePW(String id, String next_pwd) {  
-	      Connection conn = null;
-	      PreparedStatement pstmt = null;
-	      int rs = 0;
-	     
-	      try {
-		       String query = new String();
-		       query = "UPDATE member SET pw = HEX(AES_ENCRYPT(?, 'suresoft')) WHERE id = ?";
-		       
-		       conn = DBconnection.getConnection();
-		       pstmt = conn.prepareStatement(query);
-		       pstmt.setString(1, next_pwd);
-		       pstmt.setString(2, id);
-		       rs = pstmt.executeUpdate();
-	    
-	      }  catch (SQLException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	   } finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+	// 비밀번호 수정
+	public int changePW(String id, String next_pwd) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = new String();
+			query = "UPDATE member SET pw = HEX(AES_ENCRYPT(?, 'suresoft')) WHERE id = ?";
+
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, next_pwd);
+			pstmt.setString(2, id);
+			rs = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
 		}
-	      return rs;
-	 }
+		return rs;
+	}
 
 	// 관리자페이지에서 회원 수정
 	public int managerUpdate(String id, String address, String comeDate, String mobile, String gmail, String career,
@@ -395,7 +438,7 @@ public class MemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rs = 0;
-		
+
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, 1);
@@ -412,8 +455,8 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
 		}
 		return rs;
 	}
@@ -446,40 +489,40 @@ public class MemberDAO {
 	    return rs;
 	}
 	
-	 // 마이페이지 수정
-	 public int mypageUpdate(String id, String address, String comeDate, String mobile,
-			 String gmail, String career, String workEx) {
-		 Connection conn = null;
-		 PreparedStatement pstmt = null;
-	     int rs = 0;
-	   
-	      try {
-	       String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, 경력 = ? where id = ?";
-	       conn = DBconnection.getConnection();
-	       pstmt = conn.prepareStatement(query.toString());
-	       
-	       pstmt.setString(1, address);
-	       pstmt.setString(2, comeDate);
-	       pstmt.setString(3, mobile);
-	       pstmt.setString(4, gmail);
-	       pstmt.setString(5, career);
-	       pstmt.setInt(6, Integer.parseInt(id));
-	       pstmt.setString(7, id);
-	       rs = pstmt.executeUpdate();
-	       
-	      }  catch (SQLException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	    
-	   } finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+	// 마이페이지 수정
+	public int mypageUpdate(String id, String address, String comeDate, String mobile, String gmail, String career,
+			String workEx) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = "update member set 거주지 = ?, 입사일 = ?, mobile = ?, gmail = ?, 프로젝트수행이력 = ?, 경력 = ? where id = ?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+
+			pstmt.setString(1, address);
+			pstmt.setString(2, comeDate);
+			pstmt.setString(3, mobile);
+			pstmt.setString(4, gmail);
+			pstmt.setString(5, career);
+			pstmt.setInt(6, Integer.parseInt(id));
+			pstmt.setString(7, id);
+			rs = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
 		}
-	     return rs;
-	 }
+		return rs;
+	}
 	 
 	 // 퇴사처리
-	public int resignMember(String id) {
+	public int resignMember(String id, String rank) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rs = 0;
@@ -489,6 +532,7 @@ public class MemberDAO {
 		String today = sf.format(date);
 		
 		try {
+			updateRankPeriod(id, rank);
 			String query = "update member set 퇴사일 = ? where id = ?";
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
@@ -507,28 +551,54 @@ public class MemberDAO {
 		}
 		return rs;
 	}
-	 
-	 // 회원삭제
-	 public int deleteMember(String id) {
-		 Connection conn = null;
-		 PreparedStatement pstmt = null;
-	     int rs = 0;
-	     try {
-	    	String query = "delete from member where id =?";
-	    	conn = DBconnection.getConnection();
-	    	pstmt = conn.prepareStatement(query.toString());
-	    	pstmt.setString(1, id);
-	    	rs = pstmt.executeUpdate();
-	    	deleteMemberRank(id);
-	    }catch (SQLException e) {
+	
+	// 입사일 퇴사일 수정
+	public int updateComeOutDate(String comeDate, String outDate, String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		try {
+			String query = "update member set 입사일=?, 퇴사일=? where id=?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, comeDate);
+			pstmt.setString(2, outDate);
+			pstmt.setString(3, id);
+			
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
 			if(conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
-	     return rs;
-	 }
+		
+		return rs;
+	}
+	 
+	// 회원삭제
+	public int deleteMember(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		try {
+			String query = "delete from member where id =?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, id);
+			rs = pstmt.executeUpdate();
+			deleteMemberRank(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
+		}
+		return rs;
+	}
 	 
 	// 회원 삭제 시 rank_period 테이블에서도 데이터 삭제
 	public int deleteMemberRank(String id) {
@@ -552,64 +622,64 @@ public class MemberDAO {
 		return rs;
 	}
 
-	 // 회원등록 등록
-	 public int insertMember(String name, String id, String pw, String part, String team, 
-			 String rank, String position, String permission, String mobile, String gmail) {
-		 Connection conn = null;
-		 PreparedStatement pstmt = null;
-	     int rs = 0;
-	     
-	     try {
-	    	 	String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail)"
-	    	 			+ "values(?,HEX(AES_ENCRYPT('"+pw+"', 'suresoft')),?,?,?,?,?,?,?,?)";
-		    	conn = DBconnection.getConnection();
-		    	pstmt = conn.prepareStatement(query.toString());
-		    	pstmt.setString(1, id);
-		    	//pstmt.setString(2, pw);
-		    	pstmt.setString(2, part);
-		    	pstmt.setString(3, team);
-		    	pstmt.setString(4, name);
-		    	pstmt.setString(5, rank);
-		    	pstmt.setString(6, position);
-		    	pstmt.setString(7, permission);
-		    	pstmt.setString(8, mobile);
-		    	pstmt.setString(9, gmail);
-		    	rs = pstmt.executeUpdate();
-	     }catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-				if(conn != null) try {conn.close();} catch(SQLException ex) {}
-			}
-		 return rs;
-	 }
-	 
-	 // 동기화 시 존재 회원 휴대전화 업데이트
-	 public int updateMobileExcel(String id, String phone) {
+	// 회원등록 등록
+	public int insertMember(String name, String id, String pw, String part, String team, String rank, String position,
+			String permission, String mobile, String gmail) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
 
-		 Connection conn = null;
-		 PreparedStatement pstmt = null;
-	     int rs = 0;
-	   
-	     try {
-	       String query = "update member SET mobile=? where id =?";
-	       conn = DBconnection.getConnection();
-	       pstmt = conn.prepareStatement(query.toString());
-	       pstmt.setString(1, phone);
-	       pstmt.setString(2, id);
-	
-	       rs = pstmt.executeUpdate();
-	 
-	     }  catch (SQLException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	    
-	   } finally {
-			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
-			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		try {
+			String query = "insert into member(id, pw, 소속, 팀, 이름, 직급, 직책, permission, mobile, gmail)"
+					+ "values(?,HEX(AES_ENCRYPT('" + pw + "', 'suresoft')),?,?,?,?,?,?,?,?)";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, id);
+			// pstmt.setString(2, pw);
+			pstmt.setString(2, part);
+			pstmt.setString(3, team);
+			pstmt.setString(4, name);
+			pstmt.setString(5, rank);
+			pstmt.setString(6, position);
+			pstmt.setString(7, permission);
+			pstmt.setString(8, mobile);
+			pstmt.setString(9, gmail);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
 		}
-	      return rs;
-	 }
+		return rs;
+	}
+	 
+	// 동기화 시 존재 회원 휴대전화 업데이트
+	public int updateMobileExcel(String id, String phone) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int rs = 0;
+
+		try {
+			String query = "update member SET mobile=? where id =?";
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setString(1, phone);
+			pstmt.setString(2, id);
+
+			rs = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+			if (conn != null) try { conn.close(); } catch (SQLException ex) {}
+		}
+		return rs;
+	}
 	 
 	// 동기화 시 존재 회원 입사일 업데이트
 	public int updateComeDateExcel(String id, String comeDate) {
@@ -875,6 +945,7 @@ public class MemberDAO {
 	    return list;
 	}
 	
+	// 협력업체별 프로젝트 참여 인원 수 가져오기
 	public HashMap<String, Integer> getNum_cooperation() {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;

@@ -320,7 +320,7 @@ td {
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn"><%=memberInfo.getNAME() %> 인사 관리 페이지
 							<%if(memberInfo.getOutDate().equals("-")){ %>
-							<input type="button" value="퇴사 처리" style="float: right; font-size: small;" class="btn btn-primary" onclick="location.href='resign.jsp?id=<%=id%>'">
+							<input type="button" value="퇴사 처리" style="float: right; font-size: small;" class="btn btn-primary" onclick="location.href='resign.jsp?id=<%=id%>&rank=<%=memberInfo.getRANK()%>'">
 							<%} %>
 							</h6>
 						</div>
@@ -332,11 +332,15 @@ td {
 							<table  style="margin-bottom: 20px;">
 								<tr>
 									<th style="width: 70px;">입사일</th>
-									<td style="width: 360px;"><%=memberInfo.getComDate() %></td>
+									<td style="width: 360px;">
+										<input type="date" name="comDate" id="comDate" style="width:160px;" value="<%=memberInfo.getComDate() %>" max="9999-12-31">
+									</td>
 								</tr>
 								<tr>
 									<th style="width: 70px;">퇴사일</th>
-									<td style="width: 360px;"><%=memberInfo.getOutDate() %></td>
+									<td style="width: 360px;">
+										<input type="date" name="outDate" id="outDate" style="width:160px;" value="<%=memberInfo.getOutDate() %>" max="9999-12-31">
+									</td>
 								</tr>
 							</table>
 							<table id="InfoTable">
@@ -351,10 +355,10 @@ td {
 										<input type="hidden" name="rank" value="<%=bean.getRank()%>"><%=bean.getRank() %>
 									</td>
 									<td>
-										<input type="date" name="startDate" id="comDate" style="width:160px;" value="<%=bean.getStart() %>" max="9999-12-31">
+										<input type="date" name="startDate" class="startDate" style="width:160px;" value="<%=bean.getStart() %>" max="9999-12-31">
 									</td>
 									<td>
-										<input type="date" name="endDate" id="comDate" style="width:160px;" value="<%=bean.getEnd() %>" max="9999-12-31">
+										<input type="date" name="endDate" class="endDate" style="width:160px;" value="<%=bean.getEnd() %>" max="9999-12-31">
 									</td>
 								</tr>
 								<%} %>

@@ -46,7 +46,6 @@
 		nowYear = request.getParameter("selectYear");
 	}
 	
-    ArrayList<MemberBean> memberList = memberDao.getMemberData();	// 실 인원 정보
     LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);	// 현재 년도 팀 정보 가져오기
 	
 	ArrayList<ProjectBean> pjList = summaryDao.getProjectList(nowYear);	// 이번년도 실적보고 프로젝트 리스트

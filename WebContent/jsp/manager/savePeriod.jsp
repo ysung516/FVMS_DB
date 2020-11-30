@@ -16,6 +16,10 @@ String sessionID = session.getAttribute("sessionID").toString();
 String sessionName = session.getAttribute("sessionName").toString();
 
 String id = request.getParameter("id");
+
+String comeDate = request.getParameter("comDate");
+String outDate = request.getParameter("outDate");
+
 int cnt = Integer.parseInt(request.getParameter("cnt"));
 
 String[] rank = new String[cnt];
@@ -28,6 +32,16 @@ for(int i=0; i<cnt; i++){
 	end = request.getParameterValues("endDate");
 }
 
+// 
+for(int i=0; i<cnt; i++){
+	if(end[i].equals("")){
+		end[i] = "now";
+	}
+}
+if(outDate.equals("")){
+	outDate = "-";
+}
+
 MemberDAO memberDao = new MemberDAO();
 
 int count = 0;
@@ -36,8 +50,12 @@ for(int i=0; i<cnt; i++){
 }
 
 if(count == cnt){
-	script.print("<script language='javascript'> alert('인사 내역이 수정되었습니다.'); location.href = 'personalManage.jsp?id="+id+"';</script>");
-}else{
+	if(memberDao.updateComeOutDate(comeDate, outDate, id) == 1){
+		script.print("<script language='javascript'> alert('인사 내역이 수정되었습니다.'); location.href = 'personalManage.jsp?id="+id+"';</script>");
+	} else{
+		script.print("<script> alert('인사 내역 수정에 실패하였습니다.'); history.back();</script>");
+	}
+} else{
 	script.print("<script> alert('인사 내역 수정에 실패하였습니다.'); history.back();</script>");
 }
 

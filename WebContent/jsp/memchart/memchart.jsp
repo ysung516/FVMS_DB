@@ -20,9 +20,9 @@
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		MemberDAO memberDao = new MemberDAO();
-	    ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
 	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation(); //협력업체
-	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();
+	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();	// 협력업체 별 인원 수 가져오기
 	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	%>
 

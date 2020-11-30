@@ -32,7 +32,7 @@ public class MSC_DAO {
 			StringBuffer query = new StringBuffer();
 			query.append("select member.팀, member.이름, member.level, manager_schedule.* "
 					+ "from manager_schedule, member "
-					+ "where  manager_schedule.ID = member.ID");
+					+ "where  manager_schedule.ID = member.ID and member.퇴사일 = '-'");
 			
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());

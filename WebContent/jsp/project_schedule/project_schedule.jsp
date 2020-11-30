@@ -28,6 +28,7 @@
 	MemberDAO memberDao = new MemberDAO();
 	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 
+	// 현재 년도 구하기
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
