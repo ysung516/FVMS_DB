@@ -13,8 +13,7 @@ public class MeetingDAO {
 
 	public MeetingDAO() {}
 	
-	
-	// 회의록 리스트 가져오기
+	// 회의 일시로 정렬해서 회의록 리스트 가져오기
 	public ArrayList<MeetBean> getMeetBean(){
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -328,11 +327,4 @@ public class MeetingDAO {
 		}
 	    return row;
 	}
-	
-	
-	
-	
-	
-	
-	
 }	// end DAO

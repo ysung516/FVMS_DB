@@ -99,7 +99,6 @@
 	
 	
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> coopList = memberDao.getMember_coop();
 	ArrayList<MemberBean> memList = memberDao.getMemberData();
 	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	
