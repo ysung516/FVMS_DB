@@ -1105,7 +1105,7 @@
 										<th class="th" onclick="hideAttr(30)">외주수요</th>
 										<th class="th" onclick="hideAttr(31)">주간보고서사용</th>
 										<th class="th" onclick="hideAttr(32)">실적보고</th>
-										<th class="th" onclick="hideAttr(32)">복사</th>
+										<th class="th" onclick="hideAttr(33)">복사</th>
 									</tr>
 								</thead>
 								<tbody>
