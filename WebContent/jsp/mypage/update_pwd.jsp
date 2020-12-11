@@ -58,7 +58,6 @@ function input_check_func() {
 
 </script>
 
-
 <%
 	PrintWriter script =  response.getWriter();
 	if (session.getAttribute("sessionID") == null){
@@ -68,8 +67,6 @@ function input_check_func() {
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	
-	
 %>
 
 <meta charset="utf-8">
@@ -85,7 +82,7 @@ function input_check_func() {
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -93,16 +90,19 @@ function input_check_func() {
 
 </head>
 <style>
-.sidebar .nav-item{
-	 	word-break: keep-all;
+.sidebar .nav-item {
+	word-break: keep-all;
 }
-#sidebarToggle{
-		display:none;
-	}
-.sidebar{
-		position:relative;
-		z-index:997;
+
+#sidebarToggle {
+	display: none;
 }
+
+.sidebar {
+	position: relative;
+	z-index: 997;
+}
+
 #dataTable td:nth-child(odd) {
 	text-align: center;
 	vertical-align: middle;
@@ -133,48 +133,44 @@ function input_check_func() {
 }
 
 @media ( max-width :765px) {
-#sidebarToggle{
-		display:block;
+	#sidebarToggle {
+		display: block;
 	}
-#content{
-	margin-left:0;
-}
-	.card-header{
-		margin-top:4.75rem;
+	#content {
+		margin-left: 0;
 	}
-	.sidebar .nav-item{
-	 	white-space:nowrap !important;
-	 	font-size: x-large !important;	 	
-}
-
-#accordionSidebar{
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	display: inline;
-	padding-top: 60px;
-	position: fixed;
-	z-index: 998;
-}
-#content{
-	margin-left:0;
-}
-.nav-item{
-	position: absolute;
-	display: inline-block;
-	padding-top: 20px;
-}
-.topbar .dropdown {
+	.card-header {
+		margin-top: 4.75rem;
+	}
+	.sidebar .nav-item {
+		white-space: nowrap !important;
+		font-size: x-large !important;
+	}
+	#accordionSidebar {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		display: inline;
+		padding-top: 60px;
+		position: fixed;
+		z-index: 998;
+	}
+	#content {
+		margin-left: 0;
+	}
+	.nav-item {
+		position: absolute;
+		display: inline-block;
+		padding-top: 20px;
+	}
+	.topbar .dropdown {
 		padding-top: 0px;
-		
-} 
-	
-	.topbar{
-		z-index:999;
-		position:fixed;
-		width:100%;
-		}
-		
+	}
+	.topbar {
+		z-index: 999;
+		position: fixed;
+		width: 100%;
+	}
 	.container-fluid {
 		padding: 0;
 	}
@@ -347,7 +343,6 @@ legend {
 								style="padding-left: 17px;">비밀번호 수정</h6>
 						</div>
 						<div class="card-body">
-
 							<div class="table-responsive">
 								<form method="post" action="update_pwdPro.jsp"
 									onsubmit="return input_check_func()">
@@ -383,64 +378,64 @@ legend {
 									</table>
 								</form>
 							</div>
-							<!-- /.container-fluid -->
-
-						</div>
-						<!-- End of Main Content -->
-					</div>
-
-				</div>
-				<!-- End of Content Wrapper -->
-
-			</div>
-			<!-- End of Page Wrapper -->
-
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fas fa-angle-up"></i>
-			</a>
-
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-							<button class="close" type="button" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button"
-								data-dismiss="modal">취소</button>
-							<form method="post" action="../LogoutPro.jsp">
-								<input type="submit" class="btn btn-primary" value="확인" />
-							</form>
 						</div>
 					</div>
 				</div>
+				<!-- /.container-fluid -->
 			</div>
+			<!-- End of Main Content -->
+		</div>
+		<!-- End of Content Wrapper -->
 
-			<!-- Bootstrap core JavaScript-->
-			<script src="../../vendor/jquery/jquery.min.js"></script>
-			<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	</div>
+	<!-- End of Page Wrapper -->
 
-			<!-- Core plugin JavaScript-->
-			<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-			<!-- Custom scripts for all pages-->
-			<script src="../../js/sb-admin-2.min.js"></script>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-			<!-- Page level plugins -->
-			<script src="../../vendor/chart.js/Chart.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-			<!-- Page level custom scripts -->
-			<script src="../../js/demo/chart-area-demo.js"></script>
-			<script src="../../js/demo/chart-pie-demo.js"></script>
-			<script src="../../js/demo/chart-bar-demo.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

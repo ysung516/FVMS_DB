@@ -344,6 +344,14 @@ public class MemberDAO {
 		return member;
 	}
 
+	/*
+	 *비밀번호 암호화
+		현재 암호화키로 'suresoft' 사용
+		- 암호화
+			HEX(AES_ENCRYPY('문자열', '암호화키'))
+		- 복호화
+			AES_DECRYPT(UNHEX(필드명), '암호화키')
+	*/
 	// 로그인 체크
 	public int logincheck(String id, String pw) {
 		Connection conn = null;

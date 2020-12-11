@@ -8,8 +8,8 @@
 <head>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <%
-	PrintWriter script =  response.getWriter();
-	if (session.getAttribute("sessionID") == null){
+	PrintWriter script = response.getWriter();
+	if (session.getAttribute("sessionID") == null) {
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
 	
@@ -18,22 +18,23 @@
 	String no = request.getParameter("no");
 	
 	// 출력
-			String [] line;
-			
-			MemberDAO memberDao = new MemberDAO();
-			MemberBean member = memberDao.returnMember(sessionID);
-			
+	String[] line;
+	
+	MemberDAO memberDao = new MemberDAO();
+	MemberBean member = memberDao.returnMember(sessionID);	// 내 정보 가져오기
+	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	
 	Date nowDate = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 	int nowYear = Integer.parseInt(sf.format(nowDate));
-	int wyear = 0;
 	
-	if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){
-		int comYear = Integer.parseInt(member.getComDate().split("-")[0]);
-		wyear = nowYear -  comYear + 1;
-	}else{
+	// 입사일과 경력으로 연차 구하기
+	int wyear = 0;
+	if (member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")) {
+		int comYear = Integer.parseInt(member.getComDate().split("-")[0]) + member.getWorkEx();
+		wyear = nowYear - comYear + 1;
+	} else {
 		wyear = 0;
 	}
 %>
@@ -415,65 +416,68 @@ textarea {
 									</table>
 								</form>
 							</div>
-							<!-- /.container-fluid -->
-
-						</div>
-						<!-- End of Main Content -->
-					</div>
-
-				</div>
-				<!-- End of Content Wrapper -->
-
-			</div>
-			<!-- End of Page Wrapper -->
-
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fas fa-angle-up"></i>
-			</a>
-
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-							<button class="close" type="button" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button"
-								data-dismiss="modal">취소</button>
-							<form method="post" action="../LogoutPro.jsp">
-								<input type="submit" class="btn btn-primary" value="확인" />
-							</form>
 						</div>
 					</div>
 				</div>
+				<!-- /.container-fluid -->
+
 			</div>
+			<!-- End of Main Content -->
+					
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">확인버튼을 누를 시 로그아웃 됩니다.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
+					<form method="post" action="../LogoutPro.jsp">
+						<input type="submit" class="btn btn-primary" value="확인" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-			<!-- Bootstrap core JavaScript-->
-			<script src="../../vendor/jquery/jquery.min.js"></script>
-			<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-			<!-- Core plugin JavaScript-->
-			<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-			<!-- Custom scripts for all pages-->
-			<script src="../../js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="../../js/sb-admin-2.min.js"></script>
 
-			<!-- Page level plugins -->
-			<script src="../../vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="../../vendor/chart.js/Chart.min.js"></script>
 
-			<!-- Page level custom scripts -->
-			<script src="../../js/demo/chart-area-demo.js"></script>
-			<script src="../../js/demo/chart-pie-demo.js"></script>
-			<script src="../../js/demo/chart-bar-demo.js"></script>
+	<!-- Page level custom scripts -->
+	<script src="../../js/demo/chart-area-demo.js"></script>
+	<script src="../../js/demo/chart-pie-demo.js"></script>
+	<script src="../../js/demo/chart-bar-demo.js"></script>
 </body>
 
 </html>

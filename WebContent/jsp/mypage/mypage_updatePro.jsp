@@ -21,6 +21,7 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	session.setMaxInactiveInterval(60*240);
 
+	// form 안에 있던 input 태그 name으로 값 가져오기
 	String address = request.getParameter("address");
 	String comeDate = request.getParameter("comDate");
 	String career = request.getParameter("career");
@@ -30,7 +31,7 @@
 
 	MemberDAO memberDao = new MemberDAO();
 
-	if (memberDao.mypageUpdate(sessionID, address, comeDate, mobile, gmail, career, workEx) == 1) {
+	if (memberDao.mypageUpdate(sessionID, address, comeDate, mobile, gmail, career, workEx) == 1) {	// 내 정보 수정하기
 		script.print("<script> alert('정보가 변경 되었습니다.'); location.href = 'mypage.jsp'</script>");
 	} else {
 		script.print("<script> alert('정보가 변경되지 않았습니다.');  history.back(); </script>");
