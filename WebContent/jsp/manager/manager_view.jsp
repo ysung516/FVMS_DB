@@ -143,6 +143,12 @@
 }
 
 @media ( max-width :765px) {
+.btn-primary{
+	font-size:small;
+}
+.container-fluid {
+	padding: 0;
+}
 	.card {
 		width: 100%;
 	}

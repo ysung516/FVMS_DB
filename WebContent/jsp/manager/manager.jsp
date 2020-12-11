@@ -177,6 +177,9 @@ tr:last-child {
 }
 
 @media ( max-width :765px) {
+	.manager_form{
+		display:none;
+	}
 	.sortBTN {
 		font-size: 1px;
 		width: 18px;
@@ -603,7 +606,7 @@ $(document).ready(function(){
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary" id="view_btn">관리자 페이지</h6>
 							<!-- <button onclick="memberSyn()">인력 동기화</button> -->
-							<div style="margin-left:15px; margin-top: 5px;">
+							<div style="margin-left:15px; margin-top: 5px;" class="manager_form">
 								<button class="btn btn-primary" onclick="location.href ='workPlace_manage.jsp'" style="font-size:small; margin-right:5px;">근무지 관리</button>
 								<button class="btn btn-primary" onClick="location.href='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
 								<form name="formUpload" method="post" action="member_sync.jsp" enctype="multipart/form-data"

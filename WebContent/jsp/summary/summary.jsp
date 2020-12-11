@@ -407,7 +407,7 @@ ul.tabs li.current{
 	
 	table:not(.memchart):not(#intern){ 
 	white-space: nowrap;
-	/*display:table-cell;*/
+	display:table-cell;
 	overflow:auto;
 	white-space: nowrap;
 	}

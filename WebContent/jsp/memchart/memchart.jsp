@@ -251,6 +251,9 @@
 </script>
 
 <style>
+.card-body{
+    overflow: scroll;
+   }
 .sidebar .nav-item {
 	word-break: keep-all;
 }
@@ -287,6 +290,14 @@
 }
 
 @media ( max-width :765px) {
+	.card-body{
+		padding:0.25rem;
+	}
+	.memchart{
+		wihte-space:nowwrap;
+		border-collapse:collapse !important;
+	}
+
 	#sidebarToggle {
 		display: block;
 	}

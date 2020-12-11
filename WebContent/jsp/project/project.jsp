@@ -98,6 +98,14 @@
 
 </head>
 <style>
+.btn-primary{
+	font-size:small;
+	margin:5px;
+}
+.project_form{
+		display: inline; 
+		float: right;
+}
 .sidebar .nav-item {
 	word-break: keep-all;
 }
@@ -229,6 +237,14 @@
 }
 
 @media ( max-width :765px) {
+	.project_form{
+		display: none; 
+
+}
+	.project_form2{
+		display: none; 
+
+}
 	#sidebarToggle {
 		display: block;
 	}
@@ -1029,13 +1045,13 @@
 						
               	if(permission == 0){
               		%><form action="project_synchronization.jsp"
-							method="post" style="display: inline; float: right">
-							<input style="font-size:small; margin-left: 20px;" name="spreadsheet" value="<%=sheetName %>" readonly/>
-							<input style="font-size:small;" type="submit" value="스프레드시트 동기화" class="btn btn-primary">
-							<input style="font-size:small;" type="button" value="스프레드시트 관리" class="btn btn-primary" onclick="openSheetManager('<%=year%>')">
+							method="post" class="project_form">
+							<input class="project_form2" style="font-size:small; margin-left: 20px;" name="spreadsheet" value="<%=sheetName %>" readonly/>
+							<input  style="font-size:small;" type="submit" value="스프레드시트 동기화" class="btn btn-primary project_form2">
+							<input  style="font-size:small;" type="button" value="스프레드시트 관리" class="btn btn-primary project_form2" onclick="openSheetManager('<%=year%>')">
 					</form>
-					<form action="project_copy.jsp"
-							method="post" style="display: inline; float: right; margin-right: 15px">
+					<form action="project_copy.jsp" 
+							method="post" class="project_form" stlye="margin-right: 15px">
 							<input style="font-size:small;" type="submit" value="<%=maxYear + 1%>년 복사" class="btn btn-primary">
 					</form>
 					<%
@@ -1043,10 +1059,12 @@
               %>
               </div>
 					<div class="card-body" style="margin-bottom: 40px;">
+					<details>
+						<summary class="btn btn-primary" >체크박스</summary>
 						<div id="list">
 							<label style="font-size: x-large"><input type="checkbox" id="checkall"class="cb"> All</label>
 						</div>
-						
+						</details>
 						
 						<div class="table-responsive" id="tableParent">
 							<table class="table TABLE" id="dataTable"
@@ -1109,6 +1127,7 @@
 									</tr>
 								</thead>
 								<tbody>
+								
                   			<%for(int i=0; i<projectList.size(); i++){%>
 									<tr>
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
@@ -1268,6 +1287,7 @@
 			       function reverseTD( index ){replace.descending( index );} 
 			       </script>
 						</div>
+						
 					</div> 
 				</div>
 				<%

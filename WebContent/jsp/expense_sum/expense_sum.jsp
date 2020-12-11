@@ -181,6 +181,10 @@
 </script>
 
 <style>
+.expense_form{
+	font-size:small;
+	margin-bottom:10px;
+}
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
@@ -219,6 +223,9 @@ textarea {
 }
 
 @media ( max-width :765px) {
+.expense_form{
+	display:none;
+}
 #sidebarToggle{
 		display:block;
 	}
@@ -418,7 +425,7 @@ legend {
 						<div class="card-body">
 						<%
 							if(permission == 0){%>
-								<div style="margin-bottom:10px; font-size:small;">
+								<div class="expense_form">
 			 					<form name="changeExpend_sure" method="post" action="expend_sure_updatePro.jsp">
 			 						<p style="color:black; margin-bottom:0px; display: list-item; margin-left: 16px;"><b>슈어소프트 직급 단가(단위:만)</b></p>
 				 					<p style="margin-left:15px;">
@@ -432,7 +439,7 @@ legend {
 				 				</form>
  							</div>
 							
- 							<div style="margin-bottom:10px; font-size:small;">
+ 							<div class="expense_form">
 			 					<form name="changeExpend_sure" method="post" action="expend_coop_updatePro.jsp">
 			 						<p style="color:black; margin-bottom:0px; display: list-item; margin-left: 16px;"><b>외주업체 직급 단가(단위:만)</b></p>
 				 					<p style="margin-left:15px;">

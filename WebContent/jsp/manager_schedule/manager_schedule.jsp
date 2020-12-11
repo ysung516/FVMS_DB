@@ -479,6 +479,9 @@ button:focus {
 }
 
 @media ( max-width :360px) and (min-width:321px) {
+.btn-primary{
+	font-size:small;
+}
 #sidebarToggle{
 		display:block;
 	}
@@ -548,6 +551,9 @@ button:focus {
 }
 
 @media ( max-width :380px) and (min-width:361px) {
+.btn-primary{
+	font-size:small;
+}
 #sidebarToggle{
 		display:block;
 	}
@@ -617,6 +623,9 @@ button:focus {
 }
 
 @media ( max-width :765px) {
+.btn-primary{
+	font-size:small;
+}
 	body{
 		font-size:small;}
 #sidebarToggle{
@@ -683,6 +692,9 @@ button:focus {
 }
 
 @media ( max-width :765px) {
+.btn-primary{
+	font-size:small;
+}
 #sidebarToggle{
 		display:block;
 	}
