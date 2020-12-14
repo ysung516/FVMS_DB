@@ -140,6 +140,8 @@
 				
 				for(int e=0; e<FH_outexList.size(); e++){
 					outex_sum[0] += FH_outexList.get(e).getCost();
+				}
+				for(int e=0; e<SH_outexList.size(); e++){
 					outex_sum[1] += SH_outexList.get(e).getCost();
 				}
 				String team = teamList.get(i);
