@@ -157,6 +157,7 @@ textarea {
 	vertical-align: middle;
 	word-break: keep-all;
 	width: 10%;
+	white-space: nowrap;
 }
 
 .loading {

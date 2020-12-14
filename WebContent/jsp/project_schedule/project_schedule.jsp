@@ -241,7 +241,7 @@
 
 .table { border:1px solid; border-collapse: collapse;}
 .table td, .test-table th { border: 1px solid;}
-.table thead th { position:sticky; top: 0; background-color:#15a3da52; border:1px solid; }
+.table thead th { position:sticky; top: 0; background-color:#15a3da52; border:1px solid;}
 
 /*
 .textover {
@@ -662,7 +662,7 @@
 			                    	<th><%=teamList.get(key).substring(0, 4) %></th>
 			                    	<%} 
 			                    }%>
-			                    <th>실</th>
+			                    <th style="padding:15px;">실</th>
 		                    </tr>
 	                    </thead>
 	                    <tbody>

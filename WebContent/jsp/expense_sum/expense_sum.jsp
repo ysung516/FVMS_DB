@@ -181,6 +181,9 @@
 </script>
 
 <style>
+td:first-child{
+	background: #e0efef;
+}
 .expense_form{
 	font-size:small;
 	margin-bottom:10px;
@@ -422,7 +425,7 @@ legend {
 								style="padding-left: 17px;">지출 요약 (단위 : 만)</h6>
 						</div>
 
-						<div class="card-body">
+						<div class="card-body" style="overflow:auto;">
 						<%
 							if(permission == 0){%>
 								<div class="expense_form">
@@ -455,7 +458,7 @@ legend {
  							<%}%>
 						<table class="table table-bordered">
 							<thead>
-							<tr>							
+							<tr style="background:#e0efef;">							
 								<th>
 									<select id="ex_year" name="wp_year" onchange="listLoad()">
 										<%

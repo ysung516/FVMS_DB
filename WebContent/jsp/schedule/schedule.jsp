@@ -492,7 +492,7 @@
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getMOBILE()%>'+"</td>";
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("total").get(a).getADDRESS()%>'+"</td>";
 	       	  						str = "<%=allList.get(teamList.get(key)).get("total").get(a).getID()%>";
-	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
 	       	  						inner += "</tr>";
 	       	  					<%}%>
 	       	  					$('#memberINFO').empty();
@@ -513,7 +513,7 @@
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getMOBILE()%>'+"</td>";
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("수석").get(a).getADDRESS()%>'+"</td>";
 	       	  						str = "<%=allList.get(teamList.get(key)).get("수석").get(a).getID()%>";
-	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
 	         						inner += "</tr>";
 	         					<%}%>
 	         					$('#memberINFO').empty();
@@ -534,7 +534,7 @@
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getMOBILE()%>'+"</td>";
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("책임").get(a).getADDRESS()%>'+"</td>";
 	       	  						str = "<%=allList.get(teamList.get(key)).get("책임").get(a).getID()%>";
-	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
 	         						inner += "</tr>";
 	         					<%}%>
 	         					$('#memberINFO').empty();
@@ -555,7 +555,7 @@
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getMOBILE()%>'+"</td>";
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("선임").get(a).getADDRESS()%>'+"</td>";
 	       	  						str = "<%=allList.get(teamList.get(key)).get("선임").get(a).getID()%>";
-	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
 	         						inner += "</tr>";
 	         					<%}%>
 	         					$('#memberINFO').empty();
@@ -576,7 +576,7 @@
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getMOBILE()%>'+"</td>";
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("전임").get(a).getADDRESS()%>'+"</td>";
 	       	  						str = "<%=allList.get(teamList.get(key)).get("전임").get(a).getID()%>";
-	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
 	         						inner += "</tr>";
 	         					<%}%>
 	         					$('#memberINFO').empty();
@@ -597,7 +597,7 @@
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getMOBILE()%>'+"</td>";
 	       	  						inner += "<td>"+'<%=allList.get(teamList.get(key)).get("인턴").get(a).getADDRESS()%>'+"</td>";
 	       	  						str = "<%=allList.get(teamList.get(key)).get("인턴").get(a).getID()%>";
-	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+	       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
 	         						inner += "</tr>";
 	         					<%}%>
 	         					$('#memberINFO').empty();
@@ -621,7 +621,7 @@
        	  						inner += "<td>"+'<%=ListT.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
        	  						inner += "</tr>";
        	  					<%}%>
        	  					$('#memberINFO').empty();
@@ -642,7 +642,7 @@
        	  						inner += "<td>"+'<%=ListT1.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT1.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT1.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -663,7 +663,7 @@
        	  						inner += "<td>"+'<%=ListT2.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT2.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT2.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -683,7 +683,7 @@
        	  						inner += "<td>"+'<%=ListT3.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT3.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT3.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -703,7 +703,7 @@
        	  						inner += "<td>"+'<%=ListT4.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT4.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT4.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();
@@ -723,7 +723,7 @@
        	  						inner += "<td>"+'<%=ListT5.get(a).getMOBILE()%>'+"</td>";
        	  						inner += "<td>"+'<%=ListT5.get(a).getADDRESS()%>'+"</td>";
        	  						str = "<%=ListT5.get(a).getID()%>";
-       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='상세보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
+       	  						inner += "<td>"+"<input type='button' class='detailBTN btn btn-info btn-icon-split btn-sm' value='보기' onclick='viewDetail(\""+str+"\")'>"+"</td>";
          						inner += "</tr>";
          					<%}%>
          					$('#memberINFO').empty();

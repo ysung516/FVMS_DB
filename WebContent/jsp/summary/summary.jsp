@@ -302,6 +302,9 @@
 
 </head>
 <style>
+#change_btn{
+	margin-left:15px;
+}
 .sidebar{
 		position:relative;
 		z-index:997;
@@ -372,6 +375,7 @@
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
+	width:102%;
 }
 ul.tabs li{
 	background: none;
@@ -413,6 +417,10 @@ ul.tabs li.current{
 	}
 	
 	@media(max-width:765px){
+		ul.tabs li{
+			width:24%;
+			text-align:center;
+		}
 		#sidebarToggle{
 			display:inline;
 		}
@@ -1650,7 +1658,7 @@ function y_rsales() {
 												style="color: black; margin-bottom: 0px; display: list-item; margin-left: 16px;">
 												<b>매출 보정 기준값 변경(단위:만)</b>
 											</p>
-											<p style="margin-left: 15px;">
+											<p is="change_btn">
 												수석 : <input name="1step" class="changeCompeData"
 													value="<%=RankCompe.get("수석")%>" /> 책임 : <input
 													name="2step" class="changeCompeData"
