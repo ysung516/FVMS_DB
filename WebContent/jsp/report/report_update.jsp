@@ -30,14 +30,14 @@
 
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	int nowYear = Integer.parseInt(sf.format(nowTime));
 	
 	int no = Integer.parseInt(request.getParameter("no"));
 	int projectNo = Integer.parseInt(request.getParameter("projectNo"));
 	ReportBean report = reportDao.getReportBean(no);
 	String weekly = report.getWeekly();
+	int year = Integer.parseInt(weekly.split("/")[0]);
 			
-	ProjectBean project = projectDao.getProjectBean_no(projectNo,nowYear);
+	ProjectBean project = projectDao.getProjectBean_no(projectNo,year);
 	String PMID = project.getPROJECT_MANAGER();
 	
 	String str = "";

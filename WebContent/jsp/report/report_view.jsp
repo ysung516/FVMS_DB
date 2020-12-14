@@ -28,14 +28,14 @@
 		Date nowTime = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-a-hh:mm");
 		String nowWeek = sf.format(nowTime);
-		int nowYear = Integer.parseInt(nowWeek.split("-")[0]);
 		
 		ReportBean report = reportDao.getReportBean(NO);
 		String weekly = report.getWeekly();
 		int projectNo = report.getProjectNo();
+		int year = Integer.parseInt(weekly.split("/")[0]);
 		
 		ReportBean reportBackUp = reportDao.getReportBackUp(projectNo, weekly);
-		ProjectBean project = projectDao.getProjectBean_no(projectNo, nowYear);
+		ProjectBean project = projectDao.getProjectBean_no(projectNo, year);
 		
 		
 		// 출력
@@ -360,7 +360,7 @@ h6 {
 											<td class="m-0 text-primary" id="move1">프로젝트</td>
 											<%
 												if(permission == 0  || (permission == 1 && (project.getWORKER_LIST().contains(sessionID) || project.getPROJECT_MANAGER().equals(sessionID)))){
-													%><td><a href="../project/project_update.jsp?no=<%=report.getProjectNo()%>"> <%=report.getTitle()%></a></td><%
+													%><td><a href="../project/project_update.jsp?no=<%=report.getProjectNo()%>&year=<%=year%>"> <%=report.getTitle()%></a></td><%
 												} else {
 													%><td><%=report.getTitle()%></td><%
 												}
