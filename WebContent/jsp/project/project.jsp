@@ -4,6 +4,7 @@
 	import="java.util.ArrayList"
 	import="java.text.SimpleDateFormat"
 	import="java.util.Date"
+	import="java.math.BigDecimal"
 	%>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +77,7 @@
 			PMnameList.add(pmInfo);
 		}
 	}
+
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -1129,7 +1131,10 @@
 								</thead>
 								<tbody>
 								
-                  			<%for(int i=0; i<projectList.size(); i++){%>
+                  			<%for(int i=0; i<projectList.size(); i++){
+                  				String yearOrder = String.format("%.2f",projectList.get(i).getFH_ORDER()+projectList.get(i).getSH_ORDER());
+                  				String yearSales = String.format("%.2f",projectList.get(i).getFH_SALES()+projectList.get(i).getSH_SALES()); 
+                  			%>
 									<tr>
 										<!-- 권한에 따라 수정페이지 접근 가능 -->
 										<%if((permission==1 && projectList.get(i).getTEAM_ORDER().equals(myInfo.getTEAM())) || (permission==1 && projectList.get(i).getTEAM_SALES().equals(myInfo.getTEAM())) || permission==0){%>
@@ -1154,8 +1159,8 @@
 										<td id="<%=projectList.get(i).getNO()%>하반기예상매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기예상매출')"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
 										<td id="<%=projectList.get(i).getNO()%>하반기매출" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','하반기매출')"><%=projectList.get(i).getSH_SALES()%></td>
 										
-										<td id="<%=projectList.get(i).getNO()%>연간수주"><%=projectList.get(i).getSH_ORDER()+projectList.get(i).getFH_ORDER()%></td>
-										<td id="<%=projectList.get(i).getNO()%>연간매출"><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
+										<td id="<%=projectList.get(i).getNO()%>연간수주"><%=yearOrder %></td>
+										<td id="<%=projectList.get(i).getNO()%>연간매출"><%=yearSales %></td>
 										
 										
 										<td id="<%=projectList.get(i).getNO()%>착수" class="td" onclick="updateStart('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','<%=projectList.get(i).getPROJECT_START()%>')"><%=projectList.get(i).getPROJECT_START()%></td>
@@ -1226,8 +1231,8 @@
 										<td class="td"><%=projectList.get(i).getSH_SALES_PROJECTIONS()%></td>
 										<td class="td"><%=projectList.get(i).getSH_SALES()%></td>
 										
-										<td><%=projectList.get(i).getSH_ORDER()+projectList.get(i).getFH_ORDER()%></td>
-										<td><%=projectList.get(i).getSH_SALES()+projectList.get(i).getFH_SALES()%></td>
+										<td><%=yearOrder%></td>
+										<td><%=yearSales%></td>
 										
 										<td class="td"><%=projectList.get(i).getPROJECT_START()%></td>
 										<td class="td"><%=projectList.get(i).getPROJECT_END()%></td>
