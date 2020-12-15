@@ -57,9 +57,6 @@
 
 		int maxYear = summaryDao.maxYear();
 		int yearCnt = maxYear - summaryDao.minYear() + 1;
-		if(request.getParameter("year") != null){
-			year = request.getParameter("year");
-		}
 		
 	    LinkedHashMap<Integer, String> teamList2 = memberDao.getTeam_year(year);	// 현재 년도 팀 정보 가져오기
 		
@@ -111,14 +108,8 @@
 				}
 			}
 		}
-		
-		
-		/*
-		
-		매출 보정 start
-		
-		*/
-		
+
+		/*매출 보정 start*/
 		// 팀별 보정
 		LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>> corrVal = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>>();
 		for(int key : teamList2.keySet()){
@@ -226,7 +217,6 @@
 		Expend();
 	});
 	
-	
 	function listLoad(){
 		var year = $('#ex_year').val();
 		location.href ="expense_sum.jsp?year="+year;
@@ -291,14 +281,6 @@
 				String team = teamList.get(i);
 				total_sum[i] = sure_sum[0] + sure_sum[1] + coop_sum[0] + coop_sum[1] + dp_sum[0] + dp_sum[1] + eq_sum[0] + eq_sum[1] + outex_sum[0] + outex_sum[1];
 				%>
-				FHsure[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','슈어','<%=sure_sum[0]%>')>"+<%=sure_sum[0]%>+"</td>";
-				SHsure[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','슈어','<%=sure_sum[1]%>')>"+<%=sure_sum[1]%>+"</td>";
-				
-				FHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','외부','<%=coop_sum[0]%>')>"+<%=coop_sum[0]%>+"</td>";
-				SHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','외부','<%=coop_sum[1]%>')>"+<%=coop_sum[1]%>+"</td>";
-				
-				FHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','상반기','<%=dp_sum[0]%>')>"+<%=(dp_sum[0] + eq_sum[0] + outex_sum[0])%>+"</td>";
-				SHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','하반기','<%=dp_sum[1]%>')>"+<%=(dp_sum[1] + eq_sum[1] + outex_sum[1])%>+"</td>";
 				
 				totalSum[<%=i%>] = "<td>"+<%=total_sum[i]%>+"</td>";
 				
@@ -306,24 +288,10 @@
 		
 		var cnt = <%=teamList.size()%>;
 		for(var a=0; a<cnt; a++){
-			$('#fist_half_in').append(FHsure[a]);
-			$('#second_half_in').append(SHsure[a]);
-			$('#fist_half_out').append(FHcoop[a]);
-			$('#second_half_out').append(SHcoop[a]);
-			$('#fist_half_dp').append(FHdp[a]);
-			$('#second_half_dp').append(SHdp[a]);
 			$('#total').append(totalSum[a]);
 		}
 	}
 	
-	function detail(team, semi, com, sum){
-		var popupX = ((document.body.offsetWidth/2)-(600/2));
-    	window.open('expense_detail.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&com='+com+'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
-	}
-	function detail_dp(team, semi, sum){
-		var popupX = (document.body.offsetWidth/2)-(600/2);
-    	window.open('expense_dp.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
-	}
 </script>
 
 <style>
