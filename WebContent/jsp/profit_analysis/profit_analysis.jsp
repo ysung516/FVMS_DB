@@ -592,14 +592,14 @@ legend {
 									<td>총 수입</td>
 									<%for(int key : teamList2.keySet()){ %>
 									<!-- 지출에 맞춰 만 단위로 변경 -->
-									<td><%=Y_achSale.get(teamList2.get(key)) * 100 %></td>
+									<td><%=String.format("%.2f", Y_achSale.get(teamList2.get(key)) * 100) %></td>
 									<%} %>
 								</tr>
 								<tr id="totalSaleCMS">
 									<td>총 수입(매출보정)</td>
 									<%for(int key : teamList2.keySet()){ %>
 									<!-- 지출에 맞춰 만 단위로 변경 -->
-									<td><%=cmsRate.get(2).get(teamList2.get(key)) * 100 %></td>
+									<td><%=String.format("%.2f", cmsRate.get(2).get(teamList2.get(key)) * 100) %></td>
 									<%} %>
 								</tr>
 								<tr id="total"><td>총 지출</td></tr>
