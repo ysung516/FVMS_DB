@@ -600,7 +600,7 @@ legend {
 											<%
 												for (int i = 0; i < teamList.size(); i++) {
 											%>
-											<td><%=cmsRate.get(2).get(teamList2.get(i)) * 100 - total_sum[i]%></td>
+											<td><%=String.format("%.2f",cmsRate.get(2).get(teamList2.get(i)) * 100 - total_sum[i])%></td>
 												<%}%>
 											</tr>
 									</tbody>
