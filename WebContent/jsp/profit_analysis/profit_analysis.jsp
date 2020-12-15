@@ -31,13 +31,15 @@
 		
 		MemberDAO memberDao = new MemberDAO();
 		ExpendDAO expendDao = new ExpendDAO();
+		SummaryDAO summaryDao = new SummaryDAO();
+		
 		MemberBean member = memberDao.returnMember(sessionID);
 		
-		Date nowYear = new Date();
+		Date date = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-		String year = sf.format(nowYear);
+		String year = sf.format(date);
 		
-		int fyear = Integer.parseInt(sf.format(nowYear));
+		int fyear = Integer.parseInt(sf.format(date));
 		int startYear = 2020;
 		int yearCount = fyear - startYear + 1;
 		
@@ -57,25 +59,21 @@
 		ArrayList<Outside_ExpendBean> SH_outexList = new ArrayList<Outside_ExpendBean>();
 				
 		ArrayList<Rank_CostBean> rankCost = expendDao.getRankCost();
-		
-		Date nowTime = new Date();
-		SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
-		String nowYear = sf_yyyy.format(nowTime);
-		
+
 		int maxYear = summaryDao.maxYear();
-		int yearCount = maxYear - summaryDao.minYear() + 1;
+		int yearCnt = maxYear - summaryDao.minYear() + 1;
 		
 		if(request.getParameter("selectYear") != null){
-			nowYear = request.getParameter("selectYear");
+			year = request.getParameter("selectYear");
 		}
 		
-	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);	// 현재 년도 팀 정보 가져오기
+	    LinkedHashMap<Integer, String> teamList2 = memberDao.getTeam_year(year);	// 현재 년도 팀 정보 가져오기
 		
-		ArrayList<ProjectBean> pjList = summaryDao.getProjectList(nowYear);	// 이번년도 실적보고 프로젝트 리스트
+		ArrayList<ProjectBean> pjList = summaryDao.getProjectList(year);	// 이번년도 실적보고 프로젝트 리스트
 		HashMap<String, Integer> RankCompe = summaryDao.getRank();	// 직급별 기준
 		
 		ArrayList<String> teamNameList = new ArrayList<String>(); 
-		LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData(nowYear);	// 현재 년도 팀별 목표값 가져오기
+		LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData(year);	// 현재 년도 팀별 목표값 가져오기
 		StateOfProBean ST = new StateOfProBean();
 		StateOfProBean ST2 = new StateOfProBean();
 		
@@ -89,70 +87,7 @@
 		int totalY6=0;
 		int totalY7=0;
 		int totalY8=0;
-		
-		/* ========목표======== */
-		// 목표수주
-		LinkedHashMap<String, Float> FH_goalOrder = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> SH_goalOrder = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> Y_goalOrder = new LinkedHashMap<String, Float>();
-		float FH_totalGoalOrder = 0;
-		float SH_totalGoalOrder = 0;
-		float Y_totalGoalOrder = 0;
-		for(int key : teamList.keySet()){
-			//상반기
-			FH_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetOrder());
-			FH_totalGoalOrder += teamGoalList.get(teamList.get(key)).getFH_targetOrder();
-			//하반기
-			SH_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getSH_targetOrder());
-			SH_totalGoalOrder += teamGoalList.get(teamList.get(key)).getSH_targetOrder();
-			//연간
-			Y_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetOrder() + teamGoalList.get(teamList.get(key)).getSH_targetOrder());
-			Y_totalGoalOrder += teamGoalList.get(teamList.get(key)).getFH_targetOrder() + teamGoalList.get(teamList.get(key)).getSH_targetOrder();
-		}
-		// 목표매출
-		LinkedHashMap<String, Float> FH_goalSale = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> SH_goalSale = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> Y_goalSale = new LinkedHashMap<String, Float>();
-		float FH_totalGoalSale = 0;
-		float SH_totalGoalSale = 0;
-		float Y_totalGoalSale = 0;
-		for(int key : teamList.keySet()){
-			//상반기
-			FH_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetSales());
-			FH_totalGoalSale += teamGoalList.get(teamList.get(key)).getFH_targetSales();
-			//하반기
-			SH_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getSH_targetSales());
-			SH_totalGoalSale += teamGoalList.get(teamList.get(key)).getSH_targetSales();
-			//연간
-			Y_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetSales() + teamGoalList.get(teamList.get(key)).getSH_targetSales());
-			Y_totalGoalSale += teamGoalList.get(teamList.get(key)).getFH_targetSales() + teamGoalList.get(teamList.get(key)).getSH_targetSales();
-		}
 
-		
-		// 예상수주
-		LinkedHashMap<String, Float> FH_preOrder = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> SH_preOrder = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> Y_preOrder = new LinkedHashMap<String, Float>();
-		float FH_totalpreOrder = 0;
-		float SH_totalpreOrder = 0;
-		float Y_totalpreOrder = 0;
-		
-		// 수주달성
-		LinkedHashMap<String, Float> FH_achOrder = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> SH_achOrder = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> Y_achOrder = new LinkedHashMap<String, Float>();
-		float FH_totalachOrder = 0;
-		float SH_totalachOrder = 0;
-		float Y_totalachOrder = 0;
-		
-		// 예상매출
-		LinkedHashMap<String, Float> FH_preSale = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> SH_preSale = new LinkedHashMap<String, Float>();
-		LinkedHashMap<String, Float> Y_preSale = new LinkedHashMap<String, Float>();
-		float FH_totalpreSale = 0;
-		float SH_totalpreSale = 0;
-		float Y_totalpreSale = 0;
-		
 		// 매출달성
 		LinkedHashMap<String, Float> FH_achSale = new LinkedHashMap<String, Float>();
 		LinkedHashMap<String, Float> SH_achSale = new LinkedHashMap<String, Float>();
@@ -161,65 +96,23 @@
 		float SH_totalachSale = 0;
 		float Y_totalachSale = 0;
 		
-		for(int key : teamList.keySet()){
-			FH_preOrder.put(teamList.get(key), new Float(0));
-			SH_preOrder.put(teamList.get(key), new Float(0));
-			Y_preOrder.put(teamList.get(key), new Float(0));
-			FH_achOrder.put(teamList.get(key), new Float(0));
-			SH_achOrder.put(teamList.get(key), new Float(0));
-			Y_achOrder.put(teamList.get(key), new Float(0));
-			FH_preSale.put(teamList.get(key), new Float(0));
-			SH_preSale.put(teamList.get(key), new Float(0));
-			Y_preSale.put(teamList.get(key), new Float(0));
-			FH_achSale.put(teamList.get(key), new Float(0));
-			SH_achSale.put(teamList.get(key), new Float(0));
-			Y_achSale.put(teamList.get(key), new Float(0));
+		for(int key : teamList2.keySet()){
+			FH_achSale.put(teamList2.get(key), new Float(0));
+			SH_achSale.put(teamList2.get(key), new Float(0));
+			Y_achSale.put(teamList2.get(key), new Float(0));
 			
 			for(int i = 0; i < pjList.size(); i++){
-				if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
-					/* ========예상수주======== */
-					//상반기
-					FH_preOrder.put(teamList.get(key), FH_preOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER_PROJECTIONS());
-					FH_totalpreOrder += pjList.get(i).getFH_ORDER_PROJECTIONS();
-					//하반기
-					SH_preOrder.put(teamList.get(key), SH_preOrder.get(teamList.get(key)) + pjList.get(i).getSH_ORDER_PROJECTIONS());
-					SH_totalpreOrder += pjList.get(i).getSH_ORDER_PROJECTIONS();
-					//연간
-					Y_preOrder.put(teamList.get(key), Y_preOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS());
-					Y_totalpreOrder += pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS();
-
-					/* ========수주달성======== */
-					//상반기
-					FH_achOrder.put(teamList.get(key), FH_achOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER());
-					FH_totalachOrder += pjList.get(i).getFH_ORDER();
-					//하반기
-					SH_achOrder.put(teamList.get(key), SH_achOrder.get(teamList.get(key)) + pjList.get(i).getSH_ORDER());
-					SH_totalachOrder += pjList.get(i).getSH_ORDER();
-					//연간
-					Y_achOrder.put(teamList.get(key), Y_achOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER());
-					Y_totalachOrder += pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER();
-				}
-				if(pjList.get(i).getTEAM_SALES().equals(teamList.get(key))){
-					/* ========예상매출======== */
-					//상반기
-					FH_preSale.put(teamList.get(key), FH_preSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES_PROJECTIONS());
-					FH_totalpreSale += pjList.get(i).getFH_SALES_PROJECTIONS();
-					//하반기
-					SH_preSale.put(teamList.get(key), SH_preSale.get(teamList.get(key)) + pjList.get(i).getSH_SALES_PROJECTIONS());
-					SH_totalpreSale += pjList.get(i).getSH_SALES_PROJECTIONS();
-					//연간
-					Y_preSale.put(teamList.get(key), Y_preSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS());
-					Y_totalpreSale += pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS();
-
+				if(pjList.get(i).getTEAM_SALES().equals(teamList2.get(key))){
+					
 					/* ========매출달성======== */
 					//상반기
-					FH_achSale.put(teamList.get(key), FH_achSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES());
+					FH_achSale.put(teamList2.get(key), FH_achSale.get(teamList2.get(key)) + pjList.get(i).getFH_SALES());
 					FH_totalachSale += pjList.get(i).getFH_SALES();
 					//하반기
-					SH_achSale.put(teamList.get(key), SH_achSale.get(teamList.get(key)) + pjList.get(i).getSH_SALES());
+					SH_achSale.put(teamList2.get(key), SH_achSale.get(teamList2.get(key)) + pjList.get(i).getSH_SALES());
 					SH_totalachSale += pjList.get(i).getSH_SALES();
 					//연간
-					Y_achSale.put(teamList.get(key), Y_achSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES());
+					Y_achSale.put(teamList2.get(key), Y_achSale.get(teamList2.get(key)) + pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES());
 					Y_totalachSale += pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES();
 				}
 			}
@@ -234,11 +127,11 @@
 		
 		// 팀별 보정
 		LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>> corrVal = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>>();
-		for(int key : teamList.keySet()){
+		for(int key : teamList2.keySet()){
 			LinkedHashMap<String, ArrayList<CMSBean>> val = new LinkedHashMap<String, ArrayList<CMSBean>>();
-			val.put("plus", summaryDao.getCMS_plusList(teamList.get(key), nowYear));
-			val.put("minus", summaryDao.getCMS_minusList(teamList.get(key), nowYear));
-			corrVal.put(teamList.get(key), val);
+			val.put("plus", summaryDao.getCMS_plusList(teamList2.get(key), year));
+			val.put("minus", summaryDao.getCMS_minusList(teamList2.get(key), year));
+			corrVal.put(teamList2.get(key), val);
 		}
 		
 		// 팀별 보정값 변수 및 for문
@@ -695,7 +588,18 @@ legend {
 							</thead>
 							
 							<tbody>
-								<tr><td>총 수입</td></tr>
+								<tr id="totalSale">
+									<td>총 수입</td>
+									<%for(int key : teamList2.keySet()){ %>
+									<td><%=Y_achSale.get(teamList2.get(key)) %></td>
+									<%} %>
+								</tr>
+								<tr id="totalSaleCMS">
+									<td>총 수입(매출보정)</td>
+									<%for(int key : teamList2.keySet()){ %>
+									<td><%=cmsRate.get(2).get(teamList2.get(key)) %></td>
+									<%} %>
+								</tr>
 								<tr id="total"><td>총 지출</td></tr>
 								<tr><td>총 수익</td></tr>
 							</tbody>
