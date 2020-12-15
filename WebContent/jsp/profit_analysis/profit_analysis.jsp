@@ -576,7 +576,7 @@ legend {
 												for (int key : teamList2.keySet()) {
 											%>
 											<!-- 지출에 맞춰 만 단위로 변경 -->
-											<td><%=String.format("%.2f", Y_achSale.get(teamList2.get(key)) * 100)%></td>
+											<td><%=String.format("%.2f", Y_totalachSale * 100)%></td>
 											<%
 												}
 											%>
@@ -587,7 +587,7 @@ legend {
 												for (int key : teamList2.keySet()) {
 											%>
 											<!-- 지출에 맞춰 만 단위로 변경 -->
-											<td><%=String.format("%.2f", cmsRate.get(2).get(teamList2.get(key)) * 100)%></td>
+											<td><%=String.format("%.2f", totalCmsY * 100)%></td>
 											<%
 												}
 											%>
@@ -600,7 +600,7 @@ legend {
 											<%
 												for (int i = 0; i < teamList.size(); i++) {
 											%>
-											<td><%=String.format("%.2f",cmsRate.get(2).get(teamList2.get(i)) * 100 - total_sum[i])%></td>
+											<td><%=String.format("%.2f",totalCmsY * 100 - total_sum[i])%></td>
 												<%}%>
 											</tr>
 									</tbody>
