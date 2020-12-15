@@ -564,7 +564,7 @@ legend {
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
-								style="padding-left: 17px;">수익성 분석</h6>
+								style="padding-left: 17px;">수익성 분석 (단위:만)</h6>
 						</div>
 
 						<div class="card-body">
