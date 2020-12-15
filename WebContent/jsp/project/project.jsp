@@ -207,7 +207,7 @@
 
 .table-responsive {
 	width: 100%;
-	height: 70vh;
+	height: 100vh;
 	overflow: auto;
 }
 
