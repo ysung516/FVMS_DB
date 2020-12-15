@@ -57,9 +57,8 @@
 
 		int maxYear = summaryDao.maxYear();
 		int yearCnt = maxYear - summaryDao.minYear() + 1;
-		
-		if(request.getParameter("selectYear") != null){
-			year = request.getParameter("selectYear");
+		if(request.getParameter("year") != null){
+			year = request.getParameter("year");
 		}
 		
 	    LinkedHashMap<Integer, String> teamList2 = memberDao.getTeam_year(year);	// 현재 년도 팀 정보 가져오기
@@ -615,7 +614,7 @@ legend {
 											%>
 										</tr>
 										<tr id="totalSaleCMS">
-											<td>총 수입(매출보정)</td>
+											<td style="word-break: keep-all;">총 수입(매출보정)</td>
 											<%
 												for (int key : teamList2.keySet()) {
 											%>
@@ -630,7 +629,12 @@ legend {
 										</tr>
 										<tr>
 											<td>총 수익</td>
-										</tr>
+											<%
+												for (int i = 0; i < teamList.size(); i++) {
+											%>
+											<td><%=cmsRate.get(2).get(teamList2.get(i)) * 100 - total_sum[i]%></td>
+												<%}%>
+											</tr>
 									</tbody>
 								</table>
 							</div>
