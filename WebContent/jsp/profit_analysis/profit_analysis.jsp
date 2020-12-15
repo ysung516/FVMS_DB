@@ -3,7 +3,15 @@
 	import="jsp.Bean.model.*" import="java.util.ArrayList"
 	import="java.util.List" import="jsp.DB.method.*"
 	import="jsp.Bean.model.*"
-	import="java.text.SimpleDateFormat" import="java.util.Date"%>
+	import="java.text.SimpleDateFormat" import="java.util.Date"
+	 import = "java.util.ArrayList"
+    import = "java.awt.Color" 
+    import = "java.util.Date"
+    import = "java.text.SimpleDateFormat"
+    import = "java.util.HashMap"  
+    import = "java.util.LinkedHashMap"  
+    import = "java.util.LinkedList"
+    %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,14 +21,291 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
+		int permission = Integer.parseInt(session.getAttribute("permission").toString());
+		if(permission > 2){
+			script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
+		}
 		
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		MemberDAO memberDao = new MemberDAO();
+		ExpendDAO expendDao = new ExpendDAO();
 		MemberBean member = memberDao.returnMember(sessionID);
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		
+		Date nowYear = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String year = sf.format(nowYear);
+		
+		int fyear = Integer.parseInt(sf.format(nowYear));
+		int startYear = 2020;
+		int yearCount = fyear - startYear + 1;
+		
+		int year_int = Integer.parseInt(year);
+		
+		if(request.getParameter("year") != null){
+			year_int = Integer.parseInt(request.getParameter("year"));
+		}
+		ArrayList<String> teamList  = expendDao.getTeamData(year);
+		ArrayList<Expend_TeamBean> exList = new ArrayList<Expend_TeamBean>();
+		ArrayList<Expend_CoopBean> exList_coop = new ArrayList<Expend_CoopBean>();
+		ArrayList<DPcostBean> FH_dpList = new ArrayList<DPcostBean>();
+		ArrayList<DPcostBean> SH_dpList = new ArrayList<DPcostBean>();
+		ArrayList<Eq_PurchaseBean> FH_eqList = new ArrayList<Eq_PurchaseBean>();
+		ArrayList<Eq_PurchaseBean> SH_eqList = new ArrayList<Eq_PurchaseBean>();
+		ArrayList<Outside_ExpendBean> FH_outexList = new ArrayList<Outside_ExpendBean>();
+		ArrayList<Outside_ExpendBean> SH_outexList = new ArrayList<Outside_ExpendBean>();
+				
+		ArrayList<Rank_CostBean> rankCost = expendDao.getRankCost();
+		
+		Date nowTime = new Date();
+		SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
+		String nowYear = sf_yyyy.format(nowTime);
+		
+		int maxYear = summaryDao.maxYear();
+		int yearCount = maxYear - summaryDao.minYear() + 1;
+		
+		if(request.getParameter("selectYear") != null){
+			nowYear = request.getParameter("selectYear");
+		}
+		
+	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);	// 현재 년도 팀 정보 가져오기
+		
+		ArrayList<ProjectBean> pjList = summaryDao.getProjectList(nowYear);	// 이번년도 실적보고 프로젝트 리스트
+		HashMap<String, Integer> RankCompe = summaryDao.getRank();	// 직급별 기준
+		
+		ArrayList<String> teamNameList = new ArrayList<String>(); 
+		LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData(nowYear);	// 현재 년도 팀별 목표값 가져오기
+		StateOfProBean ST = new StateOfProBean();
+		StateOfProBean ST2 = new StateOfProBean();
+		
+		StringBuffer total_goal_str = null;
+		
+		// 프로젝트 현황
+		int totalY2=0;
+		int totalY3=0;
+		int totalY4=0;
+		int totalY5=0;
+		int totalY6=0;
+		int totalY7=0;
+		int totalY8=0;
+		
+		/* ========목표======== */
+		// 목표수주
+		LinkedHashMap<String, Float> FH_goalOrder = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> SH_goalOrder = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> Y_goalOrder = new LinkedHashMap<String, Float>();
+		float FH_totalGoalOrder = 0;
+		float SH_totalGoalOrder = 0;
+		float Y_totalGoalOrder = 0;
+		for(int key : teamList.keySet()){
+			//상반기
+			FH_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetOrder());
+			FH_totalGoalOrder += teamGoalList.get(teamList.get(key)).getFH_targetOrder();
+			//하반기
+			SH_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getSH_targetOrder());
+			SH_totalGoalOrder += teamGoalList.get(teamList.get(key)).getSH_targetOrder();
+			//연간
+			Y_goalOrder.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetOrder() + teamGoalList.get(teamList.get(key)).getSH_targetOrder());
+			Y_totalGoalOrder += teamGoalList.get(teamList.get(key)).getFH_targetOrder() + teamGoalList.get(teamList.get(key)).getSH_targetOrder();
+		}
+		// 목표매출
+		LinkedHashMap<String, Float> FH_goalSale = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> SH_goalSale = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> Y_goalSale = new LinkedHashMap<String, Float>();
+		float FH_totalGoalSale = 0;
+		float SH_totalGoalSale = 0;
+		float Y_totalGoalSale = 0;
+		for(int key : teamList.keySet()){
+			//상반기
+			FH_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetSales());
+			FH_totalGoalSale += teamGoalList.get(teamList.get(key)).getFH_targetSales();
+			//하반기
+			SH_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getSH_targetSales());
+			SH_totalGoalSale += teamGoalList.get(teamList.get(key)).getSH_targetSales();
+			//연간
+			Y_goalSale.put(teamList.get(key), teamGoalList.get(teamList.get(key)).getFH_targetSales() + teamGoalList.get(teamList.get(key)).getSH_targetSales());
+			Y_totalGoalSale += teamGoalList.get(teamList.get(key)).getFH_targetSales() + teamGoalList.get(teamList.get(key)).getSH_targetSales();
+		}
+
+		
+		// 예상수주
+		LinkedHashMap<String, Float> FH_preOrder = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> SH_preOrder = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> Y_preOrder = new LinkedHashMap<String, Float>();
+		float FH_totalpreOrder = 0;
+		float SH_totalpreOrder = 0;
+		float Y_totalpreOrder = 0;
+		
+		// 수주달성
+		LinkedHashMap<String, Float> FH_achOrder = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> SH_achOrder = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> Y_achOrder = new LinkedHashMap<String, Float>();
+		float FH_totalachOrder = 0;
+		float SH_totalachOrder = 0;
+		float Y_totalachOrder = 0;
+		
+		// 예상매출
+		LinkedHashMap<String, Float> FH_preSale = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> SH_preSale = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> Y_preSale = new LinkedHashMap<String, Float>();
+		float FH_totalpreSale = 0;
+		float SH_totalpreSale = 0;
+		float Y_totalpreSale = 0;
+		
+		// 매출달성
+		LinkedHashMap<String, Float> FH_achSale = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> SH_achSale = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> Y_achSale = new LinkedHashMap<String, Float>();
+		float FH_totalachSale = 0;
+		float SH_totalachSale = 0;
+		float Y_totalachSale = 0;
+		
+		for(int key : teamList.keySet()){
+			FH_preOrder.put(teamList.get(key), new Float(0));
+			SH_preOrder.put(teamList.get(key), new Float(0));
+			Y_preOrder.put(teamList.get(key), new Float(0));
+			FH_achOrder.put(teamList.get(key), new Float(0));
+			SH_achOrder.put(teamList.get(key), new Float(0));
+			Y_achOrder.put(teamList.get(key), new Float(0));
+			FH_preSale.put(teamList.get(key), new Float(0));
+			SH_preSale.put(teamList.get(key), new Float(0));
+			Y_preSale.put(teamList.get(key), new Float(0));
+			FH_achSale.put(teamList.get(key), new Float(0));
+			SH_achSale.put(teamList.get(key), new Float(0));
+			Y_achSale.put(teamList.get(key), new Float(0));
+			
+			for(int i = 0; i < pjList.size(); i++){
+				if(pjList.get(i).getTEAM_ORDER().equals(teamList.get(key))){
+					/* ========예상수주======== */
+					//상반기
+					FH_preOrder.put(teamList.get(key), FH_preOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER_PROJECTIONS());
+					FH_totalpreOrder += pjList.get(i).getFH_ORDER_PROJECTIONS();
+					//하반기
+					SH_preOrder.put(teamList.get(key), SH_preOrder.get(teamList.get(key)) + pjList.get(i).getSH_ORDER_PROJECTIONS());
+					SH_totalpreOrder += pjList.get(i).getSH_ORDER_PROJECTIONS();
+					//연간
+					Y_preOrder.put(teamList.get(key), Y_preOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS());
+					Y_totalpreOrder += pjList.get(i).getFH_ORDER_PROJECTIONS() + pjList.get(i).getSH_ORDER_PROJECTIONS();
+
+					/* ========수주달성======== */
+					//상반기
+					FH_achOrder.put(teamList.get(key), FH_achOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER());
+					FH_totalachOrder += pjList.get(i).getFH_ORDER();
+					//하반기
+					SH_achOrder.put(teamList.get(key), SH_achOrder.get(teamList.get(key)) + pjList.get(i).getSH_ORDER());
+					SH_totalachOrder += pjList.get(i).getSH_ORDER();
+					//연간
+					Y_achOrder.put(teamList.get(key), Y_achOrder.get(teamList.get(key)) + pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER());
+					Y_totalachOrder += pjList.get(i).getFH_ORDER() + pjList.get(i).getSH_ORDER();
+				}
+				if(pjList.get(i).getTEAM_SALES().equals(teamList.get(key))){
+					/* ========예상매출======== */
+					//상반기
+					FH_preSale.put(teamList.get(key), FH_preSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES_PROJECTIONS());
+					FH_totalpreSale += pjList.get(i).getFH_SALES_PROJECTIONS();
+					//하반기
+					SH_preSale.put(teamList.get(key), SH_preSale.get(teamList.get(key)) + pjList.get(i).getSH_SALES_PROJECTIONS());
+					SH_totalpreSale += pjList.get(i).getSH_SALES_PROJECTIONS();
+					//연간
+					Y_preSale.put(teamList.get(key), Y_preSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS());
+					Y_totalpreSale += pjList.get(i).getFH_SALES_PROJECTIONS() + pjList.get(i).getSH_SALES_PROJECTIONS();
+
+					/* ========매출달성======== */
+					//상반기
+					FH_achSale.put(teamList.get(key), FH_achSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES());
+					FH_totalachSale += pjList.get(i).getFH_SALES();
+					//하반기
+					SH_achSale.put(teamList.get(key), SH_achSale.get(teamList.get(key)) + pjList.get(i).getSH_SALES());
+					SH_totalachSale += pjList.get(i).getSH_SALES();
+					//연간
+					Y_achSale.put(teamList.get(key), Y_achSale.get(teamList.get(key)) + pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES());
+					Y_totalachSale += pjList.get(i).getFH_SALES() + pjList.get(i).getSH_SALES();
+				}
+			}
+		}
+		
+		
+		/*
+		
+		매출 보정 start
+		
+		*/
+		
+		// 팀별 보정
+		LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>> corrVal = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<CMSBean>>>();
+		for(int key : teamList.keySet()){
+			LinkedHashMap<String, ArrayList<CMSBean>> val = new LinkedHashMap<String, ArrayList<CMSBean>>();
+			val.put("plus", summaryDao.getCMS_plusList(teamList.get(key), nowYear));
+			val.put("minus", summaryDao.getCMS_minusList(teamList.get(key), nowYear));
+			corrVal.put(teamList.get(key), val);
+		}
+		
+		// 팀별 보정값 변수 및 for문
+		LinkedHashMap<String, LinkedList<LinkedList<Float>>> corrRate = new LinkedHashMap<String, LinkedList<LinkedList<Float>>>();
+		for(String key : corrVal.keySet()){
+			LinkedList<LinkedList<Float>> list_all = new LinkedList<LinkedList<Float>>();
+			LinkedList<Float> list_fh = new LinkedList<Float>();
+			LinkedList<Float> list_sh = new LinkedList<Float>();
+			LinkedList<Float> list_y = new LinkedList<Float>();
+			
+			float fh_plus = 0;
+			float sh_plus = 0;
+			float y_plus = 0;
+			float fh_minus = 0;
+			float sh_minus = 0;
+			float y_minus = 0;
+			
+			for(CMSBean cms : corrVal.get(key).get("plus")){
+				fh_plus += cms.getFH_MM_CMS();
+				sh_plus += cms.getSH_MM_CMS();
+				y_plus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+			}
+			for(CMSBean cms : corrVal.get(key).get("minus")){
+				fh_minus += cms.getFH_MM_CMS();
+				sh_minus += cms.getSH_MM_CMS();
+				y_minus += cms.getFH_MM_CMS() + cms.getSH_MM_CMS();
+			}
+			
+			list_fh.add(fh_plus);
+			list_fh.add(fh_minus);
+			list_sh.add(sh_plus);
+			list_sh.add(sh_minus);
+			list_y.add(y_plus);
+			list_y.add(y_minus);
+			
+			list_all.add(list_fh);
+			list_all.add(list_sh);
+			list_all.add(list_y);
+			
+			corrRate.put(key, list_all);
+		}
+		
+		// 매출 보정 결과값
+		LinkedList<LinkedHashMap<String, Float>> cmsRate = new LinkedList<LinkedHashMap<String, Float>>();
+		LinkedHashMap<String, Float> RateMap_fh = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> RateMap_sh = new LinkedHashMap<String, Float>();
+		LinkedHashMap<String, Float> RateMap_y = new LinkedHashMap<String, Float>();
+		float totalCmsFh = 0;
+		float totalCmsSh = 0;
+		float totalCmsY = 0;
+		for(String key : corrRate.keySet()){
+			float fh_cms_chassis = FH_achSale.get(key) - corrRate.get(key).get(0).get(1) + corrRate.get(key).get(0).get(0);
+		    float sh_cms_chassis = SH_achSale.get(key) - corrRate.get(key).get(1).get(1) + corrRate.get(key).get(1).get(0);
+		    float y_cms_chassis = Y_achSale.get(key) - corrRate.get(key).get(2).get(1) + corrRate.get(key).get(2).get(0);
+		    RateMap_fh.put(key, fh_cms_chassis);
+			RateMap_sh.put(key, sh_cms_chassis);
+			RateMap_y.put(key, y_cms_chassis);
+			totalCmsFh += fh_cms_chassis;
+			totalCmsSh += sh_cms_chassis;
+			totalCmsY += y_cms_chassis;
+		}
+		RateMap_fh.put("Total", totalCmsFh);
+		RateMap_sh.put("Total", totalCmsSh);
+		RateMap_y.put("Total", totalCmsY);
+		cmsRate.add(RateMap_fh);
+		cmsRate.add(RateMap_sh);
+		cmsRate.add(RateMap_y);
 	%>
 
 <meta charset="utf-8">
@@ -47,12 +332,116 @@
 	
 <script>
 	window.onbeforeunload = function () { $('.loading').show(); }  //현재 페이지에서 다른 페이지로 넘어갈 때 표시해주는 기능
-	$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
-	    $('.loading').hide();
+	$(document).ready(function(){
+		$('.loading').hide();
+		$('#ex_year').val(<%=year_int%>).attr("selected","selected");
+		Expend();
 	});
+	
+	
+	function listLoad(){
+		var year = $('#ex_year').val();
+		location.href ="expense_sum.jsp?year="+year;
+	}
+	
+	function Expend(){
+		var FHsure= new Array();
+		var SHsure = new Array();
+		var FHcoop = new Array();
+		var SHcoop = new Array();
+		var FHdp = new Array();
+		var SHdp = new Array();
+		var totalSum = new Array();
+		<%
+			int [] total_sum = new int[teamList.size()];
+			for(int i=0; i<teamList.size(); i++){
+				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
+				exList_coop = expendDao.getExpend_coop(teamList.get(i), year_int);
+				FH_dpList = expendDao.getExpend_dp_FH(teamList.get(i), year_int);
+				SH_dpList = expendDao.getExpend_dp_SH(teamList.get(i), year_int);
+				FH_eqList = expendDao.getPurchaseList(teamList.get(i), year_int, 0);
+				SH_eqList = expendDao.getPurchaseList(teamList.get(i), year_int, 1);
+				FH_outexList = expendDao.getOutside_Expend(teamList.get(i), year_int, 0);
+				SH_outexList = expendDao.getOutside_Expend(teamList.get(i), year_int, 1);
+				
+				int [] sure_sum = {0,0};
+				int [] coop_sum = {0,0};
+				int [] dp_sum = {0,0};
+				int [] eq_sum = {0,0};
+				int [] out_sum = {0,0};
+				int [] outex_sum = {0,0};
+				
+				for(int j=0; j<exList.size(); j++){
+					sure_sum[0] += exList.get(j).getFh_expend();
+					sure_sum[1] += exList.get(j).getSh_expend();
+				}
+				for(int z=0; z<exList_coop.size(); z++){
+					coop_sum[0] += exList_coop.get(z).getFh_ex();
+					coop_sum[1] += exList_coop.get(z).getSh_ex();
+				}
+				
+				for(int x=0; x<FH_dpList.size(); x++){
+					dp_sum[0] += FH_dpList.get(x).getFh_ex();
+				}
+				for(int r=0; r<SH_dpList.size(); r++){
+					dp_sum[1] += SH_dpList.get(r).getSh_ex();
+				}
+				
+				for(int q=0; q<FH_eqList.size(); q++){
+					eq_sum[0] += FH_eqList.get(q).getSum();
+				}
+				for(int w=0; w<SH_eqList.size(); w++){
+					eq_sum[1] += SH_eqList.get(w).getSum();
+				}
+				
+				for(int e=0; e<FH_outexList.size(); e++){
+					outex_sum[0] += FH_outexList.get(e).getCost();
+				}
+				for(int e=0; e<SH_outexList.size(); e++){
+					outex_sum[1] += SH_outexList.get(e).getCost();
+				}
+				String team = teamList.get(i);
+				total_sum[i] = sure_sum[0] + sure_sum[1] + coop_sum[0] + coop_sum[1] + dp_sum[0] + dp_sum[1] + eq_sum[0] + eq_sum[1] + outex_sum[0] + outex_sum[1];
+				%>
+				FHsure[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','슈어','<%=sure_sum[0]%>')>"+<%=sure_sum[0]%>+"</td>";
+				SHsure[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','슈어','<%=sure_sum[1]%>')>"+<%=sure_sum[1]%>+"</td>";
+				
+				FHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','상반기','외부','<%=coop_sum[0]%>')>"+<%=coop_sum[0]%>+"</td>";
+				SHcoop[<%=i%>] = "<td onclick=detail('<%=team%>','하반기','외부','<%=coop_sum[1]%>')>"+<%=coop_sum[1]%>+"</td>";
+				
+				FHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','상반기','<%=dp_sum[0]%>')>"+<%=(dp_sum[0] + eq_sum[0] + outex_sum[0])%>+"</td>";
+				SHdp[<%=i%>] = "<td onclick=detail_dp('<%=team%>','하반기','<%=dp_sum[1]%>')>"+<%=(dp_sum[1] + eq_sum[1] + outex_sum[1])%>+"</td>";
+				
+				totalSum[<%=i%>] = "<td>"+<%=total_sum[i]%>+"</td>";
+				
+			<%}%>
+		
+		var cnt = <%=teamList.size()%>;
+		for(var a=0; a<cnt; a++){
+			$('#fist_half_in').append(FHsure[a]);
+			$('#second_half_in').append(SHsure[a]);
+			$('#fist_half_out').append(FHcoop[a]);
+			$('#second_half_out').append(SHcoop[a]);
+			$('#fist_half_dp').append(FHdp[a]);
+			$('#second_half_dp').append(SHdp[a]);
+			$('#total').append(totalSum[a]);
+		}
+	}
+	
+	function detail(team, semi, com, sum){
+		var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('expense_detail.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&com='+com+'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
+	}
+	function detail_dp(team, semi, sum){
+		var popupX = (document.body.offsetWidth/2)-(600/2);
+    	window.open('expense_dp.jsp?team=' + team +'&year='+<%=year_int%> + '&semi='+semi +'&sum='+sum, '', 'toolbar=no, menubar=no, left='+popupX+', top=100, scrollbars=no, width=1200, height=800');
+	}
 </script>
 
 <style>
+td:first-child{
+	background: #e0efef;
+}
 .sidebar .nav-item{
 	 	word-break: keep-all;
 }
@@ -286,6 +675,32 @@ legend {
 						</div>
 
 						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered">
+							<thead>
+							<tr style="background:#e0efef;">							
+								<th>
+									<select id="ex_year" name="wp_year" onchange="listLoad()">
+										<%
+											for(int i=0; i<yearCount; i++){ %>
+												<option value="<%=fyear - i%>"><%=fyear - i%></option>
+										<%}%>
+									</select>
+								</th>
+								<%
+									for(int i=0; i<teamList.size(); i++){%>
+										<th><%=teamList.get(i)%></th>
+								<%}%>
+							<tr>
+							</thead>
+							
+							<tbody>
+								<tr><td>총 수입</td></tr>
+								<tr id="total"><td>총 지출</td></tr>
+								<tr><td>총 수익</td></tr>
+							</tbody>
+						</table>
+							</div>
 						</div>
 					</div>
 					
