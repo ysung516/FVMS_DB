@@ -558,6 +558,7 @@ legend {
 														}
 													%>
 											</select></th>
+											<th>Total</th>
 											<%
 												for (int i = 0; i < teamList.size(); i++) {
 											%>
@@ -572,35 +573,40 @@ legend {
 									<tbody>
 										<tr id="totalSale">
 											<td>총 수입</td>
+											<td><%=String.format("%.2f", Y_totalachSale * 100)%></td>
 											<%
 												for (int key : teamList2.keySet()) {
 											%>
 											<!-- 지출에 맞춰 만 단위로 변경 -->
-											<td><%=String.format("%.2f", Y_totalachSale * 100)%></td>
+											<td><%=String.format("%.2f", Y_achSale.get(teamList2.get(key)) * 100)%></td>
 											<%
 												}
 											%>
 										</tr>
 										<tr id="totalSaleCMS">
 											<td style="word-break: keep-all;">총 수입(매출보정)</td>
+											<td><%=String.format("%.2f", totalCmsY * 100)%></td>
 											<%
 												for (int key : teamList2.keySet()) {
 											%>
 											<!-- 지출에 맞춰 만 단위로 변경 -->
-											<td><%=String.format("%.2f", totalCmsY * 100)%></td>
+											<td><%=String.format("%.2f", cmsRate.get(2).get(teamList2.get(key)) * 100)%></td>
 											<%
 												}
 											%>
 										</tr>
 										<tr id="total">
 											<td>총 지출</td>
+											<td></td>
 										</tr>
 										<tr>
 											<td>총 수익</td>
+											<!-- 총 지출 빼야함 -->
+											<td><%=String.format("%.2f",totalCmsY * 100)%></td>
 											<%
 												for (int i = 0; i < teamList.size(); i++) {
 											%>
-											<td><%=String.format("%.2f",totalCmsY * 100 - total_sum[i])%></td>
+											<td><%=String.format("%.2f",cmsRate.get(2).get(teamList2.get(i)) * 100 - total_sum[i])%></td>
 												<%}%>
 											</tr>
 									</tbody>
