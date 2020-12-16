@@ -52,7 +52,7 @@
 		ArrayList<Eq_PurchaseBean> SH_eqList = new ArrayList<Eq_PurchaseBean>();
 		ArrayList<Outside_ExpendBean> FH_outexList = new ArrayList<Outside_ExpendBean>();
 		ArrayList<Outside_ExpendBean> SH_outexList = new ArrayList<Outside_ExpendBean>();
-				
+		
 		ArrayList<Rank_CostBean> rankCost = expendDao.getRankCost();
 
 		int maxYear = summaryDao.maxYear();
@@ -232,7 +232,7 @@
 		var totalSum = new Array();
 		
 		<%
-			float totalSum2 = 0;
+			int totalSum2 = 0;
 			int [] total_sum = new int[teamList.size()];
 			for(int i=0; i<teamList.size(); i++){
 				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
@@ -294,6 +294,7 @@
 			$('#total').append(totalSum[a]);
 		}
 		
+	}
 
 </script>
 
