@@ -232,8 +232,8 @@
 		var totalSum = new Array();
 		
 		<%
-			int totalSum2 = 0;
-			int [] total_sum = new int[teamList.size()];
+			float totalSum2 = 0;
+			float [] total_sum = new float[teamList.size()];
 			for(int i=0; i<teamList.size(); i++){
 				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
 				exList_coop = expendDao.getExpend_coop(teamList.get(i), year_int);
@@ -286,7 +286,7 @@
 				totalSum2 += total_sum[i];
 				%>
 				
-				totalSum[<%=i%>] = "<td>"+<%=total_sum[i]%>+"</td>";		
+				totalSum[<%=i%>] = "<td>"+'<%=String.format("%.2f", total_sum[i])%>'+"</td>";		
 			<%}%>
 		
 		var cnt = <%=teamList.size()%>;
@@ -593,6 +593,7 @@ legend {
 											<%
 												for (int key : teamList2.keySet()) {
 											%>
+											
 											<!-- 지출에 맞춰 만 단위로 변경 -->
 											<td><%=String.format("%.2f", cmsRate.get(2).get(teamList2.get(key)) * 100)%></td>
 											<%
@@ -601,12 +602,13 @@ legend {
 										</tr>
 										<tr id="total">
 											<td>총 지출</td>
-											<td><%=totalSum2%></td>
+											<td><%=String.format("%.2f", totalSum2)%></td>
 										</tr>
 										<tr>
 											<td>총 수익</td>
 											<!-- 총 지출 빼야함 -->
-											<td><%=String.format("%.2f",totalCmsY * 100)%></td>
+											<td><%=String.format("%.2f",totalCmsY * 100-totalSum2)%></td>
+											
 											<%
 												for (int i = 0; i < teamList.size(); i++) {
 											%>
