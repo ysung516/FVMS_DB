@@ -230,7 +230,9 @@
 		var FHdp = new Array();
 		var SHdp = new Array();
 		var totalSum = new Array();
+		
 		<%
+			float totalSum2 = 0;
 			int [] total_sum = new int[teamList.size()];
 			for(int i=0; i<teamList.size(); i++){
 				exList = expendDao.getExpend_sure(teamList.get(i), Integer.toString(year_int));
@@ -248,6 +250,7 @@
 				int [] eq_sum = {0,0};
 				int [] out_sum = {0,0};
 				int [] outex_sum = {0,0};
+				
 				
 				for(int j=0; j<exList.size(); j++){
 					sure_sum[0] += exList.get(j).getFh_expend();
@@ -280,18 +283,18 @@
 				}
 				String team = teamList.get(i);
 				total_sum[i] = sure_sum[0] + sure_sum[1] + coop_sum[0] + coop_sum[1] + dp_sum[0] + dp_sum[1] + eq_sum[0] + eq_sum[1] + outex_sum[0] + outex_sum[1];
+				totalSum2 += total_sum[i];
 				%>
 				
-				totalSum[<%=i%>] = "<td>"+<%=total_sum[i]%>+"</td>";
-				
+				totalSum[<%=i%>] = "<td>"+<%=total_sum[i]%>+"</td>";		
 			<%}%>
 		
 		var cnt = <%=teamList.size()%>;
 		for(var a=0; a<cnt; a++){
 			$('#total').append(totalSum[a]);
 		}
-	}
-	
+		
+
 </script>
 
 <style>
@@ -597,7 +600,7 @@ legend {
 										</tr>
 										<tr id="total">
 											<td>총 지출</td>
-											<td></td>
+											<td><%=totalSum2%></td>
 										</tr>
 										<tr>
 											<td>총 수익</td>

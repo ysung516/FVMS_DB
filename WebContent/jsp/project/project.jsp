@@ -540,7 +540,7 @@
        		}else if (labelList[d] == '30'){
        			inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','30')>외주수요</label>";
        		}else if (labelList[d] == '31'){
-       			inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','31')>주간보고서사용</label>";
+       			inner += "<label id=주간보고 class=labelST onclick=labelEvent('주간보고','31')>주간보고</label>";
        		}else if (labelList[d] == '32'){
        			inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','32')>실적보고</label>";
        		}else if (labelList[d] == '33'){
@@ -627,7 +627,7 @@
             	inner += "<label id=평가유형 class=labelST onclick=labelEvent('평가유형','28')>평가유형</label>";
             	inner += "<label id=채용수요 class=labelST onclick=labelEvent('채용수요','29')>채용수요</label>";
             	inner += "<label id=외주수요 class=labelST onclick=labelEvent('외주수요','30')>외주수요</label>";
-            	inner += "<label id=주간보고서사용 class=labelST onclick=labelEvent('주간보고서사용','31')>주간보고서사용</label>";
+            	inner += "<label id=주간보고 class=labelST onclick=labelEvent('주간보고','31')>주간보고</label>";
             	inner += "<label id=실적보고 class=labelST onclick=labelEvent('실적보고','32')>실적보고</label>";
             	inner += "<label id=복사 class=labelST onclick=labelEvent('복사','33')>복사</label>";
             	$('#list').append(inner);
@@ -1124,7 +1124,7 @@
 										<th class="th" onclick="hideAttr(28)">평가유형</th>
 										<th class="th" onclick="hideAttr(29)">채용수요</th>
 										<th class="th" onclick="hideAttr(30)">외주수요</th>
-										<th class="th" onclick="hideAttr(31)">주간보고서사용</th>
+										<th class="th" onclick="hideAttr(31)">주간보고</th>
 										<th class="th" onclick="hideAttr(32)">실적보고</th>
 										<th class="th" onclick="hideAttr(33)">복사</th>
 									</tr>
@@ -1184,7 +1184,7 @@
 										<td id="<%=projectList.get(i).getNO()%>평가유형" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','평가유형','<%=projectList.get(i).getASSESSMENT_TYPE()%>')"><%=projectList.get(i).getASSESSMENT_TYPE()%></td>
 										<td id="<%=projectList.get(i).getNO()%>채용수요" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','채용수요','<%=projectList.get(i).getEMPLOY_DEMAND()%>')"><%=projectList.get(i).getEMPLOY_DEMAND()%></td>
 										<td id="<%=projectList.get(i).getNO()%>외주수요" class="td" onclick="updateData('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>','외주수요','<%=projectList.get(i).getOUTSOURCE_DEMAND()%>')"><%=projectList.get(i).getOUTSOURCE_DEMAND()%></td>
-										<td class="td" onclick="updateCheck('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getREPORTCHECK()%>', '주간보고서사용')">
+										<td class="td" onclick="updateCheck('<%=projectList.get(i).getNO()%>', '<%=projectList.get(i).getPROJECT_NAME()%>', '<%=projectList.get(i).getREPORTCHECK()%>', '주간보고')">
 										<%
 											if(projectList.get(i).getREPORTCHECK() == 1){
 												out.print("ON");
