@@ -234,13 +234,13 @@
 		memchartInsert();
 		cooperView();
 		
-		$('#cooper').change(function(){
+		/*$('#cooper').change(function(){
 			if($('#cooper').is(":checked")){
 				$('.sidebar').css("height", '100%');
 			}else{
 				$('.sidebar').css("height", 'auto');
 			}
-		});
+		});*/
 		
 	});
 	
@@ -251,9 +251,7 @@
 </script>
 
 <style>
-.card-body{
-    overflow: scroll;
-   }
+
 .sidebar .nav-item {
 	word-break: keep-all;
 }
@@ -307,7 +305,6 @@
 	}
 	#accordionSidebar {
 		width: 100%;
-		height: 100%;
 		text-align: center;
 		display: inline;
 		padding-top: 60px;
