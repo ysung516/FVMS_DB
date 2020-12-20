@@ -412,7 +412,7 @@ public class SummaryDAO {
 		
 		return list;
 	}
-	
+	/*
 	// 팀별 목포 수주,매출 데이터 가져오기
 	public ArrayList<TeamBean> getTagetData(){
 			ArrayList<TeamBean> List = new ArrayList<TeamBean>();
@@ -446,7 +446,7 @@ public class SummaryDAO {
 			}
 		    return List;
 	}
-		
+		*/
 	// 팀별 목표 수주,매출 데이터 가져오기
 	public LinkedHashMap<String, TeamBean> getTargetData(String year){
 		LinkedHashMap<String, TeamBean> reList = new LinkedHashMap<String, TeamBean>();

@@ -23,15 +23,13 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	
-	Date nowDate = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-	int nowYear = Integer.parseInt(sf.format(nowDate));
-	
+	int nowYear = Integer.parseInt(request.getParameter("year"));
+	System.out.println(nowYear);
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
 	ManagerDAO managerDao = new ManagerDAO();
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
-	ArrayList<String> teamList = projectDao.getTeamData(sf.format(nowDate));
+	ArrayList<String> teamList = projectDao.getTeamData(Integer.toString(nowYear));
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();
 	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(nowYear);
 %>
@@ -49,7 +47,7 @@
 <link href="../../vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
-	href="../../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -160,7 +158,6 @@
 
 	$(document).ready(function () {
 		$('.loading').hide();
-		$("#team_sales").val('<%=teamList.get(0)%>').attr("selected", "selected");
 		sortSelect('WORKER_LIST'); 
 		workDelete();
 		PMDelete();
@@ -202,29 +199,27 @@ function sortSelect(selId) {
 		var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
 		var start = $("#PROJECT_START").val();
 		var end = $("#PROJECT_END").val();
-
 		
 		var inner = "";
 		inner += "<tr style='background-color: greenyellow'>";
-		inner += "<td style='display:none;'>"+id+"</td>";
+		inner += "<td style='display:none'><input name=WORKER_LIST value="+id+"></td>";
 		inner += "<td>"+team+"</td>";
 		inner += "<td>"+part+"</td>";
 		inner += "<td>"+name+"</td>";
-		inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
-		inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
+		inner += "<td><input name = start type=date value="+start+"></td>";
+		inner += "<td><input name = end type=date value="+end+"></td>";
 		inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 		inner += "</tr>";
 		var cnt =0;
 		
 		for(var a=0; a<$('#workerListAdd tr').length; a++){
-			if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
+			if(id == $('#workerListAdd tr:eq('+a+')').children().children().val()){
 				cnt = 1;
 			}
 		}
 		
 		if (cnt == 0){
 			$('#workerListAdd').prepend(inner);
-			$("#textValue2").append(id+" ");
 		} else{
 			alert('이미 등록되어있는 명단 입니다');
 		}
@@ -238,7 +233,7 @@ function changePM(td){
 	$('#workerListAdd_PM tr').css("background-color","white");
 	$(tr).css("background-color","yellow");
 	
-	$('#PROJECT_MANAGER').val(td.eq(0).text()).prop("selected", true);
+	$('#PROJECT_MANAGER').val(td.eq(0).children().val()).prop("selected", true);
 }
 
 //PM선택
@@ -252,34 +247,33 @@ function getSelectPM(){
 	var end = $("#PROJECT_END").val();
 	var inner = "";
 	inner += "<tr style='background-color: greenyellow'>";
-	inner += "<td style='display:none;'>"+id+"</td>";
+	inner += "<td style='display: none'><input name=WORKER_LIST_PM value="+id+"></td>";
 	inner += "<td onclick='changePM(this)'>"+team+"</td>";
 	inner += "<td onclick='changePM(this)'>"+part+"</td>";
 	inner += "<td onclick='changePM(this)'>"+name+"</td>";
-	inner += "<td onclick='changePM(this)'><input name="+id+"/startPM type=date value="+start+"></td>";
-	inner += "<td onclick='changePM(this)'><input name="+id+"/endPM type=date value="+end+"></td>";
+	inner += "<td onclick='changePM(this)'><input name = startPM type=date value="+start+"></td>";
+	inner += "<td onclick='changePM(this)'><input name = endPM type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
 	inner += "</tr>";
 	var cnt =0;
 	
 	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
-		if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+		if(id == $('#workerListAdd_PM tr:eq('+a+')').children().children().val()){
 			cnt = 1;
 		}
 	}
 	
 	if (cnt == 0){
 		$('#workerListAdd_PM').prepend(inner);
-		var trPM = $('#workerListAdd_PM td:eq(0)');
-		if(id == trPM.text()){
+		var trPM = $('#workerListAdd_PM tr:eq(0)').children().children();
+		if(id == trPM.val()){
 			$('#workerListAdd_PM tr').css("background-color","white");
-			trPM.parent().css("background-color","yellow");
+			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
 		}
-		//id 저장
-		$("#textValuePM").append(id+" ");
+
 	} else{
 		for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
-			if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+			if(id == $('#workerListAdd_PM tr:eq('+a+')').children().children().val()){
 				$('#workerListAdd_PM tr').css("background-color","white");
 				$('#workerListAdd_PM tr:eq('+a+')').css("background-color","yellow");
 			}
@@ -296,11 +290,6 @@ function workDelete(){
 		var tdArr = new Array();
 		var btn = $(this);
 		var tr = btn.parent().parent();
-		var td = tr.children();
-		var delID = td.eq(0).text();
-		var text = $("#textValue2").text();
-		var te = text.replace(delID+" ", "");
-		$("#textValue2").text(te);
 		tr.remove();
 	});
 }
@@ -313,16 +302,12 @@ function PMDelete(){
 		var btn = $(this);
 		var tr = btn.parent().parent();
 		var td = tr.children();
-		var delID = td.eq(0).text();
-		console.log(delID);
-		var text = $("#textValuePM").text();
-		var te = text.replace(delID+" ", "");
-		$("#textValuePM").text(te);
+		var delID = td.children().val();
 		tr.remove();
 		
 		if(delID == $("#PROJECT_MANAGER option:selected").val()){
 			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
-			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
+			var id = $('#workerListAdd_PM tr:eq(0)').children().children().val();
 			$('#PROJECT_MANAGER').val(id).prop("selected", true);
 		}
 	});
@@ -623,6 +608,7 @@ function btn_insert(){
 						<div class="card-body">
 							<div class="table-responsive">
 								<form method="post" action="project_makePro.jsp">
+								<input type=hidden name=year value=<%=nowYear%>>
 									<table class="table table-bordered" id="dataTable">
 										<tr>
 											<th><span style="color: red;">*</span>팀(수주)</th>
@@ -790,7 +776,6 @@ function btn_insert(){
 		                      		}
 		                      	%></select> 
 		                      			<select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
-											<textarea id="textValuePM" name="WORKER_LIST_PM" style="display: none;"></textarea>
 												<table id="workerList_PM" style="margin-top: 5px;">
 													<thead>
 														<tr>
@@ -819,9 +804,8 @@ function btn_insert(){
 													<%
 		                      		}
 		                      	%>
-											</select> <select id="WORKER_LIST" name="WORKER_LIST"
-												onChange="getSelectValue();"></select> <textarea
-													id="textValue2" name="WORKER_LIST2" style="display: none;"></textarea>
+											</select> <select id="WORKER_LIST" 
+												onChange="getSelectValue();"></select>
 												<table id="workerList" style="margin-top: 5px;">
 													<thead>
 														<tr>

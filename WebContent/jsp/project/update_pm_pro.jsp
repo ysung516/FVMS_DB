@@ -19,28 +19,39 @@
 	
 	int no = Integer.parseInt(request.getParameter("no"));
 	String PROJECT_MANAGER = request.getParameter("PROJECT_MANAGER");
-	
-	  String PM_LIST = request.getParameter("WORKER_LIST_PM").trim()+" ";
-	  int pm_cnt = PM_LIST.split(" ").length;
-	
-	  String [] workerListPM = new String[pm_cnt];
-	  String []startPM = new String[pm_cnt];
-	  String []endPM = new String[pm_cnt];
-	  for(int i=0; i<pm_cnt; i++){
-		  workerListPM[i] = PM_LIST.split(" ")[i];
-		  startPM[i] = request.getParameter(workerListPM[i]+"/startPM");
-		  endPM[i] = request.getParameter(workerListPM[i]+"/endPM");
-	  }
-	
 	ProjectDAO projectDao = new ProjectDAO();
 	int result = 0;
-	result = projectDao.updatePM(no, PROJECT_MANAGER);
-	if(result == 1){
-		projectDao.deleteCareer(no,"1");
-		projectDao.setCareer(workerListPM, no, startPM, endPM, "1");
-		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
-	}else{
-		script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"' </script>");
+	
+	String [] PM_List;
+	String [] startPM;
+	String [] endPM;
+	  if (request.getParameterValues("WORKER_LIST_PM") != null){
+		  PM_List = request.getParameterValues("WORKER_LIST_PM");
+		  startPM = request.getParameterValues("startPM");
+		  endPM = request.getParameterValues("endPM");
+	  } else {
+		  PM_List = new String[0];
+		  startPM = new String[0];
+		  endPM = new String[0];
+	  }
+	  
+	  int pmDataNull = 0;
+	  for(int i=0; i<PM_List.length; i++){
+		  if(startPM[i].equals("") || endPM[i].equals("")){
+			  pmDataNull = 1;
+		  }
+	  }
+	if(pmDataNull == 1){
+		script.print("<script> alert('PM인력의 시작과 종료가 입력되지 않았습니다.'); history.back();</script>");
+	} else{
+		result = projectDao.updatePM(no, PROJECT_MANAGER);
+		if(result == 1){
+			projectDao.deleteCareer(no,"1");
+			projectDao.setCareer(PM_List, no, startPM, endPM, "1");
+			script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
+		}else{
+			script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"' </script>");
+		}
 	}
 %>
 </body>

@@ -1299,7 +1299,7 @@
 				<%
 	          	if (permission <= 1){
 	        		%><div id="project_btn">
-					<a href="project_make.jsp" class="btn btn-primary">프로젝트 생성</a>
+					<a href="project_make.jsp?year=<%=year%>" class="btn btn-primary">프로젝트 생성</a>
 				</div>
 				<%
         	} %>

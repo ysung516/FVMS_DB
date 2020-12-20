@@ -20,6 +20,7 @@
 		String sessionID = (String)session.getAttribute("sessionID");
 	
 		ProjectDAO projectDao = new ProjectDAO();
+		int year = Integer.parseInt(request.getParameter("year"));
 		String TEAM_SALES = request.getParameter("team_sales");
 		String TEAM_ORDER = request.getParameter("team_order");
 		String RPOJECT_CODE = request.getParameter("PROJECT_CODE");
@@ -44,7 +45,7 @@
 		String WORK_PLACE = request.getParameter("WORK_PLACE");
 		String WORK = request.getParameter("WORK");
 		String PROJECT_MANAGER = request.getParameter("PROJECT_MANAGER");
-		String WORKER_LIST = request.getParameter("WORKER_LIST2").trim()+" ";
+		
 		String ASSESSMENT_TYPE = request.getParameter("ASSESSMENT_TYPE");
 		float EMPLOY_DEMAND = Float.valueOf(request.getParameter("EMPLOY_DEMAND"));
 		float OUTSOURCE_DEMAND = Float.valueOf(request.getParameter("OUTSOURCE_DEMAND"));
@@ -52,50 +53,76 @@
 		int RESULT_REPORT = Integer.parseInt(request.getParameter("sheetCheck"));
 		String copy = request.getParameter("copy");
 		
-		  String PM_LIST = request.getParameter("WORKER_LIST_PM").trim()+" ";
-		  int pm_cnt = PM_LIST.split(" ").length;
-		  int worker_cnt = WORKER_LIST.split(" ").length;
-		  
-		  String [] workerList = new String[worker_cnt];
-		  String []start = new String[worker_cnt];
-		  String []end = new String[worker_cnt];
-		  for(int i=0; i<worker_cnt; i++){
-			  workerList[i] = WORKER_LIST.split(" ")[i];
-			  start[i] = request.getParameter(workerList[i]+"/start");
-			  end[i] = request.getParameter(workerList[i]+"/end");
+		  String [] PM_List;
+		  String [] startPM;
+		  String [] endPM;
+		  if (request.getParameterValues("WORKER_LIST_PM") != null){
+			  PM_List = request.getParameterValues("WORKER_LIST_PM");
+			  startPM = request.getParameterValues("startPM");
+			  endPM = request.getParameterValues("endPM");
+		  } else {
+			  PM_List = new String[0];
+			  startPM = new String[0];
+			  endPM = new String[0];
 		  }
 		  
-		  String [] workerListPM = new String[pm_cnt];
-		  String []startPM = new String[pm_cnt];
-		  String []endPM = new String[pm_cnt];
-		  for(int i=0; i<pm_cnt; i++){
-			  workerListPM[i] = PM_LIST.split(" ")[i];
-			  startPM[i] = request.getParameter(workerListPM[i]+"/start");
-			  endPM[i] = request.getParameter(workerListPM[i]+"/end");
+		  int pmDataNull = 0;
+		  for(int i=0; i<PM_List.length; i++){
+			  if(startPM[i].equals("") || endPM[i].equals("")){
+				  pmDataNull = 1;
+			  }
 		  }
-		
-		
+		  
+		  
+		  String [] WORKER_LIST;
+		  String [] start;
+		  String [] end;
+		  
+		  if(request.getParameterValues("WORKER_LIST") != null){
+			  WORKER_LIST = request.getParameterValues("WORKER_LIST");
+			  start = request.getParameterValues("start");
+			  end = request.getParameterValues("end");
+		  } else {
+			  WORKER_LIST = new String[0];
+			  start = new String[0];
+			  end = new String[0];
+		  }
+
+		  String P_WORKER_LIST =""; 
+		  int workDataNull = 0;
+		  for(int i=0; i<WORKER_LIST.length; i++){
+			  P_WORKER_LIST += WORKER_LIST[i]+" ";
+			  
+			  if(start[i].equals("") || end[i].equals("")){
+				  workDataNull = 1;
+			  }
+		  }
+		 
 		if( PROJECT_NAME ==null || PROJECT_NAME == ""){
 			script.print("<script> alert('*표시 부분은 반드시 작성해야 합니다..'); history.back();</script>");
 		} else{
-			
-			int no =0;
-			no = projectDao.setProject(TEAM_SALES, TEAM_ORDER, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
-					CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS, FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
-					SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
-					WORK, PROJECT_MANAGER, WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT,copy);
-			if(no != 0){
-				projectDao.setCareer(workerListPM, no, startPM, endPM, "1");
-				projectDao.setCareer(workerList, no, start, end, "0");
-				script.print("<script> alert('프로젝트가 등록되었습니다.'); location.href = 'project.jsp'</script>");
-			}
-				else script.print("<script> alert('등록 실패!!'); history.back();</script>");
-		}
-		
-	
-		
-		
-		
+			if(pmDataNull == 1){
+				script.print("<script> alert('PM인력의 시작과 종료가 입력되지 않았습니다.'); history.back();</script>");
+			}else {
+				if(workDataNull == 1){
+					script.print("<script> alert('투입인력의 시작과 종료가 입력되지 않았습니다.'); history.back();</script>");
+				} else{
+					int no =0;
+					no = projectDao.setProject(TEAM_ORDER, TEAM_SALES, RPOJECT_CODE, PROJECT_NAME, STATE, PART, CLIENT, 
+							CLIENT_PART, MAN_MONTH, PROJECT_DESOPIT, FH_ORDER_PROJECTIONS, FH_ORDER, FH_SALES_PROJECTIONS, FH_SALES, 
+							SH_ORDER_PROJECTIONS, SH_ORDER, SH_SALES_PROJECTIONS, SH_SALES, PROJECT_START, PROJECT_END, CLIENT_PTB, WORK_PLACE, 
+							WORK, PROJECT_MANAGER, P_WORKER_LIST, ASSESSMENT_TYPE, EMPLOY_DEMAND, OUTSOURCE_DEMAND, REPORT_CHECK, RESULT_REPORT,copy,year);
+					if(no != 0){
+						projectDao.setCareer(PM_List, no, startPM, endPM, "1");
+						projectDao.setCareer(WORKER_LIST, no, start, end, "0");
+						script.print("<script> alert('프로젝트가 등록되었습니다.'); location.href = 'project.jsp'</script>");
+					}
+					else{
+						 script.print("<script> alert('등록 실패!!'); history.back();</script>");
+					}
+				}
+			}	
+		}	
 	%>
 </body>
 </html>

@@ -53,8 +53,8 @@
 	
 	ArrayList<String> teamNameList = new ArrayList<String>(); 
 	LinkedHashMap<String, TeamBean> teamGoalList = summaryDao.getTargetData(nowYear);	// 현재 년도 팀별 목표값 가져오기
-	StateOfProBean ST = new StateOfProBean();
-	StateOfProBean ST2 = new StateOfProBean();
+	//StateOfProBean ST = new StateOfProBean();
+	//StateOfProBean ST2 = new StateOfProBean();
 	
 	StringBuffer total_goal_str = null;
 	

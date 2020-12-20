@@ -97,42 +97,41 @@ function sortSelect(selId) {
 		sel.html(optionList); 
 }
 
-//명단선택
+//투입명단선택
 function getSelectValue(){
 	//팀, 이름 저장
 	var team = $("#teamlist option:selected").val();
 	var id = $("#WORKER_LIST option:selected").val();
 	var name = ($("#WORKER_LIST option:selected").text()).split("-")[1].trim();
 	var part = ($("#WORKER_LIST option:selected").text()).split("-")[0].trim();
-	var start = "<%=project.getPROJECT_START()%>";
-	var end = "<%=project.getPROJECT_END()%>";
-
+	var start = $("#PROJECT_START").val();
+	var end = $("#PROJECT_END").val();
 	
 	var inner = "";
 	inner += "<tr style='background-color: greenyellow'>";
-	inner += "<td style='display:none;'>"+id+"</td>";
+	inner += "<td style='display:none'><input name=WORKER_LIST value="+id+"></td>";
 	inner += "<td>"+team+"</td>";
 	inner += "<td>"+part+"</td>";
 	inner += "<td>"+name+"</td>";
-	inner += "<td><input name="+id+"/start type=date value="+start+"></td>";
-	inner += "<td><input name="+id+"/end type=date value="+end+"></td>";
+	inner += "<td><input name = start type=date value="+start+"></td>";
+	inner += "<td><input name = end type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='workDel' value='삭제'/></td>";
 	inner += "</tr>";
 	var cnt =0;
 	
 	for(var a=0; a<$('#workerListAdd tr').length; a++){
-		if(id == $('#workerListAdd tr:eq('+a+') td:eq(0)').text()){
+		if(id == $('#workerListAdd tr:eq('+a+')').children().children().val()){
 			cnt = 1;
 		}
 	}
 	
 	if (cnt == 0){
 		$('#workerListAdd').prepend(inner);
-		$("#textValue2").append(id+" ");
 	} else{
 		alert('이미 등록되어있는 명단 입니다');
 	}
 }
+
 
 //명단삭제
 function workDelete(){
@@ -141,11 +140,6 @@ function workDelete(){
 		var tdArr = new Array();
 		var btn = $(this);
 		var tr = btn.parent().parent();
-		var td = tr.children();
-		var delID = td.eq(0).text();
-		var text = $("#textValue2").text();
-		var te = text.replace(delID+" ", "");
-		$("#textValue2").text(te);
 		tr.remove();
 	});
 }
@@ -198,9 +192,7 @@ $(document).ready(function(){
 			<%
               		}
               	%>
-	</select> <select id="WORKER_LIST" name="WORKER_LIST"
-		onChange="getSelectValue();"></select> 
-		<textarea id="textValue2" name="WORKER_LIST2" style="display: none;" ><%=textWorker%></textarea>
+	</select> <select id="WORKER_LIST" onChange="getSelectValue();"></select> 
 		<table id="workerList">
 			<thead>
 				<tr>
@@ -210,6 +202,7 @@ $(document).ready(function(){
 					<th>이름</th>
 					<th>시작</th>
 					<th>종료</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody id="workerListAdd">
@@ -218,12 +211,12 @@ $(document).ready(function(){
   					CareerBean career = careerList.get(c);
 					MemberBean member = memberDao.returnMember(career.getId());  %>
 				<tr>
-					<td style='display: none;'><input name="<%=career.getId()+"/id"%>" value="<%=career.getId()%>"><%=career.getId()%></td>
+					<td style='display: none;'><input name="WORKER_LIST" value="<%=career.getId()%>"></td>
 					<td><%=member.getTEAM()%></td>
 					<td><%=member.getPART()%></td>
 					<td><%=member.getNAME()%></td>
-					<td><input name="<%=career.getId()+"/start"%>" type=date value="<%=career.getStart()%>"></td>
-					<td><input name="<%=career.getId()+"/end"%>" type=date value="<%=career.getEnd()%>"></td>
+					<td><input name="start" type=date value="<%=career.getStart()%>"></td>
+					<td><input name="end" type=date value="<%=career.getEnd()%>"></td>
 					<td><input type='button' class='workDel' value='삭제' /></td>
 				</tr>
 				<%}%>

@@ -18,30 +18,44 @@
 	String sessionID = (String)session.getAttribute("sessionID");
 	
 	int no = Integer.parseInt(request.getParameter("no"));
-	String WORKER_LIST = request.getParameter("WORKER_LIST2").trim()+" ";
-	
 	ProjectDAO projectDao = new ProjectDAO();
-	
 	int result = 0;
-	result = projectDao.updateWorker(no, WORKER_LIST);
-	
-	int worker_cnt = WORKER_LIST.split(" ").length;
-	String [] workerList = new String[worker_cnt];
-	  String []start = new String[worker_cnt];
-	  String []end = new String[worker_cnt];
-	  for(int i=0; i<worker_cnt; i++){
-		  workerList[i] = WORKER_LIST.split(" ")[i];
-		  start[i] = request.getParameter(workerList[i]+"/start");
-		  end[i] = request.getParameter(workerList[i]+"/end");
+
+	  String [] WORKER_LIST;
+	  String [] start;
+	  String [] end;		  
+	  if(request.getParameterValues("WORKER_LIST") != null){
+		  WORKER_LIST = request.getParameterValues("WORKER_LIST");
+		  start = request.getParameterValues("start");
+		  end = request.getParameterValues("end");
+	  } else {
+		  WORKER_LIST = new String[0];
+		  start = new String[0];
+		  end = new String[0];
 	  }
-	
-	if(result == 1){
-		projectDao.deleteCareer(no,"0");
-		projectDao.setCareer(workerList, no, start, end, "0");
-		script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
+	  String P_WORKER_LIST =""; 
+	  int workDataNull = 0;
+	  for(int i=0; i<WORKER_LIST.length; i++){
+		  P_WORKER_LIST += WORKER_LIST[i]+" ";
+		  
+		  if(start[i].equals("") || end[i].equals("")){
+			  workDataNull = 1;
+		  }
+	  }
+
+	if(workDataNull == 1){
+		script.print("<script> alert('투입인력의 시작과 종료가 입력되지 않았습니다.'); history.back();</script>");
 	}else{
-		script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"' </script>");
+		result = projectDao.updateWorker(no, P_WORKER_LIST);
+		if(result == 1){
+			projectDao.deleteCareer(no,"0");
+			projectDao.setCareer(WORKER_LIST, no, start, end, "0");
+			script.print("<script> alert('수정되었습니다.'); location.href = 'project.jsp#state"+no+"'</script>");
+		}else{
+			script.print("<script> alert('실패하였습니다.'); location.href = 'project.jsp#state"+no+"' </script>");
+		}
 	}
+	
 %>
 </body>
 </html>

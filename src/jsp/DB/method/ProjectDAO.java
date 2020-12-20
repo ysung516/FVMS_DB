@@ -209,7 +209,7 @@ public class ProjectDAO {
 			float SH_ORDER_PROJECTIONS, float SH_ORDER, float SH_SALES_PROJECTIONS, float SH_SALES,
 			String PROJECT_START, String PROJECT_END, String CLIENT_PTB, String WORK_PLACE, String WORK,
 			String PROJECT_MANAGER, String WORKER_LIST, String ASSESSMENT_TYPE, float EMPLOY_DEMAND,
-			float OUTSOURCE_DEMAND, int REPORT_CHECK, int RESULT_REPORT, String copy)
+			float OUTSOURCE_DEMAND, int REPORT_CHECK, int RESULT_REPORT, String copy, int year)
 
 	{
 		Connection conn = null;
@@ -218,8 +218,7 @@ public class ProjectDAO {
 		int no = 0;
 
 		try {
-			Date nowDate = new Date();
-			int nowYear = Integer.parseInt(sf.format(nowDate));
+
 			StringBuffer query = new StringBuffer();
 			query.append("insert into project(팀_수주,팀_매출,프로젝트코드,프로젝트명,상태,실,고객사,고객부서,ManMonth,프로젝트계약금액_백만,"
 					+ "상반기예상수주,상반기수주,상반기예상매출,상반기매출,하반기예상수주,하반기수주,하반기예상매출,하반기매출,착수,종료,고객담당자,근무지,"
@@ -256,7 +255,7 @@ public class ProjectDAO {
 			pstmt.setFloat(28, OUTSOURCE_DEMAND);
 			pstmt.setInt(29, REPORT_CHECK);
 			pstmt.setInt(30, RESULT_REPORT);
-			pstmt.setInt(31, nowYear);
+			pstmt.setInt(31, year);
 			pstmt.setString(32, copy);
 			pstmt.executeUpdate();
 			// no 반환

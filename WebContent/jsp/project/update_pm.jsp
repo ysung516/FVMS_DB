@@ -49,10 +49,7 @@
 	
 
 	ArrayList<CareerBean> careerList_PM = projectDao.getCarrerPM(Integer.toString(projectNo));
-	String textPM = "";
-	for(int i=0; i<careerList_PM.size(); i++){
-		textPM += careerList_PM.get(i).getId()+" ";
-	}
+
 %>
 
 <style>
@@ -109,7 +106,7 @@ function teamMember(team, member){
 function PM_highlight(){
 	var nowPM = '<%=project.getPROJECT_MANAGER()%>';	
 	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
-		if(nowPM == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+		if(nowPM == $('#workerListAdd_PM tr:eq('+a+')').children().children().val()){
 			$('#workerListAdd_PM tr').css("background-color","white");
 			$('#workerListAdd_PM tr:eq('+a+')').css("background-color","yellow");
 		}
@@ -123,7 +120,7 @@ function changePM(td){
 	$('#workerListAdd_PM tr').css("background-color","white");
 	$(tr).css("background-color","yellow");
 	
-	$('#PROJECT_MANAGER').val(td.eq(0).text()).prop("selected", true);
+	$('#PROJECT_MANAGER').val(td.eq(0).children().val()).prop("selected", true);
 }
 
 //PM선택
@@ -133,38 +130,37 @@ function getSelectPM(){
 	var id = $("#PROJECT_MANAGER option:selected").val();
 	var name = ($("#PROJECT_MANAGER option:selected").text()).split("-")[1].trim();
 	var part = ($("#PROJECT_MANAGER option:selected").text()).split("-")[0].trim();
-	var start =  "<%=project.getPROJECT_START()%>";
-	var end = "<%=project.getPROJECT_END()%>";
+	var start = $("#PROJECT_START").val();
+	var end = $("#PROJECT_END").val();
 	var inner = "";
 	inner += "<tr style='background-color: greenyellow'>";
-	inner += "<td style='display:none;'>"+id+"</td>";
+	inner += "<td style='display: none'><input name=WORKER_LIST_PM value="+id+"></td>";
 	inner += "<td onclick='changePM(this)'>"+team+"</td>";
 	inner += "<td onclick='changePM(this)'>"+part+"</td>";
 	inner += "<td onclick='changePM(this)'>"+name+"</td>";
-	inner += "<td onclick='changePM(this)'><input name="+id+"/startPM type=date value="+start+"></td>";
-	inner += "<td onclick='changePM(this)'><input name="+id+"/endPM type=date value="+end+"></td>";
+	inner += "<td onclick='changePM(this)'><input name = startPM type=date value="+start+"></td>";
+	inner += "<td onclick='changePM(this)'><input name = endPM type=date value="+end+"></td>";
 	inner += "<td><input type='button' class='PMDel' value='삭제'/></td>";
 	inner += "</tr>";
 	var cnt =0;
 	
 	for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
-		if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+		if(id == $('#workerListAdd_PM tr:eq('+a+')').children().children().val()){
 			cnt = 1;
 		}
 	}
 	
 	if (cnt == 0){
 		$('#workerListAdd_PM').prepend(inner);
-		var trPM = $('#workerListAdd_PM td:eq(0)');
-		if(id == trPM.text()){
+		var trPM = $('#workerListAdd_PM tr:eq(0)').children().children();
+		if(id == trPM.val()){
 			$('#workerListAdd_PM tr').css("background-color","white");
-			trPM.parent().css("background-color","yellow");
+			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
 		}
-		//id 저장
-		$("#textValuePM").append(id+" ");
+
 	} else{
 		for(var a=0; a<$('#workerListAdd_PM tr').length; a++){
-			if(id == $('#workerListAdd_PM tr:eq('+a+') td:eq(0)').text()){
+			if(id == $('#workerListAdd_PM tr:eq('+a+')').children().children().val()){
 				$('#workerListAdd_PM tr').css("background-color","white");
 				$('#workerListAdd_PM tr:eq('+a+')').css("background-color","yellow");
 			}
@@ -182,16 +178,12 @@ function PMDelete(){
 		var btn = $(this);
 		var tr = btn.parent().parent();
 		var td = tr.children();
-		var delID = td.eq(0).text();
-		console.log(delID);
-		var text = $("#textValuePM").text();
-		var te = text.replace(delID+" ", "");
-		$("#textValuePM").text(te);
+		var delID = td.children().val();
 		tr.remove();
 		
 		if(delID == $("#PROJECT_MANAGER option:selected").val()){
 			$('#workerListAdd_PM tr:eq(0)').css("background-color","yellow");
-			var id = $('#workerListAdd_PM tr:eq(0) td:eq(0)').text()
+			var id = $('#workerListAdd_PM tr:eq(0)').children().children().val();
 			$('#PROJECT_MANAGER').val(id).prop("selected", true);
 		}
 	});
@@ -222,7 +214,7 @@ $(document).ready(function(){
               		}
               	%>
 	</select> <select id="PROJECT_MANAGER" name="PROJECT_MANAGER" onChange="getSelectPM()"></select>
-	<textarea id="textValuePM" name="WORKER_LIST_PM" style="display: none"><%=textPM%></textarea>
+	
 	<table id="workerList_PM" style="margin-top: 5px;">
 		<thead>
 			<tr>
@@ -241,12 +233,12 @@ $(document).ready(function(){
 				MemberBean member = memberDao.returnMember(careerPM.getId()); 
 			%>
 			<tr>
-				<td style='display: none;'><%=careerPM.getId()%></td>
+				<td style='display: none;'><input name="WORKER_LIST_PM" value="<%=careerPM.getId()%>"></td>
 				<td onclick="changePM(this)"><%=member.getTEAM()%></td>
 				<td onclick="changePM(this)"><%=member.getPART()%></td>
 				<td onclick="changePM(this)"><%=member.getNAME()%></td>
-				<td onclick="changePM(this)"><input name="<%=careerPM.getId()+"/startPM"%>" type=date value="<%=careerPM.getStart()%>"></td>
-				<td onclick="changePM(this)"><input name="<%=careerPM.getId()+"/endPM"%>" type=date value="<%=careerPM.getEnd()%>"></td>
+				<td onclick="changePM(this)"><input name="startPM" type=date value="<%=careerPM.getStart()%>"></td>
+				<td onclick="changePM(this)"><input name="endPM" type=date value="<%=careerPM.getEnd()%>"></td>
 				<td><input type='button' class='PMDel' value='삭제'/></td>
 			</tr>
 			<%}%>
