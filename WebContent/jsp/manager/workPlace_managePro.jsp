@@ -25,20 +25,21 @@
 		String [] workPlace = new String[count];
 		String [] color = new String[count];
 		String [] cost = new String[count];
+		int [] order = new int[count];
 		
+		workPlace = request.getParameterValues("place");
+		color = request.getParameterValues("color");
+		cost = request.getParameterValues("cost");
 		for(int i=0; i<count; i++){
-			workPlace = request.getParameterValues("place");
-			color = request.getParameterValues("color");
-			cost = request.getParameterValues("cost");
+			order[i] = Integer.parseInt(request.getParameterValues("order")[i]);
 		}
 		
 		ManagerDAO managerDao = new ManagerDAO();
-		
+
 		managerDao.drop_PlaceTable(year);
-		
-		System.out.println(count);
+
 		if(count != 0){
-			if(managerDao.save_WorkPlace(workPlace, color, cost, count ,year) == count){
+			if(managerDao.save_WorkPlace(workPlace, color, cost, count ,year,order) == count){
 				script.print("<script> alert('근무지가 저장 되었습니다.'); location.href = 'workPlace_manage.jsp?year="+year+"'</script>");
 			} else{
 				script.print("<script> alert('저장 실패!!'); history.back();</script>");
@@ -48,9 +49,7 @@
 		} else{
 			script.print("<script> alert('저장 실패!!'); location.href = 'manager.jsp'</script>");
 		}
-			
-			
-	
+
 	%>
 </body>
 </html>

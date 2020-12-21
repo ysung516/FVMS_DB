@@ -4,6 +4,13 @@ public class WorkPlaceBean {
 	private String place;
 	private String color;
 	private int cost;
+	private int order;
+	public int getOrder() {
+		return order;
+	}
+	public void setOrder(int order) {
+		this.order = order;
+	}
 	public int getCost() {
 		return cost;
 	}

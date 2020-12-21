@@ -27,7 +27,7 @@ public class ManagerDAO {
 
 		try {
 			StringBuffer query = new StringBuffer();
-			query.append("select * from workPlace where year=?");
+			query.append("select * from workPlace where year=? order by order_no");
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
 			pstmt.setInt(1, year);
@@ -37,6 +37,7 @@ public class ManagerDAO {
 				wp.setPlace(rs.getString("place"));
 				wp.setColor(rs.getString("color"));
 				wp.setCost(rs.getInt("cost"));
+				wp.setOrder(rs.getInt("order_no"));
 				list.add(wp);
 			}
 		} catch (SQLException e) {
@@ -51,15 +52,15 @@ public class ManagerDAO {
 	}
 
 	// 근무지 수정 후 데이터베이스에 저장
-	public int save_WorkPlace(String[] place, String[] color, String[] cost, int count, int year) {
+	public int save_WorkPlace(String[] place, String[] color, String[] cost, int count, int year, int [] order) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int rs = 0;
 		try {
-			String query = "insert into workPlace(place,color,cost,year) values(?,?,?,?) ";
+			String query = "insert into workPlace(place,color,cost,year,order_no) values(?,?,?,?,?)";
 			if (count > 1) {
 				for (int i = 0; i < count - 1; i++) {
-					query += ",(?,?,?,?)";
+					query += ",(?,?,?,?,?)";
 				}
 				query += ";";
 			}
@@ -69,8 +70,9 @@ public class ManagerDAO {
 			pstmt.setString(2, color[0]);
 			pstmt.setInt(3, Integer.parseInt(cost[0]));
 			pstmt.setInt(4, year);
+			pstmt.setInt(5, order[0]);
 			if (count > 1) {
-				int cnt = 5;
+				int cnt = 6;
 				for (int j = 0; j < count - 1; j++) {
 					pstmt.setString(cnt, place[j + 1]);
 					cnt++;
@@ -79,6 +81,8 @@ public class ManagerDAO {
 					pstmt.setInt(cnt, Integer.parseInt(cost[j + 1]));
 					cnt++;
 					pstmt.setInt(cnt, year);
+					cnt++;
+					pstmt.setInt(cnt, order[j+1]);
 					cnt++;
 				}
 			}
@@ -143,7 +147,7 @@ public class ManagerDAO {
 		PreparedStatement pstmt = null;
 		int rs = 0;
 		try {
-			String query = "insert into workPlace (select place, color, cost, (year+1) as year from workPlace where year = ?)";
+			String query = "insert into workPlace (select place, color, cost, (year+1) as year, order_no from workPlace where year = ?)";
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
 			pstmt.setInt(1, year);

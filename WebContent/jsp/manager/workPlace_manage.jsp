@@ -401,6 +401,7 @@
 									<th>근무지</th>
 									<th>파견비용(단위: 만)</th>
 									<th>COLOR</th>
+									<th>정렬순서</th>
 									<th><input type="button" value="+"  class="btn btn-primary" onclick="rowAdd();"></th>
 								</tr>
 							</thead>
@@ -412,6 +413,7 @@
 										<td class="place_width"><input name="place" value="<%=wpList.get(i).getPlace()%>" ></td>
 										<td class="place_width"><input name="cost" value="<%=wpList.get(i).getCost()%>"></td>
 										<td class="place_width"><input type="color" name="color" value="<%=wpList.get(i).getColor()%>" ></td>
+										<td class="place_width"><input name="order" value="<%=wpList.get(i).getOrder()%>"></td>
 										<td><input class="deleteNP" type="button" onclick="deleteNP()" value="삭제"></td>
 									</tr>									
 							<%}%>
