@@ -70,6 +70,10 @@ public class MemberDAO {
 
 	// 모든 회원정보 가져오기 : 재직자>팀>소속>직책>직급>입사일 순 -> 즉, 퇴사자는 제일 마지막
 	public ArrayList<MemberBean> getMemberDataEndOut() {
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String nowYear = sf.format(nowDate);
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -78,7 +82,7 @@ public class MemberDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
-					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName "
+					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND d.year="+nowYear+" "
 					+ "ORDER BY a.퇴사일, d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일;");
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
@@ -209,6 +213,10 @@ public class MemberDAO {
 
 	// 모든 회원정보 가져오기(소속순)
 	public ArrayList<MemberBean> getMemberData_part() {
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String nowYear = sf.format(nowDate);
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -217,7 +225,7 @@ public class MemberDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
-					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName "
+					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND d.year="+nowYear+" "
 					+ "ORDER BY a.퇴사일, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, a.이름, d.teamNum, c.num, b.rank_id");
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
@@ -255,6 +263,10 @@ public class MemberDAO {
 
 	// 모든 회원정보 가져오기(직급순)
 	public ArrayList<MemberBean> getMemberData_rank() {
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String nowYear = sf.format(nowDate);
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -263,7 +275,7 @@ public class MemberDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
-					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName "
+					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND d.year="+nowYear+" "
 					+ "ORDER BY a.퇴사일, b.rank_id, d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num");
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
