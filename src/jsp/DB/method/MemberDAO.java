@@ -121,6 +121,10 @@ public class MemberDAO {
 
 	// 퇴사 제외 모든 회원정보 가져오기
 	public ArrayList<MemberBean> getMemberDataWithoutOut() {
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		String nowYear = sf.format(nowDate);
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -129,7 +133,7 @@ public class MemberDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
-					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND 퇴사일 = '-' "
+					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName AND 퇴사일 = '-' AND d.year="+nowYear+" "
 					+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
