@@ -19,13 +19,32 @@
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
+
+		Date nowTime = new Date();
+		SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
+		String nowYear = sf_yyyy.format(nowTime);
+		int year = Integer.parseInt(sf_yyyy.format(nowTime));
+		
+		if(request.getParameter("selectYear") != null){
+			nowYear = request.getParameter("selectYear");
+		}
+		
+		SummaryDAO summaryDao = new SummaryDAO();
 		MemberDAO memberDao = new MemberDAO();
+
+		int teamcnt = memberDao.getTeam().size();
+		ManagerDAO managerDao = new ManagerDAO();
+		int maxYear = summaryDao.maxYear();
+		int yearCount = maxYear - summaryDao.minYear() + 1;
+		
+		
 	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();	// 퇴사 제외하고 회원 정보 가져오기
 	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation();	// 협력업체
 	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();	// 협력업체 별 인원 수 가져오기
-	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam();	// 올해 팀 리스트 가져오기
-	%>
+	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);// 올해 팀 리스트 가져오기
+		LinkedHashMap<String, TeamBean> teamData = summaryDao.getTargetData(nowYear);	
 
+		%>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -47,12 +66,21 @@
 </head>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
+
 	
 <script>
 	function memchartInsert(){	// 슈어소프트테크 소속 인원 표에 데이터 담기
 		var now = new Date();
 		var year = now.getFullYear();
 		var month = now.getMonth()+1;
+	
+		
+		function loadYear(){
+			var year = $('#selYear').val();
+			location.href ="teamSet.jsp?selectYear="+year;
+		}
+		
+		
 		if(month > 6){
 			var half = '하반기';
 		}else{
@@ -552,6 +580,11 @@ table:not(.memchart):not(#intern) {
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
 								style="padding-left: 17px;">조직도
+									<select id="selYear" name="selYear" onchange="loadYear()">
+				         			<%for(int i=0; i<yearCount; i++){%>
+									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+									<%}%>
+				         		</select>
 								<label style="font-size: 12px; display: block; margin-left: 5px; margin-top: 5px; margin-bottom: 0px;">
 									<input type="checkbox" id="cooper" name="cooper" value="cooper">
 									<span style="vertical-align: text-top; margin-left: 2px; color: black; font-weight: 100;">협력업체 및 상세 정보</span>
