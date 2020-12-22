@@ -32,7 +32,7 @@
 		String wyear = "";
 		if(member.getComDate().contains("-") && member.getComDate().matches(".*[0-9].*")){
   			int comYear = Integer.parseInt(member.getComDate().split("-")[0]);
-  			wyear = Integer.toString(nowYear -  comYear + 1) + member.getWorkEx();
+  			wyear = Integer.toString(nowYear -  comYear + 1 + member.getWorkEx());
   		}else{
   			wyear = "입사일을 올바르게 입력하세요.";
   		}
@@ -354,7 +354,8 @@
 									</tr>
 									<tr>
 										<th>연차</th>
-										<td><%=wyear+member.getWorkEx()%></td>
+										<!--+ member.getWorkEx()-->
+										<td><%=wyear %></td>
 									</tr>
 									<tr>
 										<th>Mobile</th>
