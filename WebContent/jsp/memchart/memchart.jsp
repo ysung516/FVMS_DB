@@ -86,8 +86,8 @@
 		}else{
 			var half = '상반기';
 		}
-		
-		$('.tag').html('인턴('+year+'년 '+half+')');
+		<!--$('.tag').html('인턴('+year+'년 '+half+')');-->
+		$('.tag').html('인턴');
 		<%for(int key : teamList.keySet()){%>
 			var Num<%=key%> = 0;
 		<%}%>
@@ -126,7 +126,7 @@
 			}
 		}
 		%>
-		var totalVT = 0;
+		var totalVT = 1;
 		<%
 		for(int key : teamList.keySet()){
 			if(key != 0){%>
@@ -181,8 +181,8 @@
 					}
 				}%>
 				
-				var total_vt = 0;
-				var total = 0;
+				var total_vt = 1;
+				var total = 1;
 				
 				<%for(int key : teamList.keySet()){
 					if(key != 0){%>
