@@ -1058,7 +1058,7 @@
 					</form>
 					<form action="delete_copy.jsp" 
 							method="post" class="project_form" stlye="margin-right: 15px">
-							<input style="font-size:small;" type="submit" value="<%=maxYear %>>년 복사본 삭제" class="btn btn-primary">
+							<input style="font-size:small;" type="submit" value="<%=maxYear %>년 복사본 삭제" class="btn btn-primary">
 							</form>
 					<form action="project_copy.jsp" 
 							method="post" class="project_form" stlye="margin-right: 15px">
