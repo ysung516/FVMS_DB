@@ -238,8 +238,7 @@
 	function copy_nextYear(){
 		var year = $('#wp_copy').val();
 		var cnt = $('#count').val();
-		location.href ="wp_nextcopy.jsp?year="+year+"&cnt="+cnt;
-		
+		location.href ="wp_nextcopy.jsp?year="+<%=maxYear+1%>+"&cnt="+cnt;	
 	}
 </script>
 

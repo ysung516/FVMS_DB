@@ -1,4 +1,4 @@
-<%@page import="org.apache.catalina.valves.rewrite.RewriteCond"%>
+<%@ page import="org.apache.catalina.valves.rewrite.RewriteCond"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.io.PrintWriter"
 	import="jsp.Bean.model.*" import="jsp.DB.method.*"
