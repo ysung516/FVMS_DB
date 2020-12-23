@@ -15,7 +15,11 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
-		int year = Integer.parseInt(request.getParameter("year").split("년")[0]);
+		int year = Integer.parseInt(request.getParameter("year"));
+		//System.out.println(request.getParameter("year"));
+		//System.out.println(request.getParameter("cnt"));
+		
+		
 		int cnt = Integer.parseInt(request.getParameter("cnt"));
 		
 		ManagerDAO managerDao = new ManagerDAO();
