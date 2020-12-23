@@ -12,12 +12,14 @@
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 		}
-		
+		int permission = Integer.parseInt(session.getAttribute("permission").toString());
+		if (permission > 0){
+			script.print("<script> alert('관리자가 아닙니다.'); history.back(); </script>");	
+		}
 		String sessionID = session.getAttribute("sessionID").toString();
 		String sessionName = session.getAttribute("sessionName").toString();
 		
 		MemberDAO memberDao = new MemberDAO();
-		int permission = Integer.parseInt(session.getAttribute("permission").toString());
 		String id = request.getParameter("id");
 		MemberBean member = memberDao.returnMember(id);
 		
