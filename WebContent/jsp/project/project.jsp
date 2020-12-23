@@ -1060,6 +1060,11 @@
 							method="post" class="project_form" stlye="margin-right: 15px">
 							<input style="font-size:small;" type="submit" value="전년도 복사본 삭제" class="btn btn-primary">
 							</form>
+					<select id="selYear" name="selYear" onchange="loadYear()">
+				         			<%for(int i=0; i<yearCount; i++){%>
+									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
+									<%}%>
+				     </select>
 					<form action="project_copy.jsp" 
 							method="post" class="project_form" stlye="margin-right: 15px">
 							<input style="font-size:small;" type="submit" value="<%=maxYear + 1%>년 복사" class="btn btn-primary">
