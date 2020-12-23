@@ -1056,6 +1056,10 @@
 							<input  style="font-size:small;" type="submit" value="스프레드시트 동기화" class="btn btn-primary project_form2">
 							<input  style="font-size:small;" type="button" value="스프레드시트 관리" class="btn btn-primary project_form2" onclick="openSheetManager('<%=year%>')">
 					</form>
+					<form action="delete_copy.jsp" 
+							method="post" class="project_form" stlye="margin-right: 15px">
+							<input style="font-size:small;" type="submit" value="전년도 복사본 삭제" class="btn btn-primary">
+							</form>
 					<form action="project_copy.jsp" 
 							method="post" class="project_form" stlye="margin-right: 15px">
 							<input style="font-size:small;" type="submit" value="<%=maxYear + 1%>년 복사" class="btn btn-primary">

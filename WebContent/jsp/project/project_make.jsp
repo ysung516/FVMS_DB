@@ -26,11 +26,15 @@
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	
-	int nowYear = Integer.parseInt(request.getParameter("year"));
+	Date nowTime = new Date();
+	SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
+	int nowYear = Integer.parseInt(sf_yyyy.format(nowTime));
+	
 	System.out.println(nowYear);
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
 	ManagerDAO managerDao = new ManagerDAO();
+	
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
 	ArrayList<String> teamList = projectDao.getTeamData(Integer.toString(nowYear));
 	ArrayList<MemberBean> memberList = memberDao.getMemberData();

@@ -874,6 +874,30 @@ public class ProjectDAO {
 
 		return no;
 	}
+	
+	// 전년도 프로젝트 삭제
+	public int delete_preYearData(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		try {
+			int nowYear = maxYear();
+			conn = DBconnection.getConnection();
+			String sql = "DELETE FROM project WHERE year = " + nowYear;
+			pstmt= conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return result;
+	}
+
 
 	public int minYear() {
 		Connection conn = null;
