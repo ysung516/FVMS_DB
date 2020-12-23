@@ -23,7 +23,7 @@ public class MemberDAO {
 	}
 
 	// 모든 회원정보 가져오기 : 팀>소속>직책>직급>일사일 순
-	public ArrayList<MemberBean> getMemberData() {
+	public ArrayList<MemberBean> getMemberData(int year) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class MemberDAO {
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append("SELECT a.* FROM member as a, rank as b, position as c, team as d "
-					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName "
+					+ "WHERE a.직급=b.rank AND a.직책=c.position AND a.팀 = d.teamName And d.year = " + year + " "
 					+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
 			conn = DBconnection.getConnection();
 			pstmt = conn.prepareStatement(query.toString());
