@@ -27,10 +27,8 @@
 	String sessionName = session.getAttribute("sessionName").toString();
 	
 	Date nowTime = new Date();
-	SimpleDateFormat sf_yyyy = new SimpleDateFormat("yyyy");
-	int nowYear = Integer.parseInt(sf_yyyy.format(nowTime));
+	int nowYear = Integer.parseInt(request.getParameter("year"));
 	
-	System.out.println(nowYear);
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
 	ManagerDAO managerDao = new ManagerDAO();
