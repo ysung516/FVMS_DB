@@ -416,8 +416,11 @@ public class ProjectDAO {
 	// 팀 정렬로 프로젝트 가져오기
 	public HashMap<String, ArrayList<Project_sch_Bean>> getProjectList_team() {
 		MemberDAO memberDao = new MemberDAO();
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int year = Integer.parseInt(sf.format(nowTime));
 		LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
-		ArrayList<MemberBean> memberList = memberDao.getMemberData();
+		ArrayList<MemberBean> memberList = memberDao.getMemberData(year);
 
 		HashMap<String, ArrayList<Project_sch_Bean>> projectList = new HashMap<>();
 		for (int key : teamList.keySet()) {

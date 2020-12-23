@@ -99,7 +99,8 @@
 	
 	
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memList = memberDao.getMemberData();
+	int year = Integer.parseInt(request.getParameter("year"));
+	ArrayList<MemberBean> memList = memberDao.getMemberData(year);
 	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
 	
 	//추가할 멤버 리스트

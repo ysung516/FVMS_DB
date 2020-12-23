@@ -29,7 +29,10 @@ public class SchDAO {
 		ResultSet rs = null;
 		MemberDAO memberDao = new MemberDAO();
 
-		ArrayList<MemberBean> memberList = memberDao.getMemberData();
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int year = Integer.parseInt(sf.format(nowTime));
+		ArrayList<MemberBean> memberList = memberDao.getMemberData(year);
 		try {
 			StringBuffer query = new StringBuffer();
 			query.append(

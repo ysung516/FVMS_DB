@@ -44,7 +44,7 @@
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(year);
 	String sheetName = projectDao.getSpreadSheetYear(Integer.toString(year));
 	
-	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	ArrayList<MemberBean> memberList = memberDao.getMemberData(year);
 	MemberBean myInfo = memberDao.returnMember(sessionID);
 	
 	

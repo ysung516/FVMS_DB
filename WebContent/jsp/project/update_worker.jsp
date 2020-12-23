@@ -43,7 +43,7 @@
 	ArrayList<String> teamList = projectDao.getTeamData(request.getParameter("year"));
 	
 	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	ArrayList<MemberBean> memberList = memberDao.getMemberData(year);
 	
 	ProjectBean project = projectDao.getProjectBean_no(projectNo, year);
 	ArrayList<CareerBean> careerList = projectDao.getCarrer(no);

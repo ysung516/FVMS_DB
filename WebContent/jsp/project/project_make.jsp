@@ -35,7 +35,7 @@
 	
 	ArrayList<ProjectBean> projectList = projectDao.getProjectList(nowYear);
 	ArrayList<String> teamList = projectDao.getTeamData(Integer.toString(nowYear));
-	ArrayList<MemberBean> memberList = memberDao.getMemberData();
+	ArrayList<MemberBean> memberList = memberDao.getMemberData(nowYear);
 	ArrayList<WorkPlaceBean> wpList = managerDao.getWorkPlaceList(nowYear);
 %>
 <meta charset="utf-8">

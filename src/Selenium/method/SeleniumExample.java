@@ -1,6 +1,8 @@
 package Selenium.method;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -250,8 +252,12 @@ public class SeleniumExample {
 		HashMap<String, ArrayList<MemberBean>> falseList = new HashMap<String, ArrayList<MemberBean>>();
 		falseList.put("false", list);
 
+		
+		Date nowTime = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int year = Integer.parseInt(sf.format(nowTime));
 		MemberDAO memberDao = new MemberDAO();
-		ArrayList<MemberBean> memList = memberDao.getMemberData();
+		ArrayList<MemberBean> memList = memberDao.getMemberData(year);
 		int result = 0;
 		int count = 0;
 		String id = "";

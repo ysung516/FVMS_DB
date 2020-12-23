@@ -21,15 +21,20 @@
 	}
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
+	
 	Date date = new Date();
+	Date nowTime = new Date();
+	
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+	
 	String year = sf.format(date);
+	int nowyear = Integer.parseInt(sf.format(nowTime));
 	
 	ProjectDAO projectDao = new ProjectDAO();
 	ArrayList<String> teamList = projectDao.getTeamData(year);
 	MemberDAO memberDao = new MemberDAO();
 	ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
-	memberList = memberDao.getMemberData();
+	memberList = memberDao.getMemberData(nowyear);
 	
 	SummaryDAO summaryDao = new SummaryDAO();
 	HashMap<String, Integer> rankList = summaryDao.getRank();
