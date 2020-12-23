@@ -12,7 +12,10 @@
 	if (session.getAttribute("sessionID") == null) {
 		script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
 	}
-	
+	int permission = Integer.parseInt(session.getAttribute("permission").toString());
+	if (permission > 0){
+		script.print("<script> alert('공사중 입니다.'); history.back(); </script>");
+	}
 	String sessionID = session.getAttribute("sessionID").toString();
 	String sessionName = session.getAttribute("sessionName").toString();
 	String no = request.getParameter("no");
@@ -22,8 +25,6 @@
 	
 	MemberDAO memberDao = new MemberDAO();
 	MemberBean member = memberDao.returnMember(sessionID);	// 내 정보 가져오기
-	
-	int permission = Integer.parseInt(session.getAttribute("permission").toString());
 	
 	Date nowDate = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
