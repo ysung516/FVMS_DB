@@ -161,6 +161,29 @@ public class ManagerDAO {
 		}
 		return rs;
 	}
+	
+	// 전년도 리스트 삭제
+	public int delete_preYearData(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		try {
+			int nowYear = maxYear();
+			conn = DBconnection.getConnection();
+			String sql = "DELETE FROM workPlace WHERE year = " + nowYear;
+			pstmt= conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return result;
+	}
 
 	// 해당 년도 근무지 리스트 삭제
 	public int drop_PlaceTable(int year) {

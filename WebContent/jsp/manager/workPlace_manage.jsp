@@ -240,6 +240,12 @@
 		var cnt = $('#count').val();
 		location.href ="wp_nextcopy.jsp?year="+<%=maxYear+1%>+"&cnt="+cnt;	
 	}
+	
+	function delete_copy(){
+		var year = $('#delete_copy').val();
+		var cnt = $('#count').val();
+		ocation.href ="delete_copy.jsp?year="+<%=maxYear-1%>+"&cnt="+cnt;	
+	}
 </script>
 
 <body id="page-top">
@@ -385,6 +391,7 @@
 							<div style="margin-top: 5px;">
 								<button class="btn btn-primary" onClick="location.href='manager.jsp'" style="font-size:small; margin-right:5px;">관리자 메인</button>
 								<button class="btn btn-primary" onclick="location.href ='teamSet.jsp'" style="font-size:small; margin-right:5px;">팀 관리</button>
+								<button id="delete_copy" class="btn btn-primary" style="font-size:small; background-color: #364d91;" onclick="delete_copy()"><%=maxYear%>년 삭제</button>
 								<button id="wp_copy" class="btn btn-primary" style="font-size:small; background-color: #364d91;" onclick="copy_nextYear()"><%=maxYear+1%>년 생성</button>
 							</div>
 						</div>
