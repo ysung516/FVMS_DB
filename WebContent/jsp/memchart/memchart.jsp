@@ -40,7 +40,7 @@
 		int yearCount = maxYear - summaryDao.minYear() + 1;
 		
 		
-	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();	// 퇴사 제외하고 회원 정보 가져오기
+	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut(year);	// 퇴사 제외하고 회원 정보 가져오기
 	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation();	// 협력업체
 	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();	// 협력업체 별 인원 수 가져오기
 	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);// 올해 팀 리스트 가져오기
