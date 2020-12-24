@@ -9,11 +9,6 @@
 
 <head>
 <%
-Date nowDate = new Date();
-SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-int nowYear = Integer.parseInt(sf.format(nowDate));
-int wyear = 0;
-int comYear = nowYear;
 		PrintWriter script =  response.getWriter();
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
@@ -26,9 +21,13 @@ int comYear = nowYear;
 		String sessionName = session.getAttribute("sessionName").toString();
 		MemberDAO memberDao = new MemberDAO();
 		
-		ArrayList<MemberBean> memberList = memberDao.getMemberDataEndOut(nowYear);	// 퇴사한 멤버를 젤 마지막에 오도록 가져오기
+		ArrayList<MemberBean> memberList = memberDao.getMemberDataEndOut();	// 퇴사한 멤버를 젤 마지막에 오도록 가져오기
 		
-
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int nowYear = Integer.parseInt(sf.format(nowDate));
+		int wyear = 0;
+		int comYear = nowYear;
 	%>
 
 <meta charset="utf-8">
@@ -700,17 +699,11 @@ $(document).ready(function(){
 						       var replace = replacement( myTable ); 
 						       function sortTD( index ){replace.ascending( index ); } 
 						       function reverseTD( index ){replace.descending( index );} 
-								Date nowDate = new Date();
-								SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-								int nowYear = Integer.parseInt(sf.format(nowDate));
-								int wyear = 0;
-								int comYear = nowYear;
+						       
 			
 							   	function sort_team(){
 							   		var html = '';
-							   		<%
-							   		
-							   		memberList = memberDao.getMemberDataEndOut(nowYear);
+							   		<%memberList = memberDao.getMemberDataEndOut();
 							   		for (int i=0; i<memberList.size() ; i++){
 								  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
 								  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
@@ -764,7 +757,7 @@ $(document).ready(function(){
 							   	
 							   	function sort_rank(){
 							   		var html = '';
-							   		<%memberList = memberDao.getMemberData_rank(nowYear);
+							   		<%memberList = memberDao.getMemberData_rank();
 							   		for (int i=0; i<memberList.size() ; i++){
 								  		if(memberList.get(i).getComDate().contains("-") && memberList.get(i).getComDate().matches(".*[0-9].*")){
 								  			comYear = Integer.parseInt(memberList.get(i).getComDate().split("-")[0]);
