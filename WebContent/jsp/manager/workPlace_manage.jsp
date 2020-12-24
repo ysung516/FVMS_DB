@@ -280,7 +280,7 @@
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
 				href="../profit_analysis/profit_analysis.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>수익성 분석</span></a></li>
+					<span>수익 지표</span></a></li>
 					
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"

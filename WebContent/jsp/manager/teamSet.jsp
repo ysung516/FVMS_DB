@@ -306,7 +306,7 @@ th{
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
 				href="../profit_analysis/profit_analysis.jsp"> <i class="fas fa-fw fa-table"></i>
-					<span>수익성 분석</span></a></li>
+					<span>수익 지표</span></a></li>
 					
 			<!-- Nav Item - summary -->
 			<li class="nav-item"><a class="nav-link"
@@ -425,7 +425,7 @@ th{
 						<input id="nowYear" type="hidden" name="nowYear" value="<%=nowYear%>">
 						<p style="caption-side: top; color:red; font-size:small; font-weight: bold;">
 							우선순위 0은 항상 실로 고정
-							<br>팀 삭제 시 요약(수입, 지출), 수익성 분석, 조직도, 스케줄(엔지니어, 프로젝트)에서 해당 팀 안보임
+							<br>팀 삭제 시 요약(수입, 지출), 수익 지표, 조직도, 스케줄(엔지니어, 프로젝트)에서 해당 팀 안보임
 						</p>
 						<table class="wpTable" id="table">
 							<thead>
