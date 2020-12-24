@@ -15,6 +15,41 @@ import jsp.Bean.model.*;
 
 public class ExpendDAO {
 	
+	// 년도별 팀 이름 변경
+	public ArrayList<String> getTeamName(int year){
+		ArrayList<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Date nowDate = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+		int nowYear = Integer.parseInt(sf.format(nowDate));
+		
+		try {
+			StringBuffer query = new StringBuffer();
+	    	query.append("SELECT a.팀 FROM member as a, team as d "
+					+ "WHERE a.year ="+ nowYear +" "+ " AND a.팀 = " + "(SELECT d.* FROM d.teamName WHERE d.year = a.year)"
+					+ "ORDER BY d.teamNum, FIELD(a.소속, '슈어소프트테크') DESC, a.소속, c.num, b.rank_id, a.입사일");
+	    	conn = DBconnection.getConnection();
+	    	pstmt = conn.prepareStatement(query.toString());
+	    	pstmt.setInt(1, year);
+	    	rs = pstmt.executeQuery();
+	    	
+	    	while(rs.next()) {
+	    		list.add(rs.getString("teamName"));
+	    	}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		return list;
+	}
+	
 	// 팀 데이터 가져오기
 		public ArrayList<String> getTeamData(String year){
 			ArrayList<String> list = new ArrayList<String>();

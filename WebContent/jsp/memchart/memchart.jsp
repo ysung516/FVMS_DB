@@ -10,6 +10,8 @@
 
 <head>
 <%
+
+
 		PrintWriter script =  response.getWriter();
 		if (session.getAttribute("sessionID") == null){
 			script.print("<script> alert('세션의 정보가 없습니다.'); location.href = '../login.jsp' </script>");
@@ -33,14 +35,16 @@
 		
 		SummaryDAO summaryDao = new SummaryDAO();
 		MemberDAO memberDao = new MemberDAO();
+		ManagerDAO managerDao = new ManagerDAO();
 
 		int teamcnt = memberDao.getTeam().size();
-		ManagerDAO managerDao = new ManagerDAO();
+
+		
 		int maxYear = summaryDao.maxYear();
 		int yearCount = maxYear - summaryDao.minYear() + 1;
 		
 		
-	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();	// 퇴사 제외하고 회원 정보 가져오기
+	    ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut(year);	// 퇴사 제외하고 회원 정보 가져오기
 	    ArrayList<MemberBean> cooperationList = memberDao.getMember_cooperation();	// 협력업체
 	    HashMap<String, Integer> coopNum = memberDao.getNum_cooperation();	// 협력업체 별 인원 수 가져오기
 	    LinkedHashMap<Integer, String> teamList = memberDao.getTeam_year(nowYear);// 올해 팀 리스트 가져오기
@@ -70,19 +74,24 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 
 	
-<script>
+<script type ="text/javascript">
+$(window).load(function () {          //페이지가 로드 되면 로딩 화면을 없애주는 것
+    $('.loading').hide();
+    $('#count').val($('#table tr').length-1);
+	$('#selYear').val(<%=nowYear%>).prop("selected",true);
+});
+
+function loadYear(){
+	var year = $('#selYear').val();
+	location.href ="memchart.jsp?selectYear="+year;
+}
+
 	function memchartInsert(){	// 슈어소프트테크 소속 인원 표에 데이터 담기
 		var now = new Date();
 		var year = now.getFullYear();
 		var month = now.getMonth()+1;
-	
 		
-		function loadYear(){
-			var year = $('#selYear').val();
-			location.href ="teamSet.jsp?selectYear="+year;
-		}
-		
-		
+
 		if(month > 6){
 			var half = '하반기';
 		}else{
@@ -581,8 +590,8 @@ table:not(.memchart):not(#intern) {
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary"
-								style="padding-left: 17px;">조직도
-									<select id="selYear" name="selYear" onchange="loadYear()">
+								style="padding-left: 17px;" id="view_btn">조직도
+								<select id="selYear" name="selYear" onchange="loadYear()">
 				         			<%for(int i=0; i<yearCount; i++){%>
 									<option value='<%=maxYear-i%>'><%=maxYear-i%></option>
 									<%}%>
