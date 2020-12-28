@@ -759,6 +759,7 @@
     
     //table sorting
     function sortingNumber( a , b ){  
+    	
         if ( typeof a == "number" && typeof b == "number" ) return a - b; 
         // 천단위 쉼표와 공백문자만 삭제하기.  
         var a = ( a + "" ).replace( /[,\s\xA0]+/g , "" ); 

@@ -2102,7 +2102,7 @@ function y_rsales() {
 								</div>
 
 
-								<div id="tab-2" class="tab-content current">
+								<div id="tab-2" class="tab-content">
 
 									<div id="fh_order_chart" class="chart bar"></div>
 									<div id="fh_sales_chart" class="chart bar"></div>
@@ -2111,7 +2111,7 @@ function y_rsales() {
 
 								</div>
 
-								<div id="tab-3" class="tab-content current">
+								<div id="tab-3" class="tab-content">
 
 									<div id="sh_order_chart" class="chart bar"></div>
 									<div id="sh_sales_chart" class="chart bar"></div>
@@ -2120,7 +2120,7 @@ function y_rsales() {
 
 								</div>
 
-								<div id="tab-4" class="tab-content current">
+								<div id="tab-4" class="tab-content">
 
 									<div id="y_order_chart" class="chart bar"></div>
 									<div id="y_sales_chart" class="chart "></div>

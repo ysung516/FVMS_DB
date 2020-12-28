@@ -21,24 +21,24 @@
 	}
 	//if(permission > 2){
 	//	script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
-	//}
-	
-	String sessionID = session.getAttribute("sessionID").toString();
-	String sessionName = session.getAttribute("sessionName").toString();
-	
-	MemberDAO memberDao = new MemberDAO();
-	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();	// 퇴사 제외 멤버 리스트 가져오기
-	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();	// 올해 팀 리스트 가져오기
-	
-	SchDAO schDao = new SchDAO();
-	ArrayList<schBean> schList = schDao.getProject_except8();	// 드롭 상태인 프로젝트 제외하고 가져오기
-	
-	// 현재 날짜 가져오기
+	//}	// 현재 날짜 가져오기
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
 	int year = Integer.parseInt(date.split("-")[0]);
 	
+	
+	String sessionID = session.getAttribute("sessionID").toString();
+	String sessionName = session.getAttribute("sessionName").toString();
+	
+	MemberDAO memberDao = new MemberDAO();
+	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut(year);	// 퇴사 제외 멤버 리스트 가져오기
+	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();	// 올해 팀 리스트 가져오기
+	
+	SchDAO schDao = new SchDAO();
+	ArrayList<schBean> schList = schDao.getProject_except8();	// 드롭 상태인 프로젝트 제외하고 가져오기
+	
+
 	ArrayList<String> userID = new ArrayList<String>();
 	ArrayList<String> userName = new ArrayList<String>();
 	

@@ -30,16 +30,19 @@
 	ProjectDAO projectDao = new ProjectDAO();
 	SchDAO schDao = new SchDAO();
 	
-	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
-	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut();
-	ArrayList<schBean> schList = schDao.getProject_except8();
-	
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sf.format(nowTime);
 	String nowYear = sf.format(nowTime).split("-")[0];
+	int year = Integer.parseInt(date.split("-")[0]);
    	int preYear = Integer.parseInt(nowYear) - 1;
-   	int nextYear = Integer.parseInt(nowYear) + 1;
+   	int nextYear = Integer.parseInt(nowYear) + 1;    
+   	
+	LinkedHashMap<Integer, String> teamList = memberDao.getTeam();
+	ArrayList<MemberBean> memberList = memberDao.getMemberDataWithoutOut(year);
+	ArrayList<schBean> schList = schDao.getProject_except8();
+	
+                       
    	
    	//HashMap<팀명, HashMap<total or 직급, ArrayList<MemberBean>>>
    	HashMap<String, HashMap<String, ArrayList<MemberBean>>> allList = new HashMap<String, HashMap<String, ArrayList<MemberBean>>>();
