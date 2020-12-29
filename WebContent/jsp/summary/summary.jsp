@@ -555,12 +555,14 @@ google.charts.setOnLoadCallback(sh_sales);
 google.charts.setOnLoadCallback(y_order);
 google.charts.setOnLoadCallback(y_sales);
 
+ 
+
 // 상반기 수주 차트 그리기
 function fh_order() {
 	 <%
 	 	HashMap<Integer, StringBuffer> table_fh_order = new HashMap<Integer, StringBuffer>();
 	 	total_goal_str = new StringBuffer();
-	 	total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>목표수주</td><td>예상수주</td><td>수주달성</td></tr>");
+	 	total_goal_str.append("<table class=tootipTable><tr><td>팀</td><td>  목표수주</td><td>  예상수주</td><td>  수주달성</td></tr>");
 	 	for(int key : teamList.keySet()){
 	 		StringBuffer element = new StringBuffer();
 	 		element.append("<table class=tootipTable>");
@@ -610,7 +612,6 @@ function fh_order() {
           'legend': {'position': 'bottom'},
           tooltip:{
           	isHtml: true},
-
           series: {
               0: { color: '#d4fc79' },
               1: { color: '#84fab0' },
