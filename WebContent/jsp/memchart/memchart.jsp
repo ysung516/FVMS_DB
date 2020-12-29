@@ -86,7 +86,6 @@ function loadYear(){
 	location.href ="memchart.jsp?selectYear="+year;
 }
 
-
 	function memchartInsert(){	// 슈어소프트테크 소속 인원 표에 데이터 담기
 		var now = new Date();
 		var year = now.getFullYear();

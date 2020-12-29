@@ -607,12 +607,10 @@ function fh_order() {
     
     var fh_order_option = { 
     		title: '상반기 수주', 
-    		width: '80%',
+    		width: '100%',
           height: 500,
-          legend: {
-          	position: 'left',
-          	alignment: 'start' 
-          	},
+          'height': 500,
+          'legend': {'position': 'bottom'},
           tooltip:{
           	isHtml: true},
 
@@ -624,7 +622,6 @@ function fh_order() {
     };
 
     var fh_order_chart = new google.visualization.ColumnChart(document.getElementById('fh_order_chart'));
-
     fh_order_chart.draw(dataTable, fh_order_option);
 }
 
@@ -690,7 +687,6 @@ function fh_sales() {
     };
 
     var fh_sales_chart = new google.visualization.ColumnChart(document.getElementById('fh_sales_chart'));
-
     fh_sales_chart.draw(dataTable, fh_sales_option);
   }
 
@@ -755,7 +751,6 @@ function sh_order() {
 	};
 	
 	var sh_order_chart = new google.visualization.ColumnChart(document.getElementById('sh_order_chart'));
-	
 	sh_order_chart.draw(dataTable, sh_order_option);
 }
 
@@ -822,7 +817,6 @@ function sh_sales() {
 	 };
 	
 	 var sh_sales_chart = new google.visualization.ColumnChart(document.getElementById('sh_sales_chart'));
-	
 	 sh_sales_chart.draw(dataTable, sh_sales_option);
 }
 
@@ -891,7 +885,6 @@ function y_order() {
 	};
 	
 	var y_order_chart = new google.visualization.ColumnChart(document.getElementById('y_order_chart'));
-	
 	y_order_chart.draw(dataTable, y_order_option);
 }
 
@@ -958,9 +951,7 @@ function y_sales() {
 	      }
 	
 	};
-	
 	var y_sales_chart = new google.visualization.ColumnChart(document.getElementById('y_sales_chart'));
-	
 	y_sales_chart.draw(dataTable, y_sales_option);
 } 
     
