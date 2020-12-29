@@ -94,10 +94,6 @@
 									<div class="p-5">
 										<div class="text-center">
 											<h1 class="h4 text-gray-900 mb-4">로그인</h1>
-											<p> [FVMS 공사중]
-												</br>12/31일까지 FVMS 공사 진행합니다 :D
-												</br>1/1 부터 접근이 가능합니다
-												</br>(*주간보고와 회의록은 작성 가능합니다)</p>
 										</div>
 										<form class="user" method="post" action="../jsp/LoginPro.jsp">
 											<div class="form-group">

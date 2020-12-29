@@ -18,12 +18,9 @@
 	}
 	
 	int permission = Integer.parseInt(session.getAttribute("permission").toString());
-	if (permission > 0){
-		script.print("<script> alert('공사중입니다.'); history.back(); </script>");	
+	if (permission > 2) {
+		script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
 	}
-	//if (permission > 2) {
-	//	script.print("<script> alert('접근 권한이 없습니다.'); history.back(); </script>");
-	//}
 	ProjectDAO projectDao = new ProjectDAO();
 	MemberDAO memberDao = new MemberDAO();
 	
